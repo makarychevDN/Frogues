@@ -9,6 +9,9 @@ public class KeyboardInput : MonoBehaviour
 
     private void Update()
     {
+        if (CurrentlyActiveObjects.SomethingIsActNow)
+            return;
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>().FindNeigborhoodForCell(_unit.currentCell, Vector2Int.up));
