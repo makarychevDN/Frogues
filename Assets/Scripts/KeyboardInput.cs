@@ -31,5 +31,9 @@ public class KeyboardInput : MonoBehaviour
         {
             _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>().FindNeigborhoodForCell(_unit.currentCell, Vector2Int.right));
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>()._unitsLayer[0,0]);
+        }
     }
 }

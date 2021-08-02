@@ -6,13 +6,14 @@ using UnityEngine;
 public class MovableAnimation : CurrentlyActiveBehaviour
 {
     [SerializeField] private Transform _sprite;
-    [Range(0, 1.5f)] [SerializeField] private float _durationTime;
+    //[Range(0, 1.5f)] [SerializeField] private float _durationTime;
+    [SerializeField] private float _speed;
 
     [SerializeField] private float _jumpHeight;
     [SerializeField] private AnimationCurve _jumpCurve;
 
     private Cell _startCell, _targetCell;
-    private float _currentTime, _totalTime;
+    private float _currentTime, _totalTime, _distance;
     private bool _isPlaying;
     private const float _spriteAlignment = 0.35f;
     private Movable _movable;
@@ -29,6 +30,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
         _startCell = startCell;
         _targetCell = targetCell;
         ActiveNow = true;
+        _distance = Vector3.Distance(startCell.transform.position, targetCell.transform.position);
     }
 
     void Update()
@@ -44,7 +46,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
 
     public void TimerStep()
     {
-        _currentTime += Time.deltaTime / _durationTime;
+        _currentTime += Time.deltaTime * _speed/ _distance;
         if (_currentTime > _totalTime)
         {
             _currentTime = 0;
