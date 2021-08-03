@@ -7,33 +7,30 @@ using UnityEngine.Events;
 public class Movable : MonoBehaviour
 {
     [SerializeField] private Unit _unit;
-    //private UnityEvent<Cell, Cell> OnMoveForAnimation = new UnityEvent<Cell, Cell>();
     private MovableAnimation _movableAnimation;
+
+    public UnityEvent OnMovementStart;
+    public UnityEvent OnMovementEnd;
 
     private void Start()
     {
         _movableAnimation = GetComponent<MovableAnimation>();
     }
 
-    public void Move(Unit unit, Cell targetCell)
+    public void Move(Cell targetCell)
     {
         if (!targetCell.isEmpty)
             return;
 
-        _movableAnimation.Play(unit.currentCell, targetCell);
-
-        unit.currentCell.Content = null;
-        targetCell.Content = unit;
-                
+        _unit.currentCell.Content = null;
+        _movableAnimation.Play(_unit.currentCell, targetCell);
+        OnMovementStart.Invoke();
     }
 
-    public void Move(Cell targetCell)
-    {
-        Move(_unit, targetCell);
-    }
-
-    public void UpdatePosition(Cell targetCell)
+    public void StopMovement(Cell targetCell)
     {
         _unit.transform.position = targetCell.transform.position;
+        targetCell.Content = _unit;
+        OnMovementEnd.Invoke();
     }
 }
