@@ -11,22 +11,8 @@ public class Container<T> : MonoBehaviour
     public virtual T Content
     {
         get => _content;
-        set
-        {
-            _content = value;
-            if (_content == null)
-            {
-                OnBecameEmpty.Invoke();
-            }
-            else
-            {
-                OnBecameFull.Invoke();
-            }   
-        }
+        set => _content = value;
     }
 
     public bool isEmpty => Content == null;
-
-    public UnityEvent OnBecameFull;
-    public UnityEvent OnBecameEmpty;
 }
