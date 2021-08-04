@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Damager : MonoBehaviour
 {
+    public Unit _unit;
     public void DealDamage()
     {
-        var temp = FindObjectOfType<MapBasedOnTilemap>().GetCellInDefaultUnitsLayerByUnit(GetComponentInParent<Unit>());
-        if (temp.Content != null)
+        foreach (var cell in MapBasedOnTilemap._instance.GetCellsColumn(_unit.currentCell._coordinates))
         {
-            temp.Content.gameObject.SetActive(false);
+            if(!cell.isEmpty)
+                Destroy(cell.Content.gameObject);
         }
     }
 }

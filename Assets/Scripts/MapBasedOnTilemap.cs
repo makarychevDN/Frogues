@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class MapBasedOnTilemap : Map
 {
+    public static MapBasedOnTilemap _instance;
+
     [SerializeField] private Cell _cellPrefab;
     [SerializeField] private Tilemap _tilemap;
 
@@ -17,6 +19,9 @@ public class MapBasedOnTilemap : Map
 
     private void Awake()
     {
+        if (_instance == null)
+            _instance = this;
+
         _layers = new List<Cell[,]>();
 
         _cellsParents = new List<Transform>();
@@ -48,55 +53,43 @@ public class MapBasedOnTilemap : Map
                         var instantiatedCell = Instantiate(_cellPrefab, _tilemap.CellToWorld(new Vector3Int(i, j, 0)) + Vector3.up * 0.5f, Quaternion.identity);
                         _layers[k][i, j] = instantiatedCell;
                         instantiatedCell.transform.SetParent(_cellsParents[k]);
+                        instantiatedCell._coordinates = new Vector2Int(i, j);
+                        instantiatedCell._mapLayer = (MapLayer)k;
                     }
                 }
             }
         }
     }
-    
+
     public Cell FindNeigborhoodForCell(Cell startCell, Vector2Int direction)
     {
-        for (int k = 0; k < _layers.Count; k++)
+        return GetLayerByCell(startCell)[startCell._coordinates.x + direction.x, startCell._coordinates.y + direction.y];
+    }
+
+    public Cell[,] GetLayerByCell(Cell cell)
+    {
+        switch (cell._mapLayer)
         {
-            for (int i = 0; i < _layers[k].GetLength(0); i++)
-            {
-                for (int j = 0; j < _layers[k].GetLength(1); j++)
-                {
-                    if (_layers[k][i, j] == startCell)
-                    {
-                        return _layers[k][i + direction.x, j + direction.y];
-                    }
-                }
-            }
+            case MapLayer.DefaultUnit: return _unitsLayer;
+            case MapLayer.Projectile: return _projectilesLayer;
+            case MapLayer.Surface: return _surfacesLayer;
         }
-
-
         return null;
     }
 
-    public Cell GetCellInDefaultUnitsLayerByUnit(Unit unit)
+    public Cell GetUnitsLayerCellByCoordinates(Vector2Int coordinates) 
     {
-        Cell[,] tempLayer = null;
+        return _unitsLayer[coordinates.x, coordinates.y];
+    }
 
-        switch (unit._unitType)
+    public List<Cell> GetCellsColumn(Vector2Int coordinates)
+    {
+        List<Cell> cells = new List<Cell>();
+        foreach (var layer in _layers)
         {
-            case UnitType.DefaultUnit: return unit.currentCell;
-            case UnitType.Projectile: tempLayer = _projectilesLayer; break;
-            case UnitType.Surface: tempLayer = _surfacesLayer; break;
+            cells.Add(layer[coordinates.x, coordinates.y]);
         }
 
-        for (int i = 0; i < tempLayer.GetLength(0); i++)
-        {
-            for (int j = 0; j < tempLayer.GetLength(1); j++)
-            {
-                if(unit == tempLayer[i, j])
-                {
-                    return _unitsLayer[i, j];
-                }
-            }
-        }
-
-
-        return null;
+        return cells;
     }
 }

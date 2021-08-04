@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public UnitType _unitType;
+    public MapLayer _unitType;
     public Movable _movable;
     public Cell currentCell;
 }
 
-public enum UnitType
+public enum MapLayer
 {
-    DefaultUnit = 1, Projectile = 2, Surface = 3
+    Projectile = 0, DefaultUnit = 1, Surface = 2
 }
