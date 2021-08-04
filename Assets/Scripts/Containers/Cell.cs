@@ -14,7 +14,7 @@ public class Cell : Container<Unit>
             base.Content = value;
             if(value != null)
             {
-                value.currentCell = this;
+                value._currentCell = this;
             }
         }
     }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Damager : MonoBehaviour
 {
-    public Unit _unit;
+    [SerializeField] private Unit _unit;
     public void DealDamage()
     {
-        foreach (var cell in MapBasedOnTilemap._instance.GetCellsColumn(_unit.currentCell._coordinates))
+        foreach (var cell in MapBasedOnTilemap._instance.GetCellsColumn(_unit.Coordinates))
         {
             if(!cell.isEmpty)
                 Destroy(cell.Content.gameObject);

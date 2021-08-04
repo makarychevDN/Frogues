@@ -22,8 +22,8 @@ public class Movable : MonoBehaviour
         if (!targetCell.isEmpty)
             return;
 
-        _unit.currentCell.Content = null;
-        _movableAnimation.Play(_unit.currentCell, targetCell);
+        _unit._currentCell.Content = null;
+        _movableAnimation.Play(_unit._currentCell, targetCell);
         OnMovementStart.Invoke();
     }
 

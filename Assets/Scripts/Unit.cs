@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public MapLayer _unitType;
+    [SerializeField] private MapLayer _unitType;
     public Movable _movable;
-    public Cell currentCell;
+    public Cell _currentCell;
+
+    public Vector2Int Coordinates => _currentCell._coordinates;
 }
 
-public enum MapLayer
-{
-    Projectile = 0, DefaultUnit = 1, Surface = 2
-}
