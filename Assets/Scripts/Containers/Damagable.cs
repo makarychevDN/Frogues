@@ -5,11 +5,28 @@ using UnityEngine.Events;
 
 public class Damagable : MonoBehaviour
 {
-    public UnityEvent<int> OnTakePhisicsDamage;
+    [SerializeField] private IntContainer _lastTakenDamage, _hp, _armor;
+
+    public UnityEvent OnTakePhisicsDamage;
+    public UnityEvent OnTakeFireDamage;
+    public UnityEvent OnTakeColdDamage;
 
     public void TakeDamage(int damageValue, DamageType damageType)
     {
+        if (_armor != null)
+        {
+            damageValue -= _armor.Content;
+            Mathf.Clamp(damageValue, 0, 1000);
+        }
+        
+        _lastTakenDamage.Content = damageValue;
 
+        switch (damageType)
+        {
+            case DamageType.Phisics: OnTakePhisicsDamage.Invoke(); break;
+            case DamageType.Fire: OnTakeFireDamage.Invoke(); break;
+            case DamageType.Cold: OnTakeColdDamage.Invoke(); break;
+        }
     }
 }
 
