@@ -22,23 +22,24 @@ public class MapBasedOnTilemap : Map
         if (_instance == null)
             _instance = this;
 
-        _layers = new List<Cell[,]>();
+        InitCellsParents();
+        InitCells();
+        InitLayers();
+        InitCellsMonitoringOnUnitsLayer();
+    }
 
+    public void InitCellsParents()
+    {
         _cellsParents = new List<Transform>();
         _cellsParents.Add(_projectilesCellsParent);
         _cellsParents.Add(_unitsCellsParent);
         _cellsParents.Add(_surfacesCellsParent);
-
-        InitMap();
-
-        _projectilesLayer = _layers[0];
-        _unitsLayer = _layers[1];
-        _surfacesLayer = _layers[2];
     }
 
-    public void InitMap()
+    public void InitCells()
     {
         BoundsInt bounds = _tilemap.cellBounds;
+        _layers = new List<Cell[,]>();
 
         for (int k = 0; k < _layersCount; k++)
         {
@@ -56,6 +57,34 @@ public class MapBasedOnTilemap : Map
                         instantiatedCell._coordinates = new Vector2Int(i, j);
                         instantiatedCell._mapLayer = (MapLayer)k;
                     }
+                }
+            }
+        }
+    }
+
+    public void InitLayers()
+    {
+        _projectilesLayer = _layers[0];
+        _unitsLayer = _layers[1];
+        _surfacesLayer = _layers[2];
+    }
+
+    public void InitCellsMonitoringOnUnitsLayer()
+    {
+        for (int i = 0; i < _layers[0].GetLength(0); i++)
+        {
+            for (int j = 0; j < _layers[0].GetLength(1); j++)
+            {
+                if (_tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
+                {
+                    var activateTriggerInProjectiles = _projectilesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
+                    var activateTriggerInSurfaces = _surfacesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
+
+                    _unitsLayer[i, j].OnBecameFull.AddListener(activateTriggerInProjectiles.TriggerOnBecameFull);
+                    _unitsLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInProjectiles.TriggerOnBecameEmpty);
+
+                    _surfacesLayer[i, j].OnBecameFull.AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
+                    _surfacesLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
                 }
             }
         }

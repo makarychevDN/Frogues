@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ProjectileCollisionChecker : MonoBehaviour
+public class ProjectileCollisionCheck : MonoBehaviour
 {
     public Unit _unit;
     public UnityEvent OnTrue;

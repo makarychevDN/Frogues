@@ -12,7 +12,7 @@ public class Level : MonoBehaviour
     private void Start()
     {
         _map._unitsLayer[0, 0].Content = _player;
-        _map._projectilesLayer[3, 4].Content = _projectile;
+        _map._projectilesLayer[3, 0].Content = _projectile;
         _player._movable.Move(_map._unitsLayer[0, 0]);
     }
 }
