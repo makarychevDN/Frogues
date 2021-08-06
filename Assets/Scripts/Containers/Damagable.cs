@@ -13,7 +13,12 @@ public class Damagable : MonoBehaviour
 
     public void TakeDamage(int damageValue, DamageType damageType)
     {
-        if (_armor != null)
+        TakeDamage(damageValue, damageType, false);
+    }
+
+    public void TakeDamage(int damageValue, DamageType damageType, bool ignoreArmor)
+    {
+        if (!ignoreArmor && _armor != null)
         {
             damageValue -= _armor.Content;
             Mathf.Clamp(damageValue, 0, 1000);
