@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(MovableAnimation))]
-public class Movable : MonoBehaviour
+public class Movable : CostsActionPointsBehaviour
 {
     [SerializeField] private Unit _unit;
     private MovableAnimation _movableAnimation;
@@ -19,9 +19,10 @@ public class Movable : MonoBehaviour
 
     public void Move(Cell targetCell)
     {
-        if (!targetCell.isEmpty)
+        if (!targetCell.isEmpty || !IsActionPointsEnough())
             return;
 
+        SpendActionPoints();
         _unit._currentCell.Content = null;
         _movableAnimation.Play(_unit._currentCell, targetCell);
         OnMovementStart.Invoke();

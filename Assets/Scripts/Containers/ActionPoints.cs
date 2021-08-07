@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ActionPoints : MonoBehaviour
 {
-    [SerializeField] private IntContainer _currentPoints;
-    [SerializeField] private IntContainer _maxPointsCount;
-    [SerializeField] private IntContainer _pointsRegeneration;
+    public IntContainer _currentPoints;
+    public IntContainer _maxPointsCount;
+    public IntContainer _pointsRegeneration;
 }
