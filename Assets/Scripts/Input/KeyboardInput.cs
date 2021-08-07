@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyboardInput : MonoBehaviour
+public class KeyboardInput : BaseInput
 {
-    [SerializeField] private Unit _unit;
-    [SerializeField] private bool _inputIsPossible;
-
-    private void Update()
+    public override void Act()
     {
         if (CurrentlyActiveObjects.SomethingIsActNow)
             return;

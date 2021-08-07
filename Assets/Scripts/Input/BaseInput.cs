@@ -2,7 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseInput : CurrentlyActiveBehaviour
+public class BaseInput : CurrentlyActiveBehaviour
 {
-    public abstract void Act();
+    [SerializeField] protected Unit _unit;
+    public bool _inputIsPossible;
+
+    protected virtual void Update()
+    {
+        if(_inputIsPossible && !CurrentlyActiveObjects.SomethingIsActNow)
+        {
+            Act();
+        }
+    }
+
+    public virtual void Act()
+    {
+
+    }
 }
