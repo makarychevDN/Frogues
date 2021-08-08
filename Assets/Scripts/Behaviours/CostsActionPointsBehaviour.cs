@@ -14,16 +14,16 @@ public class CostsActionPointsBehaviour : MonoBehaviour
 
     public bool IsActionPointsEnough(int actionPointsCost) 
     {
-        return _actionPoints._currentPoints.Content >= actionPointsCost;
+        return _actionPoints.CheckIsActionPointsEnough(actionPointsCost);
     }
 
     public void SpendActionPoints()
     {
-        _actionPoints._currentPoints.Content -= _defaultActionPointsCost;
+        _actionPoints.SpendPoints(_defaultActionPointsCost);
     }
 
     public void SpendActionPoints(int actionPointsCost)
     {
-        _actionPoints._currentPoints.Content -= actionPointsCost;
+        _actionPoints.SpendPoints(actionPointsCost);
     }
 }

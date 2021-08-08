@@ -10,6 +10,5 @@ public class EventOnInput : BaseInput
     protected override void Act()
     {
         OnInput.Invoke();
-        UnitsQueue.Instance.ActivateNext();
     }
 }

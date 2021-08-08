@@ -20,21 +20,14 @@ public class UnitsQueue : MonoBehaviour
             Instance = this;
 
         AddAllUnitsInQueue();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ActivateNext();
-        }
+        ActivateNext();
     }
 
     public void AddAllUnitsInQueue()
     {
         _unitsList = new CycledLinkedList();
 
-        var actUnits = FindObjectsOfType<Unit>().Where(x => x.GetComponentInChildren<ActionPoints>() != null).ToList();
+        var actUnits = FindObjectsOfType<Unit>().Where(x => x.GetComponentInChildren<BaseInput>() != null).ToList();
         Unit player = null;
         Unit roundCounter = null;
 
