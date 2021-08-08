@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class MapBasedOnTilemap : Map
 {
-    public static MapBasedOnTilemap _instance;
+    public static MapBasedOnTilemap Instance;
 
     [SerializeField] private Cell _cellPrefab;
     [SerializeField] private Tilemap _tilemap;
@@ -19,8 +19,8 @@ public class MapBasedOnTilemap : Map
 
     private void Awake()
     {
-        if (_instance == null)
-            _instance = this;
+        if (Instance == null)
+            Instance = this;
 
         InitCellsParents();
         InitCells();
