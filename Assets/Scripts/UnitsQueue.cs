@@ -7,7 +7,7 @@ using UnityEngine;
 public class UnitsQueue : MonoBehaviour
 {
     public static UnitsQueue Instance;
-    private CycledLinkedList _linkedList;
+    private CycledLinkedList _unitsList;
     private QueueNode _currentNode;
 
     [SerializeField, ReadOnly] private List<Unit> _debugUnits;
@@ -30,7 +30,7 @@ public class UnitsQueue : MonoBehaviour
 
     public void AddAllUnitsInQueue()
     {
-        _linkedList = new CycledLinkedList();
+        _unitsList = new CycledLinkedList();
 
         var actUnits = FindObjectsOfType<Unit>().Where(x => x.GetComponentInChildren<ActionPoints>() != null).ToList();
         Unit player = null;
@@ -48,23 +48,23 @@ public class UnitsQueue : MonoBehaviour
             }
             else if(unit._unitType == MapLayer.Surface)
             {
-                _linkedList.AddFirst(unit);
+                _unitsList.AddFirst(unit);
                 _debugUnits.Insert(0, unit);
             }
             else
             {
-                _linkedList.Add(unit);
+                _unitsList.Add(unit);
                 _debugUnits.Add(unit);
             }
         }
 
-        _linkedList.AddFirst(player);
+        _unitsList.AddFirst(player);
         _debugUnits.Insert(0, player);
 
-        _linkedList.AddFirst(roundCounter);
+        _unitsList.AddFirst(roundCounter);
         _debugUnits.Insert(0, roundCounter);
 
-        _currentNode = _linkedList.HeadNode;
+        _currentNode = _unitsList.HeadNode;
         _currentNode.Unit._input._inputIsPossible = true;
     }
 
@@ -73,5 +73,13 @@ public class UnitsQueue : MonoBehaviour
         _currentNode.Unit._input._inputIsPossible = false;
         _currentNode = _currentNode.Next;
         _currentNode.Unit._input._inputIsPossible = true;
+    }
+
+    public void Remove(Unit unit)
+    {
+        if (_currentNode.Unit == unit)
+            ActivateNext();
+
+        _unitsList.Remove(unit);
     }
 }
