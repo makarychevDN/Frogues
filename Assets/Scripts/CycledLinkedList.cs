@@ -19,22 +19,22 @@ public class CycledLinkedList : IEnumerable
         _headNode = null;
     }
 
-    public CycledLinkedList(Unit mapObject)
+    public CycledLinkedList(Unit unit)
     {
-        InsertNodeInEmptyList(mapObject);
+        InsertNodeInEmptyList(unit);
     }
 
-    public CycledLinkedList(Unit[] mapObjects)
+    public CycledLinkedList(Unit[] units)
     {
-        foreach (var item in mapObjects)
+        foreach (var item in units)
         {
             Add(item);
         }
     }
 
-    public CycledLinkedList(List<Unit> mapObjects)
+    public CycledLinkedList(List<Unit> units)
     {
-        foreach (var item in mapObjects)
+        foreach (var item in units)
         {
             Add(item);
         }
@@ -42,71 +42,71 @@ public class CycledLinkedList : IEnumerable
     #endregion
 
     #region AddMethods
-    public void Add(Unit mapObject)
+    public void Add(Unit unit)
     {
         if (_headNode == null)
         {
-            InsertNodeInEmptyList(mapObject);
+            InsertNodeInEmptyList(unit);
         }
 
         else
         {
-            AddToTheEndOfList(mapObject);
+            AddToTheEndOfList(unit);
         }
     } 
 
-    public void AddFirst(Unit mapObject)
+    public void AddFirst(Unit unit)
     {
         if (_headNode == null)
         {
-            InsertNodeInEmptyList(mapObject);
+            InsertNodeInEmptyList(unit);
         }
 
         else
         {
-            AddToTheEndOfList(mapObject);
+            AddToTheEndOfList(unit);
             _headNode = _headNode.Previous;
         }
     }  
 
-    public void AddSecond(Unit mapObject)
+    public void AddSecond(Unit unit)
     {
         if (_headNode == null)
         {
-            InsertNodeInEmptyList(mapObject);
+            InsertNodeInEmptyList(unit);
         }
 
         else
         {
-            InsertNode(new QueueNode(mapObject), _headNode, _headNode.Next);
+            InsertNode(new QueueNode(unit), _headNode, _headNode.Next);
         }
     }
 
-    public void AddAfterTargetObject(Unit TargetObject, Unit newMapObject)
+    public void AddAfterTargetObject(Unit TargetObject, Unit unit)
     {
         QueueNode temp = _headNode;
             
-        while (temp.MapObject != TargetObject)
+        while (temp.Unit != TargetObject)
         {
             temp = temp.Next;
         }
 
-        InsertNode(new QueueNode(newMapObject), temp, temp.Next);
+        InsertNode(new QueueNode(unit), temp, temp.Next);
     }
     
-    public void AddBeforeTargetObject(Unit TargetObject, Unit newMapObject)
+    public void AddBeforeTargetObject(Unit TargetObject, Unit unit)
     {
         QueueNode temp = _headNode;
             
-        while (temp.MapObject != TargetObject)
+        while (temp.Unit != TargetObject)
         {
             temp = temp.Next;
         }
 
-        InsertNode(new QueueNode(newMapObject), temp.Previous, temp);
+        InsertNode(new QueueNode(unit), temp.Previous, temp);
     }
     
-    private void AddToTheEndOfList(Unit mapObject)
+    private void AddToTheEndOfList(Unit unit)
     {
         QueueNode temp = _headNode;
             
@@ -115,7 +115,7 @@ public class CycledLinkedList : IEnumerable
             temp = temp.Next;
         }
         
-        InsertNode(new QueueNode(mapObject), temp, _headNode);        
+        InsertNode(new QueueNode(unit), temp, _headNode);        
     } 
 
     private void InsertNode(QueueNode newNode, QueueNode previous, QueueNode next)
@@ -126,23 +126,23 @@ public class CycledLinkedList : IEnumerable
         next.Previous = newNode;
     }
 
-    private void InsertNodeInEmptyList(Unit mapObject)
+    private void InsertNodeInEmptyList(Unit unit)
     {
-        _headNode = new QueueNode(mapObject);
+        _headNode = new QueueNode(unit);
         _headNode.Next = _headNode;
         _headNode.Previous = _headNode;
     }
     #endregion
 
     #region RemoveMethods
-    public void Remove(Unit mapObject)
+    public void Remove(Unit unit)
     {
         if (_headNode == null)
             return;
 
         QueueNode temp = _headNode;
         
-        while (temp.MapObject != mapObject)
+        while (temp.Unit != unit)
         {
             temp = temp.Next;
         }
@@ -150,7 +150,7 @@ public class CycledLinkedList : IEnumerable
         temp.Previous.Next = temp.Next;
         temp.Next.Previous = temp.Previous;
         
-        if (_headNode.MapObject == mapObject)
+        if (_headNode.Unit == unit)
         {
             _headNode = temp.Next;
         }
@@ -230,7 +230,7 @@ public class QueueNode
     private QueueNode _previous;
 
 
-    public Unit MapObject
+    public Unit Unit
     {
         get => _unit;
         set => _unit = value;
@@ -248,8 +248,8 @@ public class QueueNode
         set => _previous = value;
     }
 
-    public QueueNode(Unit mapObject)
+    public QueueNode(Unit unit)
     {
-        this._unit = mapObject;
+        this._unit = unit;
     }
 }

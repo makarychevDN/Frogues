@@ -15,7 +15,7 @@ public class BaseInput : CurrentlyActiveBehaviour
         }
     }
 
-    public virtual void Act()
+    protected virtual void Act()
     {
 
     }
