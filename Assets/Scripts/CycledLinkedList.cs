@@ -157,6 +157,26 @@ public class CycledLinkedList : IEnumerable
     }
     #endregion
 
+    public int Count => CalculateCount();
+
+    private int CalculateCount()
+    {
+        if (_headNode == null)
+            return 0;
+
+        if (_headNode.Next == _headNode)
+            return 1;
+
+        QueueNode temp = _headNode;
+        int count = 0;
+        while(temp.Next != _headNode)
+        {
+            temp = temp.Next;
+            count++;
+        }
+        return count + 1;
+    }
+
     #region InterfaceImplementationStaff
     IEnumerator IEnumerable.GetEnumerator()
     {

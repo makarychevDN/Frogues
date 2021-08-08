@@ -10,6 +10,7 @@ public class Damagable : MonoBehaviour
     public UnityEvent OnTakePhisicsDamage;
     public UnityEvent OnTakeFireDamage;
     public UnityEvent OnTakeColdDamage;
+    public UnityEvent OnHpEnded;
 
     public void TakeDamage(int damageValue, DamageType damageType)
     {
@@ -31,6 +32,11 @@ public class Damagable : MonoBehaviour
             case DamageType.Phisics: OnTakePhisicsDamage.Invoke(); break;
             case DamageType.Fire: OnTakeFireDamage.Invoke(); break;
             case DamageType.Cold: OnTakeColdDamage.Invoke(); break;
+        }
+
+        if(_hp.Content <= 0)
+        {
+            OnHpEnded.Invoke();
         }
     }
 }

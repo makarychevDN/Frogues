@@ -12,6 +12,8 @@ public class UnitsQueue : MonoBehaviour
 
     [SerializeField, ReadOnly] private List<Unit> _debugUnits;
 
+    public int Count => _unitsList.Count;
+
     private void Awake()
     {
         if (Instance == null)
@@ -70,6 +72,9 @@ public class UnitsQueue : MonoBehaviour
 
     public void ActivateNext()
     {
+        if (Count <= 1)
+            return;
+
         _currentNode.Unit._input._inputIsPossible = false;
         _currentNode = _currentNode.Next;
         _currentNode.Unit._input._inputIsPossible = true;
@@ -81,5 +86,6 @@ public class UnitsQueue : MonoBehaviour
             ActivateNext();
 
         _unitsList.Remove(unit);
+        _debugUnits.Remove(unit);
     }
 }
