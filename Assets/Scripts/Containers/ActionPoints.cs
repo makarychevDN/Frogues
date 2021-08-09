@@ -8,8 +8,14 @@ public class ActionPoints : MonoBehaviour
     [SerializeField] private IntContainer _currentPoints;
     [SerializeField] private IntContainer _maxPointsCount;
     [SerializeField] private IntContainer _pointsRegeneration;
+    [SerializeField] private AbleToSkipTurn _skipTurnModule;
 
     public UnityEvent OnActionPointsEnded;
+
+    private void Start()
+    {
+        OnActionPointsEnded.AddListener(_skipTurnModule.AutoSkip);
+    }
 
     public void RegeneratePoints()
     {

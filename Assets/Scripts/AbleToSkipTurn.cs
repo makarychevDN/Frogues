@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AbleToSkipTurn : MonoBehaviour
 {
-    public void SkipTurn()
+    public void AutoSkip()
     {
         UnitsQueue.Instance.ActivateNext();
     }
