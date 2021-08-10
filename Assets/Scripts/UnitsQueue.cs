@@ -19,11 +19,11 @@ public class UnitsQueue : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-        AddAllUnitsInQueue();
+        InitQueue();
         ActivateNext();
     }
 
-    public void AddAllUnitsInQueue()
+    public void InitQueue()
     {
         _unitsList = new CycledLinkedList();
 
@@ -80,5 +80,24 @@ public class UnitsQueue : MonoBehaviour
 
         _unitsList.Remove(unit);
         _debugUnits.Remove(unit);
+    }
+
+    public void AddObjectInQueue(Unit unit)
+    {
+        _unitsList.Add(unit);
+    }
+    public void AddObjectInQueueAfterPlayer(Unit unit)
+    {
+        _unitsList.AddSecond(unit);
+    }
+
+    public void AddObjectInQueueAfterTarget(Unit target, Unit unit)
+    {
+        _unitsList.AddAfterTargetObject(target, unit);
+    }
+
+    public void AddObjectInQueueBeforeTarget(Unit target, Unit unit)
+    {
+        _unitsList.AddBeforeTargetObject(target, unit);
     }
 }
