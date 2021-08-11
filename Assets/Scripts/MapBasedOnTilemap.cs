@@ -9,6 +9,7 @@ public class MapBasedOnTilemap : Map
 
     [SerializeField] private Cell _cellPrefab;
     [SerializeField] private Tilemap _tilemap;
+    public int _sizeX, _sizeY;
 
     public List<Cell[,]> _layers;
     public Cell[,] _projectilesLayer, _unitsLayer, _surfacesLayer;
@@ -39,15 +40,17 @@ public class MapBasedOnTilemap : Map
     public void InitCells()
     {
         BoundsInt bounds = _tilemap.cellBounds;
+        _sizeX = bounds.size.x;
+        _sizeY = bounds.size.y;
         _layers = new List<Cell[,]>();
 
         for (int k = 0; k < _layersCount; k++)
         {
-            _layers.Add(new Cell[bounds.size.x, bounds.size.y]);
+            _layers.Add(new Cell[_sizeX, _sizeY]);
 
-            for (int i = 0; i < _layers[k].GetLength(0); i++)
+            for (int i = 0; i < _sizeX; i++)
             {
-                for (int j = 0; j < _layers[k].GetLength(1); j++)
+                for (int j = 0; j < _sizeY; j++)
                 {
                     if (_tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                     {
