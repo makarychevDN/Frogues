@@ -45,8 +45,6 @@ public class PathFinder : MonoBehaviour
         {
             smallestWeightNode = _currentNodes[0];
 
-            print(0);
-
             foreach (var item in _currentNodes)
             {
                 if(item._weight < smallestWeightNode._weight)
@@ -55,19 +53,15 @@ public class PathFinder : MonoBehaviour
 
             foreach (var item in smallestWeightNode._neighbors)
             {
-                print(1);
 
                 if (item._coordinates == new Vector2Int(targetCell._coordinates.x, targetCell._coordinates.y))
                 {
-
-                    print(2);
                     item._previous = smallestWeightNode;
                     List<Cell> path = new List<Cell>();
                     var tempBackTrackNode = item;
 
                     while (tempBackTrackNode._coordinates != new Vector2Int(userCell._coordinates.x, userCell._coordinates.y))
                     {
-                        print(3);
                         path.Insert(0, tempBackTrackNode._cell);
                         tempBackTrackNode = tempBackTrackNode._previous;
                     }
@@ -76,7 +70,6 @@ public class PathFinder : MonoBehaviour
                 }
                 else if (!item._usedToPathFinding/* && !item.Busy && (map.GetSurfaceByVector(item.Pos) == null || ignoreTraps)*/)
                 {
-                    print(4);
                     _currentNodes.Add(item);
                     item._weight = Vector2Int.Distance(item._coordinates, userCell._coordinates) + Vector2Int.Distance(item._coordinates, targetCell._coordinates);
                     item._previous = smallestWeightNode;
@@ -84,13 +77,9 @@ public class PathFinder : MonoBehaviour
                 }
             }
 
-            print(5);
-
             _currentNodes.Remove(smallestWeightNode);
             smallestWeightNode._usedToPathFinding = true;
         }
-
-        print(6);
 
         return null;
     }
