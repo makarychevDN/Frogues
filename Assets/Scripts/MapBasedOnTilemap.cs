@@ -9,13 +9,14 @@ public class MapBasedOnTilemap : Map
 
     [SerializeField] private Cell _cellPrefab;
     [SerializeField] private Tilemap _tilemap;
+    [SerializeField] private Unit _wallPrefab;
     public int _sizeX, _sizeY;
 
     public List<Cell[,]> _layers;
     public Cell[,] _projectilesLayer, _unitsLayer, _surfacesLayer;
 
     private List<Transform> _cellsParents;
-    public Transform _projectilesCellsParent, _unitsCellsParent, _surfacesCellsParent;
+    public Transform _projectilesCellsParent, _unitsCellsParent, _surfacesCellsParent, _wallsParent;
     private const int _layersCount = 3;
 
     private void Awake()
@@ -26,6 +27,7 @@ public class MapBasedOnTilemap : Map
         InitCellsParents();
         InitCells();
         InitLayers();
+        InitWalls();
         InitCellsMonitoringOnUnitsLayer();
     }
 
@@ -60,6 +62,22 @@ public class MapBasedOnTilemap : Map
                         instantiatedCell._coordinates = new Vector2Int(i, j);
                         instantiatedCell._mapLayer = (MapLayer)k;
                     }
+                }
+            }
+        }
+    }
+
+    public void InitWalls()
+    {
+        for (int i = 0; i < _sizeX; i++)
+        {
+            for (int j = 0; j < _sizeY; j++)
+            {
+                if ((i == 0 || j == 0 || i == _sizeX - 1 || j == _sizeY - 1))
+                {
+                    var wall = Instantiate(_wallPrefab, _wallsParent);
+                    _unitsLayer[i, j].Content = wall;
+                    wall.transform.position = _unitsLayer[i, j]._coordinates.ToVector3();
                 }
             }
         }
