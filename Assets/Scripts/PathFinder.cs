@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
-    public PathFinder Instance;
+    public static PathFinder Instance;
     public MapBasedOnTilemap _map;
     public PathFinderNode[,] _nodesGrid;
     private List<Vector2Int> _dirVectors;
