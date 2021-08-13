@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
+    public PathFinder Instance;
     public MapBasedOnTilemap _map;
     public PathFinderNode[,] _nodesGrid;
     private List<Vector2Int> _dirVectors;
@@ -14,6 +15,9 @@ public class PathFinder : MonoBehaviour
 
     private void Start()
     {
+        if (Instance == null)
+            Instance = this;
+
         InitializeDirVectors();
         InitializeNodesGrid();
         FindAllNodesNeighbors();
@@ -60,9 +64,17 @@ public class PathFinder : MonoBehaviour
                     List<Cell> path = new List<Cell>();
                     var tempBackTrackNode = item;
 
+                    Cell[,] currentLayer = null;
+                    switch (userCell._mapLayer)
+                    {
+                        case MapLayer.Projectile: currentLayer = _map._projectilesLayer; break;
+                        case MapLayer.DefaultUnit: currentLayer = _map._unitsLayer; break;
+                        case MapLayer.Surface: currentLayer = _map._surfacesLayer; break;
+                    }
+
                     while (tempBackTrackNode._coordinates != new Vector2Int(userCell._coordinates.x, userCell._coordinates.y))
                     {
-                        path.Insert(0, tempBackTrackNode._cell);
+                        path.Insert(0, currentLayer[tempBackTrackNode._coordinates.x, tempBackTrackNode._coordinates.y]);
                         tempBackTrackNode = tempBackTrackNode._previous;
                     }
 
