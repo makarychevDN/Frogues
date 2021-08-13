@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class KeyboardInput : BaseInput
 {
-    protected override void Act()
+    private bool _inputIsPossible;
+
+    public override void Act()
     {
-        if (CurrentlyActiveObjects.SomethingIsActNow)
+        _inputIsPossible = true;
+    }
+
+    private void Update()
+    {
+        if (!_inputIsPossible)
             return;
 
         if (Input.GetKeyDown(KeyCode.W))
@@ -28,5 +35,7 @@ public class KeyboardInput : BaseInput
         {
             _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>().FindNeigborhoodForCell(_unit._currentCell, Vector2Int.right));
         }
+
+        _inputIsPossible = false;
     }
 }

@@ -60,17 +60,18 @@ public class UnitsQueue : MonoBehaviour
         _debugUnits.Insert(0, roundCounter);
 
         _currentNode = _unitsList.HeadNode;
-        _currentNode.Unit._input._inputIsPossible = true;
+    }
+
+    private void Update()
+    {
+        if (!CurrentlyActiveObjects.SomethingIsActNow)
+            _currentNode.Unit._input.Act();
     }
 
     public void ActivateNext()
     {
-        if (Count <= 1)
-            return;
-
-        _currentNode.Unit._input._inputIsPossible = false;
-        _currentNode = _currentNode.Next;
-        _currentNode.Unit._input._inputIsPossible = true;
+        if (Count > 1)
+            _currentNode = _currentNode.Next;
     }
 
     public void Remove(Unit unit)

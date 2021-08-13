@@ -7,7 +7,7 @@ public class EventOnInput : BaseInput
 {
     public UnityEvent OnInput;
 
-    protected override void Act()
+    public override void Act()
     {
         OnInput.Invoke();
     }
