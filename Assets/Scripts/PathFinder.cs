@@ -38,6 +38,12 @@ public class PathFinder : MonoBehaviour
         return AStar(userCell, targetCell);
     }
 
+    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints)
+    {
+        ResetNodes();
+        return WaveAlgorithm(userCell, actionPoints);
+    }
+
     private List<Cell> AStar(Cell userCell, Cell targetCell)
     {
         _currentNodes = new List<PathFinderNode>();
@@ -94,6 +100,35 @@ public class PathFinder : MonoBehaviour
         }
 
         return null;
+    }
+
+    private List<Cell> WaveAlgorithm(Cell userCell, int actionPoints)
+    {
+        _childNodes = new List<PathFinderNode>();
+        _childNodes.Add(_nodesGrid[userCell._coordinates.x, userCell._coordinates.y]);
+        _nodesGrid[userCell._coordinates.x, userCell._coordinates.y]._usedToPathFinding = true;
+        int stepCounter = 0;
+        List<Cell> resultCells = new List<Cell>();
+
+        while (stepCounter < actionPoints || _childNodes.Count != 0)
+        {
+            foreach (var parent in _currentNodes)
+            {
+                foreach (var child in parent._neighbors)
+                {
+                    if (!child._usedToPathFinding && !child._busy)
+                    {
+                        child._previous = parent;
+                        _childNodes.Add(child);
+                        child._usedToPathFinding = true;
+                        resultCells.Add(child._cell);
+                    }
+                }
+            }
+            stepCounter++;
+        }
+
+        return resultCells;
     }
 
     #region initPathfinder
