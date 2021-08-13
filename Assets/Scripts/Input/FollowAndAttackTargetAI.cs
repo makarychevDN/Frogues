@@ -8,6 +8,11 @@ public class FollowAndAttackTargetAI : BaseInput
     [SerializeField] private Unit _target;
     private List<Cell> _pathToTarget;
 
+    private void Start()
+    {
+        _unit.GetComponentInChildren<ActionPoints>().OnActionPointsEnded.AddListener(ClearPath);
+    }
+
     public override void Act()
     {
         if (_pathToTarget == null)
