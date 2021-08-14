@@ -105,7 +105,8 @@ public class PathFinder : MonoBehaviour
     private List<Cell> WaveAlgorithm(Cell userCell, int actionPoints)
     {
         _childNodes = new List<PathFinderNode>();
-        _childNodes.Add(_nodesGrid[userCell._coordinates.x, userCell._coordinates.y]);
+        _currentNodes = new List<PathFinderNode>();
+        _currentNodes.Add(_nodesGrid[userCell._coordinates.x, userCell._coordinates.y]);
         _nodesGrid[userCell._coordinates.x, userCell._coordinates.y]._usedToPathFinding = true;
         int stepCounter = 0;
         List<Cell> resultCells = new List<Cell>();
@@ -116,7 +117,7 @@ public class PathFinder : MonoBehaviour
             {
                 foreach (var child in parent._neighbors)
                 {
-                    if (!child._usedToPathFinding && !child._busy)
+                    if (!child._usedToPathFinding && !child.Busy)
                     {
                         child._previous = parent;
                         _childNodes.Add(child);
@@ -125,6 +126,8 @@ public class PathFinder : MonoBehaviour
                     }
                 }
             }
+            _currentNodes = _childNodes;
+            _childNodes = new List<PathFinderNode>();
             stepCounter++;
         }
 
@@ -150,11 +153,7 @@ public class PathFinder : MonoBehaviour
         {
             for (int j = 0; j < _map._sizeY; j++)
             {
-                _nodesGrid[i,j] = new PathFinderNode(_map._surfacesLayer[i, j]);
-                if(!_map._surfacesLayer[i, j].isEmpty)
-                {
-                    _nodesGrid[i, j]._busy = false;
-                }
+                _nodesGrid[i,j] = new PathFinderNode(_map._unitsLayer[i, j]);
             }
         }
 
@@ -191,9 +190,10 @@ public class PathFinderNode
     public Vector2Int _coordinates;
     public List<PathFinderNode> _neighbors;
     public bool _usedToPathFinding;
-    public bool _busy;
     public PathFinderNode _previous;
     public float _weight;
+
+    public bool Busy => !_cell.isEmpty;
 
     public PathFinderNode(Cell cell)
     {

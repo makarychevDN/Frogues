@@ -8,7 +8,7 @@ public class MapBasedOnTilemap : Map
     public static MapBasedOnTilemap Instance;
 
     [SerializeField] private Cell _cellPrefab;
-    [SerializeField] private Tilemap _tilemap;
+    public Tilemap _tilemap;
     [SerializeField] private Unit _wallPrefab;
     public int _sizeX, _sizeY;
 
