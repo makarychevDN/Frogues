@@ -11,6 +11,9 @@ public class Cell : Container<Unit>
     public UnityEvent OnBecameFull;
     public UnityEvent OnBecameEmpty;
 
+    public GameObject _tileHighlighter;
+    public GameObject _dot;
+
     public override Unit Content 
     { 
         get => base.Content;
@@ -27,5 +30,15 @@ public class Cell : Container<Unit>
                 OnBecameEmpty.Invoke();
             }
         }
+    }
+
+    public void EnableHighlight(bool isOn)
+    {
+        _tileHighlighter.SetActive(isOn);
+    }
+
+    public void EnablePathDot(bool isOn)
+    {
+        _dot.SetActive(isOn);
     }
 }
