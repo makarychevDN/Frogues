@@ -17,7 +17,7 @@ public class KeyboardInput : BaseInput
         if (!_inputIsPossible)
             return;
 
-        _cellsHighlighter.Apply();
+        _cellsHighlighter.ApplyEffect();
 
         if (Input.GetKeyDown(KeyCode.W))
         {
