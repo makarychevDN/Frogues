@@ -6,14 +6,22 @@ public class HighlightCells : MonoBehaviour
 {
     [SerializeField] private BaseCellsTaker _cellTaker;
 
-    public void Remove()
+    public void Apply()
     {
-        _cellTaker.Take().ForEach( cell => MapBasedOnTilemap.Instance._tilemap.SetTile(cell._coordinates.ToVector3Int(), null));
+        MapBasedOnTilemap.Instance._layers.ForEach(layer =>
+        {
+            foreach(var cell in layer)
+            {
+                cell.EnableHighlight(false);
+            }
+        });
+
+        _cellTaker.Take().ForEach(cell => { cell.EnableHighlight(true); /*cell.EnablePathDot(true);*/ });
     }
 
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            Remove();
+            Apply();
     }
 }
