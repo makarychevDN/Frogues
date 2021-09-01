@@ -6,6 +6,7 @@ public class KeyboardInput : BaseInput
 {
     private bool _inputIsPossible;
     public HighlightCells _cellsHighlighter;
+    public VisualizePath _pathVisualizer;
 
     public override void Act()
     {
@@ -17,6 +18,7 @@ public class KeyboardInput : BaseInput
         if (!_inputIsPossible)
             return;
 
+        _pathVisualizer.ApplyEffect();
         _cellsHighlighter.ApplyEffect();
 
         if (Input.GetKeyDown(KeyCode.W))

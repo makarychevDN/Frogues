@@ -8,14 +8,7 @@ public class HighlightCells : BaseCellsEffect
 
     public override void ApplyEffect()
     {
-        MapBasedOnTilemap.Instance._layers.ForEach(layer =>
-        {
-            foreach (var cell in layer)
-            {
-                cell.EnableHighlight(false);
-            }
-        });
-
-        _cellTaker.Take().ForEach(cell => { cell.EnableHighlight(true); /*cell.EnablePathDot(true);*/ });
+        MapBasedOnTilemap.Instance._allCells.ForEach(cell => cell.EnableHighlight(false));
+        _cellTaker.Take().ForEach(cell => cell.EnableHighlight(true));
     }
 }

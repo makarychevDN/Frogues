@@ -14,6 +14,7 @@ public class MapBasedOnTilemap : Map
 
     public List<Cell[,]> _layers;
     public Cell[,] _projectilesLayer, _unitsLayer, _surfacesLayer;
+    public List<Cell> _allCells;
 
     private List<Transform> _cellsParents;
     public Transform _projectilesCellsParent, _unitsCellsParent, _surfacesCellsParent, _wallsParent;
@@ -65,6 +66,16 @@ public class MapBasedOnTilemap : Map
                 }
             }
         }
+
+        _allCells = new List<Cell>();
+
+        _layers.ForEach(layer =>
+        {
+            foreach (var cell in layer)
+            {
+                _allCells.Add(cell);
+            }
+        });
     }
 
     public void InitWalls()
