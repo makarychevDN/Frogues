@@ -57,7 +57,7 @@ public class PathFinder : MonoBehaviour
 
             foreach (var item in _currentNodes)
             {
-                if(item._weight < smallestWeightNode._weight)
+                if(!item.Busy && item._weight < smallestWeightNode._weight)
                     smallestWeightNode = item;
             }
 
@@ -86,7 +86,7 @@ public class PathFinder : MonoBehaviour
 
                     return path;
                 }
-                else if (!item._usedToPathFinding/* && !item.Busy && (map.GetSurfaceByVector(item.Pos) == null || ignoreTraps)*/)
+                else if (!item._usedToPathFinding && !item.Busy)
                 {
                     _currentNodes.Add(item);
                     item._weight = Vector2Int.Distance(item._coordinates, userCell._coordinates) + Vector2Int.Distance(item._coordinates, targetCell._coordinates);
