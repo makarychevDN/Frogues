@@ -7,6 +7,8 @@ public class KeyboardInput : BaseInput
     private bool _inputIsPossible;
     public HighlightCells _cellsHighlighter;
     public VisualizePath _pathVisualizer;
+    [SerializeField] private FindWayInValidCells _findWayIndValicCells;
+    private List<Cell> _path = new List<Cell>();
 
     public override void Act()
     {
@@ -18,31 +20,24 @@ public class KeyboardInput : BaseInput
         if (!_inputIsPossible)
             return;
 
-        _pathVisualizer.ApplyEffect();
-        _cellsHighlighter.ApplyEffect();
-
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>().FindNeigborhoodForCell(_unit._currentCell, Vector2Int.up));
-            _inputIsPossible = false;
+            _path = _findWayIndValicCells.Take() == null ? new List<Cell>() : _findWayIndValicCells.Take();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (_path.Count != 0)
         {
-            _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>().FindNeigborhoodForCell(_unit._currentCell, Vector2Int.down));
+            _cellsHighlighter.TurnOffHighlight();
+            _pathVisualizer.TurnOffVisualization();
             _inputIsPossible = false;
+            
+            _unit._movable.Move(_path[0]);
+            _path.RemoveAt(0);
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
+        else
         {
-            _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>().FindNeigborhoodForCell(_unit._currentCell, Vector2Int.left));
-            _inputIsPossible = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            _unit._movable.Move(FindObjectOfType<MapBasedOnTilemap>().FindNeigborhoodForCell(_unit._currentCell, Vector2Int.right));
-            _inputIsPossible = false;
+            _pathVisualizer.ApplyEffect();
+            _cellsHighlighter.ApplyEffect();
         }
     }
 }
