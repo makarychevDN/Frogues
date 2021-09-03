@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapBasedOnTilemap : Map
+public class MapBasedOnTilemap : MonoBehaviour
 {
     public static MapBasedOnTilemap Instance;
 

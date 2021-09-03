@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ApplyDamage : MonoBehaviour
 {
-    [SerializeField] private IntContainer _hp, _lastTakenDamage;
+    [SerializeField] private IntContainer _hp;
+    [SerializeField] private IntContainer _lastTakenDamage;
 
     public void Apply()
     {

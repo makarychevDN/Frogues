@@ -8,9 +8,4 @@ public static class Extensions
     {
         return new Vector3(vector2Int.x, vector2Int.y, 0);
     }
-
-    public static Vector3Int ToVector3Int(this Vector2Int vector2Int)
-    {
-        return new Vector3Int(vector2Int.x, vector2Int.y, 0);
-    }
 }
