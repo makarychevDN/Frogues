@@ -6,11 +6,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(MovableAnimation))]
 public class Movable : CostsActionPointsBehaviour
 {
-    [SerializeField] private Unit _unit;
-    private MovableAnimation _movableAnimation;
-
+    [SerializeField] private Unit unit;
     public UnityEvent OnMovementStart;
     public UnityEvent OnMovementEnd;
+    private MovableAnimation _movableAnimation;
 
     private void Start()
     {
@@ -23,15 +22,15 @@ public class Movable : CostsActionPointsBehaviour
             return;
 
         SpendActionPoints();
-        _unit._currentCell.Content = null;
-        _movableAnimation.Play(_unit._currentCell, targetCell);
+        unit._currentCell.Content = null;
+        _movableAnimation.Play(unit._currentCell, targetCell);
         OnMovementStart.Invoke();
     }
 
     public void StopMovement(Cell targetCell)
     {
-        _unit.transform.position = targetCell.transform.position;
-        targetCell.Content = _unit;
+        unit.transform.position = targetCell.transform.position;
+        targetCell.Content = unit;
         OnMovementEnd.Invoke();
     }
 }
