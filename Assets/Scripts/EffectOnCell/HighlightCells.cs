@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HighlightCells : BaseCellsEffect
 {
-    [SerializeField] private BaseCellsTaker _cellTaker;
+    [SerializeField] private BaseCellsTaker cellsTaker;
     
     public override void ApplyEffect()
     {
         TurnOffHighlight();
-        _cellTaker.Take().ForEach(cell => cell.EnableHighlight(true));
+        cellsTaker.Take().ForEach(cell => cell.EnableHighlight(true));
     }
     
     public void TurnOffHighlight()

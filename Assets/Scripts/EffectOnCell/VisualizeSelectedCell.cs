@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class VisualizeSelectedCell : BaseCellsEffect
 {
-    [SerializeField] private CellByMousePosition _cellTaker;
+    [SerializeField] private CellByMousePosition cellTaker;
 
     public override void ApplyEffect()
     {
         TurnOffVizualisation();
-        if (_cellTaker.Take() != null)
-            _cellTaker.Take().ForEach(cell => cell.EnableSelectedVisualization(true));
+        if (cellTaker.Take() != null)
+            cellTaker.Take().ForEach(cell => cell.EnableSelectedVisualization(true));
     }
     
     public void TurnOffVizualisation()

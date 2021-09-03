@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class VisualizePath : BaseCellsEffect
 {
-    [SerializeField] private FindWayInValidCells _pathFinderInValidCells;
+    [SerializeField] private FindWayInValidCells pathFinderInValidCells;
 
     public override void ApplyEffect()
     {
         TurnOffVisualization();
-        if (_pathFinderInValidCells.Take() != null)
-            _pathFinderInValidCells.Take().ForEach(cell => cell.EnablePathDot(true));
+        if (pathFinderInValidCells.Take() != null)
+            pathFinderInValidCells.Take().ForEach(cell => cell.EnablePathDot(true));
     }
     
     public void TurnOffVisualization()
