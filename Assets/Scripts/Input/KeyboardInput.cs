@@ -7,6 +7,7 @@ public class KeyboardInput : BaseInput
     private bool _inputIsPossible;
     public HighlightCells _cellsHighlighter;
     public VisualizePath _pathVisualizer;
+    public VisualizeSelectedCell _selectedCellVisualizer;
     [SerializeField] private FindWayInValidCells _findWayIndValicCells;
     private List<Cell> _path = new List<Cell>();
 
@@ -19,7 +20,9 @@ public class KeyboardInput : BaseInput
     {
         if (!_inputIsPossible)
             return;
-
+        
+        _selectedCellVisualizer.ApplyEffect();
+        
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _path = _findWayIndValicCells.Take() == null ? new List<Cell>() : _findWayIndValicCells.Take();
@@ -29,6 +32,7 @@ public class KeyboardInput : BaseInput
         {
             _cellsHighlighter.TurnOffHighlight();
             _pathVisualizer.TurnOffVisualization();
+            _selectedCellVisualizer.TurnOffVizualisation();
             _inputIsPossible = false;
             
             _unit._movable.Move(_path[0]);

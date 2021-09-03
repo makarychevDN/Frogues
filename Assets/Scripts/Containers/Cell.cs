@@ -12,7 +12,8 @@ public class Cell : Container<Unit>
     public UnityEvent OnBecameEmpty;
 
     public GameObject _tileHighlighter;
-    public GameObject _dot;
+    public GameObject _pathDot;
+    public GameObject _selectedVisualization;
 
     public override Unit Content 
     { 
@@ -39,6 +40,11 @@ public class Cell : Container<Unit>
 
     public void EnablePathDot(bool isOn)
     {
-        _dot.SetActive(isOn);
+        _pathDot.SetActive(isOn);
+    }
+    
+    public void EnableSelectedVisualization(bool isOn)
+    {
+        _selectedVisualization.SetActive(isOn);
     }
 }
