@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class KeyboardInput : BaseInput
 {
-    private bool _inputIsPossible;
-    public HighlightCells _cellsHighlighter;
-    public VisualizePath _pathVisualizer;
-    public VisualizeSelectedCell _selectedCellVisualizer;
-    [SerializeField] private FindWayInValidCells _findWayIndValicCells;
+    [SerializeField] private FindWayInValidCells findWayInValidCells;
+    
+    [SerializeField] private HighlightCells cellsHighlighter;
+    [SerializeField] private VisualizePath pathVisualizer;
+    [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
+    
     private List<Cell> _path = new List<Cell>();
+    private bool _inputIsPossible;
 
     public override void Act()
     {
@@ -21,27 +23,27 @@ public class KeyboardInput : BaseInput
         if (!_inputIsPossible)
             return;
         
-        _selectedCellVisualizer.ApplyEffect();
+        selectedCellVisualizer.ApplyEffect();
         
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            _path = _findWayIndValicCells.Take() == null ? new List<Cell>() : _findWayIndValicCells.Take();
+            _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
         }
 
         if (_path.Count != 0)
         {
-            _cellsHighlighter.TurnOffHighlight();
-            _pathVisualizer.TurnOffVisualization();
-            _selectedCellVisualizer.TurnOffVizualisation();
+            cellsHighlighter.TurnOffHighlight();
+            pathVisualizer.TurnOffVisualization();
+            selectedCellVisualizer.TurnOffVizualisation();
             _inputIsPossible = false;
             
-            _unit._movable.Move(_path[0]);
+            unit._movable.Move(_path[0]);
             _path.RemoveAt(0);
         }
         else
         {
-            _pathVisualizer.ApplyEffect();
-            _cellsHighlighter.ApplyEffect();
+            pathVisualizer.ApplyEffect();
+            cellsHighlighter.ApplyEffect();
         }
     }
 }

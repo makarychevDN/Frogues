@@ -4,6 +4,6 @@ using UnityEngine;
 
 public abstract class BaseInput : CurrentlyActiveBehaviour
 {
-    [SerializeField] protected Unit _unit;
+    [SerializeField] protected Unit unit;
     public abstract void Act();
 }

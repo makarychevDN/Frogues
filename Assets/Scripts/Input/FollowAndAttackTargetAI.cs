@@ -5,20 +5,20 @@ using UnityEngine;
 
 public class FollowAndAttackTargetAI : BaseInput
 {
-    [SerializeField] private Unit _target;
+    [SerializeField] private Unit target;
     private List<Cell> _pathToTarget;
 
     private void Start()
     {
-        _unit.GetComponentInChildren<ActionPoints>().OnActionPointsEnded.AddListener(ClearPath);
+        unit.GetComponentInChildren<ActionPoints>().OnActionPointsEnded.AddListener(ClearPath);
     }
 
     public override void Act()
     {
         if (_pathToTarget == null)
-            _pathToTarget = PathFinder.Instance.FindWay(_unit._currentCell, _target._currentCell);
+            _pathToTarget = PathFinder.Instance.FindWay(unit._currentCell, target._currentCell);
 
-        _unit._movable.Move(_pathToTarget[0]);
+        unit._movable.Move(_pathToTarget[0]);
         if(_pathToTarget != null)
             _pathToTarget.RemoveAt(0);
     }
