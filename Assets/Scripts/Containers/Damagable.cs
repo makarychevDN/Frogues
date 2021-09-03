@@ -5,7 +5,9 @@ using UnityEngine.Events;
 
 public class Damagable : MonoBehaviour
 {
-    [SerializeField] private IntContainer _lastTakenDamage, _hp, _armor;
+    [SerializeField] private IntContainer hp;
+    [SerializeField] private IntContainer armor;
+    [SerializeField] private IntContainer lastTakenDamage;
 
     public UnityEvent OnTakePhisicsDamage;
     public UnityEvent OnTakeFireDamage;
@@ -19,13 +21,13 @@ public class Damagable : MonoBehaviour
 
     public void TakeDamage(int damageValue, DamageType damageType, bool ignoreArmor)
     {
-        if (!ignoreArmor && _armor != null)
+        if (!ignoreArmor && armor != null)
         {
-            damageValue -= _armor.Content;
+            damageValue -= armor.Content;
             Mathf.Clamp(damageValue, 0, 1000);
         }
         
-        _lastTakenDamage.Content = damageValue;
+        lastTakenDamage.Content = damageValue;
 
         switch (damageType)
         {
@@ -34,7 +36,7 @@ public class Damagable : MonoBehaviour
             case DamageType.Cold: OnTakeColdDamage.Invoke(); break;
         }
 
-        if(_hp.Content <= 0)
+        if(hp.Content <= 0)
         {
             OnHpEnded.Invoke();
         }

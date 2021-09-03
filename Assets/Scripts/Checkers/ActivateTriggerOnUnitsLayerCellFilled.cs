@@ -8,7 +8,7 @@ public class ActivateTriggerOnUnitsLayerCellFilled : MonoBehaviour
 
     public void TriggerOnBecameFull()
     {
-        if (cell.isEmpty)
+        if (cell.IsEmpty)
             return;
 
         var temp = cell.Content.GetComponentInChildren<Trigger>();
@@ -18,7 +18,7 @@ public class ActivateTriggerOnUnitsLayerCellFilled : MonoBehaviour
 
     public void TriggerOnBecameEmpty()
     {
-        if (cell.isEmpty)
+        if (cell.IsEmpty)
             return;
 
         var temp = cell.Content.GetComponentInChildren<Trigger>();

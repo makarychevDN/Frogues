@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Container<T> : MonoBehaviour
 {
-    [SerializeField] private T _content;
+    [FormerlySerializedAs("_content")] [SerializeField] private T content;
 
     public virtual T Content
     {
-        get => _content;
-        set => _content = value;
+        get => content;
+        set => content = value;
     }
 
-    public bool isEmpty => Content == null;
+    public bool IsEmpty => Content == null;
 }

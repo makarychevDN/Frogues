@@ -60,8 +60,8 @@ public class MapBasedOnTilemap : MonoBehaviour
                         var instantiatedCell = Instantiate(_cellPrefab, _tilemap.CellToWorld(new Vector3Int(i, j, 0)) + Vector3.up * 0.5f, Quaternion.identity);
                         _layers[k][i, j] = instantiatedCell;
                         instantiatedCell.transform.SetParent(_cellsParents[k]);
-                        instantiatedCell._coordinates = new Vector2Int(i, j);
-                        instantiatedCell._mapLayer = (MapLayer)k;
+                        instantiatedCell.coordinates = new Vector2Int(i, j);
+                        instantiatedCell.mapLayer = (MapLayer)k;
                     }
                 }
             }
@@ -88,7 +88,7 @@ public class MapBasedOnTilemap : MonoBehaviour
                 {
                     var wall = Instantiate(_wallPrefab, _wallsParent);
                     _unitsLayer[i, j].Content = wall;
-                    wall.transform.position = _unitsLayer[i, j]._coordinates.ToVector3();
+                    wall.transform.position = _unitsLayer[i, j].coordinates.ToVector3();
                 }
             }
         }
@@ -124,12 +124,12 @@ public class MapBasedOnTilemap : MonoBehaviour
 
     public Cell FindNeigborhoodForCell(Cell startCell, Vector2Int direction)
     {
-        return GetLayerByCell(startCell)[startCell._coordinates.x + direction.x, startCell._coordinates.y + direction.y];
+        return GetLayerByCell(startCell)[startCell.coordinates.x + direction.x, startCell.coordinates.y + direction.y];
     }
 
     public Cell[,] GetLayerByCell(Cell cell)
     {
-        switch (cell._mapLayer)
+        switch (cell.mapLayer)
         {
             case MapLayer.DefaultUnit: return _unitsLayer;
             case MapLayer.Projectile: return _projectilesLayer;

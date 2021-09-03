@@ -5,15 +5,15 @@ using UnityEngine.Events;
 
 public class Cell : Container<Unit>
 {
-    public MapLayer _mapLayer;
-    public Vector2Int _coordinates;
+    public MapLayer mapLayer;
+    public Vector2Int coordinates;
 
     public UnityEvent OnBecameFull;
     public UnityEvent OnBecameEmpty;
 
-    public GameObject _tileHighlighter;
-    public GameObject _pathDot;
-    public GameObject _selectedVisualization;
+    [SerializeField] private GameObject _tileHighlighter;
+    [SerializeField] private GameObject _pathDot;
+    [SerializeField] private GameObject _selectedVisualization;
 
     public override Unit Content 
     { 

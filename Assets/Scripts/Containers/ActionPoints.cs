@@ -5,34 +5,34 @@ using UnityEngine.Events;
 
 public class ActionPoints : MonoBehaviour
 {
-    [SerializeField] private IntContainer _currentPoints;
-    [SerializeField] private IntContainer _maxPointsCount;
-    [SerializeField] private IntContainer _pointsRegeneration;
-    [SerializeField] private AbleToSkipTurn _skipTurnModule;
+    [SerializeField] private IntContainer currentPoints;
+    [SerializeField] private IntContainer maxPointsCount;
+    [SerializeField] private IntContainer pointsRegeneration;
+    [SerializeField] private AbleToSkipTurn skipTurnModule;
 
     public UnityEvent OnActionPointsEnded;
 
     private void Start()
     {
-        OnActionPointsEnded.AddListener(_skipTurnModule.AutoSkip);
+        OnActionPointsEnded.AddListener(skipTurnModule.AutoSkip);
     }
 
     public void RegeneratePoints()
     {
-        _currentPoints.Content += _pointsRegeneration.Content;
-        _currentPoints.Content = Mathf.Clamp(_currentPoints.Content, 0, _maxPointsCount.Content);
+        currentPoints.Content += pointsRegeneration.Content;
+        currentPoints.Content = Mathf.Clamp(currentPoints.Content, 0, maxPointsCount.Content);
     }
 
     public bool CheckIsActionPointsEnough(int cost)
     {
-        return _currentPoints.Content >= cost;
+        return currentPoints.Content >= cost;
     }
 
     public void SpendPoints(int cost)
     {
-        _currentPoints.Content -= cost;
+        currentPoints.Content -= cost;
 
-        if (_currentPoints.Content <= 0)
+        if (currentPoints.Content <= 0)
             OnActionPointsEnded.Invoke();
     }
 }

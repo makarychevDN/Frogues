@@ -9,6 +9,6 @@ public class Unit : MonoBehaviour
     public Cell _currentCell;
     public BaseInput _input;
 
-    public Vector2Int Coordinates => _currentCell._coordinates;
+    public Vector2Int Coordinates => _currentCell.coordinates;
 }
 

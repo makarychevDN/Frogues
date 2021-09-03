@@ -11,7 +11,7 @@ public class Damager : MonoBehaviour
     {
         foreach (var cell in MapBasedOnTilemap.Instance.GetCellsColumn(_unit.Coordinates))
         {
-            if(!cell.isEmpty && cell.Content.GetComponentInChildren<Damagable>()!= null)
+            if(!cell.IsEmpty && cell.Content.GetComponentInChildren<Damagable>()!= null)
             {
                 cell.Content.GetComponentInChildren<Damagable>().TakeDamage(_damage, _damageType);
             }
