@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class Container<T> : MonoBehaviour
 {
-    [FormerlySerializedAs("_content")] [SerializeField] private T content;
+    [SerializeField] private T content;
 
     public virtual T Content
     {
