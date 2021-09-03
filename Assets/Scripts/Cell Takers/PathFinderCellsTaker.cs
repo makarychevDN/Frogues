@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PathFinderCellsTaker : BaseCellsTaker
 {
-    [SerializeField] private Unit _unit;
-    [SerializeField] private IntContainer _currentActionPoints;
+    [SerializeField] private Unit unit;
+    [SerializeField] private IntContainer currentActionPoints;
     public override List<Cell> Take()
     {
-        return PathFinder.Instance.GetCellsAreaByActionPoints(_unit._currentCell, _currentActionPoints.Content);
+        return PathFinder.Instance.GetCellsAreaByActionPoints(unit._currentCell, currentActionPoints.Content);
     }
 }
