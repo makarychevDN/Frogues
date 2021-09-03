@@ -7,17 +7,15 @@ public class MapBasedOnTilemap : MonoBehaviour
 {
     public static MapBasedOnTilemap Instance;
 
-    [SerializeField] private Cell _cellPrefab;
-    public Tilemap _tilemap;
-    [SerializeField] private Unit _wallPrefab;
-    public int _sizeX, _sizeY;
-
-    public List<Cell[,]> _layers;
-    public Cell[,] _projectilesLayer, _unitsLayer, _surfacesLayer;
-    public List<Cell> _allCells;
-
+    public int sizeX, sizeY;
+    public Tilemap tilemap;
+    public Transform projectilesCellsParent, unitsCellsParent, surfacesCellsParent, wallsParent;
+    public Cell[,] projectilesLayer, unitsLayer, surfacesLayer;
+    public List<Cell[,]> layers;
+    public List<Cell> allCells;
+    [SerializeField] private Cell cellPrefab;
+    [SerializeField] private Unit wallPrefab;
     private List<Transform> _cellsParents;
-    public Transform _projectilesCellsParent, _unitsCellsParent, _surfacesCellsParent, _wallsParent;
     private const int _layersCount = 3;
 
     private void Awake()
@@ -35,30 +33,30 @@ public class MapBasedOnTilemap : MonoBehaviour
     public void InitCellsParents()
     {
         _cellsParents = new List<Transform>();
-        _cellsParents.Add(_projectilesCellsParent);
-        _cellsParents.Add(_unitsCellsParent);
-        _cellsParents.Add(_surfacesCellsParent);
+        _cellsParents.Add(projectilesCellsParent);
+        _cellsParents.Add(unitsCellsParent);
+        _cellsParents.Add(surfacesCellsParent);
     }
 
     public void InitCells()
     {
-        BoundsInt bounds = _tilemap.cellBounds;
-        _sizeX = bounds.size.x;
-        _sizeY = bounds.size.y;
-        _layers = new List<Cell[,]>();
+        BoundsInt bounds = tilemap.cellBounds;
+        sizeX = bounds.size.x;
+        sizeY = bounds.size.y;
+        layers = new List<Cell[,]>();
 
         for (int k = 0; k < _layersCount; k++)
         {
-            _layers.Add(new Cell[_sizeX, _sizeY]);
+            layers.Add(new Cell[sizeX, sizeY]);
 
-            for (int i = 0; i < _sizeX; i++)
+            for (int i = 0; i < sizeX; i++)
             {
-                for (int j = 0; j < _sizeY; j++)
+                for (int j = 0; j < sizeY; j++)
                 {
-                    if (_tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
+                    if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                     {
-                        var instantiatedCell = Instantiate(_cellPrefab, _tilemap.CellToWorld(new Vector3Int(i, j, 0)) + Vector3.up * 0.5f, Quaternion.identity);
-                        _layers[k][i, j] = instantiatedCell;
+                        var instantiatedCell = Instantiate(cellPrefab, tilemap.CellToWorld(new Vector3Int(i, j, 0)) + Vector3.up * 0.5f, Quaternion.identity);
+                        layers[k][i, j] = instantiatedCell;
                         instantiatedCell.transform.SetParent(_cellsParents[k]);
                         instantiatedCell.coordinates = new Vector2Int(i, j);
                         instantiatedCell.mapLayer = (MapLayer)k;
@@ -67,28 +65,28 @@ public class MapBasedOnTilemap : MonoBehaviour
             }
         }
 
-        _allCells = new List<Cell>();
+        allCells = new List<Cell>();
 
-        _layers.ForEach(layer =>
+        layers.ForEach(layer =>
         {
             foreach (var cell in layer)
             {
-                _allCells.Add(cell);
+                allCells.Add(cell);
             }
         });
     }
 
     public void InitWalls()
     {
-        for (int i = 0; i < _sizeX; i++)
+        for (int i = 0; i < sizeX; i++)
         {
-            for (int j = 0; j < _sizeY; j++)
+            for (int j = 0; j < sizeY; j++)
             {
-                if ((i == 0 || j == 0 || i == _sizeX - 1 || j == _sizeY - 1))
+                if ((i == 0 || j == 0 || i == sizeX - 1 || j == sizeY - 1))
                 {
-                    var wall = Instantiate(_wallPrefab, _wallsParent);
-                    _unitsLayer[i, j].Content = wall;
-                    wall.transform.position = _unitsLayer[i, j].coordinates.ToVector3();
+                    var wall = Instantiate(wallPrefab, wallsParent);
+                    unitsLayer[i, j].Content = wall;
+                    wall.transform.position = unitsLayer[i, j].coordinates.ToVector3();
                 }
             }
         }
@@ -96,27 +94,27 @@ public class MapBasedOnTilemap : MonoBehaviour
 
     public void InitLayers()
     {
-        _projectilesLayer = _layers[0];
-        _unitsLayer = _layers[1];
-        _surfacesLayer = _layers[2];
+        projectilesLayer = layers[0];
+        unitsLayer = layers[1];
+        surfacesLayer = layers[2];
     }
 
     public void InitCellsMonitoringOnUnitsLayer()
     {
-        for (int i = 0; i < _layers[0].GetLength(0); i++)
+        for (int i = 0; i < layers[0].GetLength(0); i++)
         {
-            for (int j = 0; j < _layers[0].GetLength(1); j++)
+            for (int j = 0; j < layers[0].GetLength(1); j++)
             {
-                if (_tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
+                if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                 {
-                    var activateTriggerInProjectiles = _projectilesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
-                    var activateTriggerInSurfaces = _surfacesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
+                    var activateTriggerInProjectiles = projectilesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
+                    var activateTriggerInSurfaces = surfacesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
 
-                    _unitsLayer[i, j].OnBecameFull.AddListener(activateTriggerInProjectiles.TriggerOnBecameFull);
-                    _unitsLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInProjectiles.TriggerOnBecameEmpty);
+                    unitsLayer[i, j].OnBecameFull.AddListener(activateTriggerInProjectiles.TriggerOnBecameFull);
+                    unitsLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInProjectiles.TriggerOnBecameEmpty);
 
-                    _surfacesLayer[i, j].OnBecameFull.AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
-                    _surfacesLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
+                    surfacesLayer[i, j].OnBecameFull.AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
+                    surfacesLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
                 }
             }
         }
@@ -131,22 +129,22 @@ public class MapBasedOnTilemap : MonoBehaviour
     {
         switch (cell.mapLayer)
         {
-            case MapLayer.DefaultUnit: return _unitsLayer;
-            case MapLayer.Projectile: return _projectilesLayer;
-            case MapLayer.Surface: return _surfacesLayer;
+            case MapLayer.DefaultUnit: return unitsLayer;
+            case MapLayer.Projectile: return projectilesLayer;
+            case MapLayer.Surface: return surfacesLayer;
         }
         return null;
     }
 
     public Cell GetUnitsLayerCellByCoordinates(Vector2Int coordinates) 
     {
-        return _unitsLayer[coordinates.x, coordinates.y];
+        return unitsLayer[coordinates.x, coordinates.y];
     }
 
     public List<Cell> GetCellsColumn(Vector2Int coordinates)
     {
         List<Cell> cells = new List<Cell>();
-        foreach (var layer in _layers)
+        foreach (var layer in layers)
         {
             cells.Add(layer[coordinates.x, coordinates.y]);
         }

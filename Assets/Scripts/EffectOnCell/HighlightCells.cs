@@ -14,6 +14,6 @@ public class HighlightCells : BaseCellsEffect
     
     public void TurnOffHighlight()
     {
-        MapBasedOnTilemap.Instance._allCells.ForEach(cell => cell.EnableHighlight(false));
+        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableHighlight(false));
     }
 }

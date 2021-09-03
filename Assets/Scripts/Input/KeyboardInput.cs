@@ -37,7 +37,7 @@ public class KeyboardInput : BaseInput
             selectedCellVisualizer.TurnOffVizualisation();
             _inputIsPossible = false;
             
-            unit._movable.Move(_path[0]);
+            unit.movable.Move(_path[0]);
             _path.RemoveAt(0);
         }
         else

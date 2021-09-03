@@ -12,8 +12,8 @@ public class Level : MonoBehaviour
 
     private void Start()
     {
-        _map._unitsLayer[1, 1].Content = _player;
-        _map._unitsLayer[2, 1].Content = _enemie;
-        _map._projectilesLayer[4, 1].Content = _projectile;
+        _map.unitsLayer[1, 1].Content = _player;
+        _map.unitsLayer[2, 1].Content = _enemie;
+        _map.projectilesLayer[4, 1].Content = _projectile;
     }
 }

@@ -23,7 +23,7 @@ public class Cell : Container<Unit>
             base.Content = value;
             if(value != null)
             {
-                value._currentCell = this;
+                value.currentCell = this;
                 OnBecameFull.Invoke();
             }
             else

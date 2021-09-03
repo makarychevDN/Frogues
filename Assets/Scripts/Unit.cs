@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public MapLayer _unitType;
-    public Movable _movable;
-    public Cell _currentCell;
-    public BaseInput _input;
+    public MapLayer unitType;
+    public Movable movable;
+    public Cell currentCell;
+    public BaseInput input;
 
-    public Vector2Int Coordinates => _currentCell.coordinates;
+    public Vector2Int Coordinates => currentCell.coordinates;
 }
 

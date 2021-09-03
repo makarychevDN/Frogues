@@ -14,7 +14,7 @@ public class CellByMousePosition : BaseCellsTaker
 
         try
         {
-            var cells = new List<Cell> {MapBasedOnTilemap.Instance._unitsLayer[coordinate.x, coordinate.y]};
+            var cells = new List<Cell> {MapBasedOnTilemap.Instance.unitsLayer[coordinate.x, coordinate.y]};
             return cells;
         }
         catch

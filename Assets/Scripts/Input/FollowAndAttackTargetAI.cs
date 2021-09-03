@@ -16,9 +16,9 @@ public class FollowAndAttackTargetAI : BaseInput
     public override void Act()
     {
         if (_pathToTarget == null)
-            _pathToTarget = PathFinder.Instance.FindWay(unit._currentCell, target._currentCell);
+            _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, target.currentCell);
 
-        unit._movable.Move(_pathToTarget[0]);
+        unit.movable.Move(_pathToTarget[0]);
         if(_pathToTarget != null)
             _pathToTarget.RemoveAt(0);
     }

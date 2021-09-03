@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88b3b4a12d79ad4688e7d9584b09e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: {fileID: 236283795}
-  _lastTakenDamage: {fileID: 96417392}
+  hp: {fileID: 236283795}
+  lastTakenDamage: {fileID: 96417392}
 --- !u!1 &80515508
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,16 +344,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f41464a4a95cb249b72b5d9d5fc9ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cellPrefab: {fileID: 1165651659999516455, guid: ca31ee1614ad0a240acfb998b94b9c68, type: 3}
-  _tilemap: {fileID: 1323315313}
-  _wallPrefab: {fileID: 1227699547574843132, guid: c83fa7373295d3445820fce41a628b1c, type: 3}
-  _sizeX: 0
-  _sizeY: 0
-  _allCells: []
-  _projectilesCellsParent: {fileID: 1661045193}
-  _unitsCellsParent: {fileID: 2072984510}
-  _surfacesCellsParent: {fileID: 700603631}
-  _wallsParent: {fileID: 557264419}
+  sizeX: 0
+  sizeY: 0
+  tilemap: {fileID: 1323315313}
+  projectilesCellsParent: {fileID: 1661045193}
+  unitsCellsParent: {fileID: 2072984510}
+  surfacesCellsParent: {fileID: 700603631}
+  wallsParent: {fileID: 557264419}
+  allCells: []
+  cellPrefab: {fileID: 1165651659999516455, guid: ca31ee1614ad0a240acfb998b94b9c68, type: 3}
+  wallPrefab: {fileID: 1227699547574843132, guid: c83fa7373295d3445820fce41a628b1c, type: 3}
 --- !u!4 &89028261
 Transform:
   m_ObjectHideFlags: 0
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb33c110a3b97e459aac1278301da1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unit: {fileID: 2007523290}
+  unit: {fileID: 2007523290}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -1280,10 +1280,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 1
-  _movable: {fileID: 0}
-  _currentCell: {fileID: 0}
-  _input: {fileID: 1079495116}
+  unitType: 0
+  movable: {fileID: 0}
+  currentCell: {fileID: 0}
+  input: {fileID: 1079495116}
 --- !u!4 &520223510
 Transform:
   m_ObjectHideFlags: 0
@@ -1572,10 +1572,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 1
-  _movable: {fileID: 965273714}
-  _currentCell: {fileID: 0}
-  _input: {fileID: 2094003937}
+  unitType: 0
+  movable: {fileID: 965273714}
+  currentCell: {fileID: 0}
+  input: {fileID: 2094003937}
 --- !u!4 &665845234
 Transform:
   m_ObjectHideFlags: 0
@@ -1593,7 +1593,7 @@ Transform:
   - {fileID: 1777012085}
   - {fileID: 808578624}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &686211452
 GameObject:
@@ -1783,8 +1783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88b3b4a12d79ad4688e7d9584b09e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hp: {fileID: 1468647294}
-  _lastTakenDamage: {fileID: 996654556}
+  hp: {fileID: 1468647294}
+  lastTakenDamage: {fileID: 996654556}
 --- !u!1 &767641205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,10 +1877,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 1
-  _movable: {fileID: 260635715}
-  _currentCell: {fileID: 0}
-  _input: {fileID: 844666282}
+  unitType: 0
+  movable: {fileID: 260635715}
+  currentCell: {fileID: 0}
+  input: {fileID: 844666282}
 --- !u!1 &772568690
 GameObject:
   m_ObjectHideFlags: 0
@@ -3037,53 +3037,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb33c110a3b97e459aac1278301da1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unit: {fileID: 768189294}
+  unit: {fileID: 768189294}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1274266964
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1274266966}
-  - component: {fileID: 1274266965}
-  m_Layer: 0
-  m_Name: Pathfinder output
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1274266965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274266964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52be4ecd2062f124bbed69743337597b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1274266966
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274266964}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1287425149
 GameObject:
   m_ObjectHideFlags: 0
@@ -4085,7 +4042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb33c110a3b97e459aac1278301da1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unit: {fileID: 665845233}
+  unit: {fileID: 665845233}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -4118,9 +4075,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f638411c0f0c352419a4767b3ad56ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unit: {fileID: 2007523290}
-  _damage: 5
-  _damageType: 0
+  unit: {fileID: 2007523290}
+  damage: 5
+  damageType: 0
 --- !u!4 &1417338697
 Transform:
   m_ObjectHideFlags: 0
@@ -5217,9 +5174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad22ab61e43b804286f010ff6f3fc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _map: {fileID: 89028260}
-  _lineRenderer: {fileID: 7813407528636564602, guid: 8a5d741051a63954385c5910a3cead87, type: 3}
-  _linesParent: {fileID: 93859045}
+  map: {fileID: 89028260}
 --- !u!4 &1964542728
 Transform:
   m_ObjectHideFlags: 0
@@ -5264,10 +5219,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitType: 0
-  _movable: {fileID: 976620541}
-  _currentCell: {fileID: 0}
-  _input: {fileID: 420434589}
+  unitType: 0
+  movable: {fileID: 976620541}
+  currentCell: {fileID: 0}
+  input: {fileID: 420434589}
 --- !u!4 &2007523291
 Transform:
   m_ObjectHideFlags: 0

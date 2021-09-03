@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Damager : MonoBehaviour
 {
-    [SerializeField] private Unit _unit;
-    [SerializeField] private int _damage;
-    [SerializeField] private DamageType _damageType;
+    [SerializeField] private Unit unit;
+    [SerializeField] private int damage;
+    [SerializeField] private DamageType damageType;
     public void DealDamage()
     {
-        foreach (var cell in MapBasedOnTilemap.Instance.GetCellsColumn(_unit.Coordinates))
+        foreach (var cell in MapBasedOnTilemap.Instance.GetCellsColumn(unit.Coordinates))
         {
             if(!cell.IsEmpty && cell.Content.GetComponentInChildren<Damagable>()!= null)
             {
-                cell.Content.GetComponentInChildren<Damagable>().TakeDamage(_damage, _damageType);
+                cell.Content.GetComponentInChildren<Damagable>().TakeDamage(damage, damageType);
             }
                 
         }

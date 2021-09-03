@@ -192,33 +192,33 @@ public class CycledLinkedList : IEnumerable
 
 public class CycledQueueEnum : IEnumerator
 {
-    public QueueNode _head;
-    public QueueNode _current;
+    public QueueNode head;
+    public QueueNode current;
     public CycledQueueEnum(QueueNode node)
     {
-        _head = node;
+        head = node;
     }
 
     public bool MoveNext()
     {
-        if (_head == null)
+        if (head == null)
         {
             return false;
         }
         
-        if (_current == null)
+        if (current == null)
         {
-            _current = _head;
+            current = head;
             return true;
         }
         
-        _current = _current.Next;
-        return (_current != _head);
+        current = current.Next;
+        return (current != head);
     }
 
     public void Reset()
     {
-        Current = _head;
+        Current = head;
     }
 
     object IEnumerator.Current
@@ -233,12 +233,12 @@ public class CycledQueueEnum : IEnumerator
     {
         get
         {
-            return _current;
+            return current;
         }
 
         set
         {
-            _current = value;
+            current = value;
         }
     }
 }
@@ -270,6 +270,6 @@ public class QueueNode
 
     public QueueNode(Unit unit)
     {
-        this._unit = unit;
+        _unit = unit;
     }
 }

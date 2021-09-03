@@ -5,13 +5,11 @@ using UnityEngine;
 public class PathFinder : MonoBehaviour
 {
     public static PathFinder Instance;
-    public MapBasedOnTilemap _map;
-    public PathFinderNode[,] _nodesGrid;
-    private List<Vector2Int> _dirVectors;
-    [SerializeField] private LineRenderer _lineRenderer;
-    [SerializeField] private Transform _linesParent;
+    public MapBasedOnTilemap map;
     private List<PathFinderNode> _currentNodes;
     private List<PathFinderNode> _childNodes;
+    private PathFinderNode[,] _nodesGrid;
+    private List<Vector2Int> _dirVectors;
 
     private void Start()
     {
@@ -27,8 +25,8 @@ public class PathFinder : MonoBehaviour
     {
         foreach (var item in _nodesGrid)
         {
-            item._usedToPathFinding = false;
-            item._weight = 0;
+            item.usedToPathFinding = false;
+            item.weight = 0;
         }
     }
 
@@ -48,7 +46,7 @@ public class PathFinder : MonoBehaviour
     {
         _currentNodes = new List<PathFinderNode>();
         _currentNodes.Add(_nodesGrid[userCell.coordinates.x, userCell.coordinates.y]);
-        _nodesGrid[userCell.coordinates.x, userCell.coordinates.y]._usedToPathFinding = true;
+        _nodesGrid[userCell.coordinates.x, userCell.coordinates.y].usedToPathFinding = true;
         PathFinderNode smallestWeightNode;
 
         while (_currentNodes.Count != 0)
@@ -57,46 +55,46 @@ public class PathFinder : MonoBehaviour
 
             foreach (var item in _currentNodes)
             {
-                if(!item.Busy && item._weight < smallestWeightNode._weight)
+                if(!item.Busy && item.weight < smallestWeightNode.weight)
                     smallestWeightNode = item;
             }
 
-            foreach (var item in smallestWeightNode._neighbors)
+            foreach (var item in smallestWeightNode.neighbors)
             {
 
-                if (item._coordinates == new Vector2Int(targetCell.coordinates.x, targetCell.coordinates.y))
+                if (item.coordinates == new Vector2Int(targetCell.coordinates.x, targetCell.coordinates.y))
                 {
-                    item._previous = smallestWeightNode;
+                    item.previous = smallestWeightNode;
                     List<Cell> path = new List<Cell>();
                     var tempBackTrackNode = item;
 
                     Cell[,] currentLayer = null;
                     switch (userCell.mapLayer)
                     {
-                        case MapLayer.Projectile: currentLayer = _map._projectilesLayer; break;
-                        case MapLayer.DefaultUnit: currentLayer = _map._unitsLayer; break;
-                        case MapLayer.Surface: currentLayer = _map._surfacesLayer; break;
+                        case MapLayer.Projectile: currentLayer = map.projectilesLayer; break;
+                        case MapLayer.DefaultUnit: currentLayer = map.unitsLayer; break;
+                        case MapLayer.Surface: currentLayer = map.surfacesLayer; break;
                     }
 
-                    while (tempBackTrackNode._coordinates != new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
+                    while (tempBackTrackNode.coordinates != new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
                     {
-                        path.Insert(0, currentLayer[tempBackTrackNode._coordinates.x, tempBackTrackNode._coordinates.y]);
-                        tempBackTrackNode = tempBackTrackNode._previous;
+                        path.Insert(0, currentLayer[tempBackTrackNode.coordinates.x, tempBackTrackNode.coordinates.y]);
+                        tempBackTrackNode = tempBackTrackNode.previous;
                     }
 
                     return path;
                 }
-                else if (!item._usedToPathFinding && !item.Busy)
+                else if (!item.usedToPathFinding && !item.Busy)
                 {
                     _currentNodes.Add(item);
-                    item._weight = Vector2Int.Distance(item._coordinates, userCell.coordinates) + Vector2Int.Distance(item._coordinates, targetCell.coordinates);
-                    item._previous = smallestWeightNode;
-                    item._usedToPathFinding = true;
+                    item.weight = Vector2Int.Distance(item.coordinates, userCell.coordinates) + Vector2Int.Distance(item.coordinates, targetCell.coordinates);
+                    item.previous = smallestWeightNode;
+                    item.usedToPathFinding = true;
                 }
             }
 
             _currentNodes.Remove(smallestWeightNode);
-            smallestWeightNode._usedToPathFinding = true;
+            smallestWeightNode.usedToPathFinding = true;
         }
 
         return null;
@@ -107,7 +105,7 @@ public class PathFinder : MonoBehaviour
         _childNodes = new List<PathFinderNode>();
         _currentNodes = new List<PathFinderNode>();
         _currentNodes.Add(_nodesGrid[userCell.coordinates.x, userCell.coordinates.y]);
-        _nodesGrid[userCell.coordinates.x, userCell.coordinates.y]._usedToPathFinding = true;
+        _nodesGrid[userCell.coordinates.x, userCell.coordinates.y].usedToPathFinding = true;
         int stepCounter = 0;
         List<Cell> resultCells = new List<Cell>();
 
@@ -115,14 +113,14 @@ public class PathFinder : MonoBehaviour
         {
             foreach (var parent in _currentNodes)
             {
-                foreach (var child in parent._neighbors)
+                foreach (var child in parent.neighbors)
                 {
-                    if (!child._usedToPathFinding && !child.Busy)
+                    if (!child.usedToPathFinding && !child.Busy)
                     {
-                        child._previous = parent;
+                        child.previous = parent;
                         _childNodes.Add(child);
-                        child._usedToPathFinding = true;
-                        resultCells.Add(child._cell);
+                        child.usedToPathFinding = true;
+                        resultCells.Add(child.cell);
                     }
                 }
             }
@@ -147,13 +145,13 @@ public class PathFinder : MonoBehaviour
 
     private void InitializeNodesGrid()
     {
-        _nodesGrid = new PathFinderNode[_map._sizeX, _map._sizeY];
+        _nodesGrid = new PathFinderNode[map.sizeX, map.sizeY];
 
-        for (int i = 0; i < _map._sizeX; i++)
+        for (int i = 0; i < map.sizeX; i++)
         {
-            for (int j = 0; j < _map._sizeY; j++)
+            for (int j = 0; j < map.sizeY; j++)
             {
-                _nodesGrid[i,j] = new PathFinderNode(_map._unitsLayer[i, j]);
+                _nodesGrid[i,j] = new PathFinderNode(map.unitsLayer[i, j]);
             }
         }
 
@@ -167,11 +165,7 @@ public class PathFinder : MonoBehaviour
             {
                 try
                 {
-                    node.AddNeighbor(_nodesGrid[node._cell.coordinates.x + dir.x, node._cell.coordinates.y + dir.y]);
-                    var line = Instantiate(_lineRenderer);
-                    line.SetPosition(0, node._cell.transform.position);
-                    line.SetPosition(1, _nodesGrid[node._cell.coordinates.x + dir.x, node._cell.coordinates.y + dir.y]._cell.transform.position);
-                    line.transform.parent = _linesParent;
+                    node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);
                 }
                 catch
                 {
@@ -186,24 +180,24 @@ public class PathFinder : MonoBehaviour
 
 public class PathFinderNode
 {
-    public Cell _cell;
-    public Vector2Int _coordinates;
-    public List<PathFinderNode> _neighbors;
-    public bool _usedToPathFinding;
-    public PathFinderNode _previous;
-    public float _weight;
+    public Cell cell;
+    public Vector2Int coordinates;
+    public List<PathFinderNode> neighbors;
+    public bool usedToPathFinding;
+    public PathFinderNode previous;
+    public float weight;
 
-    public bool Busy => !_cell.IsEmpty;
+    public bool Busy => !cell.IsEmpty;
 
     public PathFinderNode(Cell cell)
     {
-        _cell = cell;
-        _neighbors = new List<PathFinderNode>();
-        _coordinates = _cell.coordinates;
+        this.cell = cell;
+        neighbors = new List<PathFinderNode>();
+        coordinates = this.cell.coordinates;
     }
 
     public void AddNeighbor(PathFinderNode neighbor)
     {
-        _neighbors.Add(neighbor);
+        neighbors.Add(neighbor);
     }
 }

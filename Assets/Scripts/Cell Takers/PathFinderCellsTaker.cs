@@ -8,6 +8,6 @@ public class PathFinderCellsTaker : BaseCellsTaker
     [SerializeField] private IntContainer currentActionPoints;
     public override List<Cell> Take()
     {
-        return PathFinder.Instance.GetCellsAreaByActionPoints(unit._currentCell, currentActionPoints.Content);
+        return PathFinder.Instance.GetCellsAreaByActionPoints(unit.currentCell, currentActionPoints.Content);
     }
 }

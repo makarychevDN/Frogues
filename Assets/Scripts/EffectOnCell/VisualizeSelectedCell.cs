@@ -15,6 +15,6 @@ public class VisualizeSelectedCell : BaseCellsEffect
     
     public void TurnOffVizualisation()
     {
-        MapBasedOnTilemap.Instance._allCells.ForEach(cell => cell.EnableSelectedVisualization(false));
+        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableSelectedVisualization(false));
     }
 }

@@ -22,8 +22,8 @@ public class Movable : CostsActionPointsBehaviour
             return;
 
         SpendActionPoints();
-        unit._currentCell.Content = null;
-        _movableAnimation.Play(unit._currentCell, targetCell);
+        unit.currentCell.Content = null;
+        _movableAnimation.Play(unit.currentCell, targetCell);
         OnMovementStart.Invoke();
     }
 

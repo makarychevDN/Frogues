@@ -9,7 +9,6 @@ public class UnitsQueue : MonoBehaviour
     public static UnitsQueue Instance;
     private CycledLinkedList _unitsList;
     private QueueNode _currentNode;
-
     [SerializeField, ReadOnly] private List<Unit> _debugUnits;
 
     public int Count => _unitsList.Count;
@@ -41,7 +40,7 @@ public class UnitsQueue : MonoBehaviour
             {
                 roundCounter = unit;
             }
-            else if(unit._unitType == MapLayer.Surface)
+            else if(unit.unitType == MapLayer.Surface)
             {
                 _unitsList.AddFirst(unit);
                 _debugUnits.Insert(0, unit);
@@ -65,7 +64,7 @@ public class UnitsQueue : MonoBehaviour
     private void Update()
     {
         if (!CurrentlyActiveObjects.SomethingIsActNow)
-            _currentNode.Unit._input.Act();
+            _currentNode.Unit.input.Act();
     }
 
     public void ActivateNext()

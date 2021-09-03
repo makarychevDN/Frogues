@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 public class AbleToDie : MonoBehaviour
 {
-    [SerializeField] private Unit _unit;
+    [SerializeField] private Unit unit;
     [SerializeField] private UnityEvent OnDeath;
 
     public void Die()
     {
-        _unit._currentCell.Content = null;
-        UnitsQueue.Instance.Remove(_unit);
-        Destroy(_unit.gameObject);
+        unit.currentCell.Content = null;
+        UnitsQueue.Instance.Remove(unit);
+        Destroy(unit.gameObject);
         OnDeath.Invoke();
     }
 

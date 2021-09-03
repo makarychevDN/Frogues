@@ -17,7 +17,7 @@ public class FindWayInValidCells : BaseCellsTaker
         _choosedCell = choosedCellTaker.Take()[0];
         if (validCellsTaker.Take().Contains(_choosedCell))
         {
-            return PathFinder.Instance.FindWay(user._currentCell, _choosedCell);
+            return PathFinder.Instance.FindWay(user.currentCell, _choosedCell);
         }
 
         return null;
