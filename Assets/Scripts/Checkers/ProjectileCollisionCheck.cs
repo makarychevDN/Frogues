@@ -5,16 +5,16 @@ using UnityEngine.Events;
 
 public class ProjectileCollisionCheck : MonoBehaviour
 {
-    public Unit _unit;
+    public Unit unit;
     public UnityEvent OnTrue;
     public UnityEvent OnFalse;
 
     public void Check()
     {
-        if (_unit == null)
-            _unit = GetComponentInParent<Unit>();
+        if (unit == null)
+            unit = GetComponentInParent<Unit>();
 
-        if(!MapBasedOnTilemap.Instance.GetUnitsLayerCellByCoordinates(_unit.Coordinates).isEmpty)
+        if(!MapBasedOnTilemap.Instance.GetUnitsLayerCellByCoordinates(unit.Coordinates).isEmpty)
         {
             OnTrue.Invoke();
         }
