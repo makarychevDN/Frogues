@@ -6,18 +6,20 @@ using UnityEngine;
 public class MovableAnimation : CurrentlyActiveBehaviour
 {
     [SerializeField] private Transform sprite;
+    [SerializeField] private Transform shadow;
     [Range(0, 30), SerializeField] private float speedInUnitsPerSecond;
     [SerializeField] private float jumpHeight;
     [SerializeField] private AnimationCurve jumpCurve;
     private Cell _startCell, _targetCell;
     private float _currentTime, _totalTime, _distance;
     private bool _isPlaying;
-    private float _spriteAlignment;
+    private float _spriteAlignment, _shadowAlignment;
     private Movable _movable;
 
     void Start()
     {
         _spriteAlignment = sprite.parent.localPosition.y;
+        _shadowAlignment = shadow.parent.localPosition.y;
         _totalTime = jumpCurve.keys[jumpCurve.keys.Length - 1].time;
         _movable = GetComponent<Movable>();
     }
@@ -36,9 +38,17 @@ public class MovableAnimation : CurrentlyActiveBehaviour
         if (!_isPlaying)
             return;
 
-        sprite.position = Vector3.Lerp(_startCell.transform.position, _targetCell.transform.position, _currentTime);
+        var lerpPosition = Vector3.Lerp(_startCell.transform.position, _targetCell.transform.position, _currentTime);
+        float scaledShadowSize = 0;
+
+        sprite.position = lerpPosition;
         sprite.position += Vector3.up * _spriteAlignment;
         sprite.position += Vector3.up * jumpCurve.Evaluate(_currentTime) * jumpHeight;
+
+        shadow.position = lerpPosition;
+        shadow.position += Vector3.up * _shadowAlignment;
+        scaledShadowSize = Mathf.Clamp(scaledShadowSize, 0, 1);
+        shadow.localScale = new Vector3(1 - jumpCurve.Evaluate(_currentTime) * jumpHeight, 1 - jumpCurve.Evaluate(_currentTime) * jumpHeight, 0);
         TimerStep();
     }
 
@@ -51,6 +61,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
             _isPlaying = false;
             ActiveNow = false;
             sprite.localPosition = Vector3.zero;
+            shadow.localPosition = Vector3.zero;
             _movable.StopMovement(_targetCell);
         }
     }
