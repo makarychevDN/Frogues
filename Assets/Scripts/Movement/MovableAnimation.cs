@@ -47,8 +47,8 @@ public class MovableAnimation : CurrentlyActiveBehaviour
 
         shadow.position = lerpPosition;
         shadow.position += Vector3.up * _shadowAlignment;
-        scaledShadowSize = Mathf.Clamp(scaledShadowSize, 0, 1);
-        shadow.localScale = new Vector3(1 - jumpCurve.Evaluate(_currentTime) * jumpHeight, 1 - jumpCurve.Evaluate(_currentTime) * jumpHeight, 0);
+        scaledShadowSize = Mathf.Clamp(1 - jumpCurve.Evaluate(_currentTime) * jumpHeight, 0, 1);
+        shadow.localScale = new Vector3(scaledShadowSize, scaledShadowSize, 0);
         TimerStep();
     }
 
