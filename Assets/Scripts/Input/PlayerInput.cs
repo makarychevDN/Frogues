@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
-public class KeyboardInput : BaseInput
+public class PlayerInput : BaseInput
 {
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     
     [SerializeField] private HighlightCells cellsHighlighter;
     [SerializeField] private VisualizePath pathVisualizer;
     [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
-    
+    [SerializeField, ReadOnly] private InputType _currentInput = InputType.movement;
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
+    private float _currentInputTypeIndex;
 
     public override void Act()
     {
@@ -22,9 +24,29 @@ public class KeyboardInput : BaseInput
     {
         if (!_inputIsPossible)
             return;
-        
+
+        cellsHighlighter.TurnOffHighlight();
+        pathVisualizer.TurnOffVisualization();
+        selectedCellVisualizer.TurnOffVizualisation();
+        _currentInputTypeIndex = (int)_currentInput;
+
         selectedCellVisualizer.ApplyEffect();
-        
+
+
+        switch (_currentInput)
+        {
+            case InputType.movement: MovementInput(); break;
+            case InputType.attack: AttackInput(); break;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+            _currentInput++;
+
+        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 4);
+    }
+
+    private void MovementInput()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
@@ -32,11 +54,8 @@ public class KeyboardInput : BaseInput
 
         if (_path.Count != 0)
         {
-            cellsHighlighter.TurnOffHighlight();
-            pathVisualizer.TurnOffVisualization();
-            selectedCellVisualizer.TurnOffVizualisation();
             _inputIsPossible = false;
-            
+
             unit.movable.Move(_path[0]);
             _path.RemoveAt(0);
         }
@@ -46,4 +65,14 @@ public class KeyboardInput : BaseInput
             cellsHighlighter.ApplyEffect();
         }
     }
+
+    private void AttackInput()
+    {
+
+    }
+}
+
+public enum InputType
+{
+    movement = 0, attack = 1, push = 2, research = 3
 }
