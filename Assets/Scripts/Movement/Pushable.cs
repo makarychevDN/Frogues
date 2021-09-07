@@ -1,19 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Pushable : MonoBehaviour
 {
-    [SerializeField] private Unit unit;    
-    [SerializeField] private Movable movable;
+    [SerializeField] private Unit unit;
+    [SerializeField, ReadOnly] private Vector2IntContainer lastPushDirection;
 
     public UnityEvent OnPushed;
     
     public void Push(Cell pusherCell)
     {
-        MapBasedOnTilemap.Instance.FindNeigborhoodForCell(unit.currentCell, CalculateMovementVector(pusherCell));
+        OnPushed.Invoke();
+        lastPushDirection.Content = CalculateMovementVector(pusherCell);
     }
 
     private Vector2Int CalculateMovementVector(Cell pusherCell)

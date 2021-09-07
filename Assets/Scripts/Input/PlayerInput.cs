@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class PlayerInput : BaseInput
 {
-    [SerializeField] private FindWayInValidCells findWayInValidCells;
+    [SerializeField, ReadOnly] private InputType _currentInput = InputType.movement;
     
     [SerializeField] private HighlightCells cellsHighlighter;
-    [SerializeField] private VisualizePath pathVisualizer;
     [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
-    [SerializeField, ReadOnly] private InputType _currentInput = InputType.movement;
+
+    [Header("Movement Input")]
+    [SerializeField] private FindWayInValidCells findWayInValidCells;
+    [SerializeField] private VisualizePath pathVisualizer;
+
+    [Header("Push Input")]
+    //[SerializeField] private FindWayInValidCells findWayInValidCells;
+    //[SerializeField] private VisualizePath pathVisualizer;
+
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
     private float _currentInputTypeIndex;
@@ -26,6 +33,7 @@ public class PlayerInput : BaseInput
             return;
 
         cellsHighlighter.TurnOffHighlight();
+        cellsHighlighter.ResetColor();
         pathVisualizer.TurnOffVisualization();
         selectedCellVisualizer.TurnOffVizualisation();
         _currentInputTypeIndex = (int)_currentInput;
@@ -37,6 +45,7 @@ public class PlayerInput : BaseInput
         {
             case InputType.movement: MovementInput(); break;
             case InputType.attack: AttackInput(); break;
+            case InputType.push: PushInput(); break;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -67,6 +76,11 @@ public class PlayerInput : BaseInput
     }
 
     private void AttackInput()
+    {
+
+    }
+
+    private void PushInput()
     {
 
     }

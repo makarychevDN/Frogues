@@ -11,9 +11,9 @@ public class Cell : Container<Unit>
     public UnityEvent OnBecameFull;
     public UnityEvent OnBecameEmpty;
 
-    [SerializeField] private GameObject _tileHighlighter;
-    [SerializeField] private GameObject _pathDot;
-    [SerializeField] private GameObject _selectedVisualization;
+    [SerializeField] private SpriteRenderer tileHighlighter;
+    [SerializeField] private GameObject pathDot;
+    [SerializeField] private GameObject selectedVisualization;
 
     public override Unit Content 
     { 
@@ -33,18 +33,31 @@ public class Cell : Container<Unit>
         }
     }
 
+    public Color HighlightColor
+    {
+        set
+        {
+            tileHighlighter.color = new Color(value.r, value.g, value.b, 16);
+        }
+    }
+
+    public void ResetColor()
+    {
+        tileHighlighter.color = new Color(255, 255, 255, 16);
+    }
+
     public void EnableHighlight(bool isOn)
     {
-        _tileHighlighter.SetActive(isOn);
+        tileHighlighter.gameObject.SetActive(isOn);
     }
 
     public void EnablePathDot(bool isOn)
     {
-        _pathDot.SetActive(isOn);
+        pathDot.SetActive(isOn);
     }
     
     public void EnableSelectedVisualization(bool isOn)
     {
-        _selectedVisualization.SetActive(isOn);
+        selectedVisualization.SetActive(isOn);
     }
 }
