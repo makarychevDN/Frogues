@@ -8,6 +8,8 @@ public class Unit : MonoBehaviour
     public Movable movable;
     public Cell currentCell;
     public BaseInput input;
+    public Pusher pusher;
+    public Pushable pushable;
 
     public Vector2Int Coordinates => currentCell.coordinates;
 }
