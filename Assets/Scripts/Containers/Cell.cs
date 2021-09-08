@@ -10,8 +10,10 @@ public class Cell : Container<Unit>
 
     public UnityEvent OnBecameFull;
     public UnityEvent OnBecameEmpty;
-
-    [SerializeField] private SpriteRenderer tileHighlighter;
+    
+    [SerializeField] private GameObject defaultTileHighlighter;
+    [SerializeField] private SpriteRenderer customTileHighlighter;
+    [SerializeField] private byte customTileHighlighterAlpha; 
     [SerializeField] private GameObject pathDot;
     [SerializeField] private GameObject selectedVisualization;
 
@@ -32,23 +34,22 @@ public class Cell : Container<Unit>
             }
         }
     }
-
-    public Color HighlightColor
+    
+    public void EnableCustomHighlight(bool isOn, Color color)
     {
-        set
-        {
-            tileHighlighter.color = new Color(value.r, value.g, value.b, 16);
-        }
+        customTileHighlighter.color = new Color(color.r, color.g, color.b, 32);
+        EnableCustomHighlight(isOn);
+    }
+    
+    public void EnableCustomHighlight(bool isOn)
+    {
+        EnableDefaultHighlight(false);
+        customTileHighlighter.gameObject.SetActive(isOn);
     }
 
-    public void ResetColor()
+    public void EnableDefaultHighlight(bool isOn)
     {
-        tileHighlighter.color = new Color(255, 255, 255, 16);
-    }
-
-    public void EnableHighlight(bool isOn)
-    {
-        tileHighlighter.gameObject.SetActive(isOn);
+        defaultTileHighlighter.SetActive(isOn);
     }
 
     public void EnablePathDot(bool isOn)

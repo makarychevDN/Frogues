@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class HighlightCells : BaseCellsEffect
 {
-    [SerializeField] private BaseCellsTaker cellsTaker;
+    [SerializeField] protected BaseCellsTaker cellsTaker;
     
     public override void ApplyEffect()
     {
         TurnOffHighlight();
-        cellsTaker.Take().ForEach(cell => cell.EnableHighlight(true));
+        cellsTaker.Take().ForEach(cell => cell.EnableDefaultHighlight(true));
     }
     
-    public void TurnOffHighlight()
+    public virtual void TurnOffHighlight()
     {
-        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableHighlight(false));
-    }
-
-    public void ResetColor()
-    {
-        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.ResetColor());
+        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableDefaultHighlight(false));
     }
 }

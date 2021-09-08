@@ -6,21 +6,21 @@ using UnityEngine;
 public class PlayerInput : BaseInput
 {
     [SerializeField, ReadOnly] private InputType _currentInput = InputType.movement;
-    
-    [SerializeField] private HighlightCells cellsHighlighter;
     [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
 
     [Header("Movement Input")]
+    [SerializeField] private HighlightCells movementCellsHighlighter;
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     [SerializeField] private VisualizePath pathVisualizer;
 
-    [Header("Push Input")]
-    //[SerializeField] private FindWayInValidCells findWayInValidCells;
-    //[SerializeField] private VisualizePath pathVisualizer;
+    [Header("Push Input")] 
+    [SerializeField] private HighlightCells pushCellsHighlighter;
+    [SerializeField] private BaseCellsTaker validForPushCellsTaker;
+    [SerializeField] private CustomHighlightCells selectedPushCellHighlighter;
+    [SerializeField] private CellByMousePosition cellByMousePosition;
 
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
-    private float _currentInputTypeIndex;
 
     public override void Act()
     {
@@ -32,11 +32,9 @@ public class PlayerInput : BaseInput
         if (!_inputIsPossible)
             return;
 
-        cellsHighlighter.TurnOffHighlight();
-        cellsHighlighter.ResetColor();
+        movementCellsHighlighter.TurnOffHighlight();
         pathVisualizer.TurnOffVisualization();
         selectedCellVisualizer.TurnOffVizualisation();
-        _currentInputTypeIndex = (int)_currentInput;
 
         selectedCellVisualizer.ApplyEffect();
 
@@ -71,7 +69,7 @@ public class PlayerInput : BaseInput
         else
         {
             pathVisualizer.ApplyEffect();
-            cellsHighlighter.ApplyEffect();
+            movementCellsHighlighter.ApplyEffect();
         }
     }
 
@@ -82,7 +80,21 @@ public class PlayerInput : BaseInput
 
     private void PushInput()
     {
-
+        validForPushCellsTaker.Take().ForEach(cell => { cell.EnableDefaultHighlight(false); cell.EnableCustomHighlight(false); });
+        pushCellsHighlighter.ApplyEffect();
+        
+        if(cellByMousePosition.Take() == null)
+            return;
+        
+        if (validForPushCellsTaker.Take().Contains(cellByMousePosition.Take()[0]))
+        {
+            cellByMousePosition.Take()[0].EnableCustomHighlight(true, Color.red);
+            
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                unit.pusher.ApplyEffect();
+            }
+        }
     }
 }
 
