@@ -14,8 +14,8 @@ public class Pushable : MonoBehaviour
     
     public void Push(Cell pusherCell)
     {
-        OnPushed.Invoke();
         lastPushDirection.Content = CalculateMovementVector(pusherCell);
+        OnPushed.Invoke();
     }
 
     private Vector2Int CalculateMovementVector(Cell pusherCell)
