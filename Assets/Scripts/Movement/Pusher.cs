@@ -13,9 +13,14 @@ public class Pusher : BaseCellsEffect
     
     public override void ApplyEffect()
     {
-        foreach (var cell in cellsTaker.Take())
+        var cells = cellsTaker.Take();
+        
+        if(cells == null)
+            return;
+        
+        foreach (var cell in cells)
         {
-            if (cell.Content.pushable != null)
+            if (!cell.IsEmpty && cell.Content.pushable != null)
             {
                 cell.Content.pushable.Push(unit.currentCell);
             }
