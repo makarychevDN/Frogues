@@ -29,7 +29,7 @@ public class Movable : CostsActionPointsBehaviour
     
     public void Move(Cell targetCell, int movementCost)
     {
-        if (!targetCell.IsEmpty || !IsActionPointsEnough())
+        if (!targetCell.IsEmpty || !IsActionPointsEnough(movementCost))
             return;
 
         SpendActionPoints(movementCost);
