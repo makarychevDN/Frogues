@@ -16,7 +16,6 @@ public class PlayerInput : BaseInput
     [Header("Push Input")] 
     [SerializeField] private HighlightValidateCells pushCellsHighlighter;
     [SerializeField] private BaseCellsTaker validForPushCellsTaker;
-    [SerializeField] private HighlightSelectedCells selectedPushCellHighlighter;
     [SerializeField] private CellByMousePosition cellByMousePosition;
 
     private List<Cell> _path = new List<Cell>();
@@ -29,35 +28,13 @@ public class PlayerInput : BaseInput
 
     private void Update()
     {
-        if (!_inputIsPossible)
+        if (!UnitsQueue.Instance.IsUnitCurrent(unit))
             return;
 
-        movementCellsHighlighter.TurnOffHighlight();
-        pathVisualizer.TurnOffVisualization();
-        selectedCellVisualizer.TurnOffVizualisation();
+        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
 
-        selectedCellVisualizer.ApplyEffect();
-
-
-        switch (_currentInput)
-        {
-            case InputType.movement: MovementInput(); break;
-            case InputType.attack: AttackInput(); break;
-            case InputType.push: PushInput(); break;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-            _currentInput++;
-
-        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 4);
-    }
-
-    private void MovementInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
-        }
+        if (!_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
+            return;
 
         if (_path.Count != 0)
         {
@@ -65,11 +42,30 @@ public class PlayerInput : BaseInput
 
             unit.movable.Move(_path[0]);
             _path.RemoveAt(0);
+            return;
         }
-        else
+
+        selectedCellVisualizer.ApplyEffect();
+
+        switch (_currentInput)
         {
-            pathVisualizer.ApplyEffect();
-            movementCellsHighlighter.ApplyEffect();
+            case InputType.movement: MovementInput(); break;
+            case InputType.attack: AttackInput(); break;
+            case InputType.push: PushInput(); break;
+            case InputType.research: ResearchInput(); break;
+        }
+
+        ChangeInputTypeInput();
+    }
+
+    private void MovementInput()
+    {
+        pathVisualizer.ApplyEffect();
+        movementCellsHighlighter.ApplyEffect();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
         }
     }
 
@@ -95,6 +91,19 @@ public class PlayerInput : BaseInput
                 unit.pusher.ApplyEffect();
             }
         }
+    }
+
+    private void ResearchInput()
+    {
+
+    }
+
+    private void ChangeInputTypeInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+            _currentInput++;
+
+        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 4);
     }
 }
 
