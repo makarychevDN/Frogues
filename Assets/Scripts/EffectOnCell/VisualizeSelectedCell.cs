@@ -10,11 +10,11 @@ public class VisualizeSelectedCell : BaseCellsEffect
     {
         TurnOffVizualisation();
         if (cellTaker.Take() != null)
-            cellTaker.Take().ForEach(cell => cell.EnableSelectedVisualization(true));
+            cellTaker.Take().ForEach(cell => cell.EnableOnMouseHoverVisualization(true));
     }
     
     public void TurnOffVizualisation()
     {
-        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableSelectedVisualization(false));
+        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableOnMouseHoverVisualization(false));
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6161211884947967048}
   - component: {fileID: 6498996384018904449}
   m_Layer: 0
-  m_Name: Tile Default Highlighter
+  m_Name: Tile Validate Cell Highlighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8551758692089983343}
   - component: {fileID: 5534605380508543185}
   m_Layer: 0
-  m_Name: Scelected Visualization
+  m_Name: On Mouse Hover Visualization
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -223,11 +223,10 @@ MonoBehaviour:
   OnBecameEmpty:
     m_PersistentCalls:
       m_Calls: []
-  defaultTileHighlighter: {fileID: 3690338736364865544}
-  customTileHighlighter: {fileID: 6865844051898485949}
-  customTileHighlighterAlpha: 32
+  validateCellTileHighlighter: {fileID: 3690338736364865544}
+  selectedCellTileHighlighter: {fileID: 7531705947205310426}
   pathDot: {fileID: 7786331965994927406}
-  selectedVisualization: {fileID: 5131216294206115072}
+  onMouseHoverVisualization: {fileID: 5131216294206115072}
 --- !u!114 &4402283793288881869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +251,7 @@ GameObject:
   - component: {fileID: 514374468575937975}
   - component: {fileID: 6865844051898485949}
   m_Layer: 0
-  m_Name: Tile Custom Highlighter
+  m_Name: Tile Selected Cell Highlighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -314,7 +313,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: e7982fc3e9f2dc84faaa7a2ff5cefdee, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6392157}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -11,11 +11,10 @@ public class Cell : Container<Unit>
     public UnityEvent OnBecameFull;
     public UnityEvent OnBecameEmpty;
     
-    [SerializeField] private GameObject defaultTileHighlighter;
-    [SerializeField] private SpriteRenderer customTileHighlighter;
-    [SerializeField] private byte customTileHighlighterAlpha; 
+    [SerializeField] private GameObject validateCellTileHighlighter;
+    [SerializeField] private GameObject selectedCellTileHighlighter;
     [SerializeField] private GameObject pathDot;
-    [SerializeField] private GameObject selectedVisualization;
+    [SerializeField] private GameObject onMouseHoverVisualization;
 
     public override Unit Content 
     { 
@@ -35,21 +34,15 @@ public class Cell : Container<Unit>
         }
     }
     
-    public void EnableCustomHighlight(bool isOn, Color color)
+    public void EnableSelectedCellHighlight(bool isOn)
     {
-        customTileHighlighter.color = new Color(color.r, color.g, color.b, 32);
-        EnableCustomHighlight(isOn);
-    }
-    
-    public void EnableCustomHighlight(bool isOn)
-    {
-        EnableDefaultHighlight(false);
-        customTileHighlighter.gameObject.SetActive(isOn);
+        EnableValidateCellHighlight(false);
+        selectedCellTileHighlighter.gameObject.SetActive(isOn);
     }
 
-    public void EnableDefaultHighlight(bool isOn)
+    public void EnableValidateCellHighlight(bool isOn)
     {
-        defaultTileHighlighter.SetActive(isOn);
+        validateCellTileHighlighter.SetActive(isOn);
     }
 
     public void EnablePathDot(bool isOn)
@@ -57,8 +50,8 @@ public class Cell : Container<Unit>
         pathDot.SetActive(isOn);
     }
     
-    public void EnableSelectedVisualization(bool isOn)
+    public void EnableOnMouseHoverVisualization(bool isOn)
     {
-        selectedVisualization.SetActive(isOn);
+        onMouseHoverVisualization.SetActive(isOn);
     }
 }
