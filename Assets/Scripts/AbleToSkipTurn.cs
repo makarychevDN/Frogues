@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class AbleToSkipTurn : MonoBehaviour
 {
+    [SerializeField] private Unit unit;
+
     public void AutoSkip()
     {
-        UnitsQueue.Instance.ActivateNext();
+        if(UnitsQueue.Instance.IsUnitCurrent(unit))
+            UnitsQueue.Instance.ActivateNext();
     }
 
     public void SkipTurnWithAnimation()
     {
-        UnitsQueue.Instance.ActivateNext();
+        if (UnitsQueue.Instance.IsUnitCurrent(unit))
+            UnitsQueue.Instance.ActivateNext();
     }
 }

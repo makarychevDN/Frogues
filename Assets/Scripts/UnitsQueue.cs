@@ -13,6 +13,7 @@ public class UnitsQueue : MonoBehaviour
 
     public int Count => _unitsList.Count;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -20,6 +21,11 @@ public class UnitsQueue : MonoBehaviour
 
         InitQueue();
         ActivateNext();
+    }
+
+    public bool IsUnitCurrent(Unit unit)
+    {
+        return _currentNode.Unit == unit;
     }
 
     public void InitQueue()
