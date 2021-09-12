@@ -5,11 +5,11 @@ using UnityEngine;
 public class CostsActionPointsBehaviour : MonoBehaviour
 {
     [SerializeField] private ActionPoints actionPoints;
-    [SerializeField] private int defaultActionPointsCost;
+    [SerializeField] private IntContainer defaultActionPointsCost;
 
     public bool IsActionPointsEnough()
     {
-        return IsActionPointsEnough(defaultActionPointsCost);
+        return IsActionPointsEnough(defaultActionPointsCost.Content);
     }
 
     public bool IsActionPointsEnough(int actionPointsCost) 
@@ -19,7 +19,7 @@ public class CostsActionPointsBehaviour : MonoBehaviour
 
     public void SpendActionPoints()
     {
-        actionPoints.SpendPoints(defaultActionPointsCost);
+        actionPoints.SpendPoints(defaultActionPointsCost.Content);
     }
 
     public void SpendActionPoints(int actionPointsCost)

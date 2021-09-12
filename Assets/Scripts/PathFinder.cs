@@ -36,10 +36,10 @@ public class PathFinder : MonoBehaviour
         return AStar(userCell, targetCell);
     }
 
-    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints)
+    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movemetCost)
     {
         ResetNodes();
-        return WaveAlgorithm(userCell, actionPoints);
+        return WaveAlgorithm(userCell, movemetCost == 0 ? 100 : actionPoints / movemetCost);
     }
 
     private List<Cell> AStar(Cell userCell, Cell targetCell)
