@@ -54,4 +54,12 @@ public class Cell : Container<Unit>
     {
         onMouseHoverVisualization.SetActive(isOn);
     }
+
+    public void DisableAllVisualization()
+    {
+        EnableSelectedCellHighlight(false);
+        EnableValidateCellHighlight(false);
+        EnablePathDot(false);
+        EnableOnMouseHoverVisualization(false);
+    }
 }
