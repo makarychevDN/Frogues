@@ -12,6 +12,6 @@ public class HighlightSelectedCells : HighlightValidateCells
     
     public override void TurnOffHighlight()
     {
-        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableSelectedCellHighlight(false));
+        Map.Instance.allCells.ForEach(cell => cell.EnableSelectedCellHighlight(false));
     }
 }

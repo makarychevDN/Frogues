@@ -37,7 +37,7 @@ public class TakeCellsByRadius : BaseCellsTaker
         
         foreach (var dirVector in _dirVectors)
         {
-            cells.Add(MapBasedOnTilemap.Instance.FindNeigborhoodForCell(unit.currentCell, dirVector));
+            cells.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, dirVector));
         }
         
         return cells;

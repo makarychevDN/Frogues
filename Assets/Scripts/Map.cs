@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapBasedOnTilemap : MonoBehaviour
+public class Map : MonoBehaviour
 {
-    public static MapBasedOnTilemap Instance;
+    public static Map Instance;
 
     public int sizeX, sizeY;
     public Tilemap tilemap;

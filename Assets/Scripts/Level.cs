@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : MonoBehaviour
+public class Level : MonoBehaviour //да сейчас это используется как заглушка для расставления юнитов по карте, потом оно будет более полезным
 {
     [SerializeField] private Unit _player;
     [SerializeField] private Unit _projectile;
     [SerializeField] private Unit _enemie;
-    [SerializeField] private MapBasedOnTilemap _map;
+    [SerializeField] private Map _map;
     [SerializeField] private Vector2Int _startPos;
 
     private void Start()

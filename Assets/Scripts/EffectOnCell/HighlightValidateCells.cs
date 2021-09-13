@@ -14,6 +14,6 @@ public class HighlightValidateCells : BaseCellsEffect
     
     public virtual void TurnOffHighlight()
     {
-        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnableValidateCellHighlight(false));
+        Map.Instance.allCells.ForEach(cell => cell.EnableValidateCellHighlight(false));
     }
 }

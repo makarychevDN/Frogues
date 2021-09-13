@@ -7,6 +7,9 @@ using UnityEngine;
 public class UnitsQueue : MonoBehaviour
 {
     public static UnitsQueue Instance;
+    [SerializeField] private Unit player;
+    [SerializeField] private Unit roundCounter;
+
     private CycledLinkedList _unitsList;
     private QueueNode _currentNode;
     [SerializeField, ReadOnly] private List<Unit> _debugUnits;
@@ -32,20 +35,14 @@ public class UnitsQueue : MonoBehaviour
     {
         _unitsList = new CycledLinkedList();
 
-        var actUnits = FindObjectsOfType<Unit>().Where(x => x.GetComponentInChildren<BaseInput>() != null).ToList();
-        Unit player = null;
-        Unit roundCounter = null;
+        var actUnits = FindObjectsOfType<Unit>().Where(x => x.input != null).ToList();
 
         foreach(var unit in actUnits)
         {
-            if(unit.name == "Player")
-            {
-                player = unit;
-            }
-            else if (unit.name == "Round Counter Unit")
-            {
-                roundCounter = unit;
-            }
+        
+            if (unit == player || unit == roundCounter)
+                continue;
+
             else if(unit.unitType == MapLayer.Surface)
             {
                 _unitsList.AddFirst(unit);

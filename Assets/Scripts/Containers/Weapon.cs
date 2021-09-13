@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : CostsActionPointsBehaviour
 {
-    [SerializeField] private BaseCellsTaker baseCellsTaker;
+    //coming soon
     [SerializeField] private List<BaseCellsEffect> cellEffects;
 
     public void Use()

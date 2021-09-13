@@ -10,6 +10,6 @@ public class ApplyPush : MonoBehaviour
 
     public void Apply()
     {
-        movable.Move(MapBasedOnTilemap.Instance.FindNeigborhoodForCell(unit.currentCell, lastTakenDireaction.Content), 0);
+        movable.Move(Map.Instance.FindNeigborhoodForCell(unit.currentCell, lastTakenDireaction.Content), 0);
     }
 }

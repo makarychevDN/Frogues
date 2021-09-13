@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathFinder : MonoBehaviour
 {
     public static PathFinder Instance;
-    public MapBasedOnTilemap map;
+    public Map map;
     private List<PathFinderNode> _currentNodes;
     private List<PathFinderNode> _childNodes;
     private PathFinderNode[,] _nodesGrid;
@@ -169,7 +169,9 @@ public class PathFinder : MonoBehaviour
                 }
                 catch
                 {
-
+                    // раз уж на то пошло то у меня есть конкретный вопрос:
+                    // я знаю, что это несколько грубое решение проблемы, но прописывать кучу if(coordinates < 0) и прочее тоже как-то не особо изящно
+                    // собственно вопрос, есть ли альтернативы? Просто лишних 4 ифа не очень как-то прописывать, когда условие то по сути одно "если вышел за пределы массива"
                 }
             }
         }

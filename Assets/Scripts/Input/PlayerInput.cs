@@ -31,7 +31,7 @@ public class PlayerInput : BaseInput
         if (!UnitsQueue.Instance.IsUnitCurrent(unit))
             return;
 
-        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
+        Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
 
         if (!_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
             return;
@@ -71,7 +71,7 @@ public class PlayerInput : BaseInput
 
     private void AttackInput()
     {
-
+        //coming soon
     }
 
     private void PushInput()
@@ -95,7 +95,7 @@ public class PlayerInput : BaseInput
 
     private void ResearchInput()
     {
-
+        //coming soon
     }
 
     private void ChangeInputTypeInput()

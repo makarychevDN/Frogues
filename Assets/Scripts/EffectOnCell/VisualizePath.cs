@@ -15,6 +15,6 @@ public class VisualizePath : BaseCellsEffect
     
     public void TurnOffVisualization()
     {
-        MapBasedOnTilemap.Instance.allCells.ForEach(cell => cell.EnablePathDot(false));
+        Map.Instance.allCells.ForEach(cell => cell.EnablePathDot(false));
     }
 }

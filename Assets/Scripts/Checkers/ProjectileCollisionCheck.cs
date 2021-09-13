@@ -14,7 +14,7 @@ public class ProjectileCollisionCheck : MonoBehaviour
         if (unit == null)
             unit = GetComponentInParent<Unit>();
 
-        if(!MapBasedOnTilemap.Instance.GetUnitsLayerCellByCoordinates(unit.Coordinates).IsEmpty)
+        if(!Map.Instance.GetUnitsLayerCellByCoordinates(unit.Coordinates).IsEmpty)
         {
             OnTrue.Invoke();
         }

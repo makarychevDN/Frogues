@@ -9,7 +9,7 @@ public class Damager : MonoBehaviour
     [SerializeField] private DamageType damageType;
     public void DealDamage()
     {
-        foreach (var cell in MapBasedOnTilemap.Instance.GetCellsColumn(unit.Coordinates))
+        foreach (var cell in Map.Instance.GetCellsColumn(unit.Coordinates))
         {
             if(!cell.IsEmpty && cell.Content.GetComponentInChildren<Damagable>()!= null)
             {
