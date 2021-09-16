@@ -8,11 +8,16 @@ public class VisualizeSelectedCell : BaseCellsEffect
 
     public override void ApplyEffect()
     {
-        TurnOffVizualisation();
-        if (cellTaker.Take() != null)
-            cellTaker.Take().ForEach(cell => cell.EnableOnMouseHoverVisualization(true));
+        ApplyEffect(cellTaker.Take());
     }
-    
+
+    public override void ApplyEffect(List<Cell> cells)
+    {
+        TurnOffVizualisation();
+        if (cells != null)
+            cells.ForEach(cell => cell.EnableOnMouseHoverVisualization(true));
+    }
+
     public void TurnOffVizualisation()
     {
         Map.Instance.allCells.ForEach(cell => cell.EnableOnMouseHoverVisualization(false));

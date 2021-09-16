@@ -8,11 +8,16 @@ public class VisualizePath : BaseCellsEffect
 
     public override void ApplyEffect()
     {
-        TurnOffVisualization();
-        if (pathFinderInValidCells.Take() != null)
-            pathFinderInValidCells.Take().ForEach(cell => cell.EnablePathDot(true));
+        ApplyEffect(pathFinderInValidCells.Take());
     }
-    
+
+    public override void ApplyEffect(List<Cell> cells)
+    {
+        TurnOffVisualization();
+        if (cells != null)
+            cells.ForEach(cell => cell.EnablePathDot(true));
+    }
+
     public void TurnOffVisualization()
     {
         Map.Instance.allCells.ForEach(cell => cell.EnablePathDot(false));
