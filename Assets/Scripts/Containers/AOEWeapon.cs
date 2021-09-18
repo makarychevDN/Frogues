@@ -14,6 +14,7 @@ public class AOEWeapon : Weapon
         if (!actionPoints.CheckIsActionPointsEnough(defaultActionPointsCost.Content))
             return;
 
+        SpendActionPoints();
         var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
         cellEffects.ForEach(effect => effect.ApplyEffect(cells));
     }
