@@ -18,6 +18,9 @@ public class PlayerInput : BaseInput
     [SerializeField] private BaseCellsTaker validForPushCellsTaker;
     [SerializeField] private CellByMousePosition cellByMousePosition;
 
+    [Header("Weapon Input")]
+    [SerializeField] private Weapon weapon;
+
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
 
@@ -71,7 +74,7 @@ public class PlayerInput : BaseInput
 
     private void AttackInput()
     {
-        //coming soon
+        weapon.HighlightCells();
     }
 
     private void PushInput()
