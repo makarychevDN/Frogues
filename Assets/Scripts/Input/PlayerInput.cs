@@ -76,7 +76,7 @@ public class PlayerInput : BaseInput
 
     private void PushInput()
     {
-        validForPushCellsTaker.Take().ForEach(cell => { cell.EnableValidateCellHighlight(false); cell.EnableSelectedCellHighlight(false); });
+        validForPushCellsTaker.Take().ForEach(cell => { cell.DisableAllVisualization(); });
         pushCellsHighlighter.ApplyEffect();
         
         if(cellByMousePosition.Take() == null)
