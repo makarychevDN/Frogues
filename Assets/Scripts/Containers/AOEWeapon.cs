@@ -17,6 +17,7 @@ public class AOEWeapon : Weapon
         var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
         cellEffects.ForEach(effect => effect.ApplyEffect(cells));
     }
+
     public override void HighlightCells()
     {
         Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());

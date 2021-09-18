@@ -13,10 +13,8 @@ public class PlayerInput : BaseInput
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     [SerializeField] private VisualizePath pathVisualizer;
 
-    [Header("Push Input")] 
-    [SerializeField] private HighlightValidateCells pushCellsHighlighter;
-    [SerializeField] private BaseCellsTaker validForPushCellsTaker;
-    [SerializeField] private CellByMousePosition cellByMousePosition;
+    [Header("Push Input")]
+    [SerializeField] private Weapon kick;
 
     [Header("Weapon Input")]
     [SerializeField] private Weapon weapon;
@@ -79,20 +77,11 @@ public class PlayerInput : BaseInput
 
     private void PushInput()
     {
-        validForPushCellsTaker.Take().ForEach(cell => { cell.DisableAllVisualization(); });
-        pushCellsHighlighter.ApplyEffect();
-        
-        if(cellByMousePosition.Take() == null)
-            return;
-        
-        if (validForPushCellsTaker.Take().Contains(cellByMousePosition.Take()[0]))
+        kick.HighlightCells();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            cellByMousePosition.Take()[0].EnableSelectedCellHighlight(true);
-            
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                unit.pusher.ApplyEffect();
-            }
+            kick.Use();
         }
     }
 
