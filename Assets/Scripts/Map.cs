@@ -14,7 +14,7 @@ public class Map : MonoBehaviour
     public List<Cell[,]> layers;
     public List<Cell> allCells;
     [SerializeField] private Cell cellPrefab;
-    [SerializeField] private Unit wallPrefab;
+    [SerializeField] private Wall wallPrefab;
     private List<Transform> _cellsParents;
     private const int _layersCount = 3;
 

@@ -5,7 +5,9 @@ using UnityEngine;
 public class TakeCellsByRadius : BaseCellsTaker
 {
     [SerializeField] private Unit unit;
-    [SerializeField] private int radius;
+    [SerializeField, Range(1, 10)] private int radius;
+    [SerializeField] private bool ignoreCellIsBusy;
+    [SerializeField] private bool diagonalStep;
 
     private List<Vector2Int> _dirVectors = new List<Vector2Int>()
     {
@@ -17,29 +19,6 @@ public class TakeCellsByRadius : BaseCellsTaker
     
     public override List<Cell> Take()
     {
-        List<Cell> cells = new List<Cell>();
-        int count = 0;
-
-        while (count != radius)
-        {
-            foreach (var cell in cells)
-            {
-                foreach (var dirVector in _dirVectors)
-                {
-                    if (!cells.Contains(MapBasedOnTilemap.Instance.FindNeigborhoodForCell(cell, dirVector)))
-                    {
-                        cells.Add(MapBasedOnTilemap.Instance.FindNeigborhoodForCell(cell, dirVector));
-                    }
-                }
-            }
-            count++;
-        }
-        
-        /*foreach (var dirVector in _dirVectors)
-        {
-            cells.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, dirVector));
-        }*/
-        
-        return cells;
+        return PathFinder.Instance.GetCellsAreaForAOE(unit.currentCell, radius, ignoreCellIsBusy, diagonalStep);
     }
 }

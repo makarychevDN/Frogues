@@ -42,6 +42,12 @@ public class PathFinder : MonoBehaviour
         return WaveAlgorithm(userCell, movemetCost == 0 ? 100 : actionPoints / movemetCost);
     }
 
+    public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool ignoreBusyCell, bool diagonalStep)
+    {
+        ResetNodes();
+        return WaveAlgorithmForAOEWeapon(userCell, radius, ignoreBusyCell, diagonalStep);
+    }
+
     private List<Cell> AStar(Cell userCell, Cell targetCell)
     {
         _currentNodes = new List<PathFinderNode>();
@@ -132,6 +138,74 @@ public class PathFinder : MonoBehaviour
         return resultCells;
     }
 
+    private List<Cell> WaveAlgorithmForAOEWeapon(Cell userCell, int actionPoints, bool ignoreBusyCells, bool diagonalStep)
+    {
+        _childNodes = new List<PathFinderNode>();
+        _currentNodes = new List<PathFinderNode>();
+        _currentNodes.Add(_nodesGrid[userCell.coordinates.x, userCell.coordinates.y]);
+        _nodesGrid[userCell.coordinates.x, userCell.coordinates.y].usedToPathFinding = true;
+        int stepCounter = 0;
+        List<Cell> resultCells = new List<Cell>();
+
+        while (stepCounter < actionPoints || _childNodes.Count != 0)
+        {
+            if (!diagonalStep)
+            {
+                foreach (var parent in _currentNodes)
+                {
+                    foreach (var child in parent.neighbors)
+                    {
+                        if (child.IsWall || child.usedToPathFinding)
+                            continue;
+
+                        if (child.Busy && !ignoreBusyCells)
+                            continue;
+                    
+                        child.previous = parent;
+                        _childNodes.Add(child);
+                        child.usedToPathFinding = true;
+                        resultCells.Add(child.cell);                    
+                    }
+                }
+            }
+            else
+            {
+                PathFinderNode child;
+
+                foreach (var parent in _currentNodes)
+                {
+                    for (int i = -1; i < 2; i++)
+                    {
+                        for (int j = -1; j < 2; j++)
+                        {
+                            if (i == 0 && j == 0)
+                                continue;
+
+                            child = _nodesGrid[parent.coordinates.x + i, parent.coordinates.y + j];
+
+                            if (child.IsWall || child.usedToPathFinding)
+                                continue;
+
+                            if (child.Busy && !ignoreBusyCells)
+                                continue;
+
+                            child.previous = parent;
+                            _childNodes.Add(child);
+                            child.usedToPathFinding = true;
+                            resultCells.Add(child.cell);
+                        }
+                    }
+                }
+            }
+
+            _currentNodes = _childNodes;
+            _childNodes = new List<PathFinderNode>();
+            stepCounter++;
+        }
+
+        return resultCells;
+    }
+
     #region initPathfinder
 
     private void InitializeDirVectors()
@@ -190,6 +264,8 @@ public class PathFinderNode
     public float weight;
 
     public bool Busy => !cell.IsEmpty;
+
+    public bool IsWall => cell.Content as Wall;
 
     public PathFinderNode(Cell cell)
     {
