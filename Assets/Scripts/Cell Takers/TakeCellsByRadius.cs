@@ -18,9 +18,9 @@ public class TakeCellsByRadius : BaseCellsTaker
     public override List<Cell> Take()
     {
         List<Cell> cells = new List<Cell>();
-        //int count = 0;
+        int count = 0;
 
-        /*while (count != radius)
+        while (count != radius)
         {
             foreach (var cell in cells)
             {
@@ -33,12 +33,12 @@ public class TakeCellsByRadius : BaseCellsTaker
                 }
             }
             count++;
-        }*/
+        }
         
-        foreach (var dirVector in _dirVectors)
+        /*foreach (var dirVector in _dirVectors)
         {
             cells.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, dirVector));
-        }
+        }*/
         
         return cells;
     }

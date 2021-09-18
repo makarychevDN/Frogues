@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Weapon : CostsActionPointsBehaviour
+public abstract class Weapon : CostsActionPointsBehaviour
 {
-    [SerializeField] private List<BaseCellsEffect> cellEffects;
-    [SerializeField] private BaseCellsTaker validCellTaker;
-    [SerializeField] private BaseCellsTaker selectedCellTaker;
+    [Space]
+    [SerializeField] protected List<BaseCellsEffect> cellEffects;
 
-    public void Use()
-    {
-        var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
-        cellEffects.ForEach(effect => effect.ApplyEffect(cells));
-    }
+    public abstract void Use();
+    public abstract void HighlightCells();
 }

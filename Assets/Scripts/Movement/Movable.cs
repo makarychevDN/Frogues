@@ -6,6 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(MovableAnimation))]
 public class Movable : CostsActionPointsBehaviour
 {
+    [Space]
     [SerializeField] private Unit unit;
     public UnityEvent OnMovementStart;
     public UnityEvent OnMovementEnd;

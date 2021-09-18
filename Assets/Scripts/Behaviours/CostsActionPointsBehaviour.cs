@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CostsActionPointsBehaviour : MonoBehaviour
 {
-    [SerializeField] private ActionPoints actionPoints;
-    [SerializeField] private IntContainer defaultActionPointsCost;
+    [SerializeField] protected ActionPoints actionPoints;
+    [SerializeField] protected IntContainer defaultActionPointsCost;
 
     public bool IsActionPointsEnough()
     {
