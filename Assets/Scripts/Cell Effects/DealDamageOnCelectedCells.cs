@@ -17,13 +17,11 @@ public class DealDamageOnCelectedCells : BaseCellsEffect
     {
         if (cells == null)
             return;
-        print(0);
+
         foreach (var cell in CellsListToCulumnsList(cells))
         {
-            print(1);
             if (!cell.IsEmpty && cell.Content.health != null)
             {
-                print(2);
                 cell.Content.health.TakeDamage(damage.Content, damageType.Content);
             }
         }
