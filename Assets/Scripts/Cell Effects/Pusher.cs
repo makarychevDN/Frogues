@@ -7,6 +7,7 @@ public class Pusher : BaseCellsEffect
 {
     [SerializeField] private Unit unit;
     [SerializeField] private BaseCellsTaker cellsTaker;
+    private List<Cell> columnCells = new List<Cell>();
     
     public UnityEvent OnPush;
 
@@ -21,7 +22,7 @@ public class Pusher : BaseCellsEffect
         if (cells == null)
             return;
 
-        foreach (var cell in cells)
+        foreach (var cell in CellsListToCulumnsList(cells))
         {
             if (!cell.IsEmpty && cell.Content.pushable != null)
             {

@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
     public BaseInput input;
     public Pusher pusher;
     public Pushable pushable;
+    public Damagable health;
 
     public Vector2Int Coordinates => currentCell.coordinates;
 }

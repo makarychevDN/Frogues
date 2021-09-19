@@ -73,6 +73,11 @@ public class PlayerInput : BaseInput
     private void AttackInput()
     {
         weapon.HighlightCells();
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            weapon.Use();
+        }
     }
 
     private void PushInput()
