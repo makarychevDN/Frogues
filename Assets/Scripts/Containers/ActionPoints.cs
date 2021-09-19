@@ -10,11 +10,19 @@ public class ActionPoints : MonoBehaviour
     [SerializeField] private IntContainer pointsRegeneration;
     [SerializeField] private AbleToSkipTurn skipTurnModule;
 
+    [Header("for Player Only")]
+    [SerializeField] private DisableAllSelectedCellsVizualisation seletedCellsVizualisationDisabler;
+
     public UnityEvent OnActionPointsEnded;
 
     private void Start()
     {
         OnActionPointsEnded.AddListener(skipTurnModule.AutoSkip);
+
+        if (seletedCellsVizualisationDisabler != null)
+        {
+            OnActionPointsEnded.AddListener(seletedCellsVizualisationDisabler.ApplyEffect);
+        }
     }
 
     public void RegeneratePoints()
