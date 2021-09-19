@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AOEWeapon : Weapon
 {
     [Space]
     [SerializeField] private BaseCellsTaker validCellTaker;
     [SerializeField] private BaseCellsTaker selectedCellTaker;
+
+    public UnityEvent OnUse;
 
     public override void Use()
     {
@@ -17,6 +20,8 @@ public class AOEWeapon : Weapon
         SpendActionPoints();
         var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
         cellEffects.ForEach(effect => effect.ApplyEffect(cells));
+
+        OnUse.Invoke();
     }
 
     public override void HighlightCells()
