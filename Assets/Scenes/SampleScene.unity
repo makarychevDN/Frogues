@@ -579,6 +579,9 @@ MonoBehaviour:
   - {fileID: 109055307}
   validCellTaker: {fileID: 580851164}
   selectedCellTaker: {fileID: 119086964}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &102829466
 Transform:
   m_ObjectHideFlags: 0
@@ -2090,6 +2093,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 520223509}
+--- !u!1 &605088275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605088276}
+  - component: {fileID: 605088277}
+  m_Layer: 0
+  m_Name: Weapon Animation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605088276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605088275}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1293104220}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &605088277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605088275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 086f2d78ecb66ef4eb82fa932275ccb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1129847066}
+  animationClip: {fileID: 7400000, guid: 884c2c0e380f0b4449b34fea9e3fd02c, type: 2}
+  defaultAnimatorState: {fileID: 7400000, guid: d0ede79efbe9af74b864f31fef26db35, type: 2}
 --- !u!1 &614760956
 GameObject:
   m_ObjectHideFlags: 0
@@ -4785,7 +4834,7 @@ Animator:
   m_GameObject: {fileID: 1129847064}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e6d7848333a262d4fb19c9824aee0475, type: 2}
+  m_Controller: {fileID: 9100000, guid: fc41d9134a6e712478f15cb5b9531a82, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5248,6 +5297,9 @@ MonoBehaviour:
   - {fileID: 59754439}
   validCellTaker: {fileID: 1524973543}
   selectedCellTaker: {fileID: 1441788695}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1161773648
 Transform:
   m_ObjectHideFlags: 0
@@ -5901,6 +5953,7 @@ Transform:
   - {fileID: 1336588663}
   - {fileID: 1362372401}
   - {fileID: 1942922104}
+  - {fileID: 605088276}
   m_Father: {fileID: 1460232458}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5922,6 +5975,21 @@ MonoBehaviour:
   - {fileID: 1942922105}
   validCellTaker: {fileID: 1567086478}
   selectedCellTaker: {fileID: 1362372402}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 605088277}
+        m_TargetAssemblyTypeName: PlayAnimation, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1308191797
 GameObject:
   m_ObjectHideFlags: 0
@@ -8594,6 +8662,9 @@ MonoBehaviour:
   - {fileID: 277544066}
   validCellTaker: {fileID: 74921128}
   selectedCellTaker: {fileID: 1513781167}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2040780240
 Transform:
   m_ObjectHideFlags: 0
