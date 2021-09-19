@@ -10,6 +10,7 @@ public class PlayAnimation : CurrentlyActiveBehaviour
 
     public void Play()
     {
+        ActiveNow = true;
         animator.Play(animationClip.name);
     }
 
