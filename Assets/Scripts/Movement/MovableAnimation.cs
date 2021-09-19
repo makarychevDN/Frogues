@@ -7,7 +7,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
 {
     [SerializeField] private Transform sprite;
     [SerializeField] private Transform shadow;
-    [Range(0, 30), SerializeField] private float speedInUnitsPerSecond;
+    [Range(0.1f, 30), SerializeField] private float speedInUnitsPerSecond;
     [SerializeField] private float jumpHeight;
     [SerializeField] private AnimationCurve jumpCurve;
     private Cell _startCell, _targetCell;
