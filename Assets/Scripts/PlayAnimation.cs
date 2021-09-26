@@ -7,6 +7,7 @@ public class PlayAnimation : CurrentlyActiveBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationClip animationClip;
+    [SerializeField] private AnimationClip idleAnimation;
     public UnityEvent OnAnimationPlayed;
 
     public void Play()
@@ -20,6 +21,7 @@ public class PlayAnimation : CurrentlyActiveBehaviour
         //checks if THIS animation was played last + ANY animation already played
         if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == animationClip.name && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
+            animator.Play(idleAnimation.name);
             ActiveNow = false;
             OnAnimationPlayed.Invoke();
         }
