@@ -49,8 +49,11 @@ public class Damagable : MonoBehaviour
             case DamageType.Fire: OnTakeFireDamage.Invoke(); break;
             case DamageType.Cold: OnTakeColdDamage.Invoke(); break;
         }
+    }
 
-        if(hp.Content <= 0)
+    public void CheckIsHpEnded()
+    {
+        if (hp.Content <= 0)
         {
             OnHpEnded.Invoke();
         }
