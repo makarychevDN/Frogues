@@ -1,27 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayAnimation : CurrentlyActiveBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private AnimationClip animationClip;
-    [SerializeField] private AnimationClip defaultAnimatorState;
+    public UnityEvent OnAnimationPlayed;
 
     public void Play()
     {
-        print("hello world");
-        ActiveNow = true;
         animator.Play(animationClip.name);
+        ActiveNow = true;
     }
 
     public void Update()
     {
-        //check animation already played
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
+        //checks if THIS animation was played last + ANY animation already played
+        if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == animationClip.name && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1)
         {
-            animator.Play(defaultAnimatorState.name);
             ActiveNow = false;
+            OnAnimationPlayed.Invoke();
+            print(name + "animation played!");
         }
     }
 }
