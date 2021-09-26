@@ -8,11 +8,20 @@ public class Damagable : MonoBehaviour
     [SerializeField] private IntContainer hp;
     [SerializeField] private IntContainer armor;
     [SerializeField] private IntContainer lastTakenDamage;
+    [SerializeField] private PlayAnimation takeDamageAnimation;
 
+    public UnityEvent OnTakeAnyDamage;
+    public UnityEvent OnTakeUnblockedDamage;
     public UnityEvent OnTakePhisicsDamage;
     public UnityEvent OnTakeFireDamage;
     public UnityEvent OnTakeColdDamage;
     public UnityEvent OnHpEnded;
+
+    private void Awake()
+    {
+        if (takeDamageAnimation != null)
+            OnTakeUnblockedDamage.AddListener(takeDamageAnimation.Play);
+    }
 
     public void TakeDamage(int damageValue, DamageType damageType)
     {
@@ -21,11 +30,16 @@ public class Damagable : MonoBehaviour
 
     public void TakeDamage(int damageValue, DamageType damageType, bool ignoreArmor)
     {
+        OnTakeAnyDamage.Invoke();
+
         if (!ignoreArmor && armor != null)
         {
             damageValue -= armor.Content;
             Mathf.Clamp(damageValue, 0, 1000);
         }
+
+        if (damageValue != 0)
+            OnTakeUnblockedDamage.Invoke();
         
         lastTakenDamage.Content = damageValue;
 

@@ -22,7 +22,6 @@ public class PlayAnimation : CurrentlyActiveBehaviour
         {
             ActiveNow = false;
             OnAnimationPlayed.Invoke();
-            print(name + "animation played!");
         }
     }
 }

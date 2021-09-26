@@ -18,9 +18,7 @@ public class AOEWeapon : Weapon
             return;
 
         SpendActionPoints();
-        var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
-        cellEffects.ForEach(effect => effect.ApplyEffect(cells));
-
+        usingAnimation.Play();
         OnUse.Invoke();
     }
 
@@ -29,5 +27,11 @@ public class AOEWeapon : Weapon
         Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
         validCellTaker.Take().ForEach(cell => cell.EnableValidateCellHighlight(true));
         selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList().ForEach(cell => cell.EnableSelectedCellHighlight(true));
+    }
+
+    public override void ApplyCellEffects()
+    {
+        var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
+        cellEffects.ForEach(effect => effect.ApplyEffect(cells));
     }
 }
