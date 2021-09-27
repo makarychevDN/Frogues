@@ -7,14 +7,15 @@ public class MovableAnimation : CurrentlyActiveBehaviour
 {
     [SerializeField] private Transform spriteParent;
     [SerializeField] private Transform shadow;
-    [Range(0.1f, 30), SerializeField] private float speedInUnitsPerSecond;
-    [SerializeField] private float jumpHeight;
+    [Range(0.1f, 30), SerializeField] private float defaultSpeed;
+    [SerializeField] private float defaultJumpHeight;
     [SerializeField] private AnimationCurve jumpCurve;
     private Cell _startCell, _targetCell;
     private float _currentTime, _totalTime, _distance;
     private bool _isPlaying;
     private float _spriteAlignment, _shadowAlignment;
     private Movable _movable;
+    private float _jumpHeight, _speed;
 
     void Start()
     {
@@ -26,6 +27,13 @@ public class MovableAnimation : CurrentlyActiveBehaviour
 
     public void Play(Cell startCell, Cell targetCell)
     {
+        Play(startCell, targetCell, defaultSpeed, defaultJumpHeight);
+    }
+
+    public void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight)
+    {
+        _speed = speed;
+        _jumpHeight = jumpHeight;
         _isPlaying = true;
         _startCell = startCell;
         _targetCell = targetCell;
@@ -43,18 +51,18 @@ public class MovableAnimation : CurrentlyActiveBehaviour
 
         spriteParent.position = lerpPosition;
         spriteParent.position += Vector3.up * _spriteAlignment;
-        spriteParent.position += Vector3.up * jumpCurve.Evaluate(_currentTime) * jumpHeight;
+        spriteParent.position += Vector3.up * jumpCurve.Evaluate(_currentTime) * _jumpHeight;
 
         shadow.position = lerpPosition;
         shadow.position += Vector3.up * _shadowAlignment;
-        scaledShadowSize = Mathf.Clamp(1 - jumpCurve.Evaluate(_currentTime) * jumpHeight, 0, 1);
+        scaledShadowSize = Mathf.Clamp(1 - jumpCurve.Evaluate(_currentTime) * _jumpHeight, 0, 1);
         shadow.localScale = new Vector3(scaledShadowSize, scaledShadowSize, 0);
         TimerStep();
     }
 
     public void TimerStep()
     {
-        _currentTime += Time.deltaTime * speedInUnitsPerSecond/ _distance;
+        _currentTime += Time.deltaTime * _speed / _distance;
         if (_currentTime > _totalTime)
         {
             _currentTime = 0;

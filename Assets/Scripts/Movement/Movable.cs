@@ -28,14 +28,14 @@ public class Movable : CostsActionPointsBehaviour
         OnMovementStart.Invoke();
     }
     
-    public void Move(Cell targetCell, int movementCost)
+    public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight)
     {
         if (!targetCell.IsEmpty || !IsActionPointsEnough(movementCost))
             return;
 
         SpendActionPoints(movementCost);
         unit.currentCell.Content = null;
-        _movableAnimation.Play(unit.currentCell, targetCell);
+        _movableAnimation.Play(unit.currentCell, targetCell, speed, jumpHeight);
         OnMovementStart.Invoke();
     }
 
