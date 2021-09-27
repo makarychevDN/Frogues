@@ -10,6 +10,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
     [Range(0.1f, 30), SerializeField] private float defaultSpeed;
     [SerializeField] private float defaultJumpHeight;
     [SerializeField] private AnimationCurve jumpCurve;
+    [SerializeField] private SpriteRotator spriteRotator;
     private Cell _startCell, _targetCell;
     private float _currentTime, _totalTime, _distance;
     private bool _isPlaying;
@@ -39,6 +40,11 @@ public class MovableAnimation : CurrentlyActiveBehaviour
         _targetCell = targetCell;
         ActiveNow = true;
         _distance = Vector3.Distance(startCell.transform.position, targetCell.transform.position);
+
+        if (startCell.transform.position.x < targetCell.transform.position.x)
+            spriteRotator.TurnRight();
+        else
+            spriteRotator.TurnLeft();
     }
 
     void Update()
