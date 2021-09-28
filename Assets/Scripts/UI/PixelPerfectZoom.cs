@@ -15,4 +15,9 @@ public class PixelPerfectZoom : MonoBehaviour
     {
         pixelPerfectCamera.refResolutionX = _xResolutions[(int)slider.value];
     }
+
+    private void Update()
+    {
+        slider.value += Input.GetAxis("Mouse ScrollWheel") * -10;
+    }
 }
