@@ -16,9 +16,11 @@ public class PlayerInput : BaseInput
 
     [Header("Push Input")]
     [SerializeField] private Weapon kick;
+    [SerializeField] private IntContainer pushtPreCost;
 
     [Header("Weapon Input")]
     [SerializeField] private Weapon weapon;
+    [SerializeField] private IntContainer weaponPreCost;
 
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
@@ -49,6 +51,10 @@ public class PlayerInput : BaseInput
 
         selectedCellVisualizer.ApplyEffect();
 
+        movementPreCost.Content = 0;
+        weaponPreCost.Content = 0;
+        pushtPreCost.Content = 0;
+
         switch (_currentInput)
         {
             case InputType.movement: MovementInput(); break;
@@ -73,12 +79,14 @@ public class PlayerInput : BaseInput
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
+            movementPreCost.Content = 0;
         }
     }
 
     private void AttackInput()
     {
         weapon.HighlightCells();
+        weaponPreCost.Content = weapon.CurrentActionCost;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -89,6 +97,7 @@ public class PlayerInput : BaseInput
     private void PushInput()
     {
         kick.HighlightCells();
+        pushtPreCost.Content = kick.CurrentActionCost;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {

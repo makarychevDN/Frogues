@@ -7,6 +7,8 @@ public class CostsActionPointsBehaviour : MonoBehaviour
     [SerializeField] protected ActionPoints actionPoints;
     [SerializeField] protected IntContainer defaultActionPointsCost;
 
+    public int CurrentActionCost => defaultActionPointsCost.Content;
+
     public bool IsActionPointsEnough()
     {
         return IsActionPointsEnough(defaultActionPointsCost.Content);
