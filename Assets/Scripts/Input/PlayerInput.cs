@@ -12,6 +12,7 @@ public class PlayerInput : BaseInput
     [SerializeField] private HighlightValidateCells movementCellsHighlighter;
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     [SerializeField] private VisualizePath pathVisualizer;
+    [SerializeField] private IntContainer movementPreCost;
 
     [Header("Push Input")]
     [SerializeField] private Weapon kick;
@@ -63,6 +64,11 @@ public class PlayerInput : BaseInput
     {
         pathVisualizer.ApplyEffect();
         movementCellsHighlighter.ApplyEffect();
+
+        if (findWayInValidCells.Take() != null)
+            movementPreCost.Content = findWayInValidCells.Take().Count;
+        else
+            movementPreCost.Content = 0;
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
