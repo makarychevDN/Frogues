@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Damagable : MonoBehaviour
 {
     [SerializeField] private IntContainer hp;
+    [SerializeField] private IntContainer maxHP;
     [SerializeField] private IntContainer armor;
     [SerializeField] private IntContainer lastTakenDamage;
     [SerializeField] private PlayAnimation takeDamageAnimation;
