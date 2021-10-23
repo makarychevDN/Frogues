@@ -14,6 +14,10 @@ public class AbleToSkipTurn : MonoBehaviour
 
     public void SkipTurnWithAnimation()
     {
+        var input = unit.input;
+        if (input != null && input as PlayerInput)
+            (input as PlayerInput).InputIsPossible = false;
+
         if (UnitsQueue.Instance.IsUnitCurrent(unit))
             UnitsQueue.Instance.ActivateNext();
     }

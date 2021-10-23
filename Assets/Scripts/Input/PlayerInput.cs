@@ -24,6 +24,11 @@ public class PlayerInput : BaseInput
 
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
+    public bool InputIsPossible
+    {
+        set => _inputIsPossible = value;
+        get => _inputIsPossible;
+    }
 
     public override void Act()
     {
