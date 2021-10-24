@@ -15,6 +15,8 @@ public class HealthBar : MonoBehaviour
     {
         slider.maxValue = maxHp.Content;
         slider.value = currentHp.Content;
-        textField.text = (currentHp.Content + "/" + maxHp.Content);
+
+        if(textField != null)
+            textField.text = (currentHp.Content + "/" + maxHp.Content);
     }
 } 
