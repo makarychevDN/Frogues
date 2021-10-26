@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 
@@ -41,6 +42,7 @@ public class PlayerInput : BaseInput
             return;
 
         Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
+        Map.Instance.allCells.Where(cell => cell.Content != null && cell.Content.health != null).ToList().ForEach(cell => cell.Content.health.ResetPreDamageValue());
 
         if (!_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
             return;

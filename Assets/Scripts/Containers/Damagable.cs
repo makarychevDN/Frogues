@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Damagable : MonoBehaviour
 {
     [SerializeField] private IntContainer hp;
+    [SerializeField] private IntContainer preDamagedHp;
     [SerializeField] private IntContainer maxHP;
     [SerializeField] private IntContainer armor;
     [SerializeField] private IntContainer lastTakenDamage;
@@ -18,25 +19,28 @@ public class Damagable : MonoBehaviour
     public UnityEvent OnTakeColdDamage;
     public UnityEvent OnHpEnded;
 
+    private UnityEvent OnDamageApplyedToHpContainer = new UnityEvent();
+
     private void Awake()
     {
         if (takeDamageAnimation != null)
-            OnTakeUnblockedDamage.AddListener(takeDamageAnimation.Play);
+            OnDamageApplyedToHpContainer.AddListener(takeDamageAnimation.Play);
     }
 
-    public void TakeDamage(int damageValue, DamageType damageType)
-    {
-        TakeDamage(damageValue, damageType, false);
-    }
+    public void TakeDamage(int damageValue, DamageType damageType) => CalculateDamage(hp, damageValue, damageType, false);
+    public void TakeDamage(int damageValue, DamageType damageType, bool ignoreArmor) => CalculateDamage(hp, damageValue, damageType, ignoreArmor);
 
-    public void TakeDamage(int damageValue, DamageType damageType, bool ignoreArmor)
+    public void PretakeDamage(int damageValue, DamageType damageType) => CalculateDamage(preDamagedHp, damageValue, damageType, false);
+    public void PretakeDamage(int damageValue, DamageType damageType, bool ignoreArmor) => CalculateDamage(preDamagedHp, damageValue, damageType, ignoreArmor);
+
+    public void CalculateDamage(IntContainer containerToApplyDamage, int damageValue, DamageType damageType, bool ignoreArmor)
     {
         OnTakeAnyDamage.Invoke();
 
         if (!ignoreArmor && armor != null)
         {
             damageValue -= armor.Content;
-            Mathf.Clamp(damageValue, 0, 1000);
+            damageValue = Mathf.Clamp(damageValue, 0, 1000);
         }
 
         if (damageValue != 0)
@@ -50,6 +54,16 @@ public class Damagable : MonoBehaviour
             case DamageType.Fire: OnTakeFireDamage.Invoke(); break;
             case DamageType.Cold: OnTakeColdDamage.Invoke(); break;
         }
+
+        if (lastTakenDamage.Content > 0 && containerToApplyDamage == hp)
+            OnDamageApplyedToHpContainer.Invoke();
+
+        containerToApplyDamage.Content -= lastTakenDamage.Content;
+    }
+
+    public void ResetPreDamageValue()
+    {
+        preDamagedHp.Content = hp.Content;
     }
 
     public void CheckIsHpEnded()

@@ -9,6 +9,7 @@ public class AOEWeapon : Weapon
     [Space]
     [SerializeField] private BaseCellsTaker validCellTaker;
     [SerializeField] private BaseCellsTaker selectedCellTaker;
+    //[SerializeField] private BoolContainer ignoreArmor;
 
     public UnityEvent OnUse;
 
@@ -26,7 +27,10 @@ public class AOEWeapon : Weapon
     {
         Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
         validCellTaker.Take().ForEach(cell => cell.EnableValidateCellHighlight(true));
-        selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList().ForEach(cell => cell.EnableSelectedCellHighlight(true));
+        var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
+        cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
+        cells.Where(cell => cell.Content != null && cell.Content.health != null).ToList()
+            .ForEach(cell => cell.Content.health.PretakeDamage(damage.Content, damageType.Content));
     }
 
     public override void ApplyCellEffects()
