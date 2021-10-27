@@ -12,19 +12,23 @@ public class Damagable : MonoBehaviour
     [SerializeField] private IntContainer lastTakenDamage;
     [SerializeField] private PlayAnimation takeDamageAnimation;
 
-    public UnityEvent OnTakeAnyDamage;
-    public UnityEvent OnTakeUnblockedDamage;
-    public UnityEvent OnTakePhisicsDamage;
-    public UnityEvent OnTakeFireDamage;
-    public UnityEvent OnTakeColdDamage;
-    public UnityEvent OnHpEnded;
+    public UnityEvent OnCalculateAnyDamage;
+    public UnityEvent OnCalculateUnblockedDamage;
+    public UnityEvent OnCalculatePhisicsDamage;
+    public UnityEvent OnCalculateFireDamage;
+    public UnityEvent OnCalculateColdDamage;
 
-    private UnityEvent OnDamageApplyedToHpContainer = new UnityEvent();
+    public UnityEvent OnApplyAnyDamage;
+    public UnityEvent OnApplyUnblockedDamage;
+    public UnityEvent OnApplyPhisicsDamage;
+    public UnityEvent OnApplyFireDamage;
+    public UnityEvent OnApplyColdDamage;
+    public UnityEvent OnHpEnded;
 
     private void Awake()
     {
         if (takeDamageAnimation != null)
-            OnDamageApplyedToHpContainer.AddListener(takeDamageAnimation.Play);
+            OnApplyUnblockedDamage.AddListener(takeDamageAnimation.Play);
     }
 
     public void TakeDamage(int damageValue, DamageType damageType) => CalculateDamage(hp, damageValue, damageType, false);
@@ -35,7 +39,7 @@ public class Damagable : MonoBehaviour
 
     public void CalculateDamage(IntContainer containerToApplyDamage, int damageValue, DamageType damageType, bool ignoreArmor)
     {
-        OnTakeAnyDamage.Invoke();
+        OnApplyAnyDamage.Invoke();
 
         if (!ignoreArmor && armor != null)
         {
@@ -44,21 +48,36 @@ public class Damagable : MonoBehaviour
         }
 
         if (damageValue != 0)
-            OnTakeUnblockedDamage.Invoke();
+            OnCalculateUnblockedDamage.Invoke();
         
         lastTakenDamage.Content = damageValue;
 
         switch (damageType)
         {
-            case DamageType.Phisics: OnTakePhisicsDamage.Invoke(); break;
-            case DamageType.Fire: OnTakeFireDamage.Invoke(); break;
-            case DamageType.Cold: OnTakeColdDamage.Invoke(); break;
+            case DamageType.Phisics: OnCalculatePhisicsDamage.Invoke(); break;
+            case DamageType.Fire: OnCalculateFireDamage.Invoke(); break;
+            case DamageType.Cold: OnCalculateColdDamage.Invoke(); break;
         }
 
-        if (lastTakenDamage.Content > 0 && containerToApplyDamage == hp)
-            OnDamageApplyedToHpContainer.Invoke();
+        if (containerToApplyDamage == hp)
+            ApplyEffects(damageType);
 
         containerToApplyDamage.Content -= lastTakenDamage.Content;
+    }
+
+    private void ApplyEffects(DamageType damageType)
+    {
+        OnApplyAnyDamage.Invoke();
+
+        if (lastTakenDamage.Content > 0)
+            OnApplyUnblockedDamage.Invoke();
+
+        switch (damageType)
+        {
+            case DamageType.Phisics: OnApplyPhisicsDamage.Invoke(); break;
+            case DamageType.Fire: OnApplyFireDamage.Invoke(); break;
+            case DamageType.Cold: OnApplyColdDamage.Invoke(); break;
+        }
     }
 
     public void ResetPreDamageValue()
