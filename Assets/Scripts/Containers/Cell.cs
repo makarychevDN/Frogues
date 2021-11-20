@@ -13,7 +13,8 @@ public class Cell : Container<Unit>
     
     [SerializeField] private GameObject validateCellTileHighlighter;
     [SerializeField] private GameObject selectedCellTileHighlighter;
-    [SerializeField] private GameObject pathDot;
+    [SerializeField] private TrailsEnabler trailsEnabler;
+    [SerializeField] private SpriteRenderer pathDot;
     [SerializeField] private GameObject onMouseHoverVisualization;
 
     public override Unit Content 
@@ -33,6 +34,11 @@ public class Cell : Container<Unit>
             }
         }
     }
+
+    public Cell GetNeighbor(Vector2Int direction)
+    {
+        return Map.Instance.GetLayerByCell(this)[coordinates.x + direction.x, coordinates.y + direction.y];
+    }
     
     public void EnableSelectedCellHighlight(bool isOn)
     {
@@ -47,9 +53,19 @@ public class Cell : Container<Unit>
 
     public void EnablePathDot(bool isOn)
     {
-        pathDot.SetActive(isOn);
+        pathDot.enabled = isOn;
     }
-    
+
+    public void EnableTrail(Vector2Int direction)
+    {
+        trailsEnabler.EnableTrail(direction);
+    }
+
+    public void DisableTrails()
+    {
+        trailsEnabler.DisableTrails();
+    }
+
     public void EnableOnMouseHoverVisualization(bool isOn)
     {
         onMouseHoverVisualization.SetActive(isOn);
@@ -59,6 +75,7 @@ public class Cell : Container<Unit>
     {
         EnableSelectedCellHighlight(false);
         EnableValidateCellHighlight(false);
+        DisableTrails();
         EnablePathDot(false);
         EnableOnMouseHoverVisualization(false);
     }

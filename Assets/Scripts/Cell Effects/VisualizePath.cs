@@ -14,12 +14,33 @@ public class VisualizePath : BaseCellsEffect
     public override void ApplyEffect(List<Cell> cells)
     {
         TurnOffVisualization();
-        if (cells != null)
-            cells.ForEach(cell => cell.EnablePathDot(true));
+        if (cells == null)
+            return;
+
+        var firstCell = cells[0];
+        var lastCell = cells[cells.Count - 1];
+        firstCell.EnablePathDot(true);
+        lastCell.EnablePathDot(true);
+
+        if (cells.Count == 1)
+            return;
+
+        for (int i = 1; i < cells.Count -1; i++)
+        {
+            cells[i].EnableTrail(cells[i - 1].coordinates - cells[i].coordinates);
+            cells[i].EnableTrail(cells[i + 1].coordinates - cells[i].coordinates);
+        }
+
+        cells[0].EnableTrail(cells[1].coordinates - cells[0].coordinates);
+        cells[cells.Count - 1].EnableTrail(cells[cells.Count - 2].coordinates - cells[cells.Count - 1].coordinates);
     }
 
     public void TurnOffVisualization()
     {
-        Map.Instance.allCells.ForEach(cell => cell.EnablePathDot(false));
+        Map.Instance.allCells.ForEach(cell =>
+        {
+            cell.DisableTrails();
+            cell.EnablePathDot(false);
+        });
     }
 }
