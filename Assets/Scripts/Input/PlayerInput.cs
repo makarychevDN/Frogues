@@ -25,6 +25,8 @@ public class PlayerInput : BaseInput
 
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
+    private float bottomUiPanelHeight = 120f;
+
     public bool InputIsPossible
     {
         set => _inputIsPossible = value;
@@ -83,7 +85,7 @@ public class PlayerInput : BaseInput
         else
             movementPreCost.Content = 0;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
             _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
             movementPreCost.Content = 0;
@@ -95,7 +97,7 @@ public class PlayerInput : BaseInput
         weapon.HighlightCells();
         weaponPreCost.Content = weapon.CurrentActionCost;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
             weapon.Use();
         }
@@ -106,7 +108,7 @@ public class PlayerInput : BaseInput
         kick.HighlightCells();
         pushtPreCost.Content = kick.CurrentActionCost;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
             kick.Use();
         }
