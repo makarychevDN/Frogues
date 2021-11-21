@@ -8,36 +8,41 @@ public class ActionPointUI : MonoBehaviour
     [SerializeField] private GameObject preCostedActionPoint;
     [SerializeField] private GameObject emptyActionPoint;
     [SerializeField] private GameObject notEnoughActionPointsIcon;
+    private List<GameObject> allIcons;
+
+    private void Start()
+    {
+        allIcons = new List<GameObject>();
+        allIcons.Add(fullActionPoint);
+        allIcons.Add(preCostedActionPoint);
+        allIcons.Add(emptyActionPoint);
+        allIcons.Add(notEnoughActionPointsIcon);
+        allIcons.RemoveAll(icon => icon == null);
+    }
 
     public void EnableFullIcon()
     {
+        DisableAllIcons();
         fullActionPoint.SetActive(true);
-        preCostedActionPoint.SetActive(false);
-        emptyActionPoint.SetActive(false);
-        notEnoughActionPointsIcon.SetActive(false);
     }
 
     public void EnablePreCostIcon()
     {
-        fullActionPoint.SetActive(false);
+        DisableAllIcons();
         preCostedActionPoint.SetActive(true);
-        emptyActionPoint.SetActive(false);
-        notEnoughActionPointsIcon.SetActive(false);
     }
 
     public void EnableEmptyIcon()
     {
-        fullActionPoint.SetActive(false);
-        preCostedActionPoint.SetActive(false);
+        DisableAllIcons();
         emptyActionPoint.SetActive(true);
-        notEnoughActionPointsIcon.SetActive(false);
     }
 
     public void EnableNotEnoghPointsIcon()
     {
-        fullActionPoint.SetActive(false);
-        preCostedActionPoint.SetActive(false);
-        emptyActionPoint.SetActive(false);
+        DisableAllIcons();
         notEnoughActionPointsIcon.SetActive(true);
     }
+
+    private void DisableAllIcons() => allIcons.ForEach(icon => icon.SetActive(false));
 }
