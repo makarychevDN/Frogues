@@ -27,10 +27,12 @@ public class AOEWeapon : Weapon
     {
         Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
         validCellTaker.Take().ForEach(cell => cell.EnableValidateCellHighlight(true));
+
         var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
         cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
-        cells.Where(cell => cell.Content != null && cell.Content.health != null).ToList()
-            .ForEach(cell => cell.Content.health.PretakeDamage(damage.Content, damageType.Content));
+
+        cellEffects.Where(cellEffect => cellEffect as CellsEffectWithPreVisualization).ToList()
+            .ForEach(cellEffect => (cellEffect as CellsEffectWithPreVisualization).PreVisualizeEffect(cells));
     }
 
     public override void ApplyCellEffects()

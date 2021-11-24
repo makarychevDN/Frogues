@@ -37,7 +37,7 @@ public class Damagable : MonoBehaviour
     public void PretakeDamage(int damageValue, DamageType damageType) => CalculateDamage(preDamagedHp, damageValue, damageType, false);
     public void PretakeDamage(int damageValue, DamageType damageType, bool ignoreArmor) => CalculateDamage(preDamagedHp, damageValue, damageType, ignoreArmor);
 
-    public void CalculateDamage(IntContainer containerToApplyDamage, int damageValue, DamageType damageType, bool ignoreArmor)
+    private void CalculateDamage(IntContainer containerToApplyDamage, int damageValue, DamageType damageType, bool ignoreArmor)
     {
         OnApplyAnyDamage.Invoke();
 
