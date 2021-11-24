@@ -39,7 +39,7 @@ public class Damagable : MonoBehaviour
 
     private void CalculateDamage(IntContainer containerToApplyDamage, int damageValue, DamageType damageType, bool ignoreArmor)
     {
-        OnApplyAnyDamage.Invoke();
+        //OnApplyAnyDamage.Invoke();
 
         if (!ignoreArmor && armor != null)
         {

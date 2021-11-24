@@ -71,7 +71,7 @@ public class Cell : Container<Unit>
         onMouseHoverVisualization.SetActive(isOn);
     }
 
-    public void DisableAllVisualization()
+    public void DisableAllCellVisualization()
     {
         EnableSelectedCellHighlight(false);
         EnableValidateCellHighlight(false);

@@ -25,7 +25,6 @@ public class AOEWeapon : Weapon
 
     public override void HighlightCells()
     {
-        Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
         validCellTaker.Take().ForEach(cell => cell.EnableValidateCellHighlight(true));
 
         var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
