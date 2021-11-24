@@ -9,6 +9,7 @@ public class Pushable : MonoBehaviour
 {
     [SerializeField] private Unit unit;
     [SerializeField, ReadOnly] private Vector2IntContainer lastPushDirection;
+    [SerializeField, ReadOnly] private Vector2IntContainer PrePushDirection;
 
     public UnityEvent OnPushed;
     public UnityEvent OnPrepushed;
@@ -21,9 +22,13 @@ public class Pushable : MonoBehaviour
 
     public void PrePush(Cell pusherCell)
     {
-        lastPushDirection.Content = CalculateMovementVector(pusherCell);
+        PrePushDirection.Content = CalculateMovementVector(pusherCell);
         OnPrepushed.Invoke();
-        print("Daaamn u wanna push me");
+    }
+
+    public void ResetPrePushValue()
+    {
+        PrePushDirection.Content = Vector2Int.zero;
     }
 
     private Vector2Int CalculateMovementVector(Cell pusherCell)

@@ -43,8 +43,7 @@ public class PlayerInput : BaseInput
         if (!UnitsQueue.Instance.IsUnitCurrent(unit))
             return;
 
-        Map.Instance.allCells.ForEach(cell => cell.DisableAllVisualization());
-        Map.Instance.allCells.Where(cell => cell.Content != null && cell.Content.health != null).ToList().ForEach(cell => cell.Content.health.ResetPreDamageValue());
+        DisableAllVizualisationOnMap();
 
         if (!_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
             return;
@@ -73,6 +72,14 @@ public class PlayerInput : BaseInput
         }
 
         ChangeInputTypeInput();
+    }
+
+    private void DisableAllVizualisationOnMap()
+    {
+        Map.Instance.allCells.ForEach(cell => cell.DisableAllCellVisualization());
+        var cellsWithContent = Map.Instance.allCells.WithContentOnly();
+        cellsWithContent.Where(cell => cell.Content.health != null).ToList().ForEach(cell => cell.Content.health.ResetPreDamageValue());
+        cellsWithContent.Where(cell => cell.Content.pushable != null).ToList().ForEach(cell => cell.Content.pushable.ResetPrePushValue());
     }
 
     private void MovementInput()
