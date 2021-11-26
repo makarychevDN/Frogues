@@ -1,14 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PrePushVisualization : MonoBehaviour
 {
-    [SerializeField] private Transform arrow;
+    [SerializeField] private List<TargetWithDirection> arrows;
     [SerializeField] private Vector2IntContainer prePushValueContainer;
 
     void Update()
     {
-        arrow.localPosition = prePushValueContainer.Content.ToVector3();
+        arrows.ForEach(arrow => arrow.target.SetActive(arrow.direction == prePushValueContainer.Content));
+    }
+
+    [Serializable]
+    public struct TargetWithDirection
+    {
+        public GameObject target;
+        public Vector2Int direction;
     }
 }
+
