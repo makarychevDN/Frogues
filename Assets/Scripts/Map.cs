@@ -136,6 +136,17 @@ public class Map : MonoBehaviour
         return null;
     }
 
+    public Cell[,] GetLayerByType(MapLayer mapLayer)
+    {
+        switch (mapLayer)
+        {
+            case MapLayer.DefaultUnit: return unitsLayer;
+            case MapLayer.Projectile: return projectilesLayer;
+            case MapLayer.Surface: return surfacesLayer;
+        }
+        return null;
+    }
+
     public Cell GetUnitsLayerCellByCoordinates(Vector2Int coordinates) 
     {
         return unitsLayer[coordinates.x, coordinates.y];

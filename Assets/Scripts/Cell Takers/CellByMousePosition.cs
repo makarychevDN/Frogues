@@ -9,6 +9,8 @@ public class CellByMousePosition : BaseCellsTaker
 
     public override List<Cell> Take()
     {
+        if (grid == null) grid = Map.Instance.tilemap.layoutGrid;
+
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int coordinate = grid.WorldToCell(mouseWorldPos);
 
