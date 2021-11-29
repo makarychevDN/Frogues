@@ -13,6 +13,12 @@ public class AOEWeapon : Weapon
 
     public UnityEvent OnUse;
 
+    public override bool PossibleToHitExpectedTarget => selectedCellTaker.Take()
+        .Where(selectedCell => validCellTaker.Take()
+        .Contains(selectedCell))
+        .Any(selectedCell => selectedCell.Content == expectedTarget)
+        && IsActionPointsEnough();
+
     public override void Use()
     {
         if (!actionPoints.CheckIsActionPointsEnough(defaultActionPointsCost.Content))

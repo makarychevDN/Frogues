@@ -10,6 +10,8 @@ public abstract class Weapon : CostsActionPointsBehaviour
     [SerializeField] protected PlayAnimation usingAnimation;
     [SerializeField] protected IntContainer damage;
     [SerializeField] protected DamageTypeContainer damageType;
+    [Header("Target For AI Only")]
+    public Unit expectedTarget;
 
     private void Awake()
     {
@@ -19,4 +21,6 @@ public abstract class Weapon : CostsActionPointsBehaviour
     public abstract void Use();
     public abstract void ApplyCellEffects();
     public abstract void HighlightCells();
+
+    public abstract bool PossibleToHitExpectedTarget { get; }
 }
