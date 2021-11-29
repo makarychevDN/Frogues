@@ -6,6 +6,8 @@ using UnityEngine;
 public class FollowAndAttackTargetAI : BaseInput
 {
     [SerializeField] private Unit target;
+    [SerializeField] private Weapon activeWeapon;
+    [SerializeField] private AbleToSkipTurn skipTurnModule;
     private List<Cell> _pathToTarget;
 
     private void Start()
@@ -18,9 +20,20 @@ public class FollowAndAttackTargetAI : BaseInput
         if (_pathToTarget == null)
             _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, target.currentCell);
 
-        unit.movable.Move(_pathToTarget[0]);
-        if(_pathToTarget != null)
+        if (activeWeapon.PossibleToHitExpectedTarget)
+        {
+            activeWeapon.Use();
+            return;
+        }
+
+        if(_pathToTarget.Count > 1)
+        {
+            unit.movable.Move(_pathToTarget[0]);
             _pathToTarget.RemoveAt(0);
+            return;
+        }
+
+        skipTurnModule.AutoSkip();
     }
 
     public void ClearPath()
