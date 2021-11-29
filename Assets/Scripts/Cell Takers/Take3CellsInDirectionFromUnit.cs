@@ -2,48 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Take3CellsInDirectionFromUnit : BaseCellsTaker
+public class Take3CellsInDirectionFromUnit : CellTakerByDirection
 {
     [SerializeField] private Unit unit;
     [SerializeField] private SpriteRotator spriteRotator;
 
     public override List<Cell> Take()
     {
-        Vector3 unitPos = unit.transform.position;
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return Take(currentDirectionContainer.Content);
+    }
+
+    public override List<Cell> Take(Vector2Int direction)
+    {
         List<Cell> result = new List<Cell>();
 
-        if (mousePos.x < unitPos.x && mousePos.y < unitPos.y)
+        var startCell = Map.Instance.FindNeigborhoodForCell(unit.currentCell, direction);
+        result.Add(startCell);
+        
+        if(direction.x != 0)
         {
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(-1, 1)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(-1, 0)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(-1, -1)));
-            spriteRotator.TurnLeft();
+            result.Add(Map.Instance.FindNeigborhoodForCell(startCell, new Vector2Int(0, 1)));
+            result.Add(Map.Instance.FindNeigborhoodForCell(startCell, new Vector2Int(0, -1)));
+        }
+        else
+        {
+            result.Add(Map.Instance.FindNeigborhoodForCell(startCell, new Vector2Int(1, 0)));
+            result.Add(Map.Instance.FindNeigborhoodForCell(startCell, new Vector2Int(-1, 0)));
         }
 
-        if (mousePos.x > unitPos.x && mousePos.y < unitPos.y)
+        if(direction == Vector2Int.left || direction == Vector2Int.up)
         {
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(1, -1)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(0, -1)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(-1, -1)));
+            spriteRotator.TurnLeft();
+        }
+        else
+        {
             spriteRotator.TurnRight();
         }
 
-        if (mousePos.x < unitPos.x && mousePos.y > unitPos.y)
-        {
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(1, 1)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(0, 1)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(-1, 1)));
-            spriteRotator.TurnLeft();
-        }
 
-        if (mousePos.x > unitPos.x && mousePos.y > unitPos.y)
-        {
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(1, 1)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(1, 0)));
-            result.Add(Map.Instance.FindNeigborhoodForCell(unit.currentCell, new Vector2Int(1, -1)));
-            spriteRotator.TurnRight();
-        }
 
         return result;
     }
