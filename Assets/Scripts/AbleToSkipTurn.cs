@@ -8,8 +8,17 @@ public class AbleToSkipTurn : MonoBehaviour
 
     public void AutoSkip()
     {
-        if(UnitsQueue.Instance.IsUnitCurrent(unit))
-            UnitsQueue.Instance.ActivateNext();
+        if (!UnitsQueue.Instance.IsUnitCurrent(unit))
+            return;
+
+        if (unit.input as PlayerInput)
+        {
+            var input = unit.input as PlayerInput;
+            input.DisableAllVisualizationFromPlayerOnMap();
+            input.InputIsPossible = false;
+        }
+
+        UnitsQueue.Instance.ActivateNext();
     }
 
     public void SkipTurnWithAnimation()

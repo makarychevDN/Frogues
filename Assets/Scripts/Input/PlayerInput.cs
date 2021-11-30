@@ -43,7 +43,7 @@ public class PlayerInput : BaseInput
         if (!UnitsQueue.Instance.IsUnitCurrent(unit))
             return;
 
-        DisableAllVizualisationOnMap();
+        DisableAllVisualizationFromPlayerOnMap();
 
         if (!_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
             return;
@@ -74,7 +74,7 @@ public class PlayerInput : BaseInput
         ChangeInputTypeInput();
     }
 
-    private void DisableAllVizualisationOnMap()
+    public void DisableAllVisualizationFromPlayerOnMap()
     {
         Map.Instance.allCells.ForEach(cell => cell.DisableAllCellVisualization());
         var cellsWithContent = Map.Instance.allCells.WithContentOnly();
