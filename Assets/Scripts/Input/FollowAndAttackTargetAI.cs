@@ -34,6 +34,7 @@ public class FollowAndAttackTargetAI : BaseInput
         }
 
         skipTurnModule.AutoSkip();
+        ClearPath();
     }
 
     public void ClearPath()
