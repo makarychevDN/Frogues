@@ -5,14 +5,14 @@ using UnityEngine;
 public class SetVectorContainerValueByTargetUnitPos : MonoBehaviour
 {
     [SerializeField] private Unit thisUnit;
-    [SerializeField] private Unit targetUnit;
+    [SerializeField] private UnitContainer targetUnit;
     [SerializeField] private Vector2IntContainer vectorContainer;
 
     // Update is called once per frame
     void Update()
     {
         Vector3 unitPos = thisUnit.transform.position;
-        Vector3 targetUnitPos = targetUnit.transform.position;
+        Vector3 targetUnitPos = targetUnit.Content.transform.position;
 
         if (targetUnitPos.x < unitPos.x && targetUnitPos.y < unitPos.y)
         {

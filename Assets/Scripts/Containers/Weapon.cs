@@ -11,7 +11,7 @@ public abstract class Weapon : CostsActionPointsBehaviour
     [SerializeField] protected IntContainer damage;
     [SerializeField] protected DamageTypeContainer damageType;
     [Header("Target For AI Only")]
-    public Unit expectedTarget;
+    public UnitContainer expectedTargetContainer;
 
     private void Awake()
     {

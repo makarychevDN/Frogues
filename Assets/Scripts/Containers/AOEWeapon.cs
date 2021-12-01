@@ -16,7 +16,7 @@ public class AOEWeapon : Weapon
     public override bool PossibleToHitExpectedTarget => selectedCellTaker.Take()
         .Where(selectedCell => validCellTaker.Take()
         .Contains(selectedCell))
-        .Any(selectedCell => selectedCell.Content == expectedTarget)
+        .Any(selectedCell => selectedCell.Content == expectedTargetContainer.Content)
         && IsActionPointsEnough();
 
     public override void Use()
