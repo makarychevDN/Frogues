@@ -26,7 +26,7 @@ public class FollowAndAttackTargetAI : BaseInput
             return;
         }
 
-        if(_pathToTarget.Count > 1)
+        if(_pathToTarget != null && _pathToTarget.Count > 1)
         {
             unit.movable.Move(_pathToTarget[0]);
             if(_pathToTarget != null) _pathToTarget.RemoveAt(0);
