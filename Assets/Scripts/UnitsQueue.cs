@@ -12,6 +12,7 @@ public class UnitsQueue : MonoBehaviour
 
     private CycledLinkedList _unitsList;
     private QueueNode _currentNode;
+    [SerializeField, ReadOnly] private Unit _debugCurrentUnit;
     [SerializeField, ReadOnly] private List<Unit> _debugUnits;
 
     public int Count => _unitsList.Count;
@@ -72,8 +73,11 @@ public class UnitsQueue : MonoBehaviour
 
     public void ActivateNext()
     {
-        if (Count > 1)
-            _currentNode = _currentNode.Next;
+        if (Count <= 1)
+            return;
+
+        _currentNode = _currentNode.Next;
+        _debugCurrentUnit = _currentNode.Unit;
     }
 
     public void Remove(Unit unit)
@@ -88,10 +92,13 @@ public class UnitsQueue : MonoBehaviour
     public void AddObjectInQueue(Unit unit)
     {
         _unitsList.Add(unit);
+        _debugUnits.Add(unit);
     }
+
     public void AddObjectInQueueAfterPlayer(Unit unit)
     {
         _unitsList.AddSecond(unit);
+        _debugUnits.Insert(1, unit);
     }
 
     public void AddObjectInQueueAfterTarget(Unit target, Unit unit)
