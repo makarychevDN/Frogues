@@ -40,10 +40,10 @@ public class PlayerInput : BaseInput
 
     private void Update()
     {
+        DisableAllVisualizationFromPlayerOnMap();
+
         if (!UnitsQueue.Instance.IsUnitCurrent(unit))
             return;
-
-        DisableAllVisualizationFromPlayerOnMap();
 
         if (!_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
             return;
