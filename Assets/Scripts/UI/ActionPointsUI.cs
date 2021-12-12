@@ -6,8 +6,30 @@ using UnityEngine;
 public class ActionPointsUI : MonoBehaviour
 {
     [SerializeField] private IntContainer currentActionPoints;
-    [SerializeField] private List<ActionPointUI> actionPoinsIcons;
+    [SerializeField] private IntContainer maxActionPoints;
+    [SerializeField] private float iconsOffset;
+    [SerializeField] private Transform iconsParent;
+    [SerializeField] private ActionPointUI actionPointIconPrefab;
+    [SerializeField] private List<ActionPointUI> actionPoinsIcons = new List<ActionPointUI>();
     [SerializeField] private List<IntContainer> preCosts;
+    [SerializeField] private bool generateIconsOnStart;
+
+    private void Start()
+    {
+        if (!generateIconsOnStart)
+            return;
+
+        if (iconsParent == null)
+            iconsParent = transform;
+
+
+        for (int i = 0; i < maxActionPoints.Content; i++)
+        {
+            var spawnedIcon = Instantiate(actionPointIconPrefab, iconsParent);
+            actionPoinsIcons.Add(spawnedIcon);
+            spawnedIcon.transform.localPosition = new Vector3((i - (maxActionPoints.Content / 2)) * iconsOffset, 0, 0);
+        }
+    }
 
     private void Update()
     {
