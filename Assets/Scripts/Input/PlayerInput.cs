@@ -59,9 +59,7 @@ public class PlayerInput : BaseInput
 
         selectedCellVisualizer.ApplyEffect();
 
-        movementPreCost.Content = 0;
-        weaponPreCost.Content = 0;
-        pushtPreCost.Content = 0;
+        ResetPreCostContainers();
 
         switch (_currentInput)
         {
@@ -80,6 +78,13 @@ public class PlayerInput : BaseInput
         var cellsWithContent = Map.Instance.allCells.WithContentOnly();
         cellsWithContent.Where(cell => cell.Content.health != null).ToList().ForEach(cell => cell.Content.health.ResetPreDamageValue());
         cellsWithContent.Where(cell => cell.Content.pushable != null).ToList().ForEach(cell => cell.Content.pushable.ResetPrePushValue());
+    }
+
+    private void ResetPreCostContainers()
+    {
+        movementPreCost.Content = 0;
+        weaponPreCost.Content = 0;
+        pushtPreCost.Content = 0;
     }
 
     private void MovementInput()
