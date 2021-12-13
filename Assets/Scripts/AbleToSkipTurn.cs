@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AbleToSkipTurn : MonoBehaviour
 {
     [SerializeField] private Unit unit;
+    public UnityEvent OnSkipTurn;
 
     public void AutoSkip()
     {
@@ -18,6 +20,7 @@ public class AbleToSkipTurn : MonoBehaviour
             input.InputIsPossible = false;
         }
 
+        OnSkipTurn.Invoke();
         UnitsQueue.Instance.ActivateNext();
     }
 
