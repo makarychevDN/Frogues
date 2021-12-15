@@ -43,4 +43,6 @@ public class ActionPoints : MonoBehaviour
         if (currentPoints.Content <= 0)
             OnActionPointsEnded.Invoke();
     }
+
+    public bool Full => currentPoints.Content >= maxPointsCount.Content;
 }

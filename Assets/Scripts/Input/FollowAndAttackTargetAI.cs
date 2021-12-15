@@ -8,6 +8,7 @@ public class FollowAndAttackTargetAI : BaseInput
     [SerializeField] private UnitContainer targetContainer;
     [SerializeField] private Weapon activeWeapon;
     [SerializeField] private AbleToSkipTurn skipTurnModule;
+
     private List<Cell> _pathToTarget;
 
     private void Start()
@@ -33,6 +34,7 @@ public class FollowAndAttackTargetAI : BaseInput
             return;
         }
 
+        OnInputDone.Invoke();
         skipTurnModule.AutoSkip();
         ClearPath();
     }

@@ -10,5 +10,6 @@ public class EventOnInput : BaseInput
     public override void Act()
     {
         OnInput.Invoke();
+        OnInputDone.Invoke();
     }
 }
