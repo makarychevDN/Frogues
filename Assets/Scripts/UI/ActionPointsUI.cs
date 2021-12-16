@@ -27,7 +27,7 @@ public class ActionPointsUI : MonoBehaviour
         {
             var spawnedIcon = Instantiate(actionPointIconPrefab, iconsParent);
             actionPoinsIcons.Add(spawnedIcon);
-            spawnedIcon.transform.localPosition = new Vector3((i - (maxActionPoints.Content / 2)) * iconsOffset, 0, 0);
+            spawnedIcon.transform.localPosition = new Vector3((i - ((float)(maxActionPoints.Content - 1) / 2)) * iconsOffset, 0, 0);
         }
     }
 
