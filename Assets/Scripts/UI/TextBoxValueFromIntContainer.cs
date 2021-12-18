@@ -14,6 +14,9 @@ public class TextBoxValueFromIntContainer : MonoBehaviour
         textField.text = intContainer.Content.ToString();
         textField.color = Color.white;
 
+        if (preContainer == null)
+            return;
+
         if (preContainer.Content != intContainer.Content)
         {
             textField.text = preContainer.Content.ToString();
