@@ -8,6 +8,9 @@ public class ActionPointUI : MonoBehaviour
     [SerializeField] private GameObject preCostedActionPoint;
     [SerializeField] private GameObject emptyActionPoint;
     [SerializeField] private GameObject notEnoughActionPointsIcon;
+    [SerializeField] private float diameterOfIcons;
+    public float DiameterOfIcons => diameterOfIcons;
+    public float RadiusOfIcons => diameterOfIcons * 0.5f;
     private List<GameObject> allIcons;
 
     private void Start()
