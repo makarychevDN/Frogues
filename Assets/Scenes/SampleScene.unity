@@ -401,11 +401,11 @@ MonoBehaviour:
   damage: {fileID: 285564073}
   damageType: {fileID: 2011289081}
   expectedTargetContainer: {fileID: 0}
-  validCellTaker: {fileID: 580851164}
-  selectedCellTaker: {fileID: 119086964}
   OnUse:
     m_PersistentCalls:
       m_Calls: []
+  validCellTaker: {fileID: 580851164}
+  selectedCellTaker: {fileID: 119086964}
 --- !u!4 &102829466
 Transform:
   m_ObjectHideFlags: 0
@@ -774,6 +774,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203074646}
   m_CullTransparentMesh: 1
+--- !u!1 &234419456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 234419457}
+  - component: {fileID: 234419458}
+  m_Layer: 0
+  m_Name: Decrease All Timers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &234419457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234419456}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 520223510}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &234419458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234419456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b64d8cee83bf948418264d7be0a220eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &285564071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,6 +1950,7 @@ Transform:
   m_Children:
   - {fileID: 1079495117}
   - {fileID: 772568692}
+  - {fileID: 234419457}
   - {fileID: 596862823}
   - {fileID: 1284875648}
   m_Father: {fileID: 1630384338}
@@ -2297,7 +2342,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 520223510}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &596862824
 MonoBehaviour:
@@ -5127,6 +5172,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 234419458}
+        m_TargetAssemblyTypeName: DecreaseAllTImers, Assembly-CSharp
+        m_MethodName: Decrease
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1284875647}
         m_TargetAssemblyTypeName: UnitsUIEnabler, Assembly-CSharp
         m_MethodName: AllUnitsUISetActive
@@ -6807,7 +6864,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 520223510}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1293104219
 GameObject:
@@ -6866,11 +6923,11 @@ MonoBehaviour:
   damage: {fileID: 326176440}
   damageType: {fileID: 99927824}
   expectedTargetContainer: {fileID: 0}
-  validCellTaker: {fileID: 1567086478}
-  selectedCellTaker: {fileID: 1362372402}
   OnUse:
     m_PersistentCalls:
       m_Calls: []
+  validCellTaker: {fileID: 1567086478}
+  selectedCellTaker: {fileID: 1362372402}
 --- !u!1 &1308191797
 GameObject:
   m_ObjectHideFlags: 0
