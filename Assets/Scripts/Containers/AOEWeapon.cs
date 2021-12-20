@@ -11,8 +11,6 @@ public class AOEWeapon : Weapon
     [SerializeField] private BaseCellsTaker selectedCellTaker;
     //[SerializeField] private BoolContainer ignoreArmor;
 
-    public UnityEvent OnUse;
-
     public override bool PossibleToHitExpectedTarget => selectedCellTaker.Take()
         .Where(selectedCell => validCellTaker.Take()
         .Contains(selectedCell))

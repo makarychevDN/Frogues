@@ -7,6 +7,7 @@ public class SplittedAIByFullActionPoints : BaseInput
     [SerializeField] private BaseInput inputOnFullActionPoints;
     [SerializeField] private BaseInput inputOnNonFullActionPoints;
     [SerializeField] private ActionPoints actionPoints;
+    [SerializeField] private AbleToSkipTurn ableToSkipTurn;
     private BaseInput _currentInput;
 
     private void Start()
@@ -18,21 +19,17 @@ public class SplittedAIByFullActionPoints : BaseInput
 
     public override void Act()
     {
-        print("action points fullnes is " + actionPoints.Full);
         if(_currentInput == null)
         {
-            print("im choosing input type");
             _currentInput = actionPoints.Full ? inputOnFullActionPoints : inputOnNonFullActionPoints;
         }
-
-        print("current behaviour is " + _currentInput.gameObject.name);
 
         _currentInput.Act();
     }
 
     public void EndInput()
     {
-        print("input ended");
         _currentInput = null;
+        ableToSkipTurn.AutoSkip();
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Weapon : CostsActionPointsBehaviour
 {
@@ -12,6 +13,7 @@ public abstract class Weapon : CostsActionPointsBehaviour
     [SerializeField] protected DamageTypeContainer damageType;
     [Header("Target For AI Only")]
     public UnitContainer expectedTargetContainer;
+    public UnityEvent OnUse;
 
     private void Awake()
     {
