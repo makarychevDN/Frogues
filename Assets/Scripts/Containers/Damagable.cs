@@ -9,6 +9,7 @@ public class Damagable : MonoBehaviour
     [SerializeField] private IntContainer preDamagedHp;
     [SerializeField] private IntContainer maxHP;
     [SerializeField] private IntContainer armor;
+    public IntContainer Armor => armor;
     [SerializeField] private IntContainer lastTakenDamage;
     [SerializeField] private PlayAnimation takeDamageAnimation;
 
