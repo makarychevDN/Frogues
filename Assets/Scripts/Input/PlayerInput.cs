@@ -66,7 +66,7 @@ public class PlayerInput : BaseInput
             case InputType.movement: MovementInput(); break;
             case InputType.attack: AttackInput(); break;
             case InputType.push: PushInput(); break;
-            case InputType.research: ResearchInput(); break;
+            //case InputType.research: ResearchInput(); break; //coming soon
         }
 
         ChangeInputTypeInput();
@@ -126,17 +126,17 @@ public class PlayerInput : BaseInput
         }
     }
 
-    private void ResearchInput()
-    {
+    //private void ResearchInput()
+    //{
         //coming soon
-    }
+    //}
 
     private void ChangeInputTypeInput()
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
             _currentInput++;
 
-        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 4);
+        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 3);
     }
 }
 
