@@ -66,10 +66,10 @@ public class MovableAnimation : CurrentlyActiveBehaviour
         TimerStep();
     }
 
-    public void TimerStep()
+    private void TimerStep()
     {
         _currentTime += Time.deltaTime * _speed / _distance;
-        if (_currentTime > _totalTime)
+        if (_currentTime >= _totalTime)
         {
             _currentTime = 0;
             _isPlaying = false;

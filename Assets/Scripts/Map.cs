@@ -162,4 +162,15 @@ public class Map : MonoBehaviour
 
         return cells;
     }
+
+    public Cell GetCell(Vector2Int coordinates, MapLayer mapLayer)
+    {
+        switch (mapLayer)
+        {
+            case MapLayer.DefaultUnit: return unitsLayer[coordinates.x, coordinates.y];
+            case MapLayer.Projectile: return projectilesLayer[coordinates.x, coordinates.y];
+            case MapLayer.Surface: return surfacesLayer[coordinates.x, coordinates.y];
+        }
+        return null;
+    }
 }

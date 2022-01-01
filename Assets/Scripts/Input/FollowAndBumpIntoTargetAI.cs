@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowAndBumpIntoTargetAI : BaseInput
 {
-    [SerializeField] private Unit target;
+    [SerializeField] private UnitContainer targetContainer;
     private List<Cell> _pathToTarget;
 
     private void Start()
@@ -15,7 +15,7 @@ public class FollowAndBumpIntoTargetAI : BaseInput
     public override void Act()
     {
         if (_pathToTarget == null)
-            _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, target.currentCell);
+            _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, targetContainer.Content.currentCell);
 
         unit.movable.Move(_pathToTarget[0]);
         if (_pathToTarget != null)
