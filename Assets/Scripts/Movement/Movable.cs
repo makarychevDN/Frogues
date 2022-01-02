@@ -23,7 +23,9 @@ public class Movable : CostsActionPointsBehaviour
             return;
 
         SpendActionPoints();
+        targetCell.chosenToMovement = true;
         unit.currentCell.Content = null;
+
         _movableAnimation.Play(unit.currentCell, targetCell);
         OnMovementStart.Invoke();
     }
@@ -34,6 +36,7 @@ public class Movable : CostsActionPointsBehaviour
             return;
 
         SpendActionPoints(movementCost);
+        targetCell.chosenToMovement = true;
         unit.currentCell.Content = null;
 
         _movableAnimation.Play(unit.currentCell, targetCell, speed, jumpHeight);
@@ -45,5 +48,6 @@ public class Movable : CostsActionPointsBehaviour
         unit.transform.position = targetCell.transform.position;
         targetCell.Content = unit;
         OnMovementEnd.Invoke();
+        targetCell.chosenToMovement = false;
     }
 }

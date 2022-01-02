@@ -15,5 +15,5 @@ public class Container<T> : MonoBehaviour
         set => content = value;
     }
 
-    public bool IsEmpty => Content == null;
+    public virtual bool IsEmpty => Content == null;
 }

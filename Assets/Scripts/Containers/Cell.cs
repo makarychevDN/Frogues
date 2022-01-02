@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +18,8 @@ public class Cell : Container<Unit>
     [SerializeField] private TrailsEnabler trailsEnabler;
     [SerializeField] private SpriteRenderer pathDot;
     [SerializeField] private GameObject onMouseHoverVisualization;
+
+    [ReadOnly] public bool chosenToMovement;
 
     public override Unit Content 
     { 
@@ -35,6 +38,8 @@ public class Cell : Container<Unit>
             }
         }
     }
+
+    public override bool IsEmpty => Content == null && !chosenToMovement;
 
     public Cell GetNeighbor(Vector2Int direction)
     {
