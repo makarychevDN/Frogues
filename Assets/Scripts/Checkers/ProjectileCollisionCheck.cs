@@ -17,7 +17,6 @@ public class ProjectileCollisionCheck : MonoBehaviour
         if(!Map.Instance.GetUnitsLayerCellByCoordinates(unit.Coordinates).IsEmpty)
         {
             OnTrue.Invoke();
-            print("i killed myslef");
         }
         else
         {
