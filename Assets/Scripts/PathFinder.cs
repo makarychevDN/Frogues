@@ -30,16 +30,16 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    public List<Cell> FindWay(Cell userCell, Cell targetCell)
+    public List<Cell> FindWay(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
     {
         ResetNodes();
-        return AStar(userCell, targetCell);
+        return AStar(userCell, targetCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
     }
 
-    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movemetCost)
+    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movemetCost, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
     {
         ResetNodes();
-        return WaveAlgorithm(userCell, movemetCost == 0 ? 100 : actionPoints / movemetCost);
+        return WaveAlgorithm(userCell, movemetCost == 0 ? 100 : actionPoints / movemetCost, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
     }
 
     public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool ignoreBusyCell, bool diagonalStep)
@@ -48,7 +48,7 @@ public class PathFinder : MonoBehaviour
         return WaveAlgorithmForAOEWeapon(userCell, radius, ignoreBusyCell, diagonalStep);
     }
 
-    private List<Cell> AStar(Cell userCell, Cell targetCell)
+    private List<Cell> AStar(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
     {
         _currentNodes = new List<PathFinderNode>();
         _currentNodes.Add(_nodesGrid[userCell.coordinates.x, userCell.coordinates.y]);
@@ -61,7 +61,7 @@ public class PathFinder : MonoBehaviour
 
             foreach (var item in _currentNodes)
             {
-                if(!item.Busy && item.weight < smallestWeightNode.weight)
+                if(!item.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces) && item.weight < smallestWeightNode.weight)
                     smallestWeightNode = item;
             }
 
@@ -90,7 +90,7 @@ public class PathFinder : MonoBehaviour
 
                     return path;
                 }
-                else if (!item.usedToPathFinding && !item.Busy)
+                else if (!item.usedToPathFinding && !item.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces))
                 {
                     _currentNodes.Add(item);
                     item.weight = Vector2Int.Distance(item.coordinates, userCell.coordinates) + Vector2Int.Distance(item.coordinates, targetCell.coordinates);
@@ -106,7 +106,7 @@ public class PathFinder : MonoBehaviour
         return null;
     }
 
-    private List<Cell> WaveAlgorithm(Cell userCell, int actionPoints)
+    private List<Cell> WaveAlgorithm(Cell userCell, int actionPoints, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
     {
         _childNodes = new List<PathFinderNode>();
         _currentNodes = new List<PathFinderNode>();
@@ -121,7 +121,7 @@ public class PathFinder : MonoBehaviour
             {
                 foreach (var child in parent.neighbors)
                 {
-                    if (!child.usedToPathFinding && !child.Busy)
+                    if (!child.usedToPathFinding && !child.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces))
                     {
                         child.previous = parent;
                         _childNodes.Add(child);
@@ -263,7 +263,10 @@ public class PathFinderNode
     public PathFinderNode previous;
     public float weight;
 
-    public bool Busy => !cell.IsEmpty;
+    public bool CheckIsBusy(bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces) 
+        => !cell.CheckColumnIsEmpty(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces)/* && !IsWall*/; 
+
+    public bool Busy => !cell.CheckColumnIsEmpty();
 
     public bool IsWall => cell.Content as Wall;
 

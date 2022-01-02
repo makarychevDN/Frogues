@@ -163,6 +163,13 @@ public class Map : MonoBehaviour
         return cells;
     }
 
+    public List<Cell> GetCellsColumnIgnoreSurfaces(Vector2Int coordinates)
+    {
+        var temp = GetCellsColumn(coordinates);
+        temp.Remove(surfacesLayer[coordinates.x, coordinates.y]);
+        return temp;
+    }
+
     public Cell GetCell(Vector2Int coordinates, MapLayer mapLayer)
     {
         switch (mapLayer)

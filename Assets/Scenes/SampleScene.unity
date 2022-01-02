@@ -472,6 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf0cc2e9df324ea479478c618d7cd0b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   unit: {fileID: 1460232457}
   cellsTaker: {fileID: 0}
   OnPush:
@@ -1529,6 +1530,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   targetContainer: {fileID: 129788395}
+  skipTurnModule: {fileID: 0}
+  ignoreDefaultUnits: 0
+  ignoreProjectiles: 0
+  ignoreSurfaces: 0
 --- !u!4 &420434590
 Transform:
   m_ObjectHideFlags: 0
@@ -2801,7 +2806,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aff849b4877061488f86b5d519a3092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugObjects: []
+  debugCurrenlyActiveObjects: []
+  debugAllActivatedForSessionObjects: []
 --- !u!4 &611616545
 Transform:
   m_ObjectHideFlags: 0
@@ -2861,6 +2867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a0e793b8535fe84094a9b57b3068d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
 --- !u!1 &621846684
 GameObject:
   m_ObjectHideFlags: 0
@@ -4364,7 +4371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 1460232457}
-  _projectile: {fileID: 2007523290}
+  _projectile: {fileID: 0}
   _map: {fileID: 89028260}
   _startPos: {x: 0, y: 0}
 --- !u!4 &938409282
@@ -5597,6 +5604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 2007523290}
+  ignoreMySelf: 1
 --- !u!4 &995066132
 Transform:
   m_ObjectHideFlags: 0
@@ -5755,6 +5763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61d358f8e76c584e9aa2bcbc0ecb01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   cellsTaker: {fileID: 1468910841}
 --- !u!1 &1117469432
 GameObject:
@@ -7550,6 +7559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d6668e5f2dcb143ad3424bf864322e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   cellsTaker: {fileID: 1895369360}
 --- !u!4 &1323431158
 Transform:
@@ -8615,6 +8625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a2540e2f27cf54993734bc5e57f4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   cellsTaker: {fileID: 0}
   damage: {fileID: 1117469434}
   damageType: {fileID: 1853720895}
@@ -10581,6 +10592,9 @@ MonoBehaviour:
   unit: {fileID: 1460232457}
   currentActionPoints: {fileID: 1864663685}
   movementActionPointsCost: {fileID: 458270043}
+  ignoreDefaultUnits: 0
+  ignoreProjectiles: 1
+  ignoreSurfaces: 1
 --- !u!4 &1895369361
 Transform:
   m_ObjectHideFlags: 0
@@ -10786,6 +10800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a2540e2f27cf54993734bc5e57f4d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   cellsTaker: {fileID: 0}
   damage: {fileID: 326176440}
   damageType: {fileID: 99927824}
@@ -10836,6 +10851,9 @@ MonoBehaviour:
   validCellsTaker: {fileID: 1895369360}
   choosedCellTaker: {fileID: 1391368655}
   user: {fileID: 1460232457}
+  ignoreDefaultUnits: 0
+  ignoreProjectiles: 1
+  ignoreSurfaces: 1
 --- !u!1 &1964542726
 GameObject:
   m_ObjectHideFlags: 0
@@ -11051,6 +11069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fdd6487e557bae4985569df2ea29b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   pathFinderInValidCells: {fileID: 1961819336}
 --- !u!1 &2007523289
 GameObject:
@@ -11068,7 +11087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2007523290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11340,6 +11359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15defd7e1c137c943a651ac51e4e0cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   cellTaker: {fileID: 1128525441}
 --- !u!1 &2072984509
 GameObject:
@@ -11590,4 +11610,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d6668e5f2dcb143ad3424bf864322e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 1
   cellsTaker: {fileID: 1453039006}

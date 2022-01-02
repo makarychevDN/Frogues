@@ -8,6 +8,7 @@ public class FollowAndAttackTargetAI : BaseInput
     [SerializeField] private UnitContainer targetContainer;
     [SerializeField] private Weapon activeWeapon;
     [SerializeField] private AbleToSkipTurn skipTurnModule;
+    [SerializeField] private bool ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces;
 
     private List<Cell> _pathToTarget;
 
@@ -19,7 +20,7 @@ public class FollowAndAttackTargetAI : BaseInput
     public override void Act()
     {
         if (_pathToTarget == null)
-            _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, targetContainer.Content.currentCell);
+            _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, targetContainer.Content.currentCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
 
         if (activeWeapon.PossibleToHitExpectedTarget)
         {

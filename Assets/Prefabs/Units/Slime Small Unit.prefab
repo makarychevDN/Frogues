@@ -216,6 +216,82 @@ MonoBehaviour:
   cellsTaker: {fileID: 0}
   damage: {fileID: 361904559629538950}
   damageType: {fileID: 4416278213920668171}
+--- !u!1 &4225443457189542046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7347896295642870411}
+  - component: {fileID: 2335099709083316042}
+  - component: {fileID: 7033392343774785600}
+  - component: {fileID: 7483697202739425402}
+  m_Layer: 0
+  m_Name: Kill Myself
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7347896295642870411
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4225443457189542046}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2623576440563230303}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2335099709083316042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4225443457189542046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a2540e2f27cf54993734bc5e57f4d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 0
+  cellsTaker: {fileID: 7033392343774785600}
+  damage: {fileID: 5853649765928192756}
+  damageType: {fileID: 7483697202739425402}
+--- !u!114 &7033392343774785600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4225443457189542046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f2547b487a6494fa4471326f68b6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 5853649766532058161}
+--- !u!114 &7483697202739425402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4225443457189542046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83018a96a5ffec46bbc04b919734ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: 0
 --- !u!1 &5216112739570769506
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,6 +400,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 0
+--- !u!1 &7200072483440515527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2623576440563230303}
+  - component: {fileID: 7625336309681461605}
+  m_Layer: 0
+  m_Name: Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2623576440563230303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200072483440515527}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7347896295642870411}
+  m_Father: {fileID: 5853649766532058160}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7625336309681461605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7200072483440515527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ebdcf8bfeee3845877ab5a7f369a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnCellInUnitsLayerBecameFull:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2335099709083316042}
+        m_TargetAssemblyTypeName: DealDamageOnCelectedCells, Assembly-CSharp
+        m_MethodName: ApplyEffect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnCellInUnitsLayerBecameEmpty:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7931739389251991084
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +641,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1740921462857990146, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
+      propertyPath: defaultSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1740921462857990147, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
       propertyPath: OnMovementEnd.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -575,6 +718,21 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   targetContainer: {fileID: 6904785348691303606}
+  skipTurnModule: {fileID: 3357487752372155614}
+  ignoreDefaultUnits: 0
+  ignoreProjectiles: 0
+  ignoreSurfaces: 1
+--- !u!114 &3357487752372155614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7461506874492231781, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
+  m_PrefabInstance: {fileID: 5266020413101790395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91efcadbe9c2ac2479088278d53d6a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5853649765598914359 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1740921463418991500, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
@@ -584,6 +742,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 745af59f9dc682d45babbf4774ced76c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5853649765928192756 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1740921463928626767, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
+  m_PrefabInstance: {fileID: 5266020413101790395}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &5853649766532058160 stripped
