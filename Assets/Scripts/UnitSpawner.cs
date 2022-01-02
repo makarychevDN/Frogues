@@ -10,6 +10,9 @@ public class UnitSpawner : MonoBehaviour
 
     public void Spawn()
     {
+        if (spawnCellsTaker.Take() == null || spawnCellsTaker.Take().Count == 0)
+            return;
+
         var spawnedUnit = Instantiate(unitsToSpawn[Random.Range(0, unitsToSpawn.Count)]);
         var selectedCell = spawnCellsTaker.Take()[Random.Range(0, spawnCellsTaker.Take().Count)];
         selectedCell = Map.Instance.GetLayerByType(spawnedUnit.unitType)[selectedCell.coordinates.x, selectedCell.coordinates.y];

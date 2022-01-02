@@ -12,7 +12,7 @@ public class Movable : CostsActionPointsBehaviour
     public UnityEvent OnMovementEnd;
     private MovableAnimation _movableAnimation;
 
-    private void Start()
+    private void Awake()
     {
         _movableAnimation = GetComponent<MovableAnimation>();
     }
@@ -35,6 +35,7 @@ public class Movable : CostsActionPointsBehaviour
 
         SpendActionPoints(movementCost);
         unit.currentCell.Content = null;
+
         _movableAnimation.Play(unit.currentCell, targetCell, speed, jumpHeight);
         OnMovementStart.Invoke();
     }

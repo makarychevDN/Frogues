@@ -18,7 +18,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
     private Movable _movable;
     private float _jumpHeight, _speed;
 
-    void Start()
+    void Awake()
     {
         _spriteAlignment = spriteParent.parent.localPosition.y;
         _shadowAlignment = shadow.parent.localPosition.y;
