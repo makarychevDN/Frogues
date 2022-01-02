@@ -11,7 +11,7 @@ public class Unit : MonoBehaviour
     public Pusher pusher;
     public Pushable pushable;
     public Damagable health;
-    public GameObject UI;
+    public UnitsUI UI;
 
     public Vector2Int Coordinates => currentCell.coordinates;
 }

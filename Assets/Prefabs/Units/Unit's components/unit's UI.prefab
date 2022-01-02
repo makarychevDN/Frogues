@@ -63,6 +63,42 @@ MonoBehaviour:
   intContainer: {fileID: 0}
   preContainer: {fileID: 0}
   textField: {fileID: 8022128675149822807}
+--- !u!1 &2717312776754690511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5830197481916791722}
+  m_Layer: 5
+  m_Name: Action Points Visualization
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5830197481916791722
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2717312776754690511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4842150413303176102}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3988715525510097085
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,17 +259,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4026824702666191157}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4842150413491137847}
-  m_RootOrder: 1
+  m_Father: {fileID: 1403695267127663182}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.01, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7532996015565451723
@@ -305,7 +341,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4842150413491137847}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -424,6 +460,7 @@ GameObject:
   - component: {fileID: 4842150412694149282}
   - component: {fileID: 4842150412694149283}
   - component: {fileID: 4842150412694149292}
+  - component: {fileID: 4482237851016622840}
   m_Layer: 5
   m_Name: unit's UI
   m_TagString: Untagged
@@ -497,7 +534,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4842150412694149283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,6 +565,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+--- !u!114 &4482237851016622840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842150412694149281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba198e3a68d77144884f52768e9c0149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualisationObjects:
+  - {fileID: 5261170775006830380}
+  - {fileID: 4842150411662873485}
+  - {fileID: 7645359978857998742}
+  - {fileID: 3988715525510097085}
+  - {fileID: 2717312776754690511}
 --- !u!1 &4842150413303176103
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,7 +611,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5830197481916791722}
   m_Father: {fileID: 4842150412694149280}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -579,7 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentActionPoints: {fileID: 0}
   maxActionPoints: {fileID: 0}
-  iconsParent: {fileID: 4842150413303176102}
+  iconsParent: {fileID: 5830197481916791722}
   actionPointIconPrefabs:
   - {fileID: 8805925280480796945, guid: b21ae697bcadfc74ba62f1d86f8f6ed8, type: 3}
   - {fileID: 533053435517226507, guid: 568879e44e4567a4c86cd8276a2adb6b, type: 3}
@@ -617,7 +673,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1403695267127663182}
-  - {fileID: 6539126205276469868}
   - {fileID: 4842150411662873484}
   m_Father: {fileID: 4842150412694149280}
   m_RootOrder: 0
@@ -682,7 +737,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6539126205276469868}
   m_Father: {fileID: 4842150413491137847}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

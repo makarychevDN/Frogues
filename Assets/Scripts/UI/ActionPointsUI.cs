@@ -7,7 +7,6 @@ public class ActionPointsUI : MonoBehaviour
 {
     [SerializeField] private IntContainer currentActionPoints;
     [SerializeField] private IntContainer maxActionPoints;
-    //[SerializeField] private float iconsOffset;
     [SerializeField] private Transform iconsParent;
     [SerializeField] private List<ActionPointUI> actionPointIconPrefabs;
     [SerializeField] private List<ActionPointUI> actionPoinsIcons = new List<ActionPointUI>();
@@ -26,7 +25,7 @@ public class ActionPointsUI : MonoBehaviour
 
         for (int i = 0; i < maxActionPoints.Content; i++)
         {
-            var spawnedIcon = Instantiate(actionPointIconPrefabs[iconsCount], transform);
+            var spawnedIcon = Instantiate(actionPointIconPrefabs[iconsCount], iconsParent);
             actionPoinsIcons.Add(spawnedIcon);
 
             iconsCount++;

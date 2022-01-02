@@ -8,6 +8,7 @@ public class PlayerInput : BaseInput
 {
     [SerializeField, ReadOnly] private InputType _currentInput = InputType.movement;
     [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
+    [SerializeField] private UnitsUIEnabler unitsUIEnabler;
 
     [Header("Movement Input")]
     [SerializeField] private HighlightValidateCells movementCellsHighlighter;
@@ -22,6 +23,7 @@ public class PlayerInput : BaseInput
     [Header("Weapon Input")]
     [SerializeField] private Weapon weapon;
     [SerializeField] private IntContainer weaponPreCost;
+
 
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
@@ -41,6 +43,7 @@ public class PlayerInput : BaseInput
     private void Update()
     {
         DisableAllVisualizationFromPlayerOnMap();
+        unitsUIEnabler.AllUnitsUISetActive(false);
 
         if (!UnitsQueue.Instance.IsUnitCurrent(unit))
             return;
@@ -58,7 +61,6 @@ public class PlayerInput : BaseInput
         }
 
         selectedCellVisualizer.ApplyEffect();
-
         ResetPreCostContainers();
 
         switch (_currentInput)
@@ -69,6 +71,7 @@ public class PlayerInput : BaseInput
             //case InputType.research: ResearchInput(); break; //coming soon
         }
 
+        unitsUIEnabler.AllUnitsUISetActive(true);
         ChangeInputTypeInput();
     }
 
