@@ -21,7 +21,7 @@ public class FollowAndBumpIntoTargetAI : BaseInput
         if (_pathToTarget == null)
             _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, targetContainer.Content.currentCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
 
-        if (_pathToTarget != null)
+        if (_pathToTarget != null && _pathToTarget.Count != 0)
         {
             unit.movable.Move(_pathToTarget[0]);
             if (_pathToTarget != null) _pathToTarget.RemoveAt(0);
