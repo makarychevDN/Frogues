@@ -10,4 +10,14 @@ public class UnitsUI : MonoBehaviour
     {
         visualisationObjects.ForEach(obj => obj.SetActive(value));
     }
+
+    private void Awake()
+    {
+        UnitsUIEnabler.UIOfAllUnits.Add(this);
+    }
+
+    private void OnDestroy()
+    {
+        UnitsUIEnabler.UIOfAllUnits.Remove(this);
+    }
 }

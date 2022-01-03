@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class UnitsUIEnabler : MonoBehaviour
 {
+    public static HashSet<UnitsUI> UIOfAllUnits = new HashSet<UnitsUI>();
+
     public void AllUnitsUISetActive(bool value)
     {
-        Map.Instance.allCells.Where(cell => cell.Content != null).Where(cell => cell.Content.UI != null).ToList().ForEach(cell => cell.Content.UI.SetActiveForAllVisualizationObjects(value));
+        UIOfAllUnits.Where(ui => ui != null).ToList().ForEach(ui => ui.SetActiveForAllVisualizationObjects(value));
     }
 }
