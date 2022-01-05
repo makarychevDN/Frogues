@@ -12,6 +12,7 @@ public class Unit : MonoBehaviour
     public Pushable pushable;
     public Damagable health;
     public UnitsUI UI;
+    public StringContainer description;
 
     public Vector2Int Coordinates => currentCell.coordinates;
 }

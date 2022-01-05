@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class CellByMousePosition : BaseCellsTaker
 {
-    public Grid grid;
+    [SerializeField] private Grid grid;
+    [SerializeField] private bool takeColumn;
 
     public override List<Cell> Take()
     {
@@ -16,8 +17,9 @@ public class CellByMousePosition : BaseCellsTaker
 
         try
         {
-            var cells = new List<Cell> {Map.Instance.unitsLayer[coordinate.x, coordinate.y]};
-            return cells;
+            return takeColumn ?
+                Map.Instance.GetCellsColumn(coordinate.ToVector2Int()) :
+                new List<Cell> { Map.Instance.unitsLayer[coordinate.x, coordinate.y] };
         }
         catch
         {

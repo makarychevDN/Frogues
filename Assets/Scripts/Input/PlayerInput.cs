@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInput : BaseInput
 {
@@ -15,15 +16,22 @@ public class PlayerInput : BaseInput
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     [SerializeField] private VisualizePath pathVisualizer;
     [SerializeField] private IntContainer movementPreCost;
+    [SerializeField] private Button movementButton;
 
     [Header("Push Input")]
     [SerializeField] private Weapon kick;
     [SerializeField] private IntContainer pushtPreCost;
+    [SerializeField] private Button pushButton;
 
     [Header("Weapon Input")]
     [SerializeField] private Weapon weapon;
     [SerializeField] private IntContainer weaponPreCost;
+    [SerializeField] private Button attackButton;
 
+    [Header("Research Input")]
+    [SerializeField] private PrintUnitsDescriptionEffect printUnitsDescriptionEffect;
+    [SerializeField] private BaseCellsTaker descriptionCellTaker;
+    [SerializeField] private Button resarchButton;
 
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
@@ -43,6 +51,7 @@ public class PlayerInput : BaseInput
     private void Update()
     {
         DisableAllVisualizationFromPlayerOnMap();
+        DisableDescriptionPalel();
         unitsUIEnabler.AllUnitsUISetActive(false);
 
         if (!UnitsQueue.Instance.IsUnitCurrent(unit))
@@ -65,10 +74,10 @@ public class PlayerInput : BaseInput
 
         switch (_currentInput)
         {
-            case InputType.movement: MovementInput(); break;
-            case InputType.attack: AttackInput(); break;
-            case InputType.push: PushInput(); break;
-            //case InputType.research: ResearchInput(); break; //coming soon
+            case InputType.movement: MovementInput(); movementButton.Select(); break;
+            case InputType.attack: AttackInput(); attackButton.Select(); break;
+            case InputType.push: PushInput(); pushButton.Select(); break;
+            case InputType.research: ResearchInput(); resarchButton.Select(); break;
         }
 
         unitsUIEnabler.AllUnitsUISetActive(true);
@@ -129,18 +138,20 @@ public class PlayerInput : BaseInput
         }
     }
 
-    //private void ResearchInput()
-    //{
-        //coming soon
-    //}
+    private void ResearchInput()
+    {
+        printUnitsDescriptionEffect.ApplyEffect(descriptionCellTaker.Take());
+    }
 
     private void ChangeInputTypeInput()
     {
         if (Input.GetKeyDown(KeyCode.Mouse1))
             _currentInput++;
 
-        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 3);
+        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 4);
     }
+
+    private void DisableDescriptionPalel() => printUnitsDescriptionEffect.ApplyEffect(new List<Cell>());
 }
 
 public enum InputType

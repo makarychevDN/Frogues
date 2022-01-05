@@ -15,6 +15,11 @@ public static class Extensions
         return new Vector2Int((int)vector3.x, (int)vector3.y);
     }
 
+    public static Vector2Int ToVector2Int(this Vector3Int vector3)
+    {
+        return new Vector2Int(vector3.x, vector3.y);
+    }
+
     public static List<Cell> WithContentOnly(this List<Cell> cells)
     {
         return cells.Where(cell => cell.Content != null).ToList();
