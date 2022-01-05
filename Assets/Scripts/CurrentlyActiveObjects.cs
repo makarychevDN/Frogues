@@ -21,5 +21,7 @@ public static class CurrentlyActiveObjects
         activeObjects.Remove(something);
     }
 
+    public static void Clear() => activeObjects.Clear();
+
     public static bool SomethingIsActNow => activeObjects.Count != 0;
 }

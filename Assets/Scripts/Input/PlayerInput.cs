@@ -152,6 +152,8 @@ public class PlayerInput : BaseInput
     }
 
     private void DisableDescriptionPalel() => printUnitsDescriptionEffect.ApplyEffect(new List<Cell>());
+
+    public void SetCurrentInput(int inputType) => _currentInput = (InputType)inputType;
 }
 
 public enum InputType
