@@ -262,6 +262,51 @@ MonoBehaviour:
       m_Calls: []
   validCellTaker: {fileID: 5345436490206139712}
   selectedCellTaker: {fileID: 5345436490206139712}
+--- !u!1 &4300727504475956249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7847439791992586275}
+  - component: {fileID: 869820581411909314}
+  m_Layer: 0
+  m_Name: Sound Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7847439791992586275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300727504475956249}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5998969811541931562}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &869820581411909314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4300727504475956249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b71566395c2e647a0d1789f8b6ca45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 870043144996995265, guid: f0aaf2a76a563bc43a8a9271cfe4d0ee, type: 3}
 --- !u!1 &4898589190406329866
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +554,8 @@ Transform:
   m_LocalPosition: {x: 2, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7847439791992586275}
   m_Father: {fileID: 8481819687293015198}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -553,6 +599,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 869820581411909314}
+        m_TargetAssemblyTypeName: InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Run
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnFalse:
     m_PersistentCalls:
       m_Calls: []
@@ -565,7 +623,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 549959550089968926, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1304168178094499661, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
       propertyPath: m_IsActive
@@ -807,9 +865,17 @@ PrefabInstance:
       propertyPath: unitToSpawn
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5820962042445904624, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 6113599983747646638, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
       propertyPath: m_Name
       value: Follow And Bump Into Target AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289616205877848322, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7800510938240471260, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
       propertyPath: m_IsActive
