@@ -32,6 +32,11 @@ public class Damagable : MonoBehaviour
             OnApplyUnblockedDamage.AddListener(takeDamageAnimation.Play);
     }
 
+    public void TakeHealing(int value)
+    {
+        hp.Content += value;
+        hp.Content = Mathf.Clamp(hp.Content, 0, maxHP.Content);
+    }
     public void TakeDamage(int damageValue, DamageType damageType) => CalculateDamage(hp, damageValue, damageType, false);
     public void TakeDamage(int damageValue, DamageType damageType, bool ignoreArmor) => CalculateDamage(hp, damageValue, damageType, ignoreArmor);
 

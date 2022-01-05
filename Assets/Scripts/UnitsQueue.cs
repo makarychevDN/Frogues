@@ -9,6 +9,7 @@ public class UnitsQueue : MonoBehaviour
     public static UnitsQueue Instance;
     [SerializeField] private Unit player;
     [SerializeField] private Unit roundCounter;
+    [SerializeField] private bool playerDied;
 
     private CycledLinkedList _unitsList;
     private QueueNode _currentNode;
@@ -67,8 +68,10 @@ public class UnitsQueue : MonoBehaviour
 
     private void Update()
     {
-        if (!CurrentlyActiveObjects.SomethingIsActNow)
-            _currentNode.Unit.input.Act();
+        if (CurrentlyActiveObjects.SomethingIsActNow || playerDied)
+            return;
+            
+        _currentNode.Unit.input.Act();
     }
 
     public void ActivateNext()
@@ -84,6 +87,9 @@ public class UnitsQueue : MonoBehaviour
     {
         if (_currentNode.Unit == unit)
             ActivateNext();
+
+        if (unit == player)
+            playerDied = true;
 
         _unitsList.Remove(unit);
         _debugUnits.Remove(unit);
