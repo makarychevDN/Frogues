@@ -28,7 +28,7 @@ public class RoundTimerEvent : MonoBehaviour
         {
             timerEnabled = false;
             timerEvent.Invoke();
-            roundsToEvent = 0;
+            //roundsToEvent = 0;
         }
     }
 }
