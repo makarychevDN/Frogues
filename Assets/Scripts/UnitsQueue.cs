@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class UnitsQueue : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class UnitsQueue : MonoBehaviour
     [SerializeField] private Unit player;
     [SerializeField] private Unit roundCounter;
     [SerializeField] private bool playerDied;
+    public UnityEvent OnPlayerDied;
 
     private CycledLinkedList _unitsList;
     private QueueNode _currentNode;
@@ -89,7 +91,10 @@ public class UnitsQueue : MonoBehaviour
             ActivateNext();
 
         if (unit == player)
+        {
             playerDied = true;
+            OnPlayerDied.Invoke();
+        }
 
         _unitsList.Remove(unit);
         _debugUnits.Remove(unit);
