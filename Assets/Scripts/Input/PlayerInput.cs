@@ -105,7 +105,7 @@ public class PlayerInput : BaseInput
         movementCellsHighlighter.ApplyEffect();
 
         if (findWayInValidCells.Take() != null)
-            movementPreCost.Content = findWayInValidCells.Take().Count;
+            movementPreCost.Content = findWayInValidCells.Take().Count - 1;
         else
             movementPreCost.Content = 0;
 

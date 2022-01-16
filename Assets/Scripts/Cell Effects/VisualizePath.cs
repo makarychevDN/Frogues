@@ -17,10 +17,7 @@ public class VisualizePath : BaseCellsEffect
         if (cells == null)
             return;
 
-        var firstCell = cells[0];
-        var lastCell = cells[cells.Count - 1];
-        firstCell.EnablePathDot(true);
-        lastCell.EnablePathDot(true);
+        cells.GetLast().EnablePathDot(true);
 
         if (cells.Count == 1)
             return;
