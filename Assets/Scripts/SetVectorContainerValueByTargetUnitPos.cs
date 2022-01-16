@@ -11,6 +11,9 @@ public class SetVectorContainerValueByTargetUnitPos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (targetUnit.Content == null)
+            return;
+
         Vector3 unitPos = thisUnit.transform.position;
         Vector3 targetUnitPos = targetUnit.Content.transform.position;
 
