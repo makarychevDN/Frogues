@@ -9,8 +9,13 @@ public class RestartScene : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            CurrentlyActiveObjects.Clear();
-            Application.LoadLevel(Application.loadedLevel);
+            Restart();
         }
+    }
+
+    public void Restart()
+    {
+        CurrentlyActiveObjects.Clear();
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
