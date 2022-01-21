@@ -231,25 +231,23 @@ public class PathFinder : MonoBehaviour
 
     }
 
-    private void FindAllNodesNeighbors() //todo спросить про альтернативы try catch
+    private void FindAllNodesNeighbors()
     {
         foreach (var node in _nodesGrid)
         {
             foreach (var dir in _dirVectors)
             {
-                try
-                {
+                if(AddNeighborIsPossible(node, dir))
                     node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);
-                }
-                catch
-                {
-                    // раз уж на то пошло то у меня есть конкретный вопрос:
-                    // я знаю, что это несколько грубое решение проблемы, но прописывать кучу if(coordinates < 0) и прочее тоже как-то не особо изящно
-                    // собственно вопрос, есть ли альтернативы? Просто лишних 4 ифа не очень как-то прописывать, когда условие то по сути одно "если вышел за пределы массива"
-                }
             }
         }
     }
+
+    private bool AddNeighborIsPossible(PathFinderNode node, Vector2Int dir) =>
+        node.cell.coordinates.x + dir.x > 0
+        && node.cell.coordinates.x + dir.x < _nodesGrid.GetLength(0)
+        && node.cell.coordinates.y + dir.y > 0
+        && node.cell.coordinates.y + dir.y < _nodesGrid.GetLength(1);
 
     #endregion
 }
