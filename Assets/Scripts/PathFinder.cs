@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PathFinder : MonoBehaviour
@@ -93,7 +94,7 @@ public class PathFinder : MonoBehaviour
                 else if (!item.usedToPathFinding && !item.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces))
                 {
                     _currentNodes.Add(item);
-                    item.weight = Vector2Int.Distance(item.coordinates, userCell.coordinates) + Vector2Int.Distance(item.coordinates, targetCell.coordinates);
+                    item.weight = Vector2Int.Distance(item.coordinates, userCell.coordinates) + Vector2Int.Distance(item.coordinates, targetCell.coordinates) + item.ColumnContentWightModifiers;
                     item.previous = smallestWeightNode;
                     item.usedToPathFinding = true;
                 }
@@ -243,11 +244,13 @@ public class PathFinder : MonoBehaviour
         }
     }
 
-    private bool AddNeighborIsPossible(PathFinderNode node, Vector2Int dir) =>
-        node.cell.coordinates.x + dir.x > 0
-        && node.cell.coordinates.x + dir.x < _nodesGrid.GetLength(0)
-        && node.cell.coordinates.y + dir.y > 0
-        && node.cell.coordinates.y + dir.y < _nodesGrid.GetLength(1);
+    private bool AddNeighborIsPossible(PathFinderNode node, Vector2Int dir)
+    {
+        return node.cell.coordinates.x + dir.x > 0
+            && node.cell.coordinates.x + dir.x < _nodesGrid.GetLength(0)
+            && node.cell.coordinates.y + dir.y > 0
+            && node.cell.coordinates.y + dir.y < _nodesGrid.GetLength(1);
+    }
 
     #endregion
 }
@@ -278,5 +281,16 @@ public class PathFinderNode
     public void AddNeighbor(PathFinderNode neighbor)
     {
         neighbors.Add(neighbor);
+    }
+
+    public float ColumnContentWightModifiers
+    {
+        get
+        {
+            float weightModificator = 0;
+            Map.Instance.GetCellsColumn(cell).WithContentOnly().ForEach(columnCell => weightModificator += columnCell.Content.pathfinderWeightModificator.Content);
+            return weightModificator;
+
+        }
     }
 }

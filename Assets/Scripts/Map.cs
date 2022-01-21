@@ -152,6 +152,7 @@ public class Map : MonoBehaviour
         return unitsLayer[coordinates.x, coordinates.y];
     }
 
+    public List<Cell> GetCellsColumn(Cell cell) => GetCellsColumn(cell.coordinates);
     public List<Cell> GetCellsColumn(Vector2Int coordinates)
     {
         List<Cell> cells = new List<Cell>();

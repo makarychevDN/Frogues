@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour
     public Damagable health;
     public UnitsUI UI;
     public StringContainer description;
+    public FloatContainer pathfinderWeightModificator;
 
     public Vector2Int Coordinates => currentCell.coordinates;
 }
