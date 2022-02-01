@@ -33,6 +33,8 @@ public class PlayerInput : BaseInput
     [SerializeField] private BaseCellsTaker descriptionCellTaker;
     [SerializeField] private Button resarchButton;
 
+    [SerializeField] private AOEWeapon currentAbility;
+
     private List<Cell> _path = new List<Cell>();
     private bool _inputIsPossible;
     private float bottomUiPanelHeight = 120f;
@@ -53,11 +55,8 @@ public class PlayerInput : BaseInput
         DisableAllVisualizationFromPlayerOnMap();
         DisableDescriptionPalel();
         unitsUIEnabler.AllUnitsUISetActive(false);
-
-        if (!UnitsQueue.Instance.IsUnitCurrent(unit))
-            return;
-
-        if (!_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
+        
+        if (!UnitsQueue.Instance.IsUnitCurrent(unit) || !_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
             return;
 
         if (_path.Count != 0)
@@ -71,15 +70,27 @@ public class PlayerInput : BaseInput
 
         selectedCellVisualizer.ApplyEffect();
         ResetPreCostContainers();
-
-        switch (_currentInput)
+        
+        /*switch (_currentInput)
         {
             case InputType.movement: MovementInput(); movementButton.Select(); break;
             case InputType.attack: AttackInput(); attackButton.Select(); break;
             case InputType.push: PushInput(); pushButton.Select(); break;
             case InputType.research: ResearchInput(); resarchButton.Select(); break;
-        }
+        }*/
 
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+            currentAbility = null;
+
+        if (currentAbility != null)
+        {
+            AttackInput(ref currentAbility);
+        }
+        else
+        {
+            MovementInput();
+        }
+        
         unitsUIEnabler.AllUnitsUISetActive(true);
         ChangeInputTypeInput();
     }
@@ -116,18 +127,19 @@ public class PlayerInput : BaseInput
         }
     }
 
-    private void AttackInput()
+    private void AttackInput(ref AOEWeapon ability)
     {
-        weapon.HighlightCells();
-        weaponPreCost.Content = weapon.CurrentActionCost;
+        ability.HighlightCells();
+        weaponPreCost.Content = ability.CurrentActionCost;
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
-            weapon.Use();
+            ability.Use();
+            ability = null;
         }
     }
 
-    private void PushInput()
+    /*private void PushInput()
     {
         kick.HighlightCells();
         pushtPreCost.Content = kick.CurrentActionCost;
@@ -136,7 +148,7 @@ public class PlayerInput : BaseInput
         {
             kick.Use();
         }
-    }
+    }*/
 
     private void ResearchInput()
     {
@@ -154,6 +166,8 @@ public class PlayerInput : BaseInput
     private void DisableDescriptionPalel() => printUnitsDescriptionEffect.ApplyEffect(new List<Cell>());
 
     public void SetCurrentInput(int inputType) => _currentInput = (InputType)inputType;
+
+    public void SetCurrentAbility(AOEWeapon ability) => currentAbility = ability;
 }
 
 public enum InputType

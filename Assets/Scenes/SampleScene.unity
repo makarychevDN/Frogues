@@ -1463,11 +1463,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 960222692}
         m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
-        m_MethodName: SetCurrentInput
-        m_Mode: 3
+        m_MethodName: SetCurrentAbility
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 102829465}
+          m_ObjectArgumentAssemblyTypeName: AOEWeapon, Assembly-CSharp
           m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3220,6 +3220,7 @@ MonoBehaviour:
   health: {fileID: 0}
   UI: {fileID: 0}
   description: {fileID: 0}
+  pathfinderWeightModificator: {fileID: 0}
 --- !u!4 &520223510
 Transform:
   m_ObjectHideFlags: 0
@@ -3656,7 +3657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &588484412
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5504,7 +5505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 235, y: 60}
+  m_AnchoredPosition: {x: 120, y: 60}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &860316434
@@ -7261,6 +7262,7 @@ MonoBehaviour:
   printUnitsDescriptionEffect: {fileID: 1216589973}
   descriptionCellTaker: {fileID: 1632598753}
   resarchButton: {fileID: 1402690543}
+  currentAbility: {fileID: 0}
 --- !u!1 &969147671
 GameObject:
   m_ObjectHideFlags: 0
@@ -9953,7 +9955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1333755933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10730,6 +10732,7 @@ MonoBehaviour:
   health: {fileID: 1245647191}
   UI: {fileID: 0}
   description: {fileID: 883856462}
+  pathfinderWeightModificator: {fileID: 0}
 --- !u!4 &1460232458
 Transform:
   m_ObjectHideFlags: 0
@@ -11053,7 +11056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 350, y: 60}
+  m_AnchoredPosition: {x: 235, y: 60}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1505424986
@@ -14890,11 +14893,11 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 960222692}
         m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
-        m_MethodName: SetCurrentInput
-        m_Mode: 3
+        m_MethodName: SetCurrentAbility
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1293104221}
+          m_ObjectArgumentAssemblyTypeName: AOEWeapon, Assembly-CSharp
           m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
@@ -15103,6 +15106,7 @@ MonoBehaviour:
   health: {fileID: 0}
   UI: {fileID: 0}
   description: {fileID: 0}
+  pathfinderWeightModificator: {fileID: 0}
 --- !u!4 &2007523291
 Transform:
   m_ObjectHideFlags: 0
