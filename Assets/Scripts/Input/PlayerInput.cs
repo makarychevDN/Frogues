@@ -7,35 +7,20 @@ using UnityEngine.UI;
 
 public class PlayerInput : BaseInput
 {
-    [SerializeField, ReadOnly] private InputType _currentInput = InputType.movement;
     [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
     [SerializeField] private UnitsUIEnabler unitsUIEnabler;
+    [SerializeField] private IntContainer preCostContainer;
 
     [Header("Movement Input")]
     [SerializeField] private HighlightValidateCells movementCellsHighlighter;
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     [SerializeField] private VisualizePath pathVisualizer;
-    [SerializeField] private IntContainer movementPreCost;
-    [SerializeField] private Button movementButton;
-
-    [Header("Push Input")]
-    [SerializeField] private Weapon kick;
-    [SerializeField] private IntContainer pushtPreCost;
-    [SerializeField] private Button pushButton;
-
-    [Header("Weapon Input")]
-    [SerializeField] private Weapon weapon;
-    [SerializeField] private IntContainer weaponPreCost;
-    [SerializeField] private Button attackButton;
 
     [Header("Research Input")]
-    [SerializeField] private PrintUnitsDescriptionEffect printUnitsDescriptionEffect;
-    [SerializeField] private BaseCellsTaker descriptionCellTaker;
-    [SerializeField] private Button resarchButton;
+    [SerializeField] private Weapon inspectAbility;
+    [SerializeField] private Weapon currentAbility;
 
-    [SerializeField] private AOEWeapon currentAbility;
-
-    private List<Cell> _path = new List<Cell>();
+    private List<Cell> _path = new();
     private bool _inputIsPossible;
     private float bottomUiPanelHeight = 120f;
 
@@ -53,7 +38,7 @@ public class PlayerInput : BaseInput
     private void Update()
     {
         DisableAllVisualizationFromPlayerOnMap();
-        DisableDescriptionPalel();
+        //DisableDescriptionPanel();
         unitsUIEnabler.AllUnitsUISetActive(false);
         
         if (!UnitsQueue.Instance.IsUnitCurrent(unit) || !_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
@@ -70,21 +55,22 @@ public class PlayerInput : BaseInput
 
         selectedCellVisualizer.ApplyEffect();
         ResetPreCostContainers();
-        
-        /*switch (_currentInput)
-        {
-            case InputType.movement: MovementInput(); movementButton.Select(); break;
-            case InputType.attack: AttackInput(); attackButton.Select(); break;
-            case InputType.push: PushInput(); pushButton.Select(); break;
-            case InputType.research: ResearchInput(); resarchButton.Select(); break;
-        }*/
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
-            currentAbility = null;
+        {
+            if (currentAbility != null)
+            {
+                currentAbility = null;
+            }
+            else
+            {
+                currentAbility = inspectAbility;
+            }
+        }
 
         if (currentAbility != null)
         {
-            AttackInput(ref currentAbility);
+            AbilityInput(ref currentAbility);
         }
         else
         {
@@ -92,7 +78,6 @@ public class PlayerInput : BaseInput
         }
         
         unitsUIEnabler.AllUnitsUISetActive(true);
-        ChangeInputTypeInput();
     }
 
     public void DisableAllVisualizationFromPlayerOnMap()
@@ -105,9 +90,7 @@ public class PlayerInput : BaseInput
 
     private void ResetPreCostContainers()
     {
-        movementPreCost.Content = 0;
-        weaponPreCost.Content = 0;
-        pushtPreCost.Content = 0;
+        preCostContainer.Content = 0;
     }
 
     private void MovementInput()
@@ -116,21 +99,21 @@ public class PlayerInput : BaseInput
         movementCellsHighlighter.ApplyEffect();
 
         if (findWayInValidCells.Take() != null)
-            movementPreCost.Content = findWayInValidCells.Take().Count - 1;
+            preCostContainer.Content = findWayInValidCells.Take().Count - 1;
         else
-            movementPreCost.Content = 0;
+            preCostContainer.Content = 0;
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
             _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
-            movementPreCost.Content = 0;
+            preCostContainer.Content = 0;
         }
     }
 
-    private void AttackInput(ref AOEWeapon ability)
+    private void AbilityInput(ref Weapon ability)
     {
         ability.HighlightCells();
-        weaponPreCost.Content = ability.CurrentActionCost;
+        preCostContainer.Content = ability.CurrentActionCost;
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
@@ -139,38 +122,7 @@ public class PlayerInput : BaseInput
         }
     }
 
-    /*private void PushInput()
-    {
-        kick.HighlightCells();
-        pushtPreCost.Content = kick.CurrentActionCost;
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
-        {
-            kick.Use();
-        }
-    }*/
-
-    private void ResearchInput()
-    {
-        printUnitsDescriptionEffect.ApplyEffect(descriptionCellTaker.Take());
-    }
-
-    private void ChangeInputTypeInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-            _currentInput++;
-
-        _currentInput = (InputType)Mathf.Repeat((int)_currentInput, 4);
-    }
-
-    private void DisableDescriptionPalel() => printUnitsDescriptionEffect.ApplyEffect(new List<Cell>());
-
-    public void SetCurrentInput(int inputType) => _currentInput = (InputType)inputType;
+    //private void DisableDescriptionPanel() => printUnitsDescriptionEffect.ApplyEffect(new List<Cell>());
 
     public void SetCurrentAbility(AOEWeapon ability) => currentAbility = ability;
-}
-
-public enum InputType
-{
-    movement = 0, attack = 1, push = 2, research = 3
 }

@@ -9,8 +9,7 @@ public class AOEWeapon : Weapon
     [Space]
     [SerializeField] private BaseCellsTaker validCellTaker;
     [SerializeField] private BaseCellsTaker selectedCellTaker;
-    //[SerializeField] private BoolContainer ignoreArmor;
-
+    
     public override bool PossibleToHitExpectedTarget => selectedCellTaker.Take()
         .Where(selectedCell => validCellTaker.Take()
         .Contains(selectedCell))
@@ -22,6 +21,9 @@ public class AOEWeapon : Weapon
         if (!actionPoints.CheckIsActionPointsEnough(defaultActionPointsCost.Content))
             return;
 
+        if(usingAnimation == null)
+            return;
+        
         SpendActionPoints();
         usingAnimation.Play();
         OnUse.Invoke();

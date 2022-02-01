@@ -4,16 +4,13 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class PrintUnitsDescriptionEffect : BaseCellsEffect
+public class PrintUnitsDescriptionEffect : CellsEffectWithPreVisualization
 {
     [SerializeField] private BaseCellsTaker cellTaker;
     [SerializeField] private GameObject textPanel;
     [SerializeField] private TextMeshProUGUI textField;
 
-    public override void ApplyEffect()
-    {
-        ApplyEffect(cellTaker.Take());
-    }
+    public override void ApplyEffect()=> ApplyEffect(cellTaker.Take());
 
     public override void ApplyEffect(List<Cell> cells)
     {
@@ -29,4 +26,8 @@ public class PrintUnitsDescriptionEffect : BaseCellsEffect
         textPanel.SetActive(true);
         textField.text = cell.Content.description.Content;
     }
+
+    public override void PreVisualizeEffect() => ApplyEffect();
+
+    public override void PreVisualizeEffect(List<Cell> cells) => ApplyEffect(cells);
 }

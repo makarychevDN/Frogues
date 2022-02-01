@@ -9,8 +9,6 @@ public abstract class Weapon : CostsActionPointsBehaviour
     [Space]
     [SerializeField] protected List<BaseCellsEffect> cellEffects;
     [SerializeField] protected PlayAnimation usingAnimation;
-    [SerializeField] protected IntContainer damage;
-    [SerializeField] protected DamageTypeContainer damageType;
     [Header("Target For AI Only")]
     public UnitContainer expectedTargetContainer;
     public UnityEvent OnUse;

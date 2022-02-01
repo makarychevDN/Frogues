@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &22660555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 22660556}
+  - component: {fileID: 22660557}
+  m_Layer: 0
+  m_Name: Default Cost
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &22660556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22660555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1757602169}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &22660557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22660555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: 0
 --- !u!1 &51537473
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,8 +443,6 @@ MonoBehaviour:
   cellEffects:
   - {fileID: 109055307}
   usingAnimation: {fileID: 1764270229}
-  damage: {fileID: 285564073}
-  damageType: {fileID: 2011289081}
   expectedTargetContainer: {fileID: 0}
   OnUse:
     m_PersistentCalls:
@@ -7245,7 +7288,6 @@ MonoBehaviour:
   OnInputDone:
     m_PersistentCalls:
       m_Calls: []
-  _currentInput: 0
   selectedCellVisualizer: {fileID: 2069287316}
   unitsUIEnabler: {fileID: 1284875647}
   movementCellsHighlighter: {fileID: 1323431157}
@@ -7259,9 +7301,7 @@ MonoBehaviour:
   weapon: {fileID: 1293104221}
   weaponPreCost: {fileID: 610750520}
   attackButton: {fileID: 1990625405}
-  printUnitsDescriptionEffect: {fileID: 1216589973}
-  descriptionCellTaker: {fileID: 1632598753}
-  resarchButton: {fileID: 1402690543}
+  inspectAbility: {fileID: 1757602170}
   currentAbility: {fileID: 0}
 --- !u!1 &969147671
 GameObject:
@@ -9653,6 +9693,52 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1249517577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1249517579}
+  - component: {fileID: 1249517578}
+  m_Layer: 0
+  m_Name: Colummn By Mouse Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1249517578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249517577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1fca3ca24142d43a130c996b92eb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 1308191799}
+  takeColumn: 1
+--- !u!4 &1249517579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249517577}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1757602169}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1281162581
 GameObject:
   m_ObjectHideFlags: 0
@@ -9790,8 +9876,6 @@ MonoBehaviour:
   cellEffects:
   - {fileID: 1942922105}
   usingAnimation: {fileID: 605088277}
-  damage: {fileID: 326176440}
-  damageType: {fileID: 99927824}
   expectedTargetContainer: {fileID: 0}
   OnUse:
     m_PersistentCalls:
@@ -10754,6 +10838,7 @@ Transform:
   - {fileID: 1293104220}
   - {fileID: 102829466}
   - {fileID: 883856463}
+  - {fileID: 1757602169}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10990,8 +11075,6 @@ MonoBehaviour:
   cellEffects:
   - {fileID: 1523038191}
   usingAnimation: {fileID: 0}
-  damage: {fileID: 0}
-  damageType: {fileID: 0}
   expectedTargetContainer: {fileID: 0}
   OnUse:
     m_PersistentCalls:
@@ -11748,6 +11831,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1631269088
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631269089}
+  - component: {fileID: 1631269090}
+  m_Layer: 0
+  m_Name: Print Descripton Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1631269089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631269088}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1757602169}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1631269090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631269088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c562f057173ae44ab0527a816e83c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectUsingOnAllColumn: 0
+  cellTaker: {fileID: 1249517578}
+  textPanel: {fileID: 1993595286}
+  textField: {fileID: 386238709}
 --- !u!1 &1632598751
 GameObject:
   m_ObjectHideFlags: 0
@@ -12914,6 +13045,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: {fileID: 1931516479}
   lastTakenDamage: {fileID: 1778426503}
+--- !u!1 &1757602168
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757602169}
+  - component: {fileID: 1757602170}
+  m_Layer: 0
+  m_Name: Ability (Inspect)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1757602169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757602168}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 22660556}
+  - {fileID: 1249517579}
+  - {fileID: 1631269089}
+  m_Father: {fileID: 1460232458}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1757602170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757602168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cffce1661fd12c549bdbb5bde58962e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionPoints: {fileID: 1141629772}
+  defaultActionPointsCost: {fileID: 22660557}
+  cellEffects:
+  - {fileID: 1631269090}
+  usingAnimation: {fileID: 0}
+  expectedTargetContainer: {fileID: 0}
+  OnUse:
+    m_PersistentCalls:
+      m_Calls: []
+  validCellTaker: {fileID: 1249517578}
+  selectedCellTaker: {fileID: 1249517578}
 --- !u!1 &1764270227
 GameObject:
   m_ObjectHideFlags: 0
