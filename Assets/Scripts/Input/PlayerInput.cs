@@ -20,6 +20,10 @@ public class PlayerInput : BaseInput
     [SerializeField] private Weapon inspectAbility;
     [SerializeField] private Weapon currentAbility;
 
+    [SerializeField] private Sprite defaultCursor;
+    [SerializeField] private Sprite attackCursor;
+    [SerializeField] private Sprite inspectCursor;
+
     private List<Cell> _path = new();
     private bool _inputIsPossible;
     private float bottomUiPanelHeight = 120f;
@@ -37,6 +41,7 @@ public class PlayerInput : BaseInput
 
     private void Update()
     {
+        Cursor.SetCursor(defaultCursor.texture, Vector2.zero,CursorMode.ForceSoftware);
         DisableAllVisualizationFromPlayerOnMap();
         //DisableDescriptionPanel();
         unitsUIEnabler.AllUnitsUISetActive(false);
@@ -114,6 +119,10 @@ public class PlayerInput : BaseInput
     {
         ability.HighlightCells();
         preCostContainer.Content = ability.CurrentActionCost;
+        Cursor.SetCursor(
+            ability == inspectAbility ? inspectCursor.texture : attackCursor.texture, 
+            Vector2.zero,
+            CursorMode.ForceSoftware); 
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
