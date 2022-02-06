@@ -11,6 +11,6 @@ public class ApplyPush : MonoBehaviour
 
     public void Apply()
     {
-        movable.Move(Map.Instance.FindNeigborhoodForCell(unit.currentCell, lastTakenDireaction.Content), 0, pushSpeed, 0);
+        movable.Move(Map.Instance.FindNeighborhoodForCell(unit.currentCell, lastTakenDireaction.Content), 0, pushSpeed, 0);
     }
 }

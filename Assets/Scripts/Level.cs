@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : MonoBehaviour //да сейчас это используется как заглушка для расставления юнитов по карте, потом оно будет более полезным
+public class Level : MonoBehaviour //РґР° СЃРµР№С‡Р°СЃ СЌС‚Рѕ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РєР°Рє Р·Р°РіР»СѓС€РєР° РґР»СЏ СЂР°СЃСЃС‚Р°РІР»РµРЅРёСЏ СЋРЅРёС‚РѕРІ РїРѕ РєР°СЂС‚Рµ, РїРѕС‚РѕРј РѕРЅРѕ Р±СѓРґРµС‚ Р±РѕР»РµРµ РїРѕР»РµР·РЅС‹Рј
 {
     [SerializeField] private Unit _player;
     [SerializeField] private Unit enemy1;
@@ -14,10 +14,10 @@ public class Level : MonoBehaviour //да сейчас это используется как заглушка для
 
     private void Start()
     {
-        _map.unitsLayer[2, 2].Content = _player;
-        _map.unitsLayer[2, 5].Content = enemy1;
-        _map.unitsLayer[5, 2].Content = enemy2;
-        _map.unitsLayer[5, 5].Content = enemy3;
+        _map.layers[MapLayer.DefaultUnit][2, 2].Content = _player;
+        _map.layers[MapLayer.DefaultUnit][2, 5].Content = enemy1;
+        _map.layers[MapLayer.DefaultUnit][5, 2].Content = enemy2;
+        _map.layers[MapLayer.DefaultUnit][5, 5].Content = enemy3;
         //_map.unitsLayer[2, 1].Content = _enemie;
     }
 }

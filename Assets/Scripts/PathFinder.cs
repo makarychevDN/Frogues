@@ -74,14 +74,7 @@ public class PathFinder : MonoBehaviour
                     item.previous = smallestWeightNode;
                     List<Cell> path = new List<Cell>();
                     var tempBackTrackNode = item;
-
-                    Cell[,] currentLayer = null;
-                    switch (userCell.mapLayer)
-                    {
-                        case MapLayer.Projectile: currentLayer = map.projectilesLayer; break;
-                        case MapLayer.DefaultUnit: currentLayer = map.unitsLayer; break;
-                        case MapLayer.Surface: currentLayer = map.surfacesLayer; break;
-                    }
+                    Cell[,] currentLayer = Map.Instance.layers[userCell.mapLayer];
 
                     while (tempBackTrackNode.coordinates != new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
                     {
@@ -226,7 +219,7 @@ public class PathFinder : MonoBehaviour
         {
             for (int j = 0; j < map.sizeY; j++)
             {
-                _nodesGrid[i,j] = new PathFinderNode(map.unitsLayer[i, j]);
+                _nodesGrid[i,j] = new PathFinderNode(map.layers[MapLayer.DefaultUnit][i, j]);
             }
         }
 

@@ -19,7 +19,7 @@ public class CellByMousePosition : BaseCellsTaker
         {
             return takeColumn ?
                 Map.Instance.GetCellsColumn(coordinate.ToVector2Int()) :
-                new List<Cell> { Map.Instance.unitsLayer[coordinate.x, coordinate.y] };
+                new List<Cell> { Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y] };
         }
         catch
         {
