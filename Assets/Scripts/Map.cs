@@ -9,14 +9,13 @@ public class Map : MonoBehaviour
 
     public int sizeX, sizeY;
     public Tilemap tilemap;
-    public Transform smallUnitsParent, unitsCellsParent, surfacesCellsParent, projectileCellsParent, wallsParent;
+    public Transform smallUnitsParent, unitsCellsParent, surfacesCellsParent, projectileCellsParent, uiCellsParent, wallsParent;
     public List<Cell> allCells;
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Wall wallPrefab;
     private List<Transform> _cellsParents;
-    //private List<Cell[,]> _layers;
     public Dictionary<MapLayer, Cell[,]> layers;
-    private const int _layersCount = 4;
+    private const int _layersCount = 5;
 
     private void Awake()
     {
@@ -25,7 +24,6 @@ public class Map : MonoBehaviour
 
         InitCellsParents();
         InitCells();
-        InitLayers();
         InitWalls();
         InitCellsMonitoringOnUnitsLayer();
     }
@@ -37,6 +35,7 @@ public class Map : MonoBehaviour
         _cellsParents.Add(unitsCellsParent);
         _cellsParents.Add(surfacesCellsParent);
         _cellsParents.Add(projectileCellsParent);
+        _cellsParents.Add(uiCellsParent);
     }
 
     public void InitCells()
@@ -92,14 +91,7 @@ public class Map : MonoBehaviour
             }
         }
     }
-
-    public void InitLayers()
-    {
-        /*smallUnitsLayer = _layers[MapLayer.SmallUnit];
-        unitsLayer = _layers[MapLayer.DefaultUnit];
-        surfacesLayer = _layers[MapLayer.Surface];*/
-    }
-
+    
     public void InitCellsMonitoringOnUnitsLayer()
     {
         for (int i = 0; i < layers[0].GetLength(0); i++)
@@ -108,22 +100,9 @@ public class Map : MonoBehaviour
             {
                 if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                 {
-                    var activateTriggerInProjectiles = layers[MapLayer.Projectile][i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
-                    var activateTriggerInSmallUnits = layers[MapLayer.SmallUnit][i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
                     var activateTriggerInSurfaces = layers[MapLayer.Surface][i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
-
-                    layers[MapLayer.DefaultUnit][i, j].OnBecameFull.AddListener(activateTriggerInProjectiles.TriggerOnBecameFull);
-                    layers[MapLayer.DefaultUnit][i, j].OnBecameEmpty.AddListener(activateTriggerInProjectiles.TriggerOnBecameEmpty);
                     layers[MapLayer.DefaultUnit][i, j].OnBecameFull.AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
                     layers[MapLayer.DefaultUnit][i, j].OnBecameEmpty.AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
-                    
-                    layers[MapLayer.SmallUnit][i, j].OnBecameFull.AddListener(activateTriggerInProjectiles.TriggerOnBecameFull);
-                    layers[MapLayer.SmallUnit][i, j].OnBecameEmpty.AddListener(activateTriggerInProjectiles.TriggerOnBecameEmpty);
-                    layers[MapLayer.SmallUnit][i, j].OnBecameFull.AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
-                    layers[MapLayer.SmallUnit][i, j].OnBecameEmpty.AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
-                    
-                    layers[MapLayer.DefaultUnit][i, j].OnBecameFull.AddListener(activateTriggerInSmallUnits.TriggerOnBecameFull);
-                    layers[MapLayer.DefaultUnit][i, j].OnBecameEmpty.AddListener(activateTriggerInSmallUnits.TriggerOnBecameEmpty);
                 }
             }
         }

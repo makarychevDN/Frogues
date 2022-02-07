@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public bool small;
     public MapLayer unitType;
     public Movable movable;
     public Cell currentCell;

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public enum MapLayer
 {
-    SmallUnit = 0, DefaultUnit = 1, Surface = 2, Projectile = 3, UICells = 4
+    DefaultUnit = 0, Surface = 1
 }

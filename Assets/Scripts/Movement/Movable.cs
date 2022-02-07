@@ -10,6 +10,9 @@ public class Movable : CostsActionPointsBehaviour
     [SerializeField] private Unit unit;
     public UnityEvent OnMovementStart;
     public UnityEvent OnMovementEnd;
+    [Space] 
+    public bool canBumpIntoUnit;
+    public UnityEvent OnBumpInto;
     private MovableAnimation _movableAnimation;
 
     private void Awake()
@@ -19,7 +22,7 @@ public class Movable : CostsActionPointsBehaviour
 
     public void Move(Cell targetCell)
     {
-        if (!targetCell.IsEmpty || !IsActionPointsEnough())
+        if ((!targetCell.IsEmpty && !canBumpIntoUnit) || !IsActionPointsEnough())
             return;
 
         SpendActionPoints();
@@ -45,6 +48,11 @@ public class Movable : CostsActionPointsBehaviour
 
     public void StopMovement(Cell targetCell)
     {
+        if (!targetCell.IsEmpty)
+        {
+            OnBumpInto.Invoke();
+        }
+        
         unit.transform.position = targetCell.transform.position;
         targetCell.Content = unit;
         OnMovementEnd.Invoke();
