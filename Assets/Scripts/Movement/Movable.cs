@@ -35,7 +35,7 @@ public class Movable : CostsActionPointsBehaviour
     
     public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight)
     {
-        if (!targetCell.IsEmpty || !IsActionPointsEnough(movementCost))
+        if ((!targetCell.IsEmpty && !canBumpIntoUnit) || !IsActionPointsEnough(movementCost))
             return;
 
         SpendActionPoints(movementCost);

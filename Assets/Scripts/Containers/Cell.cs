@@ -39,7 +39,7 @@ public class Cell : Container<Unit>
         }
     }
 
-    public override bool IsEmpty => Content == null && !chosenToMovement;
+    public override bool IsEmpty => Content == null/* && !chosenToMovement*/;
 
     public Cell GetNeighbor(Vector2Int direction)
     {
