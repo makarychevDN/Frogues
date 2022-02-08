@@ -48,14 +48,16 @@ public class Movable : CostsActionPointsBehaviour
 
     public void StopMovement(Cell targetCell)
     {
+        targetCell.chosenToMovement = false;
+        unit.transform.position = targetCell.transform.position;
+        
         if (!targetCell.IsEmpty)
         {
             OnBumpInto.Invoke();
+            return;
         }
         
-        unit.transform.position = targetCell.transform.position;
         targetCell.Content = unit;
         OnMovementEnd.Invoke();
-        targetCell.chosenToMovement = false;
     }
 }
