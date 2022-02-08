@@ -9,13 +9,12 @@ public class Map : MonoBehaviour
 
     public int sizeX, sizeY;
     public Tilemap tilemap;
-    public Transform smallUnitsParent, unitsCellsParent, surfacesCellsParent, projectileCellsParent, uiCellsParent, wallsParent;
+    public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
     public List<Cell> allCells;
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Wall wallPrefab;
     private List<Transform> _cellsParents;
     public Dictionary<MapLayer, Cell[,]> layers;
-    private const int _layersCount = 5;
 
     private void Awake()
     {
@@ -28,15 +27,7 @@ public class Map : MonoBehaviour
         InitCellsMonitoringOnUnitsLayer();
     }
 
-    public void InitCellsParents()
-    {
-        _cellsParents = new List<Transform>();
-        _cellsParents.Add(smallUnitsParent);
-        _cellsParents.Add(unitsCellsParent);
-        _cellsParents.Add(surfacesCellsParent);
-        _cellsParents.Add(projectileCellsParent);
-        _cellsParents.Add(uiCellsParent);
-    }
+    public void InitCellsParents() => _cellsParents = new List<Transform> {unitsCellsParent, surfacesCellsParent};
 
     public void InitCells()
     {
@@ -45,7 +36,7 @@ public class Map : MonoBehaviour
         sizeY = bounds.size.y;
         layers = new Dictionary<MapLayer, Cell[,]>();
 
-        for (int k = 0; k < _layersCount; k++)
+        for (int k = 0; k < _cellsParents.Count; k++)
         {
             layers.Add((MapLayer)k, new Cell[sizeX, sizeY]);
 
