@@ -26,10 +26,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
         _movable = GetComponent<Movable>();
     }
 
-    public void Play(Cell startCell, Cell targetCell)
-    {
-        Play(startCell, targetCell, defaultSpeed, defaultJumpHeight);
-    }
+    public void Play(Cell startCell, Cell targetCell) => Play(startCell, targetCell, defaultSpeed, defaultJumpHeight);
 
     public void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight)
     {

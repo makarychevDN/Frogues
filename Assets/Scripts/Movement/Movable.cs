@@ -13,6 +13,8 @@ public class Movable : CostsActionPointsBehaviour
     [Space] 
     public bool canBumpIntoUnit;
     public UnityEvent OnBumpInto;
+    public UnityEvent<List<Cell>> OnBumpIntoCell;
+
     private MovableAnimation _movableAnimation;
 
     private void Awake()
@@ -20,29 +22,40 @@ public class Movable : CostsActionPointsBehaviour
         _movableAnimation = GetComponent<MovableAnimation>();
     }
 
-    public void Move(Cell targetCell)
+    public void Move(Cell targetCell) => Move(targetCell, true);
+    
+    public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove)
     {
         if ((!targetCell.IsEmpty && !canBumpIntoUnit) || !IsActionPointsEnough())
             return;
 
         SpendActionPoints();
         targetCell.chosenToMovement = true;
-        unit.currentCell.Content = null;
+        
+        if(startCellBecomeEmptyOnMove)
+            unit.currentCell.Content = null;
 
         _movableAnimation.Play(unit.currentCell, targetCell);
+        unit.currentCell = null;
         OnMovementStart.Invoke();
     }
+
+    public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight) =>
+        Move(targetCell, movementCost, speed, jumpHeight, true);
     
-    public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight)
+    public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight, bool startCellBecomeEmptyOnMove)
     {
         if ((!targetCell.IsEmpty && !canBumpIntoUnit) || !IsActionPointsEnough(movementCost))
             return;
 
         SpendActionPoints(movementCost);
         targetCell.chosenToMovement = true;
-        unit.currentCell.Content = null;
+
+        if (startCellBecomeEmptyOnMove)
+            unit.currentCell.Content = null;
 
         _movableAnimation.Play(unit.currentCell, targetCell, speed, jumpHeight);
+        unit.currentCell = null;
         OnMovementStart.Invoke();
     }
 
@@ -54,6 +67,7 @@ public class Movable : CostsActionPointsBehaviour
         if (!targetCell.IsEmpty)
         {
             OnBumpInto.Invoke();
+            OnBumpIntoCell.Invoke(new List<Cell>() {targetCell});
             return;
         }
         

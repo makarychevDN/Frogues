@@ -10,7 +10,8 @@ public class AbleToDie : MonoBehaviour
 
     public void Die()
     {
-        unit.currentCell.Content = null;
+        if(unit.currentCell != null)
+            unit.currentCell.Content = null;
         UnitsQueue.Instance.Remove(unit);
         Destroy(unit.gameObject);
         OnDeath.Invoke();
