@@ -46,11 +46,19 @@ public class Cell : Container<Unit>
         return Map.Instance.GetLayerByCell(this)[coordinates.x + direction.x, coordinates.y + direction.y];
     }
 
-    public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces) 
+    public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces) 
     {
-        if (!ignoreDefaultUnits && !Map.Instance.unitsLayer[coordinates.x, coordinates.y].IsEmpty) return false;
-        else if (!ignoreProjectiles && !Map.Instance.projectilesLayer[coordinates.x, coordinates.y].IsEmpty) return false;
-        else if (!ignoreSurfaces && !Map.Instance.surfacesLayer[coordinates.x, coordinates.y].IsEmpty) return false;
+        if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
+        {
+            if(ignoreSmallUnits && Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content.small)
+                return true;
+
+            return false;
+        }
+        
+        if (!ignoreSurfaces && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty) 
+            return false;
+        
         return true;
     }
 

@@ -98,6 +98,11 @@ public class Damagable : MonoBehaviour
             OnHpEnded.Invoke();
         }
     }
+
+    public void DieFromStepOnUnit()
+    {
+        TakeDamage(maxHP.Content, DamageType.Phisics, true);
+    }
 }
 
 public enum DamageType

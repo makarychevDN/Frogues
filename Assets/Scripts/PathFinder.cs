@@ -37,10 +37,10 @@ public class PathFinder : MonoBehaviour
         return AStar(userCell, targetCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
     }
 
-    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movemetCost, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
+    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movementCost, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
     {
         ResetNodes();
-        return WaveAlgorithm(userCell, movemetCost == 0 ? 100 : actionPoints / movemetCost, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
+        return WaveAlgorithm(userCell, movementCost == 0 ? 100 : actionPoints / movementCost, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
     }
 
     public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool ignoreBusyCell, bool diagonalStep)
@@ -74,14 +74,7 @@ public class PathFinder : MonoBehaviour
                     item.previous = smallestWeightNode;
                     List<Cell> path = new List<Cell>();
                     var tempBackTrackNode = item;
-
-                    Cell[,] currentLayer = null;
-                    switch (userCell.mapLayer)
-                    {
-                        case MapLayer.Projectile: currentLayer = map.projectilesLayer; break;
-                        case MapLayer.DefaultUnit: currentLayer = map.unitsLayer; break;
-                        case MapLayer.Surface: currentLayer = map.surfacesLayer; break;
-                    }
+                    Cell[,] currentLayer = Map.Instance.layers[userCell.mapLayer];
 
                     while (tempBackTrackNode.coordinates != new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
                     {
@@ -226,7 +219,7 @@ public class PathFinder : MonoBehaviour
         {
             for (int j = 0; j < map.sizeY; j++)
             {
-                _nodesGrid[i,j] = new PathFinderNode(map.unitsLayer[i, j]);
+                _nodesGrid[i,j] = new PathFinderNode(map.layers[MapLayer.DefaultUnit][i, j]);
             }
         }
 

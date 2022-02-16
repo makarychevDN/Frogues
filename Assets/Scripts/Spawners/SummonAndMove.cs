@@ -15,10 +15,11 @@ public class SummonAndMove : MonoBehaviour
             return;
 
         var spawnedUnit = Instantiate(unitToSpawn);
-        Map.Instance.GetLayerByType(spawnedUnit.unitType)[spawnerUnit.currentCell.coordinates.x, spawnerUnit.currentCell.coordinates.y].Content = spawnedUnit;
-        spawnedUnit.transform.position = spawnerUnit.currentCell.transform.position;
+        //Map.Instance.GetLayerByType(spawnedUnit.unitType)[spawnerUnit.currentCell.coordinates.x, spawnerUnit.currentCell.coordinates.y].Content = spawnedUnit;
+        spawnedUnit.currentCell = spawnerUnit.currentCell;
+        spawnedUnit.transform.position = spawnedUnit.currentCell.transform.position;
         var selectedCell = cellsMoveToCellTaker.Take()[Random.Range(0, cellsMoveToCellTaker.Take().Count)];
-        spawnedUnit.movable.Move(Map.Instance.GetCell(selectedCell.coordinates, spawnedUnit.unitType), 0, movementSpeed, jumpHeight);
+        spawnedUnit.movable.Move(Map.Instance.GetCell(selectedCell.coordinates, spawnedUnit.unitType), 0, movementSpeed, jumpHeight, false);
 
 
         if (spawnedUnit.input != null)

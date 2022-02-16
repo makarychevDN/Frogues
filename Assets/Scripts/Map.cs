@@ -9,14 +9,12 @@ public class Map : MonoBehaviour
 
     public int sizeX, sizeY;
     public Tilemap tilemap;
-    public Transform projectilesCellsParent, unitsCellsParent, surfacesCellsParent, wallsParent;
-    public Cell[,] projectilesLayer, unitsLayer, surfacesLayer;
-    public List<Cell[,]> layers;
+    public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
     public List<Cell> allCells;
     [SerializeField] private Cell cellPrefab;
     [SerializeField] private Wall wallPrefab;
     private List<Transform> _cellsParents;
-    private const int _layersCount = 3;
+    public Dictionary<MapLayer, Cell[,]> layers;
 
     private void Awake()
     {
@@ -25,29 +23,22 @@ public class Map : MonoBehaviour
 
         InitCellsParents();
         InitCells();
-        InitLayers();
         InitWalls();
         InitCellsMonitoringOnUnitsLayer();
     }
 
-    public void InitCellsParents()
-    {
-        _cellsParents = new List<Transform>();
-        _cellsParents.Add(projectilesCellsParent);
-        _cellsParents.Add(unitsCellsParent);
-        _cellsParents.Add(surfacesCellsParent);
-    }
+    public void InitCellsParents() => _cellsParents = new List<Transform> {unitsCellsParent, surfacesCellsParent};
 
     public void InitCells()
     {
         BoundsInt bounds = tilemap.cellBounds;
         sizeX = bounds.size.x;
         sizeY = bounds.size.y;
-        layers = new List<Cell[,]>();
+        layers = new Dictionary<MapLayer, Cell[,]>();
 
-        for (int k = 0; k < _layersCount; k++)
+        for (int k = 0; k < _cellsParents.Count; k++)
         {
-            layers.Add(new Cell[sizeX, sizeY]);
+            layers.Add((MapLayer)k, new Cell[sizeX, sizeY]);
 
             for (int i = 0; i < sizeX; i++)
             {
@@ -56,7 +47,7 @@ public class Map : MonoBehaviour
                     if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                     {
                         var instantiatedCell = Instantiate(cellPrefab, tilemap.CellToWorld(new Vector3Int(i, j, 0)) + Vector3.up * 0.5f, Quaternion.identity);
-                        layers[k][i, j] = instantiatedCell;
+                        layers[(MapLayer)k][i, j] = instantiatedCell;
                         instantiatedCell.transform.SetParent(_cellsParents[k]);
                         instantiatedCell.coordinates = new Vector2Int(i, j);
                         instantiatedCell.mapLayer = (MapLayer)k;
@@ -67,13 +58,13 @@ public class Map : MonoBehaviour
 
         allCells = new List<Cell>();
 
-        layers.ForEach(layer =>
+        foreach (var layer in layers)
         {
-            foreach (var cell in layer)
+            foreach (var cell in layer.Value)
             {
                 allCells.Add(cell);
             }
-        });
+        }
     }
 
     public void InitWalls()
@@ -85,20 +76,13 @@ public class Map : MonoBehaviour
                 if ((i == 0 || j == 0 || i == sizeX - 1 || j == sizeY - 1))
                 {
                     var wall = Instantiate(wallPrefab, wallsParent);
-                    unitsLayer[i, j].Content = wall;
-                    wall.transform.position = unitsLayer[i, j].coordinates.ToVector3();
+                    layers[MapLayer.DefaultUnit][i, j].Content = wall;
+                    wall.transform.position = layers[MapLayer.DefaultUnit][i, j].coordinates.ToVector3();
                 }
             }
         }
     }
-
-    public void InitLayers()
-    {
-        projectilesLayer = layers[0];
-        unitsLayer = layers[1];
-        surfacesLayer = layers[2];
-    }
-
+    
     public void InitCellsMonitoringOnUnitsLayer()
     {
         for (int i = 0; i < layers[0].GetLength(0); i++)
@@ -107,49 +91,32 @@ public class Map : MonoBehaviour
             {
                 if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                 {
-                    var activateTriggerInProjectiles = projectilesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
-                    var activateTriggerInSurfaces = surfacesLayer[i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
-
-                    unitsLayer[i, j].OnBecameFull.AddListener(activateTriggerInProjectiles.TriggerOnBecameFull);
-                    unitsLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInProjectiles.TriggerOnBecameEmpty);
-
-                    surfacesLayer[i, j].OnBecameFull.AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
-                    surfacesLayer[i, j].OnBecameEmpty.AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
+                    var activateTriggerInSurfaces = layers[MapLayer.Surface][i, j].GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
+                    layers[MapLayer.DefaultUnit][i, j].OnBecameFull.AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
+                    layers[MapLayer.DefaultUnit][i, j].OnBecameEmpty.AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
                 }
             }
         }
     }
 
-    public Cell FindNeigborhoodForCell(Cell startCell, Vector2Int direction)
+    public Cell FindNeighborhoodForCell(Cell startCell, Vector2Int direction)
     {
         return GetLayerByCell(startCell)[startCell.coordinates.x + direction.x, startCell.coordinates.y + direction.y];
     }
 
     public Cell[,] GetLayerByCell(Cell cell)
     {
-        switch (cell.mapLayer)
-        {
-            case MapLayer.DefaultUnit: return unitsLayer;
-            case MapLayer.Projectile: return projectilesLayer;
-            case MapLayer.Surface: return surfacesLayer;
-        }
-        return null;
+        return layers[cell.mapLayer];
     }
 
     public Cell[,] GetLayerByType(MapLayer mapLayer)
     {
-        switch (mapLayer)
-        {
-            case MapLayer.DefaultUnit: return unitsLayer;
-            case MapLayer.Projectile: return projectilesLayer;
-            case MapLayer.Surface: return surfacesLayer;
-        }
-        return null;
+        return layers[mapLayer];
     }
 
     public Cell GetUnitsLayerCellByCoordinates(Vector2Int coordinates) 
     {
-        return unitsLayer[coordinates.x, coordinates.y];
+        return layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y];
     }
 
     public List<Cell> GetCellsColumn(Cell cell) => GetCellsColumn(cell.coordinates);
@@ -158,7 +125,7 @@ public class Map : MonoBehaviour
         List<Cell> cells = new List<Cell>();
         foreach (var layer in layers)
         {
-            cells.Add(layer[coordinates.x, coordinates.y]);
+            cells.Add(layer.Value[coordinates.x, coordinates.y]);
         }
 
         return cells;
@@ -167,18 +134,12 @@ public class Map : MonoBehaviour
     public List<Cell> GetCellsColumnIgnoreSurfaces(Vector2Int coordinates)
     {
         var temp = GetCellsColumn(coordinates);
-        temp.Remove(surfacesLayer[coordinates.x, coordinates.y]);
+        temp.Remove(layers[MapLayer.Surface][coordinates.x, coordinates.y]);
         return temp;
     }
 
     public Cell GetCell(Vector2Int coordinates, MapLayer mapLayer)
     {
-        switch (mapLayer)
-        {
-            case MapLayer.DefaultUnit: return unitsLayer[coordinates.x, coordinates.y];
-            case MapLayer.Projectile: return projectilesLayer[coordinates.x, coordinates.y];
-            case MapLayer.Surface: return surfacesLayer[coordinates.x, coordinates.y];
-        }
-        return null;
+        return layers[mapLayer][coordinates.x, coordinates.y];
     }
 }
