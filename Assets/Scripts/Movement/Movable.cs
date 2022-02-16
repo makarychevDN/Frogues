@@ -26,7 +26,13 @@ public class Movable : CostsActionPointsBehaviour
     
     public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove)
     {
-        if ((!targetCell.IsEmpty && !canBumpIntoUnit) || !IsActionPointsEnough())
+        //if ((!targetCell.IsEmpty && (!targetCell.Content.small)/* || !canBumpIntoUnit)*/ || !IsActionPointsEnough()))
+           //return;
+           
+        //if (!targetCell.IsEmpty && (!targetCell.Content.small) || !targetCell.IsEmpty && (!canBumpIntoUnit) || !IsActionPointsEnough()) //todo неработает блять
+            //return;
+        
+        if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !IsActionPointsEnough())
             return;
 
         SpendActionPoints();
@@ -45,7 +51,13 @@ public class Movable : CostsActionPointsBehaviour
     
     public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight, bool startCellBecomeEmptyOnMove)
     {
-        if ((!targetCell.IsEmpty && !canBumpIntoUnit) || !IsActionPointsEnough(movementCost))
+        //if (!targetCell.IsEmpty && (!targetCell.Content.small)/* || !canBumpIntoUnit)*/ || !IsActionPointsEnough(movementCost)) //todo неработает блять
+            //return;
+            
+        //if (!targetCell.IsEmpty && (!targetCell.Content.small) || !targetCell.IsEmpty && (!canBumpIntoUnit) || !IsActionPointsEnough(movementCost)) //todo неработает блять
+        //    return;
+
+        if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !IsActionPointsEnough())
             return;
 
         SpendActionPoints(movementCost);
@@ -66,6 +78,16 @@ public class Movable : CostsActionPointsBehaviour
         
         if (!targetCell.IsEmpty)
         {
+            if (!unit.small && targetCell.Content.small)
+            {
+                var unitToStepOnIt = targetCell.Content;
+                targetCell.Content = unit;
+                unitToStepOnIt.currentCell = null;
+                unit.currentCell = targetCell;
+                unitToStepOnIt.stepOnUnitTrigger.Run(unit);
+                return;
+            }
+            
             OnBumpInto.Invoke();
             OnBumpIntoCell.Invoke(new List<Cell>() {targetCell});
             return;

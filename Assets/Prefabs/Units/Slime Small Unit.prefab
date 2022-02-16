@@ -230,6 +230,83 @@ MonoBehaviour:
   damage: {fileID: 361904559629538950}
   damageType: {fileID: 4416278213920668171}
   ignoreArmor: 0
+--- !u!1 &3504313796375809115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2217845752164540025}
+  - component: {fileID: 4497156296502333841}
+  m_Layer: 0
+  m_Name: Step On Unit Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2217845752164540025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504313796375809115}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5853649766532058160}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4497156296502333841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504313796375809115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6705f7ec37ca54fbf08672dc876c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnStep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5853649767091376366}
+        m_TargetAssemblyTypeName: Damagable, Assembly-CSharp
+        m_MethodName: DieFromStepOnUnit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6354215705176517885}
+        m_TargetAssemblyTypeName: InstantiatePrefab, Assembly-CSharp
+        m_MethodName: Run
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnStepByUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStepOnCell:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4225443457189542046
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,6 +912,10 @@ PrefabInstance:
       propertyPath: unitType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1740921462250952842, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
+      propertyPath: stepOnUnitTrigger
+      value: 
+      objectReference: {fileID: 4497156296502333841}
     - target: {fileID: 1740921462250952843, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
       propertyPath: m_RootOrder
       value: 0

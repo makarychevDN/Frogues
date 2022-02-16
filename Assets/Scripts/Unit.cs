@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    public bool small;
     public MapLayer unitType;
     public Movable movable;
     public Cell currentCell;
@@ -15,6 +14,10 @@ public class Unit : MonoBehaviour
     public UnitsUI UI;
     public StringContainer description;
     public FloatContainer pathfinderWeightModificator;
+    
+    [Header("For Small Units Only")]
+    public bool small;
+    public StepOnUnitTrigger stepOnUnitTrigger;
 
     public Vector2Int Coordinates => currentCell.coordinates;
 }

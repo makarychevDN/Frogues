@@ -37,10 +37,10 @@ public class PathFinder : MonoBehaviour
         return AStar(userCell, targetCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
     }
 
-    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movemetCost, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
+    public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movementCost, bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
     {
         ResetNodes();
-        return WaveAlgorithm(userCell, movemetCost == 0 ? 100 : actionPoints / movemetCost, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
+        return WaveAlgorithm(userCell, movementCost == 0 ? 100 : actionPoints / movementCost, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
     }
 
     public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool ignoreBusyCell, bool diagonalStep)

@@ -48,14 +48,17 @@ public class Cell : Container<Unit>
 
     public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces) 
     {
-        if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty 
-        || (!ignoreSmallUnits && Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content != null 
-        && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content.small)
+        if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
+        {
+            if(ignoreSmallUnits && Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content.small)
+                return true;
+
+            return false;
+        }
         
-        ) 
+        if (!ignoreSurfaces && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty) 
             return false;
         
-        if (!ignoreSurfaces && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty) return false;
         return true;
     }
 
