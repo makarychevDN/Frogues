@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerInput : BaseInput
 {
     [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
+    [SerializeField] private CellByMousePosition cellByMousePosition;
     [SerializeField] private UnitsUIEnabler unitsUIEnabler;
     [SerializeField] private IntContainer preCostContainer;
 
@@ -16,10 +17,12 @@ public class PlayerInput : BaseInput
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     [SerializeField] private VisualizePath pathVisualizer;
 
-    [Header("Research Input")]
+    [Header("Abilities")]
     [SerializeField] private Weapon inspectAbility;
+    [SerializeField] private Weapon nativeAbility;
     [SerializeField] private Weapon currentAbility;
-
+    
+    [Header("Cursor Icons")]
     [SerializeField] private Sprite defaultCursor;
     [SerializeField] private Sprite attackCursor;
     [SerializeField] private Sprite inspectCursor;
@@ -43,7 +46,6 @@ public class PlayerInput : BaseInput
     {
         Cursor.SetCursor(defaultCursor.texture, Vector2.zero,CursorMode.ForceSoftware);
         DisableAllVisualizationFromPlayerOnMap();
-        //DisableDescriptionPanel();
         unitsUIEnabler.AllUnitsUISetActive(false);
         
         if (!UnitsQueue.Instance.IsUnitCurrent(unit) || !_inputIsPossible || CurrentlyActiveObjects.SomethingIsActNow)
@@ -57,8 +59,9 @@ public class PlayerInput : BaseInput
             _path.RemoveAt(0);
             return;
         }
-
+        
         selectedCellVisualizer.ApplyEffect();
+        
         ResetPreCostContainers();
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -79,7 +82,12 @@ public class PlayerInput : BaseInput
         }
         else
         {
-            MovementInput();
+            if (cellByMousePosition.Take().Any(cell => !cell.IsEmpty && !cell.Content.small)) // todo происходит двойная атака или типа того также ошибки с возвращаемым null
+            {
+                AbilityInput(ref nativeAbility);
+            }
+            else
+                MovementInput();
         }
         
         unitsUIEnabler.AllUnitsUISetActive(true);
