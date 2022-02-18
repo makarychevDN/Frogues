@@ -82,7 +82,8 @@ public class PlayerInput : BaseInput
         }
         else
         {
-            if (cellByMousePosition.Take().Any(cell => !cell.IsEmpty && !cell.Content.small)) // todo происходит двойная атака или типа того также ошибки с возвращаемым null
+            if (cellByMousePosition.Take() != null
+                && cellByMousePosition.Take().Any(cell => !cell.IsEmpty && !(cell.Content.small || cell.Content == unit || cell.Content as Wall)))
             {
                 AbilityInput(nativeAbility);
             }
