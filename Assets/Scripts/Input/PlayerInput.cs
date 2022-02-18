@@ -78,13 +78,13 @@ public class PlayerInput : BaseInput
 
         if (currentAbility != null)
         {
-            AbilityInput(ref currentAbility);
+            AbilityInput(currentAbility);
         }
         else
         {
             if (cellByMousePosition.Take().Any(cell => !cell.IsEmpty && !cell.Content.small)) // todo происходит двойная атака или типа того также ошибки с возвращаемым null
             {
-                AbilityInput(ref nativeAbility);
+                AbilityInput(nativeAbility);
             }
             else
                 MovementInput();
@@ -123,7 +123,7 @@ public class PlayerInput : BaseInput
         }
     }
 
-    private void AbilityInput(ref Weapon ability)
+    private void AbilityInput(Weapon ability)
     {
         ability.HighlightCells();
         preCostContainer.Content = ability.CurrentActionCost;
@@ -135,7 +135,7 @@ public class PlayerInput : BaseInput
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
             ability.Use();
-            ability = null;
+            currentAbility = null;
         }
     }
 

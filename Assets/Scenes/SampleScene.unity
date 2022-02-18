@@ -1037,7 +1037,7 @@ Transform:
   - {fileID: 1748524549}
   - {fileID: 1536097500}
   m_Father: {fileID: 2112195382}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &216025828
 MonoBehaviour:
@@ -1691,6 +1691,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 3
+--- !u!1 &332951314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 332951316}
+  - component: {fileID: 332951315}
+  m_Layer: 0
+  m_Name: Take Cell By Mouse Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &332951315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332951314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1fca3ca24142d43a130c996b92eb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 1308191799}
+  takeColumn: 0
+--- !u!4 &332951316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332951314}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2112195382}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354086154
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,7 +3324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1129847066}
-  animationClip: {fileID: 7400000, guid: 884c2c0e380f0b4449b34fea9e3fd02c, type: 2}
+  animationClip: {fileID: 7400000, guid: 70a131500beb72a4e97c3f5cba181749, type: 2}
   idleAnimation: {fileID: 7400000, guid: d0ede79efbe9af74b864f31fef26db35, type: 2}
   OnAnimationPlayed:
     m_PersistentCalls:
@@ -3539,7 +3585,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2112195382}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &654599806
 AudioSource:
@@ -4234,7 +4280,7 @@ Transform:
   - {fileID: 1513006543}
   - {fileID: 1073240532}
   m_Father: {fileID: 2112195382}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &827828636
 GameObject:
@@ -6212,7 +6258,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2112195382}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &962504416
 MonoBehaviour:
@@ -9631,7 +9677,7 @@ Transform:
   - {fileID: 1888654805}
   - {fileID: 518372355}
   m_Father: {fileID: 2112195382}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1617884551
 GameObject:
@@ -13785,7 +13831,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   validCellTaker: {fileID: 354086156}
-  selectedCellTaker: {fileID: 826389397}
+  selectedCellTaker: {fileID: 332951315}
 --- !u!4 &2112195382
 Transform:
   m_ObjectHideFlags: 0
@@ -13799,6 +13845,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 354086155}
+  - {fileID: 332951316}
   - {fileID: 962504415}
   - {fileID: 826389398}
   - {fileID: 216025827}
