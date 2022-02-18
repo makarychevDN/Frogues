@@ -9,6 +9,7 @@ public class AOEWeapon : Weapon
     [Space]
     [SerializeField] private BaseCellsTaker validCellTaker;
     [SerializeField] private BaseCellsTaker selectedCellTaker;
+    private List<Cell> _hashedValidCells, _hashedSelectedCells;
     
     public override bool PossibleToHitExpectedTarget => selectedCellTaker.Take()
         .Where(selectedCell => validCellTaker.Take()
@@ -23,7 +24,13 @@ public class AOEWeapon : Weapon
 
         if(usingAnimation == null)
             return;
+
+        _hashedSelectedCells = selectedCellTaker.Take();
+        _hashedValidCells = validCellTaker.Take();
         
+        if(_hashedSelectedCells.Where(selectedCell => _hashedValidCells.Contains(selectedCell)).ToList().Count == 0)
+            return;
+
         SpendActionPoints();
         usingAnimation.Play();
         OnUse.Invoke();
@@ -31,7 +38,13 @@ public class AOEWeapon : Weapon
 
     public override void HighlightCells()
     {
+        if(validCellTaker.Take() == null)
+            return;
+        
         validCellTaker.Take().ForEach(cell => cell.EnableValidateCellHighlight(true));
+
+        if(selectedCellTaker.Take() == null)
+            return;
 
         var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
         cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
@@ -42,7 +55,7 @@ public class AOEWeapon : Weapon
 
     public override void ApplyCellEffects()
     {
-        var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
+        var cells = _hashedSelectedCells.Where(selectedCell => _hashedValidCells.Contains(selectedCell)).ToList();
         cellEffects.ForEach(effect => effect.ApplyEffect(cells));
     }
 }

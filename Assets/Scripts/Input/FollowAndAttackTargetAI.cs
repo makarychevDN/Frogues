@@ -8,6 +8,7 @@ public class FollowAndAttackTargetAI : BaseInput
     [SerializeField] private UnitContainer targetContainer;
     [SerializeField] private Weapon activeWeapon;
     [SerializeField] private AbleToSkipTurn skipTurnModule;
+    [SerializeField] private SpriteRotator spriteRotator;
     [SerializeField] private bool ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces;
 
     private List<Cell> _pathToTarget;
@@ -24,6 +25,7 @@ public class FollowAndAttackTargetAI : BaseInput
 
         if (activeWeapon.PossibleToHitExpectedTarget)
         {
+            spriteRotator.TurnByTarget(targetContainer.Content);
             activeWeapon.Use();
             return;
         }
@@ -31,7 +33,7 @@ public class FollowAndAttackTargetAI : BaseInput
         if(_pathToTarget != null && _pathToTarget.Count > 1)
         {
             unit.movable.Move(_pathToTarget[0]);
-            if(_pathToTarget != null) _pathToTarget.RemoveAt(0);
+            _pathToTarget?.RemoveAt(0);
             return;
         }
 

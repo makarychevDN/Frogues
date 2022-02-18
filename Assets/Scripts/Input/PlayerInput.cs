@@ -11,6 +11,7 @@ public class PlayerInput : BaseInput
     [SerializeField] private CellByMousePosition cellByMousePosition;
     [SerializeField] private UnitsUIEnabler unitsUIEnabler;
     [SerializeField] private IntContainer preCostContainer;
+    [SerializeField] private SpriteRotator spriteRotator;
 
     [Header("Movement Input")]
     [SerializeField] private HighlightValidateCells movementCellsHighlighter;
@@ -126,6 +127,7 @@ public class PlayerInput : BaseInput
 
     private void AbilityInput(Weapon ability)
     {
+        spriteRotator.TurnByMousePosition();
         ability.HighlightCells();
         preCostContainer.Content = ability.CurrentActionCost;
         Cursor.SetCursor(
