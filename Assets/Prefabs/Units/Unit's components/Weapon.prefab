@@ -248,7 +248,6 @@ MonoBehaviour:
         m_CallState: 2
   validCellTaker: {fileID: 4344426458435425193}
   selectedCellTaker: {fileID: 4344426458092135389}
-  spriteRotator: {fileID: 7652703440276748352}
 --- !u!1 &4344426458046572238
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9513da2821cb41e4c847ca9e20b9ca0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDirectionContainer: {fileID: 7346998450288136237}
+  currentDirectionContainer: {fileID: 4062683459559102706}
   unit: {fileID: 0}
   spriteRotator: {fileID: 4344426458762168036}
 --- !u!1 &4344426458374437144
@@ -735,7 +734,7 @@ GameObject:
   - component: {fileID: 4130148864321222369}
   - component: {fileID: 813746983394023954}
   m_Layer: 0
-  m_Name: Unit Container
+  m_Name: Target Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -850,8 +849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1254641547611488583}
-  - component: {fileID: 7346998450288136237}
-  - component: {fileID: 4681682560597688922}
+  - component: {fileID: 4062683459559102706}
   m_Layer: 0
   m_Name: Direction Container
   m_TagString: Untagged
@@ -874,7 +872,7 @@ Transform:
   m_Father: {fileID: 4344426458092134434}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7346998450288136237
+--- !u!114 &4062683459559102706
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -883,22 +881,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9061719697557719842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0907b9f88ed7bd54baf9237b01ec3d7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 58007500c21e3d54b92ff44e4868a430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   content: {x: 0, y: 0}
---- !u!114 &4681682560597688922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9061719697557719842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dec59af184839143bac98b10be3b123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thisUnit: {fileID: 0}
-  targetUnit: {fileID: 4130148864321222369}
-  vectorContainer: {fileID: 7346998450288136237}
+  user: {fileID: 0}
+  targetContainer: {fileID: 4130148864321222369}
