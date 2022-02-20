@@ -13,8 +13,9 @@ public class Cell : Container<Unit>
     public UnityEvent OnBecameFull;
     public UnityEvent OnBecameEmpty;
     
-    [SerializeField] private GameObject validateCellTileHighlighter;
-    [SerializeField] private GameObject selectedCellTileHighlighter;
+    [SerializeField] private GameObject validForMovementTileHighlighter;
+    [SerializeField] private GameObject validForAbilityTileHighlighter;
+    [SerializeField] private GameObject selectedByAbilityTileHighlighter;
     [SerializeField] private TrailsEnabler trailsEnabler;
     [SerializeField] private SpriteRenderer pathDot;
     [SerializeField] private GameObject onMouseHoverVisualization;
@@ -40,12 +41,7 @@ public class Cell : Container<Unit>
     }
 
     public override bool IsEmpty => Content == null && !chosenToMovement;
-
-    public Cell GetNeighbor(Vector2Int direction)
-    {
-        return Map.Instance.GetLayerByCell(this)[coordinates.x + direction.x, coordinates.y + direction.y];
-    }
-
+    
     public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces) 
     {
         if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
@@ -66,41 +62,29 @@ public class Cell : Container<Unit>
 
     public void EnableSelectedCellHighlight(bool isOn)
     {
-        EnableValidateCellHighlight(false);
-        selectedCellTileHighlighter.gameObject.SetActive(isOn);
+        EnableValidForAbilityCellHighlight(false);
+        selectedByAbilityTileHighlighter.gameObject.SetActive(isOn);
     }
 
-    public void EnableValidateCellHighlight(bool isOn)
-    {
-        validateCellTileHighlighter.SetActive(isOn);
-    }
+    public void EnableValidForAbilityCellHighlight(bool isOn) => validForAbilityTileHighlighter.SetActive(isOn);
+    
+    public void EnableValidForMovementCellHighlight(bool isOn) => validForMovementTileHighlighter.SetActive(isOn);
 
-    public void EnablePathDot(bool isOn)
-    {
-        pathDot.enabled = isOn;
-    }
+    public void EnablePathDot(bool isOn) => pathDot.enabled = isOn;
 
-    public void EnableTrail(Vector2Int direction)
-    {
-        trailsEnabler.EnableTrail(direction);
-    }
+    public void EnableTrail(Vector2Int direction) => trailsEnabler.EnableTrail(direction);
 
-    public void DisableTrails()
-    {
-        trailsEnabler.DisableTrails();
-    }
+    public void DisableTrails() => trailsEnabler.DisableTrails();
 
-    public void EnableOnMouseHoverVisualization(bool isOn)
-    {
-        onMouseHoverVisualization.SetActive(isOn);
-    }
+    public void EnableOnMouseHoverVisualization(bool isOn) => onMouseHoverVisualization.SetActive(isOn);
 
     public void DisableAllCellVisualization()
     {
         EnableSelectedCellHighlight(false);
-        EnableValidateCellHighlight(false);
+        EnableValidForAbilityCellHighlight(false);
         DisableTrails();
         EnablePathDot(false);
         EnableOnMouseHoverVisualization(false);
+        EnableValidForMovementCellHighlight(false);
     }
 }

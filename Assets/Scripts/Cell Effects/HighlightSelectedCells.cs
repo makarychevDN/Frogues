@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighlightSelectedCells : HighlightValidateCells
-{   
-    public override void ApplyEffect()
+public class HighlightSelectedCells : BaseCellsEffect
+{
+    [SerializeField] private BaseCellsTaker cellsTaker;
+
+    public override void ApplyEffect() => ApplyEffect(cellsTaker.Take());
+
+    public override void ApplyEffect(List<Cell> cells)
     {
         TurnOffHighlight();
-        cellsTaker.Take().ForEach(cell => cell.EnableSelectedCellHighlight(true));
+        cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
     }
-    
-    public override void TurnOffHighlight()
+
+    public void TurnOffHighlight()
     {
         Map.Instance.allCells.ForEach(cell => cell.EnableSelectedCellHighlight(false));
     }

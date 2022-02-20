@@ -41,7 +41,7 @@ public class AOEWeapon : Weapon
         if(validCellTaker.Take() == null)
             return;
         
-        validCellTaker.Take().ForEach(cell => cell.EnableValidateCellHighlight(true));
+        validCellTaker.Take().ForEach(cell => cell.EnableValidForAbilityCellHighlight(true));
 
         if(selectedCellTaker.Take() == null)
             return;

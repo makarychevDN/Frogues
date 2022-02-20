@@ -14,7 +14,7 @@ public class PlayerInput : BaseInput
     [SerializeField] private SpriteRotator spriteRotator;
 
     [Header("Movement Input")]
-    [SerializeField] private HighlightValidateCells movementCellsHighlighter;
+    [SerializeField] private HighlightValidForMovementCells movementCellsHighlighter;
     [SerializeField] private FindWayInValidCells findWayInValidCells;
     [SerializeField] private VisualizePath pathVisualizer;
 
