@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class AbleToDie : MonoBehaviour
 {
     [SerializeField] private Unit unit;
-    [SerializeField] private UnityEvent OnDeath;
+    public UnityEvent OnDeath;
 
     public void Die()
     {
