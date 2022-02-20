@@ -47,5 +47,5 @@ public class ActionPointUI : MonoBehaviour
         notEnoughActionPointsIcon.SetActive(true);
     }
 
-    private void DisableAllIcons() => allIcons.ForEach(icon => icon.SetActive(false));
+    private void DisableAllIcons() => allIcons?.ForEach(icon => icon.SetActive(false));
 }
