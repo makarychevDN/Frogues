@@ -10,7 +10,7 @@ public class AbilityButton : MonoBehaviour
     [SerializeField] private bool usingNow;
     private Material _material;
 
-    private void Start()
+    private void Awake()
     {
         _material = GetComponent<Image>().material;
     }
