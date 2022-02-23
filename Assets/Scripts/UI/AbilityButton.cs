@@ -1,16 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    public PlayerAbilityButtonSlot slot;
     [SerializeField] private AOEWeapon ability;
-    [SerializeField] private bool usingNow; 
+    [SerializeField] private bool usingNow;
     private PlayerInput _playerInput;
     private Material _material;
+    private bool _dragNow;
+    private float maxDistanceToClamp = 64;
 
     private void Awake()
     {
@@ -18,7 +22,7 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         _playerInput = FindObjectOfType<PlayerInput>();
     }
 
-    public bool UsingNow
+    /*public bool UsingNow
     {
         get => usingNow;
         set
@@ -26,7 +30,7 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             usingNow = value;
             _material.SetInt("_AbilityUsingNow", value ? 1 : 0);
         }
-    }
+    }*/
 
     private void Update()
     {
@@ -35,6 +39,12 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void PickAbility()
     {
+        if (_dragNow)
+        {
+            _dragNow = false;
+            return;
+        }
+        
         _playerInput.currentAbility = ability;
     }
 
@@ -46,16 +56,34 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //throw new NotImplementedException();
+        _dragNow = true;
+        transform.parent = slot.transform.parent;
+        slot.Content = null;
+    }
+    
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //throw new NotImplementedException();
-    }
+        PlayerAbilityButtonSlot closestSlot = AbilitiesPanel.Instance.abilitySlots[0];
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        //throw new NotImplementedException();
+        foreach (var temp in AbilitiesPanel.Instance.abilitySlots)
+        {
+            if (Vector3.Distance(closestSlot.transform.position, transform.position) >
+                Vector3.Distance(temp.transform.position, transform.position))
+                closestSlot = temp;
+        }
+
+        if (Vector3.Distance(closestSlot.transform.position, transform.position) < maxDistanceToClamp)
+        {
+            closestSlot.Content = this;
+        }
+        else
+        {
+            slot.Content = this;
+        }
     }
 }
