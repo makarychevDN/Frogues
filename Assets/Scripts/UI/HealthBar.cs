@@ -17,6 +17,6 @@ public class HealthBar : MonoBehaviour
         slider.value = currentHp.Content;
 
         if(textField != null)
-            textField.text = (currentHp.Content + "/" + maxHp.Content);
+            textField.text = currentHp.Content.ToString();
     }
 } 
