@@ -17,13 +17,8 @@ public class PlayerAbilityButtonSlot : AbilityButtonContainer
     {
         set
         {
-            if (!(content == null || value == null))
-            {
-                if (value.slot != null)
-                {
-                    value.slot.Content = content;
-                }
-            }
+            if (!(content == null || value == null) && value.slot != null)
+                value.slot.Content = content;
 
             content = value;
             
