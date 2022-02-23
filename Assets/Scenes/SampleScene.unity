@@ -11169,6 +11169,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 1727333778}
+--- !u!114 &1727333784 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6540782186326263734, guid: 844384206ae78df4d8252154d9e369bc, type: 3}
+  m_PrefabInstance: {fileID: 6540782184827650592}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727333776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 541942e39a913074195858010352c0bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1734032704
 GameObject:
   m_ObjectHideFlags: 0
@@ -11383,7 +11394,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -11486,9 +11497,9 @@ MonoBehaviour:
   OnKeyDown:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1761783721}
-        m_TargetAssemblyTypeName: ClickButtonByScript, Assembly-CSharp
-        m_MethodName: Click
+      - m_Target: {fileID: 1761783722}
+        m_TargetAssemblyTypeName: AbilityButton, Assembly-CSharp
+        m_MethodName: PickAbility
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13322,7 +13333,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -13425,9 +13436,9 @@ MonoBehaviour:
   OnKeyDown:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1990625409}
-        m_TargetAssemblyTypeName: ClickButtonByScript, Assembly-CSharp
-        m_MethodName: Click
+      - m_Target: {fileID: 1990625410}
+        m_TargetAssemblyTypeName: AbilityButton, Assembly-CSharp
+        m_MethodName: PickAbility
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14309,14 +14320,14 @@ PrefabInstance:
     - target: {fileID: 6540782186326263733, guid: 844384206ae78df4d8252154d9e369bc, type: 3}
       propertyPath: OnKeyDown.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1727333783}
+      objectReference: {fileID: 1727333784}
     - target: {fileID: 6540782186326263733, guid: 844384206ae78df4d8252154d9e369bc, type: 3}
       propertyPath: OnKeyDown.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Click
+      value: PickAbility
       objectReference: {fileID: 0}
     - target: {fileID: 6540782186326263733, guid: 844384206ae78df4d8252154d9e369bc, type: 3}
       propertyPath: OnKeyDown.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ClickButtonByScript, Assembly-CSharp
+      value: AbilityButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6540782186326263733, guid: 844384206ae78df4d8252154d9e369bc, type: 3}
       propertyPath: OnKeyDown.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
