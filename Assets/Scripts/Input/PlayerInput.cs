@@ -84,13 +84,13 @@ public class PlayerInput : BaseInput
         }
         else
         {
-            if (cellByMousePosition.Take() != null
+            /*if (cellByMousePosition.Take() != null
                 && cellByMousePosition.Take().Any(cell => !cell.IsEmpty && !(cell.Content.small || cell.Content == unit || cell.Content as Wall)))
             {
                 AbilityInput(nativeAbility);
             }
-            else
-                MovementInput();
+            else*/
+            MovementInput();
         }
         
         unitsUIEnabler.AllUnitsUISetActive(true);
@@ -132,7 +132,7 @@ public class PlayerInput : BaseInput
         ability.HighlightCells();
         preCostContainer.Content = ability.CurrentActionCost;
 
-        Sprite currentCursor = ability.PossibleToUse ? attackCursor : attackIsNotPossibleCursor;
+        Sprite currentCursor = ability   .PossibleToUse ? attackCursor : attackIsNotPossibleCursor;
         if (ability == inspectAbility)
             currentCursor = inspectCursor;
         
@@ -145,7 +145,7 @@ public class PlayerInput : BaseInput
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
             ability.Use();
-            currentAbility = null;
+            //currentAbility = null;
         }
     }
 
