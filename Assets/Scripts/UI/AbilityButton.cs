@@ -45,7 +45,8 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             return;
         }
         
-        _playerInput.currentAbility = ability;
+        if(ability.IsActionPointsEnough())
+            _playerInput.currentAbility = ability;
     }
 
 
