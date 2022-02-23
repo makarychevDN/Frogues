@@ -10,16 +10,17 @@ public class AOEWeapon : Weapon
     [SerializeField] private BaseCellsTaker validCellTaker;
     [SerializeField] private BaseCellsTaker selectedCellTaker;
     private List<Cell> _hashedValidCells, _hashedSelectedCells;
-    
-    public override bool PossibleToHitExpectedTarget => selectedCellTaker.Take()
-        .Where(selectedCell => validCellTaker.Take()
-        .Contains(selectedCell))
-        .Any(selectedCell => selectedCell.Content == expectedTargetContainer.Content)
-        && IsActionPointsEnough();
 
-    public override bool PossibleToUse => selectedCellTaker.Take()?
+    public override bool PossibleToHitExpectedTarget => 
+        IsActionPointsEnough() && selectedCellTaker.Take()
+            .Where(selectedCell => validCellTaker.Take()
+            .Contains(selectedCell))
+            .Any(selectedCell => selectedCell.Content == expectedTargetContainer.Content);
+
+    public override bool PossibleToUse => IsActionPointsEnough() 
+        && selectedCellTaker.Take()?
         .Where(selectedCell => validCellTaker.Take()
-            .Contains(selectedCell)).ToList().Count != 0;
+        .Contains(selectedCell)).ToList().Count != 0;
     
     
     public override void Use()
