@@ -23,4 +23,5 @@ public abstract class Weapon : CostsActionPointsBehaviour
     public abstract void HighlightCells();
 
     public abstract bool PossibleToHitExpectedTarget { get; }
+    public abstract bool PossibleToUse  { get; }
 }

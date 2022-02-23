@@ -17,6 +17,11 @@ public class AOEWeapon : Weapon
         .Any(selectedCell => selectedCell.Content == expectedTargetContainer.Content)
         && IsActionPointsEnough();
 
+    public override bool PossibleToUse => selectedCellTaker.Take()?
+        .Where(selectedCell => validCellTaker.Take()
+            .Contains(selectedCell)).ToList().Count != 0;
+    
+    
     public override void Use()
     {
         if (!actionPoints.CheckIsActionPointsEnough(defaultActionPointsCost.Content))

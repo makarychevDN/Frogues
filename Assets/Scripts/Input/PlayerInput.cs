@@ -21,11 +21,12 @@ public class PlayerInput : BaseInput
     [Header("Abilities")]
     [SerializeField] private Weapon inspectAbility;
     [SerializeField] private Weapon nativeAbility;
-    [SerializeField] private Weapon currentAbility;
-    
+    public Weapon currentAbility;
+
     [Header("Cursor Icons")]
     [SerializeField] private Sprite defaultCursor;
     [SerializeField] private Sprite attackCursor;
+    [SerializeField] private Sprite attackIsNotPossibleCursor;
     [SerializeField] private Sprite inspectCursor;
 
     private List<Cell> _path = new();
@@ -130,8 +131,14 @@ public class PlayerInput : BaseInput
         spriteRotator.TurnByMousePosition();
         ability.HighlightCells();
         preCostContainer.Content = ability.CurrentActionCost;
+
+        Sprite currentCursor = ability.PossibleToUse ? attackCursor : attackIsNotPossibleCursor;
+        if (ability == inspectAbility)
+            currentCursor = inspectCursor;
+        
+        
         Cursor.SetCursor(
-            ability == inspectAbility ? inspectCursor.texture : attackCursor.texture, 
+            currentCursor.texture, 
             Vector2.zero,
             CursorMode.ForceSoftware); 
 

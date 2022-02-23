@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuffWeapon : Weapon
 {
     public override bool PossibleToHitExpectedTarget => throw new System.NotImplementedException();
+    public override bool PossibleToUse { get; }
 
     public override void ApplyCellEffects()
     {
