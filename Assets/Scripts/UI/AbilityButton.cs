@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -11,6 +12,10 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public PlayerAbilityButtonSlot slot;
     [SerializeField] private AOEWeapon ability;
     [SerializeField] private bool usingNow;
+
+    public UnityEvent onDragEvent;
+    public UnityEvent onDropEvent;
+    
     private PlayerInput _playerInput;
     private Material _material;
     private bool _dragNow;
@@ -21,16 +26,6 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         _material = GetComponent<Image>().material;
         _playerInput = FindObjectOfType<PlayerInput>();
     }
-
-    /*public bool UsingNow
-    {
-        get => usingNow;
-        set
-        {
-            usingNow = value;
-            _material.SetInt("_AbilityUsingNow", value ? 1 : 0);
-        }
-    }*/
 
     private void Update()
     {
@@ -52,11 +47,12 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //throw new NotImplementedException();
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        onDragEvent.Invoke();
         _dragNow = true;
         transform.parent = slot.transform.parent;
         slot.Content = null;
@@ -70,7 +66,8 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void OnEndDrag(PointerEventData eventData)
     {
         PlayerAbilityButtonSlot closestSlot = AbilitiesPanel.Instance.abilitySlots[0];
-
+        onDropEvent.Invoke();
+        
         foreach (var temp in AbilitiesPanel.Instance.abilitySlots)
         {
             if (Vector3.Distance(closestSlot.transform.position, transform.position) >
