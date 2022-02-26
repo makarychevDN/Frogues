@@ -20,11 +20,13 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private Material _material;
     private bool _dragNow;
     private float maxDistanceToClamp = 64;
+    private ActionPointsIconsShaker _actionPointsIconsShaker;
 
     private void Awake()
     {
         _material = GetComponent<Image>().material;
         _playerInput = FindObjectOfType<PlayerInput>();
+        _actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
     }
 
     private void Update()
@@ -42,6 +44,10 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         
         if(ability.IsActionPointsEnough())
             _playerInput.currentAbility = ability;
+        else
+        {
+            _actionPointsIconsShaker.Shake();
+        }
     }
 
 

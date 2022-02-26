@@ -9,7 +9,7 @@ public class ActionPointsUI : MonoBehaviour
     [SerializeField] private IntContainer maxActionPoints;
     [SerializeField] private Transform iconsParent;
     [SerializeField] private List<ActionPointUI> actionPointIconPrefabs;
-    [SerializeField] private List<ActionPointUI> actionPoinsIcons = new List<ActionPointUI>();
+    [SerializeField] private List<ActionPointUI> actionPointIcons = new List<ActionPointUI>();
     [SerializeField] private List<IntContainer> preCosts;
     [SerializeField] private bool generateIconsOnStart;
 
@@ -26,30 +26,30 @@ public class ActionPointsUI : MonoBehaviour
         for (int i = 0; i < maxActionPoints.Content; i++)
         {
             var spawnedIcon = Instantiate(actionPointIconPrefabs[iconsCount], iconsParent);
-            actionPoinsIcons.Add(spawnedIcon);
+            actionPointIcons.Add(spawnedIcon);
 
             iconsCount++;
             iconsCount = (int)Mathf.Repeat(iconsCount, actionPointIconPrefabs.Count);
         }
 
-        float startXPositon = 0;
-        actionPoinsIcons.ForEach(icon => startXPositon -= icon.RadiusOfIcons);
-        startXPositon += actionPoinsIcons[0].RadiusOfIcons;
+        float startXPosition = 0;
+        actionPointIcons.ForEach(icon => startXPosition -= icon.RadiusOfIcons);
+        startXPosition += actionPointIcons[0].RadiusOfIcons;
 
         for (int i = 0; i < maxActionPoints.Content -1; i++)
         {
-            actionPoinsIcons[i].transform.localPosition = new Vector3(startXPositon, 0, 0);
-            startXPositon += actionPoinsIcons[i].RadiusOfIcons + actionPoinsIcons[i + 1].RadiusOfIcons;
+            actionPointIcons[i].transform.localPosition = new Vector3(startXPosition, 0, 0);
+            startXPosition += actionPointIcons[i].RadiusOfIcons + actionPointIcons[i + 1].RadiusOfIcons;
         }
 
-        actionPoinsIcons[actionPoinsIcons.Count - 1].transform.localPosition = new Vector3(startXPositon, 0, 0);
+        actionPointIcons[actionPointIcons.Count - 1].transform.localPosition = new Vector3(startXPosition, 0, 0);
 
 
     }
 
     private void Update()
     {
-        actionPoinsIcons.ForEach(icon => icon.EnableEmptyIcon());
+        actionPointIcons.ForEach(icon => icon.EnableEmptyIcon());
 
         int preCostsSum = preCosts.Sum(preCost => preCost.Content);
 
@@ -57,7 +57,7 @@ public class ActionPointsUI : MonoBehaviour
         {
             for (int i = 0; i < currentActionPoints.Content; i++)
             {
-                actionPoinsIcons[i].EnableNotEnoghPointsIcon();
+                actionPointIcons[i].EnableNotEnoghPointsIcon();
             }
 
             return;
@@ -65,12 +65,12 @@ public class ActionPointsUI : MonoBehaviour
 
         for (int i = 0; i < currentActionPoints.Content; i++)
         {
-            actionPoinsIcons[i].EnableFullIcon();
+            actionPointIcons[i].EnableFullIcon();
         }
 
         for (int i = currentActionPoints.Content - 1; i > currentActionPoints.Content - 1 - preCostsSum; i--)
         {
-            actionPoinsIcons[i].EnablePreCostIcon();
+            actionPointIcons[i].EnablePreCostIcon();
         }
     }
 }

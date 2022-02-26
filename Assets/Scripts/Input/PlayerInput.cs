@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,12 @@ public class PlayerInput : BaseInput
     private List<Cell> _path = new();
     private bool _inputIsPossible;
     private float bottomUiPanelHeight = 120f;
+    private ActionPointsIconsShaker _actionPointsIconsShaker;
+
+    private void Awake()
+    {
+        _actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
+    }
 
     public bool InputIsPossible
     {
@@ -132,7 +139,7 @@ public class PlayerInput : BaseInput
         ability.HighlightCells();
         preCostContainer.Content = ability.CurrentActionCost;
 
-        Sprite currentCursor = ability   .PossibleToUse ? attackCursor : attackIsNotPossibleCursor;
+        Sprite currentCursor = ability.PossibleToUse ? attackCursor : attackIsNotPossibleCursor;
         if (ability == inspectAbility)
             currentCursor = inspectCursor;
         
@@ -144,7 +151,11 @@ public class PlayerInput : BaseInput
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
         {
+            if(!ability.IsActionPointsEnough())
+                _actionPointsIconsShaker.Shake();
+            
             ability.Use();
+            
             //currentAbility = null;
         }
     }
