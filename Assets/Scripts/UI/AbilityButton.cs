@@ -56,6 +56,7 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         _dragNow = true;
         transform.parent = slot.transform.parent;
         slot.Content = null;
+        _playerInput.currentAbility = null;
     }
     
     public void OnDrag(PointerEventData eventData)
