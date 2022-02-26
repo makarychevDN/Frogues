@@ -54,7 +54,7 @@ public class MovableAnimation : CurrentlyActiveBehaviour
 
         spriteParent.position = lerpPosition;
         spriteParent.position += Vector3.up * _spriteAlignment;
-        spriteParent.position += Vector3.up * jumpCurve.Evaluate(_currentTime) * _jumpHeight;
+        spriteParent.position += Vector3.up * (jumpCurve.Evaluate(_currentTime) * _jumpHeight);
 
         shadow.position = lerpPosition;
         shadow.position += Vector3.up * _shadowAlignment;
