@@ -31,6 +31,9 @@ public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     private void Update()
     {
+        if(_playerInput == null)
+            return;
+        
         _material.SetInt("_AbilityUsingNow", (_playerInput.currentAbility == ability) ? 1 : 0);
     }
 
