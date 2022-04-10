@@ -1,21 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Damager : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private Unit unit;
-    [SerializeField] private int damage;
-    [SerializeField] private DamageType damageType;
-    public void DealDamage()
+    public class Damager : MonoBehaviour
     {
-        foreach (var cell in Map.Instance.GetCellsColumn(unit.Coordinates))
+        [SerializeField] private Unit unit;
+        [SerializeField] private int damage;
+        [SerializeField] private DamageType damageType;
+
+        public void DealDamage()
         {
-            if(!cell.IsEmpty && cell.Content.GetComponentInChildren<Damagable>()!= null)
+            foreach (var cell in Map.Instance.GetCellsColumn(unit.Coordinates))
             {
-                cell.Content.GetComponentInChildren<Damagable>().TakeDamage(damage, damageType);
+                if (!cell.IsEmpty && cell.Content.GetComponentInChildren<Damagable>() != null)
+                {
+                    cell.Content.GetComponentInChildren<Damagable>().TakeDamage(damage, damageType);
+                }
+
             }
-                
         }
     }
 }

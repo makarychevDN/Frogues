@@ -1,21 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighlightSelectedCells : BaseCellsEffect
+namespace FroguesFramework
 {
-    [SerializeField] private BaseCellsTaker cellsTaker;
-
-    public override void ApplyEffect() => ApplyEffect(cellsTaker.Take());
-
-    public override void ApplyEffect(List<Cell> cells)
+    public class HighlightSelectedCells : BaseCellsEffect
     {
-        TurnOffHighlight();
-        cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
-    }
+        [SerializeField] private BaseCellsTaker cellsTaker;
 
-    public void TurnOffHighlight()
-    {
-        Map.Instance.allCells.ForEach(cell => cell.EnableSelectedCellHighlight(false));
+        public override void ApplyEffect() => ApplyEffect(cellsTaker.Take());
+
+        public override void ApplyEffect(List<Cell> cells)
+        {
+            TurnOffHighlight();
+            cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
+        }
+
+        public void TurnOffHighlight()
+        {
+            Map.Instance.allCells.ForEach(cell => cell.EnableSelectedCellHighlight(false));
+        }
     }
 }

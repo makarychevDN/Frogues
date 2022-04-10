@@ -1,31 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CostsActionPointsBehaviour : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] protected ActionPoints actionPoints;
-    [SerializeField] protected IntContainer defaultActionPointsCost;
-
-    public int CurrentActionCost => defaultActionPointsCost.Content;
-
-    public bool IsActionPointsEnough()
+    public abstract class CostsActionPointsBehaviour : MonoBehaviour
     {
-        return IsActionPointsEnough(defaultActionPointsCost.Content);
-    }
+        [SerializeField] protected ActionPoints actionPoints;
+        [SerializeField] protected IntContainer defaultActionPointsCost;
 
-    public bool IsActionPointsEnough(int actionPointsCost) 
-    {
-        return actionPoints.CheckIsActionPointsEnough(actionPointsCost);
-    }
+        public int CurrentActionCost => defaultActionPointsCost.Content;
 
-    public void SpendActionPoints()
-    {
-        actionPoints.SpendPoints(defaultActionPointsCost.Content);
-    }
+        public bool IsActionPointsEnough()
+        {
+            return IsActionPointsEnough(defaultActionPointsCost.Content);
+        }
 
-    public void SpendActionPoints(int actionPointsCost)
-    {
-        actionPoints.SpendPoints(actionPointsCost);
+        public bool IsActionPointsEnough(int actionPointsCost)
+        {
+            return actionPoints.CheckIsActionPointsEnough(actionPointsCost);
+        }
+
+        public void SpendActionPoints()
+        {
+            actionPoints.SpendPoints(defaultActionPointsCost.Content);
+        }
+
+        public void SpendActionPoints(int actionPointsCost)
+        {
+            actionPoints.SpendPoints(actionPointsCost);
+        }
     }
 }

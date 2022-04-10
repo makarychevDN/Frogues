@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class OnKeyDownUnityEvent : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private KeyCode expectedKey;
-    public UnityEvent OnKeyDown;
-
-    void Update()
+    public class OnKeyDownUnityEvent : MonoBehaviour
     {
-        if (Input.GetKeyDown(expectedKey))
-            OnKeyDown.Invoke();
+        [SerializeField] private KeyCode expectedKey;
+        public UnityEvent OnKeyDown;
+
+        void Update()
+        {
+            if (Input.GetKeyDown(expectedKey))
+                OnKeyDown.Invoke();
+        }
     }
 }

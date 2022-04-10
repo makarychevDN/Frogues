@@ -1,29 +1,30 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CellByMousePosition : BaseCellsTaker
+namespace FroguesFramework
 {
-    [SerializeField] private Grid grid;
-    [SerializeField] private bool takeColumn;
-
-    public override List<Cell> Take()
+    public class CellByMousePosition : BaseCellsTaker
     {
-        if (grid == null) grid = Map.Instance.tilemap.layoutGrid;
+        [SerializeField] private Grid grid;
+        [SerializeField] private bool takeColumn;
 
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3Int coordinate = grid.WorldToCell(mouseWorldPos);
+        public override List<Cell> Take()
+        {
+            if (grid == null) grid = Map.Instance.tilemap.layoutGrid;
 
-        try
-        {
-            return takeColumn ?
-                Map.Instance.GetCellsColumn(coordinate.ToVector2Int()) :
-                new List<Cell> { Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y] };
-        }
-        catch
-        {
-            return null;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int coordinate = grid.WorldToCell(mouseWorldPos);
+
+            try
+            {
+                return takeColumn
+                    ? Map.Instance.GetCellsColumn(coordinate.ToVector2Int())
+                    : new List<Cell> {Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y]};
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

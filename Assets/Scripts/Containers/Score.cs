@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Score : IntContainer
+namespace FroguesFramework
 {
+    public class Score : IntContainer
+    {
 
+    }
 }

@@ -1,49 +1,51 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowAndAttackTargetAI : BaseInput
+namespace FroguesFramework
 {
-    [SerializeField] private UnitContainer targetContainer;
-    [SerializeField] private Weapon activeWeapon;
-    [SerializeField] private AbleToSkipTurn skipTurnModule;
-    [SerializeField] private SpriteRotator spriteRotator;
-    [SerializeField] private bool ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces;
-
-    private List<Cell> _pathToTarget;
-
-    private void Start()
+    public class FollowAndAttackTargetAI : BaseInput
     {
-        unit.GetComponentInChildren<ActionPoints>().OnActionPointsEnded.AddListener(ClearPath);
-    }
+        [SerializeField] private UnitContainer targetContainer;
+        [SerializeField] private Weapon activeWeapon;
+        [SerializeField] private AbleToSkipTurn skipTurnModule;
+        [SerializeField] private SpriteRotator spriteRotator;
+        [SerializeField] private bool ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces;
 
-    public override void Act()
-    {
-        if (_pathToTarget == null)
-            _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, targetContainer.Content.currentCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
+        private List<Cell> _pathToTarget;
 
-        if (activeWeapon.PossibleToHitExpectedTarget)
+        private void Start()
         {
-            spriteRotator.TurnByTarget(targetContainer.Content);
-            activeWeapon.Use();
-            return;
+            unit.GetComponentInChildren<ActionPoints>().OnActionPointsEnded.AddListener(ClearPath);
         }
 
-        if(_pathToTarget != null && _pathToTarget.Count > 1)
+        public override void Act()
         {
-            unit.movable.Move(_pathToTarget[0]);
-            _pathToTarget?.RemoveAt(0);
-            return;
+            if (_pathToTarget == null)
+                _pathToTarget = PathFinder.Instance.FindWay(unit.currentCell, targetContainer.Content.currentCell,
+                    ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
+
+            if (activeWeapon.PossibleToHitExpectedTarget)
+            {
+                spriteRotator.TurnByTarget(targetContainer.Content);
+                activeWeapon.Use();
+                return;
+            }
+
+            if (_pathToTarget != null && _pathToTarget.Count > 1)
+            {
+                unit.movable.Move(_pathToTarget[0]);
+                _pathToTarget?.RemoveAt(0);
+                return;
+            }
+
+            OnInputDone.Invoke();
+            skipTurnModule.AutoSkip();
+            ClearPath();
         }
 
-        OnInputDone.Invoke();
-        skipTurnModule.AutoSkip();
-        ClearPath();
-    }
-
-    public void ClearPath()
-    {
-        _pathToTarget = null;
+        public void ClearPath()
+        {
+            _pathToTarget = null;
+        }
     }
 }

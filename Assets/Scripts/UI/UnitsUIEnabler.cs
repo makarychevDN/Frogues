@@ -1,14 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UnitsUIEnabler : MonoBehaviour
+namespace FroguesFramework
 {
-    public static HashSet<UnitsUI> UIOfAllUnits = new HashSet<UnitsUI>();
-
-    public void AllUnitsUISetActive(bool value)
+    public class UnitsUIEnabler : MonoBehaviour
     {
-        UIOfAllUnits.Where(ui => ui != null).ToList().ForEach(ui => ui.SetActiveForAllVisualizationObjects(value));
+        public static HashSet<UnitsUI> UIOfAllUnits = new HashSet<UnitsUI>();
+
+        public void AllUnitsUISetActive(bool value)
+        {
+            UIOfAllUnits.Where(ui => ui != null).ToList().ForEach(ui => ui.SetActiveForAllVisualizationObjects(value));
+        }
     }
 }

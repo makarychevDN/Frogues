@@ -1,20 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpriteOrderInLayerUpdater : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    private int defaultOrderValue;
-    private float roundingAccuracyMod = 10;
-
-    private void Start()
+    public class SpriteOrderInLayerUpdater : MonoBehaviour
     {
-        defaultOrderValue = spriteRenderer.sortingOrder;
-    }
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        private int defaultOrderValue;
+        private float roundingAccuracyMod = 10;
 
-    void Update()
-    {
-        spriteRenderer.sortingOrder = defaultOrderValue - Mathf.RoundToInt(spriteRenderer.transform.position.y * roundingAccuracyMod);
+        private void Start()
+        {
+            defaultOrderValue = spriteRenderer.sortingOrder;
+        }
+
+        void Update()
+        {
+            spriteRenderer.sortingOrder = defaultOrderValue -
+                                          Mathf.RoundToInt(spriteRenderer.transform.position.y * roundingAccuracyMod);
+        }
     }
 }

@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ReturnToIdleAnimation : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private AnimationClip idleAnimation;
-
-    public void Return()
+    public class ReturnToIdleAnimation : MonoBehaviour
     {
-        animator.Play(idleAnimation.name);
+        [SerializeField] private Animator animator;
+        [SerializeField] private AnimationClip idleAnimation;
+
+        public void Return()
+        {
+            animator.Play(idleAnimation.name);
+        }
     }
 }

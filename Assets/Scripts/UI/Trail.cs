@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Trail : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private GameObject sprite;
-    [SerializeField] private Vector2Int trailDirection;
-    public Vector2Int TrailDirection => trailDirection;
-
-    public void Enable(bool value)
+    public class Trail : MonoBehaviour
     {
-        sprite.SetActive(value);
+        [SerializeField] private GameObject sprite;
+        [SerializeField] private Vector2Int trailDirection;
+        public Vector2Int TrailDirection => trailDirection;
+
+        public void Enable(bool value)
+        {
+            sprite.SetActive(value);
+        }
     }
 }

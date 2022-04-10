@@ -1,13 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
-public class AllEmptyCellsTaker : BaseCellsTaker
+namespace FroguesFramework
 {
-    public override List<Cell> Take()
+    public class AllEmptyCellsTaker : BaseCellsTaker
     {
-        var cells = Map.Instance.allCells;
-        return cells.Where(cell => cell.CheckColumnIsEmpty()).ToList();
+        public override List<Cell> Take()
+        {
+            var cells = Map.Instance.allCells;
+            return cells.Where(cell => cell.CheckColumnIsEmpty()).ToList();
+        }
     }
 }

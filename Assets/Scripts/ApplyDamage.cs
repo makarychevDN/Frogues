@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplyDamage : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private IntContainer hp;
-    [SerializeField] private IntContainer lastTakenDamage;
-
-    public void Apply()
+    public class ApplyDamage : MonoBehaviour
     {
-        hp.Content -= lastTakenDamage.Content;
+        [SerializeField] private IntContainer hp;
+        [SerializeField] private IntContainer lastTakenDamage;
+
+        public void Apply()
+        {
+            hp.Content -= lastTakenDamage.Content;
+        }
     }
 }

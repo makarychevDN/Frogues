@@ -1,16 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplyPush : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private Unit unit;
-    [SerializeField] private Movable movable;
-    [SerializeField] private Vector2IntContainer lastTakenDireaction;
-    [SerializeField, Range(0.1f, 30)] private float pushSpeed;
-
-    public void Apply()
+    public class ApplyPush : MonoBehaviour
     {
-        movable.Move(Map.Instance.FindNeighborhoodForCell(unit.currentCell, lastTakenDireaction.Content), 0, pushSpeed, 0);
+        [SerializeField] private Unit unit;
+        [SerializeField] private Movable movable;
+        [SerializeField] private Vector2IntContainer lastTakenDireaction;
+        [SerializeField, Range(0.1f, 30)] private float pushSpeed;
+
+        public void Apply()
+        {
+            movable.Move(Map.Instance.FindNeighborhoodForCell(unit.currentCell, lastTakenDireaction.Content), 0,
+                pushSpeed, 0);
+        }
     }
 }

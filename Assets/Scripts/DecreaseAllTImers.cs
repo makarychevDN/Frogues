@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DecreaseAllTImers : MonoBehaviour
+namespace FroguesFramework
 {
-    public void Decrease()
+    public class DecreaseAllTImers : MonoBehaviour
     {
-        FindObjectsOfType<RoundTimerEvent>().ToList().ForEach(x => x.DecreaseTimer());
+        public void Decrease()
+        {
+            FindObjectsOfType<RoundTimerEvent>().ToList().ForEach(x => x.DecreaseTimer());
+        }
     }
 }

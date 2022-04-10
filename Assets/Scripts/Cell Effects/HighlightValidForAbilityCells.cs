@@ -1,24 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighlightValidForAbilityCells : BaseCellsEffect
+namespace FroguesFramework
 {
-    [SerializeField] protected BaseCellsTaker cellsTaker;
-    
-    public override void ApplyEffect()
+    public class HighlightValidForAbilityCells : BaseCellsEffect
     {
-        ApplyEffect(cellsTaker.Take());
-    }
+        [SerializeField] protected BaseCellsTaker cellsTaker;
 
-    public override void ApplyEffect(List<Cell> cells)
-    {
-        TurnOffHighlight();
-        cellsTaker.Take().ForEach(cell => cell.EnableValidForAbilityCellHighlight(true));
-    }
+        public override void ApplyEffect()
+        {
+            ApplyEffect(cellsTaker.Take());
+        }
 
-    public virtual void TurnOffHighlight()
-    {
-        Map.Instance.allCells.ForEach(cell => cell.EnableValidForAbilityCellHighlight(false));
+        public override void ApplyEffect(List<Cell> cells)
+        {
+            TurnOffHighlight();
+            cellsTaker.Take().ForEach(cell => cell.EnableValidForAbilityCellHighlight(true));
+        }
+
+        public virtual void TurnOffHighlight()
+        {
+            Map.Instance.allCells.ForEach(cell => cell.EnableValidForAbilityCellHighlight(false));
+        }
     }
 }

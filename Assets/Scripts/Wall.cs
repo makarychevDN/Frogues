@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Wall : Unit
+namespace FroguesFramework
 {
+    public class Wall : Unit
+    {
 
+    }
 }

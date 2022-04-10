@@ -1,26 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class TextBoxValueFromIntContainer : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private IntContainer intContainer;
-    [SerializeField] private IntContainer preContainer;
-    [SerializeField] private TextMeshProUGUI textField;
-
-    void Update()
+    public class TextBoxValueFromIntContainer : MonoBehaviour
     {
-        textField.text = intContainer.Content.ToString();
-        textField.color = Color.white;
+        [SerializeField] private IntContainer intContainer;
+        [SerializeField] private IntContainer preContainer;
+        [SerializeField] private TextMeshProUGUI textField;
 
-        if (preContainer == null)
-            return;
-
-        if (preContainer.Content != intContainer.Content)
+        void Update()
         {
-            textField.text = preContainer.Content.ToString();
-            textField.color = Color.green;
+            textField.text = intContainer.Content.ToString();
+            textField.color = Color.white;
+
+            if (preContainer == null)
+                return;
+
+            if (preContainer.Content != intContainer.Content)
+            {
+                textField.text = preContainer.Content.ToString();
+                textField.color = Color.green;
+            }
         }
     }
 }

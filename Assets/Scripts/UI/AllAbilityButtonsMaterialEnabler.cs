@@ -1,18 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class AllAbilityButtonsMaterialEnabler : MonoBehaviour
+namespace FroguesFramework
 {
-    public void Enable(bool value)
+    public class AllAbilityButtonsMaterialEnabler : MonoBehaviour
     {
-        //FindObjectsOfType<AbilityButton>().ToList().ForEach(button => button.UsingNow = value);
-    }
+        public void Enable(bool value)
+        {
+            //FindObjectsOfType<AbilityButton>().ToList().ForEach(button => button.UsingNow = value);
+        }
 
-    private void Start()
-    {
-        Enable(false);
+        private void Start()
+        {
+            Enable(false);
+        }
     }
 }

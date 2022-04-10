@@ -1,13 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUnitToContainer : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private UnitContainer unitContainer;
-
-    void Start()
+    public class PlayerUnitToContainer : MonoBehaviour
     {
-        unitContainer.Content = FindObjectOfType<PlayerInput>().GetComponentInParent<Unit>();
+        [SerializeField] private UnitContainer unitContainer;
+
+        void Start()
+        {
+            unitContainer.Content = FindObjectOfType<PlayerInput>().GetComponentInParent<Unit>();
+        }
     }
 }

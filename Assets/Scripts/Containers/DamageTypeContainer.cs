@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DamageTypeContainer : Container<DamageType>
+namespace FroguesFramework
 {
+    public class DamageTypeContainer : Container<DamageType>
+    {
 
+    }
 }

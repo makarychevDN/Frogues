@@ -1,40 +1,43 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionPointsIconsShaker : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private AnimationCurve shakingCurve;
-    [SerializeField] private float shakingTime;
-    [SerializeField] private float shakingAmplitude;
-    private bool _shaking;
-    private Vector3 _startPosition;
-    private float _timer;
-
-    private void Start()
+    public class ActionPointsIconsShaker : MonoBehaviour
     {
-        _startPosition = transform.localPosition;
-    }
+        [SerializeField] private AnimationCurve shakingCurve;
+        [SerializeField] private float shakingTime;
+        [SerializeField] private float shakingAmplitude;
+        private bool _shaking;
+        private Vector3 _startPosition;
+        private float _timer;
 
-    public void Shake()
-    {
-        _shaking = true;
-        _timer = 0;
-    }
+        private void Start()
+        {
+            _startPosition = transform.localPosition;
+        }
 
-    private void Update()
-    {
-        if(!_shaking)
-            return;
+        public void Shake()
+        {
+            _shaking = true;
+            _timer = 0;
+        }
 
-        transform.localPosition = new Vector3(_startPosition.x + shakingCurve.Evaluate(Mathf.Lerp(0, 1, _timer/shakingTime)) * shakingAmplitude, _startPosition.y, _startPosition.z);
-        _timer += Time.deltaTime;
-        
-        if(_timer < shakingTime)
-            return;
+        private void Update()
+        {
+            if (!_shaking)
+                return;
 
-        transform.localPosition = _startPosition;
-        _shaking = false;
+            transform.localPosition =
+                new Vector3(
+                    _startPosition.x + shakingCurve.Evaluate(Mathf.Lerp(0, 1, _timer / shakingTime)) * shakingAmplitude,
+                    _startPosition.y, _startPosition.z);
+            _timer += Time.deltaTime;
+
+            if (_timer < shakingTime)
+                return;
+
+            transform.localPosition = _startPosition;
+            _shaking = false;
+        }
     }
 }

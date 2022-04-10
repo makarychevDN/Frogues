@@ -1,90 +1,93 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Cell : Container<Unit>
+namespace FroguesFramework
 {
-    public MapLayer mapLayer;
-    public Vector2Int coordinates;
+    public class Cell : Container<Unit>
+    {
+        public MapLayer mapLayer;
+        public Vector2Int coordinates;
 
-    public UnityEvent OnBecameFull;
-    public UnityEvent OnBecameEmpty;
-    
-    [SerializeField] private GameObject validForMovementTileHighlighter;
-    [SerializeField] private GameObject validForAbilityTileHighlighter;
-    [SerializeField] private GameObject selectedByAbilityTileHighlighter;
-    [SerializeField] private TrailsEnabler trailsEnabler;
-    [SerializeField] private SpriteRenderer pathDot;
-    [SerializeField] private GameObject onMouseHoverVisualization;
+        public UnityEvent OnBecameFull;
+        public UnityEvent OnBecameEmpty;
 
-    [ReadOnly] public bool chosenToMovement;
+        [SerializeField] private GameObject validForMovementTileHighlighter;
+        [SerializeField] private GameObject validForAbilityTileHighlighter;
+        [SerializeField] private GameObject selectedByAbilityTileHighlighter;
+        [SerializeField] private TrailsEnabler trailsEnabler;
+        [SerializeField] private SpriteRenderer pathDot;
+        [SerializeField] private GameObject onMouseHoverVisualization;
 
-    public override Unit Content 
-    { 
-        get => base.Content;
-        set
+        [ReadOnly] public bool chosenToMovement;
+
+        public override Unit Content
         {
-            base.Content = value;
-            if(value != null)
+            get => base.Content;
+            set
             {
-                value.currentCell = this;
-                OnBecameFull.Invoke();
-            }
-            else
-            {
-                OnBecameEmpty.Invoke();
+                base.Content = value;
+                if (value != null)
+                {
+                    value.currentCell = this;
+                    OnBecameFull.Invoke();
+                }
+                else
+                {
+                    OnBecameEmpty.Invoke();
+                }
             }
         }
-    }
 
-    public override bool IsEmpty => Content == null && !chosenToMovement;
-    
-    public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces) 
-    {
-        if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
+        public override bool IsEmpty => Content == null && !chosenToMovement;
+
+        public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if(ignoreSmallUnits && Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content.small)
-                return true;
+            if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
+            {
+                if (ignoreSmallUnits && Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content
+                    .small)
+                    return true;
 
-            return false;
+                return false;
+            }
+
+            if (!ignoreSurfaces && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty)
+                return false;
+
+            return true;
         }
-        
-        if (!ignoreSurfaces && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty) 
-            return false;
-        
-        return true;
-    }
 
-    public bool CheckColumnIsEmpty() => Map.Instance.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.IsEmpty);
+        public bool CheckColumnIsEmpty() =>
+            Map.Instance.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.IsEmpty);
 
-    public void EnableSelectedCellHighlight(bool isOn)
-    {
-        EnableValidForAbilityCellHighlight(false);
-        selectedByAbilityTileHighlighter.gameObject.SetActive(isOn);
-    }
+        public void EnableSelectedCellHighlight(bool isOn)
+        {
+            EnableValidForAbilityCellHighlight(false);
+            selectedByAbilityTileHighlighter.gameObject.SetActive(isOn);
+        }
 
-    public void EnableValidForAbilityCellHighlight(bool isOn) => validForAbilityTileHighlighter.SetActive(isOn);
-    
-    public void EnableValidForMovementCellHighlight(bool isOn) => validForMovementTileHighlighter.SetActive(isOn);
+        public void EnableValidForAbilityCellHighlight(bool isOn) => validForAbilityTileHighlighter.SetActive(isOn);
 
-    public void EnablePathDot(bool isOn) => pathDot.enabled = isOn;
+        public void EnableValidForMovementCellHighlight(bool isOn) => validForMovementTileHighlighter.SetActive(isOn);
 
-    public void EnableTrail(Vector2Int direction) => trailsEnabler.EnableTrail(direction);
+        public void EnablePathDot(bool isOn) => pathDot.enabled = isOn;
 
-    public void DisableTrails() => trailsEnabler.DisableTrails();
+        public void EnableTrail(Vector2Int direction) => trailsEnabler.EnableTrail(direction);
 
-    public void EnableOnMouseHoverVisualization(bool isOn) => onMouseHoverVisualization.SetActive(isOn);
+        public void DisableTrails() => trailsEnabler.DisableTrails();
 
-    public void DisableAllCellVisualization()
-    {
-        EnableSelectedCellHighlight(false);
-        EnableValidForAbilityCellHighlight(false);
-        DisableTrails();
-        EnablePathDot(false);
-        EnableOnMouseHoverVisualization(false);
-        EnableValidForMovementCellHighlight(false);
+        public void EnableOnMouseHoverVisualization(bool isOn) => onMouseHoverVisualization.SetActive(isOn);
+
+        public void DisableAllCellVisualization()
+        {
+            EnableSelectedCellHighlight(false);
+            EnableValidForAbilityCellHighlight(false);
+            DisableTrails();
+            EnablePathDot(false);
+            EnableOnMouseHoverVisualization(false);
+            EnableValidForMovementCellHighlight(false);
+        }
     }
 }

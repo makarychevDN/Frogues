@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class RegenerateActionPointsToAllUnits : MonoBehaviour
+namespace FroguesFramework
 {
-    public void Regenarete()
+    public class RegenerateActionPointsToAllUnits : MonoBehaviour
     {
-        FindObjectsOfType<ActionPoints>().ToList().ForEach(x => x.RegeneratePoints());
+        public void Regenarete()
+        {
+            FindObjectsOfType<ActionPoints>().ToList().ForEach(x => x.RegeneratePoints());
+        }
     }
 }

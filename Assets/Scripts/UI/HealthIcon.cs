@@ -1,29 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HealthIcon : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private TextMeshProUGUI textField;
-    [SerializeField] private IntContainer currentHealthContainer;
-    [SerializeField] private IntContainer preTakenDamageContainer;
-    [SerializeField] private IntContainer armorContainer;
-    [SerializeField] private IntContainer blockContainer; //coming soon
-    [SerializeField] private GameObject armoredHPIcon;
-
-    void Update()
+    public class HealthIcon : MonoBehaviour
     {
-        textField.text = currentHealthContainer.Content.ToString();
-        textField.color = Color.white;
-        armoredHPIcon.SetActive(false);
+        [SerializeField] private TextMeshProUGUI textField;
+        [SerializeField] private IntContainer currentHealthContainer;
+        [SerializeField] private IntContainer preTakenDamageContainer;
+        [SerializeField] private IntContainer armorContainer;
+        [SerializeField] private IntContainer blockContainer; //coming soon
+        [SerializeField] private GameObject armoredHPIcon;
 
-        if (preTakenDamageContainer != null && currentHealthContainer.Content != preTakenDamageContainer.Content)
+        void Update()
         {
-            textField.text = preTakenDamageContainer.Content.ToString();
-            textField.color = Color.green;
-        }
+            textField.text = currentHealthContainer.Content.ToString();
+            textField.color = Color.white;
+            armoredHPIcon.SetActive(false);
 
-        armoredHPIcon.SetActive(armorContainer.Content > 0);
+            if (preTakenDamageContainer != null && currentHealthContainer.Content != preTakenDamageContainer.Content)
+            {
+                textField.text = preTakenDamageContainer.Content.ToString();
+                textField.color = Color.green;
+            }
+
+            armoredHPIcon.SetActive(armorContainer.Content > 0);
+        }
     }
 }

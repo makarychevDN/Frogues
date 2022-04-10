@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-public class InstantiatePrefab : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private GameObject prefab;
-    public void Run()
+    public class InstantiatePrefab : MonoBehaviour
     {
-        Instantiate(prefab);
+        [SerializeField] private GameObject prefab;
+
+        public void Run()
+        {
+            Instantiate(prefab);
+        }
     }
 }

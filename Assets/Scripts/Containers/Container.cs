@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-public class Container<T> : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] protected T content;
-
-    public virtual T Content
+    public class Container<T> : MonoBehaviour
     {
-        get => content;
-        set => content = value;
-    }
+        [SerializeField] protected T content;
 
-    public virtual bool IsEmpty => Content == null;
+        public virtual T Content
+        {
+            get => content;
+            set => content = value;
+        }
+
+        public virtual bool IsEmpty => Content == null;
+    }
 }

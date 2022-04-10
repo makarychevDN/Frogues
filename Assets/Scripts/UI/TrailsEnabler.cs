@@ -1,19 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TrailsEnabler : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private List<Trail> trails;
-
-    public void EnableTrail(Vector2Int direction)
+    public class TrailsEnabler : MonoBehaviour
     {
-        trails.Where(trail => trail.TrailDirection == direction).FirstOrDefault().Enable(true);
-    }
+        [SerializeField] private List<Trail> trails;
 
-    public void DisableTrails()
-    {
-        trails.ForEach(trail => trail.Enable(false));
+        public void EnableTrail(Vector2Int direction)
+        {
+            trails.Where(trail => trail.TrailDirection == direction).FirstOrDefault().Enable(true);
+        }
+
+        public void DisableTrails()
+        {
+            trails.ForEach(trail => trail.Enable(false));
+        }
     }
 }

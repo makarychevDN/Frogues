@@ -1,19 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CurrentlyActiveObjectsDebug : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private List<MonoBehaviour> debugCurrenlyActiveObjects;
-    [SerializeField] private List<string> debugAllActivatedForSessionObjects;
-
-    void Update()
+    public class CurrentlyActiveObjectsDebug : MonoBehaviour
     {
-        debugCurrenlyActiveObjects = CurrentlyActiveObjects.activeObjects.ToList();
-        debugAllActivatedForSessionObjects = CurrentlyActiveObjects.AllActivatedForSessionObjects.ToList();
+        [SerializeField] private List<MonoBehaviour> debugCurrenlyActiveObjects;
+        [SerializeField] private List<string> debugAllActivatedForSessionObjects;
 
-        if (debugCurrenlyActiveObjects.Any(obj => obj == null))
-            Debug.LogError("Missing Currently Active Behavipour");
+        void Update()
+        {
+            debugCurrenlyActiveObjects = CurrentlyActiveObjects.activeObjects.ToList();
+            debugAllActivatedForSessionObjects = CurrentlyActiveObjects.AllActivatedForSessionObjects.ToList();
+
+            if (debugCurrenlyActiveObjects.Any(obj => obj == null))
+                Debug.LogError("Missing Currently Active Behavipour");
+        }
     }
 }

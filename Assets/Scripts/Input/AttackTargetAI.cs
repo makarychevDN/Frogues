@@ -1,22 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackTargetAI : BaseInput
+namespace FroguesFramework
 {
-    [SerializeField] private UnitContainer targetContainer;
-    [SerializeField] private Weapon activeWeapon;
-    [SerializeField] private AbleToSkipTurn skipTurnModule;
-
-    public override void Act()
+    public class AttackTargetAI : BaseInput
     {
-        if (activeWeapon.PossibleToHitExpectedTarget)
-        {
-            activeWeapon.Use();
-            return;
-        }
+        [SerializeField] private UnitContainer targetContainer;
+        [SerializeField] private Weapon activeWeapon;
+        [SerializeField] private AbleToSkipTurn skipTurnModule;
 
-        OnInputDone.Invoke();
-        skipTurnModule.AutoSkip();
+        public override void Act()
+        {
+            if (activeWeapon.PossibleToHitExpectedTarget)
+            {
+                activeWeapon.Use();
+                return;
+            }
+
+            OnInputDone.Invoke();
+            skipTurnModule.AutoSkip();
+        }
     }
 }

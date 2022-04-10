@@ -1,29 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayAnimation : CurrentlyActiveBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private AnimationClip animationClip;
-    [SerializeField] private AnimationClip idleAnimation;
-    public UnityEvent OnAnimationPlayed;
-
-    public void Play()
+    public class PlayAnimation : CurrentlyActiveBehaviour
     {
-        animator.Play(animationClip.name);
-        ActiveNow = true;
-    }
+        [SerializeField] private Animator animator;
+        [SerializeField] private AnimationClip animationClip;
+        [SerializeField] private AnimationClip idleAnimation;
+        public UnityEvent OnAnimationPlayed;
 
-    public void Update()
-    {
-        //checks if THIS animation was played last + ANY animation already played
-        if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == animationClip.name && animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
+        public void Play()
         {
-            animator.Play(idleAnimation.name);
-            ActiveNow = false;
-            OnAnimationPlayed.Invoke();
+            animator.Play(animationClip.name);
+            ActiveNow = true;
+        }
+
+        public void Update()
+        {
+            //checks if THIS animation was played last + ANY animation already played
+            if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name == animationClip.name &&
+                animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.99f)
+            {
+                animator.Play(idleAnimation.name);
+                ActiveNow = false;
+                OnAnimationPlayed.Invoke();
+            }
         }
     }
 }

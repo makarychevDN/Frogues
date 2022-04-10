@@ -1,23 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Vector2IntDirectionToTarget : Vector2IntContainer
+namespace FroguesFramework
 {
-    [SerializeField] private Unit user;
-    [SerializeField] private UnitContainer targetContainer;
-    [SerializeField] private bool debugDir;
-
-    public override Vector2Int Content => CalculateDirection();
-
-    private Vector2Int CalculateDirection()
+    public class Vector2IntDirectionToTarget : Vector2IntContainer
     {
-        Vector2Int result = new(
-             Mathf.Clamp(targetContainer.Content.Coordinates.x - user.Coordinates.x, -1, 1),
-             Mathf.Clamp(targetContainer.Content.Coordinates.y - user.Coordinates.y, -1, 1)
-        );
+        [SerializeField] private Unit user;
+        [SerializeField] private UnitContainer targetContainer;
+        [SerializeField] private bool debugDir;
 
-        Content = result;
-        return result;
+        public override Vector2Int Content => CalculateDirection();
+
+        private Vector2Int CalculateDirection()
+        {
+            Vector2Int result = new(
+                Mathf.Clamp(targetContainer.Content.Coordinates.x - user.Coordinates.x, -1, 1),
+                Mathf.Clamp(targetContainer.Content.Coordinates.y - user.Coordinates.y, -1, 1)
+            );
+
+            Content = result;
+            return result;
+        }
     }
 }

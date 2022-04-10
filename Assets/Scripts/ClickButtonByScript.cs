@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickButtonByScript : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private Button button;
-
-    public void Click()
+    public class ClickButtonByScript : MonoBehaviour
     {
-        button.onClick.Invoke();
+        [SerializeField] private Button button;
+
+        public void Click()
+        {
+            button.onClick.Invoke();
+        }
     }
 }

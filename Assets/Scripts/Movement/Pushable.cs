@@ -1,38 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Pushable : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private Unit unit;
-    [SerializeField, ReadOnly] private Vector2IntContainer lastPushDirection;
-    [SerializeField, ReadOnly] private Vector2IntContainer PrePushDirection;
-
-    public UnityEvent OnPushed;
-    public UnityEvent OnPrepushed;
-    
-    public void Push(Cell pusherCell)
+    public class Pushable : MonoBehaviour
     {
-        lastPushDirection.Content = CalculateMovementVector(pusherCell);
-        OnPushed.Invoke();
-    }
+        [SerializeField] private Unit unit;
+        [SerializeField, ReadOnly] private Vector2IntContainer lastPushDirection;
+        [SerializeField, ReadOnly] private Vector2IntContainer PrePushDirection;
 
-    public void PrePush(Cell pusherCell)
-    {
-        PrePushDirection.Content = CalculateMovementVector(pusherCell);
-        OnPrepushed.Invoke();
-    }
+        public UnityEvent OnPushed;
+        public UnityEvent OnPrepushed;
 
-    public void ResetPrePushValue()
-    {
-        PrePushDirection.Content = Vector2Int.zero;
-    }
+        public void Push(Cell pusherCell)
+        {
+            lastPushDirection.Content = CalculateMovementVector(pusherCell);
+            OnPushed.Invoke();
+        }
 
-    private Vector2Int CalculateMovementVector(Cell pusherCell)
-    {
-        return (unit.Coordinates - pusherCell.coordinates).ToVector3().normalized.ToVector2Int();
+        public void PrePush(Cell pusherCell)
+        {
+            PrePushDirection.Content = CalculateMovementVector(pusherCell);
+            OnPrepushed.Invoke();
+        }
+
+        public void ResetPrePushValue()
+        {
+            PrePushDirection.Content = Vector2Int.zero;
+        }
+
+        private Vector2Int CalculateMovementVector(Cell pusherCell)
+        {
+            return (unit.Coordinates - pusherCell.coordinates).ToVector3().normalized.ToVector2Int();
+        }
     }
 }

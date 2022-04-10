@@ -1,25 +1,27 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VisualizeSelectedCell : BaseCellsEffect
+namespace FroguesFramework
 {
-    [SerializeField] private CellByMousePosition cellTaker;
-
-    public override void ApplyEffect()
+    public class VisualizeSelectedCell : BaseCellsEffect
     {
-        ApplyEffect(cellTaker.Take());
-    }
+        [SerializeField] private CellByMousePosition cellTaker;
 
-    public override void ApplyEffect(List<Cell> cells)
-    {
-        TurnOffVizualisation();
-        if (cells != null)
-            cells.ForEach(cell => cell.EnableOnMouseHoverVisualization(true));
-    }
+        public override void ApplyEffect()
+        {
+            ApplyEffect(cellTaker.Take());
+        }
 
-    public void TurnOffVizualisation()
-    {
-        Map.Instance.allCells.ForEach(cell => cell.EnableOnMouseHoverVisualization(false));
+        public override void ApplyEffect(List<Cell> cells)
+        {
+            TurnOffVizualisation();
+            if (cells != null)
+                cells.ForEach(cell => cell.EnableOnMouseHoverVisualization(true));
+        }
+
+        public void TurnOffVizualisation()
+        {
+            Map.Instance.allCells.ForEach(cell => cell.EnableOnMouseHoverVisualization(false));
+        }
     }
 }

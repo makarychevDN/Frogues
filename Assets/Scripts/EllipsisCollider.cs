@@ -1,28 +1,31 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EdgeCollider2D))]
-public class EllipsisCollider : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private EdgeCollider2D edgeCollider2D;
-    [SerializeField, Range(2, 50)] private int smoothness;
-    [SerializeField] private float xRadius, yRadius;
-
-    private void OnValidate()
+    [RequireComponent(typeof(EdgeCollider2D))]
+    public class EllipsisCollider : MonoBehaviour
     {
-        var calculatedPoints = new List<Vector2>(); 
-        edgeCollider2D = GetComponent<EdgeCollider2D>();
-        var deltaAngle = 360f / smoothness;
-        var deltaRadian = deltaAngle * Mathf.Deg2Rad;
+        [SerializeField] private EdgeCollider2D edgeCollider2D;
+        [SerializeField, Range(2, 50)] private int smoothness;
+        [SerializeField] private float xRadius, yRadius;
 
-        for (int i = 0; i < smoothness; i++)
+        private void OnValidate()
         {
-            calculatedPoints.Add(new Vector2(Mathf.Cos(deltaRadian * i) * xRadius,Mathf.Sin(deltaRadian * i)) * yRadius);
-        }
-        calculatedPoints.Add(calculatedPoints[0]);
+            var calculatedPoints = new List<Vector2>();
+            edgeCollider2D = GetComponent<EdgeCollider2D>();
+            var deltaAngle = 360f / smoothness;
+            var deltaRadian = deltaAngle * Mathf.Deg2Rad;
 
-        edgeCollider2D.points = calculatedPoints.ToArray();
+            for (int i = 0; i < smoothness; i++)
+            {
+                calculatedPoints.Add(new Vector2(Mathf.Cos(deltaRadian * i) * xRadius, Mathf.Sin(deltaRadian * i)) *
+                                     yRadius);
+            }
+
+            calculatedPoints.Add(calculatedPoints[0]);
+
+            edgeCollider2D.points = calculatedPoints.ToArray();
+        }
     }
 }

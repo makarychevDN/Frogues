@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class BoolContainer : Container<bool>
+namespace FroguesFramework
 {
+    public class BoolContainer : Container<bool>
+    {
 
+    }
 }

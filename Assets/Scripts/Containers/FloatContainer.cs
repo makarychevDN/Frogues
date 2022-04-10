@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class FloatContainer : Container<float>
+namespace FroguesFramework
 {
+    public class FloatContainer : Container<float>
+    {
 
+    }
 }

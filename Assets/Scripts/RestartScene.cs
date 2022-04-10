@@ -1,21 +1,21 @@
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class RestartScene : MonoBehaviour
+namespace FroguesFramework
 {
-    void Update()
+    public class RestartScene : MonoBehaviour
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        void Update()
         {
-            Restart();
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Restart();
+            }
         }
-    }
 
-    public void Restart()
-    {
-        CurrentlyActiveObjects.Clear();
-        Application.LoadLevel(Application.loadedLevel);
+        public void Restart()
+        {
+            CurrentlyActiveObjects.Clear();
+            Application.LoadLevel(Application.loadedLevel);
+        }
     }
 }

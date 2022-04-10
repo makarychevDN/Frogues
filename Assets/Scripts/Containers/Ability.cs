@@ -1,67 +1,69 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class Ability : Weapon
+namespace FroguesFramework
 {
-    [Space]
-    [SerializeField] private BaseCellsTaker validCellTaker;
-    [SerializeField] private BaseCellsTaker selectedCellTaker;
-    private List<Cell> _hashedValidCells, _hashedSelectedCells;
-
-    public override bool PossibleToHitExpectedTarget => 
-        IsActionPointsEnough() && selectedCellTaker.Take()
-            .Where(selectedCell => validCellTaker.Take()
-            .Contains(selectedCell))
-            .Any(selectedCell => selectedCell.Content == expectedTargetContainer.Content);
-
-    public override bool PossibleToUse => IsActionPointsEnough() 
-        && selectedCellTaker.Take()?
-        .Where(selectedCell => validCellTaker.Take()
-        .Contains(selectedCell)).ToList().Count != 0;
-    
-    
-    public override void Use()
+    public class Ability : Weapon
     {
-        if (!actionPoints.CheckIsActionPointsEnough(defaultActionPointsCost.Content))
-            return;
+        [Space] [SerializeField] private BaseCellsTaker validCellTaker;
+        [SerializeField] private BaseCellsTaker selectedCellTaker;
+        private List<Cell> _hashedValidCells, _hashedSelectedCells;
 
-        if(usingAnimation == null)
-            return;
+        public override bool PossibleToHitExpectedTarget =>
+            IsActionPointsEnough() && selectedCellTaker.Take()
+                .Where(selectedCell => validCellTaker.Take()
+                    .Contains(selectedCell))
+                .Any(selectedCell => selectedCell.Content == expectedTargetContainer.Content);
 
-        _hashedSelectedCells = selectedCellTaker.Take();
-        _hashedValidCells = validCellTaker.Take();
-        
-        if(_hashedSelectedCells.Where(selectedCell => _hashedValidCells.Contains(selectedCell)).ToList().Count == 0)
-            return;
+        public override bool PossibleToUse => IsActionPointsEnough()
+                                              && selectedCellTaker.Take()?
+                                                  .Where(selectedCell => validCellTaker.Take()
+                                                      .Contains(selectedCell)).ToList().Count != 0;
 
-        SpendActionPoints();
-        usingAnimation.Play();
-        OnUse.Invoke();
-    }
 
-    public override void HighlightCells()
-    {
-        if(validCellTaker.Take() == null)
-            return;
-        
-        validCellTaker.Take().ForEach(cell => cell.EnableValidForAbilityCellHighlight(true));
+        public override void Use()
+        {
+            if (!actionPoints.CheckIsActionPointsEnough(defaultActionPointsCost.Content))
+                return;
 
-        if(selectedCellTaker.Take() == null)
-            return;
+            if (usingAnimation == null)
+                return;
 
-        var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell)).ToList();
-        cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
+            _hashedSelectedCells = selectedCellTaker.Take();
+            _hashedValidCells = validCellTaker.Take();
 
-        cellEffects.Where(cellEffect => cellEffect as CellsEffectWithPreVisualization).ToList()
-            .ForEach(cellEffect => (cellEffect as CellsEffectWithPreVisualization).PreVisualizeEffect(cells));
-    }
+            if (_hashedSelectedCells.Where(selectedCell => _hashedValidCells.Contains(selectedCell)).ToList().Count ==
+                0)
+                return;
 
-    public override void ApplyCellEffects()
-    {
-        var cells = _hashedSelectedCells.Where(selectedCell => _hashedValidCells.Contains(selectedCell)).ToList();
-        cellEffects.ForEach(effect => effect.ApplyEffect(cells));
+            SpendActionPoints();
+            usingAnimation.Play();
+            OnUse.Invoke();
+        }
+
+        public override void HighlightCells()
+        {
+            if (validCellTaker.Take() == null)
+                return;
+
+            validCellTaker.Take().ForEach(cell => cell.EnableValidForAbilityCellHighlight(true));
+
+            if (selectedCellTaker.Take() == null)
+                return;
+
+            var cells = selectedCellTaker.Take().Where(selectedCell => validCellTaker.Take().Contains(selectedCell))
+                .ToList();
+            cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
+
+            cellEffects.Where(cellEffect => cellEffect as CellsEffectWithPreVisualization).ToList()
+                .ForEach(cellEffect => (cellEffect as CellsEffectWithPreVisualization).PreVisualizeEffect(cells));
+        }
+
+        public override void ApplyCellEffects()
+        {
+            var cells = _hashedSelectedCells.Where(selectedCell => _hashedValidCells.Contains(selectedCell)).ToList();
+            cellEffects.ForEach(effect => effect.ApplyEffect(cells));
+        }
     }
 }

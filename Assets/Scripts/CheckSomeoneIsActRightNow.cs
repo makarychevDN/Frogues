@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckSomeoneIsActRightNow : MonoBehaviour
+namespace FroguesFramework
 {
-    private void Update()
+    public class CheckSomeoneIsActRightNow : MonoBehaviour
     {
-        print(CurrentlyActiveObjects.SomethingIsActNow);
+        private void Update()
+        {
+            print(CurrentlyActiveObjects.SomethingIsActNow);
+        }
     }
 }

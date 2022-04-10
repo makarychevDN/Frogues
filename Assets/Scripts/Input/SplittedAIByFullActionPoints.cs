@@ -1,35 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SplittedAIByFullActionPoints : BaseInput
+namespace FroguesFramework
 {
-    [SerializeField] private BaseInput inputOnFullActionPoints;
-    [SerializeField] private BaseInput inputOnNonFullActionPoints;
-    [SerializeField] private ActionPoints actionPoints;
-    [SerializeField] private AbleToSkipTurn ableToSkipTurn;
-    private BaseInput _currentInput;
-
-    private void Start()
+    public class SplittedAIByFullActionPoints : BaseInput
     {
-        inputOnFullActionPoints.OnInputDone.AddListener(EndInput);
-        inputOnNonFullActionPoints.OnInputDone.AddListener(EndInput);
-        actionPoints.OnActionPointsEnded.AddListener(EndInput);
-    }
+        [SerializeField] private BaseInput inputOnFullActionPoints;
+        [SerializeField] private BaseInput inputOnNonFullActionPoints;
+        [SerializeField] private ActionPoints actionPoints;
+        [SerializeField] private AbleToSkipTurn ableToSkipTurn;
+        private BaseInput _currentInput;
 
-    public override void Act()
-    {
-        if(_currentInput == null)
+        private void Start()
         {
-            _currentInput = actionPoints.Full ? inputOnFullActionPoints : inputOnNonFullActionPoints;
+            inputOnFullActionPoints.OnInputDone.AddListener(EndInput);
+            inputOnNonFullActionPoints.OnInputDone.AddListener(EndInput);
+            actionPoints.OnActionPointsEnded.AddListener(EndInput);
         }
 
-        _currentInput.Act();
-    }
+        public override void Act()
+        {
+            if (_currentInput == null)
+            {
+                _currentInput = actionPoints.Full ? inputOnFullActionPoints : inputOnNonFullActionPoints;
+            }
 
-    public void EndInput()
-    {
-        _currentInput = null;
-        ableToSkipTurn.AutoSkip();
+            _currentInput.Act();
+        }
+
+        public void EndInput()
+        {
+            _currentInput = null;
+            ableToSkipTurn.AutoSkip();
+        }
     }
 }

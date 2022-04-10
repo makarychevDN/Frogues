@@ -1,15 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilitiesPanel : MonoBehaviour
+namespace FroguesFramework
 {
-    public static AbilitiesPanel Instance;
-    public List<PlayerAbilityButtonSlot> abilitySlots;
-
-    private void Start()
+    public class AbilitiesPanel : MonoBehaviour
     {
-        Instance = this;
+        public static AbilitiesPanel Instance;
+        public List<PlayerAbilityButtonSlot> abilitySlots;
+
+        private void Start()
+        {
+            Instance = this;
+        }
     }
 }

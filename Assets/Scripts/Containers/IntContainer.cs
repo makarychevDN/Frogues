@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class IntContainer : Container<int>
+namespace FroguesFramework
 {
+    public class IntContainer : Container<int>
+    {
 
+    }
 }

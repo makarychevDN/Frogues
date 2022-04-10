@@ -1,18 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
-public class CurrentlyActiveBehaviour : MonoBehaviour
+namespace FroguesFramework
 {
-    protected bool ActiveNow 
+    public abstract class CurrentlyActiveBehaviour : MonoBehaviour
     {
-        set 
+        protected bool ActiveNow
         {
-            if (value)
-                CurrentlyActiveObjects.Add(this);
-            else
-                CurrentlyActiveObjects.Remove(this);
+            set
+            {
+                if (value)
+                    CurrentlyActiveObjects.Add(this);
+                else
+                    CurrentlyActiveObjects.Remove(this);
+            }
         }
     }
 }

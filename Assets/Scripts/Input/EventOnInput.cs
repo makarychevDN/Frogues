@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.Events;
 
-public class EventOnInput : BaseInput
+namespace FroguesFramework
 {
-    public UnityEvent OnInput;
-
-    public override void Act()
+    public class EventOnInput : BaseInput
     {
-        OnInput.Invoke();
-        OnInputDone.Invoke();
+        public UnityEvent OnInput;
+
+        public override void Act()
+        {
+            OnInput.Invoke();
+            OnInputDone.Invoke();
+        }
     }
 }

@@ -1,38 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerAbilityButtonSlot : AbilityButtonContainer
+namespace FroguesFramework
 {
-    private void Awake()
+    public class PlayerAbilityButtonSlot : AbilityButtonContainer
     {
-        if (Content == null)
-            return;
-
-        Content = content;
-    }
-
-    public override AbilityButton Content
-    {
-        set
+        private void Awake()
         {
-            if (!(content == null || value == null) && value.slot != null)
-                value.slot.Content = content;
-
-            content = value;
-            
-            if(content == null)
+            if (Content == null)
                 return;
 
-            content.slot = this;
-            content.transform.parent = transform;
-            content.transform.position = transform.position;
+            Content = content;
         }
-    }
 
-    public void HotkeyPressed()
-    {
-        content?.PickAbility();
+        public override AbilityButton Content
+        {
+            set
+            {
+                if (!(content == null || value == null) && value.slot != null)
+                    value.slot.Content = content;
+
+                content = value;
+
+                if (content == null)
+                    return;
+
+                content.slot = this;
+                content.transform.parent = transform;
+                content.transform.position = transform.position;
+            }
+        }
+
+        public void HotkeyPressed()
+        {
+            content?.PickAbility();
+        }
     }
 }

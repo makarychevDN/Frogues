@@ -1,28 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivateTriggerOnUnitsLayerCellFilled : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private Cell cell;
-
-    public void TriggerOnBecameFull()
+    public class ActivateTriggerOnUnitsLayerCellFilled : MonoBehaviour
     {
-        if (cell.IsEmpty)
-            return;
+        [SerializeField] private Cell cell;
 
-        var temp = cell.Content.GetComponentInChildren<Trigger>();
-        if (temp != null)
-            temp.CellBecameFull();
-    }
+        public void TriggerOnBecameFull()
+        {
+            if (cell.IsEmpty)
+                return;
 
-    public void TriggerOnBecameEmpty()
-    {
-        if (cell.IsEmpty)
-            return;
+            var temp = cell.Content.GetComponentInChildren<Trigger>();
+            if (temp != null)
+                temp.CellBecameFull();
+        }
 
-        var temp = cell.Content.GetComponentInChildren<Trigger>();
-        if (temp != null)
-            temp.CellBecameEmpty();
+        public void TriggerOnBecameEmpty()
+        {
+            if (cell.IsEmpty)
+                return;
+
+            var temp = cell.Content.GetComponentInChildren<Trigger>();
+            if (temp != null)
+                temp.CellBecameEmpty();
+        }
     }
 }
