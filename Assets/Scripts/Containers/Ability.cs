@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class AOEWeapon : Weapon
+public class Ability : Weapon
 {
     [Space]
     [SerializeField] private BaseCellsTaker validCellTaker;

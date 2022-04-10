@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public PlayerAbilityButtonSlot slot;
-    [SerializeField] private AOEWeapon ability;
+    [SerializeField] private Ability ability;
     [SerializeField] private bool usingNow;
 
     public UnityEvent onDragEvent;

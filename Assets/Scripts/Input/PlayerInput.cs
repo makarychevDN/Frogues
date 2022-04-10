@@ -162,7 +162,7 @@ public class PlayerInput : BaseInput
 
     //private void DisableDescriptionPanel() => printUnitsDescriptionEffect.ApplyEffect(new List<Cell>());
 
-    public void SetCurrentAbility(AOEWeapon ability) => currentAbility = ability;
+    public void SetCurrentAbility(Ability ability) => currentAbility = ability;
     
     public void SetCurrentAbilityNull() => currentAbility = null;
 }
