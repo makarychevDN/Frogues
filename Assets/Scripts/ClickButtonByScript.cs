@@ -6,10 +6,12 @@ namespace FroguesFramework
     public class ClickButtonByScript : MonoBehaviour
     {
         [SerializeField] private Button button;
+        [SerializeField] private bool ignoreButtonUnInteractive;
 
         public void Click()
         {
-            button.onClick.Invoke();
+            if(button.interactable || (!button.interactable && ignoreButtonUnInteractive))
+                button.onClick.Invoke();
         }
     }
 }
