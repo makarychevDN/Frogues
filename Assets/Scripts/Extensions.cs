@@ -29,5 +29,10 @@ namespace FroguesFramework
         public static T GetFirst<T>(this List<T> list) => list[0];
 
         public static T GetLast<T>(this List<T> list) => list[list.Count - 1];
+
+        public static void SwitchActive(this GameObject gameObject)
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
+        }
     }
 }
