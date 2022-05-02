@@ -30,25 +30,21 @@ namespace FroguesFramework
         [SerializeField] private Sprite inspectCursor;
 
         private List<Cell> _path = new();
-        private bool _inputIsPossible;
         private float bottomUiPanelHeight = 120f;
         private ActionPointsIconsShaker _actionPointsIconsShaker;
+        private PauseIsActiveContainer _pauseIsActiveContainer;
 
         private void Awake()
         {
+            _pauseIsActiveContainer = FindObjectOfType<PauseIsActiveContainer>();
             _actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
         }
 
-        public bool InputIsPossible
-        {
-            set => _inputIsPossible = value;
-            get => _inputIsPossible;
-        }
+        public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(unit)
+                                       && !CurrentlyActiveObjects.SomethingIsActNow
+                                       && !_pauseIsActiveContainer.Content;
 
-        public override void Act()
-        {
-            _inputIsPossible = true;
-        }
+        public override void Act(){}
 
         private void Update()
         {
@@ -56,13 +52,12 @@ namespace FroguesFramework
             DisableAllVisualizationFromPlayerOnMap();
             unitsUIEnabler.AllUnitsUISetActive(false);
 
-            if (!UnitsQueue.Instance.IsUnitCurrent(unit) || !_inputIsPossible ||
-                CurrentlyActiveObjects.SomethingIsActNow)
+            if (!InputIsPossible)
                 return;
 
             if (_path.Count != 0)
             {
-                _inputIsPossible = false;
+                //_playerMovingNow = true;
 
                 unit.movable.Move(_path[0]);
                 _path.RemoveAt(0);
@@ -91,12 +86,6 @@ namespace FroguesFramework
             }
             else
             {
-                /*if (cellByMousePosition.Take() != null
-                    && cellByMousePosition.Take().Any(cell => !cell.IsEmpty && !(cell.Content.small || cell.Content == unit || cell.Content as Wall)))
-                {
-                    AbilityInput(nativeAbility);
-                }
-                else*/
                 MovementInput();
             }
 
@@ -157,12 +146,8 @@ namespace FroguesFramework
                     _actionPointsIconsShaker.Shake();
 
                 ability.Use();
-
-                //currentAbility = null;
             }
         }
-
-        //private void DisableDescriptionPanel() => printUnitsDescriptionEffect.ApplyEffect(new List<Cell>());
 
         public void SetCurrentAbility(Ability ability) => currentAbility = ability;
 
