@@ -6,11 +6,11 @@ namespace FroguesFramework
     public class PixelPerfectZoom : MonoBehaviour
     {
         [SerializeField] private PixelPerfectCamera pixelPerfectCamera;
-        private int[] _xResolutions = {336, 420, 560, 840, 2200};
+        private int _defaultPixelsPerUnit = 48;
 
-        public void UpdateResolution(float value)
+        public void UpdateResolution(float scale)
         {
-            pixelPerfectCamera.refResolutionX = _xResolutions[(int) value];
+            pixelPerfectCamera.assetsPPU = _defaultPixelsPerUnit * (int)scale;
         }
 
         private void Awake()
