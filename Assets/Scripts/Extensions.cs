@@ -34,5 +34,17 @@ namespace FroguesFramework
         {
             gameObject.SetActive(!gameObject.activeSelf);
         }
+
+        /// <summary>
+        /// return 0 on false and 1 on true
+        /// </summary>
+        /// <param name="value"></param>
+        public static int ToInt(this bool value) => value ? 1 : 0;
+        
+        /// <summary>
+        /// return false on 0 and 1 on any another value
+        /// </summary>
+        /// <param name="value"></param>
+        public static bool ToBool(this int value) => value != 0;
     }
 }
