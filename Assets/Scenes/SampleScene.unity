@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 6
+  content: 10
 --- !u!1 &89028259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,10 +1157,10 @@ MonoBehaviour:
       - m_Target: {fileID: 422976785}
         m_TargetAssemblyTypeName: FroguesFramework.RoundTimerEvent, Assembly-CSharp
         m_MethodName: StartTimer
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 1513359564}
-          m_ObjectArgumentAssemblyTypeName: FroguesFramework.IntContainer, Assembly-CSharp
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 6
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1178,29 +1178,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e6428f70a7e048845f3d56c8a1ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundsToEvent: 15
+  roundsToEvent: 8
   timerEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1072203454}
         m_TargetAssemblyTypeName: FroguesFramework.UnitSpawner, Assembly-CSharp
         m_MethodName: Spawn
-        m_Mode: 1
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1513359564}
-        m_TargetAssemblyTypeName: FroguesFramework.IntContainer, Assembly-CSharp
-        m_MethodName: Decrease
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1513359564}
+          m_ObjectArgumentAssemblyTypeName: FroguesFramework.IntContainer, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1209,11 +1197,11 @@ MonoBehaviour:
       - m_Target: {fileID: 422976785}
         m_TargetAssemblyTypeName: FroguesFramework.RoundTimerEvent, Assembly-CSharp
         m_MethodName: StartTimer
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 1513359564}
-          m_ObjectArgumentAssemblyTypeName: FroguesFramework.IntContainer, Assembly-CSharp
-          m_IntArgument: 6
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -7568,7 +7556,7 @@ GameObject:
   - component: {fileID: 1513359563}
   - component: {fileID: 1513359564}
   m_Layer: 0
-  m_Name: Timer Container
+  m_Name: Enemies Quantity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7585,7 +7573,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1957350996}
   m_Father: {fileID: 422976783}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7598,10 +7587,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1513359562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
+  m_Script: {fileID: 11500000, guid: ec795a4b7006e534ba52ecacdcb464ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 15
+  content: 0
+  dividend: {fileID: 931597865}
+  divisor: {fileID: 1957350997}
 --- !u!1 &1536097499
 GameObject:
   m_ObjectHideFlags: 0
@@ -9500,25 +9491,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e6428f70a7e048845f3d56c8a1ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundsToEvent: 6
+  roundsToEvent: 10
   timerEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2091634225}
         m_TargetAssemblyTypeName: UnitSpawner, Assembly-CSharp
         m_MethodName: Spawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 61733657}
-        m_TargetAssemblyTypeName: FroguesFramework.IntContainer, Assembly-CSharp
-        m_MethodName: Increase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10145,6 +10124,51 @@ MonoBehaviour:
   damage: {fileID: 326176440}
   damageType: {fileID: 99927824}
   ignoreArmor: 0
+--- !u!1 &1957350995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1957350996}
+  - component: {fileID: 1957350997}
+  m_Layer: 0
+  m_Name: Divasor modificator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1957350996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957350995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1513359563}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1957350997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957350995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: 125
 --- !u!1 &1961819334
 GameObject:
   m_ObjectHideFlags: 0
