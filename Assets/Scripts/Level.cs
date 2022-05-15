@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private Unit enemy2;
 
         [SerializeField] private Unit enemy3;
+        [SerializeField] private Unit bloodSurface;
 
         //[SerializeField] private Unit _enemie;
         [SerializeField] private Map _map;
@@ -18,10 +19,11 @@ namespace FroguesFramework
         private void Start()
         {
             _map.layers[MapLayer.DefaultUnit][2, 2].Content = _player;
+            _map.layers[MapLayer.Surface][3, 2].Content = bloodSurface;
             _map.layers[MapLayer.DefaultUnit][2, 5].Content = enemy1;
             _map.layers[MapLayer.DefaultUnit][5, 2].Content = enemy2;
             _map.layers[MapLayer.DefaultUnit][5, 5].Content = enemy3;
-            //_map.unitsLayer[2, 1].Content = _enemie;
+            _map.layers[MapLayer.DefaultUnit][5, 5].Content = enemy3;
         }
     }
 }

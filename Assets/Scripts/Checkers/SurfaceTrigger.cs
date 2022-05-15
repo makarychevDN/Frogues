@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class Trigger : MonoBehaviour
+    public class SurfaceTrigger : MonoBehaviour
     {
         public UnityEvent OnCellInUnitsLayerBecameFull;
         public UnityEvent OnCellInUnitsLayerBecameEmpty;

@@ -11,7 +11,7 @@ namespace FroguesFramework
             if (cell.IsEmpty)
                 return;
 
-            var temp = cell.Content.GetComponentInChildren<Trigger>();
+            var temp = cell.Content.GetComponentInChildren<SurfaceTrigger>();
             if (temp != null)
                 temp.CellBecameFull();
         }
@@ -21,7 +21,7 @@ namespace FroguesFramework
             if (cell.IsEmpty)
                 return;
 
-            var temp = cell.Content.GetComponentInChildren<Trigger>();
+            var temp = cell.Content.GetComponentInChildren<SurfaceTrigger>();
             if (temp != null)
                 temp.CellBecameEmpty();
         }
