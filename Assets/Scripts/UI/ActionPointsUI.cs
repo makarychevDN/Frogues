@@ -33,17 +33,17 @@ namespace FroguesFramework
                 iconsCount = (int) Mathf.Repeat(iconsCount, actionPointIconPrefabs.Count);
             }
 
-            float startXPosition = 0;
+            /*float startXPosition = 0;
             actionPointIcons.ForEach(icon => startXPosition -= icon.RadiusOfIcons);
             startXPosition += actionPointIcons[0].RadiusOfIcons;
 
-            for (int i = 0; i < maxActionPoints.Content - 1; i++)
+            /*for (int i = 0; i < maxActionPoints.Content - 1; i++)
             {
                 actionPointIcons[i].transform.localPosition = new Vector3(startXPosition, 0, 0);
                 startXPosition += actionPointIcons[i].RadiusOfIcons + actionPointIcons[i + 1].RadiusOfIcons;
-            }
+            }*/
 
-            actionPointIcons[actionPointIcons.Count - 1].transform.localPosition = new Vector3(startXPosition, 0, 0);
+            //actionPointIcons[actionPointIcons.Count - 1].transform.localPosition = new Vector3(0, 0, 0);
 
 
         }
