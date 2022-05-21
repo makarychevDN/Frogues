@@ -17,7 +17,10 @@ namespace FroguesFramework
 
         private void Start()
         {
-            OnActionPointsEnded.AddListener(skipTurnModule.AutoSkip);
+            if (skipTurnModule != null)
+            {
+                OnActionPointsEnded.AddListener(skipTurnModule.AutoSkip);
+            }
 
             if (selectedCellsVisualizationDisabler != null)
             {
