@@ -12,9 +12,10 @@ namespace FroguesFramework
         public Tilemap tilemap;
         public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
         public List<Cell> allCells;
-        [SerializeField] private Cell cellPrefab;
-        [SerializeField] private Wall wallPrefab;
-        private List<Transform> _cellsParents;
+        
+        [SerializeField] protected Cell cellPrefab;
+        [SerializeField] protected Wall wallPrefab;
+        protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
 
         private void Awake()
@@ -30,11 +31,14 @@ namespace FroguesFramework
 
         public void InitCellsParents() => _cellsParents = new List<Transform> {unitsCellsParent, surfacesCellsParent};
 
-        public void InitCells()
+        public virtual void InitCells()
         {
             BoundsInt bounds = tilemap.cellBounds;
-            sizeX = bounds.size.x;
-            sizeY = bounds.size.y;
+            
+            if(sizeX == 0)
+                sizeX = bounds.size.x;
+            if(sizeY == 0)
+                sizeY = bounds.size.y;
             layers = new Dictionary<MapLayer, Cell[,]>();
 
             for (int k = 0; k < _cellsParents.Count; k++)
@@ -69,7 +73,7 @@ namespace FroguesFramework
             }
         }
 
-        public void InitWalls()
+        public virtual void InitWalls()
         {
             for (int i = 0; i < sizeX; i++)
             {
@@ -85,7 +89,7 @@ namespace FroguesFramework
             }
         }
 
-        public void InitCellsMonitoringOnUnitsLayer()
+        public virtual void InitCellsMonitoringOnUnitsLayer()
         {
             for (int i = 0; i < layers[0].GetLength(0); i++)
             {
@@ -104,30 +108,30 @@ namespace FroguesFramework
             }
         }
 
-        public Cell FindNeighborhoodForCell(Cell startCell, Vector2Int direction)
+        public virtual Cell FindNeighborhoodForCell(Cell startCell, Vector2Int direction)
         {
             return GetLayerByCell(startCell)[startCell.coordinates.x + direction.x,
                 startCell.coordinates.y + direction.y];
         }
 
-        public Cell[,] GetLayerByCell(Cell cell)
+        public virtual Cell[,] GetLayerByCell(Cell cell)
         {
             return layers[cell.mapLayer];
         }
 
-        public Cell[,] GetLayerByType(MapLayer mapLayer)
+        public virtual Cell[,] GetLayerByType(MapLayer mapLayer)
         {
             return layers[mapLayer];
         }
 
-        public Cell GetUnitsLayerCellByCoordinates(Vector2Int coordinates)
+        public virtual Cell GetUnitsLayerCellByCoordinates(Vector2Int coordinates)
         {
             return layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y];
         }
 
-        public List<Cell> GetCellsColumn(Cell cell) => GetCellsColumn(cell.coordinates);
+        public virtual List<Cell> GetCellsColumn(Cell cell) => GetCellsColumn(cell.coordinates);
 
-        public List<Cell> GetCellsColumn(Vector2Int coordinates)
+        public virtual List<Cell> GetCellsColumn(Vector2Int coordinates)
         {
             List<Cell> cells = new List<Cell>();
             foreach (var layer in layers)
@@ -138,14 +142,14 @@ namespace FroguesFramework
             return cells;
         }
 
-        public List<Cell> GetCellsColumnIgnoreSurfaces(Vector2Int coordinates)
+        public virtual List<Cell> GetCellsColumnIgnoreSurfaces(Vector2Int coordinates)
         {
             var temp = GetCellsColumn(coordinates);
             temp.Remove(layers[MapLayer.Surface][coordinates.x, coordinates.y]);
             return temp;
         }
 
-        public Cell GetCell(Vector2Int coordinates, MapLayer mapLayer)
+        public virtual Cell GetCell(Vector2Int coordinates, MapLayer mapLayer)
         {
             return layers[mapLayer][coordinates.x, coordinates.y];
         }
