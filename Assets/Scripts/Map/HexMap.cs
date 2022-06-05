@@ -26,7 +26,7 @@ namespace FroguesFramework
                         if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                         {
                             var instantiatedCell = Instantiate(cellPrefab,
-                                tilemap.CellToWorld(new Vector3Int(i, j, 0)), Quaternion.identity);
+                                tilemap.CellToWorld(new Vector3Int(i, j, 0)) + Vector3.up * 0.1f, Quaternion.identity);
                             layers[(MapLayer) k][i, j] = instantiatedCell;
                             instantiatedCell.transform.SetParent(_cellsParents[k]);
                             instantiatedCell.coordinates = new Vector2Int(i, j);
