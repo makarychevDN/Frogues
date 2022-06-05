@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +8,14 @@ namespace FroguesFramework
     {
         public static PathFinder Instance;
         public Map map;
+        [SerializeField] private bool isMapHexagon;
         private List<PathFinderNode> _currentNodes;
         private List<PathFinderNode> _childNodes;
         private PathFinderNode[,] _nodesGrid;
         private List<Vector2Int> _dirVectors;
+        private List<Vector2Int> _additionalOddDirVectorsForHexMap;
+        private List<Vector2Int> _additionalEvenDirVectorsForHexMap;
+        private List<Vector2Int> _tempListForAdditionDirVectors;
 
         private void Start()
         {
@@ -223,6 +228,16 @@ namespace FroguesFramework
             _dirVectors.Add(Vector2Int.right);
             _dirVectors.Add(Vector2Int.down);
             _dirVectors.Add(Vector2Int.left);
+            
+            if(!isMapHexagon)
+                return;
+
+            _additionalOddDirVectorsForHexMap = new List<Vector2Int>();
+            _additionalOddDirVectorsForHexMap.Add(new Vector2Int(1, 1));
+            _additionalOddDirVectorsForHexMap.Add(new Vector2Int(1, -1));
+            _additionalEvenDirVectorsForHexMap = new List<Vector2Int>();
+            _additionalEvenDirVectorsForHexMap.Add(new Vector2Int(-1, 1));
+            _additionalEvenDirVectorsForHexMap.Add(new Vector2Int(-1, -1));
         }
 
         private void InitializeNodesGrid()
@@ -244,6 +259,20 @@ namespace FroguesFramework
             foreach (var node in _nodesGrid)
             {
                 foreach (var dir in _dirVectors)
+                {
+                    if (AddNeighborIsPossible(node, dir))
+                        node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);
+                    
+                }
+                
+                if(!isMapHexagon)
+                    continue;
+
+                _tempListForAdditionDirVectors = node.cell.coordinates.y % 2 == 0
+                    ? _additionalEvenDirVectorsForHexMap
+                    : _additionalOddDirVectorsForHexMap;
+
+                foreach (var dir in _tempListForAdditionDirVectors)
                 {
                     if (AddNeighborIsPossible(node, dir))
                         node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);
