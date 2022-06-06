@@ -15,6 +15,11 @@ namespace FroguesFramework
         {
             return new Vector2Int((int) vector3.x, (int) vector3.y);
         }
+        
+        public static Vector2 ToVector2(this Vector3 vector3)
+        {
+            return new Vector2(vector3.x, vector3.y);
+        }
 
         public static Vector2Int ToVector2Int(this Vector3Int vector3)
         {
