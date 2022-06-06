@@ -6,7 +6,6 @@ namespace FroguesFramework
     public class Take3CellsInDirectionFromUnit : CellTakerByDirection
     {
         [SerializeField] private Unit unit;
-        [SerializeField] private SpriteRotator spriteRotator;
 
         public override List<Cell> Take()
         {
@@ -30,17 +29,6 @@ namespace FroguesFramework
                 result.Add(Map.Instance.FindNeighborhoodForCell(startCell, new Vector2Int(1, 0)));
                 result.Add(Map.Instance.FindNeighborhoodForCell(startCell, new Vector2Int(-1, 0)));
             }
-
-            /*if(direction == Vector2Int.left || direction == Vector2Int.up)
-            {
-                spriteRotator.TurnLeft();
-            }
-            else
-            {
-                spriteRotator.TurnRight();
-            }*/
-
-
 
             return result;
         }
