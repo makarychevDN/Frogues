@@ -25,12 +25,12 @@ namespace FroguesFramework
 
             for (int i = 1; i < cells.Count - 1; i++)
             {
-                cells[i].EnableTrail(cells[i - 1].coordinates - cells[i].coordinates);
-                cells[i].EnableTrail(cells[i + 1].coordinates - cells[i].coordinates);
+                cells[i].EnableTrail((cells[i - 1].transform.position - cells[i].transform.position).normalized.ToVector2());
+                cells[i].EnableTrail((cells[i + 1].transform.position - cells[i].transform.position).normalized.ToVector2());
             }
 
-            cells[0].EnableTrail(cells[1].coordinates - cells[0].coordinates);
-            cells[cells.Count - 1].EnableTrail(cells[cells.Count - 2].coordinates - cells[cells.Count - 1].coordinates);
+            cells[0].EnableTrail((cells[1].transform.position - cells[0].transform.position).normalized.ToVector2());
+            cells[cells.Count - 1].EnableTrail((cells[cells.Count - 2].transform.position - cells[cells.Count - 1].transform.position).normalized.ToVector2());
         }
 
         public void TurnOffVisualization()

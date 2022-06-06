@@ -74,7 +74,7 @@ namespace FroguesFramework
 
         public void EnablePathDot(bool isOn) => pathDot.enabled = isOn;
 
-        public void EnableTrail(Vector2Int direction) => trailsEnabler.EnableTrail(direction);
+        public void EnableTrail(Vector2 direction) => trailsEnabler.EnableTrail(direction);
 
         public void DisableTrails() => trailsEnabler.DisableTrails();
 
