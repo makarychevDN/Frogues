@@ -488,6 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4344426458435425192}
   - component: {fileID: 4344426458435425193}
+  - component: {fileID: 7759467842822942733}
   m_Layer: 0
   m_Name: Take Cells By Radius
   m_TagString: Untagged
@@ -522,10 +523,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a8fe05cea9cf47adaef745b48f510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
+  startCellsTaker: {fileID: 7759467842822942733}
   radius: 1
   ignoreCellIsBusy: 1
   diagonalStep: 1
+--- !u!114 &7759467842822942733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344426458435425195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f2547b487a6494fa4471326f68b6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 0}
 --- !u!1 &4344426458868265752
 GameObject:
   m_ObjectHideFlags: 0
