@@ -353,6 +353,8 @@ MonoBehaviour:
       m_Calls: []
   validCellTaker: {fileID: 580851164}
   selectedCellTaker: {fileID: 968687913}
+  additionalCellsIgnoreValidBorders: 0
+  additionalToSelectedCellTaker: {fileID: 0}
 --- !u!4 &102829466
 Transform:
   m_ObjectHideFlags: 0
@@ -458,7 +460,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentDirectionContainer: {fileID: 2056115751}
   unit: {fileID: 1460232457}
-  spriteRotator: {fileID: 151840252}
 --- !u!4 &119086965
 Transform:
   m_ObjectHideFlags: 0
@@ -1781,6 +1782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 354086155}
   - component: {fileID: 354086156}
+  - component: {fileID: 354086157}
   m_Layer: 0
   m_Name: Take Cells By Radius
   m_TagString: Untagged
@@ -1815,10 +1817,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a8fe05cea9cf47adaef745b48f510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 1460232457}
+  startCellsTaker: {fileID: 354086157}
+  includeStartCell: 0
   radius: 1
   ignoreCellIsBusy: 1
   diagonalStep: 0
+--- !u!114 &354086157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354086154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f2547b487a6494fa4471326f68b6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 1460232457}
 --- !u!114 &386238709 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7732932570606231679, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
@@ -3013,6 +3029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 580851163}
   - component: {fileID: 580851164}
+  - component: {fileID: 580851165}
   m_Layer: 0
   m_Name: Take Cells By Radius
   m_TagString: Untagged
@@ -3047,10 +3064,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a8fe05cea9cf47adaef745b48f510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 1460232457}
+  startCellsTaker: {fileID: 580851165}
+  includeStartCell: 0
   radius: 1
   ignoreCellIsBusy: 1
   diagonalStep: 0
+--- !u!114 &580851165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580851162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f2547b487a6494fa4471326f68b6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 1460232457}
 --- !u!1 &596862822
 GameObject:
   m_ObjectHideFlags: 0
@@ -3588,51 +3619,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 525d3f493d98a0d46845a18d912cab96, type: 3}
---- !u!1 &668087124
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 668087126}
-  - component: {fileID: 668087125}
-  m_Layer: 0
-  m_Name: Sprite Rotator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &668087125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668087124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87cd0f1301908994d89d0b8531682fca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 1904401987}
---- !u!4 &668087126
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668087124}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1362372401}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &678571931
 GameObject:
   m_ObjectHideFlags: 0
@@ -3831,7 +3817,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1293104220}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &744299414
 AudioSource:
@@ -3929,6 +3915,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &765261822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765261823}
+  - component: {fileID: 765261824}
+  m_Layer: 0
+  m_Name: Take Cell By Mouse Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &765261823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765261822}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1293104220}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &765261824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765261822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1fca3ca24142d43a130c996b92eb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  takeColumn: 0
 --- !u!1 &772568690
 GameObject:
   m_ObjectHideFlags: 0
@@ -4066,7 +4098,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentDirectionContainer: {fileID: 1073240534}
   unit: {fileID: 1460232457}
-  spriteRotator: {fileID: 1513006542}
 --- !u!4 &826389398
 Transform:
   m_ObjectHideFlags: 0
@@ -5615,66 +5646,6 @@ Transform:
   m_Father: {fileID: 102829466}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1214742755
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1214742756}
-  - component: {fileID: 1214742757}
-  - component: {fileID: 1214742758}
-  m_Layer: 0
-  m_Name: Vector Container
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1214742756
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214742755}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1362372401}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1214742757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214742755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09251ed6354f8344cae3d1e228a97325, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unit: {fileID: 1460232457}
-  vectorContainer: {fileID: 1214742758}
---- !u!114 &1214742758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214742755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0907b9f88ed7bd54baf9237b01ec3d7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {x: 0, y: 0}
 --- !u!1 &1216589971
 GameObject:
   m_ObjectHideFlags: 0
@@ -5946,9 +5917,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 765261823}
   - {fileID: 1567086477}
+  - {fileID: 1958509244}
   - {fileID: 1336588663}
-  - {fileID: 1362372401}
   - {fileID: 1942922104}
   - {fileID: 1436822869}
   - {fileID: 744299413}
@@ -5990,7 +5962,9 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   validCellTaker: {fileID: 1567086478}
-  selectedCellTaker: {fileID: 1362372402}
+  selectedCellTaker: {fileID: 765261824}
+  additionalCellsIgnoreValidBorders: 0
+  additionalToSelectedCellTaker: {fileID: 1958509242}
 --- !u!1 &1323431156
 GameObject:
   m_ObjectHideFlags: 0
@@ -6101,7 +6075,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1293104220}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1336588664
 MonoBehaviour:
@@ -6116,55 +6090,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 2
---- !u!1 &1362372400
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1362372401}
-  - component: {fileID: 1362372402}
-  m_Layer: 0
-  m_Name: Take 3 Cells
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1362372401
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362372400}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 668087126}
-  - {fileID: 1214742756}
-  m_Father: {fileID: 1293104220}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1362372402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1362372400}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9513da2821cb41e4c847ca9e20b9ca0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentDirectionContainer: {fileID: 1214742758}
-  unit: {fileID: 1460232457}
-  spriteRotator: {fileID: 668087125}
 --- !u!1 &1364695833
 GameObject:
   m_ObjectHideFlags: 0
@@ -6335,7 +6260,7 @@ Transform:
   - {fileID: 605088276}
   - {fileID: 1132558019}
   m_Father: {fileID: 1293104220}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1460232456
 GameObject:
@@ -6780,6 +6705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1567086477}
   - component: {fileID: 1567086478}
+  - component: {fileID: 1567086479}
   m_Layer: 0
   m_Name: Take Cells By Radius
   m_TagString: Untagged
@@ -6800,7 +6726,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1293104220}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1567086478
 MonoBehaviour:
@@ -6814,10 +6740,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a8fe05cea9cf47adaef745b48f510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 1460232457}
+  startCellsTaker: {fileID: 1567086479}
+  includeStartCell: 0
   radius: 1
   ignoreCellIsBusy: 1
-  diagonalStep: 1
+  diagonalStep: 0
+--- !u!114 &1567086479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567086476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f2547b487a6494fa4471326f68b6a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit: {fileID: 1460232457}
 --- !u!1 &1585368727
 GameObject:
   m_ObjectHideFlags: 0
@@ -7666,6 +7606,8 @@ MonoBehaviour:
       m_Calls: []
   validCellTaker: {fileID: 1249517578}
   selectedCellTaker: {fileID: 1249517578}
+  additionalCellsIgnoreValidBorders: 0
+  additionalToSelectedCellTaker: {fileID: 0}
 --- !u!1 &1764270227
 GameObject:
   m_ObjectHideFlags: 0
@@ -8545,7 +8487,7 @@ Transform:
   - {fileID: 326176439}
   - {fileID: 99927823}
   m_Father: {fileID: 1293104220}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1942922105
 MonoBehaviour:
@@ -8609,6 +8551,70 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 125
+--- !u!1 &1958509241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1958509244}
+  - component: {fileID: 1958509242}
+  - component: {fileID: 1958509243}
+  m_Layer: 0
+  m_Name: Take Cells By Radius Around Selected Cell
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1958509242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958509241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9a8fe05cea9cf47adaef745b48f510, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCellsTaker: {fileID: 1958509243}
+  includeStartCell: 0
+  radius: 1
+  ignoreCellIsBusy: 1
+  diagonalStep: 0
+--- !u!114 &1958509243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958509241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d1fca3ca24142d43a130c996b92eb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 0}
+  takeColumn: 0
+--- !u!4 &1958509244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958509241}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5236474, y: 2.9629064, z: -1.5339196}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1293104220}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1961819334
 GameObject:
   m_ObjectHideFlags: 0
@@ -10635,7 +10641,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1293104220}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2112195380
 GameObject:
@@ -10689,6 +10695,8 @@ MonoBehaviour:
         m_CallState: 2
   validCellTaker: {fileID: 354086156}
   selectedCellTaker: {fileID: 332951315}
+  additionalCellsIgnoreValidBorders: 0
+  additionalToSelectedCellTaker: {fileID: 0}
 --- !u!4 &2112195382
 Transform:
   m_ObjectHideFlags: 0

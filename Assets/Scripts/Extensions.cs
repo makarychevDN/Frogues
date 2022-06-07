@@ -51,5 +51,12 @@ namespace FroguesFramework
         /// </summary>
         /// <param name="value"></param>
         public static bool ToBool(this int value) => value != 0;
+        
+        public static void AddUnique<T>( this IList<T> self, IEnumerable<T> items )
+        {
+            foreach(var item in items)
+                if(!self.Contains(item))
+                    self.Add(item);
+        }
     }
 }
