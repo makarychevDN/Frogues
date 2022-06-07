@@ -58,5 +58,15 @@ namespace FroguesFramework
                 if(!self.Contains(item))
                     self.Add(item);
         }
+        
+        public static bool CloseEnoughTo(this Vector2 comparableVector, Vector2 vectorToCompare, float tolerance)
+        {
+            return Mathf.Abs(comparableVector.x - vectorToCompare.x) < tolerance &&
+                   Mathf.Abs(comparableVector.y - vectorToCompare.y) < tolerance;
+        }
+
+        private static float defaultCompareVectorTolerance = 0.01f;
+        public static bool CloseEnoughTo(this Vector2 comparableVector, Vector2 vectorToCompare) =>
+            (CloseEnoughTo(comparableVector, vectorToCompare, defaultCompareVectorTolerance));
     }
 }

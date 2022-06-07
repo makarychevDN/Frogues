@@ -12,9 +12,7 @@ namespace FroguesFramework
 
         public void EnableTrail(Vector2 direction)
         {
-            trails.FirstOrDefault(trail =>
-                Math.Abs(trail.TrailDirection.x - direction.x) < TOLERANCE &&
-                Math.Abs(trail.TrailDirection.y - direction.y) < TOLERANCE)?.Enable(true);
+            trails.FirstOrDefault(trail => trail.TrailDirection.CloseEnoughTo(direction))?.Enable(true);
         }
 
         public void DisableTrails()
