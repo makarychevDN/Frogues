@@ -268,7 +268,7 @@ namespace FroguesFramework
                 if(!isMapHexagon)
                     continue;
 
-                _tempListForAdditionDirVectors = node.cell.coordinates.y % 2 == 0
+                _tempListForAdditionDirVectors = node.cell.coordinates.y.Even()
                     ? _additionalEvenDirVectorsForHexMap
                     : _additionalOddDirVectorsForHexMap;
 

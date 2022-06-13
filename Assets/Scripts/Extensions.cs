@@ -52,6 +52,10 @@ namespace FroguesFramework
         /// <param name="value"></param>
         public static bool ToBool(this int value) => value != 0;
         
+        public static bool Even(this int value) => value % 2 == 0;
+        
+        public static bool Odd(this int value) => value % 2 != 0;
+        
         public static void AddUnique<T>( this IList<T> self, IEnumerable<T> items )
         {
             foreach(var item in items)
