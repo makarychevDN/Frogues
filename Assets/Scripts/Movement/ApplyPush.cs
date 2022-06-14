@@ -6,12 +6,12 @@ namespace FroguesFramework
     {
         [SerializeField] private Unit unit;
         [SerializeField] private Movable movable;
-        [SerializeField] private Vector2IntContainer lastTakenDireaction;
+        [SerializeField] private HexDirContainer lastTakenDirection;
         [SerializeField, Range(0.1f, 30)] private float pushSpeed;
 
         public void Apply()
         {
-            movable.Move(Map.Instance.FindNeighborhoodForCell(unit.currentCell, lastTakenDireaction.Content), 0,
+            movable.Move(unit.currentCell.GetComponent<HexagonCellNeighbours>().Neighbours[lastTakenDirection.Content], 0,
                 pushSpeed, 0);
         }
     }

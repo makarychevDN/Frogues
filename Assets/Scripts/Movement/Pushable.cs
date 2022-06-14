@@ -7,8 +7,8 @@ namespace FroguesFramework
     public class Pushable : MonoBehaviour
     {
         [SerializeField] private Unit unit;
-        [SerializeField, ReadOnly] private Vector2IntContainer lastPushDirection;
-        [SerializeField, ReadOnly] private Vector2IntContainer PrePushDirection;
+        [SerializeField, ReadOnly] private HexDirContainer lastPushDirection;
+        [SerializeField, ReadOnly] private HexDirContainer PrePushDirection;
 
         public UnityEvent OnPushed;
         public UnityEvent OnPrepushed;
@@ -27,12 +27,12 @@ namespace FroguesFramework
 
         public void ResetPrePushValue()
         {
-            PrePushDirection.Content = Vector2Int.zero;
+            PrePushDirection.Content = HexDir.zero;
         }
 
-        private Vector2Int CalculateMovementVector(Cell pusherCell)
+        private HexDir CalculateMovementVector(Cell pusherCell)
         {
-            return (unit.Coordinates - pusherCell.coordinates).ToVector3().normalized.ToVector2Int();
+            return unit.currentCell.GetComponent<HexagonCellNeighbours>().OppositeDirsByCell[pusherCell];
         }
     }
 }

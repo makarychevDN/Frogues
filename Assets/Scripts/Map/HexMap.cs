@@ -34,6 +34,14 @@ namespace FroguesFramework
                         }
                     }
                 }
+                
+                for (int i = 1; i < sizeX - 1; i++)
+                {
+                    for (int j = 1; j < sizeY - 1; j++)
+                    {
+                        layers[(MapLayer) k][i,j].GetComponent<HexagonCellNeighbours>().Init();
+                    }
+                }
             }
 
             allCells = new List<Cell>();

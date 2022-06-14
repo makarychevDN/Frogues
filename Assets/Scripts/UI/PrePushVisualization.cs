@@ -7,7 +7,7 @@ namespace FroguesFramework
     public class PrePushVisualization : MonoBehaviour
     {
         [SerializeField] private List<TargetWithDirection> arrows;
-        [SerializeField] private Vector2IntContainer prePushValueContainer;
+        [SerializeField] private HexDirContainer prePushValueContainer;
 
         void Update()
         {
@@ -18,7 +18,7 @@ namespace FroguesFramework
         public struct TargetWithDirection
         {
             public GameObject target;
-            public Vector2Int direction;
+            public HexDir direction;
         }
     }
 }
