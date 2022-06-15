@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
@@ -31,7 +33,16 @@ namespace FroguesFramework
 
         public void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight)
         {
+            var horizonVector = startCell.transform.position.x < targetCell.transform.position.x
+                ? Vector3.right
+                : Vector3.left;
+
+            var angleAnimSpeedModificator = Mathf.Sin(Vector2.Angle(
+                targetCell.transform.position - startCell.transform.position,
+                startCell.transform.position + horizonVector - startCell.transform.position));
+
             _speed = speed;
+            _speed = speed + speed * angleAnimSpeedModificator;
             _jumpHeight = jumpHeight;
             _isPlaying = true;
             _startCell = startCell;
