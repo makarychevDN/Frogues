@@ -51,11 +51,6 @@ namespace FroguesFramework
         public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight,
             bool startCellBecomeEmptyOnMove)
         {
-            //if (!targetCell.IsEmpty && (!targetCell.Content.small)/* || !canBumpIntoUnit)*/ || !IsActionPointsEnough(movementCost)) //todo неработает блять
-            //return;
-
-            //if (!targetCell.IsEmpty && (!targetCell.Content.small) || !targetCell.IsEmpty && (!canBumpIntoUnit) || !IsActionPointsEnough(movementCost)) //todo неработает блять
-            //    return;
 
             if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !IsActionPointsEnough())
                 return;
