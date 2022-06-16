@@ -18,12 +18,11 @@ namespace FroguesFramework
 
         private void Start()
         {
-            _map.layers[MapLayer.DefaultUnit][2, 2].Content = _player;
+            _map.layers[MapLayer.DefaultUnit][4, 2].Content = _player;
             _map.layers[MapLayer.Surface][3, 2].Content = bloodSurface;
-            _map.layers[MapLayer.DefaultUnit][2, 5].Content = enemy1;
-            _map.layers[MapLayer.DefaultUnit][5, 2].Content = enemy2;
-            _map.layers[MapLayer.DefaultUnit][5, 5].Content = enemy3;
-            _map.layers[MapLayer.DefaultUnit][5, 5].Content = enemy3;
+            _map.layers[MapLayer.DefaultUnit][2, 4].Content = enemy1;
+            _map.layers[MapLayer.DefaultUnit][6, 4].Content = enemy2;
+            _map.layers[MapLayer.DefaultUnit][4, 6].Content = enemy3;
         }
     }
 }
