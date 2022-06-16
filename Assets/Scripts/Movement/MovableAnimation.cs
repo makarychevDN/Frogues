@@ -19,6 +19,7 @@ namespace FroguesFramework
         private float _spriteAlignment, _shadowAlignment;
         private Movable _movable;
         private float _jumpHeight, _speed;
+        private const float defaultDiagonalAngle = 41.18592f;
 
         void Awake()
         {
@@ -30,6 +31,7 @@ namespace FroguesFramework
 
         public void Play(Cell startCell, Cell targetCell) =>
             Play(startCell, targetCell, defaultSpeed, defaultJumpHeight);
+        
 
         public void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight)
         {
@@ -38,11 +40,11 @@ namespace FroguesFramework
                 : Vector3.left;
 
             var angleAnimSpeedModificator = Mathf.Sin(Vector2.Angle(
-                targetCell.transform.position - startCell.transform.position,
-                startCell.transform.position + horizonVector - startCell.transform.position));
-
-            _speed = speed;
+                (targetCell.transform.position - startCell.transform.position).normalized,
+                (startCell.transform.position + horizonVector - startCell.transform.position).normalized));
+            
             _speed = speed + speed * angleAnimSpeedModificator;
+            _speed = Mathf.Clamp(_speed,speed + speed * Mathf.Sin(defaultDiagonalAngle), 2 * _speed);
             _jumpHeight = jumpHeight;
             _isPlaying = true;
             _startCell = startCell;
