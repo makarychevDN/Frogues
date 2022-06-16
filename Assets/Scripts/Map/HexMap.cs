@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
     public class HexMap : Map
     {
+        [SerializeField] private Tile emptySegment;
         public override void InitCells()
         {
             BoundsInt bounds = tilemap.cellBounds;
@@ -61,7 +63,7 @@ namespace FroguesFramework
             {
                 for (int j = 0; j < sizeY; j++)
                 {
-                    if ((i == 0 || j == 0 || i == sizeX - 1 || j == sizeY - 1))
+                    if (tilemap.GetTile(new Vector3Int(i, j)) == emptySegment)
                     {
                         var wall = Instantiate(wallPrefab, wallsParent);
                         layers[MapLayer.DefaultUnit][i, j].Content = wall;
