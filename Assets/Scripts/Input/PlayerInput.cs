@@ -57,8 +57,6 @@ namespace FroguesFramework
 
             if (_path.Count != 0)
             {
-                //_playerMovingNow = true;
-
                 unit.movable.Move(_path[0]);
                 _path.RemoveAt(0);
                 return;
