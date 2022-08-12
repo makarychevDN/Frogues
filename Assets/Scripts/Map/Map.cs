@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -15,6 +16,7 @@ namespace FroguesFramework
         
         [SerializeField] protected Cell cellPrefab;
         [SerializeField] protected Wall wallPrefab;
+        [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
 
@@ -27,6 +29,7 @@ namespace FroguesFramework
             InitCells();
             InitWalls();
             InitCellsMonitoringOnUnitsLayer();
+            InitUnitsPositionsOnMap();
         }
 
         public void InitCellsParents() => _cellsParents = new List<Transform> {unitsCellsParent, surfacesCellsParent};
@@ -108,6 +111,14 @@ namespace FroguesFramework
             }
         }
 
+        public void InitUnitsPositionsOnMap()
+        {
+            foreach (var unitPos in unitsStartPositions)
+            {
+                layers[unitPos.unit.unitType][unitPos.position.x, unitPos.position.y].Content = unitPos.unit;
+            }
+        }
+
         public virtual Cell FindNeighborhoodForCell(Cell startCell, Vector2Int direction)
         {
             return GetLayerByCell(startCell)[startCell.coordinates.x + direction.x,
@@ -153,5 +164,13 @@ namespace FroguesFramework
         {
             return layers[mapLayer][coordinates.x, coordinates.y];
         }
+    }
+    
+    [Serializable]
+    public struct UnitPosition
+    {
+        public Unit unit;
+        public Vector2Int position;
+
     }
 }
