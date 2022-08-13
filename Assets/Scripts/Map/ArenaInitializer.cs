@@ -28,7 +28,7 @@ namespace FroguesFramework
             }
             else
             {
-                
+                player.currentCell.Content = playerInstanceContainer.Content;
                 playerInstanceContainer.Content.currentCell = player.currentCell;
                 playerInstanceContainer.Content.transform.position = player.transform.position;
                 player.gameObject.SetActive(false);
