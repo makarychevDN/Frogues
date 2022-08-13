@@ -21,22 +21,28 @@ namespace FroguesFramework
 
         public int Count => _unitsList.Count;
 
+        public Unit Player
+        {
+            set => player = value;
+        }
 
-        private void Awake()
+
+        public void Init()
         {
             if (Instance == null)
                 Instance = this;
-
+            
             InitQueue();
             ActivateNext();
         }
+
 
         public bool IsUnitCurrent(Unit unit)
         {
             return _currentNode.Unit == unit;
         }
 
-        public void InitQueue()
+        private void InitQueue()
         {
             _unitsList = new CycledLinkedList();
 
@@ -44,11 +50,10 @@ namespace FroguesFramework
 
             foreach (var unit in actUnits)
             {
-
                 if (unit == player || unit == roundCounter)
                     continue;
 
-                else if (unit.unitType == MapLayer.Surface)
+                if (unit.unitType == MapLayer.Surface)
                 {
                     _unitsList.AddFirst(unit);
                     _debugUnits.Insert(0, unit);

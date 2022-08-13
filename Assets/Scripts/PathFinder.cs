@@ -17,7 +17,7 @@ namespace FroguesFramework
         private List<Vector2Int> _additionalEvenDirVectorsForHexMap;
         private List<Vector2Int> _tempListForAdditionDirVectors;
 
-        private void Start()
+        public void Init()
         {
             if (Instance == null)
                 Instance = this;

@@ -20,7 +20,7 @@ namespace FroguesFramework
         protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
 
-        private void Awake()
+        public void Init()
         {
             if (Instance == null)
                 Instance = this;
