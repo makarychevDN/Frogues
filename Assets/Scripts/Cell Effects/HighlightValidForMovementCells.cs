@@ -15,7 +15,7 @@ namespace FroguesFramework
         public override void ApplyEffect(List<Cell> cells)
         {
             TurnOffHighlight();
-            cellsTaker.Take().ForEach(cell => cell.EnableValidForMovementCellHighlight(true));
+            cellsTaker.Take().ForEach(cell => cell.EnableValidForMovementCellHighlight(cells));
         }
 
         public virtual void TurnOffHighlight()

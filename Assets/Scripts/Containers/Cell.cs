@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace FroguesFramework
         public UnityEvent OnBecameFull;
         public UnityEvent OnBecameEmpty;
 
-        [SerializeField] private GameObject validForMovementTileHighlighter;
+        [SerializeField] private HighlightingBordersEnabler validForMovementTileHighlighter;
         [SerializeField] private GameObject validForAbilityTileHighlighter;
         [SerializeField] private GameObject selectedByAbilityTileHighlighter;
         [SerializeField] private TrailsEnabler trailsEnabler;
@@ -70,7 +71,9 @@ namespace FroguesFramework
 
         public void EnableValidForAbilityCellHighlight(bool isOn) => validForAbilityTileHighlighter.SetActive(isOn);
 
-        public void EnableValidForMovementCellHighlight(bool isOn) => validForMovementTileHighlighter.SetActive(isOn);
+        public void EnableValidForMovementCellHighlight(bool isOn) => validForMovementTileHighlighter.SetActiveBorders(isOn);
+        
+        public void EnableValidForMovementCellHighlight(List<Cell> cells) => validForMovementTileHighlighter.EnableBorders(cells);
 
         public void EnablePathDot(bool isOn) => pathDot.enabled = isOn;
 
