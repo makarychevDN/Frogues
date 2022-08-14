@@ -46,10 +46,12 @@ namespace FroguesFramework
 
         public override void HighlightCells()
         {
-            if (validCellTaker.Take() == null)
+            var validCells = validCellTaker.Take();
+            
+            if (validCells == null)
                 return;
 
-            validCellTaker.Take().ForEach(cell => cell.EnableValidForAbilityCellHighlight(true));
+            validCells.ForEach(cell => cell.EnableValidForAbilityCellHighlight(validCells));
 
             if (selectedCellTaker.Take() == null)
                 return;
