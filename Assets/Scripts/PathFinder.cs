@@ -19,9 +19,7 @@ namespace FroguesFramework
 
         public void Init()
         {
-            if (Instance == null)
-                Instance = this;
-
+            Instance = this;
             InitializeDirVectors();
             InitializeNodesGrid();
             FindAllNodesNeighbors();

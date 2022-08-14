@@ -29,9 +29,7 @@ namespace FroguesFramework
 
         public void Init()
         {
-            if (Instance == null)
-                Instance = this;
-            
+            Instance = this;
             InitQueue();
             ActivateNext();
         }
