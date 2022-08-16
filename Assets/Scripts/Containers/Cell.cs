@@ -14,8 +14,8 @@ namespace FroguesFramework
         public UnityEvent OnBecameFull;
         public UnityEvent OnBecameEmpty;
 
-        [SerializeField] private HighlightingBordersEnabler validForMovementTileHighlighter;
-        [SerializeField] private HighlightingBordersEnabler validForAbilityTileHighlighter;
+        [SerializeField] private CellHighlighter validForMovementTileHighlighter;
+        [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
         [SerializeField] private GameObject selectedByAbilityTileHighlighter;
         [SerializeField] private TrailsEnabler trailsEnabler;
         [SerializeField] private SpriteRenderer pathDot;
@@ -65,16 +65,18 @@ namespace FroguesFramework
 
         public void EnableSelectedCellHighlight(bool isOn)
         {
-            //EnableValidForAbilityCellHighlight(false);
+            EnableValidForAbilityCellHighlightOnly(false);
             selectedByAbilityTileHighlighter.gameObject.SetActive(isOn);
         }
 
-        public void EnableValidForAbilityCellHighlight(List<Cell> cells) => validForAbilityTileHighlighter.EnableBorders(cells);
-        public void EnableValidForAbilityCellHighlight(bool isOn) => validForAbilityTileHighlighter.SetActiveBorders(isOn);
-
-        public void EnableValidForMovementCellHighlight(bool isOn) => validForMovementTileHighlighter.SetActiveBorders(isOn);
+        public void EnableValidForAbilityCellHighlight(List<Cell> cells) => validForAbilityTileHighlighter.EnableBordersAndHighlight(cells);
+        public void EnableValidForAbilityCellHighlight(bool isOn) => validForAbilityTileHighlighter.SetActive(isOn);
         
-        public void EnableValidForMovementCellHighlight(List<Cell> cells) => validForMovementTileHighlighter.EnableBorders(cells);
+        public void EnableValidForAbilityCellHighlightOnly(bool isOn) => validForAbilityTileHighlighter.SetActiveHighlight(isOn);
+
+        public void EnableValidForMovementCellHighlight(bool isOn) => validForMovementTileHighlighter.SetActive(isOn);
+        
+        public void EnableValidForMovementCellHighlight(List<Cell> cells) => validForMovementTileHighlighter.EnableBordersAndHighlight(cells);
 
         public void EnablePathDot(bool isOn) => pathDot.enabled = isOn;
 

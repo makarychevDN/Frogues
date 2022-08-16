@@ -4,23 +4,38 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class HighlightingBordersEnabler : MonoBehaviour
+    public class CellHighlighter : MonoBehaviour
     {
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
         [SerializeField] private List<GameObjectWithHexDir> bordersAndDirs;
-        [SerializeField] private Cell cell;
+        [SerializeField] private GameObject highlight;
 
-        public void EnableBorders(List<Cell> highlightedCells)
+        public void EnableBordersAndHighlight(List<Cell> highlightedCells)
         {
+            highlight.SetActive(true);
+            
             foreach (var borderWithDir in bordersAndDirs)
             {
                 borderWithDir.border.SetActive(!highlightedCells.Contains(hexagonCellNeighbours.Neighbours[borderWithDir.hexDir]));
             }
         }
 
-        public void SetActiveBorders(bool on) =>
+        public void SetActive(bool on)
+        {
+            highlight.SetActive(on);
             bordersAndDirs.ForEach(borderAndDir => borderAndDir.border.SetActive(on));
+        }
         
+        public void SetActiveHighlight(bool on)
+        {
+            highlight.SetActive(on);
+        }
+        
+        public void SetActiveBorders(bool on)
+        {
+            bordersAndDirs.ForEach(borderAndDir => borderAndDir.border.SetActive(on));
+        }
+
         [Serializable]
         private struct GameObjectWithHexDir
         {
