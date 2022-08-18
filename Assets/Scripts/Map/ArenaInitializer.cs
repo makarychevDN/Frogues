@@ -34,6 +34,10 @@ namespace FroguesFramework
                 player.gameObject.SetActive(false);
                 player = playerInstanceContainer.Content;
             }
+
+            var actionPoints = player.GetComponentInChildren<ActionPoints>();
+            actionPoints.CurrentActionPoints = actionPoints.RegenActionPoints;
+            
         }
     }
 }

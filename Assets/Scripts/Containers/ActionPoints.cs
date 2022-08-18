@@ -33,6 +33,17 @@ namespace FroguesFramework
             currentPoints.Content += pointsRegeneration.Content;
             currentPoints.Content = Mathf.Clamp(currentPoints.Content, 0, maxPointsCount.Content);
         }
+        
+        public int CurrentActionPoints
+        {
+            get => currentPoints.Content;
+            set => currentPoints.Content = value;
+        }
+        
+        public int RegenActionPoints
+        {
+            get => pointsRegeneration.Content;
+        }
 
         public bool CheckIsActionPointsEnough(int cost)
         {
