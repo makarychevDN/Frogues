@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class RoundTimerEvent : MonoBehaviour
+    public class RoundTimerEvent : MonoBehaviour, IRoundTickable
     {
         [SerializeField] private int roundsToEvent;
         public UnityEvent timerEvent;
@@ -19,7 +19,7 @@ namespace FroguesFramework
 
         public void DecreaseTimer() => DecreaseTimer(1);
 
-        public void DecreaseTimer(int decreaseValue)
+        private void DecreaseTimer(int decreaseValue)
         {
             if (!timerEnabled)
                 return;
@@ -33,5 +33,7 @@ namespace FroguesFramework
                 //roundsToEvent = 0;
             }
         }
+
+        public void Tick() => DecreaseTimer();
     }
 }

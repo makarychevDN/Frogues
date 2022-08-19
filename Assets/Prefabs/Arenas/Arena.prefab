@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4007752828625066317}
   - component: {fileID: 5572054043787846024}
-  - component: {fileID: 4122352779762165145}
-  - component: {fileID: 5106405001420045753}
   m_Layer: 0
   m_Name: Wave Spawner
   m_TagString: Untagged
@@ -26,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098449903831628337}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2021080417497375075}
-  m_Father: {fileID: 2192145333750822986}
+  m_Father: {fileID: 8772456207600413884}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5572054043787846024
@@ -50,39 +48,8 @@ MonoBehaviour:
   waves:
   - roundsToSpawn: 5
     wave: {fileID: 1039836316883769577}
---- !u!114 &4122352779762165145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098449903831628337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221e6428f70a7e048845f3d56c8a1ced, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roundsToEvent: 0
-  timerEvent:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &5106405001420045753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098449903831628337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 889e9b556315dd0448f4285625546e39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnerUnit: {fileID: 0}
-  unitToSpawn: {fileID: 0}
-  cellsMoveToCellTaker: {fileID: 0}
-  movementSpeed: 0
-  jumpHeight: 0
+  roundsCounter: {fileID: 7951477763736278366}
+  summonAndMove: {fileID: 3187396340354146914}
 --- !u!1 &2998145788539410610
 GameObject:
   m_ObjectHideFlags: 0
@@ -3664,7 +3631,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 3306625428897100555}
         m_TargetAssemblyTypeName: DecreaseAllTImers, Assembly-CSharp
-        m_MethodName: Decrease
+        m_MethodName: RoundTick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3673,6 +3640,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 5572054043787846024}
+        m_TargetAssemblyTypeName: FroguesFramework.WavesSpawner, Assembly-CSharp
+        m_MethodName: TryToSpawnWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 3306625428126753121}
         m_TargetAssemblyTypeName: AbleToSkipTurn, Assembly-CSharp
@@ -7710,6 +7689,7 @@ Transform:
   - {fileID: 3306625428337979517}
   - {fileID: 3306625428897100552}
   - {fileID: 3306625428126753134}
+  - {fileID: 8772456207600413884}
   m_Father: {fileID: 3306625427081672411}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7982,7 +7962,6 @@ Transform:
   - {fileID: 3306625428753084588}
   - {fileID: 3306625427414387969}
   - {fileID: 3306625427081672411}
-  - {fileID: 4007752828625066317}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8002,6 +7981,201 @@ MonoBehaviour:
   pathFinder: {fileID: 3306625427414387982}
   unitsQueue: {fileID: 3306625427081672408}
   player: {fileID: 3306625427918743296}
+--- !u!1 &4472028752408656864
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6134645461493014815}
+  - component: {fileID: 2538947674647621961}
+  - component: {fileID: 743724426536582432}
+  - component: {fileID: 3187396340354146914}
+  - component: {fileID: 1914758223107747706}
+  m_Layer: 0
+  m_Name: Spawner Cell
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6134645461493014815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472028752408656864}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.47, y: 10.94, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8772456207600413884}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2538947674647621961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472028752408656864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa374a041bf447b45ac6f7cd6f5d9a87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: {fileID: 743724426536582432}
+  mapLayer: 0
+  coordinates: {x: 0, y: 0}
+  OnBecameFull:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBecameEmpty:
+    m_PersistentCalls:
+      m_Calls: []
+  validForMovementTileHighlighter: {fileID: 0}
+  validForAbilityTileHighlighter: {fileID: 0}
+  selectedByAbilityTileHighlighter: {fileID: 0}
+  trailsEnabler: {fileID: 0}
+  pathDot: {fileID: 0}
+  onMouseHoverVisualization: {fileID: 0}
+  chosenToMovement: 0
+--- !u!114 &743724426536582432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472028752408656864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitType: 0
+  movable: {fileID: 0}
+  currentCell: {fileID: 2538947674647621961}
+  input: {fileID: 0}
+  pusher: {fileID: 0}
+  pushable: {fileID: 0}
+  health: {fileID: 0}
+  UI: {fileID: 0}
+  description: {fileID: 0}
+  pathfinderWeightModificator: {fileID: 0}
+  small: 0
+  stepOnUnitTrigger: {fileID: 0}
+--- !u!114 &3187396340354146914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472028752408656864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 889e9b556315dd0448f4285625546e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnerUnit: {fileID: 743724426536582432}
+  defaultUnitToSpawn: {fileID: 0}
+  cellsMoveToCellTaker: {fileID: 1914758223107747706}
+  movementSpeed: 10
+  jumpHeight: 1
+--- !u!114 &1914758223107747706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4472028752408656864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320199d69ce4023498476d222a6835d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5817086106105319908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8772456207600413884}
+  m_Layer: 0
+  m_Name: Wave Spawner System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8772456207600413884
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5817086106105319908}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4007752828625066317}
+  - {fileID: 6134645461493014815}
+  - {fileID: 8655367438364952853}
+  m_Father: {fileID: 3306625429126151455}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8363260155121437534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8655367438364952853}
+  - component: {fileID: 7951477763736278366}
+  m_Layer: 0
+  m_Name: Round Timer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8655367438364952853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363260155121437534}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8772456207600413884}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7951477763736278366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8363260155121437534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdf0a1625e165244bd81071dac5cfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  count: 0
 --- !u!1001 &3306625428216242676
 PrefabInstance:
   m_ObjectHideFlags: 0
