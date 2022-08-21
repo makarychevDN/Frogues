@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private List<ResourcePointUI> resourcePointIconPrefabs;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
         [SerializeField] private List<IntContainer> preCosts;
+        [SerializeField] private bool useDeltaOfPreCostAndFactValue;
         [SerializeField] private bool generateIconsOnStart;
 
         private void Start()
@@ -38,9 +40,12 @@ namespace FroguesFramework
         {
             resourcePointIcons.ForEach(icon => icon.EnableEmptyIcon());
 
-            int preCostsSum = preCosts.Sum(preCost => preCost.Content);
+            int preCostsValue = preCosts.Sum(preCost => preCost.Content);
 
-            if (preCostsSum > currentResourcePointsContainer.Content)
+            if (useDeltaOfPreCostAndFactValue)
+                preCostsValue = currentResourcePointsContainer.Content - preCostsValue;
+
+            if (preCostsValue > currentResourcePointsContainer.Content)
             {
                 for (int i = 0; i < currentResourcePointsContainer.Content; i++)
                 {
@@ -55,7 +60,7 @@ namespace FroguesFramework
                 resourcePointIcons[i].EnableFullIcon();
             }
 
-            for (int i = currentResourcePointsContainer.Content - 1; i > currentResourcePointsContainer.Content - 1 - preCostsSum; i--)
+            for (int i = currentResourcePointsContainer.Content - 1; i > currentResourcePointsContainer.Content - 1 - preCostsValue; i--)
             {
                 resourcePointIcons[i].EnablePreCostIcon();
             }
