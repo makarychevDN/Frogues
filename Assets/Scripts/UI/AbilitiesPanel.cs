@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -11,6 +12,11 @@ namespace FroguesFramework
         private void Start()
         {
             Instance = this;
+        }
+
+        public void AddAbilityButton(AbilityButton abilityButton)
+        {
+            abilitySlots.FirstOrDefault(slot => slot.Content == null).Content = abilityButton;
         }
     }
 }

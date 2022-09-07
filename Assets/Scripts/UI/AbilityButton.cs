@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace FroguesFramework
 {
-    public class AbilityButton : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         public PlayerAbilityButtonSlot slot;
         [SerializeField] private Ability ability;
@@ -25,6 +25,11 @@ namespace FroguesFramework
             _material = GetComponent<Image>().material;
             _playerInput = FindObjectOfType<PlayerInput>();
             _actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
+        }
+
+        public void SetAbility(Ability ability)
+        {
+            this.ability = ability;
         }
 
         private void Update()
@@ -49,12 +54,6 @@ namespace FroguesFramework
             {
                 _actionPointsIconsShaker.Shake();
             }
-        }
-
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-
         }
 
         public void OnBeginDrag(PointerEventData eventData)

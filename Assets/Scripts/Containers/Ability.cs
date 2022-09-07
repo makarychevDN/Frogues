@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,8 +12,9 @@ namespace FroguesFramework
         [Header("Addition Cell Taker Setup")]
         [SerializeField] private bool additionalCellsIgnoreValidBorders;
         [SerializeField] private BaseCellsTaker additionalToSelectedCellTaker;
+        [SerializeField] private AbilityButton abilityButtonPrefab;
         private List<Cell> /*_hashedValidCells,*/ _hashedSelectedCells;
-
+        
         public override bool PossibleToHitExpectedTarget =>
             IsActionPointsEnough() && selectedCellTaker.Take()
                 .Where(selectedCell => validCellTaker.Take()
@@ -24,6 +26,7 @@ namespace FroguesFramework
                                                   .Where(selectedCell => validCellTaker.Take()
                                                       .Contains(selectedCell)).ToList().Count != 0;
 
+        public AbilityButton AbilityButtonPrefab => abilityButtonPrefab;
 
         public override void Use()
         {
@@ -34,7 +37,6 @@ namespace FroguesFramework
                 return;
 
             _hashedSelectedCells = CalculateAbilityCells();
-            //_hashedValidCells = validCellTaker.Take();
 
             if (_hashedSelectedCells.Count == 0)
                 return;
