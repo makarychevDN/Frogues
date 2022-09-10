@@ -13,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private bool additionalCellsIgnoreValidBorders;
         [SerializeField] private BaseCellsTaker additionalToSelectedCellTaker;
         [SerializeField] private AbilityButton abilityButtonPrefab;
+        [SerializeField] private bool shouldRemoveOnChangeWeapon;
         private List<Cell> /*_hashedValidCells,*/ _hashedSelectedCells;
         
         public override bool PossibleToHitExpectedTarget =>
@@ -27,6 +28,8 @@ namespace FroguesFramework
                                                       .Contains(selectedCell)).ToList().Count != 0;
 
         public AbilityButton AbilityButtonPrefab => abilityButtonPrefab;
+
+        public bool ShouldRemoveOnChangeWeapon => shouldRemoveOnChangeWeapon;
 
         public override void Use()
         {

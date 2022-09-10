@@ -769,6 +769,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: 2
+--- !u!1 &343156960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343156961}
+  - component: {fileID: 343156962}
+  m_Layer: 0
+  m_Name: On Key Down K
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &343156961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343156960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806983677}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &343156962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343156960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20b41e964872424e964798ce0eade49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expectedKey: 107
+  OnKeyDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1806983678}
+        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
+        m_MethodName: RemoveAllWeaponAbilities
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1806983678}
+        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
+        m_MethodName: AddAbility
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1521300323}
+          m_ObjectArgumentAssemblyTypeName: FroguesFramework.Ability, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1806983678}
+        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
+        m_MethodName: AddAbility
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1429743654}
+          m_ObjectArgumentAssemblyTypeName: FroguesFramework.Ability, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &356562443
 GameObject:
   m_ObjectHideFlags: 0
@@ -3578,6 +3662,7 @@ MonoBehaviour:
   additionalCellsIgnoreValidBorders: 0
   additionalToSelectedCellTaker: {fileID: 0}
   abilityButtonPrefab: {fileID: 0}
+  shouldRemoveOnChangeWeapon: 0
 --- !u!1 &1403031140
 GameObject:
   m_ObjectHideFlags: 0
@@ -3775,7 +3860,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429743652}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3789,8 +3874,8 @@ Transform:
   - {fileID: 2079918650}
   - {fileID: 507121997}
   - {fileID: 1502192556}
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 9
+  m_Father: {fileID: 1806983677}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1429743654
 MonoBehaviour:
@@ -3818,6 +3903,7 @@ MonoBehaviour:
   additionalCellsIgnoreValidBorders: 0
   additionalToSelectedCellTaker: {fileID: 0}
   abilityButtonPrefab: {fileID: 434467141431344364, guid: 9d03e9b9b62baf2478e4b3a840150628, type: 3}
+  shouldRemoveOnChangeWeapon: 1
 --- !u!1 &1502192555
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,7 +3973,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1521300321}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3900,8 +3986,8 @@ Transform:
   - {fileID: 442715876}
   - {fileID: 1708402955}
   - {fileID: 1155614989}
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 6
+  m_Father: {fileID: 1806983677}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1521300323
 MonoBehaviour:
@@ -3941,6 +4027,7 @@ MonoBehaviour:
   additionalCellsIgnoreValidBorders: 0
   additionalToSelectedCellTaker: {fileID: 0}
   abilityButtonPrefab: {fileID: 5914414008345471032, guid: 306d6228e1b00034198f763dc76bea62, type: 3}
+  shouldRemoveOnChangeWeapon: 1
 --- !u!1 &1534236157
 GameObject:
   m_ObjectHideFlags: 0
@@ -4548,7 +4635,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686988263}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4561,8 +4648,8 @@ Transform:
   - {fileID: 1534236158}
   - {fileID: 458925277}
   - {fileID: 26974353}
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 8
+  m_Father: {fileID: 1806983677}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1686988265
 MonoBehaviour:
@@ -4602,6 +4689,7 @@ MonoBehaviour:
   additionalCellsIgnoreValidBorders: 0
   additionalToSelectedCellTaker: {fileID: 893117336}
   abilityButtonPrefab: {fileID: 5604455817872663337, guid: 1e72fe860c6597d4a8953ba20c7bc80f, type: 3}
+  shouldRemoveOnChangeWeapon: 1
 --- !u!1 &1700961824
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,6 +4736,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: {fileID: 1806784702}
   lastTakenDamage: {fileID: 1948343083}
+--- !u!1 &1701668725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1701668726}
+  - component: {fileID: 1701668727}
+  m_Layer: 0
+  m_Name: On Key Down R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1701668726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701668725}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1806983677}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1701668727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701668725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20b41e964872424e964798ce0eade49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expectedKey: 108
+  OnKeyDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1806983678}
+        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
+        m_MethodName: RemoveAllWeaponAbilities
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1806983678}
+        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
+        m_MethodName: AddAbility
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1686988265}
+          m_ObjectArgumentAssemblyTypeName: FroguesFramework.Ability, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1806983678}
+        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
+        m_MethodName: AddAbility
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1429743654}
+          m_ObjectArgumentAssemblyTypeName: FroguesFramework.Ability, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1708402954
 GameObject:
   m_ObjectHideFlags: 0
@@ -5068,8 +5240,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1806983677}
   - component: {fileID: 1806983678}
-  - component: {fileID: 1806983679}
-  - component: {fileID: 1806983680}
   m_Layer: 0
   m_Name: Abilities Of Player Controller
   m_TagString: Untagged
@@ -5084,13 +5254,18 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806983676}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: -1
+  m_Children:
+  - {fileID: 1521300322}
+  - {fileID: 1429743653}
+  - {fileID: 1686988264}
+  - {fileID: 343156961}
+  - {fileID: 1701668726}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1806983678
 MonoBehaviour:
@@ -5105,62 +5280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilities: []
---- !u!114 &1806983679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806983676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b20b41e964872424e964798ce0eade49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expectedKey: 107
-  OnKeyDown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1806983678}
-        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
-        m_MethodName: AddAbility
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1686988265}
-          m_ObjectArgumentAssemblyTypeName: FroguesFramework.Ability, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1806983680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806983676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b20b41e964872424e964798ce0eade49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expectedKey: 108
-  OnKeyDown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1806983678}
-        m_TargetAssemblyTypeName: FroguesFramework.AbilitiesOfPlayerController, Assembly-CSharp
-        m_MethodName: RemoveAbility
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1686988265}
-          m_ObjectArgumentAssemblyTypeName: FroguesFramework.Ability, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1814982986
 GameObject:
   m_ObjectHideFlags: 0
@@ -5441,13 +5560,9 @@ Transform:
   - {fileID: 1106314395}
   - {fileID: 1186086425}
   - {fileID: 517281241}
-  - {fileID: 1521300322}
   - {fileID: 441984380}
-  - {fileID: 1686988264}
-  - {fileID: 1429743653}
   - {fileID: 1326232667}
   - {fileID: 1358245864}
-  - {fileID: 1806983677}
   m_Father: {fileID: 1226791128}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

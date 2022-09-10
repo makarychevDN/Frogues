@@ -25,6 +25,15 @@ namespace FroguesFramework
             structInstance.abilityButton.slot.Content = null;
             Destroy(structInstance.abilityButton.gameObject);
         }
+
+        public void RemoveAllWeaponAbilities()
+        {
+            while (abilities.Any(abilityAndButton => abilityAndButton.ability.ShouldRemoveOnChangeWeapon))
+            {
+                RemoveAbility(abilities
+                    .FirstOrDefault(abilityAndButton => abilityAndButton.ability.ShouldRemoveOnChangeWeapon).ability);
+            }
+        }
         
         [Serializable] 
         private struct AbilityAndButton
