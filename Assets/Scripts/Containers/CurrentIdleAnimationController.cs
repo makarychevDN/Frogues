@@ -6,7 +6,7 @@ namespace FroguesFramework
 {
     public class CurrentIdleAnimationController : MonoBehaviour
     {
-        [SerializeField] private AnimationContainer idleAnimationContainer;
+        [SerializeField] private AnimationClipContainer currentIdleAnimationClipContainer;
         [SerializeField] private AbilitiesOfPlayerController abilitiesOfPlayerController;
         [SerializeField] private AnimationClip weaponlessIdleAnimation;
         [SerializeField] private List<AbilityAndAnimation> abilitiesAndAnimations;
@@ -19,15 +19,15 @@ namespace FroguesFramework
 
         private void UpdateIdleAnimation()
         {
-            idleAnimationContainer.Content = weaponlessIdleAnimation;
+            currentIdleAnimationClipContainer.Content = weaponlessIdleAnimation;
 
             foreach (var abilityAndAnimation in abilitiesAndAnimations)
             {
                 if (!abilitiesOfPlayerController.ContainsAbility(abilityAndAnimation.ability))
                     continue;
 
-                idleAnimationContainer.Content = abilityAndAnimation.idleAnimation;
-                animator.Play(idleAnimationContainer.Content.name);
+                currentIdleAnimationClipContainer.Content = abilityAndAnimation.idleAnimation;
+                animator.Play(currentIdleAnimationClipContainer.Content.name);
                 return;
             }
         }

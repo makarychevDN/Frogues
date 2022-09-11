@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class AnimationContainer : Container<AnimationClip>
+    public class AnimationClipContainer : Container<AnimationClip>
     {
         
     }

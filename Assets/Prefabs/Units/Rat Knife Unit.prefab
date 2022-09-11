@@ -299,6 +299,10 @@ MonoBehaviour:
         m_CallState: 2
   validCellTaker: {fileID: 6554032369899971587}
   selectedCellTaker: {fileID: 6554032369899971587}
+  additionalCellsIgnoreValidBorders: 0
+  additionalToSelectedCellTaker: {fileID: 0}
+  abilityButtonPrefab: {fileID: 0}
+  shouldRemoveOnChangeWeapon: 0
 --- !u!1 &2794822767245711971
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6770148632804018867}
   animationClip: {fileID: 7400000, guid: 0709df3098c6b304e943b4e7b4fa9276, type: 2}
-  idleAnimation: {fileID: 7400000, guid: 1f05de84aea455844ac230ce5c973324, type: 2}
+  idleAnimationContainer: {fileID: 2395843623517528608}
   OnAnimationPlayed:
     m_PersistentCalls:
       m_Calls:
@@ -580,7 +584,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 6770148632804018867}
   animationClip: {fileID: 7400000, guid: 48c674bf18113cb4f80d566847305ff9, type: 2}
-  idleAnimation: {fileID: 7400000, guid: 1f05de84aea455844ac230ce5c973324, type: 2}
+  idleAnimationContainer: {fileID: 2395843623517528608}
   OnAnimationPlayed:
     m_PersistentCalls:
       m_Calls: []
@@ -993,8 +997,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 389378694361105171, guid: 1b2f61d6f6a583a42bbd9163c46f4df4, type: 3}
+      propertyPath: content
+      value: 
+      objectReference: {fileID: 7400000, guid: 8a199f8287ff20f488b95fe077c652c0, type: 2}
     - target: {fileID: 2451768723281242944, guid: 1b2f61d6f6a583a42bbd9163c46f4df4, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1141,7 +1150,22 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6847577136908376777, guid: 1b2f61d6f6a583a42bbd9163c46f4df4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2329328579665435554}
   m_SourcePrefab: {fileID: 100100000, guid: 1b2f61d6f6a583a42bbd9163c46f4df4, type: 3}
+--- !u!114 &2395843623517528608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 389378694361105171, guid: 1b2f61d6f6a583a42bbd9163c46f4df4, type: 3}
+  m_PrefabInstance: {fileID: 2619096934234349875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec081bc4cede904aaf69a764d7731a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8889997812110099693 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6847577137177224670, guid: 1b2f61d6f6a583a42bbd9163c46f4df4, type: 3}
@@ -1201,6 +1225,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 2
     m_TransformParent: {fileID: 3632074436985985525}
     m_Modifications:
     - target: {fileID: 660679140432371500, guid: 2a26f44d111ab294e97d3e2c9b434fe1, type: 3}
@@ -1256,6 +1281,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a26f44d111ab294e97d3e2c9b434fe1, type: 3}
 --- !u!114 &3588212981406849076 stripped
 MonoBehaviour:
