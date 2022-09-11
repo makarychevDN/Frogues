@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
     public class AbilitiesOfPlayerController : MonoBehaviour
     {
+        public UnityEvent OnAbilitiesUpdated;
         [SerializeField] private List<AbilityAndButton> abilities = new List<AbilityAndButton>();
         
         public void AddAbility(Ability ability)
@@ -14,8 +16,8 @@ namespace FroguesFramework
             var abilityButton = Instantiate(ability.AbilityButtonPrefab);
             FindObjectOfType<AbilitiesPanel>().AddAbilityButton(abilityButton);
             abilityButton.SetAbility(ability);
-            
             abilities.Add(new AbilityAndButton(ability, abilityButton));
+            OnAbilitiesUpdated.Invoke();
         }
 
         public void RemoveAbility(Ability ability)
@@ -24,6 +26,7 @@ namespace FroguesFramework
             abilities.Remove(structInstance);
             structInstance.abilityButton.slot.Content = null;
             Destroy(structInstance.abilityButton.gameObject);
+            OnAbilitiesUpdated.Invoke();
         }
 
         public void RemoveAllWeaponAbilities()
@@ -33,6 +36,13 @@ namespace FroguesFramework
                 RemoveAbility(abilities
                     .FirstOrDefault(abilityAndButton => abilityAndButton.ability.ShouldRemoveOnChangeWeapon).ability);
             }
+            
+            OnAbilitiesUpdated.Invoke();
+        }
+
+        public bool ContainsAbility(Ability ability)
+        {
+            return abilities.Any(abilityAndButton => abilityAndButton.ability == ability);
         }
         
         [Serializable] 
