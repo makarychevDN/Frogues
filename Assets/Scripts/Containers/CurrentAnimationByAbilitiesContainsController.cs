@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class CurrentIdleAnimationController : MonoBehaviour
+    public class CurrentAnimationByAbilitiesContainsController : MonoBehaviour
     {
-        [SerializeField] private AnimationClipContainer currentIdleAnimationClipContainer;
+        [SerializeField] private AnimationClipContainer currentAnimationClipContainer;
         [SerializeField] private AbilitiesOfPlayerController abilitiesOfPlayerController;
-        [SerializeField] private AnimationClip weaponlessIdleAnimation;
+        [SerializeField] private AnimationClip weaponlessAnimation;
         [SerializeField] private List<AbilityAndAnimation> abilitiesAndAnimations;
         [SerializeField] private Animator animator;
 
@@ -19,15 +19,15 @@ namespace FroguesFramework
 
         private void UpdateIdleAnimation()
         {
-            currentIdleAnimationClipContainer.Content = weaponlessIdleAnimation;
+            currentAnimationClipContainer.Content = weaponlessAnimation;
 
             foreach (var abilityAndAnimation in abilitiesAndAnimations)
             {
                 if (!abilitiesOfPlayerController.ContainsAbility(abilityAndAnimation.ability))
                     continue;
 
-                currentIdleAnimationClipContainer.Content = abilityAndAnimation.idleAnimation;
-                animator.Play(currentIdleAnimationClipContainer.Content.name);
+                currentAnimationClipContainer.Content = abilityAndAnimation.idleAnimation;
+                animator.Play(currentAnimationClipContainer.Content.name);
                 return;
             }
         }
