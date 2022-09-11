@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private AbilitiesOfPlayerController abilitiesOfPlayerController;
         [SerializeField] private AnimationClip weaponlessIdleAnimation;
         [SerializeField] private List<AbilityAndAnimation> abilitiesAndAnimations;
+        [SerializeField] private Animator animator;
 
         private void Start()
         {
@@ -26,6 +27,7 @@ namespace FroguesFramework
                     continue;
 
                 idleAnimationContainer.Content = abilityAndAnimation.idleAnimation;
+                animator.Play(idleAnimationContainer.Content.name);
                 return;
             }
         }
