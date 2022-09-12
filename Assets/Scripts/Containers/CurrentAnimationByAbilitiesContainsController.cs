@@ -11,6 +11,7 @@ namespace FroguesFramework
         [SerializeField] private AnimationClip weaponlessAnimation;
         [SerializeField] private List<AbilityAndAnimation> abilitiesAndAnimations;
         [SerializeField] private Animator animator;
+        [SerializeField] private bool playCurrentAnimationOnUpdate;
 
         private void Start()
         {
@@ -27,7 +28,10 @@ namespace FroguesFramework
                     continue;
 
                 currentAnimationClipContainer.Content = abilityAndAnimation.idleAnimation;
-                animator.Play(currentAnimationClipContainer.Content.name);
+                
+                if(playCurrentAnimationOnUpdate)
+                    animator.Play(currentAnimationClipContainer.Content.name);
+                
                 return;
             }
         }
