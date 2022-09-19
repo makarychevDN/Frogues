@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -5,130 +6,77 @@ namespace FroguesFramework
 {
     public class Damagable : MonoBehaviour
     {
-        [SerializeField] private IntContainer hp;
-        [SerializeField] private IntContainer preDamagedHp;
-        [SerializeField] private IntContainer maxHP;
-        [SerializeField] private IntContainer armor;
-        public IntContainer Armor => armor;
-        [SerializeField] private IntContainer lastTakenDamage;
+        [SerializeField] private int maxHP;
+        [SerializeField] private int currentHP;
+        [SerializeField] private int armor;
         [SerializeField] private PlayAnimation takeDamageAnimation;
-
-        public UnityEvent OnCalculateAnyDamage;
-        public UnityEvent OnCalculateUnblockedDamage;
-        public UnityEvent OnCalculatePhisicsDamage;
-        public UnityEvent OnCalculateFireDamage;
-        public UnityEvent OnCalculateColdDamage;
-
-        public UnityEvent OnApplyAnyDamage;
         public UnityEvent OnApplyUnblockedDamage;
-        public UnityEvent OnApplyPhisicsDamage;
-        public UnityEvent OnApplyFireDamage;
-        public UnityEvent OnApplyColdDamage;
         public UnityEvent OnHpEnded;
+        private int _healthWithPreTakenDamage;
+        private int _hashedHp;
 
         private void Awake()
         {
+            _hashedHp = currentHP;
+            
             if (takeDamageAnimation != null)
                 OnApplyUnblockedDamage.AddListener(takeDamageAnimation.Play);
         }
 
         public void TakeHealing(int value)
         {
-            hp.Content += value;
-            hp.Content = Mathf.Clamp(hp.Content, 0, maxHP.Content);
+            currentHP += value;
+            currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         }
 
-        public void TakeDamage(int damageValue, DamageType damageType) =>
-            CalculateDamage(hp, damageValue, damageType, false);
+        public void TakeDamage(int damageValue) =>
+            CalculateDamage(ref currentHP, damageValue, false);
 
-        public void TakeDamage(int damageValue, DamageType damageType, bool ignoreArmor) =>
-            CalculateDamage(hp, damageValue, damageType, ignoreArmor);
-
-        public void PretakeDamage(int damageValue, DamageType damageType) =>
-            CalculateDamage(preDamagedHp, damageValue, damageType, false);
-
-        public void PretakeDamage(int damageValue, DamageType damageType, bool ignoreArmor) =>
-            CalculateDamage(preDamagedHp, damageValue, damageType, ignoreArmor);
-
-        private void CalculateDamage(IntContainer containerToApplyDamage, int damageValue, DamageType damageType,
-            bool ignoreArmor)
+        public void TakeDamage(int damageValue, bool ignoreArmor)
         {
-            //OnApplyAnyDamage.Invoke();
+            CalculateDamage(ref currentHP, damageValue, ignoreArmor);
 
-            if (!ignoreArmor && armor != null)
+            if (currentHP < _hashedHp)
             {
-                damageValue -= armor.Content;
+                OnApplyUnblockedDamage.Invoke();
+            }
+
+            if (currentHP <= 0)
+            {
+                OnHpEnded.Invoke();
+            }
+            
+            _hashedHp = currentHP;
+        }
+
+        public void PretakeDamage(int damageValue) =>
+            CalculateDamage(ref _healthWithPreTakenDamage, damageValue, false);
+
+        public void PretakeDamage(int damageValue, bool ignoreArmor) =>
+            CalculateDamage(ref _healthWithPreTakenDamage, damageValue, ignoreArmor);
+
+        private void CalculateDamage(ref int hp, int damageValue, bool ignoreArmor)
+        {
+            if (!ignoreArmor)
+            {
+                damageValue -= armor;
                 damageValue = Mathf.Clamp(damageValue, 0, 1000);
             }
-
-            if (damageValue != 0)
-                OnCalculateUnblockedDamage.Invoke();
-
-            lastTakenDamage.Content = damageValue;
-
-            switch (damageType)
-            {
-                case DamageType.Phisics:
-                    OnCalculatePhisicsDamage.Invoke();
-                    break;
-                case DamageType.Fire:
-                    OnCalculateFireDamage.Invoke();
-                    break;
-                case DamageType.Cold:
-                    OnCalculateColdDamage.Invoke();
-                    break;
-            }
-
-            if (containerToApplyDamage == hp)
-                ApplyEffects(damageType);
-
-            containerToApplyDamage.Content -= lastTakenDamage.Content;
-        }
-
-        private void ApplyEffects(DamageType damageType)
-        {
-            OnApplyAnyDamage.Invoke();
-
-            if (lastTakenDamage.Content > 0)
-                OnApplyUnblockedDamage.Invoke();
-
-            switch (damageType)
-            {
-                case DamageType.Phisics:
-                    OnApplyPhisicsDamage.Invoke();
-                    break;
-                case DamageType.Fire:
-                    OnApplyFireDamage.Invoke();
-                    break;
-                case DamageType.Cold:
-                    OnApplyColdDamage.Invoke();
-                    break;
-            }
+            
+            if(damageValue == 0)
+                return;
+            
+            hp -= damageValue;
         }
 
         public void ResetPreDamageValue()
         {
-            preDamagedHp.Content = hp.Content;
-        }
-
-        public void CheckIsHpEnded()
-        {
-            if (hp.Content <= 0)
-            {
-                OnHpEnded.Invoke();
-            }
+            _healthWithPreTakenDamage = currentHP;
         }
 
         public void DieFromStepOnUnit()
         {
-            TakeDamage(maxHP.Content, DamageType.Phisics, true);
+            TakeDamage(maxHP, true);
         }
-    }
-
-    public enum DamageType
-    {
-        Phisics = 0,
-        Fire = 1,
-        Cold = 2
     }
 }

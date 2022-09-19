@@ -6,7 +6,7 @@ namespace FroguesFramework
     {
         [SerializeField] private Unit unit;
         [SerializeField] private int damage;
-        [SerializeField] private DamageType damageType;
+        //[SerializeField] private DamageType damageType;
 
         public void DealDamage()
         {
@@ -14,7 +14,7 @@ namespace FroguesFramework
             {
                 if (!cell.IsEmpty && cell.Content.GetComponentInChildren<Damagable>() != null)
                 {
-                    cell.Content.GetComponentInChildren<Damagable>().TakeDamage(damage, damageType);
+                    cell.Content.GetComponentInChildren<Damagable>().TakeDamage(damage);
                 }
 
             }

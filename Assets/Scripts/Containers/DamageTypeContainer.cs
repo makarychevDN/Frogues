@@ -1,6 +1,6 @@
 namespace FroguesFramework
 {
-    public class DamageTypeContainer : Container<DamageType>
+    public class DamageTypeContainer : Container<int>
     {
 
     }

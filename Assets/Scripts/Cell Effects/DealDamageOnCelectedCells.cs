@@ -8,7 +8,6 @@ namespace FroguesFramework
     {
         [SerializeField] private BaseCellsTaker cellsTaker;
         [SerializeField] private IntContainer damage;
-        [SerializeField] private DamageTypeContainer damageType;
         [SerializeField] private bool ignoreArmor;
 
         public override void ApplyEffect() => ApplyEffect(cellsTaker.Take());
@@ -19,7 +18,7 @@ namespace FroguesFramework
                 return;
 
             TakeCellsAbleToTakeDamage(cells).ForEach(cell =>
-                cell.Content.health.TakeDamage(damage.Content, damageType.Content, ignoreArmor));
+                cell.Content.health.TakeDamage(damage.Content, ignoreArmor));
         }
 
         public override void PreVisualizeEffect() => PreVisualizeEffect(cellsTaker.Take());
@@ -30,7 +29,7 @@ namespace FroguesFramework
                 return;
 
             TakeCellsAbleToTakeDamage(cells).ForEach(cell =>
-                cell.Content.health.PretakeDamage(damage.Content, damageType.Content, ignoreArmor));
+                cell.Content.health.PretakeDamage(damage.Content, ignoreArmor));
         }
 
         private List<Cell> TakeCellsAbleToTakeDamage(List<Cell> cells)
