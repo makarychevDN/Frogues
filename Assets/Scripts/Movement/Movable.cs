@@ -5,16 +5,22 @@ using UnityEngine.Events;
 namespace FroguesFramework
 {
     [RequireComponent(typeof(MovableAnimation))]
-    public class Movable : CostsActionPointsBehaviour
+    public class Movable : MonoBehaviour
     {
-        [Space] [SerializeField] private Unit unit;
+        [SerializeField] private bool canBumpIntoUnit;
+        [SerializeField] private int defaultMovementCost;
+        
         public UnityEvent OnMovementStart;
         public UnityEvent OnMovementEnd;
-        [Space] public bool canBumpIntoUnit;
         public UnityEvent OnBumpInto;
         public UnityEvent<List<Cell>> OnBumpIntoCell;
 
+        private Unit _unit;
         private MovableAnimation _movableAnimation;
+        private ActionPoints _actionPoints;
+
+        public Unit Unit { set => _unit = value; }
+        public ActionPoints ActionPoints { set => _actionPoints = value; }
 
         private void Awake()
         {
@@ -25,23 +31,17 @@ namespace FroguesFramework
 
         public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove)
         {
-            //if ((!targetCell.IsEmpty && (!targetCell.Content.small)/* || !canBumpIntoUnit)*/ || !IsActionPointsEnough()))
-            //return;
-
-            //if (!targetCell.IsEmpty && (!targetCell.Content.small) || !targetCell.IsEmpty && (!canBumpIntoUnit) || !IsActionPointsEnough()) //todo неработает блять
-            //return;
-
-            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !IsActionPointsEnough())
+            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !_actionPoints.CheckIsActionPointsEnough(defaultMovementCost))
                 return;
 
-            SpendActionPoints();
+            _actionPoints.SpendPoints(defaultMovementCost);
             targetCell.chosenToMovement = true;
 
             if (startCellBecomeEmptyOnMove)
-                unit.currentCell.Content = null;
+                _unit.currentCell.Content = null;
 
-            _movableAnimation.Play(unit.currentCell, targetCell);
-            unit.currentCell = null;
+            _movableAnimation.Play(_unit.currentCell, targetCell);
+            _unit.currentCell = null;
             OnMovementStart.Invoke();
         }
 
@@ -52,34 +52,34 @@ namespace FroguesFramework
             bool startCellBecomeEmptyOnMove)
         {
 
-            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !IsActionPointsEnough())
+            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !_actionPoints.CheckIsActionPointsEnough(movementCost))
                 return;
 
-            SpendActionPoints(movementCost);
+            _actionPoints.SpendPoints(movementCost);
             targetCell.chosenToMovement = true;
 
             if (startCellBecomeEmptyOnMove)
-                unit.currentCell.Content = null;
+                _unit.currentCell.Content = null;
 
-            _movableAnimation.Play(unit.currentCell, targetCell, speed, jumpHeight);
-            unit.currentCell = null;
+            _movableAnimation.Play(_unit.currentCell, targetCell, speed, jumpHeight);
+            _unit.currentCell = null;
             OnMovementStart.Invoke();
         }
 
         public void StopMovement(Cell targetCell)
         {
             targetCell.chosenToMovement = false;
-            unit.transform.position = targetCell.transform.position;
+            _unit.transform.position = targetCell.transform.position;
 
             if (!targetCell.IsEmpty)
             {
-                if (!unit.small && targetCell.Content.small)
+                if (!_unit.small && targetCell.Content.small)
                 {
                     var unitToStepOnIt = targetCell.Content;
-                    targetCell.Content = unit;
+                    targetCell.Content = _unit;
                     unitToStepOnIt.currentCell = null;
-                    unit.currentCell = targetCell;
-                    unitToStepOnIt.stepOnUnitTrigger.Run(unit);
+                    _unit.currentCell = targetCell;
+                    unitToStepOnIt.stepOnUnitTrigger.Run(_unit);
                     return;
                 }
 
@@ -88,7 +88,7 @@ namespace FroguesFramework
                 return;
             }
 
-            targetCell.Content = unit;
+            targetCell.Content = _unit;
             OnMovementEnd.Invoke();
         }
     }
