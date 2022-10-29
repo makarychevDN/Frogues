@@ -29,7 +29,7 @@ namespace FroguesFramework
                 return;
 
             TakeCellsAbleToTakeDamage(cells).ForEach(cell =>
-                cell.Content.health.PretakeDamage(damage.Content, ignoreArmor));
+                cell.Content.health.PreTakeDamage(damage.Content, ignoreArmor));
         }
 
         private List<Cell> TakeCellsAbleToTakeDamage(List<Cell> cells)
