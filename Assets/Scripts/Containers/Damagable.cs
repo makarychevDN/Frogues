@@ -51,10 +51,10 @@ namespace FroguesFramework
             _hashedHp = currentHP;
         }
 
-        public void PretakeDamage(int damageValue) =>
+        public void PreTakeDamage(int damageValue) =>
             CalculateDamage(ref _healthWithPreTakenDamage, damageValue, false);
 
-        public void PretakeDamage(int damageValue, bool ignoreArmor) =>
+        public void PreTakeDamage(int damageValue, bool ignoreArmor) =>
             CalculateDamage(ref _healthWithPreTakenDamage, damageValue, ignoreArmor);
 
         private void CalculateDamage(ref int hp, int damageValue, bool ignoreArmor)
