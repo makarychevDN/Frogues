@@ -17,12 +17,26 @@ namespace FroguesFramework
             currentPoints += pointsRegeneration;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
         }
+
+        #region GetSet
+
+        public int MaxPointsCount
+        {
+            get => maxPointsCount;
+        }
         
         public int CurrentActionPoints
         {
             get => currentPoints;
             set => currentPoints = value;
         }
+        
+        public int PreTakenCurrentPoints
+        {
+            get => _preTakenCurrentPoints;
+        }
+        
+        #endregion
         
         public int RegenActionPoints
         {
@@ -58,7 +72,7 @@ namespace FroguesFramework
         }
 
         public bool Full => currentPoints >= maxPointsCount;
-        
+
         public void Tick() => RegeneratePoints();
     }
 }
