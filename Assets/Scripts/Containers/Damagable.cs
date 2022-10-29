@@ -12,9 +12,12 @@ namespace FroguesFramework
         public UnityEvent OnHpEnded;
         private int _healthWithPreTakenDamage;
         private int _hashedHp;
+        private AbleToDie _ableToDie;
 
         public int MaxHp => maxHP;
         public int CurrentHp => currentHP;
+
+        public AbleToDie AbleToDie { set => _ableToDie = value; }
 
         private void Awake()
         {
@@ -28,7 +31,7 @@ namespace FroguesFramework
         }
 
         public void TakeDamage(int damageValue) =>
-            CalculateDamage(ref currentHP, damageValue, false);
+            TakeDamage(damageValue, false);
 
         public void TakeDamage(int damageValue, bool ignoreArmor)
         {
@@ -41,7 +44,9 @@ namespace FroguesFramework
 
             if (currentHP <= 0)
             {
+                print("hello!");
                 OnHpEnded.Invoke();
+                _ableToDie.Die();
             }
             
             _hashedHp = currentHP;

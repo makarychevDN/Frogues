@@ -14,12 +14,15 @@ namespace FroguesFramework
         [SerializeField] private Transform shadow;
         [SerializeField] private SpriteRotator spriteRotator;
         
+        [Header("Health Setup")]
+        public Damagable health;
+        public AbleToDie ableToDie;
+        
         [Space]
         public Cell currentCell;
         public BaseInput input;
         public Pusher pusher;
         public Pushable pushable;
-        public Damagable health;
         public UnitsUI UI;
         public StringContainer description;
         public FloatContainer pathfinderWeightModificator;
@@ -32,6 +35,16 @@ namespace FroguesFramework
 
         private void Awake()
         {
+            if (ableToDie != null)
+            {
+                ableToDie.Unit = this;
+            }
+            
+            if (health != null)
+            {
+                health.AbleToDie = ableToDie;
+            }
+            
             if (spriteRotator != null)
             {
                 spriteRotator.Sprite = spriteParent;
