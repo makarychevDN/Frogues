@@ -5,9 +5,9 @@ namespace FroguesFramework
 {
     public class ActionPoints : MonoBehaviour, IRoundTickable
     {
-        [SerializeField] private IntContainer currentPoints;
-        [SerializeField] private IntContainer maxPointsCount;
-        [SerializeField] private IntContainer pointsRegeneration;
+        [SerializeField] private int currentPoints;
+        [SerializeField] private int maxPointsCount;
+        [SerializeField] private int pointsRegeneration;
         [SerializeField] private AbleToSkipTurn skipTurnModule;
 
         [Header("for Player Only")] [SerializeField]
@@ -30,35 +30,35 @@ namespace FroguesFramework
 
         private void RegeneratePoints()
         {
-            currentPoints.Content += pointsRegeneration.Content;
-            currentPoints.Content = Mathf.Clamp(currentPoints.Content, 0, maxPointsCount.Content);
+            currentPoints += pointsRegeneration;
+            currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
         }
         
         public int CurrentActionPoints
         {
-            get => currentPoints.Content;
-            set => currentPoints.Content = value;
+            get => currentPoints;
+            set => currentPoints = value;
         }
         
         public int RegenActionPoints
         {
-            get => pointsRegeneration.Content;
+            get => pointsRegeneration;
         }
 
         public bool CheckIsActionPointsEnough(int cost)
         {
-            return currentPoints.Content >= cost;
+            return currentPoints >= cost;
         }
 
         public void SpendPoints(int cost)
         {
-            currentPoints.Content -= cost;
+            currentPoints -= cost;
 
-            if (currentPoints.Content <= 0)
+            if (currentPoints <= 0)
                 OnActionPointsEnded.Invoke();
         }
 
-        public bool Full => currentPoints.Content >= maxPointsCount.Content;
+        public bool Full => currentPoints >= maxPointsCount;
 
         public void Tick() => RegeneratePoints();
     }
