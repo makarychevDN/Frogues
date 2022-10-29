@@ -7,7 +7,14 @@ namespace FroguesFramework
     public class Unit : MonoBehaviour
     {
         public MapLayer unitType;
+        
+        [Header("Movable Setup")]
         public Movable movable;
+        [SerializeField] private Transform spriteParent;
+        [SerializeField] private Transform shadow;
+        [SerializeField] private SpriteRotator spriteRotator;
+        
+        [Space]
         public Cell currentCell;
         public BaseInput input;
         public Pusher pusher;
@@ -25,10 +32,18 @@ namespace FroguesFramework
 
         private void Awake()
         {
+            if (spriteRotator != null)
+            {
+                spriteRotator.Sprite = spriteParent;
+            }
+            
             if (movable != null)
             {
                 movable.Unit = this;
                 movable.ActionPoints = actionPoints;
+                movable.SpriteParent = spriteParent;
+                movable.Shadow = shadow;
+                movable.SpriteRotator = spriteRotator;
             }
         }
     }
