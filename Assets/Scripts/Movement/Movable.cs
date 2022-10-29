@@ -4,7 +4,6 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    //[RequireComponent(typeof(MovableAnimation))]
     public class Movable : MonoBehaviour
     {
         [SerializeField] private bool canBumpIntoUnit;
