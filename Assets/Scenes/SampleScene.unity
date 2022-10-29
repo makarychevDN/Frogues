@@ -475,6 +475,7 @@ MonoBehaviour:
   description: {fileID: 0}
   pathfinderWeightModificator: {fileID: 162187105}
   actionPoints: {fileID: 0}
+  ableToSkipTurn: {fileID: 0}
   small: 0
   stepOnUnitTrigger: {fileID: 0}
 --- !u!114 &162187105
@@ -754,6 +755,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 7400000, guid: f845c877659c9af4eb4fd2d4d58b206e, type: 2}
+--- !u!1 &307167198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 307167199}
+  - component: {fileID: 307167200}
+  m_Layer: 0
+  m_Name: Unit's UI Enabler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &307167199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307167198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1190723603}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &307167200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307167198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a17cf1a317cfc546b65ca770ba3637c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &312324548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,7 +1160,6 @@ GameObject:
   m_Component:
   - component: {fileID: 431883766}
   - component: {fileID: 431883764}
-  - component: {fileID: 431883765}
   m_Layer: 0
   m_Name: Skip Turn Module
   m_TagString: Untagged
@@ -1138,43 +1182,7 @@ MonoBehaviour:
   unit: {fileID: 1907423088}
   OnSkipTurn:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 431883765}
-        m_TargetAssemblyTypeName: UnitsUIEnabler, Assembly-CSharp
-        m_MethodName: AllUnitsUISetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1190723604}
-        m_TargetAssemblyTypeName: PlayerInput, Assembly-CSharp
-        m_MethodName: SetCurrentAbilityNull
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &431883765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431883763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a17cf1a317cfc546b65ca770ba3637c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!4 &431883766
 Transform:
   m_ObjectHideFlags: 0
@@ -1566,11 +1574,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745af59f9dc682d45babbf4774ced76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoints: {fileID: 760220970}
-  maxPointsCount: {fileID: 974981302}
-  pointsRegeneration: {fileID: 877812881}
-  skipTurnModule: {fileID: 0}
-  selectedCellsVisualizationDisabler: {fileID: 0}
+  currentPoints: 0
+  maxPointsCount: 0
+  pointsRegeneration: 0
   OnActionPointsEnded:
     m_PersistentCalls:
       m_Calls: []
@@ -3043,7 +3049,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1186086425}
   - component: {fileID: 1186086423}
-  - component: {fileID: 1186086424}
   m_Layer: 0
   m_Name: Action Points
   m_TagString: Untagged
@@ -3063,38 +3068,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745af59f9dc682d45babbf4774ced76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoints: {fileID: 801781634}
-  maxPointsCount: {fileID: 366866752}
-  pointsRegeneration: {fileID: 1814982987}
-  skipTurnModule: {fileID: 431883764}
-  selectedCellsVisualizationDisabler: {fileID: 241604989}
+  currentPoints: 3
+  maxPointsCount: 5
+  pointsRegeneration: 3
   OnActionPointsEnded:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1186086424}
-        m_TargetAssemblyTypeName: UnitsUIEnabler, Assembly-CSharp
-        m_MethodName: AllUnitsUISetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1186086424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186086422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a17cf1a317cfc546b65ca770ba3637c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
 --- !u!4 &1186086425
 Transform:
   m_ObjectHideFlags: 0
@@ -3151,6 +3130,7 @@ Transform:
   - {fileID: 1344238965}
   - {fileID: 1992434145}
   - {fileID: 1869251709}
+  - {fileID: 307167199}
   m_Father: {fileID: 1907423089}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3172,7 +3152,7 @@ MonoBehaviour:
       m_Calls: []
   selectedCellVisualizer: {fileID: 892584875}
   cellByMousePosition: {fileID: 506241487}
-  unitsUIEnabler: {fileID: 1186086424}
+  unitsUIEnabler: {fileID: 307167200}
   preCostContainer: {fileID: 1992434146}
   spriteRotator: {fileID: 1344238966}
   movementCellsHighlighter: {fileID: 1918080016}
@@ -4039,7 +4019,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1557446426}
-  - component: {fileID: 1557446424}
   m_Layer: 0
   m_Name: All Buttons Material Disabler
   m_TagString: Untagged
@@ -4047,18 +4026,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1557446424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557446423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2ef3338de7c76c4596607267248cdf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1557446426
 Transform:
   m_ObjectHideFlags: 0
@@ -5418,6 +5385,7 @@ MonoBehaviour:
   description: {fileID: 1326232666}
   pathfinderWeightModificator: {fileID: 0}
   actionPoints: {fileID: 1186086423}
+  ableToSkipTurn: {fileID: 0}
   small: 0
   stepOnUnitTrigger: {fileID: 0}
 --- !u!4 &1907423089
@@ -5436,9 +5404,9 @@ Transform:
   - {fileID: 1742593693}
   - {fileID: 1190723603}
   - {fileID: 653689325}
+  - {fileID: 1186086425}
   - {fileID: 1791976366}
   - {fileID: 1106314395}
-  - {fileID: 1186086425}
   - {fileID: 517281241}
   - {fileID: 1326232667}
   - {fileID: 1358245864}

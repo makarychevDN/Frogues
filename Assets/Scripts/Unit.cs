@@ -25,7 +25,10 @@ namespace FroguesFramework
         public UnitsUI UI;
         public StringContainer description;
         public FloatContainer pathfinderWeightModificator;
+        
+        [Header("Action Points")]
         public ActionPoints actionPoints;
+        [SerializeField] private AbleToSkipTurn ableToSkipTurn;
 
         [Header("For Small Units Only")] public bool small;
         public StepOnUnitTrigger stepOnUnitTrigger;
@@ -34,6 +37,8 @@ namespace FroguesFramework
 
         private void Awake()
         {
+            
+            
             if (ableToDie != null)
             {
                 ableToDie.Unit = this;

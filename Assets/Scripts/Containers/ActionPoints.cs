@@ -8,25 +8,8 @@ namespace FroguesFramework
         [SerializeField] private int currentPoints;
         [SerializeField] private int maxPointsCount;
         [SerializeField] private int pointsRegeneration;
-        [SerializeField] private AbleToSkipTurn skipTurnModule;
-
-        [Header("for Player Only")] [SerializeField]
-        private DisableAllSelectedCellsVizualisation selectedCellsVisualizationDisabler;
 
         public UnityEvent OnActionPointsEnded;
-
-        private void Start()
-        {
-            if (skipTurnModule != null)
-            {
-                OnActionPointsEnded.AddListener(skipTurnModule.AutoSkip);
-            }
-
-            if (selectedCellsVisualizationDisabler != null)
-            {
-                OnActionPointsEnded.AddListener(selectedCellsVisualizationDisabler.ApplyEffect);
-            }
-        }
 
         private void RegeneratePoints()
         {
@@ -59,7 +42,7 @@ namespace FroguesFramework
         }
 
         public bool Full => currentPoints >= maxPointsCount;
-
+        
         public void Tick() => RegeneratePoints();
     }
 }
