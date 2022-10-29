@@ -8,18 +8,17 @@ namespace FroguesFramework
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
         [SerializeField] private int armor;
-        [SerializeField] private PlayAnimation takeDamageAnimation;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnHpEnded;
         private int _healthWithPreTakenDamage;
         private int _hashedHp;
 
+        public int MaxHp => maxHP;
+        public int CurrentHp => currentHP;
+
         private void Awake()
         {
             _hashedHp = currentHP;
-            
-            if (takeDamageAnimation != null)
-                OnApplyUnblockedDamage.AddListener(takeDamageAnimation.Play);
         }
 
         public void TakeHealing(int value)

@@ -7,17 +7,16 @@ namespace FroguesFramework
     public class HealthBar : MonoBehaviour
     {
         [SerializeField] private Slider slider;
-        [SerializeField] private IntContainer maxHp;
-        [SerializeField] private IntContainer currentHp;
+        [SerializeField] private Damagable health;
         [SerializeField] private TextMeshProUGUI textField;
 
         public void Update()
         {
-            slider.maxValue = maxHp.Content;
-            slider.value = currentHp.Content;
+            slider.maxValue = health.MaxHp;
+            slider.value = health.CurrentHp;
 
             if (textField != null)
-                textField.text = currentHp.Content.ToString();
+                textField.text = health.CurrentHp.ToString();
         }
     }
 }
