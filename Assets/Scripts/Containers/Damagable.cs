@@ -44,7 +44,6 @@ namespace FroguesFramework
 
             if (currentHP <= 0)
             {
-                print("hello!");
                 OnHpEnded.Invoke();
                 _ableToDie.Die();
             }
