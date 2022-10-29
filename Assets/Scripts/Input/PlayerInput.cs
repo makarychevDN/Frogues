@@ -98,6 +98,8 @@ namespace FroguesFramework
                 .ForEach(cell => cell.Content.health.ResetPreDamageValue());
             cellsWithContent.Where(cell => cell.Content.pushable != null).ToList()
                 .ForEach(cell => cell.Content.pushable.ResetPrePushValue());
+            cellsWithContent.Where(cell => cell.Content.actionPoints != null).ToList()
+                .ForEach(cell => cell.Content.actionPoints.ResetPreCostValue());
         }
 
         private void ResetPreCostContainers()

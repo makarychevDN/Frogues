@@ -8,6 +8,7 @@ namespace FroguesFramework
         [SerializeField] private int currentPoints;
         [SerializeField] private int maxPointsCount;
         [SerializeField] private int pointsRegeneration;
+        private int _preTakenCurrentPoints;
 
         public UnityEvent OnActionPointsEnded;
 
@@ -35,10 +36,25 @@ namespace FroguesFramework
 
         public void SpendPoints(int cost)
         {
-            currentPoints -= cost;
+            CalculateCost(ref currentPoints, cost);
 
             if (currentPoints <= 0)
                 OnActionPointsEnded.Invoke();
+        }
+        
+        public void PreSpendPoints(int preCost)
+        {
+            CalculateCost(ref _preTakenCurrentPoints, preCost);
+        }
+
+        private void CalculateCost(ref int points, int cost)
+        {
+            points -= cost;
+        }
+        
+        public void ResetPreCostValue()
+        {
+            _preTakenCurrentPoints = currentPoints;
         }
 
         public bool Full => currentPoints >= maxPointsCount;
