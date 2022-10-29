@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class ActionPoints : MonoBehaviour
+    public class ActionPoints : MonoBehaviour, IRoundTickable
     {
         [SerializeField] private IntContainer currentPoints;
         [SerializeField] private IntContainer maxPointsCount;
@@ -28,7 +28,7 @@ namespace FroguesFramework
             }
         }
 
-        public void RegeneratePoints()
+        private void RegeneratePoints()
         {
             currentPoints.Content += pointsRegeneration.Content;
             currentPoints.Content = Mathf.Clamp(currentPoints.Content, 0, maxPointsCount.Content);
@@ -59,5 +59,7 @@ namespace FroguesFramework
         }
 
         public bool Full => currentPoints.Content >= maxPointsCount.Content;
+
+        public void Tick() => RegeneratePoints();
     }
 }
