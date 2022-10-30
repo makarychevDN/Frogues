@@ -5,6 +5,7 @@ namespace FroguesFramework
 {
     public class FollowTargetAI : BaseInput
     {
+        [SerializeField] private Unit unit;
         [SerializeField] private UnitContainer targetContainer;
         [SerializeField] private AbleToSkipTurn skipTurnModule;
         [SerializeField] private bool ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces;

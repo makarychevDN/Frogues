@@ -13,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private Transform shadow;
         [SerializeField] private SpriteRotator spriteRotator;
         [SerializeField] private MovementAbility movementAbility;
+        [SerializeField] private PlayerInput playerInput;
         
         [Header("Health Setup")]
         public Damagable health;
@@ -38,6 +39,13 @@ namespace FroguesFramework
 
         private void Awake()
         {
+            if (playerInput != null)
+            {
+                playerInput.Unit = this;
+                playerInput.MovementAbility = movementAbility;
+                playerInput.CurrentAbility = movementAbility;
+            }
+            
             if (ableToDie != null)
             {
                 ableToDie.Unit = this;

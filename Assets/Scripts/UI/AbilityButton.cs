@@ -37,7 +37,7 @@ namespace FroguesFramework
             if (_playerInput == null)
                 return;
 
-            _material.SetInt("_AbilityUsingNow", (_playerInput.currentAbility == ability) ? 1 : 0);
+            //_material.SetInt("_AbilityUsingNow", (_playerInput.currentAbility == ability) ? 1 : 0);
         }
 
         public void PickAbility()
@@ -48,8 +48,8 @@ namespace FroguesFramework
                 return;
             }
 
-            if (ability.IsActionPointsEnough())
-                _playerInput.currentAbility = ability;
+            if (ability.IsActionPointsEnough()){}
+                //_playerInput.currentAbility = ability;
             else
             {
                 _actionPointsIconsShaker.Shake();
@@ -62,7 +62,7 @@ namespace FroguesFramework
             _dragNow = true;
             transform.parent = slot.transform.parent;
             slot.Content = null;
-            _playerInput.currentAbility = null;
+            //_playerInput.currentAbility = null;
         }
 
         public void OnDrag(PointerEventData eventData)
