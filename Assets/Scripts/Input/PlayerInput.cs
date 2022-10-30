@@ -48,7 +48,7 @@ namespace FroguesFramework
 
         private void Update()
         {
-            Cursor.SetCursor(defaultCursor.texture, Vector2.zero, CursorMode.ForceSoftware);
+            //Cursor.SetCursor(defaultCursor.texture, Vector2.zero, CursorMode.ForceSoftware);
             DisableAllVisualizationFromPlayerOnMap();
             unitsUIEnabler.AllUnitsUISetActive(false);
 
@@ -135,10 +135,10 @@ namespace FroguesFramework
                 currentCursor = inspectCursor;
 
 
-            Cursor.SetCursor(
+            /*Cursor.SetCursor(
                 currentCursor.texture,
                 Vector2.zero,
-                CursorMode.ForceSoftware);
+                CursorMode.ForceSoftware);*/
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
             {
