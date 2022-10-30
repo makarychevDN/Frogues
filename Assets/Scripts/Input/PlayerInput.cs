@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,7 +10,6 @@ namespace FroguesFramework
         [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
         [SerializeField] private CellByMousePosition cellByMousePosition;
         [SerializeField] private UnitsUIEnabler unitsUIEnabler;
-        [SerializeField] private IntContainer preCostContainer;
         [SerializeField] private SpriteRotator spriteRotator;
 
         [Header("Movement Input")] [SerializeField]
@@ -28,6 +28,8 @@ namespace FroguesFramework
         [SerializeField] private Sprite attackCursor;
         [SerializeField] private Sprite attackIsNotPossibleCursor;
         [SerializeField] private Sprite inspectCursor;
+
+        [SerializeField] private ActionPoints actionPoints;
 
         private List<Cell> _path = new();
         private float bottomUiPanelHeight = 120f;
@@ -50,7 +52,7 @@ namespace FroguesFramework
         {
             //Cursor.SetCursor(defaultCursor.texture, Vector2.zero, CursorMode.ForceSoftware);
             DisableAllVisualizationFromPlayerOnMap();
-            unitsUIEnabler.AllUnitsUISetActive(false);
+            //unitsUIEnabler.AllUnitsUISetActive(false);
 
             if (!InputIsPossible)
                 return;
@@ -62,7 +64,9 @@ namespace FroguesFramework
                 return;
             }
 
-            selectedCellVisualizer.ApplyEffect();
+            MovementInput();
+            
+            /*selectedCellVisualizer.ApplyEffect();
 
             ResetPreCostContainers();
 
@@ -87,7 +91,7 @@ namespace FroguesFramework
                 MovementInput();
             }
 
-            unitsUIEnabler.AllUnitsUISetActive(true);
+            unitsUIEnabler.AllUnitsUISetActive(true);*/
         }
 
         public void DisableAllVisualizationFromPlayerOnMap()
@@ -102,33 +106,62 @@ namespace FroguesFramework
                 .ForEach(cell => cell.Content.actionPoints.ResetPreCostValue());
         }
 
-        private void ResetPreCostContainers()
-        {
-            preCostContainer.Content = 0;
-        }
-
         private void MovementInput()
         {
-            pathVisualizer.ApplyEffect();
-            movementCellsHighlighter.ApplyEffect();
+            var movementArea = PathFinder.Instance.GetCellsAreaByActionPoints(unit.currentCell, actionPoints.CurrentActionPoints,
+                unit.movable.DefaultMovementCost, false, false, true);
+            movementArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(movementArea));
+            
+            var grid = Map.Instance.tilemap.layoutGrid;
 
-            if (findWayInValidCells.Take() != null)
-                preCostContainer.Content = findWayInValidCells.Take().Count - 1;
-            else
-                preCostContainer.Content = 0;
-
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int coordinate = grid.WorldToCell(mouseWorldPos);
+            Cell targetCell;
+            
+            try
             {
-                _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
-                preCostContainer.Content = 0;
+                targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y];
             }
+            catch (IndexOutOfRangeException e)
+            {
+                return;
+            }
+
+            if(!movementArea.Contains(targetCell))
+                return;
+            
+            targetCell.EnablePathDot(true);
+            
+            var path = PathFinder.Instance.FindWay(unit.currentCell, targetCell, false,
+                false, true);
+
+            if (path == null)
+                return;
+            
+            path.Insert(0, unit.currentCell);
+
+            path.GetLast().EnablePathDot(true);
+
+            if (path.Count == 1)
+                return;
+
+            for (int i = 1; i < path.Count - 1; i++)
+            {
+                path[i].EnableTrail((path[i - 1].transform.position - path[i].transform.position).normalized.ToVector2());
+                path[i].EnableTrail((path[i + 1].transform.position - path[i].transform.position).normalized.ToVector2());
+            }
+
+            path[0].EnableTrail((path[1].transform.position - path[0].transform.position).normalized.ToVector2());
+            path[path.Count - 1].EnableTrail((path[path.Count - 2].transform.position - path[path.Count - 1].transform.position).normalized.ToVector2());
+
+            actionPoints.PreTakenCurrentPoints -= path.Count - 1;
         }
 
         private void AbilityInput(Weapon ability)
         {
             spriteRotator.TurnByMousePosition();
             ability.HighlightCells();
-            preCostContainer.Content = ability.CurrentActionCost;
+            //preCostContainer.Content = ability.CurrentActionCost;
 
             Sprite currentCursor = ability.PossibleToUse ? attackCursor : attackIsNotPossibleCursor;
             if (ability == inspectAbility)

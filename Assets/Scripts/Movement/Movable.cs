@@ -28,7 +28,7 @@ namespace FroguesFramework
         private Transform _spriteParent, _shadow;
         private SpriteRotator _spriteRotator;
 
-        #region Setters
+        #region GetSetters
         
         public Unit Unit { set => _unit = value; }
         public ActionPoints ActionPoints { set => _actionPoints = value; }
@@ -52,6 +52,8 @@ namespace FroguesFramework
         }
 
         public SpriteRotator SpriteRotator { set => _spriteRotator = value; }
+
+        public int DefaultMovementCost => defaultMovementCost;
 
         #endregion
 

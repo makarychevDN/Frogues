@@ -34,6 +34,7 @@ namespace FroguesFramework
         public int PreTakenCurrentPoints
         {
             get => _preTakenCurrentPoints;
+            set => _preTakenCurrentPoints = value;
         }
         
         #endregion
