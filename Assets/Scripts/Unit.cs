@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] private Transform spriteParent;
         [SerializeField] private Transform shadow;
         [SerializeField] private SpriteRotator spriteRotator;
+        [SerializeField] private MovementAbility movementAbility;
         
         [Header("Health Setup")]
         public Damagable health;
@@ -37,8 +38,6 @@ namespace FroguesFramework
 
         private void Awake()
         {
-            
-            
             if (ableToDie != null)
             {
                 ableToDie.Unit = this;
@@ -61,6 +60,14 @@ namespace FroguesFramework
                 movable.SpriteParent = spriteParent;
                 movable.Shadow = shadow;
                 movable.SpriteRotator = spriteRotator;
+            }
+
+            if (movementAbility != null)
+            {
+                movementAbility.Unit = this;
+                movementAbility.Movable = movable;
+                movementAbility.ActionPoints = actionPoints;
+                movementAbility.Grid = Map.Instance.tilemap.layoutGrid;
             }
         }
     }

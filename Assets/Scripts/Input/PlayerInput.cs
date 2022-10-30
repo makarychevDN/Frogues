@@ -30,6 +30,7 @@ namespace FroguesFramework
         [SerializeField] private Sprite inspectCursor;
 
         [SerializeField] private ActionPoints actionPoints;
+        [SerializeField] private MovementAbility movementAbility;
 
         private List<Cell> _path = new();
         private float bottomUiPanelHeight = 120f;
@@ -108,53 +109,12 @@ namespace FroguesFramework
 
         private void MovementInput()
         {
-            var movementArea = PathFinder.Instance.GetCellsAreaByActionPoints(unit.currentCell, actionPoints.CurrentActionPoints,
-                unit.movable.DefaultMovementCost, false, false, true);
-            movementArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(movementArea));
-            
-            var grid = Map.Instance.tilemap.layoutGrid;
+            movementAbility.VisualizePreUse();
 
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int coordinate = grid.WorldToCell(mouseWorldPos);
-            Cell targetCell;
-            
-            try
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
             {
-                targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y];
+                movementAbility.Use();
             }
-            catch (IndexOutOfRangeException e)
-            {
-                return;
-            }
-
-            if(!movementArea.Contains(targetCell))
-                return;
-            
-            targetCell.EnablePathDot(true);
-            
-            var path = PathFinder.Instance.FindWay(unit.currentCell, targetCell, false,
-                false, true);
-
-            if (path == null)
-                return;
-            
-            path.Insert(0, unit.currentCell);
-
-            path.GetLast().EnablePathDot(true);
-
-            if (path.Count == 1)
-                return;
-
-            for (int i = 1; i < path.Count - 1; i++)
-            {
-                path[i].EnableTrail((path[i - 1].transform.position - path[i].transform.position).normalized.ToVector2());
-                path[i].EnableTrail((path[i + 1].transform.position - path[i].transform.position).normalized.ToVector2());
-            }
-
-            path[0].EnableTrail((path[1].transform.position - path[0].transform.position).normalized.ToVector2());
-            path[path.Count - 1].EnableTrail((path[path.Count - 2].transform.position - path[path.Count - 1].transform.position).normalized.ToVector2());
-
-            actionPoints.PreTakenCurrentPoints -= path.Count - 1;
         }
 
         private void AbilityInput(Weapon ability)
