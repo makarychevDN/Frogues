@@ -8,7 +8,7 @@ namespace FroguesFramework
         
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.T))
             {
                 _animator.SetTrigger("Take Damage");
             }
@@ -16,6 +16,16 @@ namespace FroguesFramework
             if (Input.GetKeyDown(KeyCode.K))
             {
                 _animator.SetTrigger("Kick");
+            }
+            
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                _animator.SetTrigger("Attack");
+            }
+            
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                _animator.SetTrigger("Death");
             }
             
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -26,6 +36,11 @@ namespace FroguesFramework
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 _animator.SetInteger("Weapon Index", 1);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                _animator.SetInteger("Weapon Index", 2);
             }
         }
     }
