@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,18 +8,20 @@ namespace FroguesFramework
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
         [SerializeField] private int armor;
-        [SerializeField] private PlayAnimation takeDamageAnimation;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnHpEnded;
         private int _healthWithPreTakenDamage;
         private int _hashedHp;
+        private AbleToDie _ableToDie;
+
+        public int MaxHp => maxHP;
+        public int CurrentHp => currentHP;
+
+        public AbleToDie AbleToDie { set => _ableToDie = value; }
 
         private void Awake()
         {
             _hashedHp = currentHP;
-            
-            if (takeDamageAnimation != null)
-                OnApplyUnblockedDamage.AddListener(takeDamageAnimation.Play);
         }
 
         public void TakeHealing(int value)
@@ -30,7 +31,7 @@ namespace FroguesFramework
         }
 
         public void TakeDamage(int damageValue) =>
-            CalculateDamage(ref currentHP, damageValue, false);
+            TakeDamage(damageValue, false);
 
         public void TakeDamage(int damageValue, bool ignoreArmor)
         {
@@ -44,15 +45,16 @@ namespace FroguesFramework
             if (currentHP <= 0)
             {
                 OnHpEnded.Invoke();
+                _ableToDie.Die();
             }
             
             _hashedHp = currentHP;
         }
 
-        public void PretakeDamage(int damageValue) =>
+        public void PreTakeDamage(int damageValue) =>
             CalculateDamage(ref _healthWithPreTakenDamage, damageValue, false);
 
-        public void PretakeDamage(int damageValue, bool ignoreArmor) =>
+        public void PreTakeDamage(int damageValue, bool ignoreArmor) =>
             CalculateDamage(ref _healthWithPreTakenDamage, damageValue, ignoreArmor);
 
         private void CalculateDamage(ref int hp, int damageValue, bool ignoreArmor)

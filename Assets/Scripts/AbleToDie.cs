@@ -5,15 +5,20 @@ namespace FroguesFramework
 {
     public class AbleToDie : MonoBehaviour
     {
-        [SerializeField] private Unit unit;
         public UnityEvent OnDeath;
+        private Unit _unit;
+
+        public Unit Unit
+        {
+            set => _unit = value;
+        }
 
         public void Die()
         {
-            if (unit.currentCell != null)
-                unit.currentCell.Content = null;
-            UnitsQueue.Instance.Remove(unit);
-            Destroy(unit.gameObject);
+            if (_unit.currentCell != null)
+                _unit.currentCell.Content = null;
+            UnitsQueue.Instance.Remove(_unit);
+            Destroy(_unit.gameObject);
             OnDeath.Invoke();
         }
     }

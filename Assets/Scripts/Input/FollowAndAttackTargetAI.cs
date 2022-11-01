@@ -5,6 +5,7 @@ namespace FroguesFramework
 {
     public class FollowAndAttackTargetAI : BaseInput
     {
+        [SerializeField] private Unit unit;
         [SerializeField] private UnitContainer targetContainer;
         [SerializeField] private Weapon activeWeapon;
         [SerializeField] private AbleToSkipTurn skipTurnModule;

@@ -7,8 +7,7 @@ namespace FroguesFramework
 {
     public class ResourcePointsUI : MonoBehaviour
     {
-        [SerializeField] private IntContainer currentResourcePointsContainer;
-        [SerializeField] private IntContainer maxActionPointsContainer;
+        [SerializeField] private ActionPoints actionPoints;
         [SerializeField] private Transform iconsParent;
         [SerializeField] private List<ResourcePointUI> resourcePointIconPrefabs;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
@@ -26,7 +25,7 @@ namespace FroguesFramework
 
             int iconsCount = 0;
 
-            for (int i = 0; i < maxActionPointsContainer.Content; i++)
+            for (int i = 0; i < actionPoints.MaxPointsCount; i++)
             {
                 var spawnedIcon = Instantiate(resourcePointIconPrefabs[iconsCount], iconsParent);
                 resourcePointIcons.Add(spawnedIcon);
@@ -40,14 +39,11 @@ namespace FroguesFramework
         {
             resourcePointIcons.ForEach(icon => icon.EnableEmptyIcon());
 
-            int preCostsValue = preCosts.Sum(preCost => preCost.Content);
-
-            if (useDeltaOfPreCostAndFactValue)
-                preCostsValue = currentResourcePointsContainer.Content - preCostsValue;
-
-            if (preCostsValue > currentResourcePointsContainer.Content)
+            int preCostsValue = actionPoints.CurrentActionPoints - actionPoints.PreTakenCurrentPoints;
+            
+            if (preCostsValue > actionPoints.CurrentActionPoints)
             {
-                for (int i = 0; i < currentResourcePointsContainer.Content; i++)
+                for (int i = 0; i < actionPoints.CurrentActionPoints; i++)
                 {
                     resourcePointIcons[i].EnableNotEnoughPointsIcon();
                 }
@@ -55,15 +51,16 @@ namespace FroguesFramework
                 return;
             }
 
-            for (int i = 0; i < currentResourcePointsContainer.Content; i++)
+            for (int i = 0; i < actionPoints.CurrentActionPoints; i++)
             {
                 resourcePointIcons[i].EnableFullIcon();
             }
 
-            for (int i = currentResourcePointsContainer.Content - 1; i > currentResourcePointsContainer.Content - 1 - preCostsValue; i--)
+            for (int i = actionPoints.CurrentActionPoints - 1; i > actionPoints.CurrentActionPoints - 1 - preCostsValue; i--)
             {
                 resourcePointIcons[i].EnablePreCostIcon();
             }
+
         }
     }
 }

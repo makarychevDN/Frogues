@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public abstract class BaseInput : MonoBehaviour
     {
-        [SerializeField] protected Unit unit;
+        //[SerializeField] protected Unit unit;
         public UnityEvent OnInputDone;
 
         public abstract void Act();

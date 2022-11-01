@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -6,88 +5,59 @@ namespace FroguesFramework
 {
     public class PlayerInput : BaseInput
     {
-        [SerializeField] private VisualizeSelectedCell selectedCellVisualizer;
-        [SerializeField] private CellByMousePosition cellByMousePosition;
-        [SerializeField] private UnitsUIEnabler unitsUIEnabler;
-        [SerializeField] private IntContainer preCostContainer;
-        [SerializeField] private SpriteRotator spriteRotator;
-
-        [Header("Movement Input")] [SerializeField]
-        private HighlightValidForMovementCells movementCellsHighlighter;
-
-        [SerializeField] private FindWayInValidCells findWayInValidCells;
-        [SerializeField] private VisualizePath pathVisualizer;
-
-        [Header("Abilities")] [SerializeField] private Weapon inspectAbility;
-        [SerializeField] private Weapon nativeAbility;
-        public Weapon currentAbility;
-
-        [Header("Cursor Icons")] [SerializeField]
-        private Sprite defaultCursor;
-
-        [SerializeField] private Sprite attackCursor;
-        [SerializeField] private Sprite attackIsNotPossibleCursor;
-        [SerializeField] private Sprite inspectCursor;
-
-        private List<Cell> _path = new();
+        private Unit unit;
+        private MovementAbility _movementAbility;
+        private IAbility _currentAbility;
         private float bottomUiPanelHeight = 120f;
-        private ActionPointsIconsShaker _actionPointsIconsShaker;
-        private PauseIsActiveContainer _pauseIsActiveContainer;
 
-        private void Awake()
+        #region GetSet
+
+        public Unit Unit
         {
-            _pauseIsActiveContainer = FindObjectOfType<PauseIsActiveContainer>();
-            _actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
+            get => unit;
+            set => unit = value;
         }
 
+        public MovementAbility MovementAbility
+        {
+            get => _movementAbility;
+            set => _movementAbility = value;
+        }
+
+        public IAbility CurrentAbility
+        {
+            get => _currentAbility;
+            set => _currentAbility = value;
+        }
+
+        #endregion
+        
         public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(unit)
-                                       && !CurrentlyActiveObjects.SomethingIsActNow
-                                       && !_pauseIsActiveContainer.Content;
+                                       && !CurrentlyActiveObjects.SomethingIsActNow;
 
         public override void Act(){}
 
         private void Update()
         {
-            Cursor.SetCursor(defaultCursor.texture, Vector2.zero, CursorMode.ForceSoftware);
             DisableAllVisualizationFromPlayerOnMap();
-            unitsUIEnabler.AllUnitsUISetActive(false);
 
             if (!InputIsPossible)
                 return;
 
-            if (_path.Count != 0)
+            if (_currentAbility == null)
+                _currentAbility = _movementAbility;
+
+            AbilityInput(_currentAbility);
+        }
+
+        private void AbilityInput(IAbility ability)
+        {
+            ability.VisualizePreUse();
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
             {
-                unit.movable.Move(_path[0]);
-                _path.RemoveAt(0);
-                return;
+                ability.Use();
             }
-
-            selectedCellVisualizer.ApplyEffect();
-
-            ResetPreCostContainers();
-
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                if (currentAbility != null)
-                {
-                    currentAbility = null;
-                }
-                else
-                {
-                    currentAbility = inspectAbility;
-                }
-            }
-
-            if (currentAbility != null)
-            {
-                AbilityInput(currentAbility);
-            }
-            else
-            {
-                MovementInput();
-            }
-
-            unitsUIEnabler.AllUnitsUISetActive(true);
         }
 
         public void DisableAllVisualizationFromPlayerOnMap()
@@ -98,57 +68,12 @@ namespace FroguesFramework
                 .ForEach(cell => cell.Content.health.ResetPreDamageValue());
             cellsWithContent.Where(cell => cell.Content.pushable != null).ToList()
                 .ForEach(cell => cell.Content.pushable.ResetPrePushValue());
+            cellsWithContent.Where(cell => cell.Content.actionPoints != null).ToList()
+                .ForEach(cell => cell.Content.actionPoints.ResetPreCostValue());
         }
 
-        private void ResetPreCostContainers()
-        {
-            preCostContainer.Content = 0;
-        }
+        public void SetCurrentAbility(IAbility ability) => _currentAbility = ability;
 
-        private void MovementInput()
-        {
-            pathVisualizer.ApplyEffect();
-            movementCellsHighlighter.ApplyEffect();
-
-            if (findWayInValidCells.Take() != null)
-                preCostContainer.Content = findWayInValidCells.Take().Count - 1;
-            else
-                preCostContainer.Content = 0;
-
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
-            {
-                _path = findWayInValidCells.Take() == null ? new List<Cell>() : findWayInValidCells.Take();
-                preCostContainer.Content = 0;
-            }
-        }
-
-        private void AbilityInput(Weapon ability)
-        {
-            spriteRotator.TurnByMousePosition();
-            ability.HighlightCells();
-            preCostContainer.Content = ability.CurrentActionCost;
-
-            Sprite currentCursor = ability.PossibleToUse ? attackCursor : attackIsNotPossibleCursor;
-            if (ability == inspectAbility)
-                currentCursor = inspectCursor;
-
-
-            Cursor.SetCursor(
-                currentCursor.texture,
-                Vector2.zero,
-                CursorMode.ForceSoftware);
-
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
-            {
-                if (!ability.IsActionPointsEnough())
-                    _actionPointsIconsShaker.Shake();
-
-                ability.Use();
-            }
-        }
-
-        public void SetCurrentAbility(Ability ability) => currentAbility = ability;
-
-        public void SetCurrentAbilityNull() => currentAbility = null;
+        public void ClearCurrentAbility() => _currentAbility = null;
     }
 }

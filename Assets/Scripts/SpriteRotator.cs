@@ -4,16 +4,21 @@ namespace FroguesFramework
 {
     public class SpriteRotator : MonoBehaviour
     {
-        [SerializeField] private Transform sprite;
+        private Transform _sprite;
+
+        public Transform Sprite
+        {
+            set => _sprite = value;
+        }
 
         public void TurnLeft()
         {
-            sprite.rotation = Quaternion.Euler(0, 180, 0);
+            _sprite.rotation = Quaternion.Euler(0, 180, 0);
         }
 
         public void TurnRight()
         {
-            sprite.rotation = Quaternion.Euler(0, 0, 0);
+            _sprite.rotation = Quaternion.Euler(0, 0, 0);
         }
 
 
@@ -41,10 +46,10 @@ namespace FroguesFramework
 
         public void TurnByCoordinatesRelativeToSprite(Vector3 coordinates)
         {
-            if ((coordinates - sprite.transform.position).x > 0)
+            if ((coordinates - _sprite.transform.position).x > 0)
                 TurnRight();
 
-            if ((coordinates - sprite.transform.position).x < 0)
+            if ((coordinates - _sprite.transform.position).x < 0)
                 TurnLeft();
         }
     }

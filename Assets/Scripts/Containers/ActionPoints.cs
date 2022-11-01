@@ -3,61 +3,77 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class ActionPoints : MonoBehaviour
+    public class ActionPoints : MonoBehaviour, IRoundTickable
     {
-        [SerializeField] private IntContainer currentPoints;
-        [SerializeField] private IntContainer maxPointsCount;
-        [SerializeField] private IntContainer pointsRegeneration;
-        [SerializeField] private AbleToSkipTurn skipTurnModule;
-
-        [Header("for Player Only")] [SerializeField]
-        private DisableAllSelectedCellsVizualisation selectedCellsVisualizationDisabler;
+        [SerializeField] private int currentPoints;
+        [SerializeField] private int maxPointsCount;
+        [SerializeField] private int pointsRegeneration;
+        private int _preTakenCurrentPoints;
 
         public UnityEvent OnActionPointsEnded;
 
-        private void Start()
+        private void RegeneratePoints()
         {
-            if (skipTurnModule != null)
-            {
-                OnActionPointsEnded.AddListener(skipTurnModule.AutoSkip);
-            }
-
-            if (selectedCellsVisualizationDisabler != null)
-            {
-                OnActionPointsEnded.AddListener(selectedCellsVisualizationDisabler.ApplyEffect);
-            }
+            currentPoints += pointsRegeneration;
+            currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
         }
 
-        public void RegeneratePoints()
+        #region GetSet
+
+        public int MaxPointsCount
         {
-            currentPoints.Content += pointsRegeneration.Content;
-            currentPoints.Content = Mathf.Clamp(currentPoints.Content, 0, maxPointsCount.Content);
+            get => maxPointsCount;
         }
         
         public int CurrentActionPoints
         {
-            get => currentPoints.Content;
-            set => currentPoints.Content = value;
+            get => currentPoints;
+            set => currentPoints = value;
         }
+        
+        public int PreTakenCurrentPoints
+        {
+            get => _preTakenCurrentPoints;
+            set => _preTakenCurrentPoints = value;
+        }
+        
+        #endregion
         
         public int RegenActionPoints
         {
-            get => pointsRegeneration.Content;
+            get => pointsRegeneration;
         }
 
         public bool CheckIsActionPointsEnough(int cost)
         {
-            return currentPoints.Content >= cost;
+            return currentPoints >= cost;
         }
 
         public void SpendPoints(int cost)
         {
-            currentPoints.Content -= cost;
+            CalculateCost(ref currentPoints, cost);
 
-            if (currentPoints.Content <= 0)
+            if (currentPoints <= 0)
                 OnActionPointsEnded.Invoke();
         }
+        
+        public void PreSpendPoints(int preCost)
+        {
+            CalculateCost(ref _preTakenCurrentPoints, preCost);
+        }
 
-        public bool Full => currentPoints.Content >= maxPointsCount.Content;
+        private void CalculateCost(ref int points, int cost)
+        {
+            points -= cost;
+        }
+        
+        public void ResetPreCostValue()
+        {
+            _preTakenCurrentPoints = currentPoints;
+        }
+
+        public bool Full => currentPoints >= maxPointsCount;
+
+        public void Tick() => RegeneratePoints();
     }
 }
