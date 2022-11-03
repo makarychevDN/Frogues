@@ -249,7 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c38d91068f4c34895d82c13354b6ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 0
 --- !u!114 &162187106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,7 +802,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 1
 --- !u!1 &877812879
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +846,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 0
 --- !u!1 &931597864
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771a0708caf8d6c419fe7836dc4b6f07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 0
 --- !u!4 &931597866
 Transform:
   m_ObjectHideFlags: 0
@@ -982,7 +978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68068259314762546b5e48108324f4b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: 3
 --- !u!1 &1106314394
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,7 +1134,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1226791128}
-  - component: {fileID: 1226791127}
   m_Layer: 0
   m_Name: Player Instance
   m_TagString: Untagged
@@ -1147,19 +1141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1226791127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226791126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f95e1d5439746e14ba0e9ed39fa92bb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: {fileID: 1907423088}
 --- !u!4 &1226791128
 Transform:
   m_ObjectHideFlags: 0
@@ -1205,9 +1186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cd9f7a71881c78469daa11543d6c097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: "\u041D\u0435\u043C\u043D\u043E\u0433\u043E\u0441\u043B\u043E\u0432\u043D\u044B\u0439
-    \u0432\u043E\u0438\u043D \u0441 \u0437\u0430\u0433\u0430\u0434\u043E\u0447\u043D\u044B\u043C
-    \u043F\u0440\u043E\u0448\u043B\u044B\u043C"
 --- !u!4 &1326232667
 Transform:
   m_ObjectHideFlags: 0
@@ -1614,11 +1592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fdf18d1bb5548459bb0fe74d165b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnAbilitiesUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-    m_CallsDirty: 1
-  abilities: []
 --- !u!1 &1791976365
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,6 +2742,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7053224309648288464, guid: 81acde0fa1f9ae04587127bd12f455a3, type: 3}
+      propertyPath: metaPlayer
+      value: 
+      objectReference: {fileID: 1907423088}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 81acde0fa1f9ae04587127bd12f455a3, type: 3}
