@@ -101,7 +101,7 @@ namespace FroguesFramework
                     targetCell.Content = _unit;
                     unitToStepOnIt.currentCell = null;
                     _unit.currentCell = targetCell;
-                    unitToStepOnIt.stepOnUnitTrigger.Run(_unit);
+                    //unitToStepOnIt.stepOnUnitTrigger.Run(_unit);
                     return;
                 }
 

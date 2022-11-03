@@ -8,7 +8,7 @@ namespace FroguesFramework
     public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         public PlayerAbilityButtonSlot slot;
-        [SerializeField] private Ability ability;
+        [SerializeField] private IAbility ability;
         [SerializeField] private bool usingNow;
 
         public UnityEvent onDragEvent;
@@ -27,7 +27,7 @@ namespace FroguesFramework
             _actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
         }
 
-        public void SetAbility(Ability ability)
+        public void SetAbility(IAbility ability)
         {
             this.ability = ability;
         }
@@ -48,7 +48,7 @@ namespace FroguesFramework
                 return;
             }
 
-            if (ability.IsActionPointsEnough()){}
+            //if (ability.IsActionPointsEnough()){} todo важно
                 //_playerInput.currentAbility = ability;
             else
             {

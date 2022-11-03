@@ -1,36 +1,34 @@
+using UnityEngine;
+
 namespace FroguesFramework
 {
-    public class PlayerAbilityButtonSlot : AbilityButtonContainer
+    public class PlayerAbilityButtonSlot : MonoBehaviour
     {
-        private void Awake()
-        {
-            if (Content == null)
-                return;
+        [SerializeField] private AbilityButton abilityButton;
 
-            Content = content;
-        }
-
-        public override AbilityButton Content
+        public AbilityButton Content
         {
             set
             {
-                if (!(content == null || value == null) && value.slot != null)
-                    value.slot.Content = content;
+                if (!(abilityButton == null || value == null) && value.slot != null)
+                    value.slot.Content = abilityButton;
 
-                content = value;
+                abilityButton = value;
 
-                if (content == null)
+                if (abilityButton == null)
                     return;
 
-                content.slot = this;
-                content.transform.parent = transform;
-                content.transform.position = transform.position;
+                abilityButton.slot = this;
+                abilityButton.transform.parent = transform;
+                abilityButton.transform.position = transform.position;
             }
+
+            get => abilityButton;
         }
 
         public void HotkeyPressed()
         {
-            content?.PickAbility();
+            abilityButton?.PickAbility();
         }
     }
 }

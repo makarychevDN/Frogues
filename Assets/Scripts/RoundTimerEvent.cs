@@ -15,8 +15,6 @@ namespace FroguesFramework
             timerEnabled = true;
         }
 
-        public void StartTimer(IntContainer roundsToEventContainer) => StartTimer(roundsToEventContainer.Content);
-
         public void DecreaseTimer() => DecreaseTimer(1);
 
         private void DecreaseTimer(int decreaseValue)

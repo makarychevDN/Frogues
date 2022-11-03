@@ -4,15 +4,17 @@ using UnityEngine.UI;
 
 namespace FroguesFramework
 {
-    public class MaterialInstanceContainer : Container<Material>
+    public class MaterialInstanceContainer : MonoBehaviour
     {
+        [SerializeField] private Material material;
+        
         private void Awake()
         {
             if(GetComponent<Image>() != null)
-                Content = GetComponent<Image>().material;
+                material = GetComponent<Image>().material;
             
             if(GetComponent<SpriteRenderer>() != null)
-                Content = GetComponent<SpriteRenderer>().material;
+                material = GetComponent<SpriteRenderer>().material;
         }
     }
 }

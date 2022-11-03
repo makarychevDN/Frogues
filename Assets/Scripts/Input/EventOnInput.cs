@@ -1,15 +1,15 @@
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class EventOnInput : BaseInput
+    public class EventOnInput : MonoBehaviour, IAbleToAct
     {
         public UnityEvent OnInput;
 
-        public override void Act()
+        public void Act()
         {
             OnInput.Invoke();
-            OnInputDone.Invoke();
         }
     }
 }

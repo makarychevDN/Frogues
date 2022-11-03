@@ -319,14 +319,7 @@ namespace FroguesFramework
 
         public float ColumnContentWightModifiers
         {
-            get
-            {
-                float weightModificator = 0;
-                Map.Instance.GetCellsColumn(cell).WithContentOnly().ForEach(columnCell =>
-                    weightModificator += columnCell.Content.pathfinderWeightModificator.Content);
-                return weightModificator;
-
-            }
+            get => 0;
         }
     }
 }

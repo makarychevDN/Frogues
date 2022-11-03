@@ -16,7 +16,7 @@ namespace FroguesFramework
 
         public void AddAbilityButton(AbilityButton abilityButton)
         {
-            abilitySlots.FirstOrDefault(slot => slot.Content == null).Content = abilityButton;
+            abilitySlots.FirstOrDefault(slot => slot.Content == null)!.Content = abilityButton;
         }
     }
 }

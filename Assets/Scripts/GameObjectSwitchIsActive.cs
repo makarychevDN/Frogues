@@ -1,21 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using FroguesFramework;
 using UnityEngine;
 
-public class GameObjectSwitchIsActive : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private GameObject target;
-
-    private void Awake()
+    public class GameObjectSwitchIsActive : MonoBehaviour
     {
-        if (target == null)
-            target = gameObject;
-    }
+        [SerializeField] private GameObject target;
 
-    public void Switch()
-    {
-        target.SwitchActive();
+        private void Awake()
+        {
+            if (target == null)
+                target = gameObject;
+        }
+
+        public void Switch()
+        {
+            target.SwitchActive();
+        }
     }
 }

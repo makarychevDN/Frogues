@@ -11,8 +11,6 @@ namespace FroguesFramework
         [SerializeField] private Transform iconsParent;
         [SerializeField] private List<ResourcePointUI> resourcePointIconPrefabs;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
-        [SerializeField] private List<IntContainer> preCosts;
-        [SerializeField] private bool useDeltaOfPreCostAndFactValue;
         [SerializeField] private bool generateIconsOnStart;
 
         private void Start()

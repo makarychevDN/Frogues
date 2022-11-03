@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class PlayerInput : BaseInput
+    public class PlayerInput : MonoBehaviour, IAbleToAct
     {
         private Unit unit;
         private MovementAbility _movementAbility;
@@ -35,7 +35,7 @@ namespace FroguesFramework
         public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(unit)
                                        && !CurrentlyActiveObjects.SomethingIsActNow;
 
-        public override void Act(){}
+        public void Act(){}
 
         private void Update()
         {
@@ -66,8 +66,6 @@ namespace FroguesFramework
             var cellsWithContent = Map.Instance.allCells.WithContentOnly();
             cellsWithContent.Where(cell => cell.Content.health != null).ToList()
                 .ForEach(cell => cell.Content.health.ResetPreDamageValue());
-            cellsWithContent.Where(cell => cell.Content.pushable != null).ToList()
-                .ForEach(cell => cell.Content.pushable.ResetPrePushValue());
             cellsWithContent.Where(cell => cell.Content.actionPoints != null).ToList()
                 .ForEach(cell => cell.Content.actionPoints.ResetPreCostValue());
         }

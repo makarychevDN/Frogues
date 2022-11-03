@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class Cell : Container<Unit>
+    public class Cell : MonoBehaviour
     {
         public MapLayer mapLayer;
         public Vector2Int coordinates;
@@ -14,6 +14,7 @@ namespace FroguesFramework
         public UnityEvent OnBecameFull;
         public UnityEvent OnBecameEmpty;
 
+        [SerializeField] private Unit content;
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
         [SerializeField] private GameObject selectedByAbilityTileHighlighter;
@@ -23,12 +24,12 @@ namespace FroguesFramework
 
         [ReadOnly] public bool chosenToMovement;
 
-        public override Unit Content
+        public Unit Content
         {
-            get => base.Content;
+            get => content;
             set
             {
-                base.Content = value;
+                content = value;
                 if (value != null)
                 {
                     value.currentCell = this;
@@ -41,7 +42,7 @@ namespace FroguesFramework
             }
         }
 
-        public override bool IsEmpty => Content == null && !chosenToMovement;
+        public bool IsEmpty => Content == null && !chosenToMovement;
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {

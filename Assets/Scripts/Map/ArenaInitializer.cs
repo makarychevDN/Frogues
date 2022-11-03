@@ -8,7 +8,8 @@ namespace FroguesFramework
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private Unit player;
-
+        [SerializeField] private Unit metaPlayer;
+        
         private void Awake()
         {
             map.Init();
@@ -20,19 +21,19 @@ namespace FroguesFramework
 
         private void InitPlayer()
         {
-            var playerInstanceContainer = FindObjectOfType<PlayerInstanceContainer>();
+            var playerInstance = metaPlayer;
             
-            if (playerInstanceContainer.Content == null)
+            if (playerInstance == null)
             {
-                playerInstanceContainer.Content = player;
+                playerInstance = player;
             }
             else
             {
-                player.currentCell.Content = playerInstanceContainer.Content;
-                playerInstanceContainer.Content.currentCell = player.currentCell;
-                playerInstanceContainer.Content.transform.position = player.transform.position;
+                player.currentCell.Content = playerInstance;
+                playerInstance.currentCell = player.currentCell;
+                playerInstance.transform.position = player.transform.position;
                 player.gameObject.SetActive(false);
-                player = playerInstanceContainer.Content;
+                player = playerInstance;
             }
 
             var actionPoints = player.GetComponentInChildren<ActionPoints>();
