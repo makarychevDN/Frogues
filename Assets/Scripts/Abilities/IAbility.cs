@@ -1,6 +1,11 @@
-public interface IAbility
+namespace FroguesFramework
 {
-    public void VisualizePreUse();
+    public interface IAbility
+    {
+        public void VisualizePreUse();
 
-    public void Use();
+        public void Use();
+
+        public void Init(Unit unit);
+    }
 }

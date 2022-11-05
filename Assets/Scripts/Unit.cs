@@ -32,6 +32,8 @@ namespace FroguesFramework
         public Vector2Int Coordinates => currentCell.coordinates;
 
         public MovementAbility MovementAbility => movementAbility;
+        
+        public Grid Grid => Map.Instance.tilemap.layoutGrid;
 
         public void Init()
         {
@@ -61,10 +63,7 @@ namespace FroguesFramework
 
             if (movementAbility != null)
             {
-                movementAbility.Unit = this;
-                movementAbility.Movable = movable;
-                movementAbility.ActionPoints = actionPoints;
-                movementAbility.Grid = Map.Instance.tilemap.layoutGrid;
+                movementAbility.Init(this);
             }
             
             input = GetComponentInChildren<IAbleToAct>();

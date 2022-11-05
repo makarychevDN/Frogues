@@ -13,34 +13,6 @@ namespace FroguesFramework
         private List<Cell> _path = new();
         private List<Cell> _prePath = new();
 
-        #region GetSet
-        
-        public Unit Unit
-        {
-            get => _unit;
-            set => _unit = value;
-        }
-
-        public Movable Movable
-        {
-            get => _movable;
-            set => _movable = value;
-        }
-
-        public ActionPoints ActionPoints
-        {
-            get => _actionPoints;
-            set => _actionPoints = value;
-        }
-
-        public Grid Grid
-        {
-            get => _grid;
-            set => _grid = value;
-        }
-
-        #endregion
-        
         public void VisualizePreUse()
         {
             _prePath.Clear();
@@ -91,6 +63,14 @@ namespace FroguesFramework
         public void Use()
         {
             _path = new List<Cell>(_prePath);
+        }
+
+        public void Init(Unit unit)
+        {
+            _unit = unit;
+            _grid = unit.Grid;
+            _movable = unit.movable;
+            _actionPoints = unit.actionPoints;
         }
 
         private void Update()
