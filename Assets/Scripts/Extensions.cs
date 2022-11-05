@@ -72,5 +72,10 @@ namespace FroguesFramework
         private static float defaultCompareVectorTolerance = 0.01f;
         public static bool CloseEnoughTo(this Vector2 comparableVector, Vector2 vectorToCompare) =>
             (CloseEnoughTo(comparableVector, vectorToCompare, defaultCompareVectorTolerance));
+
+        public static int DistanceToCell(this Cell from, Cell to)
+        {
+            return PathFinder.Instance.FindWay(from, to, true, true, true).Count;
+        }
     }
 }

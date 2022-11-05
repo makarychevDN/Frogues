@@ -1,36 +1,49 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
 {
     public class SpearAttackAbility : MonoBehaviour, IAbility
     {
+        [SerializeField] private int defaultDamage;
+        [SerializeField] private int criticalDamage;
         [SerializeField] private int radius;
         [SerializeField] private int cost;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Grid _grid;
+        private Cell _targetCell;
+        private List<Cell> _attackArea;
 
         public void VisualizePreUse()
         {
-            var attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, false, false);
-            attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(attackArea));
+            _attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, true, false);
+            _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
             
             Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Cell targetCell;
-            
-            try { targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y]; }
+
+            try { _targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y]; }
             catch (IndexOutOfRangeException e) { return; }
             
-            if (!attackArea.Contains(targetCell))
+            if (!_attackArea.Contains(_targetCell))
                 return;
             
-            targetCell.EnableSelectedCellHighlight(true);
+            _targetCell.EnableSelectedCellHighlight(true);
         }
 
         public void Use()
         {
+            if (!_attackArea.Contains(_targetCell))
+                return;
             
+            if(_targetCell.Content == null && _targetCell.Content.health == null)
+                return;
+            
+            if(_unit.currentCell.DistanceToCell(_targetCell) == radius)
+                _targetCell.Content.health.TakeDamage(criticalDamage);
+            else
+                _targetCell.Content.health.TakeDamage(defaultDamage);
         }
         
         public void Init(Unit unit)
