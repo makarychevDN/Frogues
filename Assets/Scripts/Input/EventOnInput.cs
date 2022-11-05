@@ -11,5 +11,10 @@ namespace FroguesFramework
         {
             OnInput.Invoke();
         }
+
+        public void Init()
+        {
+            
+        }
     }
 }

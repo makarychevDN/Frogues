@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public class PlayerInput : MonoBehaviour, IAbleToAct
     {
-        private Unit unit;
+        private Unit _unit;
         private MovementAbility _movementAbility;
         private IAbility _currentAbility;
         private float bottomUiPanelHeight = 120f;
@@ -14,8 +14,8 @@ namespace FroguesFramework
 
         public Unit Unit
         {
-            get => unit;
-            set => unit = value;
+            get => _unit;
+            set => _unit = value;
         }
 
         public MovementAbility MovementAbility
@@ -32,10 +32,17 @@ namespace FroguesFramework
 
         #endregion
         
-        public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(unit)
+        public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(_unit)
                                        && !CurrentlyActiveObjects.SomethingIsActNow;
 
         public void Act(){}
+        
+        public void Init()
+        {
+            _unit = GetComponentInParent<Unit>();
+            _movementAbility = _unit.MovementAbility;
+            _currentAbility = _movementAbility;
+        }
 
         private void Update()
         {

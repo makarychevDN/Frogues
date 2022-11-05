@@ -14,7 +14,6 @@ namespace FroguesFramework
         [SerializeField] private Transform shadow;
         [SerializeField] private SpriteRotator spriteRotator;
         [SerializeField] private MovementAbility movementAbility;
-        [SerializeField] private PlayerInput playerInput;
 
         [Header("Health Setup")]
         public Damagable health;
@@ -32,17 +31,10 @@ namespace FroguesFramework
         [Header("For Small Units Only")] public bool small;
         public Vector2Int Coordinates => currentCell.coordinates;
 
-        private void Awake()
+        public MovementAbility MovementAbility => movementAbility;
+
+        public void Init()
         {
-            input = GetComponentInChildren<IAbleToAct>();
-            
-            if (playerInput != null)
-            {
-                playerInput.Unit = this;
-                playerInput.MovementAbility = movementAbility;
-                playerInput.CurrentAbility = movementAbility;
-            }
-            
             if (ableToDie != null)
             {
                 ableToDie.Unit = this;
@@ -73,6 +65,12 @@ namespace FroguesFramework
                 movementAbility.Movable = movable;
                 movementAbility.ActionPoints = actionPoints;
                 movementAbility.Grid = Map.Instance.tilemap.layoutGrid;
+            }
+            
+            input = GetComponentInChildren<IAbleToAct>();
+            if (input != null)
+            {
+                input.Init();
             }
         }
     }

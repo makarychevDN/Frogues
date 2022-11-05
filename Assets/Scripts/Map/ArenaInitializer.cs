@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -16,29 +17,31 @@ namespace FroguesFramework
             pathFinder.Init();
             InitPlayer();
             unitsQueue.Player = player;
+            
+            foreach (var ableToAct in FindObjectsOfType<MonoBehaviour>().OfType<IAbleToAct>())
+            {
+                ableToAct.Init();
+            }
+            
+            foreach (var unit in FindObjectsOfType<Unit>())
+            {
+                unit.Init();
+            }
+            
             unitsQueue.Init();
         }
 
         private void InitPlayer()
         {
             var playerInstance = metaPlayer;
-            
-            if (playerInstance == null)
-            {
-                playerInstance = player;
-            }
-            else
-            {
-                player.currentCell.Content = playerInstance;
-                playerInstance.currentCell = player.currentCell;
-                playerInstance.transform.position = player.transform.position;
-                player.gameObject.SetActive(false);
-                player = playerInstance;
-            }
+            player.currentCell.Content = playerInstance;
+            playerInstance.currentCell = player.currentCell;
+            playerInstance.transform.position = player.transform.position;
+            player.gameObject.SetActive(false);
+            player = playerInstance;
 
             var actionPoints = player.GetComponentInChildren<ActionPoints>();
             actionPoints.CurrentActionPoints = actionPoints.RegenActionPoints;
-            
         }
     }
 }
