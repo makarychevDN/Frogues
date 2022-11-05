@@ -33,6 +33,11 @@ namespace FroguesFramework
 
         private void InitPlayer()
         {
+            if (metaPlayer == null)
+            {
+                metaPlayer = player;
+            }
+            
             var playerInstance = metaPlayer;
             player.currentCell.Content = playerInstance;
             playerInstance.currentCell = player.currentCell;
