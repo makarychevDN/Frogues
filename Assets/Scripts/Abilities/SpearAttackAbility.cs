@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,6 +52,7 @@ namespace FroguesFramework
             _unit = unit;
             _actionPoints = unit.actionPoints;
             _grid = unit.Grid;
+            unit.AbilitiesManager.AddAbility(this);
         }
 
         [ContextMenu("Init")]

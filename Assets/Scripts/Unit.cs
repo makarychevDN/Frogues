@@ -5,6 +5,7 @@ namespace FroguesFramework
     //now unit is entry point for any unit functionality;
     public class Unit : MonoBehaviour
     {
+        [SerializeField] private AbilitiesManager abilitiesAbilitiesManager;
         [SerializeField] private Animator animator;
         public MapLayer unitType;
         
@@ -34,6 +35,8 @@ namespace FroguesFramework
         public MovementAbility MovementAbility => movementAbility;
         
         public Grid Grid => Map.Instance.tilemap.layoutGrid;
+
+        public AbilitiesManager AbilitiesManager => abilitiesAbilitiesManager;
 
         public void Init()
         {
