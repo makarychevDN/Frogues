@@ -891,7 +891,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.5989585
+  orthographic size: 4.7395835
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1011,6 +1011,50 @@ Transform:
   m_Father: {fileID: 653689325}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &564770819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 564770820}
+  - component: {fileID: 564770821}
+  m_Layer: 0
+  m_Name: Abilities Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &564770820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564770819}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1907423089}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &564770821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564770819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f94f611abb0c84c93ac90b78641b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &598209964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1149,6 +1193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitiesAbilitiesManager: {fileID: 0}
   animator: {fileID: 247614141}
   unitType: 0
   movable: {fileID: 1017300063}
@@ -3159,6 +3204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitiesAbilitiesManager: {fileID: 0}
   animator: {fileID: 929624924}
   unitType: 0
   movable: {fileID: 1420969660}
@@ -3211,7 +3257,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1907423089}
   - component: {fileID: 1907423088}
-  - component: {fileID: 1907423090}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3231,6 +3276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitiesAbilitiesManager: {fileID: 564770821}
   animator: {fileID: 1571797097}
   unitType: 0
   movable: {fileID: 163628432}
@@ -3267,37 +3313,10 @@ Transform:
   - {fileID: 653689325}
   - {fileID: 1791976366}
   - {fileID: 1106314395}
+  - {fileID: 564770820}
   m_Father: {fileID: 1226791128}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1907423090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1907423087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b20b41e964872424e964798ce0eade49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expectedKey: 48
-  OnKeyDown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1907423088}
-        m_TargetAssemblyTypeName: FroguesFramework.Unit, Assembly-CSharp
-        m_MethodName: Init
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1925573086
 GameObject:
   m_ObjectHideFlags: 0
@@ -5606,6 +5625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitiesAbilitiesManager: {fileID: 0}
   animator: {fileID: 0}
   unitType: 0
   movable: {fileID: 0}
@@ -6177,6 +6197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilitiesAbilitiesManager: {fileID: 0}
   animator: {fileID: 0}
   unitType: 0
   movable: {fileID: 0}
