@@ -37,7 +37,7 @@ namespace FroguesFramework
             if (!_attackArea.Contains(_targetCell))
                 return;
             
-            if(_targetCell.Content == null && _targetCell.Content.health == null)
+            if(_targetCell.Content == null || _targetCell.Content.health == null)
                 return;
             
             if(_unit.currentCell.DistanceToCell(_targetCell) == radius)
