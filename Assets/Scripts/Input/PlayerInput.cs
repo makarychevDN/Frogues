@@ -10,28 +10,6 @@ namespace FroguesFramework
         private IAbility _currentAbility;
         private float bottomUiPanelHeight = 120f;
 
-        #region GetSet
-
-        public Unit Unit
-        {
-            get => _unit;
-            set => _unit = value;
-        }
-
-        public MovementAbility MovementAbility
-        {
-            get => _movementAbility;
-            set => _movementAbility = value;
-        }
-
-        public IAbility CurrentAbility
-        {
-            get => _currentAbility;
-            set => _currentAbility = value;
-        }
-
-        #endregion
-
         public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(_unit)
                                        && !CurrentlyActiveObjects.SomethingIsActNow;
 
@@ -80,6 +58,8 @@ namespace FroguesFramework
         }
 
         public void SetCurrentAbility(IAbility ability) => _currentAbility = ability;
+
+        public IAbility GetCurrentAbility() => _currentAbility;
 
         public void ClearCurrentAbility() => _currentAbility = null;
     }
