@@ -1,22 +1,26 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
 {
     public class AbilitiesPanel : MonoBehaviour
     {
-        public static AbilitiesPanel Instance;
-        public List<PlayerAbilityButtonSlot> abilitySlots;
+        [SerializeField] private AbilitiesManager abilitiesManager;
+        [SerializeField] private AbilityButton abilityButtonPrefab;
 
-        private void Start()
+        private void Awake()
         {
-            Instance = this;
+            abilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
         }
 
-        public void AddAbilityButton(AbilityButton abilityButton)
+        private void AddAbilityButton(IAbility ability)
         {
-            abilitySlots.FirstOrDefault(slot => slot.Content == null)!.Content = abilityButton;
+            var abilityAsAbleToDrawAbilityButton = ability as IAbleToDrawAbilityButton;
+            
+            if (abilityAsAbleToDrawAbilityButton == null)
+                return;
+
+            var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
+            abilityButton.SetAbility(ability, abilityAsAbleToDrawAbilityButton);
         }
     }
 }

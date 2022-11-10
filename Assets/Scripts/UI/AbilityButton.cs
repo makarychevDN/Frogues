@@ -8,7 +8,7 @@ namespace FroguesFramework
     public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         public PlayerAbilityButtonSlot slot;
-        [SerializeField] private IAbility ability;
+        [SerializeField] private Image image;
         [SerializeField] private bool usingNow;
 
         public UnityEvent onDragEvent;
@@ -19,17 +19,19 @@ namespace FroguesFramework
         private bool _dragNow;
         private float maxDistanceToClamp = 64;
         private ActionPointsIconsShaker _actionPointsIconsShaker;
+        private IAbility _ability;
 
         private void Awake()
-        {
-            _material = GetComponent<Image>().material;
-            _playerInput = FindObjectOfType<PlayerInput>();
-            _actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
+        { 
+            //_material = GetComponent<Image>().material;
+            //_playerInput = FindObjectOfType<PlayerInput>();
+            //_actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
         }
 
-        public void SetAbility(IAbility ability)
+        public void SetAbility(IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
         {
-            this.ability = ability;
+            _ability = ability;
+            image.sprite = ableToDrawAbilityButton.GetAbilityDataForButton().Sprite;
         }
 
         private void Update()
@@ -72,7 +74,7 @@ namespace FroguesFramework
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            PlayerAbilityButtonSlot closestSlot = AbilitiesPanel.Instance.abilitySlots[0];
+            /*PlayerAbilityButtonSlot closestSlot = AbilitiesPanel.Instance.abilitySlots[0];
             onDropEvent.Invoke();
 
             foreach (var temp in AbilitiesPanel.Instance.abilitySlots)
@@ -89,7 +91,7 @@ namespace FroguesFramework
             else
             {
                 slot.Content = this;
-            }
+            }*/
         }
     }
 }

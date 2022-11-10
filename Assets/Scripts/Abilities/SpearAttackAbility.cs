@@ -5,17 +5,19 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpearAttackAbility : MonoBehaviour, IAbility
+    public class SpearAttackAbility : MonoBehaviour, IAbility, IAbleToDrawAbilityButton
     {
         [SerializeField] private int defaultDamage;
         [SerializeField] private int criticalDamage;
         [SerializeField] private int radius;
         [SerializeField] private int cost;
+        [SerializeField] private AbilityDataForButton abilityDataForButton;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Grid _grid;
         private Cell _targetCell;
         private List<Cell> _attackArea;
+        private Animator _animator;
 
         public void VisualizePreUse()
         {
@@ -41,6 +43,9 @@ namespace FroguesFramework
             if(_targetCell.Content == null || _targetCell.Content.health == null)
                 return;
             
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
+            _animator.SetTrigger(CharacterAnimatorParameters.Attack);
+            
             if(_unit.currentCell.DistanceToCell(_targetCell) == radius)
                 _targetCell.Content.health.TakeDamage(criticalDamage);
             else
@@ -53,7 +58,11 @@ namespace FroguesFramework
             _actionPoints = unit.actionPoints;
             _grid = unit.Grid;
             unit.AbilitiesManager.AddAbility(this);
+            _animator = unit.Animator;
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
         }
+
+        public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
 
         [ContextMenu("Init")]
         public void Init() => Init(GetComponentInParent<Unit>());

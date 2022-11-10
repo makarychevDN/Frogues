@@ -38,6 +38,12 @@ namespace FroguesFramework
 
         public AbilitiesManager AbilitiesManager => abilitiesAbilitiesManager;
 
+        public Animator Animator
+        {
+            get => animator;
+            set => animator = value;
+        }
+
         public void Init()
         {
             if (ableToDie != null)
