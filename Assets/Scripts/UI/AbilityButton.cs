@@ -12,6 +12,7 @@ namespace FroguesFramework
         private float maxDistanceToClamp = 64;
         private IAbility _ability;
         private AbilitiesPanel _abilitiesPanel;
+        private bool _chosen;
         
 
         public void Init(AbilitiesPanel abilitiesPanel,IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
@@ -25,13 +26,17 @@ namespace FroguesFramework
         
         public void PickAbility()
         {
-            if (_dragNow)
+            /*if (_dragNow)
             {
                 _dragNow = false;
                 return;
-            }
+            }*/
             
-            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(_ability);
+            if(_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability)
+                _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+            
+            else
+                _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(_ability);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
