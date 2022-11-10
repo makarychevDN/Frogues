@@ -891,7 +891,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.7395835
+  orthographic size: 2.1927083
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1055,6 +1055,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f94f611abb0c84c93ac90b78641b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilityHasBeenAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  AbilityHasBeenRemoved:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &598209964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,6 +2175,7 @@ MonoBehaviour:
   criticalDamage: 10
   radius: 2
   cost: 2
+  abilityDataForButton: {fileID: 0}
 --- !u!1 &1453314812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,6 +2378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1545028812}
   - component: {fileID: 1545028813}
+  - component: {fileID: 1545028814}
   m_Layer: 0
   m_Name: Spear Attack Ability
   m_TagString: Untagged
@@ -2409,6 +2417,20 @@ MonoBehaviour:
   criticalDamage: 10
   radius: 2
   cost: 2
+  abilityDataForButton: {fileID: 1545028814}
+--- !u!114 &1545028814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545028811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: bdb48c797b4cb794a9d14ee23a1c9032, type: 3}
 --- !u!1 &1571797094
 GameObject:
   m_ObjectHideFlags: 0
@@ -6968,6 +6990,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8869080919123209585, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: abilitiesManager
+      value: 
+      objectReference: {fileID: 564770821}
     - target: {fileID: 8939939660125023062, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] private int radius;
         [SerializeField] private int cost;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
+        [SerializeField] private Unit unit;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Grid _grid;
@@ -63,19 +64,5 @@ namespace FroguesFramework
         }
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
-
-        [ContextMenu("Init")]
-        public void Init() => Init(GetComponentInParent<Unit>());
-
-        [ContextMenu("Set as current ability")]
-        public void SetAsCurrentAbility()
-        {
-            var playersInput = _unit.input as PlayerInput;
-            
-            if (playersInput == null)
-                return;
-
-            playersInput.CurrentAbility = this;
-        }
     }
 }

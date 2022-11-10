@@ -80,6 +80,11 @@ namespace FroguesFramework
             {
                 input.Init();
             }
+            
+            if (abilitiesAbilitiesManager != null)
+            {
+                abilitiesAbilitiesManager.AbleToHaveCurrentAbility = input as IAbleToHaveCurrentAbility;
+            }
         }
     }
 }

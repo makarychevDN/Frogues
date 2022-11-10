@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class PlayerInput : MonoBehaviour, IAbleToAct
+    public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
     {
         private Unit _unit;
         private MovementAbility _movementAbility;
@@ -31,12 +31,14 @@ namespace FroguesFramework
         }
 
         #endregion
-        
+
         public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(_unit)
                                        && !CurrentlyActiveObjects.SomethingIsActNow;
 
-        public void Act(){}
-        
+        public void Act()
+        {
+        }
+
         public void Init()
         {
             _unit = GetComponentInParent<Unit>();

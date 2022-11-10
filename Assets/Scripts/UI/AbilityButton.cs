@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,41 +6,23 @@ namespace FroguesFramework
 {
     public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
-        public PlayerAbilityButtonSlot slot;
         [SerializeField] private Image image;
-        [SerializeField] private bool usingNow;
 
-        public UnityEvent onDragEvent;
-        public UnityEvent onDropEvent;
-
-        private PlayerInput _playerInput;
-        private Material _material;
         private bool _dragNow;
         private float maxDistanceToClamp = 64;
-        private ActionPointsIconsShaker _actionPointsIconsShaker;
         private IAbility _ability;
+        private AbilitiesPanel _abilitiesPanel;
+        
 
-        private void Awake()
-        { 
-            //_material = GetComponent<Image>().material;
-            //_playerInput = FindObjectOfType<PlayerInput>();
-            //_actionPointsIconsShaker = FindObjectOfType<ActionPointsIconsShaker>();
-        }
-
-        public void SetAbility(IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
+        public void Init(AbilitiesPanel abilitiesPanel,IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
         {
+            _abilitiesPanel = abilitiesPanel;
             _ability = ability;
             image.sprite = ableToDrawAbilityButton.GetAbilityDataForButton().Sprite;
+            transform.parent = abilitiesPanel.FirstEmptySlot();
+            transform.localPosition = Vector3.zero;
         }
-
-        private void Update()
-        {
-            if (_playerInput == null)
-                return;
-
-            //_material.SetInt("_AbilityUsingNow", (_playerInput.currentAbility == ability) ? 1 : 0);
-        }
-
+        
         public void PickAbility()
         {
             if (_dragNow)
@@ -49,22 +30,17 @@ namespace FroguesFramework
                 _dragNow = false;
                 return;
             }
-
-            //if (ability.IsActionPointsEnough()){} todo важно
-                //_playerInput.currentAbility = ability;
-            else
-            {
-                _actionPointsIconsShaker.Shake();
-            }
+            
+            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(_ability);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            onDragEvent.Invoke();
+            /*onDragEvent.Invoke();
             _dragNow = true;
             transform.parent = slot.transform.parent;
             slot.Content = null;
-            //_playerInput.currentAbility = null;
+            //_playerInput.currentAbility = null;*/
         }
 
         public void OnDrag(PointerEventData eventData)
