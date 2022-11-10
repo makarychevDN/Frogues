@@ -12,7 +12,6 @@ namespace FroguesFramework
         [SerializeField] private int radius;
         [SerializeField] private int cost;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
-        [SerializeField] private Unit unit;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Grid _grid;
@@ -34,6 +33,7 @@ namespace FroguesFramework
                 return;
             
             _targetCell.EnableSelectedCellHighlight(true);
+            _actionPoints.PreTakenCurrentPoints -= cost;
         }
 
         public void Use()
@@ -44,6 +44,9 @@ namespace FroguesFramework
             if(_targetCell.Content == null || _targetCell.Content.health == null)
                 return;
             
+            if(!_actionPoints.IsActionPointsEnough(cost))
+                return;
+            
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
             
@@ -51,6 +54,8 @@ namespace FroguesFramework
                 _targetCell.Content.health.TakeDamage(criticalDamage);
             else
                 _targetCell.Content.health.TakeDamage(defaultDamage);
+            
+            _actionPoints.SpendPoints(cost);
         }
         
         public void Init(Unit unit)
