@@ -35,6 +35,9 @@ namespace FroguesFramework
                 _currentAbility = _movementAbility;
 
             AbilityInput(_currentAbility);
+            
+            if(Input.GetKeyDown(KeyCode.Mouse1))
+                ClearCurrentAbility();
         }
 
         private void AbilityInput(IAbility ability)
