@@ -74,7 +74,7 @@ namespace FroguesFramework
             bool startCellBecomeEmptyOnMove)
         {
 
-            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !_actionPoints.CheckIsActionPointsEnough(movementCost))
+            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !_actionPoints.IsActionPointsEnough(movementCost))
                 return;
 
             _actionPoints.SpendPoints(movementCost);

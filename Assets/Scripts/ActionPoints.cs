@@ -44,7 +44,7 @@ namespace FroguesFramework
             get => pointsRegeneration;
         }
 
-        public bool CheckIsActionPointsEnough(int cost)
+        public bool IsActionPointsEnough(int cost)
         {
             return currentPoints >= cost;
         }
