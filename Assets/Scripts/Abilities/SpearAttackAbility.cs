@@ -11,6 +11,8 @@ namespace FroguesFramework
         [SerializeField] private int criticalDamage;
         [SerializeField] private int radius;
         [SerializeField] private int cost;
+        [SerializeField] private float animationBeforeImpactTime;
+        [SerializeField] private float fullAnimationTime;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
         private Unit _unit;
         private ActionPoints _actionPoints;
@@ -49,15 +51,23 @@ namespace FroguesFramework
             
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
-            
-            if(_unit.currentCell.DistanceToCell(_targetCell) == radius)
-                _targetCell.Content.health.TakeDamage(criticalDamage);
-            else
-                _targetCell.Content.health.TakeDamage(defaultDamage);
-            
+
             _actionPoints.SpendPoints(cost);
+            
+            Invoke(nameof(ApplyEffect), animationBeforeImpactTime);
+            CurrentlyActiveObjects.Add(this);
+            Invoke(nameof(RemoveFromCurrentlyActiveList), fullAnimationTime);
         }
-        
+
+        public void ApplyEffect()
+        {
+            _targetCell.Content.health.TakeDamage(_unit.currentCell.DistanceToCell(_targetCell) == radius
+                ? criticalDamage
+                : defaultDamage);
+        }
+
+        private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
+
         public void Init(Unit unit)
         {
             _unit = unit;

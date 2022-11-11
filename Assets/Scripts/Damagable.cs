@@ -13,16 +13,24 @@ namespace FroguesFramework
         private int _healthWithPreTakenDamage;
         private int _hashedHp;
         private AbleToDie _ableToDie;
+        private Animator _animator;
 
         public int MaxHp => maxHP;
         public int CurrentHp => currentHP;
 
-        public AbleToDie AbleToDie { set => _ableToDie = value; }
+        public void Init(Unit unit)
+        {
+            _ableToDie = unit.ableToDie;
+            _animator = unit.Animator;
+        }
 
         private void Awake()
         {
             _hashedHp = currentHP;
+            OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
         }
+        
+        private void TriggerTakeDamageAnimation() => _animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
 
         public void TakeHealing(int value)
         {

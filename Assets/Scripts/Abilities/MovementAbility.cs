@@ -60,7 +60,9 @@ namespace FroguesFramework
             _actionPoints.PreTakenCurrentPoints -= _prePath.Count - 1;
         }
 
-        public void Use()
+        public void Use() => ApplyEffect();
+
+        public void ApplyEffect()
         {
             _path = new List<Cell>(_prePath);
         }

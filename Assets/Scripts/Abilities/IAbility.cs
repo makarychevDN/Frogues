@@ -5,7 +5,10 @@ namespace FroguesFramework
         public void VisualizePreUse();
 
         public void Use();
+        
+        public void ApplyEffect();
 
         public void Init(Unit unit);
+        
     }
 }

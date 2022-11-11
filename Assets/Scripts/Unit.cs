@@ -53,7 +53,7 @@ namespace FroguesFramework
             
             if (health != null)
             {
-                health.AbleToDie = ableToDie;
+                health.Init(this);
             }
             
             if (spriteRotator != null)
