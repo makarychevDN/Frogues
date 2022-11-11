@@ -14,6 +14,7 @@ namespace FroguesFramework
         [SerializeField] private float animationBeforeImpactTime;
         [SerializeField] private float fullAnimationTime;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
+        [SerializeField] private AudioSource impactSound;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Grid _grid;
@@ -54,9 +55,10 @@ namespace FroguesFramework
 
             _actionPoints.SpendPoints(cost);
             
-            Invoke(nameof(ApplyEffect), animationBeforeImpactTime);
             CurrentlyActiveObjects.Add(this);
             Invoke(nameof(RemoveFromCurrentlyActiveList), fullAnimationTime);
+            Invoke(nameof(ApplyEffect), animationBeforeImpactTime);
+            impactSound.Play();
         }
 
         public void ApplyEffect()
