@@ -12,6 +12,8 @@ namespace FroguesFramework
 
         public AbilitiesManager AbilitiesManager => abilitiesManager;
 
+        public List<Transform> AbilitySlots => abilitySlots;
+
         private void Awake()
         {
             abilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);

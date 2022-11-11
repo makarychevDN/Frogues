@@ -13,6 +13,7 @@ namespace FroguesFramework
         private IAbility _ability;
         private AbilitiesPanel _abilitiesPanel;
         private bool _chosen;
+        private Transform _currentButtonSlot;
         
 
         public void Init(AbilitiesPanel abilitiesPanel,IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
@@ -20,7 +21,8 @@ namespace FroguesFramework
             _abilitiesPanel = abilitiesPanel;
             _ability = ability;
             image.sprite = ableToDrawAbilityButton.GetAbilityDataForButton().Sprite;
-            transform.parent = abilitiesPanel.FirstEmptySlot();
+            _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
+            transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
         }
         
@@ -41,6 +43,8 @@ namespace FroguesFramework
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+            transform.parent = _currentButtonSlot.parent;
             /*onDragEvent.Invoke();
             _dragNow = true;
             transform.parent = slot.transform.parent;
@@ -55,24 +59,36 @@ namespace FroguesFramework
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            /*PlayerAbilityButtonSlot closestSlot = AbilitiesPanel.Instance.abilitySlots[0];
-            onDropEvent.Invoke();
+            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+            
+            var closestSlot = _currentButtonSlot;
 
-            foreach (var temp in AbilitiesPanel.Instance.abilitySlots)
+            foreach (var temp in _abilitiesPanel.AbilitySlots)
             {
                 if (Vector3.Distance(closestSlot.transform.position, transform.position) >
                     Vector3.Distance(temp.transform.position, transform.position))
                     closestSlot = temp;
             }
-
+            
             if (Vector3.Distance(closestSlot.transform.position, transform.position) < maxDistanceToClamp)
             {
-                closestSlot.Content = this;
+                if (closestSlot.childCount != 0)
+                {
+                    closestSlot.GetComponentInChildren<AbilityButton>().SetSlot(_currentButtonSlot);
+                }
+                
+                _currentButtonSlot = closestSlot;
+                transform.parent = closestSlot;
             }
-            else
-            {
-                slot.Content = this;
-            }*/
+            
+            transform.localPosition = Vector3.zero;
+        }
+
+        private void SetSlot(Transform slot)
+        {
+            _currentButtonSlot = slot;
+            transform.parent = slot;
+            transform.localPosition = Vector3.zero;
         }
     }
 }
