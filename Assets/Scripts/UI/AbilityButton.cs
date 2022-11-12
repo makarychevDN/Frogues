@@ -78,9 +78,9 @@ namespace FroguesFramework
                 }
                 
                 _currentButtonSlot = closestSlot;
-                transform.parent = closestSlot;
             }
             
+            transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
         }
 
