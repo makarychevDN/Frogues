@@ -40,6 +40,16 @@ namespace FroguesFramework
             ResetNodes();
             return AStar(userCell, targetCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
         }
+        
+        public List<Cell> FindWayExcludeLastCell(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreProjectiles,
+            bool ignoreSurfaces)
+        {
+            ResetNodes();
+            var path = FindWay(userCell, targetCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
+            path.RemoveAt(path.Count - 1);
+            return path;
+        }
+
 
         public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movementCost,
             bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
