@@ -13,8 +13,7 @@ namespace FroguesFramework
         public void Act()
         {
             var path = PathFinder.Instance.FindWayExcludeLastCell(_unit.currentCell, target.currentCell, false, false, false);
-            
-            
+
             if (path == null || path.Count == 0 || !_actionPoints.IsActionPointsEnough(_movementAbility.MovementCost))
             {
                 _ableToSkipTurn.AutoSkip();
