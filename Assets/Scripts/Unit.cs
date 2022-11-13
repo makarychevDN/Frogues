@@ -44,6 +44,8 @@ namespace FroguesFramework
             set => animator = value;
         }
 
+        public AbleToSkipTurn AbleToSkipTurn => ableToSkipTurn;
+
         public void Init()
         {
             if (ableToDie != null)
