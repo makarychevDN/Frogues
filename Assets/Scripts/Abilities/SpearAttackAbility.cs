@@ -21,6 +21,7 @@ namespace FroguesFramework
         private Cell _targetCell;
         private List<Cell> _attackArea;
         private Animator _animator;
+        private SpriteRotator _spriteRotator;
 
         public void VisualizePreUse()
         {
@@ -52,6 +53,8 @@ namespace FroguesFramework
             
             if(!_actionPoints.IsActionPointsEnough(cost))
                 return;
+            
+            _spriteRotator.TurnByTarget(_targetCell.Content);
             
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
@@ -86,6 +89,7 @@ namespace FroguesFramework
             unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
+            _spriteRotator = unit.SpriteRotator;
         }
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;

@@ -43,6 +43,11 @@ namespace FroguesFramework
         {
             TurnByCoordinatesRelativeToSprite(target.transform.position);
         }
+        
+        public void TurnByTarget(Cell target)
+        {
+            TurnByCoordinatesRelativeToSprite(target.transform.position);
+        }
 
         public void TurnByCoordinatesRelativeToSprite(Vector3 coordinates)
         {

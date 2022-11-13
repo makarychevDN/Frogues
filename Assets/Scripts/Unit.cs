@@ -46,6 +46,8 @@ namespace FroguesFramework
 
         public AbleToSkipTurn AbleToSkipTurn => ableToSkipTurn;
 
+        public SpriteRotator SpriteRotator => spriteRotator;
+
         public void Init()
         {
             if (ableToDie != null)
