@@ -37,6 +37,9 @@ namespace FroguesFramework
             
             _targetCell.EnableSelectedCellHighlight(true);
             _actionPoints.PreTakenCurrentPoints -= cost;
+            
+            if(!_targetCell.IsEmpty)
+                _targetCell.Content.health.PreTakeDamage(CalculateDamage());
         }
 
         public void Use()
@@ -63,9 +66,14 @@ namespace FroguesFramework
 
         public void ApplyEffect()
         {
-            _targetCell.Content.health.TakeDamage(_unit.currentCell.DistanceToCell(_targetCell) == radius
+            _targetCell.Content.health.TakeDamage(CalculateDamage());
+        }
+
+        private int CalculateDamage()
+        {
+            return _unit.currentCell.DistanceToCell(_targetCell) == radius
                 ? criticalDamage
-                : defaultDamage);
+                : defaultDamage;
         }
 
         private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
