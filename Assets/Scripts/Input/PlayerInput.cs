@@ -14,22 +14,8 @@ namespace FroguesFramework
                                        && !CurrentlyActiveObjects.SomethingIsActNow;
 
         public void Act()
-        {
-        }
-
-        public void Init()
-        {
-            _unit = GetComponentInParent<Unit>();
-            _movementAbility = _unit.MovementAbility;
-            _currentAbility = _movementAbility;
-        }
-
-        private void Update()
-        {
+        {            
             DisableAllVisualizationFromPlayerOnMap();
-
-            if (!InputIsPossible)
-                return;
 
             if (_currentAbility == null)
                 _currentAbility = _movementAbility;
@@ -40,17 +26,26 @@ namespace FroguesFramework
                 ClearCurrentAbility();
         }
 
+        public void Init()
+        {
+            _unit = GetComponentInParent<Unit>();
+            _movementAbility = _unit.MovementAbility;
+            _currentAbility = _movementAbility;
+            _unit.AbleToSkipTurn.OnSkipTurn.AddListener(DisableAllVisualizationFromPlayerOnMap);
+        }
+
         private void AbilityInput(IAbility ability)
         {
             ability.VisualizePreUse();
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
             {
+                DisableAllVisualizationFromPlayerOnMap();
                 ability.Use();
             }
         }
 
-        public void DisableAllVisualizationFromPlayerOnMap()
+        private void DisableAllVisualizationFromPlayerOnMap()
         {
             Map.Instance.allCells.ForEach(cell => cell.DisableAllCellVisualization());
             var cellsWithContent = Map.Instance.allCells.WithContentOnly();
