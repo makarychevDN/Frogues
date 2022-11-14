@@ -7,6 +7,7 @@ namespace FroguesFramework
         public void Use();
 
         public void Init(Unit unit);
-        
+
+        public int GetCost();
     }
 }

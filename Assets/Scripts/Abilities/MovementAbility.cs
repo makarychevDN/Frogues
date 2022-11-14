@@ -23,8 +23,6 @@ namespace FroguesFramework
             set => _targetCell = value;
         }
 
-        public int MovementCost => _movable.DefaultMovementCost;
-
         public void VisualizePreUse()
         {
             CalculateMovementAreaAndPath(ref _preMovementArea, ref _prePath);
@@ -90,6 +88,8 @@ namespace FroguesFramework
             _movable = unit.movable;
             _actionPoints = unit.actionPoints;
         }
+
+        public int GetCost() => _movable.DefaultMovementCost;
 
         private void Update()
         {

@@ -5,8 +5,9 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpearAttackAbility : MonoBehaviour, IAbility, IAbleToDrawAbilityButton
+    public class SpearAttackAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
     {
+        [SerializeField] private bool findTargetByMouse;
         [SerializeField] private int defaultDamage;
         [SerializeField] private int criticalDamage;
         [SerializeField] private int radius;
@@ -27,12 +28,11 @@ namespace FroguesFramework
         {
             _attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, true, false);
             _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
-            
-            Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
+            Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             try { _targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y]; }
             catch (IndexOutOfRangeException e) { return; }
-            
+
             if (!_attackArea.Contains(_targetCell))
                 return;
             
@@ -45,7 +45,9 @@ namespace FroguesFramework
 
         public void Use()
         {
-            if (!_attackArea.Contains(_targetCell))
+            _attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, true, false);
+            
+            if (!PossibleToUseOnTarget(_targetCell.Content))
                 return;
             
             if(_targetCell.Content == null || _targetCell.Content.health == null)
@@ -90,6 +92,20 @@ namespace FroguesFramework
             _animator = unit.Animator;
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _spriteRotator = unit.SpriteRotator;
+        }
+
+        public int GetCost() => cost;
+
+        public bool PossibleToUseOnTarget(Unit target)
+        {
+            _attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, true, false);
+            return target != null && _attackArea.Contains(target.currentCell);
+        }
+        
+        public void UseOnTarget(Unit target)
+        {
+            _targetCell = target.currentCell;
+            Use();
         }
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;

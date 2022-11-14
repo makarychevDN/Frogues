@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class FollowTargetAI : MonoBehaviour, IAbleToAct
+    public class RatWithSpearAI : MonoBehaviour, IAbleToAct
     {
         [SerializeField] private Unit target;
+        [SerializeField] private SpearAttackAbility _spearAttackAbility;
         private Unit _unit;
         private MovementAbility _movementAbility;
         private ActionPoints _actionPoints;
@@ -12,6 +13,12 @@ namespace FroguesFramework
         
         public void Act()
         {
+            if (_spearAttackAbility.PossibleToUseOnTarget(target) && _actionPoints.IsActionPointsEnough(_spearAttackAbility.GetCost()))
+            {
+                _spearAttackAbility.UseOnTarget(target);
+                return;
+            }
+            
             var path = PathFinder.Instance.FindWayExcludeLastCell(_unit.currentCell, target.currentCell, false, false, false);
 
             if (path == null || path.Count == 0 || !_actionPoints.IsActionPointsEnough(_movementAbility.GetCost()))
@@ -30,6 +37,7 @@ namespace FroguesFramework
             _movementAbility = _unit.MovementAbility;
             _actionPoints = _unit.actionPoints;
             _ableToSkipTurn = _unit.AbleToSkipTurn;
+            _spearAttackAbility.Init(_unit);
         }
     }
 }
