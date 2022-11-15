@@ -18,6 +18,8 @@ namespace FroguesFramework
         public int MaxHp => maxHP;
         public int CurrentHp => currentHP;
 
+        public int HealthWithPreTakenDamage => _healthWithPreTakenDamage;
+
         public void Init(Unit unit)
         {
             _ableToDie = unit.ableToDie;

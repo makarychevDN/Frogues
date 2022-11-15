@@ -13,7 +13,7 @@ namespace FroguesFramework
         public void Update()
         {
             slider.maxValue = health.MaxHp;
-            slider.value = health.CurrentHp;
+            slider.value = health.HealthWithPreTakenDamage;
 
             if (textField != null)
                 textField.text = health.CurrentHp.ToString();
