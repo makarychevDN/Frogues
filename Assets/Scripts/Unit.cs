@@ -23,7 +23,7 @@ namespace FroguesFramework
         [Space]
         public Cell currentCell;
         public IAbleToAct input;
-        public UnitsUI UI;
+        public UnitsUIEnabler UI;
 
         [Header("Action Points")]
         public ActionPoints actionPoints;
