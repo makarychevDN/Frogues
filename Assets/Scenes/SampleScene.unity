@@ -842,8 +842,8 @@ MonoBehaviour:
   OnKeyDown:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2134684806}
-        m_TargetAssemblyTypeName: FroguesFramework.SpearAttackAbility, Assembly-CSharp
+      - m_Target: {fileID: 2134684810}
+        m_TargetAssemblyTypeName: FroguesFramework.ChargeInAbility, Assembly-CSharp
         m_MethodName: Init
         m_Mode: 2
         m_Arguments:
@@ -4599,7 +4599,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2134684809}
-  - component: {fileID: 2134684806}
+  - component: {fileID: 2134684810}
   - component: {fileID: 2134684808}
   - component: {fileID: 2134684807}
   m_Layer: 0
@@ -4609,27 +4609,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2134684806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2134684805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec8e2aa77caaf1346853da2d5efe9cd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  findTargetByMouse: 0
-  defaultDamage: 5
-  criticalDamage: 10
-  radius: 2
-  cost: 2
-  animationBeforeImpactTime: 0.15
-  fullAnimationTime: 0.8
-  abilityDataForButton: {fileID: 2134684808}
-  impactSound: {fileID: 2134684807}
 --- !u!82 &2134684807
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4754,6 +4733,21 @@ Transform:
   m_Father: {fileID: 1907423089}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2134684810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134684805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e31cbd388d7196845b6d6f03c99455c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  abilityDataForButton: {fileID: 2134684808}
+  impactSound: {fileID: 2134684807}
 --- !u!114 &877804317036756078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4904,6 +4898,7 @@ MonoBehaviour:
   trailsEnabler: {fileID: 0}
   pathDot: {fileID: 0}
   onMouseHoverVisualization: {fileID: 0}
+  hexagonCellNeighbours: {fileID: 0}
   chosenToMovement: 0
 --- !u!1 &5470828118645485954
 GameObject:

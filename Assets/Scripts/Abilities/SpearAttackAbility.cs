@@ -26,7 +26,7 @@ namespace FroguesFramework
 
         public void VisualizePreUse()
         {
-            _attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, true, false);
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.currentCell, radius);
             _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
 
             Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -45,7 +45,7 @@ namespace FroguesFramework
 
         public void Use()
         {
-            _attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, true, false);
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.currentCell, radius);
             
             if (!PossibleToUseOnTarget(_targetCell.Content))
                 return;
@@ -98,7 +98,7 @@ namespace FroguesFramework
 
         public bool PossibleToUseOnTarget(Unit target)
         {
-            _attackArea = PathFinder.Instance.GetCellsAreaForAOE(_unit.currentCell, radius, true, false);
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.currentCell, radius);
             return target != null && _attackArea.Contains(target.currentCell);
         }
         

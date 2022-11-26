@@ -21,6 +21,7 @@ namespace FroguesFramework
         [SerializeField] private TrailsEnabler trailsEnabler;
         [SerializeField] private SpriteRenderer pathDot;
         [SerializeField] private GameObject onMouseHoverVisualization;
+        [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
 
         [ReadOnly] public bool chosenToMovement;
 
@@ -43,6 +44,8 @@ namespace FroguesFramework
         }
 
         public bool IsEmpty => Content == null && !chosenToMovement;
+
+        public HexagonCellNeighbours CellNeighbours => hexagonCellNeighbours;
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {

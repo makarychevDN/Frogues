@@ -8,17 +8,10 @@ namespace FroguesFramework
         [SerializeField] private Cell myCell;
         
         private Dictionary<HexDir, Cell> neighbours;
-        public Dictionary<HexDir, Cell> Neighbours => neighbours;
-
         private Dictionary<HexDir, Cell> _oppositeNeighbours;
-        public Dictionary<HexDir, Cell> OppositeNeighbours => _oppositeNeighbours;
-        
         private Dictionary<Cell, HexDir> _hexDirsByCell;
-        public Dictionary<Cell, HexDir> HexDirsByCell => _hexDirsByCell;
-        
-        private Dictionary<Cell, HexDir> _oppositeDirsByCell;        
-        public Dictionary<Cell, HexDir> OppositeDirsByCell => _oppositeDirsByCell;
-        
+        private Dictionary<Cell, HexDir> _oppositeDirsByCell;
+
 
         private Cell _topLeftCell;
         private Cell _topRightCell;
@@ -26,6 +19,10 @@ namespace FroguesFramework
         private Cell _downRightCell;
         private Cell _leftCell;
         private Cell _rightCell;
+
+        public Cell GetNeighborByHexDir(HexDir hexDir) => neighbours[hexDir];
+
+        #region Init
 
         public void Init()
         {
@@ -37,7 +34,7 @@ namespace FroguesFramework
             InitHexDirsByCell();
             InitOppositeHexDirsByCell();
         }
-
+        
         private void InitNeighborCells()
         {
             int evenModificator = myCell.coordinates.y.Even().ToInt();
@@ -114,12 +111,14 @@ namespace FroguesFramework
                 {_downRightCell, HexDir.topLeft},
             };
         }
+        
+        #endregion
     }
     
 
     public enum HexDir
     {
-        zero = 0, left = 1, right = 2, topLeft = 3, topRight = 4, downLeft = 5, downRight = 6
+        /*zero = 0,*/ left = 1, right = 2, topLeft = 3, topRight = 4, downLeft = 5, downRight = 6
     }
 
 }

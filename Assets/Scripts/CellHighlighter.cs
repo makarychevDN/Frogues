@@ -16,7 +16,7 @@ namespace FroguesFramework
             
             foreach (var borderWithDir in bordersAndDirs)
             {
-                borderWithDir.border.SetActive(!highlightedCells.Contains(hexagonCellNeighbours.Neighbours[borderWithDir.hexDir]));
+                borderWithDir.border.SetActive(!highlightedCells.Contains(hexagonCellNeighbours.GetNeighborByHexDir(borderWithDir.hexDir)));
             }
         }
 
