@@ -26,7 +26,7 @@ namespace FroguesFramework
 
         public void VisualizePreUse()
         {
-            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.currentCell, radius);
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
 
             Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -40,17 +40,17 @@ namespace FroguesFramework
             _actionPoints.PreTakenCurrentPoints -= cost;
             
             if(!_targetCell.IsEmpty)
-                _targetCell.Content.health.PreTakeDamage(CalculateDamage());
+                _targetCell.Content.Health.PreTakeDamage(CalculateDamage());
         }
 
         public void Use()
         {
-            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.currentCell, radius);
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             
             if (!PossibleToUseOnTarget(_targetCell.Content))
                 return;
             
-            if(_targetCell.Content == null || _targetCell.Content.health == null)
+            if(_targetCell.Content == null || _targetCell.Content.Health == null)
                 return;
             
             if(!_actionPoints.IsActionPointsEnough(cost))
@@ -71,12 +71,12 @@ namespace FroguesFramework
 
         public void ApplyEffect()
         {
-            _targetCell.Content.health.TakeDamage(CalculateDamage());
+            _targetCell.Content.Health.TakeDamage(CalculateDamage());
         }
 
         private int CalculateDamage()
         {
-            return _unit.currentCell.DistanceToCell(_targetCell) == radius
+            return _unit.CurrentCell.DistanceToCell(_targetCell) == radius
                 ? criticalDamage
                 : defaultDamage;
         }
@@ -86,7 +86,7 @@ namespace FroguesFramework
         public void Init(Unit unit)
         {
             _unit = unit;
-            _actionPoints = unit.actionPoints;
+            _actionPoints = unit.ActionPoints;
             _grid = unit.Grid;
             unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
@@ -98,13 +98,13 @@ namespace FroguesFramework
 
         public bool PossibleToUseOnTarget(Unit target)
         {
-            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.currentCell, radius);
-            return target != null && _attackArea.Contains(target.currentCell);
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+            return target != null && _attackArea.Contains(target.CurrentCell);
         }
         
         public void UseOnTarget(Unit target)
         {
-            _targetCell = target.currentCell;
+            _targetCell = target.CurrentCell;
             Use();
         }
 

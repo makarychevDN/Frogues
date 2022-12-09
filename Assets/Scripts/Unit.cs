@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -5,90 +6,46 @@ namespace FroguesFramework
     //now unit is entry point for any unit functionality;
     public class Unit : MonoBehaviour
     {
-        [SerializeField] private AbilitiesManager abilitiesAbilitiesManager;
-        [SerializeField] private Animator animator;
-        public MapLayer unitType;
+        [field : Header("Map Setup")]
+        [field : SerializeField] public  MapLayer unitType { get; private set; }
+        [field : SerializeField] public Cell CurrentCell { get; set; }
+        [field : SerializeField] public bool Small { get; private set; }
         
-        [Header("Movable Setup")]
-        public Movable movable;
-        [SerializeField] private Transform spriteParent;
-        [SerializeField] private Transform shadow;
-        [SerializeField] private SpriteRotator spriteRotator;
-        [SerializeField] private MovementAbility movementAbility;
-
-        [Header("Health Setup")]
-        public Damagable health;
-        public AbleToDie ableToDie;
+        [field : Header("Input Setup")]
+        [field : SerializeField] public AbilitiesManager AbilitiesManager { get; private set; }
+        [field : SerializeField] public ActionPoints ActionPoints { get; private set; }
         
-        [Space]
-        public Cell currentCell;
-        public IAbleToAct input;
-        public UnitsUIEnabler UI;
-
-        [Header("Action Points")]
-        public ActionPoints actionPoints;
-        [SerializeField] private AbleToSkipTurn ableToSkipTurn;
-
-        [Header("For Small Units Only")] public bool small;
-        public Vector2Int Coordinates => currentCell.coordinates;
-
-        public MovementAbility MovementAbility => movementAbility;
+        [field : SerializeField] public AbleToSkipTurn AbleToSkipTurn { get; private set; }
+        [field : SerializeField] public Movable Movable { get; private set; }
+        [field : SerializeField] public MovementAbility MovementAbility { get; private set; }
+        [field : SerializeField] public IAbleToAct ActionsInput { get; private set; }
         
-        public Grid Grid => Map.Instance.tilemap.layoutGrid;
+        [field : Header("Sprite Setup")]
+        [field : SerializeField] public Animator Animator { get; private set; }
+        [field : SerializeField] public Transform SpriteParent { get; private set; }
+        [field : SerializeField] public Transform Shadow { get; private set; }
+        [field : SerializeField] public SpriteRotator SpriteRotator { get; private set; }
 
-        public AbilitiesManager AbilitiesManager => abilitiesAbilitiesManager;
-
-        public Animator Animator
-        {
-            get => animator;
-            set => animator = value;
-        }
-
-        public AbleToSkipTurn AbleToSkipTurn => ableToSkipTurn;
-
-        public SpriteRotator SpriteRotator => spriteRotator;
+        [field : Header("Health Setup")]
+        [field : SerializeField] public Damagable Health { get; private set; }
+        [field : SerializeField] public AbleToDie AbleToDie { get; private set; }
+        
+        
+        public Vector2Int Coordinates => CurrentCell.coordinates;
+        public Grid Grid => FindObjectOfType<Grid>();
 
         public void Init()
         {
-            if (ableToDie != null)
-            {
-                ableToDie.Unit = this;
-            }
+            AbleToDie?.Init(this);
+            Health?.Init(this);
+            SpriteRotator?.Init(this);
+            Movable?.Init(this);
+            MovementAbility?.Init(this);
             
-            if (health != null)
-            {
-                health.Init(this);
-            }
+            ActionsInput = GetComponentInChildren<IAbleToAct>();
+            ActionsInput?.Init();
             
-            if (spriteRotator != null)
-            {
-                spriteRotator.Sprite = spriteParent;
-            }
-            
-            if (movable != null)
-            {
-                movable.Unit = this;
-                movable.ActionPoints = actionPoints;
-                movable.SpriteParent = spriteParent;
-                movable.Shadow = shadow;
-                movable.SpriteRotator = spriteRotator;
-            }
-
-            if (movementAbility != null)
-            {
-                movementAbility.Init(this);
-            }
-            
-            input = GetComponentInChildren<IAbleToAct>();
-            if (input != null)
-            {
-                input.Init();
-            }
-            
-            if (abilitiesAbilitiesManager != null)
-            {
-                abilitiesAbilitiesManager.AbleToHaveCurrentAbility = input as IAbleToHaveCurrentAbility;
-            }
+            AbilitiesManager?.Init(this);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace FroguesFramework
                 content = value;
                 if (value != null)
                 {
-                    value.currentCell = this;
+                    value.CurrentCell = this;
                     OnBecameFull.Invoke();
                 }
                 else
@@ -52,7 +52,7 @@ namespace FroguesFramework
             if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
             {
                 if (ignoreSmallUnits && Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content
-                    .small)
+                    .Small)
                     return true;
 
                 return false;

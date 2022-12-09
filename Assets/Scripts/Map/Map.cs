@@ -114,7 +114,7 @@ namespace FroguesFramework
             foreach (var unitPos in unitsStartPositions)
             {
                 layers[unitPos.unit.unitType][unitPos.position.x, unitPos.position.y].Content = unitPos.unit;
-                unitPos.unit.transform.position = unitPos.unit.currentCell.transform.position;
+                unitPos.unit.transform.position = unitPos.unit.CurrentCell.transform.position;
             }
         }
 

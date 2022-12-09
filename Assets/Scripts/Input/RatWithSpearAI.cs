@@ -19,7 +19,7 @@ namespace FroguesFramework
                 return;
             }
             
-            var path = PathFinder.Instance.FindWayExcludeLastCell(_unit.currentCell, target.currentCell, false, false, false);
+            var path = PathFinder.Instance.FindWayExcludeLastCell(_unit.CurrentCell, target.CurrentCell, false, false, false);
 
             if (path == null || path.Count == 0 || !_actionPoints.IsActionPointsEnough(_movementAbility.GetCost()))
             {
@@ -35,7 +35,7 @@ namespace FroguesFramework
         {
             _unit = GetComponentInParent<Unit>();
             _movementAbility = _unit.MovementAbility;
-            _actionPoints = _unit.actionPoints;
+            _actionPoints = _unit.ActionPoints;
             _ableToSkipTurn = _unit.AbleToSkipTurn;
             _spearAttackAbility.Init(_unit);
         }

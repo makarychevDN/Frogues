@@ -28,34 +28,17 @@ namespace FroguesFramework
         private Transform _spriteParent, _shadow;
         private SpriteRotator _spriteRotator;
 
-        #region GetSetters
-        
-        public Unit Unit { set => _unit = value; }
-        public ActionPoints ActionPoints { set => _actionPoints = value; }
-
-        public Transform SpriteParent
-        {
-            set
-            {
-                _spriteParent = value;
-                _spriteAlignment = _spriteParent.parent.localPosition.y;
-            }
-        }
-
-        public Transform Shadow
-        {
-            set
-            {
-                _shadow = value;
-                _shadowAlignment = _shadow.parent.localPosition.y;
-            }
-        }
-
-        public SpriteRotator SpriteRotator { set => _spriteRotator = value; }
-
         public int DefaultMovementCost => defaultMovementCost;
 
-        #endregion
+        public void Init(Unit unit)
+        {
+            _unit = unit;
+            _actionPoints = unit.ActionPoints;
+            _spriteParent = unit.SpriteParent;
+            _spriteAlignment = _spriteParent.parent.localPosition.y;
+            _shadow = _unit.Shadow;
+            _spriteRotator = _unit.SpriteRotator;
+        }
 
         private void Awake()
         {
@@ -74,17 +57,17 @@ namespace FroguesFramework
             bool startCellBecomeEmptyOnMove)
         {
 
-            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.small) || !_actionPoints.IsActionPointsEnough(movementCost))
+            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.Small) || !_actionPoints.IsActionPointsEnough(movementCost))
                 return;
 
             _actionPoints.SpendPoints(movementCost);
             targetCell.chosenToMovement = true;
 
             if (startCellBecomeEmptyOnMove)
-                _unit.currentCell.Content = null;
+                _unit.CurrentCell.Content = null;
 
-            Play(_unit.currentCell, targetCell, speed, jumpHeight);
-            _unit.currentCell = null;
+            Play(_unit.CurrentCell, targetCell, speed, jumpHeight);
+            _unit.CurrentCell = null;
             OnMovementStart.Invoke();
         }
 
@@ -95,12 +78,12 @@ namespace FroguesFramework
 
             if (!targetCell.IsEmpty)
             {
-                if (!_unit.small && targetCell.Content.small)
+                if (!_unit.Small && targetCell.Content.Small)
                 {
                     var unitToStepOnIt = targetCell.Content;
                     targetCell.Content = _unit;
-                    unitToStepOnIt.currentCell = null;
-                    _unit.currentCell = targetCell;
+                    unitToStepOnIt.CurrentCell = null;
+                    _unit.CurrentCell = targetCell;
                     //unitToStepOnIt.stepOnUnitTrigger.Run(_unit);
                     return;
                 }

@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ChargeInAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
+    public class SpikedBall : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
     {
         [SerializeField] private int cost;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
@@ -18,11 +17,14 @@ namespace FroguesFramework
         private SpriteRotator _spriteRotator;
         private Movable _movable;
         private Cell _endOfPathCell;
+        private Cell _startOfPathCell;
+        private HexDir _directionToAttack;
 
         public void VisualizePreUse()
         {
             _endOfPathCell = null;
-            _attackArea = CellsTaker.TakeCellsLinesInAllDirections(_unit.currentCell);
+            _startOfPathCell = null;
+            _attackArea = CellsTaker.TakeCellsLinesInAllDirections(_unit.CurrentCell);
             _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
             
             Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -32,14 +34,17 @@ namespace FroguesFramework
             if (!_attackArea.Contains(_targetCell))
                 return;
 
-            List<Cell> targetCells = CellsTaker.TakeCellsLineWhichContainCell(_unit.currentCell, _targetCell);
+            List<Cell> targetCells = CellsTaker.TakeCellsLineWhichContainCell(_unit.CurrentCell, _targetCell);
             targetCells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
             _actionPoints.PreTakenCurrentPoints -= cost;
 
             _endOfPathCell = targetCells[targetCells.Count - 1];
+            _startOfPathCell = targetCells[0];
+            _directionToAttack = _unit.CurrentCell.CellNeighbours.GetHexDirByNeighbor(_startOfPathCell);
+            var cellToApplyEffect = _targetCell.CellNeighbours.GetNeighborByHexDir(_directionToAttack);
             
-            if(!_targetCell.IsEmpty)
-                _targetCell.Content.health.PreTakeDamage(1);
+            if(!cellToApplyEffect.IsEmpty && cellToApplyEffect.Content.Health != null)
+                cellToApplyEffect.Content.Health.PreTakeDamage(1);
         }
 
         public void Use()
@@ -62,8 +67,8 @@ namespace FroguesFramework
             _unit = unit;
             unit.AbilitiesManager.AddAbility(this);
             _grid = unit.Grid;
-            _actionPoints = unit.actionPoints;
-            _movable = unit.movable;
+            _actionPoints = unit.ActionPoints;
+            _movable = unit.Movable;
         }
 
         public int GetCost() => cost;
@@ -75,7 +80,7 @@ namespace FroguesFramework
         
         public void UseOnTarget(Unit target)
         {
-            _targetCell = target.currentCell;
+            _targetCell = target.CurrentCell;
             Use();
         }
 

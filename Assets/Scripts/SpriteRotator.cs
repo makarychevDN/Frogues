@@ -5,10 +5,10 @@ namespace FroguesFramework
     public class SpriteRotator : MonoBehaviour
     {
         private Transform _sprite;
-
-        public Transform Sprite
+        
+        public void Init(Unit unit)
         {
-            set => _sprite = value;
+            _sprite = unit.SpriteParent;
         }
 
         public void TurnLeft()

@@ -7,7 +7,7 @@ namespace FroguesFramework
     {
         [SerializeField] private Cell myCell;
         
-        private Dictionary<HexDir, Cell> neighbours;
+        private Dictionary<HexDir, Cell> _neighbours;
         private Dictionary<HexDir, Cell> _oppositeNeighbours;
         private Dictionary<Cell, HexDir> _hexDirsByCell;
         private Dictionary<Cell, HexDir> _oppositeDirsByCell;
@@ -20,7 +20,8 @@ namespace FroguesFramework
         private Cell _leftCell;
         private Cell _rightCell;
 
-        public Cell GetNeighborByHexDir(HexDir hexDir) => neighbours[hexDir];
+        public Cell GetNeighborByHexDir(HexDir hexDir) => _neighbours[hexDir];
+        public HexDir GetHexDirByNeighbor(Cell neighbor) => _hexDirsByCell[neighbor];
 
         #region Init
 
@@ -62,7 +63,7 @@ namespace FroguesFramework
         
         private void InitNeighbours()
         {
-            neighbours = new Dictionary<HexDir, Cell>
+            _neighbours = new Dictionary<HexDir, Cell>
             {
                 {HexDir.left, _leftCell},
                 {HexDir.right, _rightCell},

@@ -11,12 +11,13 @@ namespace FroguesFramework
         public UnityEvent<IAbility> AbilityHasBeenAdded;
         public UnityEvent<IAbility> AbilityHasBeenRemoved;
 
-        public IAbleToHaveCurrentAbility AbleToHaveCurrentAbility
-        {
-            get => _ableToHaveCurrentAbility;
-            set => _ableToHaveCurrentAbility = value;
-        }
+        public IAbleToHaveCurrentAbility AbleToHaveCurrentAbility => _ableToHaveCurrentAbility;
 
+        public void Init(Unit unit)
+        {
+            _ableToHaveCurrentAbility = unit.ActionsInput as IAbleToHaveCurrentAbility;
+        }
+        
         public void AddAbility(IAbility ability)
         {
             _abilities.Add(ability);

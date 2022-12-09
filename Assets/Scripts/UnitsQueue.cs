@@ -44,7 +44,7 @@ namespace FroguesFramework
         {
             _unitsList = new CycledLinkedList();
 
-            var actUnits = FindObjectsOfType<Unit>().Where(x => x.input != null).ToList();
+            var actUnits = FindObjectsOfType<Unit>().Where(x => x.ActionsInput != null).ToList();
 
             foreach (var unit in actUnits)
             {
@@ -77,7 +77,7 @@ namespace FroguesFramework
             if (CurrentlyActiveObjects.SomethingIsActNow || playerDied)
                 return;
 
-            _currentNode.Unit.input.Act();
+            _currentNode.Unit.ActionsInput.Act();
         }
 
         public void ActivateNext()

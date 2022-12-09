@@ -39,8 +39,8 @@ namespace FroguesFramework
             }
             
             var playerInstance = metaPlayer;
-            player.currentCell.Content = playerInstance;
-            playerInstance.currentCell = player.currentCell;
+            player.CurrentCell.Content = playerInstance;
+            playerInstance.CurrentCell = player.CurrentCell;
             playerInstance.transform.position = player.transform.position;
             player.gameObject.SetActive(false);
             player = playerInstance;

@@ -49,10 +49,10 @@ namespace FroguesFramework
         {
             Map.Instance.allCells.ForEach(cell => cell.DisableAllCellVisualization());
             var cellsWithContent = Map.Instance.allCells.WithContentOnly();
-            cellsWithContent.Where(cell => cell.Content.health != null).ToList()
-                .ForEach(cell => cell.Content.health.ResetPreDamageValue());
-            cellsWithContent.Where(cell => cell.Content.actionPoints != null).ToList()
-                .ForEach(cell => cell.Content.actionPoints.ResetPreCostValue());
+            cellsWithContent.Where(cell => cell.Content.Health != null).ToList()
+                .ForEach(cell => cell.Content.Health.ResetPreDamageValue());
+            cellsWithContent.Where(cell => cell.Content.ActionPoints != null).ToList()
+                .ForEach(cell => cell.Content.ActionPoints.ResetPreCostValue());
         }
 
         public void SetCurrentAbility(IAbility ability) => _currentAbility = ability;

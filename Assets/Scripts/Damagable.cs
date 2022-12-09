@@ -22,7 +22,7 @@ namespace FroguesFramework
 
         public void Init(Unit unit)
         {
-            _ableToDie = unit.ableToDie;
+            _ableToDie = unit.AbleToDie;
             _animator = unit.Animator;
         }
 

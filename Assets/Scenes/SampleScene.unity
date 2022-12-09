@@ -259,13 +259,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 163628429}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 0
+  m_Father: {fileID: 1005208943}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &163628432
 MonoBehaviour:
@@ -931,7 +931,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
+  m_Father: {fileID: 1005208943}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &486056180
@@ -1088,6 +1088,39 @@ MonoBehaviour:
   uiObjects:
   - {fileID: 1141283356}
   - {fileID: 2038718181}
+--- !u!1 &519317551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 519317552}
+  m_Layer: 0
+  m_Name: Sprites Setup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &519317552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519317551}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 653689325}
+  - {fileID: 1742593693}
+  m_Father: {fileID: 1907423089}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,12 +1320,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564770819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
+  m_Father: {fileID: 1005208943}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &564770821
@@ -1430,7 +1463,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 641464090}
-  - component: {fileID: 641464091}
   m_Layer: 0
   m_Name: Abilities
   m_TagString: Untagged
@@ -1453,18 +1485,6 @@ Transform:
   m_Father: {fileID: 743871967}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &641464091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 641464089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70fdf18d1bb5548459bb0fe74d165b0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &653689324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,15 +1508,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 653689324}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 548460926}
   - {fileID: 598209965}
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 2
+  m_Father: {fileID: 519317552}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &658934735
 GameObject:
@@ -1587,21 +1607,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitiesAbilitiesManager: {fileID: 0}
-  animator: {fileID: 247614141}
-  unitType: 0
-  movable: {fileID: 1017300063}
-  spriteParent: {fileID: 117188980}
-  shadow: {fileID: 1637711209}
-  spriteRotator: {fileID: 0}
-  movementAbility: {fileID: 265350345}
-  health: {fileID: 1461430653}
-  ableToDie: {fileID: 1453314814}
-  currentCell: {fileID: 0}
-  UI: {fileID: 0}
-  actionPoints: {fileID: 973154314}
-  ableToSkipTurn: {fileID: 1468102570}
-  small: 0
+  <unitType>k__BackingField: 0
+  <CurrentCell>k__BackingField: {fileID: 0}
+  <Small>k__BackingField: 0
+  <AbilitiesManager>k__BackingField: {fileID: 0}
+  <ActionPoints>k__BackingField: {fileID: 973154314}
+  <AbleToSkipTurn>k__BackingField: {fileID: 0}
+  <Movable>k__BackingField: {fileID: 1017300063}
+  <MovementAbility>k__BackingField: {fileID: 265350345}
+  <Animator>k__BackingField: {fileID: 247614141}
+  <SpriteParent>k__BackingField: {fileID: 117188980}
+  <Shadow>k__BackingField: {fileID: 1637711209}
+  <SpriteRotator>k__BackingField: {fileID: 1421948031}
+  <Health>k__BackingField: {fileID: 1029490264}
+  <AbleToDie>k__BackingField: {fileID: 1453314814}
 --- !u!4 &743871967
 Transform:
   m_ObjectHideFlags: 0
@@ -1615,15 +1634,15 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1017300062}
-  - {fileID: 265350344}
   - {fileID: 359615465}
+  - {fileID: 265350344}
+  - {fileID: 1461430652}
+  - {fileID: 304156803}
+  - {fileID: 973154313}
+  - {fileID: 172829430}
   - {fileID: 1468102571}
   - {fileID: 1421948030}
-  - {fileID: 973154313}
-  - {fileID: 304156803}
   - {fileID: 1453314813}
-  - {fileID: 1461430652}
-  - {fileID: 172829430}
   - {fileID: 324649695}
   - {fileID: 641464090}
   m_Father: {fileID: 5734413608733202844}
@@ -2045,7 +2064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
+  m_Father: {fileID: 1005208943}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &931634900
@@ -2061,6 +2080,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   findTargetByMouse: 1
+--- !u!1 &967688072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 967688073}
+  m_Layer: 0
+  m_Name: Health Setup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &967688073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967688072}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1106314395}
+  - {fileID: 1791976366}
+  m_Father: {fileID: 1907423089}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &973154312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2154,6 +2206,43 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1884548391}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1005208942
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1005208943}
+  m_Layer: 0
+  m_Name: Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1005208943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1005208942}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 564770820}
+  - {fileID: 1186086425}
+  - {fileID: 431883766}
+  - {fileID: 163628430}
+  - {fileID: 931634899}
+  - {fileID: 1190723603}
+  m_Father: {fileID: 1907423089}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1017300061
@@ -2452,13 +2541,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106314394}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 3
+  m_Father: {fileID: 967688073}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1106314396
 MonoBehaviour:
@@ -2613,13 +2702,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186086422}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 4
+  m_Father: {fileID: 1005208943}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1190723602
 GameObject:
@@ -2645,13 +2734,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190723602}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
-  m_RootOrder: 1
+  m_Father: {fileID: 1005208943}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1190723604
 MonoBehaviour:
@@ -3913,7 +4002,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
+  m_Father: {fileID: 519317552}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1742593694
@@ -3957,7 +4046,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1907423089}
+  m_Father: {fileID: 967688073}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1791976367
@@ -4130,21 +4219,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitiesAbilitiesManager: {fileID: 1102764509}
-  animator: {fileID: 929624924}
-  unitType: 0
-  movable: {fileID: 1420969660}
-  spriteParent: {fileID: 148470585}
-  shadow: {fileID: 1632435468}
-  spriteRotator: {fileID: 1684248639}
-  movementAbility: {fileID: 984871916}
-  health: {fileID: 1029490264}
-  ableToDie: {fileID: 2125039476}
-  currentCell: {fileID: 0}
-  UI: {fileID: 0}
-  actionPoints: {fileID: 1656853965}
-  ableToSkipTurn: {fileID: 72327298}
-  small: 0
+  <unitType>k__BackingField: 0
+  <CurrentCell>k__BackingField: {fileID: 0}
+  <Small>k__BackingField: 0
+  <AbilitiesManager>k__BackingField: {fileID: 1102764509}
+  <ActionPoints>k__BackingField: {fileID: 1656853965}
+  <AbleToSkipTurn>k__BackingField: {fileID: 72327298}
+  <Movable>k__BackingField: {fileID: 1420969660}
+  <MovementAbility>k__BackingField: {fileID: 984871916}
+  <Animator>k__BackingField: {fileID: 929624924}
+  <SpriteParent>k__BackingField: {fileID: 148470585}
+  <Shadow>k__BackingField: {fileID: 1632435468}
+  <SpriteRotator>k__BackingField: {fileID: 1684248639}
+  <Health>k__BackingField: {fileID: 1029490264}
+  <AbleToDie>k__BackingField: {fileID: 2125039476}
 --- !u!114 &1884548393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4202,21 +4290,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitiesAbilitiesManager: {fileID: 564770821}
-  animator: {fileID: 1571797097}
-  unitType: 0
-  movable: {fileID: 163628432}
-  spriteParent: {fileID: 179994444}
-  shadow: {fileID: 1878972905}
-  spriteRotator: {fileID: 1742593694}
-  movementAbility: {fileID: 931634900}
-  health: {fileID: 1106314396}
-  ableToDie: {fileID: 1791976367}
-  currentCell: {fileID: 0}
-  UI: {fileID: 0}
-  actionPoints: {fileID: 1186086423}
-  ableToSkipTurn: {fileID: 431883764}
-  small: 0
+  <unitType>k__BackingField: 0
+  <CurrentCell>k__BackingField: {fileID: 0}
+  <Small>k__BackingField: 0
+  <AbilitiesManager>k__BackingField: {fileID: 564770821}
+  <ActionPoints>k__BackingField: {fileID: 1186086423}
+  <AbleToSkipTurn>k__BackingField: {fileID: 431883764}
+  <Movable>k__BackingField: {fileID: 163628432}
+  <MovementAbility>k__BackingField: {fileID: 931634900}
+  <Animator>k__BackingField: {fileID: 1571797097}
+  <SpriteParent>k__BackingField: {fileID: 179994444}
+  <Shadow>k__BackingField: {fileID: 1878972905}
+  <SpriteRotator>k__BackingField: {fileID: 1742593694}
+  <Health>k__BackingField: {fileID: 1106314396}
+  <AbleToDie>k__BackingField: {fileID: 1791976367}
 --- !u!4 &1907423089
 Transform:
   m_ObjectHideFlags: 0
@@ -4229,18 +4316,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 163628430}
-  - {fileID: 931634899}
+  - {fileID: 1005208943}
+  - {fileID: 519317552}
+  - {fileID: 967688073}
   - {fileID: 1545028812}
   - {fileID: 2134684809}
-  - {fileID: 1190723603}
-  - {fileID: 431883766}
-  - {fileID: 1742593693}
-  - {fileID: 1186086425}
-  - {fileID: 653689325}
-  - {fileID: 1791976366}
-  - {fileID: 1106314395}
-  - {fileID: 564770820}
   - {fileID: 658934736}
   - {fileID: 395624297}
   m_Father: {fileID: 1226791128}
@@ -4603,7 +4683,7 @@ GameObject:
   - component: {fileID: 2134684808}
   - component: {fileID: 2134684807}
   m_Layer: 0
-  m_Name: Shield Attack Ability
+  m_Name: Spiked Ball Ability
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6867,21 +6947,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitiesAbilitiesManager: {fileID: 0}
-  animator: {fileID: 0}
-  unitType: 0
-  movable: {fileID: 0}
-  spriteParent: {fileID: 0}
-  shadow: {fileID: 0}
-  spriteRotator: {fileID: 0}
-  movementAbility: {fileID: 0}
-  health: {fileID: 0}
-  ableToDie: {fileID: 0}
-  currentCell: {fileID: 0}
-  UI: {fileID: 0}
-  actionPoints: {fileID: 0}
-  ableToSkipTurn: {fileID: 0}
-  small: 0
+  <unitType>k__BackingField: 0
+  <CurrentCell>k__BackingField: {fileID: 0}
+  <Small>k__BackingField: 0
+  <AbilitiesManager>k__BackingField: {fileID: 0}
+  <ActionPoints>k__BackingField: {fileID: 0}
+  <AbleToSkipTurn>k__BackingField: {fileID: 0}
+  <Movable>k__BackingField: {fileID: 0}
+  <MovementAbility>k__BackingField: {fileID: 0}
+  <Animator>k__BackingField: {fileID: 0}
+  <SpriteParent>k__BackingField: {fileID: 0}
+  <Shadow>k__BackingField: {fileID: 0}
+  <SpriteRotator>k__BackingField: {fileID: 0}
+  <Health>k__BackingField: {fileID: 0}
+  <AbleToDie>k__BackingField: {fileID: 0}
 --- !u!1 &5734413608301548589
 GameObject:
   m_ObjectHideFlags: 0
@@ -7439,21 +7518,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2ba1ca1f514f94a917cc52205f1be5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilitiesAbilitiesManager: {fileID: 0}
-  animator: {fileID: 0}
-  unitType: 0
-  movable: {fileID: 0}
-  spriteParent: {fileID: 0}
-  shadow: {fileID: 0}
-  spriteRotator: {fileID: 0}
-  movementAbility: {fileID: 0}
-  health: {fileID: 0}
-  ableToDie: {fileID: 0}
-  currentCell: {fileID: 4705104859190286457}
-  UI: {fileID: 0}
-  actionPoints: {fileID: 0}
-  ableToSkipTurn: {fileID: 0}
-  small: 0
+  <unitType>k__BackingField: 0
+  <CurrentCell>k__BackingField: {fileID: 0}
+  <Small>k__BackingField: 0
+  <AbilitiesManager>k__BackingField: {fileID: 0}
+  <ActionPoints>k__BackingField: {fileID: 0}
+  <AbleToSkipTurn>k__BackingField: {fileID: 0}
+  <Movable>k__BackingField: {fileID: 0}
+  <MovementAbility>k__BackingField: {fileID: 0}
+  <Animator>k__BackingField: {fileID: 0}
+  <SpriteParent>k__BackingField: {fileID: 0}
+  <Shadow>k__BackingField: {fileID: 0}
+  <SpriteRotator>k__BackingField: {fileID: 0}
+  <Health>k__BackingField: {fileID: 0}
+  <AbleToDie>k__BackingField: {fileID: 0}
 --- !u!1001 &7732932570220718218
 PrefabInstance:
   m_ObjectHideFlags: 0

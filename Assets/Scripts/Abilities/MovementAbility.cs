@@ -30,7 +30,7 @@ namespace FroguesFramework
             _preMovementArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(_preMovementArea));
             
             if(_prePath != null && _prePath.Count != 0)
-                _prePath.Insert(0, _unit.currentCell);
+                _prePath.Insert(0, _unit.CurrentCell);
             
             for (int i = 1; i < _prePath.Count - 1; i++)
             {
@@ -56,9 +56,9 @@ namespace FroguesFramework
         {
             path.Clear();
 
-            movementArea = PathFinder.Instance.GetCellsAreaByActionPoints(_unit.currentCell,
+            movementArea = PathFinder.Instance.GetCellsAreaByActionPoints(_unit.CurrentCell,
                 _actionPoints.CurrentActionPoints,
-                _unit.movable.DefaultMovementCost, false, false, true);
+                _unit.Movable.DefaultMovementCost, false, false, true);
 
             if (findTargetByMouse)
             {
@@ -70,7 +70,7 @@ namespace FroguesFramework
             if(!movementArea.Contains(_targetCell))
                 return;
 
-            path = PathFinder.Instance.FindWay(_unit.currentCell, _targetCell, false,
+            path = PathFinder.Instance.FindWay(_unit.CurrentCell, _targetCell, false,
                 false, true);
         }
 
@@ -85,8 +85,8 @@ namespace FroguesFramework
         {
             _unit = unit;
             _grid = unit.Grid;
-            _movable = unit.movable;
-            _actionPoints = unit.actionPoints;
+            _movable = unit.Movable;
+            _actionPoints = unit.ActionPoints;
         }
 
         public int GetCost() => _movable.DefaultMovementCost;
