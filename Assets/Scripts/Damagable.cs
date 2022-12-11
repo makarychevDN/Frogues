@@ -3,11 +3,12 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class Damagable : MonoBehaviour
+    public class Damagable : MonoBehaviour, IRoundTickable
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
-        [SerializeField] private int armor;
+        [SerializeField] private int permanentArmor;
+        [SerializeField] private int temporaryArmor;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnHpEnded;
         private int _healthWithPreTakenDamage;
@@ -17,8 +18,10 @@ namespace FroguesFramework
 
         public int MaxHp => maxHP;
         public int CurrentHp => currentHP;
-
         public int HealthWithPreTakenDamage => _healthWithPreTakenDamage;
+        public int PermanentArmor => permanentArmor;
+        public int TemporaryArmor => temporaryArmor;
+        public int Armor => temporaryArmor + permanentArmor;
 
         public void Init(Unit unit)
         {
@@ -71,13 +74,17 @@ namespace FroguesFramework
         {
             if (!ignoreArmor)
             {
-                damageValue -= armor;
+                int damageToTemporaryArmor = Mathf.Clamp(damageValue, 0, temporaryArmor);
+                damageValue -= damageToTemporaryArmor;
+                temporaryArmor -= damageToTemporaryArmor;
+
+                int damageToArmor = Mathf.Clamp(damageValue, 0, permanentArmor);
+                damageValue -= damageToArmor;
+                permanentArmor -= damageToArmor;
+                
                 damageValue = Mathf.Clamp(damageValue, 0, 1000);
             }
-            
-            if(damageValue == 0)
-                return;
-            
+
             hp -= damageValue;
         }
 
@@ -89,6 +96,11 @@ namespace FroguesFramework
         public void DieFromStepOnUnit()
         {
             TakeDamage(maxHP, true);
+        }
+
+        public void Tick()
+        {
+            temporaryArmor = 0;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,17 +7,27 @@ namespace FroguesFramework
 {
     public class HealthBar : MonoBehaviour
     {
-        [SerializeField] private Slider slider;
+        [SerializeField] private Slider hpSlider;
+        [SerializeField] private Slider armorSlider;
         [SerializeField] private Damagable health;
         [SerializeField] private TextMeshProUGUI textField;
 
         public void Update()
         {
-            slider.maxValue = health.MaxHp;
-            slider.value = health.HealthWithPreTakenDamage;
+            hpSlider.maxValue = health.MaxHp + health.Armor;
+            armorSlider.maxValue = health.MaxHp + health.Armor;
+            hpSlider.value = health.HealthWithPreTakenDamage;
+            armorSlider.value = health.CurrentHp + health.Armor;
 
-            if (textField != null)
-                textField.text = health.CurrentHp.ToString();
+            if (textField == null)
+                return;
+
+            string text = (health.CurrentHp + health.Armor).ToString();
+
+            //if (health.Armor != 0)
+                //text += $"   <#aac0cd>{health.Armor}</color>";
+            
+            textField.text = text;
         }
     }
 }
