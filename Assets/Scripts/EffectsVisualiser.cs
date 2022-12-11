@@ -16,22 +16,26 @@ namespace FroguesFramework
         private void ShowDamageSuccessfullyBlockedEffect()
         {
             damageSuccessfullyBlockedEffect.SetActive(true);
-            Invoke(nameof(HideSuccessfullyBlockedEffect), 0.2f);
+            CurrentlyActiveObjects.Add(this);
+            Invoke(nameof(HideSuccessfullyBlockedEffect), 0.8f);
         }
         
         private void HideSuccessfullyBlockedEffect()
         {
+            CurrentlyActiveObjects.Remove(this);
             damageSuccessfullyBlockedEffect.SetActive(false);
         }
         
         private void ShowBlockDestroyedEffect()
         {
             blockDestroyedEffect.SetActive(true);
-            Invoke(nameof(HideBlockDestroyedEffect), 0.2f);
+            CurrentlyActiveObjects.Add(this);
+            Invoke(nameof(HideBlockDestroyedEffect), 0.8f);
         }
         
         private void HideBlockDestroyedEffect()
         {
+            CurrentlyActiveObjects.Remove(this);
             blockDestroyedEffect.SetActive(false);
         }
     }
