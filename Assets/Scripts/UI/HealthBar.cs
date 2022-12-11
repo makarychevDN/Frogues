@@ -1,4 +1,3 @@
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +8,7 @@ namespace FroguesFramework
     {
         [SerializeField] private Slider hpSlider;
         [SerializeField] private Slider armorSlider;
+        [SerializeField] private Slider preTakenDamageDeltaSlider;
         [SerializeField] private Damagable health;
         [SerializeField] private TextMeshProUGUI textField;
 
@@ -16,8 +16,11 @@ namespace FroguesFramework
         {
             hpSlider.maxValue = health.MaxHp + health.Armor;
             armorSlider.maxValue = health.MaxHp + health.Armor;
+            preTakenDamageDeltaSlider.maxValue = health.MaxHp + health.Armor;
+            
             hpSlider.value = health.HealthWithPreTakenDamage;
             armorSlider.value = health.HealthWithPreTakenDamage + health.ArmorWithPreTakenDamage;
+            preTakenDamageDeltaSlider.value = health.CurrentHp + health.Armor;
 
             if (textField == null)
                 return;
