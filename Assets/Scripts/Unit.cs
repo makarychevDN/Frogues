@@ -29,6 +29,7 @@ namespace FroguesFramework
         [field : Header("Health Setup")]
         [field : SerializeField] public Damagable Health { get; private set; }
         [field : SerializeField] public AbleToDie AbleToDie { get; private set; }
+        [field : SerializeField] public EffectsVisualiser EffectsVisualiser { get; private set; }
         
         
         public Vector2Int Coordinates => CurrentCell.coordinates;
@@ -46,6 +47,7 @@ namespace FroguesFramework
             ActionsInput?.Init();
             
             AbilitiesManager?.Init(this);
+            EffectsVisualiser?.Init(this);
         }
     }
 }

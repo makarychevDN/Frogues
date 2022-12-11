@@ -10,9 +10,11 @@ namespace FroguesFramework
         [SerializeField] private int permanentArmor;
         [SerializeField] private int temporaryArmor;
         public UnityEvent OnApplyUnblockedDamage;
+        public UnityEvent OnDamageBlockedSuccessfully;
+        public UnityEvent OnBlockDestroyed;
         public UnityEvent OnHpEnded;
         private int _healthWithPreTakenDamage, _permanentArmorWithPreTakenDamage, _temporaryArmorWithPreTakenDamage;
-        private int _hashedHp;
+        private int _hashedHp, _hashedArmor;
         private AbleToDie _ableToDie;
         private Animator _animator;
 
@@ -33,6 +35,7 @@ namespace FroguesFramework
         private void Awake()
         {
             _hashedHp = currentHP;
+            _hashedArmor = Armor;
             OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
         }
         
@@ -51,6 +54,18 @@ namespace FroguesFramework
         {
             CalculateDamage(ref currentHP, ref permanentArmor,ref temporaryArmor, damageValue, ignoreArmor);
 
+            if (_hashedArmor != 0)
+            {
+                if (Armor != 0)
+                {
+                    OnDamageBlockedSuccessfully.Invoke();
+                }
+                else
+                {
+                    OnBlockDestroyed.Invoke();
+                }
+            }
+            
             if (currentHP < _hashedHp)
             {
                 OnApplyUnblockedDamage.Invoke();
@@ -63,6 +78,7 @@ namespace FroguesFramework
             }
             
             _hashedHp = currentHP;
+            _hashedArmor = Armor;
         }
 
         public void PreTakeDamage(int damageValue) =>
@@ -106,6 +122,7 @@ namespace FroguesFramework
         public void Tick()
         {
             temporaryArmor = 0;
+            _hashedArmor = Armor;
         }
     }
 }
