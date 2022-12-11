@@ -11,7 +11,7 @@ namespace FroguesFramework
         [SerializeField] private int temporaryArmor;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnHpEnded;
-        private int _healthWithPreTakenDamage;
+        private int _healthWithPreTakenDamage, _permanentArmorWithPreTakenDamage, _temporaryArmorWithPreTakenDamage;
         private int _hashedHp;
         private AbleToDie _ableToDie;
         private Animator _animator;
@@ -22,6 +22,7 @@ namespace FroguesFramework
         public int PermanentArmor => permanentArmor;
         public int TemporaryArmor => temporaryArmor;
         public int Armor => temporaryArmor + permanentArmor;
+        public int ArmorWithPreTakenDamage => _temporaryArmorWithPreTakenDamage + _permanentArmorWithPreTakenDamage;
 
         public void Init(Unit unit)
         {
@@ -48,7 +49,7 @@ namespace FroguesFramework
 
         public void TakeDamage(int damageValue, bool ignoreArmor)
         {
-            CalculateDamage(ref currentHP, damageValue, ignoreArmor);
+            CalculateDamage(ref currentHP, ref permanentArmor,ref temporaryArmor, damageValue, ignoreArmor);
 
             if (currentHP < _hashedHp)
             {
@@ -65,32 +66,36 @@ namespace FroguesFramework
         }
 
         public void PreTakeDamage(int damageValue) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, damageValue, false);
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentArmorWithPreTakenDamage,
+                ref _temporaryArmorWithPreTakenDamage, damageValue, false);
 
         public void PreTakeDamage(int damageValue, bool ignoreArmor) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, damageValue, ignoreArmor);
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentArmorWithPreTakenDamage,
+                ref _temporaryArmorWithPreTakenDamage, damageValue, ignoreArmor);
 
-        private void CalculateDamage(ref int hp, int damageValue, bool ignoreArmor)
+        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentArmor, ref int calculatingTemporaryArmor, int damageValue, bool ignoreArmor)
         {
             if (!ignoreArmor)
             {
-                int damageToTemporaryArmor = Mathf.Clamp(damageValue, 0, temporaryArmor);
+                int damageToTemporaryArmor = Mathf.Clamp(damageValue, 0, calculatingTemporaryArmor);
                 damageValue -= damageToTemporaryArmor;
-                temporaryArmor -= damageToTemporaryArmor;
+                calculatingTemporaryArmor -= damageToTemporaryArmor;
 
-                int damageToArmor = Mathf.Clamp(damageValue, 0, permanentArmor);
+                int damageToArmor = Mathf.Clamp(damageValue, 0, calculatingPermanentArmor);
                 damageValue -= damageToArmor;
-                permanentArmor -= damageToArmor;
+                calculatingPermanentArmor -= damageToArmor;
                 
                 damageValue = Mathf.Clamp(damageValue, 0, 1000);
             }
 
-            hp -= damageValue;
+            calculatingHp -= damageValue;
         }
 
         public void ResetPreDamageValue()
         {
             _healthWithPreTakenDamage = currentHP;
+            _permanentArmorWithPreTakenDamage = permanentArmor;
+            _temporaryArmorWithPreTakenDamage = temporaryArmor;
         }
 
         public void DieFromStepOnUnit()

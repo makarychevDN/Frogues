@@ -17,7 +17,7 @@ namespace FroguesFramework
             hpSlider.maxValue = health.MaxHp + health.Armor;
             armorSlider.maxValue = health.MaxHp + health.Armor;
             hpSlider.value = health.HealthWithPreTakenDamage;
-            armorSlider.value = health.CurrentHp + health.Armor;
+            armorSlider.value = health.HealthWithPreTakenDamage + health.ArmorWithPreTakenDamage;
 
             if (textField == null)
                 return;
