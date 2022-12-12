@@ -6,11 +6,14 @@ namespace FroguesFramework
     {
         [SerializeField] private GameObject damageSuccessfullyBlockedEffect;
         [SerializeField] private GameObject blockDestroyedEffect;
-
+        [SerializeField] private GameObject temporaryBlockIncreasedEffect;
+        [SerializeField] private GameObject permanentBlockIncreasedEffect;
+        
         public void Init(Unit unit)
         {
             unit.Health.OnDamageBlockedSuccessfully.AddListener(ShowDamageSuccessfullyBlockedEffect);
             unit.Health.OnBlockDestroyed.AddListener(ShowBlockDestroyedEffect);
+            unit.Health.OnTemporaryBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
         }
 
         private void ShowDamageSuccessfullyBlockedEffect()
@@ -37,6 +40,19 @@ namespace FroguesFramework
         {
             CurrentlyActiveObjects.Remove(this);
             blockDestroyedEffect.SetActive(false);
+        }
+        
+        private void ShowTemporaryBlockIncreasedEffect()
+        {
+            temporaryBlockIncreasedEffect.SetActive(true);
+            CurrentlyActiveObjects.Add(this);
+            Invoke(nameof(HideTemporaryBlockIncreasedEffect), 0.8f);
+        }
+        
+        private void HideTemporaryBlockIncreasedEffect()
+        {
+            CurrentlyActiveObjects.Remove(this);
+            temporaryBlockIncreasedEffect.SetActive(false);
         }
     }
 }

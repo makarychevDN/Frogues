@@ -12,6 +12,9 @@ namespace FroguesFramework
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnDamageBlockedSuccessfully;
         public UnityEvent OnBlockDestroyed;
+        public UnityEvent OnTemporaryBlockIncreased;
+        public UnityEvent OnPermanentBlockIncreased;
+        public UnityEvent OnBlockIncreased;
         public UnityEvent OnHpEnded;
         private int _healthWithPreTakenDamage, _permanentArmorWithPreTakenDamage, _temporaryArmorWithPreTakenDamage;
         private int _hashedHp, _hashedArmor;
@@ -25,6 +28,12 @@ namespace FroguesFramework
         public int TemporaryArmor => temporaryArmor;
         public int Armor => temporaryArmor + permanentArmor;
         public int ArmorWithPreTakenDamage => _temporaryArmorWithPreTakenDamage + _permanentArmorWithPreTakenDamage;
+
+        public void IncreaseTemporaryArmor(int value)
+        {
+            temporaryArmor += value;
+            OnTemporaryBlockIncreased.Invoke();
+        }
 
         public void Init(Unit unit)
         {
