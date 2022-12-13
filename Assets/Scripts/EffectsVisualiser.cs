@@ -14,6 +14,7 @@ namespace FroguesFramework
             unit.Health.OnDamageBlockedSuccessfully.AddListener(ShowDamageSuccessfullyBlockedEffect);
             unit.Health.OnBlockDestroyed.AddListener(ShowBlockDestroyedEffect);
             unit.Health.OnTemporaryBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
+            unit.Health.OnPermanentBlockIncreased.AddListener(ShowPermanentBlockIncreasedEffect);
         }
 
         private void ShowDamageSuccessfullyBlockedEffect()
@@ -53,6 +54,19 @@ namespace FroguesFramework
         {
             CurrentlyActiveObjects.Remove(this);
             temporaryBlockIncreasedEffect.SetActive(false);
+        }
+        
+        private void ShowPermanentBlockIncreasedEffect()
+        {
+            permanentBlockIncreasedEffect.SetActive(true);
+            CurrentlyActiveObjects.Add(this);
+            Invoke(nameof(HidePermanentBlockIncreasedEffect), 1.1f);
+        }
+        
+        private void HidePermanentBlockIncreasedEffect()
+        {
+            CurrentlyActiveObjects.Remove(this);
+            permanentBlockIncreasedEffect.SetActive(false);
         }
     }
 }

@@ -34,6 +34,12 @@ namespace FroguesFramework
             temporaryArmor += value;
             OnTemporaryBlockIncreased.Invoke();
         }
+        
+        public void IncreasePermanentArmor(int value)
+        {
+            permanentArmor += value;
+            OnPermanentBlockIncreased.Invoke();
+        }
 
         public void Init(Unit unit)
         {
