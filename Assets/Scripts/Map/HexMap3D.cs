@@ -22,6 +22,14 @@ namespace FroguesFramework
             if(!_hexCell3Ds.Contains(hexCell3D))
                 _hexCell3Ds.Add(hexCell3D);
         }
+        
+        public void RemoveCell(HexCell3D hexCell3D)
+        {
+            _hexCell3Ds.RemoveAll(cell => cell == null);
+            
+            if(_hexCell3Ds.Contains(hexCell3D))
+                _hexCell3Ds.Remove(hexCell3D);
+        }
 
         private void Start()
         {
@@ -39,6 +47,16 @@ namespace FroguesFramework
             int sizeZ = Convert.ToInt32((_biggestZPosition - _lowestZPosition) / _zStep);
 
             layer = new Cell[sizeX, sizeZ];
+            _hexCell3Ds.ForEach(cell => cell.GridPosition = GetGridPosition(cell));
+        }
+
+        private Vector2Int GetGridPosition(HexCell3D cell) => new Vector2Int(
+            Convert.ToInt32((cell.transform.localPosition.x - OddXModificator(cell)) / (_xStep * 2)),
+            Convert.ToInt32((cell.transform.localPosition.x - OddXModificator(cell)) / (_xStep * 2)));
+
+        private float OddXModificator(HexCell3D cell)
+        {
+            return cell.transform.localPosition.z / _zStep % 2 * _xStep;
         }
     }
 }
