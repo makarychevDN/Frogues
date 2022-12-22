@@ -9,6 +9,8 @@ namespace FroguesFramework
 
         public void SetCell(HexCell3D hexCell3D)
         {
+            _hexCell3Ds.RemoveAll(cell => cell == null);
+            
             if(!_hexCell3Ds.Contains(hexCell3D))
                 _hexCell3Ds.Add(hexCell3D);
         }
