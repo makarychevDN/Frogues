@@ -51,8 +51,8 @@ namespace FroguesFramework
         }
 
         private Vector2Int GetGridPosition(HexCell3D cell) => new Vector2Int(
-            Convert.ToInt32((cell.transform.localPosition.x - OddXModificator(cell)) / (_xStep * 2)),
-            Convert.ToInt32((cell.transform.localPosition.x - OddXModificator(cell)) / (_xStep * 2)));
+            Convert.ToInt32((cell.transform.localPosition.x - _lowestXPosition - OddXModificator(cell)) / (_xStep * 2)),
+            Convert.ToInt32((cell.transform.localPosition.z - _lowestZPosition) / _zStep));
 
         private float OddXModificator(HexCell3D cell)
         {
