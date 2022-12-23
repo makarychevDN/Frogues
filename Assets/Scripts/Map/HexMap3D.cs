@@ -7,7 +7,7 @@ namespace FroguesFramework
 {
     public class HexMap3D : MonoBehaviour
     {
-        [SerializeField] private List<HexCell3D> _hexCell3Ds;
+        [SerializeField] private List<Cell> _hexCell3Ds;
         public Dictionary<MapLayer, Cell[,]> layers;
         private Cell[,] layer;
         private float _lowestXPosition, _lowestZPosition;
@@ -15,7 +15,7 @@ namespace FroguesFramework
         private float _xStep = 0.8675f;
         private float _zStep = 1.5f;
 
-        public void SetCell(HexCell3D hexCell3D)
+        public void SetCell(Cell hexCell3D)
         {
             _hexCell3Ds.RemoveAll(cell => cell == null);
             
@@ -23,7 +23,7 @@ namespace FroguesFramework
                 _hexCell3Ds.Add(hexCell3D);
         }
         
-        public void RemoveCell(HexCell3D hexCell3D)
+        public void RemoveCell(Cell hexCell3D)
         {
             _hexCell3Ds.RemoveAll(cell => cell == null);
             
@@ -51,16 +51,16 @@ namespace FroguesFramework
 
             foreach (var hex in _hexCell3Ds)
             {
-                hex.GridPosition = GetGridPosition(hex);
+                hex.coordinates = GetGridPosition(hex);
             }
 
         }
 
-        private Vector2Int GetGridPosition(HexCell3D cell) => new Vector2Int(
+        private Vector2Int GetGridPosition(Cell cell) => new Vector2Int(
             Convert.ToInt32((cell.transform.localPosition.x - _lowestXPosition - OddXModificator(cell)) / (_xStep * 2) + 1),
             Convert.ToInt32((cell.transform.localPosition.z - _lowestZPosition) / _zStep) + 1);
 
-        private float OddXModificator(HexCell3D cell)
+        private float OddXModificator(Cell cell)
         {
             return cell.transform.localPosition.z / _zStep % 2 * _xStep;
         }

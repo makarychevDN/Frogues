@@ -22,6 +22,7 @@ namespace FroguesFramework
         [SerializeField] private SpriteRenderer pathDot;
         [SerializeField] private GameObject onMouseHoverVisualization;
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
+        [SerializeField] private Vector3 _hashedPosition;
 
         [ReadOnly] public bool chosenToMovement;
 
@@ -98,6 +99,20 @@ namespace FroguesFramework
             EnablePathDot(false);
             EnableOnMouseHoverVisualization(false);
             EnableValidForMovementCellHighlight(false);
+        }
+        
+        private void Update()
+        {
+            if (_hashedPosition == transform.position)
+                return;
+        
+            _hashedPosition = transform.position;
+            transform.GetComponentInParent<HexMap3D>()?.SetCell(this);
+        }
+
+        private void OnDestroy()
+        {
+            transform.GetComponentInParent<HexMap3D>()?.RemoveCell(this);
         }
     }
 }

@@ -14,11 +14,11 @@ public class HexCell3D : MonoBehaviour
             return;
         
         _hashedPosition = transform.position;
-        transform.GetComponentInParent<HexMap3D>()?.SetCell(this);
+        //transform.GetComponentInParent<HexMap3D>()?.SetCell(this);
     }
 
     private void OnDestroy()
     {
-        transform.GetComponentInParent<HexMap3D>()?.RemoveCell(this);
+        //transform.GetComponentInParent<HexMap3D>()?.RemoveCell(this);
     }
 }

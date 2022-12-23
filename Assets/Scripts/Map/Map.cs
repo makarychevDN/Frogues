@@ -7,6 +7,7 @@ namespace FroguesFramework
 {
     public class Map : MonoBehaviour
     {
+                
         public static Map Instance;
 
         public int sizeX, sizeY;
@@ -19,26 +20,15 @@ namespace FroguesFramework
         [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
-
-        public void Init()
-        {
-            Instance = this;
-            InitCellsParents();
-            InitCells();
-            InitWalls();
-            InitCellsMonitoringOnUnitsLayer();
-            InitUnitsPositionsOnMap();
-        }
-
-        public void InitCellsParents() => _cellsParents = new List<Transform> {unitsCellsParent, surfacesCellsParent};
-
-        public virtual void InitCells()
+        
+        [SerializeField] private Tile emptySegment;
+        public void InitCells()
         {
             BoundsInt bounds = tilemap.cellBounds;
-            
-            if(sizeX == 0)
+
+            if (sizeX == 0)
                 sizeX = bounds.size.x;
-            if(sizeY == 0)
+            if (sizeY == 0)
                 sizeY = bounds.size.y;
             layers = new Dictionary<MapLayer, Cell[,]>();
 
@@ -53,12 +43,20 @@ namespace FroguesFramework
                         if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
                         {
                             var instantiatedCell = Instantiate(cellPrefab,
-                                tilemap.CellToWorld(new Vector3Int(i, j, 0)) + Vector3.up * 0.5f, Quaternion.identity);
+                                tilemap.CellToWorld(new Vector3Int(i, j, 0)), Quaternion.identity);
                             layers[(MapLayer) k][i, j] = instantiatedCell;
                             instantiatedCell.transform.SetParent(_cellsParents[k]);
                             instantiatedCell.coordinates = new Vector2Int(i, j);
                             instantiatedCell.mapLayer = (MapLayer) k;
                         }
+                    }
+                }
+                
+                for (int i = 1; i < sizeX - 1; i++)
+                {
+                    for (int j = 1; j < sizeY - 1; j++)
+                    {
+                        layers[(MapLayer) k][i,j].GetComponent<HexagonCellNeighbours>().Init();
                     }
                 }
             }
@@ -73,23 +71,35 @@ namespace FroguesFramework
                 }
             }
         }
-
-        public virtual void InitWalls()
+        
+        public void InitWalls()
         {
             for (int i = 0; i < sizeX; i++)
             {
                 for (int j = 0; j < sizeY; j++)
                 {
-                    if ((i == 0 || j == 0 || i == sizeX - 1 || j == sizeY - 1))
+                    if (tilemap.GetTile(new Vector3Int(i, j)) == emptySegment)
                     {
                         var wall = Instantiate(wallPrefab, wallsParent);
                         layers[MapLayer.DefaultUnit][i, j].Content = wall;
-                        wall.transform.position = layers[MapLayer.DefaultUnit][i, j].coordinates.ToVector3();
+                        wall.transform.position = tilemap.CellToWorld(new Vector3Int(i, j, 0));
                     }
                 }
             }
         }
 
+        public void Init()
+        {
+            Instance = this;
+            InitCellsParents();
+            InitCells();
+            InitWalls();
+            InitCellsMonitoringOnUnitsLayer();
+            InitUnitsPositionsOnMap();
+        }
+
+        public void InitCellsParents() => _cellsParents = new List<Transform> {unitsCellsParent, surfacesCellsParent};
+        
         public virtual void InitCellsMonitoringOnUnitsLayer()
         {
             for (int i = 0; i < layers[0].GetLength(0); i++)
