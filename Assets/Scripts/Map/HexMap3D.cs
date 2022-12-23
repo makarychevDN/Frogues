@@ -43,16 +43,22 @@ namespace FroguesFramework
             _biggestXPosition = _hexCell3Ds.Select(cell => cell.transform.localPosition.x).Max();
             _biggestZPosition = _hexCell3Ds.Select(cell => cell.transform.localPosition.z).Max();
 
-            int sizeX = Convert.ToInt32((_biggestXPosition - _lowestXPosition) / _xStep);
-            int sizeZ = Convert.ToInt32((_biggestZPosition - _lowestZPosition) / _zStep);
+            // +2 for cells with walls
+            int sizeX = Convert.ToInt32((_biggestXPosition - _lowestXPosition) / _xStep) + 2;
+            int sizeZ = Convert.ToInt32((_biggestZPosition - _lowestZPosition) / _zStep) + 2;
 
             layer = new Cell[sizeX, sizeZ];
-            _hexCell3Ds.ForEach(cell => cell.GridPosition = GetGridPosition(cell));
+
+            foreach (var hex in _hexCell3Ds)
+            {
+                hex.GridPosition = GetGridPosition(hex);
+            }
+
         }
 
         private Vector2Int GetGridPosition(HexCell3D cell) => new Vector2Int(
-            Convert.ToInt32((cell.transform.localPosition.x - _lowestXPosition - OddXModificator(cell)) / (_xStep * 2)),
-            Convert.ToInt32((cell.transform.localPosition.z - _lowestZPosition) / _zStep));
+            Convert.ToInt32((cell.transform.localPosition.x - _lowestXPosition - OddXModificator(cell)) / (_xStep * 2) + 1),
+            Convert.ToInt32((cell.transform.localPosition.z - _lowestZPosition) / _zStep) + 1);
 
         private float OddXModificator(HexCell3D cell)
         {
