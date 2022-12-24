@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,127 +8,62 @@ namespace FroguesFramework
 {
     public class Map : MonoBehaviour
     {
-                
         public static Map Instance;
 
-        public int sizeX, sizeY;
-        public Tilemap tilemap;
+        public int sizeX, sizeZ;
         public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
-        public List<Cell> allCells;
+        [SerializeField] public List<Cell> allCells;
         
         [SerializeField] protected Cell cellPrefab;
         [SerializeField] protected Wall wallPrefab;
         [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
-        
-        [SerializeField] private Tile emptySegment;
-        public void InitCells()
-        {
-            BoundsInt bounds = tilemap.cellBounds;
 
-            if (sizeX == 0)
-                sizeX = bounds.size.x;
-            if (sizeY == 0)
-                sizeY = bounds.size.y;
-            layers = new Dictionary<MapLayer, Cell[,]>();
-
-            for (int k = 0; k < _cellsParents.Count; k++)
-            {
-                layers.Add((MapLayer) k, new Cell[sizeX, sizeY]);
-
-                for (int i = 0; i < sizeX; i++)
-                {
-                    for (int j = 0; j < sizeY; j++)
-                    {
-                        if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
-                        {
-                            var instantiatedCell = Instantiate(cellPrefab,
-                                tilemap.CellToWorld(new Vector3Int(i, j, 0)), Quaternion.identity);
-                            layers[(MapLayer) k][i, j] = instantiatedCell;
-                            instantiatedCell.transform.SetParent(_cellsParents[k]);
-                            instantiatedCell.coordinates = new Vector2Int(i, j);
-                            instantiatedCell.mapLayer = (MapLayer) k;
-                        }
-                    }
-                }
-                
-                for (int i = 1; i < sizeX - 1; i++)
-                {
-                    for (int j = 1; j < sizeY - 1; j++)
-                    {
-                        layers[(MapLayer) k][i,j].GetComponent<HexagonCellNeighbours>().Init();
-                    }
-                }
-            }
-
-            allCells = new List<Cell>();
-
-            foreach (var layer in layers)
-            {
-                foreach (var cell in layer.Value)
-                {
-                    allCells.Add(cell);
-                }
-            }
-        }
-        
-        public void InitWalls()
-        {
-            for (int i = 0; i < sizeX; i++)
-            {
-                for (int j = 0; j < sizeY; j++)
-                {
-                    if (tilemap.GetTile(new Vector3Int(i, j)) == emptySegment)
-                    {
-                        var wall = Instantiate(wallPrefab, wallsParent);
-                        layers[MapLayer.DefaultUnit][i, j].Content = wall;
-                        wall.transform.position = tilemap.CellToWorld(new Vector3Int(i, j, 0));
-                    }
-                }
-            }
-        }
+        private float _lowestXPosition, _lowestZPosition;
+        private float _biggestXPosition, _biggestZPosition;
 
         public void Init()
         {
             Instance = this;
-            InitCellsParents();
-            InitCells();
-            InitWalls();
-            InitCellsMonitoringOnUnitsLayer();
-            InitUnitsPositionsOnMap();
-        }
+            
+            _lowestXPosition = allCells.Select(cell => cell.transform.localPosition.x).Min();
+            _lowestZPosition = allCells.Select(cell => cell.transform.localPosition.z).Min();
+            _biggestXPosition = allCells.Select(cell => cell.transform.localPosition.x).Max();
+            _biggestZPosition = allCells.Select(cell => cell.transform.localPosition.z).Max();
 
-        public void InitCellsParents() => _cellsParents = new List<Transform> {unitsCellsParent, surfacesCellsParent};
-        
-        public virtual void InitCellsMonitoringOnUnitsLayer()
-        {
-            for (int i = 0; i < layers[0].GetLength(0); i++)
+            // +2 for cells with walls and +1 to escape the outOfRangeException
+            sizeX = Convert.ToInt32((_biggestXPosition - _lowestXPosition) / GridStep.X) + 2;
+            sizeZ = Convert.ToInt32((_biggestZPosition - _lowestZPosition) / GridStep.Z) + 2;
+
+            var defaultUnitLayer = new Cell[sizeX, sizeZ];
+            layers = new Dictionary<MapLayer, Cell[,]>();
+            layers.Add(MapLayer.DefaultUnit, defaultUnitLayer);
+
+            foreach (var cell in allCells)
             {
-                for (int j = 0; j < layers[0].GetLength(1); j++)
-                {
-                    if (tilemap.GetTile(new Vector3Int(i, j, 0)) != null)
-                    {
-                        var activateTriggerInSurfaces = layers[MapLayer.Surface][i, j]
-                            .GetComponent<ActivateTriggerOnUnitsLayerCellFilled>();
-                        layers[MapLayer.DefaultUnit][i, j].OnBecameFull
-                            .AddListener(activateTriggerInSurfaces.TriggerOnBecameFull);
-                        layers[MapLayer.DefaultUnit][i, j].OnBecameEmpty
-                            .AddListener(activateTriggerInSurfaces.TriggerOnBecameEmpty);
-                    }
-                }
+                cell.coordinates = GetGridPosition(cell);
+                defaultUnitLayer[cell.coordinates.x, cell.coordinates.y] = cell;
+            }
+            
+            foreach (var cell in allCells)
+            {
+                cell.CellNeighbours.Init();
             }
         }
 
-        public void InitUnitsPositionsOnMap()
+        #region CheckIsItLegacy
+        
+        
+        /*public void InitUnitsPositionsOnMap()
         {
             foreach (var unitPos in unitsStartPositions)
             {
                 layers[unitPos.unit.unitType][unitPos.position.x, unitPos.position.y].Content = unitPos.unit;
                 unitPos.unit.transform.position = unitPos.unit.CurrentCell.transform.position;
             }
-        }
-
+        }*/
+        
         public virtual Cell FindNeighborhoodForCell(Cell startCell, Vector2Int direction)
         {
             return GetLayerByCell(startCell)[startCell.coordinates.x + direction.x,
@@ -149,7 +85,9 @@ namespace FroguesFramework
             return layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y];
         }
 
-        public virtual List<Cell> GetCellsColumn(Cell cell) => GetCellsColumn(cell.coordinates);
+        //public virtual List<Cell> GetCellsColumn(Cell cell) => GetCellsColumn(cell.coordinates);
+        
+        #endregion
 
         public virtual List<Cell> GetCellsColumn(Vector2Int coordinates)
         {
@@ -171,7 +109,35 @@ namespace FroguesFramework
 
         public virtual Cell GetCell(Vector2Int coordinates, MapLayer mapLayer)
         {
+            print("I trying to get cell in " + coordinates);
+            print("Map Size Is " + sizeX + " " + sizeZ);
             return layers[mapLayer][coordinates.x, coordinates.y];
+        }
+        
+            
+        private Vector2Int GetGridPosition(Cell cell) => new Vector2Int(
+            Convert.ToInt32((cell.transform.localPosition.x - _lowestXPosition - OddXModificator(cell)) / (GridStep.X * 2) + 1),
+            Convert.ToInt32((cell.transform.localPosition.z - _lowestZPosition) / GridStep.Z) + 1);
+    
+        private float OddXModificator(Cell cell)
+        {
+            return cell.transform.localPosition.z / GridStep.Z % 2 * GridStep.X;
+        }
+        
+        public void SetCell(Cell hexCell3D)
+        {
+            allCells.RemoveAll(cell => cell == null);
+            
+            if(!allCells.Contains(hexCell3D))
+                allCells.Add(hexCell3D);
+        }
+        
+        public void RemoveCell(Cell hexCell3D)
+        {
+            allCells.RemoveAll(cell => cell == null);
+            
+            if(allCells.Contains(hexCell3D))
+                allCells.Remove(hexCell3D);
         }
     }
     

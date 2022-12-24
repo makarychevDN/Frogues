@@ -250,11 +250,11 @@ namespace FroguesFramework
 
         private void InitializeNodesGrid()
         {
-            _nodesGrid = new PathFinderNode[map.sizeX, map.sizeY];
+            _nodesGrid = new PathFinderNode[map.sizeX, map.sizeZ];
 
             for (int i = 0; i < map.sizeX; i++)
             {
-                for (int j = 0; j < map.sizeY; j++)
+                for (int j = 0; j < map.sizeZ; j++)
                 {
                     _nodesGrid[i, j] = new PathFinderNode(map.layers[MapLayer.DefaultUnit][i, j]);
                 }

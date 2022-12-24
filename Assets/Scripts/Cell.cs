@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
+    [ExecuteAlways]
     public class Cell : MonoBehaviour
     {
         public MapLayer mapLayer;
@@ -103,16 +104,26 @@ namespace FroguesFramework
         
         private void Update()
         {
-            if (_hashedPosition == transform.position)
+            if (_hashedPosition == transform.localPosition)
                 return;
+
+            if (transform.localPosition.x <= 0 || transform.localPosition.z <= 0)
+            {
+                print("Cell Position Cant Be 0 or less in x or z axis");
+
+                if (_hashedPosition == Vector3.zero)
+                    _hashedPosition = new Vector3(GridStep.X, _hashedPosition.y, GridStep.Z);
+                
+                transform.localPosition = _hashedPosition;
+            }
         
-            _hashedPosition = transform.position;
-            transform.GetComponentInParent<HexMap3D>()?.SetCell(this);
+            _hashedPosition = transform.localPosition;
+            transform.GetComponentInParent<Map>()?.SetCell(this);
         }
 
         private void OnDestroy()
         {
-            transform.GetComponentInParent<HexMap3D>()?.RemoveCell(this);
+            transform.GetComponentInParent<Map>()?.RemoveCell(this);
         }
     }
 }
