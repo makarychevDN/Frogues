@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 using UnityEngine.Events;
 
 namespace FroguesFramework
@@ -106,17 +108,8 @@ namespace FroguesFramework
         {
             if (_hashedPosition == transform.localPosition)
                 return;
-
-            if (transform.localPosition.x <= 0 || transform.localPosition.z <= 0)
-            {
-                print("Cell Position Cant Be 0 or less in x or z axis");
-
-                if (_hashedPosition == Vector3.zero)
-                    _hashedPosition = new Vector3(GridStep.X, _hashedPosition.y, GridStep.Z);
-                
-                transform.localPosition = _hashedPosition;
-            }
-        
+            
+            ClampPosition();
             _hashedPosition = transform.localPosition;
             transform.GetComponentInParent<Map>()?.SetCell(this);
         }
@@ -124,6 +117,17 @@ namespace FroguesFramework
         private void OnDestroy()
         {
             transform.GetComponentInParent<Map>()?.RemoveCell(this);
+        }
+
+        private void ClampPosition()
+        {
+            var zPos = transform.localPosition.z;
+            zPos = (float)Math.Round(zPos / GridStep.Z) * GridStep.Z;
+            
+            var xPos = transform.localPosition.x - GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
+            xPos = (float)Math.Round(xPos / GridStep.X) * GridStep.X + GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
+
+            transform.localPosition = new Vector3(xPos, transform.localPosition.y, zPos);
         }
     }
 }
