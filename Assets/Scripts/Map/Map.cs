@@ -15,7 +15,7 @@ namespace FroguesFramework
         [SerializeField] public List<Cell> allCells;
         
         [SerializeField] protected Cell cellPrefab;
-        [SerializeField] protected Wall wallPrefab;
+        [SerializeField] protected Cell wallPrefab;
         [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
@@ -33,8 +33,8 @@ namespace FroguesFramework
             _biggestZPosition = allCells.Select(cell => cell.transform.localPosition.z).Max();
 
             // +2 for cells with walls and +1 to escape the outOfRangeException
-            sizeX = Convert.ToInt32((_biggestXPosition - _lowestXPosition) / GridStep.X) + 2;
-            sizeZ = Convert.ToInt32((_biggestZPosition - _lowestZPosition) / GridStep.Z) + 2;
+            sizeX = Convert.ToInt32((_biggestXPosition - _lowestXPosition) / GridStep.X) + 3;
+            sizeZ = Convert.ToInt32((_biggestZPosition - _lowestZPosition) / GridStep.Z) + 3;
 
             var defaultUnitLayer = new Cell[sizeX, sizeZ];
             layers = new Dictionary<MapLayer, Cell[,]>();
@@ -44,6 +44,21 @@ namespace FroguesFramework
             {
                 cell.coordinates = GetGridPosition(cell);
                 defaultUnitLayer[cell.coordinates.x, cell.coordinates.y] = cell;
+            }
+
+            for (int i = 0; i < defaultUnitLayer.GetLength(0); i++)
+            {
+                for (int j = 0; j < defaultUnitLayer.GetLength(1); j++)
+                {
+                    if (defaultUnitLayer[i, j] == null)
+                    {  
+                        var wall = Instantiate(wallPrefab, wallsParent);
+                        var zPos = j * GridStep.Z;
+                        var xPos = i * GridStep.X + j % 2 * GridStep.X * 0.5f;
+                        wall.transform.localPosition = new Vector3(xPos, 0, zPos);
+                        defaultUnitLayer[i, j] = wall;
+                    }
+                }
             }
             
             foreach (var cell in allCells)

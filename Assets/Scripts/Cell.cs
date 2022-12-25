@@ -106,12 +106,16 @@ namespace FroguesFramework
         
         private void Update()
         {
+            if (Application.isPlaying) 
+                return;
+            
             if (_hashedPosition == transform.localPosition)
                 return;
             
+            transform.GetComponentInParent<Map>()?.SetCell(this);
+            
             ClampPosition();
             _hashedPosition = transform.localPosition;
-            transform.GetComponentInParent<Map>()?.SetCell(this);
         }
 
         private void OnDestroy()
@@ -127,6 +131,13 @@ namespace FroguesFramework
             var xPos = transform.localPosition.x - GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
             xPos = (float)Math.Round(xPos / GridStep.X) * GridStep.X + GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
 
+            if (xPos <= 0 + + GridStep.X * 0.5f * (zPos / GridStep.Z % 2) || zPos <= 0)
+            {
+                Debug.LogError("Cell need to be inside the grid (local x > 0 and local z > 0)");
+                transform.GetComponentInParent<Map>()?.RemoveCell(this);
+                return;
+            }
+            
             transform.localPosition = new Vector3(xPos, transform.localPosition.y, zPos);
         }
     }
