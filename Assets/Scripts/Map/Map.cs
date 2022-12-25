@@ -19,32 +19,23 @@ namespace FroguesFramework
         [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
-
-        private float _lowestXPosition, _lowestZPosition;
-        private float _biggestXPosition, _biggestZPosition;
+        
+        //private float _biggestXPosition, _biggestZPosition;
 
         public void Init()
         {
             Instance = this;
             
-            _lowestXPosition = allCells.Select(cell => cell.transform.localPosition.x).Min();
-            _lowestZPosition = allCells.Select(cell => cell.transform.localPosition.z).Min();
-            _biggestXPosition = allCells.Select(cell => cell.transform.localPosition.x).Max();
-            _biggestZPosition = allCells.Select(cell => cell.transform.localPosition.z).Max();
-
-            // +2 for cells with walls and +1 to escape the outOfRangeException
-            sizeX = Convert.ToInt32((_biggestXPosition - _lowestXPosition) / GridStep.X) + 3;
-            sizeZ = Convert.ToInt32((_biggestZPosition - _lowestZPosition) / GridStep.Z) + 3;
-
+            allCells.ForEach(cell => cell.coordinates = GetGridPosition(cell));
+            
+            // +2 for cells with walls
+            sizeX = allCells.Select(cell => cell.coordinates.x).Max() + 2;
+            sizeZ = allCells.Select(cell => cell.coordinates.y).Max() + 2;
+            
             var defaultUnitLayer = new Cell[sizeX, sizeZ];
             layers = new Dictionary<MapLayer, Cell[,]>();
             layers.Add(MapLayer.DefaultUnit, defaultUnitLayer);
-
-            foreach (var cell in allCells)
-            {
-                cell.coordinates = GetGridPosition(cell);
-                defaultUnitLayer[cell.coordinates.x, cell.coordinates.y] = cell;
-            }
+            allCells.ForEach(cell => defaultUnitLayer[cell.coordinates.x, cell.coordinates.y] = cell);
 
             for (int i = 0; i < defaultUnitLayer.GetLength(0); i++)
             {
@@ -60,11 +51,8 @@ namespace FroguesFramework
                     }
                 }
             }
-            
-            foreach (var cell in allCells)
-            {
-                cell.CellNeighbours.Init();
-            }
+
+            allCells.ForEach(cell => cell.CellNeighbours.Init());
         }
 
         #region CheckIsItLegacy
@@ -124,15 +112,13 @@ namespace FroguesFramework
 
         public virtual Cell GetCell(Vector2Int coordinates, MapLayer mapLayer)
         {
-            print("I trying to get cell in " + coordinates);
-            print("Map Size Is " + sizeX + " " + sizeZ);
             return layers[mapLayer][coordinates.x, coordinates.y];
         }
         
             
-        private Vector2Int GetGridPosition(Cell cell) => new Vector2Int(
-            Convert.ToInt32((cell.transform.localPosition.x - _lowestXPosition - OddXModificator(cell)) / (GridStep.X) + 1),
-            Convert.ToInt32((cell.transform.localPosition.z - _lowestZPosition) / GridStep.Z) + 1);
+        public Vector2Int GetGridPosition(Cell cell) => new Vector2Int(
+            Convert.ToInt32((cell.transform.localPosition.x - OddXModificator(cell)) / (GridStep.X)),
+            Convert.ToInt32((cell.transform.localPosition.z) / GridStep.Z));
     
         private float OddXModificator(Cell cell)
         {

@@ -12,7 +12,7 @@ namespace FroguesFramework
     public class Cell : MonoBehaviour
     {
         public MapLayer mapLayer;
-        public Vector2Int coordinates;
+        [field : SerializeField] public Vector2Int coordinates { get; set; }
 
         public UnityEvent OnBecameFull;
         public UnityEvent OnBecameEmpty;
@@ -112,9 +112,9 @@ namespace FroguesFramework
             if (_hashedPosition == transform.localPosition)
                 return;
             
-            transform.GetComponentInParent<Map>()?.SetCell(this);
-            
+            GetComponentInParent<Map>()?.SetCell(this);
             ClampPosition();
+            coordinates = GetComponentInParent<Map>().GetGridPosition(this);
             _hashedPosition = transform.localPosition;
         }
 
@@ -131,7 +131,7 @@ namespace FroguesFramework
             var xPos = transform.localPosition.x - GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
             xPos = (float)Math.Round(xPos / GridStep.X) * GridStep.X + GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
 
-            if (xPos <= 0 + + GridStep.X * 0.5f * (zPos / GridStep.Z % 2) || zPos <= 0)
+            if (xPos <= 0 + GridStep.X * 0.5f * (zPos / GridStep.Z % 2) || zPos <= 0)
             {
                 Debug.LogError("Cell need to be inside the grid (local x > 0 and local z > 0)");
                 transform.GetComponentInParent<Map>()?.RemoveCell(this);
