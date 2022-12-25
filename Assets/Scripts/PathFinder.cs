@@ -16,6 +16,7 @@ namespace FroguesFramework
         private List<Vector2Int> _additionalOddDirVectorsForHexMap;
         private List<Vector2Int> _additionalEvenDirVectorsForHexMap;
         private List<Vector2Int> _tempListForAdditionDirVectors;
+        [SerializeField] private LineRenderer _lineRenderer;
 
         public void Init()
         {
@@ -23,6 +24,20 @@ namespace FroguesFramework
             InitializeDirVectors();
             InitializeNodesGrid();
             FindAllNodesNeighbors();
+            DrawLinesBetweenNeighbors();
+        }
+
+        private void DrawLinesBetweenNeighbors()
+        {
+            foreach (var node in _nodesGrid)
+            {
+                foreach (var neighbor in node.neighbors)
+                {
+                    var line = Instantiate(_lineRenderer, transform);
+                    line.SetPosition(0, node.cell.transform.position);
+                    line.SetPosition(1, neighbor.cell.transform.position);
+                }
+            }
         }
 
         public void ResetNodes()
