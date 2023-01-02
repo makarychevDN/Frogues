@@ -7,7 +7,6 @@ namespace FroguesFramework
     public class MovementAbility : MonoBehaviour, IAbility
     {
         [SerializeField] private bool findTargetByMouse;
-        [SerializeField] private Cell targetCell;
         private Unit _unit;
         private Movable _movable;
         private ActionPoints _actionPoints;

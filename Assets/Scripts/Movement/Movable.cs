@@ -112,7 +112,6 @@ namespace FroguesFramework
                 (startCell.transform.position + horizonVector - startCell.transform.position).normalized));
             
             _speed = speed + speed * angleAnimSpeedModificator;
-            _speed = Mathf.Clamp(_speed,speed + speed * Mathf.Sin(defaultDiagonalAngle), 2 * _speed);
             _jumpHeight = jumpHeight;
             _isPlaying = true;
             _startCell = startCell;
