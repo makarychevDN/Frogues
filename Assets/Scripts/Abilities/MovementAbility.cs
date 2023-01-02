@@ -16,6 +16,7 @@ namespace FroguesFramework
         private Cell _targetCell;
         private List<Cell> _movementArea = new();
         private List<Cell> _preMovementArea = new();
+        public Camera camera;
 
         public Cell TargetCell
         {
@@ -61,7 +62,24 @@ namespace FroguesFramework
 
             if (findTargetByMouse)
             {
-                _targetCell = targetCell;
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+                if (Physics.Raycast(ray, out hit)) 
+                {
+                    Transform objectHit = hit.transform.parent;
+                    print(objectHit);
+                    if (objectHit.GetComponent<Cell>() != null)
+                    {
+                        _targetCell = objectHit.GetComponent<Cell>();
+                        print(true);
+                    }
+                    else
+                    {
+                        _targetCell = null;
+                        return;
+                    }
+                }
             }
 
             if(!movementArea.Contains(_targetCell))
