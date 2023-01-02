@@ -13,12 +13,12 @@ namespace FroguesFramework
 
         public void TurnLeft()
         {
-            _sprite.rotation = Quaternion.Euler(0, 180, 0);
+            _sprite.localRotation = Quaternion.Euler(0, 180, 0);
         }
 
         public void TurnRight()
         {
-            _sprite.rotation = Quaternion.Euler(0, 0, 0);
+            _sprite.localRotation = Quaternion.Euler(0, 0, 0);
         }
 
 
