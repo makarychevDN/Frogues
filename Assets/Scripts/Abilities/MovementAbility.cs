@@ -7,10 +7,10 @@ namespace FroguesFramework
     public class MovementAbility : MonoBehaviour, IAbility
     {
         [SerializeField] private bool findTargetByMouse;
+        [SerializeField] private Cell targetCell;
         private Unit _unit;
         private Movable _movable;
         private ActionPoints _actionPoints;
-        private Grid _grid;
         private List<Cell> _path = new();
         private List<Cell> _prePath = new();
         private Cell _targetCell;
@@ -26,7 +26,6 @@ namespace FroguesFramework
         public void VisualizePreUse()
         {
             CalculateMovementAreaAndPath(ref _preMovementArea, ref _prePath);
-            
             _preMovementArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(_preMovementArea));
             
             if(_prePath != null && _prePath.Count != 0)
@@ -62,9 +61,7 @@ namespace FroguesFramework
 
             if (findTargetByMouse)
             {
-                Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                try { _targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y]; }
-                catch (IndexOutOfRangeException e) { return; }
+                _targetCell = targetCell;
             }
 
             if(!movementArea.Contains(_targetCell))
@@ -84,7 +81,6 @@ namespace FroguesFramework
         public void Init(Unit unit)
         {
             _unit = unit;
-            _grid = unit.Grid;
             _movable = unit.Movable;
             _actionPoints = unit.ActionPoints;
         }
