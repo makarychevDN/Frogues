@@ -7,7 +7,6 @@ namespace FroguesFramework
     public class MovementAbility : MonoBehaviour, IAbility
     {
         [SerializeField] private bool findTargetByMouse;
-        //[SerializeField] private LineRenderer _lineRenderer;
         private Unit _unit;
         private Movable _movable;
         private ActionPoints _actionPoints;
@@ -39,12 +38,6 @@ namespace FroguesFramework
                     (_prePath[i + 1].transform.position - _prePath[i].transform.position).normalized.ToVector2());
             }
 
-            //_lineRenderer.positionCount = _prePath.Count;
-            /*for (int i = 0; i < _prePath.Count; i++)
-            {
-                _lineRenderer.SetPosition(i, _prePath[i].transform.position);
-            }*/
-            
             if(_prePath == null || _prePath.Count == 0)
                 return;
 
