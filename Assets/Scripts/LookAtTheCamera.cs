@@ -1,18 +1,21 @@
 using UnityEngine;
- 
-public class LookAtTheCamera : MonoBehaviour 
+
+namespace FroguesFramework
 {
-    private Transform camera;
-    
-    void Start () 
+    public class LookAtTheCamera : MonoBehaviour
     {
-        camera = Camera.main.transform;
+        private Transform camera;
+
+        void Start()
+        {
+            camera = Camera.main.transform;
+        }
+
+        void Update()
+        {
+            //transform.LookAt(camera);
+            transform.rotation = Quaternion.LookRotation(camera.transform.forward);
+        }
+
     }
-    
-    void Update()
-    {
-        //transform.LookAt(camera);
-        transform.rotation = Quaternion.LookRotation(camera.transform.forward);
-    }
- 
 }
