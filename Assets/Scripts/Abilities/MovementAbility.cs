@@ -47,7 +47,7 @@ namespace FroguesFramework
                 .EnableTrail((_prePath[_prePath.Count - 2].transform.position - _prePath[_prePath.Count - 1].transform.position)
                     .normalized.ToVector2());
 
-            _actionPoints.PreTakenCurrentPoints -= (_prePath.Count - 1) * _movable.DefaultMovementCost;
+            _actionPoints.PreSpendPoints((_prePath.Count - 1) * _movable.DefaultMovementCost);
         }
 
         private void CalculateMovementAreaAndPath(ref List<Cell> movementArea, ref List<Cell> path)

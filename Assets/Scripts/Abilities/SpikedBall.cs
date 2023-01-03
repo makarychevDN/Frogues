@@ -6,6 +6,7 @@ namespace FroguesFramework
 {
     public class SpikedBall : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
     {
+        [SerializeField] private int damage;
         [SerializeField] private int cost;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
         [SerializeField] private AudioSource impactSound;
@@ -18,33 +19,33 @@ namespace FroguesFramework
         private Movable _movable;
         private Cell _endOfPathCell;
         private Cell _startOfPathCell;
+        private Cell _cellToApplyEffect;
         private HexDir _directionToAttack;
 
         public void VisualizePreUse()
         {
             _endOfPathCell = null;
             _startOfPathCell = null;
+            _cellToApplyEffect = null;
             _attackArea = CellsTaker.TakeCellsLinesInAllDirections(_unit.CurrentCell);
             _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
-            
-            Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            try { _targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y]; }
-            catch (IndexOutOfRangeException e) { return; }
+
+            _targetCell = CellsTaker.TakeCellByMouseRaycast();
 
             if (!_attackArea.Contains(_targetCell))
                 return;
 
             List<Cell> targetCells = CellsTaker.TakeCellsLineWhichContainCell(_unit.CurrentCell, _targetCell);
             targetCells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
-            _actionPoints.PreTakenCurrentPoints -= cost;
+            _actionPoints.PreSpendPoints(cost);
 
             _endOfPathCell = targetCells[targetCells.Count - 1];
             _startOfPathCell = targetCells[0];
             _directionToAttack = _unit.CurrentCell.CellNeighbours.GetHexDirByNeighbor(_startOfPathCell);
-            var cellToApplyEffect = _targetCell.CellNeighbours.GetNeighborByHexDir(_directionToAttack);
+            _cellToApplyEffect = _endOfPathCell.CellNeighbours.GetNeighborByHexDir(_directionToAttack);
             
-            if(!cellToApplyEffect.IsEmpty && cellToApplyEffect.Content.Health != null)
-                cellToApplyEffect.Content.Health.PreTakeDamage(1);
+            if(!_cellToApplyEffect.IsEmpty && _cellToApplyEffect.Content.Health != null)
+                _cellToApplyEffect.Content.Health.PreTakeDamage(damage);
         }
 
         public void Use()
@@ -52,15 +53,20 @@ namespace FroguesFramework
             if(_endOfPathCell == null)
                 return;
             
-            _movable.Move(_endOfPathCell, 0, 40, 0.6f);
+            _movable.OnMovementEnd.AddListener(ApplyEffect);
+            _movable.Move(_endOfPathCell, 0, 30, 0.6f);
+            impactSound.Play();
         }
 
         public void ApplyEffect()
         {
-            
-        }
+            if (!_cellToApplyEffect.IsEmpty && _cellToApplyEffect.Content.Health != null)
+            {
+                _cellToApplyEffect.Content.Health.TakeDamage(damage);
+            }
 
-        private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
+            _movable.OnMovementEnd.RemoveListener(ApplyEffect);
+        }
 
         public void Init(Unit unit)
         {

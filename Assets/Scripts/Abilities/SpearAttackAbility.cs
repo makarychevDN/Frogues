@@ -28,16 +28,13 @@ namespace FroguesFramework
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
-
-            Vector3Int coordinate = _grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            try { _targetCell = Map.Instance.layers[MapLayer.DefaultUnit][coordinate.x, coordinate.y]; }
-            catch (IndexOutOfRangeException e) { return; }
+            _targetCell = CellsTaker.TakeCellByMouseRaycast();
 
             if (!_attackArea.Contains(_targetCell))
                 return;
             
             _targetCell.EnableSelectedCellHighlight(true);
-            _actionPoints.PreTakenCurrentPoints -= cost;
+            _actionPoints.PreSpendPoints(cost);
             
             if(!_targetCell.IsEmpty)
                 _targetCell.Content.Health.PreTakeDamage(CalculateDamage());
