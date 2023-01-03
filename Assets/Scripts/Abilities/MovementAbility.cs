@@ -67,11 +67,9 @@ namespace FroguesFramework
                 if (Physics.Raycast(ray, out hit)) 
                 {
                     Transform objectHit = hit.transform.parent;
-                    print(objectHit);
                     if (objectHit.GetComponent<Cell>() != null)
                     {
                         _targetCell = objectHit.GetComponent<Cell>();
-                        print(true);
                     }
                     else
                     {

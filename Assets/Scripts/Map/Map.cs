@@ -106,7 +106,7 @@ namespace FroguesFramework
         public virtual List<Cell> GetCellsColumnIgnoreSurfaces(Vector2Int coordinates)
         {
             var temp = GetCellsColumn(coordinates);
-            temp.Remove(layers[MapLayer.Surface][coordinates.x, coordinates.y]);
+            //temp.Remove(layers[MapLayer.Surface][coordinates.x, coordinates.y]);
             return temp;
         }
 

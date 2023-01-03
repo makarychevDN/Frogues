@@ -62,8 +62,8 @@ namespace FroguesFramework
                 return false;
             }
 
-            if (!ignoreSurfaces && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty)
-                return false;
+            //if (!ignoreSurfaces/* && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty*/)
+                //return false;
 
             return true;
         }

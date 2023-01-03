@@ -24,7 +24,6 @@ namespace FroguesFramework
         private bool _isPlaying;
         private float _spriteAlignment, _shadowAlignment;
         private float _jumpHeight, _speed;
-        private const float defaultDiagonalAngle = 41.18592f;
         private Transform _spriteParent, _shadow;
         private SpriteRotator _spriteRotator;
 
@@ -37,6 +36,7 @@ namespace FroguesFramework
             _spriteParent = unit.SpriteParent;
             _spriteAlignment = _spriteParent.parent.localPosition.y;
             _shadow = _unit.Shadow;
+            _shadowAlignment = _shadow.parent.transform.localPosition.y;
             _spriteRotator = _unit.SpriteRotator;
         }
 

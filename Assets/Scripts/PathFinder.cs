@@ -9,6 +9,8 @@ namespace FroguesFramework
         public static PathFinder Instance;
         public Map map;
         [SerializeField] private bool isMapHexagon;
+        [SerializeField] private LineRenderer lineRendererPrefab;
+        [SerializeField] private Transform linesParent;
         private List<PathFinderNode> _currentNodes;
         private List<PathFinderNode> _childNodes;
         private PathFinderNode[,] _nodesGrid;
@@ -16,7 +18,6 @@ namespace FroguesFramework
         private List<Vector2Int> _additionalOddDirVectorsForHexMap;
         private List<Vector2Int> _additionalEvenDirVectorsForHexMap;
         private List<Vector2Int> _tempListForAdditionDirVectors;
-        [SerializeField] private LineRenderer _lineRenderer;
 
         public void Init()
         {
@@ -33,7 +34,7 @@ namespace FroguesFramework
             {
                 foreach (var neighbor in node.neighbors)
                 {
-                    var line = Instantiate(_lineRenderer, transform);
+                    var line = Instantiate(lineRendererPrefab, linesParent);
                     line.SetPosition(0, node.cell.transform.position);
                     line.SetPosition(1, neighbor.cell.transform.position);
                 }
