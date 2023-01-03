@@ -7,6 +7,7 @@ namespace FroguesFramework
     public class MovementAbility : MonoBehaviour, IAbility
     {
         [SerializeField] private bool findTargetByMouse;
+        //[SerializeField] private LineRenderer _lineRenderer;
         private Unit _unit;
         private Movable _movable;
         private ActionPoints _actionPoints;
@@ -15,7 +16,6 @@ namespace FroguesFramework
         private Cell _targetCell;
         private List<Cell> _movementArea = new();
         private List<Cell> _preMovementArea = new();
-        public Camera camera;
 
         public Cell TargetCell
         {
@@ -27,7 +27,7 @@ namespace FroguesFramework
         {
             CalculateMovementAreaAndPath(ref _preMovementArea, ref _prePath);
             _preMovementArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(_preMovementArea));
-            
+
             if(_prePath != null && _prePath.Count != 0)
                 _prePath.Insert(0, _unit.CurrentCell);
             
@@ -38,6 +38,12 @@ namespace FroguesFramework
                 _prePath[i].EnableTrail(
                     (_prePath[i + 1].transform.position - _prePath[i].transform.position).normalized.ToVector2());
             }
+
+            //_lineRenderer.positionCount = _prePath.Count;
+            /*for (int i = 0; i < _prePath.Count; i++)
+            {
+                _lineRenderer.SetPosition(i, _prePath[i].transform.position);
+            }*/
             
             if(_prePath == null || _prePath.Count == 0)
                 return;
@@ -60,26 +66,10 @@ namespace FroguesFramework
                 _unit.Movable.DefaultMovementCost, false, false, true);
 
             if (findTargetByMouse)
-            {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        
-                if (Physics.Raycast(ray, out hit)) 
-                {
-                    Transform objectHit = hit.transform.parent;
-                    if (objectHit.GetComponent<Cell>() != null)
-                    {
-                        _targetCell = objectHit.GetComponent<Cell>();
-                    }
-                    else
-                    {
-                        _targetCell = null;
-                        return;
-                    }
-                }
-            }
+                _targetCell = CellsTaker.TakeCellByMouseRaycast();
+            
 
-            if(!movementArea.Contains(_targetCell))
+            if(_targetCell == null || !movementArea.Contains(_targetCell))
                 return;
 
             path = PathFinder.Instance.FindWay(_unit.CurrentCell, _targetCell, false,

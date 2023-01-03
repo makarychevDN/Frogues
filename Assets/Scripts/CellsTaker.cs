@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace FroguesFramework
 {
@@ -46,6 +47,15 @@ namespace FroguesFramework
             }
 
             return new List<Cell>();
+        }
+
+        public static Cell TakeCellByMouseRaycast()
+        {
+            RaycastHit hit;
+
+            return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)
+                ? hit.transform.parent.GetComponent<Cell>()
+                : null;
         }
     }
 }
