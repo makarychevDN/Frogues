@@ -53,6 +53,7 @@ namespace FroguesFramework
             if(_endOfPathCell == null)
                 return;
             
+            _actionPoints.SpendPoints(cost);
             _movable.OnMovementEnd.AddListener(ApplyEffect);
             _movable.Move(_endOfPathCell, 0, 30, 0.6f);
             impactSound.Play();
