@@ -119,7 +119,10 @@ namespace FroguesFramework
             CurrentlyActiveObjects.Add(this);
             _distance = Vector3.Distance(startCell.transform.position, targetCell.transform.position);
 
-            if (startCell.transform.position.x < targetCell.transform.position.x)
+            var startRelativePosition = Camera.main.transform.InverseTransformDirection(startCell.transform.position - Camera.main.transform.position);
+            var targetRelativePosition = Camera.main.transform.InverseTransformDirection(targetCell.transform.position - Camera.main.transform.position);
+            
+            if (startRelativePosition.x < targetRelativePosition.x)
                 _spriteRotator.TurnRight();
             else
                 _spriteRotator.TurnLeft();
