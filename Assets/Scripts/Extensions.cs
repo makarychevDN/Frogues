@@ -77,5 +77,10 @@ namespace FroguesFramework
         {
             return PathFinder.Instance.FindWay(from, to, true, true, true).Count;
         }
+
+        public static Vector3 PositionRelativeToMainCamera(this Vector3 vector)
+        {
+            return Camera.main.transform.InverseTransformDirection(vector - Camera.main.transform.position);
+        }
     }
 }

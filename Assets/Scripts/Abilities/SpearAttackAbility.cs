@@ -18,7 +18,6 @@ namespace FroguesFramework
         [SerializeField] private AudioSource impactSound;
         private Unit _unit;
         private ActionPoints _actionPoints;
-        private Grid _grid;
         private Cell _targetCell;
         private List<Cell> _attackArea;
         private Animator _animator;
@@ -53,7 +52,7 @@ namespace FroguesFramework
             if(!_actionPoints.IsActionPointsEnough(cost))
                 return;
             
-            _spriteRotator.TurnByTarget(_targetCell.Content);
+            _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
             
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
@@ -84,7 +83,6 @@ namespace FroguesFramework
         {
             _unit = unit;
             _actionPoints = unit.ActionPoints;
-            _grid = unit.Grid;
             unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
