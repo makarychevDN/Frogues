@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 namespace FroguesFramework
 {
@@ -16,8 +16,9 @@ namespace FroguesFramework
 
         public UnityEvent OnBecameFull;
         public UnityEvent OnBecameEmpty;
-
+        
         [SerializeField] private Unit content;
+        [SerializeField] private Transform hexagonModel;
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
         [SerializeField] private GameObject selectedByAbilityTileHighlighter;
@@ -116,6 +117,7 @@ namespace FroguesFramework
             ClampPosition();
             coordinates = GetComponentInParent<Map>().GetGridPosition(this);
             _hashedPosition = transform.localPosition;
+            hexagonModel.localRotation = Quaternion.Euler(90, Random.Range(0, 6) * 60, 0);
         }
 
         private void OnDestroy()
