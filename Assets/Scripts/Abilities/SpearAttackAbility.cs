@@ -43,7 +43,7 @@ namespace FroguesFramework
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             
-            if (!PossibleToUseOnTarget(_targetCell.Content))
+            if (_targetCell == null || !PossibleToUseOnTarget(_targetCell.Content))
                 return;
             
             if(_targetCell.Content == null || _targetCell.Content.Health == null)

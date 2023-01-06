@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,15 +7,20 @@ namespace FroguesFramework
 {
     public class MaterialInstanceContainer : MonoBehaviour
     {
-        [SerializeField] private Material material;
+        public Material materialPrefab;
+        private Material _materialInstance;
+        public Color _color;
+        public Material MaterialPrefab => _materialInstance;
         
-        private void Awake()
+        private void Start()
         {
-            if(GetComponent<Image>() != null)
-                material = GetComponent<Image>().material;
-            
-            if(GetComponent<SpriteRenderer>() != null)
-                material = GetComponent<SpriteRenderer>().material;
+            _materialInstance = new Material(materialPrefab);
+            GetComponent<Image>().material = _materialInstance;
+        }
+
+        private void Update()
+        {
+            _materialInstance.color = _color;
         }
     }
 }

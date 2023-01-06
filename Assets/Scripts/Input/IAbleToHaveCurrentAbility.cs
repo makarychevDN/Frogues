@@ -1,4 +1,6 @@
 
+using UnityEngine.Events;
+
 namespace FroguesFramework
 {
     public interface IAbleToHaveCurrentAbility

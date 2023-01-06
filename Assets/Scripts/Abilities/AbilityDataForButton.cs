@@ -4,7 +4,7 @@ namespace FroguesFramework
 {
     public class AbilityDataForButton : MonoBehaviour
     {
-        [SerializeField] private Sprite sprite;
-        public Sprite Sprite => sprite;
+        [SerializeField] private Material material;
+        public Material Material => material;
     }
 }

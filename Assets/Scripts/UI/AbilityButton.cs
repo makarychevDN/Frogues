@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -14,13 +15,14 @@ namespace FroguesFramework
         private AbilitiesPanel _abilitiesPanel;
         private bool _chosen;
         private Transform _currentButtonSlot;
+        private bool _draggingNow;
         
 
         public void Init(AbilitiesPanel abilitiesPanel,IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
         {
             _abilitiesPanel = abilitiesPanel;
             _ability = ability;
-            image.sprite = ableToDrawAbilityButton.GetAbilityDataForButton().Sprite;
+            image.material = ableToDrawAbilityButton.GetAbilityDataForButton().Material;
             _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
             transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
@@ -28,28 +30,24 @@ namespace FroguesFramework
         
         public void PickAbility()
         {
-            /*if (_dragNow)
-            {
-                _dragNow = false;
+            if(_draggingNow)
                 return;
-            }*/
             
-            if(_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability)
+            if (_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability)
+            {
                 _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
-            
+            }
             else
+            {
                 _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(_ability);
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
             _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
             transform.parent = _currentButtonSlot.parent;
-            /*onDragEvent.Invoke();
-            _dragNow = true;
-            transform.parent = slot.transform.parent;
-            slot.Content = null;
-            //_playerInput.currentAbility = null;*/
+            _draggingNow = true;
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -82,6 +80,12 @@ namespace FroguesFramework
             
             transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
+            _draggingNow = false;
+        }
+
+        private void Update()
+        {
+            image.material.SetInt("_AbilityUsingNow", (_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability).ToInt());
         }
 
         private void SetSlot(Transform slot)
