@@ -124,8 +124,8 @@ namespace FroguesFramework
                              !item.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces))
                     {
                         _currentNodes.Add(item);
-                        item.weight = Vector2Int.Distance(item.coordinates, userCell.coordinates) +
-                                      Vector2Int.Distance(item.coordinates, targetCell.coordinates) +
+                        item.weight = Vector3.Distance(item.cell.transform.position, userCell.transform.position) +
+                                      Vector3.Distance(item.cell.transform.position, targetCell.transform.position) +
                                       item.ColumnContentWightModifiers;
                         item.previous = smallestWeightNode;
                         item.usedToPathFinding = true;
