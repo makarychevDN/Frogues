@@ -86,6 +86,7 @@ namespace FroguesFramework
             unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
+            _animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
             _spriteRotator = unit.SpriteRotator;
         }
 

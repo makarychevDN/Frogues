@@ -7,6 +7,7 @@ namespace FroguesFramework
         public const string Death = "Death";
         public const string Kick = "Kick";
         public const string TakeDamage = "Take Damage";
+        public const string ChangeWeapon = "Change Weapon";
         
         public const int WeaponlessIndex = 0;
         public const int ShieldIndex = 1;
