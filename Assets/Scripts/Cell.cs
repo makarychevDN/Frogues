@@ -17,6 +17,9 @@ namespace FroguesFramework
         public UnityEvent OnBecameFull;
         public UnityEvent OnBecameEmpty;
         
+        public UnityEvent<Unit> OnBecameFullByUnit;
+        public UnityEvent<Unit> OnBecameEmptyByUnit;
+        
         [SerializeField] private Unit content;
         [SerializeField] private Transform hexagonModel;
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
@@ -35,15 +38,18 @@ namespace FroguesFramework
             get => content;
             set
             {
-                content = value;
                 if (value != null)
                 {
+                    content = value;
                     value.CurrentCell = this;
                     OnBecameFull.Invoke();
+                    OnBecameFullByUnit.Invoke(content);
                 }
                 else
                 {
                     OnBecameEmpty.Invoke();
+                    OnBecameEmptyByUnit.Invoke(content);
+                    content = value;
                 }
             }
         }
