@@ -92,6 +92,8 @@ namespace FroguesFramework
 
         public int GetCost() => cost;
 
+        public bool IsPartOfWeapon() => true;
+
         public bool PossibleToUseOnTarget(Unit target)
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);

@@ -77,6 +77,8 @@ namespace FroguesFramework
         }
 
         public int GetCost() => cost;
+        
+        public bool IsPartOfWeapon() => false;
 
         public bool PossibleToUseOnTarget(Unit target)
         {

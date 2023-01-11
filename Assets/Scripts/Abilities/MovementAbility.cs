@@ -85,6 +85,8 @@ namespace FroguesFramework
 
         public int GetCost() => _movable.DefaultMovementCost;
 
+        public bool IsPartOfWeapon() => false;
+
         private void Update()
         {
             if (!CurrentlyActiveObjects.SomethingIsActNow && _path.Count != 0)

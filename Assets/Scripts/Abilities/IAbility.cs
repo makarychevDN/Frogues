@@ -9,5 +9,7 @@ namespace FroguesFramework
         public void Init(Unit unit);
 
         public int GetCost();
+
+        public bool IsPartOfWeapon();
     }
 }
