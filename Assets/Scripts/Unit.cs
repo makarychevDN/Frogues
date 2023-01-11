@@ -12,6 +12,7 @@ namespace FroguesFramework
         [field : SerializeField] public bool Small { get; private set; }
         
         [field : Header("Input Setup")]
+        [field : SerializeField] public bool Enemy { get; private set; }
         [field : SerializeField] public AbilitiesManager AbilitiesManager { get; private set; }
         [field : SerializeField] public ActionPoints ActionPoints { get; private set; }
         
@@ -37,6 +38,7 @@ namespace FroguesFramework
 
         public void Init()
         {
+            ActionPoints?.Init(this);
             AbleToDie?.Init(this);
             Health?.Init(this);
             SpriteRotator?.Init(this);

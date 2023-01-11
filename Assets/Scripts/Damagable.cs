@@ -18,6 +18,7 @@ namespace FroguesFramework
         public UnityEvent OnHpEnded;
         private int _healthWithPreTakenDamage, _permanentArmorWithPreTakenDamage, _temporaryArmorWithPreTakenDamage;
         private int _hashedHp, _hashedArmor;
+        private bool _enemy;
         private AbleToDie _ableToDie;
         private Animator _animator;
 
@@ -45,6 +46,7 @@ namespace FroguesFramework
         {
             _ableToDie = unit.AbleToDie;
             _animator = unit.Animator;
+            _enemy = unit.Enemy;
         }
 
         private void Awake()
@@ -134,8 +136,20 @@ namespace FroguesFramework
             TakeDamage(maxHP, true);
         }
 
-        public void Tick()
+        public void TickBeforePlayerTurn()
         {
+            if(_enemy)
+                return;
+            
+            temporaryArmor = 0;
+            _hashedArmor = Armor;
+        }
+
+        public void TickBeforeEnemiesTurn()
+        {
+            if(!_enemy)
+                return;
+            
             temporaryArmor = 0;
             _hashedArmor = Armor;
         }

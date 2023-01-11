@@ -10,7 +10,8 @@ namespace FroguesFramework
     {
         public static UnitsQueue Instance;
         [SerializeField] private Unit player;
-        [SerializeField] private Unit roundCounter;
+        [SerializeField] private Unit roundCounterBeforePlayer;
+        [SerializeField] private Unit roundCounterBeforeEnemies;
         [SerializeField] private bool playerDied;
         public UnityEvent OnPlayerDied;
 
@@ -48,27 +49,24 @@ namespace FroguesFramework
 
             foreach (var unit in actUnits)
             {
-                if (unit == player || unit == roundCounter)
+                if (unit == player || unit == roundCounterBeforePlayer || unit == roundCounterBeforeEnemies)
                     continue;
 
                 if (unit.unitType == MapLayer.Surface)
                 {
                     _unitsList.AddFirst(unit);
-                    _debugUnits.Insert(0, unit);
                 }
                 else
                 {
                     _unitsList.Add(unit);
-                    _debugUnits.Add(unit);
                 }
             }
+            
+            _unitsList.AddFirst(roundCounterBeforePlayer);
+            _unitsList.AddAfterTargetObject(roundCounterBeforePlayer, player);
+            _unitsList.AddAfterTargetObject(player, roundCounterBeforeEnemies);
 
-            _unitsList.AddFirst(player);
-            _debugUnits.Insert(0, player);
-
-            _unitsList.AddFirst(roundCounter);
-            _debugUnits.Insert(0, roundCounter);
-
+            _debugUnits = _unitsList.ToList();
             _currentNode = _unitsList.HeadNode;
         }
 

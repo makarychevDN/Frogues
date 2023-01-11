@@ -9,8 +9,14 @@ namespace FroguesFramework
         [SerializeField] private int maxPointsCount;
         [SerializeField] private int pointsRegeneration;
         private int _preTakenCurrentPoints;
+        private bool _enemy;
 
         public UnityEvent OnActionPointsEnded;
+
+        public void Init(Unit unit)
+        {
+            _enemy = unit.Enemy;
+        }
 
         private void RegeneratePoints()
         {
@@ -28,7 +34,6 @@ namespace FroguesFramework
         public int CurrentActionPoints
         {
             get => currentPoints;
-            set => currentPoints = value;
         }
         
         public int PreTakenCurrentPoints
@@ -73,6 +78,16 @@ namespace FroguesFramework
 
         public bool Full => currentPoints >= maxPointsCount;
 
-        public void Tick() => RegeneratePoints();
+        public void TickBeforePlayerTurn()
+        { 
+            if (_enemy)
+                RegeneratePoints();
+        }
+        
+        public void TickBeforeEnemiesTurn()
+        {
+            if (!_enemy)
+                RegeneratePoints();
+        }
     }
 }

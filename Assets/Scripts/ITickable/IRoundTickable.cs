@@ -1,9 +1,9 @@
-using UnityEngine;
-
 namespace FroguesFramework
 {
     public interface IRoundTickable
     {
-        public void Tick();
+        public void TickBeforePlayerTurn();
+        
+        public void TickBeforeEnemiesTurn();
     }
 }

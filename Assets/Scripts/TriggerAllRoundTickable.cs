@@ -5,9 +5,13 @@ namespace FroguesFramework
 {
     public class TriggerAllRoundTickable : MonoBehaviour
     {
+        [SerializeField] private bool triggerBeforePlayer;
         public void RoundTick()
         {
-            FindObjectsOfType<MonoBehaviour>().OfType<IRoundTickable>().ToList().ForEach(x => x.Tick());
+            if(triggerBeforePlayer)
+                FindObjectsOfType<MonoBehaviour>().OfType<IRoundTickable>().ToList().ForEach(x => x.TickBeforePlayerTurn());
+            else
+                FindObjectsOfType<MonoBehaviour>().OfType<IRoundTickable>().ToList().ForEach(x => x.TickBeforeEnemiesTurn());
         }
     }
 }

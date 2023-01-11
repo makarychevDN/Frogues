@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FroguesFramework
 {
@@ -176,6 +177,7 @@ namespace FroguesFramework
 
             QueueNode temp = _headNode;
             int count = 0;
+            
             while (temp.Next != _headNode)
             {
                 temp = temp.Next;
@@ -183,6 +185,26 @@ namespace FroguesFramework
             }
 
             return count + 1;
+        }
+
+        public List<Unit> ToList()
+        {
+            if (_headNode == null)
+                return null;
+
+            if (_headNode.Next == _headNode)
+                return new List<Unit> { _headNode.Unit };
+
+            List<Unit> result = new List<Unit>();
+            QueueNode temp = _headNode;
+
+            do
+            {
+                result.Add(temp.Unit);
+                temp = temp.Next;
+            } while (temp.Next != _headNode.Next);
+
+            return result;
         }
 
         #region InterfaceImplementationStaff
