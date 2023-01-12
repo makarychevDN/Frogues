@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpearAttackAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
+
+    public class ShieldAttackAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
     {
         [SerializeField] private int defaultDamage;
-        [SerializeField] private int criticalDamage;
         [SerializeField] private int radius;
         [SerializeField] private int cost;
         [SerializeField] private float animationBeforeImpactTime;
@@ -33,7 +33,7 @@ namespace FroguesFramework
             _actionPoints.PreSpendPoints(cost);
             
             if(!_targetCell.IsEmpty)
-                _targetCell.Content.Health.PreTakeDamage(CalculateDamage());
+                _targetCell.Content.Health.PreTakeDamage(defaultDamage);
         }
 
         public void Use()
@@ -51,7 +51,7 @@ namespace FroguesFramework
             
             _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
             
-            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SwordIndex);
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
 
             _actionPoints.SpendPoints(cost);
@@ -64,14 +64,7 @@ namespace FroguesFramework
 
         public void ApplyEffect()
         {
-            _targetCell.Content.Health.TakeDamage(CalculateDamage());
-        }
-
-        private int CalculateDamage()
-        {
-            return _unit.CurrentCell.DistanceToCell(_targetCell) == radius
-                ? criticalDamage
-                : defaultDamage;
+            _targetCell.Content.Health.TakeDamage(defaultDamage);
         }
 
         private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
@@ -82,7 +75,7 @@ namespace FroguesFramework
             _actionPoints = unit.ActionPoints;
             unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
-            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SwordIndex);
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
             _spriteRotator = unit.SpriteRotator;
         }
