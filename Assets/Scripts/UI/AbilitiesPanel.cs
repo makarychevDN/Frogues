@@ -17,6 +17,7 @@ namespace FroguesFramework
         private void Awake()
         {
             abilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
+            abilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
         }
 
         private void AddAbilityButton(IAbility ability)
@@ -28,6 +29,20 @@ namespace FroguesFramework
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
             abilityButton.Init(this, ability, abilityAsAbleToDrawAbilityButton);
+        }
+
+        private void RemoveAbilityButton(IAbility ability)
+        {
+            foreach (var abilitySlot in abilitySlots)
+            {
+                var button = abilitySlot.GetComponentInChildren<AbilityButton>();
+                
+                if(button == null || button.Ability != ability)
+                    continue;
+                
+                DestroyImmediate(button.gameObject);
+                return;
+            }
         }
 
         public Transform FirstEmptySlot()

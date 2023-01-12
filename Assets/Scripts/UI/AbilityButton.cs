@@ -16,8 +16,9 @@ namespace FroguesFramework
         private bool _chosen;
         private Transform _currentButtonSlot;
         private bool _draggingNow;
-        
 
+        public IAbility Ability => _ability;
+        
         public void Init(AbilitiesPanel abilitiesPanel,IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
         {
             _abilitiesPanel = abilitiesPanel;

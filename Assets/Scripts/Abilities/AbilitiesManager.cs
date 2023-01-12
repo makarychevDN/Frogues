@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,6 +29,13 @@ namespace FroguesFramework
         public void RemoveAbility(IAbility ability)
         {
             _abilities.Remove(ability);
+            AbilityHasBeenRemoved.Invoke(ability);
+        }
+        
+        public void RemoveAllWeaponAbilities()
+        {
+            var abilitiesToRemove = _abilities.Where(ability => ability.IsPartOfWeapon()).ToList();
+            abilitiesToRemove.ForEach(abilityToRemove => RemoveAbility(abilityToRemove));
         }
     }
 }
