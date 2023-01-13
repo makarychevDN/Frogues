@@ -12,5 +12,6 @@ namespace FroguesFramework
         public const int WeaponlessIndex = 0;
         public const int ShieldIndex = 1;
         public const int SwordIndex = 2;
+        public const int SpearIndex = 3;
     }
 }

@@ -51,7 +51,7 @@ namespace FroguesFramework
             
             _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
             
-            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SwordIndex);
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SpearIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
 
             _actionPoints.SpendPoints(cost);
@@ -82,7 +82,7 @@ namespace FroguesFramework
             _actionPoints = unit.ActionPoints;
             unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
-            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SwordIndex);
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SpearIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
             _spriteRotator = unit.SpriteRotator;
         }
