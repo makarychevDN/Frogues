@@ -123,7 +123,7 @@ namespace FroguesFramework
             ClampPosition();
             coordinates = GetComponentInParent<Map>().GetGridPosition(this);
             _hashedPosition = transform.localPosition;
-            hexagonModel.localRotation = Quaternion.Euler(90, Random.Range(0, 6) * 60, 0);
+            hexagonModel.localRotation = Quaternion.Euler(-90, Random.Range(0, 6) * 60, 0);
         }
 
         private void OnDestroy()
