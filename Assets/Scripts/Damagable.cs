@@ -57,6 +57,7 @@ namespace FroguesFramework
         }
         
         private void TriggerTakeDamageAnimation() => _animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
+        
 
         public void TakeHealing(int value)
         {
@@ -90,8 +91,7 @@ namespace FroguesFramework
 
             if (currentHP <= 0)
             {
-                OnHpEnded.Invoke();
-                _ableToDie.Die();
+                Invoke(nameof(DieProcess), 0.25f);
             }
             
             _hashedHp = currentHP;
@@ -152,6 +152,12 @@ namespace FroguesFramework
             
             temporaryArmor = 0;
             _hashedArmor = Armor;
+        }
+
+        private void DieProcess()
+        {
+            OnHpEnded.Invoke();
+            _ableToDie.Die();
         }
     }
 }

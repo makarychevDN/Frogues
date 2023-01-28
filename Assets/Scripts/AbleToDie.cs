@@ -7,7 +7,6 @@ namespace FroguesFramework
     {
         public UnityEvent OnDeath;
         private Unit _unit;
-
         public void Init(Unit unit)
         {
             _unit = unit;
@@ -15,8 +14,18 @@ namespace FroguesFramework
         
         public void Die()
         {
+            CurrentlyActiveObjects.Add(this);
             if (_unit.CurrentCell != null)
                 _unit.CurrentCell.Content = null;
+            
+            _unit.Animator.SetTrigger(CharacterAnimatorParameters.Death);
+            
+            Invoke(nameof(RemoveUnitFromTheGame), 0.75f);
+        }
+
+        private void RemoveUnitFromTheGame()
+        {
+            CurrentlyActiveObjects.Remove(this);
             UnitsQueue.Instance.Remove(_unit);
             Destroy(_unit.gameObject);
             OnDeath.Invoke();
