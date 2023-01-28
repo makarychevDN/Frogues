@@ -7,7 +7,7 @@ namespace FroguesFramework
 {
     public class AbilitiesManager : MonoBehaviour
     {
-        [SerializeField] private IAbleToHaveCurrentAbility _ableToHaveCurrentAbility;
+        private IAbleToHaveCurrentAbility _ableToHaveCurrentAbility;
         private List<IAbility> _abilities = new();
         public UnityEvent<IAbility> AbilityHasBeenAdded;
         public UnityEvent<IAbility> AbilityHasBeenRemoved;
