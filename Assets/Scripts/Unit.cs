@@ -48,6 +48,7 @@ namespace FroguesFramework
             ActionsInput = GetComponentInChildren<IAbleToAct>();
             ActionsInput?.Init();
             
+            AbleToSkipTurn?.Init(this);
             AbilitiesManager?.Init(this);
             EffectsVisualiser?.Init(this);
         }

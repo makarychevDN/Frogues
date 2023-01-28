@@ -5,12 +5,17 @@ namespace FroguesFramework
 {
     public class AbleToSkipTurn : MonoBehaviour
     {
-        [SerializeField] private Unit unit;
+        private Unit _unit;
         public UnityEvent OnSkipTurn;
 
+        public void Init(Unit unit)
+        {
+            _unit = unit;
+        }
+        
         public void AutoSkip()
         {
-            if (!UnitsQueue.Instance.IsUnitCurrent(unit))
+            if (!UnitsQueue.Instance.IsUnitCurrent(_unit))
                 return;
 
             OnSkipTurn.Invoke();
