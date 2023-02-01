@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class ResourcePointUI : MonoBehaviour
     {
         [SerializeField] private GameObject fullResourcePointIcon;
+        [SerializeField] private GameObject halfFullResourcePointIcon;
         [SerializeField] private GameObject preCostedResourcePoint;
         [SerializeField] private GameObject emptyResourcePoint;
         [SerializeField] private GameObject notEnoughResourcePointsIcon;
@@ -30,6 +31,12 @@ namespace FroguesFramework
         {
             DisableAllIcons();
             fullResourcePointIcon.SetActive(true);
+        }
+        
+        public void EnableHalfFullIcon()
+        {
+            DisableAllIcons();
+            halfFullResourcePointIcon.SetActive(true);
         }
 
         public void EnablePreCostIcon()
