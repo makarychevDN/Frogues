@@ -14,7 +14,6 @@ namespace FroguesFramework
         public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
         [SerializeField] public List<Cell> allCells;
         
-        [SerializeField] protected Cell cellPrefab;
         [SerializeField] protected Cell wallPrefab;
         [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<Transform> _cellsParents;
