@@ -57,5 +57,11 @@ namespace FroguesFramework
                 ? hit.transform.parent.GetComponent<Cell>()
                 : null;
         }
+        
+        public static Cell JumpOverNeighborCell(Cell startCell, Cell targetCell)
+        {
+            var hexDir = startCell.CellNeighbours.GetHexDirByNeighbor(targetCell);
+            return targetCell.CellNeighbours.GetNeighborByHexDir(hexDir);
+        }
     }
 }

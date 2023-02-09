@@ -48,13 +48,16 @@ namespace FroguesFramework
         public void Move(Cell targetCell) => Move(targetCell, true);
 
         public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove) =>
-            Move(targetCell, defaultMovementCost, defaultSpeed, defaultJumpHeight, true);
+            Move(targetCell, defaultMovementCost, defaultSpeed, defaultJumpHeight, true, true);
 
         public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight) =>
-            Move(targetCell, movementCost, speed, jumpHeight, true);
+            Move(targetCell, movementCost, speed, jumpHeight, true, true);
+        
+        public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight, bool needToRotateSprite) =>
+            Move(targetCell, movementCost, speed, jumpHeight, true, needToRotateSprite);
 
         public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight,
-            bool startCellBecomeEmptyOnMove)
+            bool startCellBecomeEmptyOnMove, bool needToRotateSprite)
         {
 
             if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.Small) || !_actionPoints.IsActionPointsEnough(movementCost))
@@ -66,7 +69,7 @@ namespace FroguesFramework
             if (startCellBecomeEmptyOnMove)
                 _unit.CurrentCell.Content = null;
 
-            Play(_unit.CurrentCell, targetCell, speed, jumpHeight);
+            Play(_unit.CurrentCell, targetCell, speed, jumpHeight, needToRotateSprite);
             _unit.CurrentCell = null;
             OnMovementStart.Invoke();
         }
@@ -101,7 +104,7 @@ namespace FroguesFramework
             Play(startCell, targetCell, defaultSpeed, defaultJumpHeight);
         
 
-        private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight)
+        private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight, bool needToRotateSprite = true)
         {
             _speed = speed;
             _jumpHeight = jumpHeight;
@@ -110,7 +113,9 @@ namespace FroguesFramework
             _targetCell = targetCell;
             CurrentlyActiveObjects.Add(this);
             _distance = Vector3.Distance(startCell.transform.position, targetCell.transform.position);
-            _spriteRotator.TurnAroundByTarget(targetCell.transform.position);
+            
+            if(needToRotateSprite)
+                _spriteRotator.TurnAroundByTarget(targetCell.transform.position);
         }
 
         void Update()
