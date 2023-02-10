@@ -122,19 +122,19 @@ namespace FroguesFramework
         {
             if (!_isPlaying)
                 return;
-
-            var lerpPosition =
-                Vector3.Lerp(_startCell.transform.position, _targetCell.transform.position, _currentTime);
-            float scaledShadowSize = 0;
-
-            _spriteParent.position = lerpPosition;
+            
+            _spriteParent.position =
+                PositionOnCurveCalculator.Calculate(_startCell, _targetCell, jumpCurve, _currentTime, _jumpHeight);
             _spriteParent.position += Vector3.up * _spriteAlignment;
-            _spriteParent.position += Vector3.up * (jumpCurve.Evaluate(_currentTime) * _jumpHeight);
 
-            _shadow.position = lerpPosition;
+            
+            float scaledShadowSize = 0;
+            _shadow.position =
+                PositionOnCurveCalculator.Calculate(_startCell, _targetCell, jumpCurve, _currentTime, 0);
             _shadow.position += Vector3.up * _shadowAlignment;
             scaledShadowSize = Mathf.Clamp(1 - jumpCurve.Evaluate(_currentTime) * _jumpHeight, 0, 1);
             _shadow.localScale = new Vector3(scaledShadowSize, scaledShadowSize, 0);
+            
             TimerStep();
         }
 

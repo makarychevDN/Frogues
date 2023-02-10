@@ -9,9 +9,13 @@ namespace FroguesFramework
         [SerializeField] private int cost;
         [SerializeField] private float fullAnimationTime;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
+        
+        [Header("Visualization")]
         [SerializeField] private float animationBeforeImpactTime;
         [SerializeField] private float pushAnimationHeight;
         [SerializeField] private float pushAnimationSpeed;
+        [SerializeField] private LineRenderer visualizationPreUseArrow;
+        [SerializeField] private AnimationCurve animationCurve;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Cell _targetCell;
@@ -21,6 +25,7 @@ namespace FroguesFramework
         
         public void VisualizePreUse()
         {
+            visualizationPreUseArrow.gameObject.SetActive(false);
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
             _targetCell = CellsTaker.TakeCellByMouseRaycast();
@@ -30,6 +35,24 @@ namespace FroguesFramework
             
             _targetCell.EnableSelectedCellHighlight(true);
             _actionPoints.PreSpendPoints(cost);
+
+            if(_targetCell.Content == null)
+                return;
+            
+            visualizationPreUseArrow.gameObject.SetActive(true);
+
+            float curveDelta = 1.0f / visualizationPreUseArrow.positionCount;
+            for (int i = 0; i < visualizationPreUseArrow.positionCount; i++)
+            {
+                var position = PositionOnCurveCalculator.Calculate(_targetCell,
+                    CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell), animationCurve,
+                    curveDelta * (i + 1), pushAnimationHeight);
+
+                position -= _unit.transform.position;
+                
+                visualizationPreUseArrow.SetPosition(i, position); 
+            }
+            
         }
 
         public void Use()
