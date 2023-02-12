@@ -12,7 +12,7 @@ namespace FroguesFramework
         
         public void Act()
         {
-            var path = PathFinder.Instance.FindWayExcludeLastCell(_unit.CurrentCell, target.CurrentCell, false, false, false);
+            var path = Room.Instance.PathFinder.FindWayExcludeLastCell(_unit.CurrentCell, target.CurrentCell, false, false, false);
 
             if (path == null || path.Count == 0 || !_actionPoints.IsActionPointsEnough(_movementAbility.GetCost()))
             {

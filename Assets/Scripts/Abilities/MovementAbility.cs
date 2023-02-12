@@ -54,7 +54,7 @@ namespace FroguesFramework
         {
             path.Clear();
 
-            movementArea = PathFinder.Instance.GetCellsAreaByActionPoints(_unit.CurrentCell,
+            movementArea = Room.Instance.PathFinder.GetCellsAreaByActionPoints(_unit.CurrentCell,
                 _actionPoints.CurrentActionPoints,
                 _unit.Movable.DefaultMovementCost, false, false, true);
 
@@ -65,7 +65,7 @@ namespace FroguesFramework
             if(_targetCell == null || !movementArea.Contains(_targetCell))
                 return;
 
-            path = PathFinder.Instance.FindWay(_unit.CurrentCell, _targetCell, false,
+            path = Room.Instance.PathFinder.FindWay(_unit.CurrentCell, _targetCell, false,
                 false, true);
         }
 

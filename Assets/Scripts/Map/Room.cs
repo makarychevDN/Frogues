@@ -3,16 +3,25 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ArenaInitializer : MonoBehaviour
+    public class Room : MonoBehaviour
     {
+        public static Room Instance;
         [SerializeField] private Map map;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
+        
         [SerializeField] private Unit player;
         [SerializeField] private Unit metaPlayer;
-        
+
+        public PathFinder PathFinder => pathFinder;
+        public Map Map => map;
+        public UnitsQueue UnitsQueue => unitsQueue;
+
         private void Awake()
         {
+            if (Instance == null)
+                Instance = this;
+
             map.Init();
             pathFinder.Init();
             InitPlayer();

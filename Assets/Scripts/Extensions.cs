@@ -75,7 +75,7 @@ namespace FroguesFramework
 
         public static int DistanceToCell(this Cell from, Cell to)
         {
-            return PathFinder.Instance.FindWay(from, to, true, true, true).Count;
+            return Room.Instance.PathFinder.FindWay(from, to, true, true, true).Count;
         }
 
         public static Vector3 PositionRelativeToMainCamera(this Vector3 vector)

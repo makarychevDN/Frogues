@@ -26,7 +26,7 @@ namespace FroguesFramework
         private void RemoveUnitFromTheGame()
         {
             CurrentlyActiveObjects.Remove(this);
-            UnitsQueue.Instance.Remove(_unit);
+            Room.Instance.UnitsQueue.Remove(_unit);
             Destroy(_unit.gameObject);
             OnDeath.Invoke();
         }

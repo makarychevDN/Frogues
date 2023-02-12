@@ -8,7 +8,6 @@ namespace FroguesFramework
 {
     public class UnitsQueue : MonoBehaviour
     {
-        public static UnitsQueue Instance;
         [SerializeField] private Unit player;
         [SerializeField] private Unit roundCounterBeforePlayer;
         [SerializeField] private Unit roundCounterBeforeEnemies;
@@ -30,7 +29,6 @@ namespace FroguesFramework
 
         public void Init()
         {
-            Instance = this;
             InitQueue();
             ActivateNext();
         }

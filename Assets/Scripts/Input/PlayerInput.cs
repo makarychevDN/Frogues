@@ -10,11 +10,11 @@ namespace FroguesFramework
         private IAbility _currentAbility;
         private float bottomUiPanelHeight = 120f;
 
-        public bool InputIsPossible => UnitsQueue.Instance.IsUnitCurrent(_unit)
+        public bool InputIsPossible => Room.Instance.UnitsQueue.IsUnitCurrent(_unit)
                                        && !CurrentlyActiveObjects.SomethingIsActNow;
 
         public void Act()
-        {            
+        {
             DisableAllVisualizationFromPlayerOnMap();
 
             if (_currentAbility == null)
@@ -47,8 +47,8 @@ namespace FroguesFramework
 
         private void DisableAllVisualizationFromPlayerOnMap()
         {
-            Map.Instance.allCells.ForEach(cell => cell.DisableAllCellVisualization());
-            var cellsWithContent = Map.Instance.allCells.WithContentOnly();
+            Room.Instance.Map.allCells.ForEach(cell => cell.DisableAllCellVisualization());
+            var cellsWithContent = Room.Instance.Map.allCells.WithContentOnly();
             cellsWithContent.Where(cell => cell.Content.Health != null).ToList()
                 .ForEach(cell => cell.Content.Health.ResetPreDamageValue());
             cellsWithContent.Where(cell => cell.Content.ActionPoints != null).ToList()

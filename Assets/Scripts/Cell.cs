@@ -60,9 +60,9 @@ namespace FroguesFramework
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if (!ignoreDefaultUnits && !Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
+            if (!ignoreDefaultUnits && !Room.Instance.Map.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
             {
-                if (ignoreSmallUnits && Map.Instance.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content
+                if (ignoreSmallUnits && Room.Instance.Map.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content
                     .Small)
                     return true;
 
@@ -76,7 +76,7 @@ namespace FroguesFramework
         }
 
         public bool CheckColumnIsEmpty() =>
-            Map.Instance.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.IsEmpty);
+            Room.Instance.Map.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.IsEmpty);
 
         public void EnableSelectedCellHighlight(bool isOn)
         {

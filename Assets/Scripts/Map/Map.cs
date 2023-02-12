@@ -8,8 +8,6 @@ namespace FroguesFramework
 {
     public class Map : MonoBehaviour
     {
-        public static Map Instance;
-
         public int sizeX, sizeZ;
         public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
         [SerializeField] public List<Cell> allCells;
@@ -18,13 +16,9 @@ namespace FroguesFramework
         [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<Transform> _cellsParents;
         public Dictionary<MapLayer, Cell[,]> layers;
-        
-        //private float _biggestXPosition, _biggestZPosition;
 
         public void Init()
         {
-            Instance = this;
-            
             allCells.ForEach(cell => cell.coordinates = GetGridPosition(cell));
             
             // +2 for cells with walls

@@ -6,7 +6,6 @@ namespace FroguesFramework
 {
     public class PathFinder : MonoBehaviour
     {
-        public static PathFinder Instance;
         public Map map;
         [SerializeField] private bool isMapHexagon;
         [SerializeField] private LineRenderer lineRendererPrefab;
@@ -21,7 +20,6 @@ namespace FroguesFramework
 
         public void Init()
         {
-            Instance = this;
             InitializeDirVectors();
             InitializeNodesGrid();
             FindAllNodesNeighbors();
@@ -108,7 +106,7 @@ namespace FroguesFramework
                         item.previous = smallestWeightNode;
                         List<Cell> path = new List<Cell>();
                         var tempBackTrackNode = item;
-                        Cell[,] currentLayer = Map.Instance.layers[userCell.mapLayer];
+                        Cell[,] currentLayer = Room.Instance.Map.layers[userCell.mapLayer];
 
                         while (tempBackTrackNode.coordinates !=
                                new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
