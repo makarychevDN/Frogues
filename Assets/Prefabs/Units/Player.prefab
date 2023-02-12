@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5719561370547822843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 926521790852359543}
+  - component: {fileID: 6643090751058872274}
+  m_Layer: 0
+  m_Name: Kick Ability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &926521790852359543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5719561370547822843}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 350482125025967800}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6643090751058872274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5719561370547822843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56bcafc8cb88a25409a85b13355f140b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 1
+  cost: 2
+  fullAnimationTime: 0.1
+  abilityDataForButton: {fileID: 0}
+  animationBeforeImpactTime: 0.05
+  pushAnimationHeight: 0.3
+  pushAnimationSpeed: 10
+  visualizationPreUseArrow: {fileID: 0}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &6139163347955096334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,12 +152,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5904106046715979190, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 926521790852359543}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8266967420827098069, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1417761408573172410}
   m_SourcePrefab: {fileID: 100100000, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
+--- !u!4 &350482125025967800 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5904106046715979190, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
+  m_PrefabInstance: {fileID: 6139163347955096334}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2848697843140935899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8266967420827098069, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
