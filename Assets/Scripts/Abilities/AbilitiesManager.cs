@@ -17,6 +17,11 @@ namespace FroguesFramework
         public void Init(Unit unit)
         {
             _ableToHaveCurrentAbility = unit.ActionsInput as IAbleToHaveCurrentAbility;
+
+            foreach (var ability in GetComponentsInChildren<IAbility>())
+            {
+                ability.Init(unit);
+            }
         }
         
         public void AddAbility(IAbility ability)
