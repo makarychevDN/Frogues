@@ -314,12 +314,12 @@ GameObject:
   - component: {fileID: 8701784690964451660}
   - component: {fileID: 3512192850315208208}
   m_Layer: 0
-  m_Name: Permanent Block Increased
+  m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8701784690964451660
 Transform:
   m_ObjectHideFlags: 0
@@ -327,14 +327,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713025741106806974}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: -0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3623859751308553601}
   - {fileID: 6069891777055798735}
-  m_Father: {fileID: 7978332964510163059}
+  m_Father: {fileID: 3674645521950104470}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &3512192850315208208
@@ -915,12 +915,12 @@ GameObject:
   - component: {fileID: 669274458806977424}
   - component: {fileID: 3636091420523395335}
   m_Layer: 0
-  m_Name: Temporary Block Increased
+  m_Name: Animation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3607284038400868157
 Transform:
   m_ObjectHideFlags: 0
@@ -933,7 +933,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7978332964510163059}
+  m_Father: {fileID: 3916505385630813279}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3882166572196094618
@@ -1640,6 +1640,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 8227907655280640468}
+--- !u!1 &6295622660902482274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3916505385630813279}
+  m_Layer: 0
+  m_Name: Temporary Block Increased
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &3916505385630813279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295622660902482274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: -0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3607284038400868157}
+  m_Father: {fileID: 7978332964510163059}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7442025326768858339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,6 +1767,38 @@ MonoBehaviour:
   AbilityHasBeenRemoved:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &7803607776110080487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3674645521950104470}
+  m_Layer: 0
+  m_Name: Permanent Block Increased
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &3674645521950104470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7803607776110080487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: -0.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8701784690964451660}
+  m_Father: {fileID: 7978332964510163059}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8164902064414350275
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,8 +1923,8 @@ Transform:
   m_Children:
   - {fileID: 5755740078373339624}
   - {fileID: 8561098991623644696}
-  - {fileID: 3607284038400868157}
-  - {fileID: 8701784690964451660}
+  - {fileID: 3916505385630813279}
+  - {fileID: 3674645521950104470}
   m_Father: {fileID: 3036369896160266994}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1878,8 +1942,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageSuccessfullyBlockedEffect: {fileID: 5583972159105616307}
   blockDestroyedEffect: {fileID: 8516072102741525914}
-  temporaryBlockIncreasedEffect: {fileID: 3535486892787262113}
-  permanentBlockIncreasedEffect: {fileID: 1713025741106806974}
+  temporaryBlockIncreasedEffect: {fileID: 6295622660902482274}
+  permanentBlockIncreasedEffect: {fileID: 7803607776110080487}
 --- !u!1 &8266967420827098069
 GameObject:
   m_ObjectHideFlags: 0

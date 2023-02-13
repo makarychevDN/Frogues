@@ -31,7 +31,7 @@ namespace FroguesFramework
             throw new System.NotImplementedException();
         }
 
-        public bool IsPartOfWeapon() => false;
+        public bool IsPartOfWeapon() => true;
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
     }
