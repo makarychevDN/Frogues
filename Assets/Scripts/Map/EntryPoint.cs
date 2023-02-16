@@ -25,7 +25,7 @@ public class EntryPoint : MonoBehaviour
     public void StartNextRoom()
     {
         var newRoom = Instantiate(roomsPrefabs.GetRandomElement());
-        _currentRoom.gameObject.SetActive(false);
+        _currentRoom.Deactivate();
         _currentRoom = newRoom;
         _currentRoom.Init(_metaPlayer);
     }

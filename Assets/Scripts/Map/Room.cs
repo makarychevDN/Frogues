@@ -8,7 +8,8 @@ namespace FroguesFramework
         [SerializeField] private Map map;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
-        
+        [SerializeField] private CameraRotationPointController centerPointForCamera;
+
         [SerializeField] private Unit player;
         [SerializeField] private Unit metaPlayer;
 
@@ -18,6 +19,7 @@ namespace FroguesFramework
 
         public void Init()
         {
+            centerPointForCamera.Init();
             map.Init();
             pathFinder.Init();
             InitPlayer();
@@ -58,6 +60,12 @@ namespace FroguesFramework
 
             //var actionPoints = player.GetComponentInChildren<ActionPoints>();
             //actionPoints.CurrentActionPoints = actionPoints.RegenActionPoints;
+        }
+
+        public void Deactivate()
+        {
+            centerPointForCamera.Deactivate();
+            gameObject.SetActive(false);
         }
     }
 }
