@@ -35,9 +35,13 @@ namespace FroguesFramework
         
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();
+        private bool _initAlready;
 
         public void Init()
         {
+            if(_initAlready)
+                return;
+            
             ActionPoints?.Init(this);
             AbleToDie?.Init(this);
             Health?.Init(this);
@@ -51,6 +55,8 @@ namespace FroguesFramework
             AbleToSkipTurn?.Init(this);
             AbilitiesManager?.Init(this);
             EffectsVisualiser?.Init(this);
+
+            _initAlready = true;
         }
     }
 }

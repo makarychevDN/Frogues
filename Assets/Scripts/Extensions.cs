@@ -75,12 +75,17 @@ namespace FroguesFramework
 
         public static int DistanceToCell(this Cell from, Cell to)
         {
-            return Room.Instance.PathFinder.FindWay(from, to, true, true, true).Count;
+            return EntryPoint.Instance.PathFinder.FindWay(from, to, true, true, true).Count;
         }
 
         public static Vector3 PositionRelativeToMainCamera(this Vector3 vector)
         {
             return Camera.main.transform.InverseTransformDirection(vector - Camera.main.transform.position);
+        }
+        
+        public static T GetRandomElement<T>(this List<T> list)
+        {
+            return list[Random.Range(0, list.Count)];
         }
     }
 }

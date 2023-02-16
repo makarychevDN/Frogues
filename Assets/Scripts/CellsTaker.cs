@@ -9,7 +9,7 @@ namespace FroguesFramework
     {
         public static List<Cell> TakeCellsAreaByRange(Cell startCell, int radius)
         {
-            return Room.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, true, false);
+            return EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, true, false);
         }
 
         public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction)

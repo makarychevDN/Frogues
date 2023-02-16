@@ -10313,6 +10313,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813852410 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5586868789273664390, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+  m_PrefabInstance: {fileID: 9139397553820274349}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c11108ad950553f4b8c7205cdcfde1fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1869595157 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 449035372355401018, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
@@ -10403,6 +10414,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745af59f9dc682d45babbf4774ced76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2024597957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2024597959}
+  - component: {fileID: 2024597958}
+  m_Layer: 0
+  m_Name: Entry Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2024597958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024597957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9bf5ddcb01ec0545ae6ae1ca7830d45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hub: {fileID: 1813852410}
+  roomsPrefabs:
+  - {fileID: 7884064588933264629, guid: e2a934acffd515842aa29681d1d7fed1, type: 3}
+  _currentRoom: {fileID: 0}
+  _metaPlayer: {fileID: 4182687046851866785}
+--- !u!4 &2024597959
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2024597957}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2133876481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2354519853673079646, guid: 8003428f0ee43b047bcde0a2f05fd810, type: 3}
@@ -11430,6 +11490,34 @@ PrefabInstance:
     - target: {fileID: 5586868789273664391, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154864646630210866, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+      propertyPath: OnBecameFull.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154864646630210866, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+      propertyPath: OnBecameFull.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154864646630210866, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+      propertyPath: OnBecameFull.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2024597958}
+    - target: {fileID: 6154864646630210866, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+      propertyPath: OnBecameFull.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154864646630210866, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+      propertyPath: OnBecameFull.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartNextRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154864646630210866, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+      propertyPath: OnBecameFull.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EntryPoint, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154864646630210866, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
+      propertyPath: OnBecameFull.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

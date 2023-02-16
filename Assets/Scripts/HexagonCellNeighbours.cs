@@ -42,23 +42,23 @@ namespace FroguesFramework
             int oddModificator = myCell.coordinates.y.Odd().ToInt();
 
             _topLeftCell =
-                Room.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y + 1),
+                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y + 1),
                     myCell.mapLayer);
             
             _topRightCell =
-                Room.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y + 1),
+                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y + 1),
                     myCell.mapLayer);
             
             _downLeftCell =
-                Room.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y - 1),
+                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y - 1),
                     myCell.mapLayer);
             
             _downRightCell =
-                Room.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y - 1),
+                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y - 1),
                     myCell.mapLayer);
 
-            _rightCell = Room.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right, myCell.mapLayer);
-            _leftCell = Room.Instance.Map.GetCell(myCell.coordinates + Vector2Int.left, myCell.mapLayer);
+            _rightCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right, myCell.mapLayer);
+            _leftCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.left, myCell.mapLayer);
         }
         
         private void InitNeighbours()

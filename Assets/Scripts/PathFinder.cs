@@ -106,7 +106,7 @@ namespace FroguesFramework
                         item.previous = smallestWeightNode;
                         List<Cell> path = new List<Cell>();
                         var tempBackTrackNode = item;
-                        Cell[,] currentLayer = Room.Instance.Map.layers[userCell.mapLayer];
+                        Cell[,] currentLayer = EntryPoint.Instance.Map.layers[userCell.mapLayer];
 
                         while (tempBackTrackNode.coordinates !=
                                new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))

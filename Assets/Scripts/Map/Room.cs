@@ -5,7 +5,6 @@ namespace FroguesFramework
 {
     public class Room : MonoBehaviour
     {
-        public static Room Instance;
         [SerializeField] private Map map;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
@@ -17,11 +16,8 @@ namespace FroguesFramework
         public Map Map => map;
         public UnitsQueue UnitsQueue => unitsQueue;
 
-        private void Awake()
+        public void Init()
         {
-            if (Instance == null)
-                Instance = this;
-
             map.Init();
             pathFinder.Init();
             InitPlayer();
@@ -39,6 +35,12 @@ namespace FroguesFramework
             
             unitsQueue.Init();
         }
+        
+        public void Init(Unit metaPlayer)
+        {
+            this.metaPlayer = metaPlayer;
+            Init();
+        }
 
         private void InitPlayer()
         {
@@ -54,7 +56,7 @@ namespace FroguesFramework
             player.gameObject.SetActive(false);
             player = playerInstance;
 
-            var actionPoints = player.GetComponentInChildren<ActionPoints>();
+            //var actionPoints = player.GetComponentInChildren<ActionPoints>();
             //actionPoints.CurrentActionPoints = actionPoints.RegenActionPoints;
         }
     }
