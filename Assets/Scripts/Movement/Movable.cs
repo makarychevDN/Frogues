@@ -38,10 +38,6 @@ namespace FroguesFramework
             _shadow = _unit.Shadow;
             _shadowAlignment = _shadow.parent.transform.localPosition.y;
             _spriteRotator = _unit.SpriteRotator;
-        }
-
-        private void Awake()
-        {
             _totalTime = jumpCurve.keys[jumpCurve.keys.Length - 1].time;
         }
 

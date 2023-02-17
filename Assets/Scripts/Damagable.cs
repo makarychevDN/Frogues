@@ -47,15 +47,12 @@ namespace FroguesFramework
             _ableToDie = unit.AbleToDie;
             _animator = unit.Animator;
             _enemy = unit.Enemy;
-        }
-
-        private void Awake()
-        {
+            
             _hashedHp = currentHP;
             _hashedArmor = Armor;
             OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
         }
-        
+
         private void TriggerTakeDamageAnimation() => _animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
         
 

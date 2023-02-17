@@ -10,6 +10,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private List<Room> roomsPrefabs;
     [SerializeField] private Room _currentRoom;
     [SerializeField] private Unit _metaPlayer;
+    [SerializeField] private AbilitiesPanel _abilitiesPanel;
 
     public PathFinder PathFinder => _currentRoom.PathFinder;
     public Map Map => _currentRoom.Map;
@@ -17,6 +18,7 @@ public class EntryPoint : MonoBehaviour
     
     private void Awake()
     {
+        _abilitiesPanel.Init();
         Instance = this;
         _currentRoom = hub;
         _currentRoom.Init(_metaPlayer);
