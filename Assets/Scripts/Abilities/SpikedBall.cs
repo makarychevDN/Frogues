@@ -18,7 +18,7 @@ namespace FroguesFramework
         private Cell _startOfPathCell;
         private Cell _cellToApplyEffect;
         private HexDir _directionToAttack;
-        private Damagable _health;
+        private Health _health;
 
         public void VisualizePreUse()
         {

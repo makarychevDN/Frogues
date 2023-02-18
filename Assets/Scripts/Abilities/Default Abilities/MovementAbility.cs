@@ -24,6 +24,9 @@ namespace FroguesFramework
 
         public void VisualizePreUse()
         {
+            if(IsMoving)
+                return;
+            
             CalculateMovementAreaAndPath(ref _preMovementArea, ref _prePath);
             _preMovementArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(_preMovementArea));
 
@@ -87,9 +90,11 @@ namespace FroguesFramework
 
         public bool IsPartOfWeapon() => false;
 
+        public bool IsMoving => _path.Count != 0;
+
         private void Update()
         {
-            if (!CurrentlyActiveObjects.SomethingIsActNow && _path.Count != 0)
+            if (!CurrentlyActiveObjects.SomethingIsActNow && IsMoving)
             {
                 _movable.Move(_path[0]);
                 _path.RemoveAt(0);

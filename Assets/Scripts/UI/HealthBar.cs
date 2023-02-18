@@ -9,7 +9,7 @@ namespace FroguesFramework
         [SerializeField] private Slider hpSlider;
         [SerializeField] private Slider armorSlider;
         [SerializeField] private Slider preTakenDamageDeltaSlider;
-        [SerializeField] private Damagable health;
+        [SerializeField] private Health health;
         [SerializeField] private TextMeshProUGUI textField;
 
         public void Update()

@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using FroguesFramework;
 using UnityEngine;
 
@@ -15,6 +15,10 @@ public class EntryPoint : MonoBehaviour
     public PathFinder PathFinder => _currentRoom.PathFinder;
     public Map Map => _currentRoom.Map;
     public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;
+
+    public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer) 
+                                     && !_metaPlayer.MovementAbility.IsMoving 
+                                     && !CurrentlyActiveObjects.SomethingIsActNow;
     
     private void Awake()
     {
@@ -30,5 +34,15 @@ public class EntryPoint : MonoBehaviour
         _currentRoom.Deactivate();
         _currentRoom = newRoom;
         _currentRoom.Init(_metaPlayer);
+    }
+
+    private void Update()
+    {
+        foreach (var ableToDisablePreVisualization in FindObjectsOfType<MonoBehaviour>().OfType<IAbleToDisablePreVisualization>())
+        {
+            ableToDisablePreVisualization.DisablePreVisualization();
+        }
+
+        _currentRoom.UnitsQueue.ActForCurrentUnit();
     }
 }

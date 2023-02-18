@@ -68,7 +68,7 @@ namespace FroguesFramework
             _currentNode = _unitsList.HeadNode;
         }
 
-        private void Update()
+        public void ActForCurrentUnit()
         {
             if (CurrentlyActiveObjects.SomethingIsActNow || playerDied)
                 return;

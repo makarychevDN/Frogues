@@ -15,8 +15,6 @@ namespace FroguesFramework
 
         public void Act()
         {
-            DisableAllVisualizationFromPlayerOnMap();
-
             if (_currentAbility == null)
                 _currentAbility = _movementAbility;
 
@@ -31,7 +29,6 @@ namespace FroguesFramework
             _unit = GetComponentInParent<Unit>();
             _movementAbility = _unit.MovementAbility;
             _currentAbility = _movementAbility;
-            _unit.AbleToSkipTurn.OnSkipTurn.AddListener(DisableAllVisualizationFromPlayerOnMap);
         }
 
         private void AbilityInput(IAbility ability)
@@ -40,19 +37,8 @@ namespace FroguesFramework
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
             {
-                DisableAllVisualizationFromPlayerOnMap();
                 ability.Use();
             }
-        }
-
-        private void DisableAllVisualizationFromPlayerOnMap()
-        {
-            EntryPoint.Instance.Map.allCells.ForEach(cell => cell.DisableAllCellVisualization());
-            var cellsWithContent = EntryPoint.Instance.Map.allCells.WithContentOnly();
-            cellsWithContent.Where(cell => cell.Content.Health != null).ToList()
-                .ForEach(cell => cell.Content.Health.ResetPreDamageValue());
-            cellsWithContent.Where(cell => cell.Content.ActionPoints != null).ToList()
-                .ForEach(cell => cell.Content.ActionPoints.ResetPreCostValue());
         }
 
         public void SetCurrentAbility(IAbility ability) => _currentAbility = ability;

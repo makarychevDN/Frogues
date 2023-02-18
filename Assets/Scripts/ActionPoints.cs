@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class ActionPoints : MonoBehaviour, IRoundTickable
+    public class ActionPoints : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization
     {
         [SerializeField] private int currentPoints;
         [SerializeField] private int maxPointsCount;
@@ -70,11 +70,6 @@ namespace FroguesFramework
         {
             points -= cost;
         }
-        
-        public void ResetPreCostValue()
-        {
-            _preTakenCurrentPoints = currentPoints;
-        }
 
         public bool Full => currentPoints >= maxPointsCount;
 
@@ -88,6 +83,11 @@ namespace FroguesFramework
         {
             if (!_enemy)
                 RegeneratePoints();
+        }
+
+        public void DisablePreVisualization()
+        {
+            _preTakenCurrentPoints = currentPoints;
         }
     }
 }

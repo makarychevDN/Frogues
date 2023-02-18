@@ -9,7 +9,7 @@ namespace FroguesFramework
 
         private void Update()
         {
-            uiObjects.ForEach(uiObject => uiObject.SetActive(!CurrentlyActiveObjects.SomethingIsActNow));
+            uiObjects.ForEach(uiObject => uiObject.SetActive(EntryPoint.Instance.NeedToShowUnitsUI));
         }
     }
 }

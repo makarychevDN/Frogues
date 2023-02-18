@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 namespace FroguesFramework
 {
     [ExecuteAlways]
-    public class Cell : MonoBehaviour
+    public class Cell : MonoBehaviour, IAbleToDisablePreVisualization
     {
         public MapLayer mapLayer;
         [field : SerializeField] public Vector2Int coordinates { get; set; }
@@ -101,16 +101,6 @@ namespace FroguesFramework
 
         public void EnableOnMouseHoverVisualization(bool isOn) => onMouseHoverVisualization.SetActive(isOn);
 
-        public void DisableAllCellVisualization()
-        {
-            EnableSelectedCellHighlight(false);
-            EnableValidForAbilityCellHighlight(false);
-            DisableTrails();
-            EnablePathDot(false);
-            EnableOnMouseHoverVisualization(false);
-            EnableValidForMovementCellHighlight(false);
-        }
-        
         private void Update()
         {
             if (Application.isPlaying) 
@@ -147,6 +137,16 @@ namespace FroguesFramework
             }
             
             transform.localPosition = new Vector3(xPos, transform.localPosition.y, zPos);
+        }
+
+        public void DisablePreVisualization()
+        {
+            EnableSelectedCellHighlight(false);
+            EnableValidForAbilityCellHighlight(false);
+            DisableTrails();
+            EnablePathDot(false);
+            EnableOnMouseHoverVisualization(false);
+            EnableValidForMovementCellHighlight(false);
         }
     }
 }

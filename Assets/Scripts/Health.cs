@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class Damagable : MonoBehaviour, IRoundTickable
+    public class Health : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
@@ -121,13 +121,6 @@ namespace FroguesFramework
             calculatingHp -= damageValue;
         }
 
-        public void ResetPreDamageValue()
-        {
-            _healthWithPreTakenDamage = currentHP;
-            _permanentArmorWithPreTakenDamage = permanentArmor;
-            _temporaryArmorWithPreTakenDamage = temporaryArmor;
-        }
-
         public void DieFromStepOnUnit()
         {
             TakeDamage(maxHP, true);
@@ -155,6 +148,13 @@ namespace FroguesFramework
         {
             OnHpEnded.Invoke();
             _ableToDie.Die();
+        }
+
+        public void DisablePreVisualization()
+        {
+            _healthWithPreTakenDamage = currentHP;
+            _permanentArmorWithPreTakenDamage = permanentArmor;
+            _temporaryArmorWithPreTakenDamage = temporaryArmor;
         }
     }
 }

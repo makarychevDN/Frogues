@@ -28,7 +28,7 @@ namespace FroguesFramework
         [field : SerializeField] public SpriteRotator SpriteRotator { get; private set; }
 
         [field : Header("Health Setup")]
-        [field : SerializeField] public Damagable Health { get; private set; }
+        [field : SerializeField] public Health Health { get; private set; }
         [field : SerializeField] public AbleToDie AbleToDie { get; private set; }
         [field : SerializeField] public EffectsVisualiser EffectsVisualiser { get; private set; }
         
