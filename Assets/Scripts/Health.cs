@@ -52,6 +52,7 @@ namespace FroguesFramework
             _hashedHp = currentHP;
             _hashedArmor = Armor;
             OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
+            unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
         }
 
         private void TriggerTakeDamageAnimation() => _animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);

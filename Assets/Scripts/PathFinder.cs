@@ -48,29 +48,29 @@ namespace FroguesFramework
             }
         }
 
-        public List<Cell> FindWay(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreProjectiles,
+        public List<Cell> FindWay(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreSmallUnits,
             bool ignoreSurfaces)
         {
             ResetNodes();
-            return AStar(userCell, targetCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
+            return AStar(userCell, targetCell, ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces);
         }
         
-        public List<Cell> FindWayExcludeLastCell(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreProjectiles,
+        public List<Cell> FindWayExcludeLastCell(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreSmallUnits,
             bool ignoreSurfaces)
         {
             ResetNodes();
-            var path = FindWay(userCell, targetCell, ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces);
+            var path = FindWay(userCell, targetCell, ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces);
             path.RemoveAt(path.Count - 1);
             return path;
         }
 
 
         public List<Cell> GetCellsAreaByActionPoints(Cell userCell, int actionPoints, int movementCost,
-            bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
+            bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
             ResetNodes();
             return WaveAlgorithm(userCell, movementCost == 0 ? 100 : actionPoints / movementCost, ignoreDefaultUnits,
-                ignoreProjectiles, ignoreSurfaces);
+                ignoreSmallUnits, ignoreSurfaces);
         }
 
         public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool ignoreBusyCell, bool diagonalStep)
@@ -79,7 +79,7 @@ namespace FroguesFramework
             return WaveAlgorithmForAOEWeapon(userCell, radius, ignoreBusyCell, diagonalStep);
         }
 
-        private List<Cell> AStar(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreProjectiles,
+        private List<Cell> AStar(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreSmallUnits,
             bool ignoreSurfaces)
         {
             _currentNodes = new List<PathFinderNode>();
@@ -93,7 +93,7 @@ namespace FroguesFramework
 
                 foreach (var item in _currentNodes)
                 {
-                    if (!item.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces) &&
+                    if (!item.CheckIsBusy(ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces) &&
                         item.weight < smallestWeightNode.weight)
                         smallestWeightNode = item;
                 }
@@ -119,7 +119,7 @@ namespace FroguesFramework
                         return path;
                     }
                     else if (!item.usedToPathFinding &&
-                             !item.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces))
+                             !item.CheckIsBusy(ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces))
                     {
                         _currentNodes.Add(item);
                         item.weight = Vector3.Distance(item.cell.transform.position, userCell.transform.position) +
@@ -138,7 +138,7 @@ namespace FroguesFramework
         }
 
         private List<Cell> WaveAlgorithm(Cell userCell, int actionPoints, bool ignoreDefaultUnits,
-            bool ignoreProjectiles, bool ignoreSurfaces)
+            bool ignoreSmallUnits, bool ignoreSurfaces)
         {
             _childNodes = new List<PathFinderNode>();
             _currentNodes = new List<PathFinderNode>();
@@ -154,7 +154,7 @@ namespace FroguesFramework
                     foreach (var child in parent.neighbors)
                     {
                         if (!child.usedToPathFinding &&
-                            !child.CheckIsBusy(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces))
+                            !child.CheckIsBusy(ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces))
                         {
                             child.previous = parent;
                             _childNodes.Add(child);
@@ -322,10 +322,10 @@ namespace FroguesFramework
         public PathFinderNode previous;
         public float weight;
 
-        public bool CheckIsBusy(bool ignoreDefaultUnits, bool ignoreProjectiles, bool ignoreSurfaces)
-            => !cell.CheckColumnIsEmpty(ignoreDefaultUnits, ignoreProjectiles, ignoreSurfaces) /* && !IsWall*/;
+        public bool CheckIsBusy(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
+            => !cell.CheckColumnIsEmpty(ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces) /* && !IsWall*/;
 
-        public bool Busy => !cell.CheckColumnIsEmpty();
+        public bool Busy => !cell.AbleToStepOnIt;
 
         public bool IsWall => cell.Content as Wall;
 

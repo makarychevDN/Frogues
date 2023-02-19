@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
@@ -31,7 +32,9 @@ namespace FroguesFramework
         [field : SerializeField] public Health Health { get; private set; }
         [field : SerializeField] public AbleToDie AbleToDie { get; private set; }
         [field : SerializeField] public EffectsVisualiser EffectsVisualiser { get; private set; }
-        
+
+        public UnityEvent OnStepOnThisUnit = new UnityEvent();
+        public UnityEvent<Unit> OnStepOnThisUnitByTheUnit = new UnityEvent<Unit>();
         
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();

@@ -83,7 +83,13 @@ namespace FroguesFramework
                     targetCell.Content = _unit;
                     unitToStepOnIt.CurrentCell = null;
                     _unit.CurrentCell = targetCell;
-                    //unitToStepOnIt.stepOnUnitTrigger.Run(_unit);
+
+                    if (unitToStepOnIt != null)
+                    {
+                        unitToStepOnIt.OnStepOnThisUnit.Invoke();
+                        unitToStepOnIt.OnStepOnThisUnitByTheUnit.Invoke(unitToStepOnIt);
+                    }
+
                     return;
                 }
 

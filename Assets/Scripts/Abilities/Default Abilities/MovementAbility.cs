@@ -58,7 +58,7 @@ namespace FroguesFramework
 
             movementArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_unit.CurrentCell,
                 _actionPoints.CurrentActionPoints,
-                _unit.Movable.DefaultMovementCost, false, false, true);
+                _unit.Movable.DefaultMovementCost, false, true, true);
 
             if (findTargetByMouse)
                 _targetCell = CellsTaker.TakeCellByMouseRaycast();

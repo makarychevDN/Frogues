@@ -55,6 +55,8 @@ namespace FroguesFramework
         }
 
         public bool IsEmpty => Content == null && !chosenToMovement;
+        
+        public bool AbleToStepOnIt => (Content == null || Content.Small) && !chosenToMovement;
 
         public HexagonCellNeighbours CellNeighbours => hexagonCellNeighbours;
 
@@ -75,8 +77,8 @@ namespace FroguesFramework
             return true;
         }
 
-        public bool CheckColumnIsEmpty() =>
-            EntryPoint.Instance.Map.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.IsEmpty);
+        //public bool CheckColumnIsEmpty() =>
+            //EntryPoint.Instance.Map.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.AbleToStepOnIt);
 
         public void EnableSelectedCellHighlight(bool isOn)
         {
