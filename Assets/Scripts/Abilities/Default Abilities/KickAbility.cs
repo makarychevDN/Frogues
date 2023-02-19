@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class KickAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
+    public class KickAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
     {
         [SerializeField] private int radius;
         [SerializeField] private int cost;
@@ -70,7 +70,6 @@ namespace FroguesFramework
             
             _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
             
-            //_animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SpearIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Kick);
 
             _actionPoints.SpendPoints(cost);
@@ -94,8 +93,6 @@ namespace FroguesFramework
             _actionPoints = unit.ActionPoints;
             unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
-            //_animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SpearIndex);
-            //_animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
             _spriteRotator = unit.SpriteRotator;
         }
 
@@ -116,5 +113,10 @@ namespace FroguesFramework
         }
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
+        
+        public void DisablePreVisualization()
+        {
+            visualizationPreUseArrow.gameObject.SetActive(false);
+        }
     }
 }
