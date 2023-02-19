@@ -33,6 +33,7 @@ namespace FroguesFramework
         public void IncreaseTemporaryArmor(int value)
         {
             temporaryArmor += value;
+            _hashedArmor = Armor;
             OnTemporaryBlockIncreased.Invoke();
         }
         
