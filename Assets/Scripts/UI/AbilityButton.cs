@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +7,7 @@ namespace FroguesFramework
     public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         [SerializeField] private Image image;
+        [SerializeField] private AbilityHint abilityHint;
 
         private bool _dragNow;
         private float maxDistanceToClamp = 64;
@@ -27,6 +27,10 @@ namespace FroguesFramework
             _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
             transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
+            abilityHint.Init(ableToDrawAbilityButton.GetAbilityDataForButton().AbilityName,
+                ableToDrawAbilityButton.GetAbilityDataForButton().Stats,
+                ableToDrawAbilityButton.GetAbilityDataForButton().Description);
+            abilityHint.EnableContent(false);
         }
         
         public void PickAbility()
