@@ -16,6 +16,7 @@ namespace FroguesFramework
         public UnityEvent OnPermanentBlockIncreased;
         public UnityEvent OnBlockIncreased;
         public UnityEvent OnHpEnded;
+        [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
         private int _healthWithPreTakenDamage, _permanentArmorWithPreTakenDamage, _temporaryArmorWithPreTakenDamage;
         private int _hashedHp, _hashedArmor;
         private bool _enemy;
@@ -125,6 +126,7 @@ namespace FroguesFramework
 
         public void DieFromStepOnUnit()
         {
+            deathFromStepOnThisUnitAudioSource.Play();
             TakeDamage(maxHP, true);
         }
 
