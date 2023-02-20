@@ -87,6 +87,9 @@ namespace FroguesFramework
 
         public void Remove(Unit unit)
         {
+            if(!_unitsList.Contains(unit))
+                return;
+            
             if (_currentNode.Unit == unit)
                 ActivateNext();
 

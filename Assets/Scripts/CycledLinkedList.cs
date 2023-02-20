@@ -186,6 +186,27 @@ namespace FroguesFramework
 
             return count + 1;
         }
+        
+        public bool Contains(Unit unitToRemove)
+        {
+            if (_headNode == null)
+                return false;
+
+            if (_headNode.Next == _headNode)
+                return _headNode.Unit == unitToRemove;
+
+            QueueNode temp = _headNode;
+
+            while (temp.Next != _headNode)
+            {
+                temp = temp.Next;
+
+                if (temp.Unit == unitToRemove)
+                    return true;
+            }
+
+            return false;
+        }
 
         public List<Unit> ToList()
         {
