@@ -87,7 +87,7 @@ namespace FroguesFramework
                     if (unitToStepOnIt != null)
                     {
                         unitToStepOnIt.OnStepOnThisUnit.Invoke();
-                        unitToStepOnIt.OnStepOnThisUnitByTheUnit.Invoke(unitToStepOnIt);
+                        unitToStepOnIt.OnStepOnThisUnitByTheUnit.Invoke(_unit);
                     }
 
                     return;
