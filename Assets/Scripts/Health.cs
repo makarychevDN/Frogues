@@ -72,18 +72,21 @@ namespace FroguesFramework
         {
             CalculateDamage(ref currentHP, ref permanentArmor,ref temporaryArmor, damageValue, ignoreArmor);
 
-            if (_hashedArmor != 0)
+            if (!ignoreArmor)
             {
-                if (Armor != 0)
+                if (_hashedArmor != 0)
                 {
-                    OnDamageBlockedSuccessfully.Invoke();
-                }
-                else
-                {
-                    OnBlockDestroyed.Invoke();
+                    if (Armor != 0)
+                    {
+                        OnDamageBlockedSuccessfully.Invoke();
+                    }
+                    else
+                    {
+                        OnBlockDestroyed.Invoke();
+                    }
                 }
             }
-            
+
             if (currentHP < _hashedHp)
             {
                 OnApplyUnblockedDamage.Invoke();
