@@ -19,6 +19,7 @@ namespace FroguesFramework
         public void Init(Unit unit)
         {
             unit.OnStepOnThisUnitByTheUnit.AddListener(UseOnTarget);
+            unit.Movable.OnBumpIntoUnit.AddListener(UseOnTarget);
         }
         
         //todo need to remake interfaces stuff to remove this

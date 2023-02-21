@@ -15,7 +15,8 @@ namespace FroguesFramework
         public UnityEvent OnMovementStart;
         public UnityEvent OnMovementEnd;
         public UnityEvent OnBumpInto;
-        public UnityEvent<List<Cell>> OnBumpIntoCell;
+        public UnityEvent<Unit> OnBumpIntoUnit;
+        //public UnityEvent<List<Cell>> OnBumpIntoCell;
 
         private Unit _unit;
         private ActionPoints _actionPoints;
@@ -39,6 +40,7 @@ namespace FroguesFramework
             _shadowAlignment = _shadow.parent.transform.localPosition.y;
             _spriteRotator = _unit.SpriteRotator;
             _totalTime = jumpCurve.keys[jumpCurve.keys.Length - 1].time;
+            OnBumpInto.AddListener(unit.Health.DieFromStepOnUnit);
         }
 
         public void Move(Cell targetCell) => Move(targetCell, true);
@@ -94,7 +96,7 @@ namespace FroguesFramework
                 }
 
                 OnBumpInto.Invoke();
-                OnBumpIntoCell.Invoke(new List<Cell>() {targetCell});
+                OnBumpIntoUnit.Invoke(targetCell.Content);
                 return;
             }
 
