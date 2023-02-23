@@ -64,7 +64,6 @@ namespace FroguesFramework
 
             if (!targetCell.IsEmpty && !canBumpIntoUnit && !targetCell.Content.Small)
             {
-                print(1);
                 return;
             }
 
