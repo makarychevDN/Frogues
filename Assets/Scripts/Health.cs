@@ -56,8 +56,17 @@ namespace FroguesFramework
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
         }
 
-        private void TriggerTakeDamageAnimation() => _animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
-        
+        private void TriggerTakeDamageAnimation()
+        {
+            CurrentlyActiveObjects.Add(this);
+            _animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
+            Invoke("RemoveFromCurrentlyActiveObjects", 0.25f); //todo улучшить эту штуку
+        }
+
+        private void RemoveFromCurrentlyActiveObjects()
+        {
+            CurrentlyActiveObjects.Remove(this);
+        }
 
         public void TakeHealing(int value)
         {
@@ -89,6 +98,7 @@ namespace FroguesFramework
 
             if (currentHP < _hashedHp)
             {
+                CurrentlyActiveObjects.Add(this);
                 OnApplyUnblockedDamage.Invoke();
             }
 

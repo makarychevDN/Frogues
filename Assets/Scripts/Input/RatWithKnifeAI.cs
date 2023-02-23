@@ -40,7 +40,7 @@ namespace FroguesFramework
             _spearAttackAbility.Init(_unit);
 
             if (target == null)
-                target = FindObjectOfType<PlayerInput>().GetComponentInParent<Unit>();
+                target = EntryPoint.Instance.MetaPlayer;
         }
     }
 }

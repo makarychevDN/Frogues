@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DealDamageToSteppedOnThisUnitPassiveAbility : MonoBehaviour, IAbleToUseOnTarget, IAbility
+    public class DealDamageOnContactWithOtherUnit : MonoBehaviour, IAbleToUseOnTarget, IAbility
     {
         [SerializeField] private int damage;
         

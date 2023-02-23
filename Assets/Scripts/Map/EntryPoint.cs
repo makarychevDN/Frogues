@@ -19,7 +19,9 @@ public class EntryPoint : MonoBehaviour
     public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer) 
                                      && !_metaPlayer.MovementAbility.IsMoving 
                                      && !CurrentlyActiveObjects.SomethingIsActNow;
-    
+
+    public Unit MetaPlayer => _metaPlayer;
+
     private void Awake()
     {
         _abilitiesPanel.Init();

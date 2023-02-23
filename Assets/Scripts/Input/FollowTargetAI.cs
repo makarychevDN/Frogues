@@ -30,6 +30,7 @@ namespace FroguesFramework
             _movementAbility = _unit.MovementAbility;
             _actionPoints = _unit.ActionPoints;
             _ableToSkipTurn = _unit.AbleToSkipTurn;
+            target = EntryPoint.Instance.MetaPlayer;
         }
     }
 }

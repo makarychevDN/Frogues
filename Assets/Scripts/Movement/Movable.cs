@@ -46,7 +46,7 @@ namespace FroguesFramework
         public void Move(Cell targetCell) => Move(targetCell, true);
 
         public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove) =>
-            Move(targetCell, defaultMovementCost, defaultSpeed, defaultJumpHeight, true, true);
+            Move(targetCell, defaultMovementCost, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove, true);
 
         public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight) =>
             Move(targetCell, movementCost, speed, jumpHeight, true, true);
@@ -57,9 +57,16 @@ namespace FroguesFramework
         public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight,
             bool startCellBecomeEmptyOnMove, bool needToRotateSprite)
         {
-
-            if (!targetCell.IsEmpty && !(canBumpIntoUnit || targetCell.Content.Small) || !_actionPoints.IsActionPointsEnough(movementCost))
+            if (!_actionPoints.IsActionPointsEnough(movementCost))
+            {
                 return;
+            }
+
+            if (!targetCell.IsEmpty && !canBumpIntoUnit && !targetCell.Content.Small)
+            {
+                print(1);
+                return;
+            }
 
             _actionPoints.SpendPoints(movementCost);
             targetCell.chosenToMovement = true;
