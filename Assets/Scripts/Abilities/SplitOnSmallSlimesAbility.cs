@@ -38,10 +38,11 @@ namespace FroguesFramework
         
         public void SpawnAndMoveToCell(Cell targetCell)
         {
-            var projectile = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
-            projectile.Init();
-            projectile.CurrentCell = _unit.CurrentCell;
-            projectile.Movable.Move(targetCell, false);
+            var spawnedObject = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+            spawnedObject.Init();
+            spawnedObject.CurrentCell = _unit.CurrentCell;
+            spawnedObject.Movable.Move(targetCell, false);
+            EntryPoint.Instance.UnitsQueue.AddObjectInQueueAfterTarget(_unit, spawnedObject);
         }
 
         public void Init(Unit unit)
