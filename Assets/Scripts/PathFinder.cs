@@ -60,6 +60,10 @@ namespace FroguesFramework
         {
             ResetNodes();
             var path = FindWay(userCell, targetCell, ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces);
+
+            if (path == null)
+                return null;
+            
             path.RemoveAt(path.Count - 1);
             return path;
         }
