@@ -31,6 +31,8 @@ namespace FroguesFramework
         public int Armor => temporaryArmor + permanentArmor;
         public int ArmorWithPreTakenDamage => _temporaryArmorWithPreTakenDamage + _permanentArmorWithPreTakenDamage;
 
+        public bool Full => currentHP == maxHP;
+
         public void IncreaseTemporaryArmor(int value)
         {
             temporaryArmor += value;
