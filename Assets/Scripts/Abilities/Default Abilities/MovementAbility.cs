@@ -68,7 +68,7 @@ namespace FroguesFramework
                 return;
 
             path = EntryPoint.Instance.PathFinder.FindWay(_unit.CurrentCell, _targetCell, false,
-                false, true);
+                true, true);
         }
 
         public void Use() => ApplyEffect();
