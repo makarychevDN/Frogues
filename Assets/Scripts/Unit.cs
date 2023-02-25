@@ -60,6 +60,9 @@ namespace FroguesFramework
             EffectsVisualiser?.Init(this);
 
             _initAlready = true;
+
+            if (CurrentCell != null)
+                transform.position = CurrentCell.transform.position;
         }
     }
 }
