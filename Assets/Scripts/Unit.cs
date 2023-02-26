@@ -27,6 +27,8 @@ namespace FroguesFramework
         [field : SerializeField] public Transform SpriteParent { get; private set; }
         [field : SerializeField] public Transform Shadow { get; private set; }
         [field : SerializeField] public SpriteRotator SpriteRotator { get; private set; }
+        
+        [field : SerializeField] public MaterialInstanceContainer MaterialInstanceContainer { get; private set; }
 
         [field : Header("Health Setup")]
         [field : SerializeField] public Health Health { get; private set; }
@@ -39,6 +41,16 @@ namespace FroguesFramework
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();
         private bool _initAlready;
+
+        /*private void OnMouseEnter()
+        {
+            MaterialInstanceContainer.MaterialInstance.SetInt("_OutlineEnabled", 1);
+        }
+        
+        private void OnMouseExit()
+        {
+            MaterialInstanceContainer.MaterialInstance.SetInt("_OutlineEnabled", 0);
+        }*/
 
         public void Init()
         {
