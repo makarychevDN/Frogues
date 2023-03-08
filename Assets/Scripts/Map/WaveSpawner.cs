@@ -31,10 +31,7 @@ namespace FroguesFramework
         public void SpawnWave(Wave wave)
         {
             var emptyCells = CellsTaker.TakeAllEmptyCells();
-            
-            print(emptyCells);
-            print(emptyCells.Count);
-            
+
             for (int i = 0; i < wave.Units.Count; i++)
             {
                 if(emptyCells.Count == 0)
@@ -48,9 +45,6 @@ namespace FroguesFramework
         
         public void SpawnAndMoveToCell(Cell targetCell, Unit prefabToSpawn)
         {
-            print("cell to spawn = " + targetCell);
-            print("unit to spawn = " + prefabToSpawn);
-            
             var spawnedObject = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
             spawnedObject.Init();
             spawnedObject.Movable.FreeCostMove(targetCell, 15, 1, false);
