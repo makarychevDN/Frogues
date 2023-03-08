@@ -37,6 +37,12 @@ namespace FroguesFramework
 
             return cells;
         }
+        
+        public static List<Cell> TakeAllEmptyCells()
+        {
+            return EntryPoint.Instance.Map.allCells.Where(cell => cell.IsEmpty).ToList();
+        }
+
 
         public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell)
         {

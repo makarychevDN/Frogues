@@ -76,6 +76,52 @@ Transform:
   m_Father: {fileID: 9177637780325136851}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8870483274890153588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8569611334570027633}
+  - component: {fileID: 5569397361152057879}
+  m_Layer: 0
+  m_Name: Wave Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8569611334570027633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8870483274890153588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9177637780325136851}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5569397361152057879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8870483274890153588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad44de979088936428256a84f26db00f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves: []
+  _roundsCounter: 0
 --- !u!1 &9177637780176317618
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,6 +188,7 @@ Transform:
   - {fileID: 9177637780620101241}
   - {fileID: 7624160055721405588}
   - {fileID: 6496629021054320829}
+  - {fileID: 8569611334570027633}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -349,9 +396,16 @@ MonoBehaviour:
   <SpriteParent>k__BackingField: {fileID: 0}
   <Shadow>k__BackingField: {fileID: 0}
   <SpriteRotator>k__BackingField: {fileID: 0}
+  <MaterialInstanceContainer>k__BackingField: {fileID: 0}
   <Health>k__BackingField: {fileID: 0}
   <AbleToDie>k__BackingField: {fileID: 0}
   <EffectsVisualiser>k__BackingField: {fileID: 0}
+  OnStepOnThisUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStepOnThisUnitByTheUnit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9177637780903308333
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,9 +466,16 @@ MonoBehaviour:
   <SpriteParent>k__BackingField: {fileID: 0}
   <Shadow>k__BackingField: {fileID: 0}
   <SpriteRotator>k__BackingField: {fileID: 0}
+  <MaterialInstanceContainer>k__BackingField: {fileID: 0}
   <Health>k__BackingField: {fileID: 0}
   <AbleToDie>k__BackingField: {fileID: 0}
   <EffectsVisualiser>k__BackingField: {fileID: 0}
+  OnStepOnThisUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStepOnThisUnitByTheUnit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9177637781065542190
 GameObject:
   m_ObjectHideFlags: 0

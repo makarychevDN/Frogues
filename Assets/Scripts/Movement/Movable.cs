@@ -20,7 +20,8 @@ namespace FroguesFramework
 
         private Unit _unit;
         private ActionPoints _actionPoints;
-        private Cell _startCell, _targetCell;
+        private Vector3 _startCellPosition, _targetCellPosition;
+        private Cell _targetCell;
         private float _currentTime, _totalTime, _distance;
         private bool _isPlaying;
         private float _spriteAlignment, _shadowAlignment;
@@ -121,10 +122,11 @@ namespace FroguesFramework
             _speed = speed;
             _jumpHeight = jumpHeight;
             _isPlaying = true;
-            _startCell = startCell;
             _targetCell = targetCell;
+            _startCellPosition = startCell == null ? transform.position : startCell.transform.position;
+            _targetCellPosition = targetCell.transform.position;
             CurrentlyActiveObjects.Add(this);
-            _distance = Vector3.Distance(startCell.transform.position, targetCell.transform.position);
+            _distance = Vector3.Distance(_startCellPosition, _targetCellPosition);
             
             if(needToRotateSprite)
                 _spriteRotator.TurnAroundByTarget(targetCell.transform.position);
@@ -136,13 +138,13 @@ namespace FroguesFramework
                 return;
             
             _spriteParent.position =
-                PositionOnCurveCalculator.Calculate(_startCell, _targetCell, jumpCurve, _currentTime, _jumpHeight);
+                PositionOnCurveCalculator.Calculate(_startCellPosition, _targetCellPosition, jumpCurve, _currentTime, _jumpHeight);
             _spriteParent.position += Vector3.up * _spriteAlignment;
 
             
             float scaledShadowSize = 0;
             _shadow.position =
-                PositionOnCurveCalculator.Calculate(_startCell, _targetCell, jumpCurve, _currentTime, 0);
+                PositionOnCurveCalculator.Calculate(_startCellPosition, _targetCellPosition, jumpCurve, _currentTime, 0);
             _shadow.position += Vector3.up * _shadowAlignment;
             scaledShadowSize = Mathf.Clamp(1 - jumpCurve.Evaluate(_currentTime) * _jumpHeight, 0, 1);
             _shadow.localScale = new Vector3(scaledShadowSize, scaledShadowSize, 0);
