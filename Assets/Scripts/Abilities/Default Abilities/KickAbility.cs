@@ -82,7 +82,7 @@ namespace FroguesFramework
         public void ApplyEffect()
         {
             _targetCell.Content.Movable.FreeCostMove(CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell),
-                pushAnimationSpeed, pushAnimationHeight, false, false);
+                pushAnimationSpeed, pushAnimationHeight, true, false);
         }
 
         private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
