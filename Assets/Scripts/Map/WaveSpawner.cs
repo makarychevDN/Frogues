@@ -45,9 +45,9 @@ namespace FroguesFramework
         
         public void SpawnAndMoveToCell(Cell targetCell, Unit prefabToSpawn)
         {
-            var spawnedObject = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
+            var spawnedObject = Instantiate(prefabToSpawn, EntryPoint.Instance.CenterOfRoom + Vector3.up * 7, Quaternion.identity);
             spawnedObject.Init();
-            spawnedObject.Movable.FreeCostMove(targetCell, 15, 1, false);
+            spawnedObject.Movable.FreeCostMove(targetCell, 20, 1, false);
             EntryPoint.Instance.UnitsQueue.AddObjectInQueue(spawnedObject);
         }
         

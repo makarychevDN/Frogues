@@ -20,6 +20,8 @@ public class EntryPoint : MonoBehaviour
                                      && !_metaPlayer.MovementAbility.IsMoving 
                                      && !CurrentlyActiveObjects.SomethingIsActNow;
 
+    public Vector3 CenterOfRoom => _currentRoom.CenterOfRoom;
+
     public Unit MetaPlayer => _metaPlayer;
 
     private void Awake()
