@@ -88,7 +88,7 @@ namespace FroguesFramework
             var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.Init();
             projectile.CurrentCell = _unit.CurrentCell;
-            projectile.Movable.Move(_targetCell, false);
+            projectile.Movable.FreeCostMove(_targetCell, false);
         }
 
         private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);

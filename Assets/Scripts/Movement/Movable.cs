@@ -42,20 +42,22 @@ namespace FroguesFramework
             _totalTime = jumpCurve.keys[jumpCurve.keys.Length - 1].time;
             OnBumpInto.AddListener(unit.Health.DieFromStepOnUnit);
         }
-
-        public void Move(Cell targetCell) => Move(targetCell, true);
-
-        public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove) =>
-            Move(targetCell, defaultMovementCost, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove, true);
-
-        public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight) =>
-            Move(targetCell, movementCost, speed, jumpHeight, true, true);
         
-        public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight, bool needToRotateSprite) =>
-            Move(targetCell, movementCost, speed, jumpHeight, true, needToRotateSprite);
+        public void FreeCostMove(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>
+            Move(targetCell, 0, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove,
+                needToRotateSprite);
+        
+        public void FreeCostMove(Cell targetCell, float speed, float jumpHeight,
+            bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>
+            Move(targetCell, 0, speed, jumpHeight, startCellBecomeEmptyOnMove,
+                needToRotateSprite);
+
+        public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>
+            Move(targetCell, defaultMovementCost, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove,
+                needToRotateSprite);
 
         public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight,
-            bool startCellBecomeEmptyOnMove, bool needToRotateSprite)
+            bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true)
         {
             if (!_actionPoints.IsActionPointsEnough(movementCost))
             {
