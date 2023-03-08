@@ -144,6 +144,12 @@ namespace FroguesFramework
             deathFromStepOnThisUnitAudioSource.Play();
             TakeDamage(maxHP, true);
         }
+        
+        public void DieFromBumpInto()
+        {
+            deathFromStepOnThisUnitAudioSource.Play();
+            _ableToDie.DieWithoutAnimation();
+        }
 
         public void TickBeforePlayerTurn()
         {

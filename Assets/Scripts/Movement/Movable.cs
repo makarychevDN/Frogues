@@ -41,7 +41,7 @@ namespace FroguesFramework
             _shadowAlignment = _shadow.parent.transform.localPosition.y;
             _spriteRotator = _unit.SpriteRotator;
             _totalTime = jumpCurve.keys[jumpCurve.keys.Length - 1].time;
-            OnBumpInto.AddListener(unit.Health.DieFromStepOnUnit);
+            OnBumpInto.AddListener(unit.Health.DieFromBumpInto);
         }
         
         public void FreeCostMove(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>

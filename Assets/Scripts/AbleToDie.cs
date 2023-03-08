@@ -15,16 +15,17 @@ namespace FroguesFramework
         public void Die()
         {
             CurrentlyActiveObjects.Add(this);
-            if (_unit.CurrentCell != null)
-                _unit.CurrentCell.Content = null;
-            
             _unit.Animator.SetTrigger(CharacterAnimatorParameters.Death);
-            
             Invoke(nameof(RemoveUnitFromTheGame), 0.75f);
         }
 
+        public void DieWithoutAnimation() => RemoveUnitFromTheGame();
+
         private void RemoveUnitFromTheGame()
         {
+            if (_unit.CurrentCell != null)
+                _unit.CurrentCell.Content = null;
+            
             CurrentlyActiveObjects.Remove(this);
             EntryPoint.Instance.UnitsQueue.Remove(_unit);
             Destroy(_unit.gameObject);

@@ -17,6 +17,7 @@ namespace FroguesFramework
         [SerializeField] private float projectileAnimationHeight;
         [SerializeField] private LineRenderer visualizationPreUseArrow;
         [SerializeField] private AnimationCurve animationCurve;
+        [SerializeField] private AudioSource spawnSound;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Cell _targetCell;
@@ -82,9 +83,9 @@ namespace FroguesFramework
 
         public void ApplyEffect()
         {
-            //_targetCell.Content.Movable.Move(CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell), 0,
-            //    pushAnimationSpeed, projectileAnimationHeight, false);
-
+            if(spawnSound != null)
+                spawnSound.Play();
+            
             var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.Init();
             projectile.CurrentCell = _unit.CurrentCell;
