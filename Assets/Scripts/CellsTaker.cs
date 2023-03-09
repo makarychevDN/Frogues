@@ -54,6 +54,11 @@ namespace FroguesFramework
 
             return new List<Cell>();
         }
+        
+        public static List<Cell> EmptyCellsOnly(this List<Cell> cells)
+        {
+            return cells.Where(cell => cell.IsEmpty).ToList();
+        }
 
         public static Cell TakeCellByMouseRaycast()
         {
