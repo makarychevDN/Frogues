@@ -31,6 +31,8 @@ namespace FroguesFramework
 
         public int DefaultMovementCost => defaultMovementCost;
 
+        public bool CanBumpIntoUnit => canBumpIntoUnit;
+
         public void Init(Unit unit)
         {
             _unit = unit;

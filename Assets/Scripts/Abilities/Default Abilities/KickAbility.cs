@@ -36,9 +36,9 @@ namespace FroguesFramework
             _targetCell.EnableSelectedCellHighlight(true);
             _actionPoints.PreSpendPoints(cost);
 
-            if(_targetCell.Content == null)
+            if (!PossibleToUseOnTarget(_targetCell.Content))
                 return;
-            
+
             visualizationPreUseArrow.gameObject.SetActive(true);
 
             float curveDelta = 1.0f / visualizationPreUseArrow.positionCount;
@@ -52,7 +52,22 @@ namespace FroguesFramework
                 
                 visualizationPreUseArrow.SetPosition(i, position); 
             }
+        }
+
+        private bool CheckPossibleToApplyEffect()
+        {
+            if (_unit.Movable.CanBumpIntoUnit)
+                return true;
+
+            var unitToBumpInto = CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell).Content;
+
+            if (unitToBumpInto == null)
+                return true;
+
+            if (unitToBumpInto.Small)
+                return true;
             
+            return false;
         }
 
         public void Use()
@@ -60,12 +75,6 @@ namespace FroguesFramework
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             
             if (_targetCell == null || !PossibleToUseOnTarget(_targetCell.Content))
-                return;
-            
-            if(_targetCell.Content == null || _targetCell.Content.Health == null)
-                return;
-            
-            if(!_actionPoints.IsActionPointsEnough(cost))
                 return;
             
             _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
@@ -103,7 +112,28 @@ namespace FroguesFramework
         public bool PossibleToUseOnTarget(Unit target)
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
-            return target != null && _attackArea.Contains(target.CurrentCell);
+
+            if (target == null)
+                return false;
+
+            if (!_attackArea.Contains(target.CurrentCell))
+                return false;
+
+            if (!_actionPoints.IsActionPointsEnough(cost))
+                return false;
+
+            if (_unit.Movable.CanBumpIntoUnit)
+                return true;
+
+            var unitToBumpInto = CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell).Content;
+
+            if (unitToBumpInto == null)
+                return true;
+
+            if (unitToBumpInto.Small)
+                return true;
+            
+            return false;
         }
         
         public void UseOnTarget(Unit target)
