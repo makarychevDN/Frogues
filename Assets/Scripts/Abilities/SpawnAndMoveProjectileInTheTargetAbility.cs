@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveProjectileAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
+    public class SpawnAndMoveProjectileToTheTargetAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
     {
         [SerializeField] private int radius;
         [SerializeField] private int cost;

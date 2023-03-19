@@ -5,16 +5,16 @@ namespace FroguesFramework
     public class UseAbilityOrSkipTurnAI : MonoBehaviour, IAbleToAct
     {
         [SerializeField] private Unit target;
-        [SerializeField] private SpawnAndMoveProjectileAbility _attackAbility;
+        [SerializeReference] private MonoBehaviour _attackAbility;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private AbleToSkipTurn _ableToSkipTurn;
         
         public void Act()
         {
-            if (_attackAbility.PossibleToUseOnTarget(target) && _actionPoints.IsActionPointsEnough(_attackAbility.GetCost()))
+            if (((IAbleToUseOnTarget)_attackAbility).PossibleToUseOnTarget(target) && _actionPoints.IsActionPointsEnough(_attackAbility.GetCost()))
             {
-                _attackAbility.UseOnTarget(target);
+                ((IAbleToUseOnTarget)_attackAbility).UseOnTarget(target);
                 return;
             }
             
