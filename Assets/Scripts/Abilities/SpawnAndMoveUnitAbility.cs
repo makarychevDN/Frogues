@@ -3,92 +3,95 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnAndMoveUnitAbility : MonoBehaviour, IAbility
+namespace FroguesFramework
 {
-    [SerializeField] private int radius;
-    [SerializeField] private int cost;
-    [SerializeField] private AbilityDataForButton abilityDataForButton;
-    [SerializeField] private Unit unitToSpawn;
-    [SerializeField] private bool needToRotateSpriteOnUse;
-
-    [Header("Visualization")]
-    [SerializeField] private float fullAnimationTime;
-    [SerializeField] private float animationBeforeImpactTime;
-    [SerializeField] private float projectileAnimationHeight;
-    [SerializeField] private AudioSource spawnSound;
-    private Unit _unit;
-    private ActionPoints _actionPoints;
-    private Cell _targetCell;
-    private List<Cell> _attackArea;
-    private Animator _animator;
-    private SpriteRotator _spriteRotator;
-
-    public void VisualizePreUse()
+    public class SpawnAndMoveUnitAbility : MonoBehaviour, IAbility
     {
+        [SerializeField] private int radius;
+        [SerializeField] private int cost;
+        [SerializeField] private AbilityDataForButton abilityDataForButton;
+        [SerializeField] private Unit unitToSpawn;
+        [SerializeField] private bool needToRotateSpriteOnUse;
 
-    }
+        [Header("Visualization")]
+        [SerializeField] private float fullAnimationTime;
+        [SerializeField] private float animationBeforeImpactTime;
+        [SerializeField] private float projectileAnimationHeight;
+        [SerializeField] private AudioSource spawnSound;
+        private Unit _unit;
+        private ActionPoints _actionPoints;
+        private Cell _targetCell;
+        private List<Cell> _attackArea;
+        private Animator _animator;
+        private SpriteRotator _spriteRotator;
 
-    public void Use()
-    {
-        _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
-        _targetCell = _attackArea.EmptyCellsOnly().GetRandomElement();
+        public void VisualizePreUse()
+        {
 
-        if (_targetCell == null || !PossibleToUse())
-            return;
+        }
 
-        if (!_actionPoints.IsActionPointsEnough(cost))
-            return;
+        public void Use()
+        {
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+            _targetCell = _attackArea.EmptyCellsOnly().GetRandomElement();
 
-        if (needToRotateSpriteOnUse)
-            _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
+            if (_targetCell == null || !PossibleToUse())
+                return;
 
-        _animator.SetTrigger(CharacterAnimatorParameters.Attack);
-        _actionPoints.SpendPoints(cost);
+            if (!_actionPoints.IsActionPointsEnough(cost))
+                return;
 
-        if (_targetCell == null)
-            return;
+            if (needToRotateSpriteOnUse)
+                _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
 
-        CurrentlyActiveObjects.Add(this);
-        Invoke(nameof(RemoveFromCurrentlyActiveList), fullAnimationTime);
-        Invoke(nameof(ApplyEffect), animationBeforeImpactTime);
-    }
+            _animator.SetTrigger(CharacterAnimatorParameters.Attack);
+            _actionPoints.SpendPoints(cost);
 
-    public void ApplyEffect()
-    {
-        if (spawnSound != null)
-            spawnSound.Play();
+            if (_targetCell == null)
+                return;
 
-        var spawnedUnit = Instantiate(unitToSpawn, transform.position, Quaternion.identity);
-        spawnedUnit.Init();
-        spawnedUnit.CurrentCell = _unit.CurrentCell;
-        spawnedUnit.Movable.FreeCostMove(_targetCell, 10, 1, false);
-        EntryPoint.Instance.UnitsQueue.AddObjectInQueueAfterTarget(_unit, spawnedUnit);
-    }
+            CurrentlyActiveObjects.Add(this);
+            Invoke(nameof(RemoveFromCurrentlyActiveList), fullAnimationTime);
+            Invoke(nameof(ApplyEffect), animationBeforeImpactTime);
+        }
 
-    private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
+        public void ApplyEffect()
+        {
+            if (spawnSound != null)
+                spawnSound.Play();
 
-    public void Init(Unit unit)
-    {
-        _unit = unit;
-        _actionPoints = unit.ActionPoints;
-        unit.AbilitiesManager.AddAbility(this);
-        _animator = unit.Animator;
-        _spriteRotator = unit.SpriteRotator;
-    }
+            var spawnedUnit = Instantiate(unitToSpawn, transform.position, Quaternion.identity);
+            spawnedUnit.Init();
+            spawnedUnit.CurrentCell = _unit.CurrentCell;
+            spawnedUnit.Movable.FreeCostMove(_targetCell, 10, 1, false);
+            EntryPoint.Instance.UnitsQueue.AddObjectInQueueAfterTarget(_unit, spawnedUnit);
+        }
 
-    public int GetCost() => cost;
+        private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
 
-    public bool IsPartOfWeapon() => false;
+        public void Init(Unit unit)
+        {
+            _unit = unit;
+            _actionPoints = unit.ActionPoints;
+            unit.AbilitiesManager.AddAbility(this);
+            _animator = unit.Animator;
+            _spriteRotator = unit.SpriteRotator;
+        }
 
-    public bool PossibleToUseOnTarget(Unit target)
-    {
-        _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
-        return target != null && _attackArea.Contains(target.CurrentCell);
-    }
+        public int GetCost() => cost;
 
-    public bool PossibleToUse()
-    {
-        _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
-        return _attackArea.EmptyCellsOnly().Count > 0;
+        public bool IsPartOfWeapon() => false;
+
+        public bool PossibleToUseOnTarget(Unit target)
+        {
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+            return target != null && _attackArea.Contains(target.CurrentCell);
+        }
+
+        public bool PossibleToUse()
+        {
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+            return _attackArea.EmptyCellsOnly().Count > 0;
+        }
     }
 }
