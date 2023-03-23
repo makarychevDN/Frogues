@@ -7,12 +7,12 @@ namespace FroguesFramework
     {
         [SerializeField] private int radius;
         [SerializeField] private int cost;
-        [SerializeField] private float fullAnimationTime;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
         [SerializeField] private Unit projectilePrefab;
         [SerializeField] private bool needToRotateSpriteOnUse;
         
         [Header("Visualization")]
+        [SerializeField] private float fullAnimationTime;
         [SerializeField] private float animationBeforeImpactTime;
         [SerializeField] private float projectileAnimationHeight;
         [SerializeField] private LineRenderer visualizationPreUseArrow;
