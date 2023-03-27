@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -6,7 +7,7 @@ namespace FroguesFramework
     {
         private Unit _target;
         private Unit _user;
-        private Cell _mostFarFromTargetCell;
+        private Cell _mostFarFromTargetNeighborCells;
 
         public void VisualizePreUse()
         {
@@ -29,26 +30,33 @@ namespace FroguesFramework
         {
             if(_user.Health.CurrentHp <= 0)
                 return;
-            
-            _mostFarFromTargetCell = _user.CurrentCell;
+
+            var mostFarCells = new List<Cell>() { _user.CurrentCell };
             var neighborCells = CellsTaker.TakeCellsAreaByRange(_user.CurrentCell, 1).EmptyCellsOnly();
+            var farestDistance = _target.CurrentCell.DistanceToCell(_user.CurrentCell);
 
             foreach (var cell in neighborCells)
             {
-                if (_target.CurrentCell.DistanceToCell(cell) >
-                    _target.CurrentCell.DistanceToCell(_mostFarFromTargetCell))
-                    _mostFarFromTargetCell = cell;
+                if (_target.CurrentCell.DistanceToCell(cell) > farestDistance)
+                {
+                    mostFarCells.Clear();
+                    farestDistance = _target.CurrentCell.DistanceToCell(cell);
+                }
+
+                if (_target.CurrentCell.DistanceToCell(cell) == farestDistance)
+                    mostFarCells.Add(cell);
             }
             
-            if(_mostFarFromTargetCell == _user.CurrentCell)
+            if(mostFarCells.Contains(_user.CurrentCell))
                 return;
-            
+
+            _mostFarFromTargetNeighborCells = mostFarCells.GetRandomElement();            
             Invoke(nameof(MoveAfterDelay), 0.25f);
         }
 
         private void MoveAfterDelay()
         {
-            _user.Movable.Move(_mostFarFromTargetCell);
+            _user.Movable.Move(_mostFarFromTargetNeighborCells);
         }
 
         public int GetCost()
