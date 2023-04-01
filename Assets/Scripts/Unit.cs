@@ -35,6 +35,9 @@ namespace FroguesFramework
         [field : SerializeField] public AbleToDie AbleToDie { get; private set; }
         [field : SerializeField] public EffectsVisualiser EffectsVisualiser { get; private set; }
 
+        [field: Header("Description Setup")]
+        [field: SerializeField] public UnitDescription UnitDescription { get; private set; }
+
         public UnityEvent OnStepOnThisUnit = new UnityEvent();
         public UnityEvent<Unit> OnStepOnThisUnitByTheUnit = new UnityEvent<Unit>();
         

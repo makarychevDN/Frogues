@@ -23,7 +23,7 @@ namespace FroguesFramework
             _targetCell.EnableSelectedCellHighlight(true);
 
             if (!_targetCell.IsEmpty)
-                print("yay");
+                EntryPoint.Instance.UnitDescriptionPanel.Activate(_targetCell.Content.UnitDescription.Description);
         }
 
         public void Use()

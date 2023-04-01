@@ -1587,6 +1587,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2812955802091130958}
   - component: {fileID: 707049996601828594}
+  - component: {fileID: 4470639621562112939}
   m_Layer: 0
   m_Name: Empty Character
   m_TagString: Untagged
@@ -1610,7 +1611,7 @@ Transform:
   - {fileID: 3036369896160266994}
   - {fileID: 9186810796872100348}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &707049996601828594
 MonoBehaviour:
@@ -1637,15 +1638,30 @@ MonoBehaviour:
   <SpriteParent>k__BackingField: {fileID: 1274513771182500915}
   <Shadow>k__BackingField: {fileID: 3172929009141702016}
   <SpriteRotator>k__BackingField: {fileID: 8258031183563602671}
+  <MaterialInstanceContainer>k__BackingField: {fileID: 0}
   <Health>k__BackingField: {fileID: 5983590395012066868}
   <AbleToDie>k__BackingField: {fileID: 7145880307754559430}
   <EffectsVisualiser>k__BackingField: {fileID: 6205218186610207373}
+  <UnitDescription>k__BackingField: {fileID: 4470639621562112939}
   OnStepOnThisUnit:
     m_PersistentCalls:
       m_Calls: []
   OnStepOnThisUnitByTheUnit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4470639621562112939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5694739744037664986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e7fe1c0aec5f74d810f0a2225f9d59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: 
 --- !u!1 &5699687913477327339
 GameObject:
   m_ObjectHideFlags: 0
