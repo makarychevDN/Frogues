@@ -122,7 +122,7 @@ namespace FroguesFramework
             if (!_actionPoints.IsActionPointsEnough(cost))
                 return false;
 
-            if (_unit.Movable.CanBumpIntoUnit)
+            if (target.Movable.CanBumpIntoUnit)
                 return true;
 
             var unitToBumpInto = CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell).Content;
