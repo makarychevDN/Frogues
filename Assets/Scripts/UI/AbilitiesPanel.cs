@@ -49,5 +49,10 @@ namespace FroguesFramework
         {
             return abilitySlots.First(slot => slot.childCount == 0);
         }
+
+        public Transform LastEmptySlot()
+        {
+            return abilitySlots.Last(slot => slot.childCount == 0);
+        }
     }
 }

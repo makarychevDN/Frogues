@@ -19,12 +19,17 @@ namespace FroguesFramework
 
         public IAbility Ability => _ability;
         
-        public void Init(AbilitiesPanel abilitiesPanel,IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
+        public void Init(AbilitiesPanel abilitiesPanel, IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
         {
             _abilitiesPanel = abilitiesPanel;
             _ability = ability;
             image.material = ableToDrawAbilityButton.GetAbilityDataForButton().Material;
-            _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
+
+            if((ability as MonoBehaviour).GetComponent<MarkToAddAbilityInTheEndOfAbilitesPanel>() == null)
+                _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
+            else
+                _currentButtonSlot = abilitiesPanel.LastEmptySlot();
+
             transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
             abilityHint.Init(ableToDrawAbilityButton.GetAbilityDataForButton().AbilityName,
