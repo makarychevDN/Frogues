@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class InspectAbility : MonoBehaviour, IAbility, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
+    public class InspectAbility : MonoBehaviour, IAbility, IAbleToDrawAbilityButton
     {
         [SerializeField] private AbilityDataForButton abilityDataForButton;
         private Cell _targetCell;
@@ -43,10 +43,5 @@ namespace FroguesFramework
         public bool IsPartOfWeapon() => false;
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
-
-        public void DisablePreVisualization()
-        {
-            print("unyay");
-        }
     }
 }
