@@ -11,10 +11,12 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Room _currentRoom;
     [SerializeField] private Unit _metaPlayer;
     [SerializeField] private AbilitiesPanel _abilitiesPanel;
+    [SerializeField] private GameObject pausePanel;
 
     public PathFinder PathFinder => _currentRoom.PathFinder;
     public Map Map => _currentRoom.Map;
     public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;
+    public bool PauseIsActive => pausePanel.activeSelf;
 
     public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer) 
                                      && !_metaPlayer.MovementAbility.IsMoving 
@@ -46,6 +48,9 @@ public class EntryPoint : MonoBehaviour
         {
             ableToDisablePreVisualization.DisablePreVisualization();
         }
+
+        if (PauseIsActive)
+            return;
 
         _currentRoom.UnitsQueue.ActForCurrentUnit();
     }
