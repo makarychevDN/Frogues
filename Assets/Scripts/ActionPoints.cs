@@ -53,6 +53,11 @@ namespace FroguesFramework
             return currentPoints >= cost;
         }
 
+        public void SetPoints(int value)
+        {
+            currentPoints = value;
+        }
+
         public void SpendPoints(int cost)
         {
             CalculateCost(ref currentPoints, cost);

@@ -13,6 +13,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private AbilitiesPanel _abilitiesPanel;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
+    private int roomsCount;
 
     public PathFinder PathFinder => _currentRoom.PathFinder;
     public Map Map => _currentRoom.Map;
@@ -26,6 +27,8 @@ public class EntryPoint : MonoBehaviour
 
     public Vector3 CenterOfRoom => _currentRoom.CenterOfRoom;
 
+    public void ActivateExit() => _currentRoom.ActivateExit();
+
     public Unit MetaPlayer => _metaPlayer;
 
     private void Awake()
@@ -38,10 +41,13 @@ public class EntryPoint : MonoBehaviour
 
     public void StartNextRoom()
     {
-        var newRoom = Instantiate(roomsPrefabs.GetRandomElement());
+        var newRoom = Instantiate(roomsPrefabs[roomsCount]);
+        roomsCount++;
         _currentRoom.Deactivate();
         _currentRoom = newRoom;
         _currentRoom.Init(_metaPlayer);
+        _metaPlayer.ActionPoints.SetPoints(8);
+        _metaPlayer.Health.TakeHealing(33);
     }
 
     private void Update()

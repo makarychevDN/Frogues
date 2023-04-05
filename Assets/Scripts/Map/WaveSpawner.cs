@@ -7,7 +7,7 @@ namespace FroguesFramework
 {
     public class WaveSpawner : MonoBehaviour, IRoundTickable
     {
-        [SerializeField] private List<Wave> waves;
+        [SerializeField] private List<WavesSetup> waves;
         [SerializeField] private int _roundsCounter;
         
         public void TickBeforePlayerTurn()
@@ -28,18 +28,18 @@ namespace FroguesFramework
             //do nothing
         }
 
-        public void SpawnWave(Wave wave)
+        public void SpawnWave(WavesSetup wave)
         {
             var emptyCells = CellsTaker.TakeAllEmptyCells();
 
-            for (int i = 0; i < wave.Units.Count; i++)
+            for (int i = 0; i < wave.UnitsAndSpawnChances.Count; i++)
             {
                 if(emptyCells.Count == 0)
                     break;
                 
                 var cellToSpawn = emptyCells.GetRandomElement();
                 emptyCells.Remove(cellToSpawn);
-                SpawnAndMoveToCell(cellToSpawn, wave.Units[i]);
+                //SpawnAndMoveToCell(cellToSpawn, wave.UnitsAndSpawnChances[i]);
             }
         }
         
@@ -49,14 +49,6 @@ namespace FroguesFramework
             spawnedObject.Init();
             spawnedObject.Movable.FreeCostMove(targetCell, 20, 1, false);
             EntryPoint.Instance.UnitsQueue.AddObjectInQueue(spawnedObject);
-        }
-        
-        
-        [Serializable]
-        public class Wave
-        {
-            [field : SerializeField] public int RoundsToSpawn { get; private set; }
-            [field : SerializeField] public List<Unit> Units { get; private set; }
         }
     }
 }

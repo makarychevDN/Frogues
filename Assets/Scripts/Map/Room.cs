@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class Room : MonoBehaviour
     {
         [SerializeField] private Map map;
+        [SerializeField] private Cell exit;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraRotationPointController centerPointForCamera;
@@ -26,7 +27,10 @@ namespace FroguesFramework
             pathFinder.Init();
             InitPlayer();
             unitsQueue.Player = player;
-            
+
+            if(exit != null)
+                exit.gameObject.SetActive(false);
+
             foreach (var ableToAct in FindObjectsOfType<MonoBehaviour>().OfType<IAbleToAct>())
             {
                 ableToAct.Init();
@@ -59,9 +63,24 @@ namespace FroguesFramework
             playerInstance.transform.position = player.transform.position;
             player.gameObject.SetActive(false);
             player = playerInstance;
+        }
 
-            //var actionPoints = player.GetComponentInChildren<ActionPoints>();
-            //actionPoints.CurrentActionPoints = actionPoints.RegenActionPoints;
+        public void ActivateExit()
+        {
+            if (exit.gameObject.activeSelf)
+                return;
+
+            exit.gameObject.SetActive(true);
+            exit.Content = null;
+            exit.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
+        }
+
+        private void TryToActivateNextRoom(Unit unit)
+        {
+            if(unit == metaPlayer)
+            {
+                EntryPoint.Instance.StartNextRoom();
+            }
         }
 
         public void Deactivate()

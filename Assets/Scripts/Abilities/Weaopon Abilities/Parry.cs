@@ -13,7 +13,7 @@ namespace FroguesFramework
         
         public void VisualizePreUse()
         {
-            
+            _actionPoints.PreSpendPoints(cost);
         }
 
         public void Use()

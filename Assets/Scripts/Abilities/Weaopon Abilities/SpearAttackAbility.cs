@@ -8,6 +8,7 @@ namespace FroguesFramework
         [SerializeField] private int defaultDamage;
         [SerializeField] private int criticalDamage;
         [SerializeField] private int radius;
+        [SerializeField] private int criticalCost;
         [SerializeField] private int cost;
         [SerializeField] private float animationBeforeImpactTime;
         [SerializeField] private float fullAnimationTime;
@@ -30,7 +31,9 @@ namespace FroguesFramework
                 return;
             
             _targetCell.EnableSelectedCellHighlight(true);
-            _actionPoints.PreSpendPoints(cost);
+
+            var currentCost = _unit.CurrentCell.DistanceToCell(_targetCell) == radius ? criticalCost : cost;
+            _actionPoints.PreSpendPoints(currentCost);
             
             if(!_targetCell.IsEmpty)
                 _targetCell.Content.Health.PreTakeDamage(CalculateDamage());
@@ -45,8 +48,9 @@ namespace FroguesFramework
             
             if(_targetCell.Content == null || _targetCell.Content.Health == null)
                 return;
-            
-            if(!_actionPoints.IsActionPointsEnough(cost))
+
+            var currentCost = _unit.CurrentCell.DistanceToCell(_targetCell) == radius ? criticalCost : cost;
+            if (!_actionPoints.IsActionPointsEnough(currentCost))
                 return;
             
             _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
@@ -54,7 +58,7 @@ namespace FroguesFramework
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SpearIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
 
-            _actionPoints.SpendPoints(cost);
+            _actionPoints.SpendPoints(currentCost);
             
             CurrentlyActiveObjects.Add(this);
             Invoke(nameof(RemoveFromCurrentlyActiveList), fullAnimationTime);
