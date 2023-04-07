@@ -13,8 +13,10 @@ namespace FroguesFramework
 
         [SerializeField] private Unit player;
         [SerializeField] private Unit metaPlayer;
+        private bool _exitActivated;
 
         public PathFinder PathFinder => pathFinder;
+        public bool ExitActivated => _exitActivated;
         public Map Map => map;
         public UnitsQueue UnitsQueue => unitsQueue;
         
@@ -73,6 +75,7 @@ namespace FroguesFramework
             exit.gameObject.SetActive(true);
             exit.Content = null;
             exit.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
+            _exitActivated = true;
         }
 
         private void TryToActivateNextRoom(Unit unit)

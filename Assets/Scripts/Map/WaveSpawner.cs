@@ -14,7 +14,7 @@ namespace FroguesFramework
 
         public void TickBeforePlayerTurn()
         {
-            if (EntryPoint.Instance.IsHub)
+            if (EntryPoint.Instance.CurrentRoomIsHub || EntryPoint.Instance.ExitActivated)
                 return;
 
             _roundsCounter++;

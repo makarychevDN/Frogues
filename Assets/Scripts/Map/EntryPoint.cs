@@ -15,17 +15,20 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
     [SerializeField] private int score;
+    [SerializeField] private int deltaOfScoreToOpenExit = 200;
     [SerializeField] private WaveSpawner waveSpawner;
     [SerializeField] private TMP_Text scoreText;
     private int _roomsCount;
+    private int _hashedScoreThenExitActivated;
 
-    public bool IsHub => _currentRoom == hub;
+    public bool CurrentRoomIsHub => _currentRoom == hub;
     public PathFinder PathFinder => _currentRoom.PathFinder;
     public Map Map => _currentRoom.Map;
     public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;
     public bool PauseIsActive => pausePanel.activeSelf;
     public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
     public int Score => score;
+    public bool ExitActivated => _currentRoom.ExitActivated;
     public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer) 
                                      && !_metaPlayer.MovementAbility.IsMoving 
                                      && !CurrentlyActiveObjects.SomethingIsActNow;
@@ -46,7 +49,7 @@ public class EntryPoint : MonoBehaviour
 
     public void StartNextRoom()
     {
-        var newRoom = Instantiate(roomsPrefabs[_roomsCount]);
+        var newRoom = Instantiate(roomsPrefabs.GetRandomElement());
         _roomsCount++;
         _currentRoom.Deactivate();
         _currentRoom = newRoom;
@@ -60,6 +63,12 @@ public class EntryPoint : MonoBehaviour
     {
         this.score += score;
         scoreText.text = this.score.ToString();
+
+        if (this.score - _hashedScoreThenExitActivated < deltaOfScoreToOpenExit)
+            return;
+
+        _currentRoom.ActivateExit();
+        _hashedScoreThenExitActivated += deltaOfScoreToOpenExit;
     }
 
     private void Update()
