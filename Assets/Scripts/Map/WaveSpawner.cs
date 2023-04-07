@@ -18,13 +18,31 @@ namespace FroguesFramework
                 return;
 
             _roundsCounter++;
-            currentWaveSetup = waveSetups.Last(waveSetup => EntryPoint.Instance.Score >= waveSetup.ScoreRequirements);
+            CalculateCurrentWaveSetup();
 
             if (_roundsCounter != currentWaveSetup.RoundsToSpawn)
                 return;
                 
             SpawnWave(currentWaveSetup);
             ResetRoundsTimer();
+        }
+
+        public void CalculateCurrentWaveSetup() => currentWaveSetup = waveSetups.Last(waveSetup => EntryPoint.Instance.Score >= waveSetup.ScoreRequirements);
+
+        public void SpawnPreWave()
+        {
+            CalculateCurrentWaveSetup();
+            var emptyCells = CellsTaker.TakeAllEmptyCells();
+
+            foreach (var unit in currentWaveSetup.AdditionalUnitsOnStartOfMap)
+            {
+                if (emptyCells.Count == 0)
+                    break;
+
+                var cellToSpawn = emptyCells.GetRandomElement();
+                emptyCells.Remove(cellToSpawn);
+                SpawnAndMoveToCell(cellToSpawn, unit);
+            }
         }
 
         public void TickBeforeEnemiesTurn()

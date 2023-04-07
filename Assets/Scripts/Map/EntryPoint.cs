@@ -57,6 +57,7 @@ public class EntryPoint : MonoBehaviour
         _metaPlayer.ActionPoints.SetPoints(8);
         _metaPlayer.Health.TakeHealing(33);
         waveSpawner.ResetRoundsTimer();
+        waveSpawner.SpawnPreWave();
     }
 
     public void IncreaseScore(int score)
