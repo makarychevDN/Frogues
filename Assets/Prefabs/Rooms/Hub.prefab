@@ -118,6 +118,173 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &434259356844203420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5842263467336758476}
+  - component: {fileID: 5659755785317839830}
+  - component: {fileID: 2671843683474482390}
+  - component: {fileID: 409580615296976454}
+  m_Layer: 0
+  m_Name: Sword Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5842263467336758476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434259356844203420}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.4633508, y: 0, z: -3.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8261658074070117458}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5659755785317839830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434259356844203420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8dc8d306624694ebde02592d109d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultDamage: 15
+  radius: 1
+  cost: 3
+  animationBeforeImpactTime: 0.15
+  fullAnimationTime: 0.8
+  abilityDataForButton: {fileID: 2671843683474482390}
+  impactSound: {fileID: 409580615296976454}
+--- !u!114 &2671843683474482390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434259356844203420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: d4930bfd4ad78884faaa87080d87c6a6, type: 2}
+  name: "\u0443\u0434\u0430\u0440 \u043C\u0435\u0447\u043E\u043C"
+  stats: "\u0443\u0440\u043E\u043D: 15\n\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C:
+    1.5\n\u0434\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C: 1"
+  description: "\u0431\u044C\u0435\u0442 \u043C\u0435\u0447\u043E\u043C \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u0430
+    \u043D\u0430 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u043E\u0439 \u043A\u043B\u0435\u0442\u043A\u0435."
+--- !u!82 &409580615296976454
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434259356844203420}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fdab586bb50320144b54072da09af0f1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &532309357509744451
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 2
-  temporaryBlockIncreaseValue: 7
+  temporaryBlockIncreaseValue: 15
   abilityDataForButton: {fileID: 3366648924077706381}
 --- !u!114 &3366648924077706381
 MonoBehaviour:
@@ -497,7 +664,7 @@ MonoBehaviour:
   name: "\u043F\u0430\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435"
   stats: "\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C: 1\n\u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u0438\u0435:
     \u043D\u0430 \u0441\u0435\u0431\u044F"
-  description: "\u0434\u0430\u0435\u0442 7 \u0431\u043B\u043E\u043A\u0430"
+  description: "\u0434\u0430\u0435\u0442 15 \u0431\u043B\u043E\u043A\u0430"
 --- !u!1 &2194251490127024626
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +694,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5842263467336758476}
   - {fileID: 2759596722200026900}
   - {fileID: 5541874911802547082}
   m_Father: {fileID: 2422572700150118321}
@@ -738,7 +906,7 @@ GameObject:
   - component: {fileID: 7661061891954001234}
   - component: {fileID: 2783479104266033006}
   m_Layer: 0
-  m_Name: Sword Attack
+  m_Name: Wide Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -791,7 +959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: da3f4e1090cd6fe449b05ca404a6f3c5, type: 2}
-  name: "\u0443\u0434\u0430\u0440 \u043C\u0435\u0447\u043E\u043C"
+  name: "\u0440\u0430\u0437\u043C\u0430\u0448\u0438\u0441\u0442\u044B\u0439 \u0443\u0434\u0430\u0440"
   stats: "\u0443\u0440\u043E\u043D: 15\n\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C:
     2\n\u0434\u0430\u043B\u044C\u043D\u043E\u0441\u0442\u044C: 1"
   description: "\u0431\u044C\u0435\u0442 \u043C\u0435\u0447\u043E\u043C \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u043E\u0432
@@ -1278,7 +1446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 2
-  temporaryBlockIncreaseValue: 11
+  temporaryBlockIncreaseValue: 25
   abilityDataForButton: {fileID: 6622470638649801037}
 --- !u!114 &6622470638649801037
 MonoBehaviour:
@@ -1296,7 +1464,7 @@ MonoBehaviour:
   name: "\u0431\u043B\u043E\u043A \u0449\u0438\u0442\u043E\u043C"
   stats: "\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C: 1\n\u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u0438\u0435:
     \u043D\u0430 \u0441\u0435\u0431\u044F"
-  description: "\u0434\u0430\u0435\u0442 11 \u0431\u043B\u043E\u043A\u0430"
+  description: "\u0434\u0430\u0435\u0442 25 \u0431\u043B\u043E\u043A\u0430"
 --- !u!1 &4727620892991774354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,7 +1646,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 2
-  temporaryBlockIncreaseValue: 7
+  temporaryBlockIncreaseValue: 15
   abilityDataForButton: {fileID: 8238629139510886040}
 --- !u!114 &8238629139510886040
 MonoBehaviour:
@@ -1496,7 +1664,7 @@ MonoBehaviour:
   name: "\u043F\u0430\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435"
   stats: "\u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C: 1\n\u043F\u0440\u0438\u043C\u0435\u043D\u0435\u043D\u0438\u0435:
     \u043D\u0430 \u0441\u0435\u0431\u044F"
-  description: "\u0434\u0430\u0435\u0442 7 \u0431\u043B\u043E\u043A\u0430"
+  description: "\u0434\u0430\u0435\u0442 15 \u0431\u043B\u043E\u043A\u0430"
 --- !u!1 &6359027454390260047
 GameObject:
   m_ObjectHideFlags: 0
