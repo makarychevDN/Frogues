@@ -11,7 +11,7 @@ namespace FroguesFramework
         [field : SerializeField] public  MapLayer unitType { get; private set; }
         [field : SerializeField] public Cell CurrentCell { get; set; }
         [field : SerializeField] public bool Small { get; private set; }
-        [field : SerializeField] public bool NeedToKill { get; private set; }
+        [field : SerializeField] public ScoreContainer ScoreContainer { get; private set; }
         
         [field : Header("Input Setup")]
         [field : SerializeField] public bool Enemy { get; private set; }
@@ -74,6 +74,7 @@ namespace FroguesFramework
             AbleToSkipTurn?.Init(this);
             AbilitiesManager?.Init(this);
             EffectsVisualiser?.Init(this);
+            ScoreContainer?.Init(this);
 
             _initAlready = true;
 

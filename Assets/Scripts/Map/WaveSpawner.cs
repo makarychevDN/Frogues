@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,20 +6,25 @@ namespace FroguesFramework
 {
     public class WaveSpawner : MonoBehaviour, IRoundTickable
     {
-        [SerializeField] private List<WavesSetup> waves;
+        [SerializeField] private List<WavesSetup> waveSetups;
+        [SerializeField] private WavesSetup currentWaveSetup;
         [SerializeField] private int _roundsCounter;
         
+        public void ResetRoundsTimer() => _roundsCounter = 0;
+
         public void TickBeforePlayerTurn()
         {
-            _roundsCounter++;
-
-            var currentWave = waves.FirstOrDefault(wave => wave.RoundsToSpawn == _roundsCounter);
-            
-            if(currentWave == null)
+            if (EntryPoint.Instance.IsHub)
                 return;
-            
-            SpawnWave(currentWave);
-            waves.Remove(currentWave);
+
+            _roundsCounter++;
+            currentWaveSetup = waveSetups.Last(waveSetup => EntryPoint.Instance.Score >= waveSetup.ScoreRequirements);
+
+            if (_roundsCounter != currentWaveSetup.RoundsToSpawn)
+                return;
+                
+            SpawnWave(currentWaveSetup);
+            ResetRoundsTimer();
         }
 
         public void TickBeforeEnemiesTurn()
@@ -28,18 +32,18 @@ namespace FroguesFramework
             //do nothing
         }
 
-        public void SpawnWave(WavesSetup wave)
+        public void SpawnWave(WavesSetup waveSetup)
         {
             var emptyCells = CellsTaker.TakeAllEmptyCells();
 
-            for (int i = 0; i < wave.UnitsAndSpawnChances.Count; i++)
+            for (int i = 0; i < waveSetup.SpawnedUnitsQuantityForWave; i++)
             {
                 if(emptyCells.Count == 0)
                     break;
                 
                 var cellToSpawn = emptyCells.GetRandomElement();
                 emptyCells.Remove(cellToSpawn);
-                //SpawnAndMoveToCell(cellToSpawn, wave.UnitsAndSpawnChances[i]);
+                SpawnAndMoveToCell(cellToSpawn, waveSetup.GetRandomUnit());
             }
         }
         
@@ -49,6 +53,7 @@ namespace FroguesFramework
             spawnedObject.Init();
             spawnedObject.Movable.FreeCostMove(targetCell, 20, 1, false);
             EntryPoint.Instance.UnitsQueue.AddObjectInQueue(spawnedObject);
+            spawnedObject.transform.parent = EntryPoint.Instance.Map.transform;
         }
     }
 }
