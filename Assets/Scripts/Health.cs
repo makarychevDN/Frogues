@@ -58,6 +58,12 @@ namespace FroguesFramework
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
         }
 
+        private void Update()
+        {
+            _hashedArmor = Armor;
+            _hashedHp = currentHP;
+        }
+
         private void TriggerTakeDamageAnimation()
         {
             CurrentlyActiveObjects.Add(this);
