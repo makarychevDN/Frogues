@@ -22,6 +22,8 @@ namespace FroguesFramework
             //_animator.SetTrigger(CharacterAnimatorParameters.Cast);
             //Invoke(nameof(ApplyEffect), animationBeforeImpactTime);
             //Invoke(nameof(RemoveThisFromCurrentlyActiveObjects), fullAnimationTime);
+            if (!_actionPoints.IsActionPointsEnough(cost))
+                return;
 
             ApplyEffect();
         }

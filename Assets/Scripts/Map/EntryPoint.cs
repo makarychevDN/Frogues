@@ -13,6 +13,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private Unit _metaPlayer;
     [SerializeField] private AbilitiesPanel _abilitiesPanel;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject loseScreen;
     [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
     [SerializeField] private int score;
     [SerializeField] private int deltaOfScoreToOpenExit = 200;
@@ -45,6 +46,7 @@ public class EntryPoint : MonoBehaviour
         Instance = this;
         _currentRoom = hub;
         _currentRoom.Init(_metaPlayer);
+        _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
     }
 
     public void StartNextRoom()
