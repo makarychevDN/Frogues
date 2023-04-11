@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class KickAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
+    public class KickAbility : MonoBehaviour, IAbility, IAbleToUseOnUnit, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
     {
         [SerializeField] private int radius;
         [SerializeField] private int cost;
@@ -36,7 +36,7 @@ namespace FroguesFramework
             _targetCell.EnableSelectedCellHighlight(true);
             _actionPoints.PreSpendPoints(cost);
 
-            if (!PossibleToUseOnTarget(_targetCell.Content))
+            if (!PossibleToUseOnUnit(_targetCell.Content))
                 return;
 
             visualizationPreUseArrow.gameObject.SetActive(true);
@@ -74,7 +74,7 @@ namespace FroguesFramework
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             
-            if (_targetCell == null || !PossibleToUseOnTarget(_targetCell.Content))
+            if (_targetCell == null || !PossibleToUseOnUnit(_targetCell.Content))
                 return;
             
             _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
@@ -109,7 +109,7 @@ namespace FroguesFramework
 
         public bool IsPartOfWeapon() => false;
 
-        public bool PossibleToUseOnTarget(Unit target)
+        public bool PossibleToUseOnUnit(Unit target)
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
 
@@ -136,7 +136,7 @@ namespace FroguesFramework
             return false;
         }
         
-        public void UseOnTarget(Unit target)
+        public void UseOnUnit(Unit target)
         {
             _targetCell = target.CurrentCell;
             Use();

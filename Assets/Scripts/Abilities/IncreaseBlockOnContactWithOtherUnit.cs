@@ -4,24 +4,24 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace FroguesFramework
 {
-    public class IncreaseBlockOnContactWithOtherUnit : MonoBehaviour, IAbleToUseOnTarget, IAbility
+    public class IncreaseBlockOnContactWithOtherUnit : MonoBehaviour, IAbleToUseOnUnit, IAbility
     {
         [SerializeField] private int blockValue;
 
-        public bool PossibleToUseOnTarget(Unit target)
+        public bool PossibleToUseOnUnit(Unit target)
         {
             return true;
         }
 
-        public void UseOnTarget(Unit target)
+        public void UseOnUnit(Unit target)
         {
             target.Health.IncreaseTemporaryArmor(blockValue);
         }
 
         public void Init(Unit unit)
         {
-            unit.OnStepOnThisUnitByTheUnit.AddListener(UseOnTarget);
-            unit.Movable.OnBumpIntoUnit.AddListener(UseOnTarget);
+            unit.OnStepOnThisUnitByTheUnit.AddListener(UseOnUnit);
+            unit.Movable.OnBumpIntoUnit.AddListener(UseOnUnit);
         }
 
         //todo need to remake interfaces stuff to remove this

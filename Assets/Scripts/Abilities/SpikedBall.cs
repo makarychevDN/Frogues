@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpikedBall : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton
+    public class SpikedBall : MonoBehaviour, IAbility, IAbleToUseOnUnit, IAbleToDrawAbilityButton
     {
         [SerializeField] private int cost;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
@@ -80,12 +80,12 @@ namespace FroguesFramework
         
         public bool IsPartOfWeapon() => false;
 
-        public bool PossibleToUseOnTarget(Unit target)
+        public bool PossibleToUseOnUnit(Unit target)
         {
             return false;
         }
         
-        public void UseOnTarget(Unit target)
+        public void UseOnUnit(Unit target)
         {
             _targetCell = target.CurrentCell;
             Use();

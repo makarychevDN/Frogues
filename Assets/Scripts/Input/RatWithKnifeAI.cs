@@ -13,9 +13,9 @@ namespace FroguesFramework
         
         public void Act()
         {
-            if (_spearAttackAbility.PossibleToUseOnTarget(target) && _actionPoints.IsActionPointsEnough(_spearAttackAbility.GetCost()))
+            if (_spearAttackAbility.PossibleToUseOnUnit(target) && _actionPoints.IsActionPointsEnough(_spearAttackAbility.GetCost()))
             {
-                _spearAttackAbility.UseOnTarget(target);
+                _spearAttackAbility.UseOnUnit(target);
                 return;
             }
             

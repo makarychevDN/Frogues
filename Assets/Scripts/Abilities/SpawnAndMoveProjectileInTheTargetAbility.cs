@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveProjectileInTheTargetAbility : MonoBehaviour, IAbility, IAbleToUseOnTarget, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
+    public class SpawnAndMoveProjectileInTheTargetAbility : MonoBehaviour, IAbility, IAbleToUseOnUnit, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
     {
         [SerializeField] private int radius;
         [SerializeField] private int cost;
@@ -60,7 +60,7 @@ namespace FroguesFramework
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             
-            if (_targetCell == null || !PossibleToUseOnTarget(_targetCell.Content))
+            if (_targetCell == null || !PossibleToUseOnUnit(_targetCell.Content))
                 return;
             
             if(_targetCell.Content == null || _targetCell.Content.Health == null)
@@ -107,13 +107,13 @@ namespace FroguesFramework
 
         public bool IsPartOfWeapon() => false;
 
-        public bool PossibleToUseOnTarget(Unit target)
+        public bool PossibleToUseOnUnit(Unit target)
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             return target != null && _attackArea.Contains(target.CurrentCell);
         }
         
-        public void UseOnTarget(Unit target)
+        public void UseOnUnit(Unit target)
         {
             _targetCell = target.CurrentCell;
             Use();

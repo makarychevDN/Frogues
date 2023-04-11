@@ -12,9 +12,9 @@ namespace FroguesFramework
         
         public void Act()
         {
-            if (((IAbleToUseOnTarget)_useOnTargetAbility).PossibleToUseOnTarget(target) && _actionPoints.IsActionPointsEnough(((IAbility)_useOnTargetAbility).GetCost()))
+            if (((IAbleToUseOnUnit)_useOnTargetAbility).PossibleToUseOnUnit(target) && _actionPoints.IsActionPointsEnough(((IAbility)_useOnTargetAbility).GetCost()))
             {
-                ((IAbleToUseOnTarget)_useOnTargetAbility).UseOnTarget(target);
+                ((IAbleToUseOnUnit)_useOnTargetAbility).UseOnUnit(target);
                 return;
             }
             

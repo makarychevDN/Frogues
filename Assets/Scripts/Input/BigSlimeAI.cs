@@ -23,9 +23,9 @@ public class BigSlimeAI : MonoBehaviour, IAbleToAct
 
     private void ActionOnFullHealth()
     {
-        if (_knifeAbility.PossibleToUseOnTarget(target) && _actionPoints.IsActionPointsEnough(_knifeAbility.GetCost()))
+        if (_knifeAbility.PossibleToUseOnUnit(target) && _actionPoints.IsActionPointsEnough(_knifeAbility.GetCost()))
         {
-            _knifeAbility.UseOnTarget(target);
+            _knifeAbility.UseOnUnit(target);
             return;
         }
         
