@@ -43,5 +43,10 @@ namespace FroguesFramework
         {
             throw new System.NotImplementedException();
         }
+
+        public void VisualizePreUseOnUnit(Unit target)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

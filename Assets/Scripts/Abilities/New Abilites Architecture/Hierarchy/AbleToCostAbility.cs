@@ -7,7 +7,8 @@ namespace FroguesFramework
     {
         [SerializeField] protected int cost;
 
-        public bool IsActionPointsEnough() => _owner.ActionPoints.IsActionPointsEnough(cost);
-        public int GetCost() => cost;
+        public virtual bool IsActionPointsEnough() => _owner.ActionPoints.IsActionPointsEnough(cost);
+        public virtual int GetCost() => cost;
+        public virtual void SpendActionPoints() => _owner.ActionPoints.SpendPoints(cost);
     }
 }

@@ -5,7 +5,8 @@ namespace FroguesFramework
 {
     public abstract class AreaTargetAbility : AnyTargetAbility, IAbleToUseOnCells
     {
-        public abstract bool PossibleToUseOnUnit(List<Cell> cells);
-        public abstract void UseOnUnit(List<Cell> cells);
+        public abstract List<Cell> SelectCells();
+        public abstract bool PossibleToUseOnCells(List<Cell> cells);
+        public abstract void UseOnCells(List<Cell> cells);
     }
 }

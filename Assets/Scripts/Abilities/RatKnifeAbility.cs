@@ -102,5 +102,10 @@ namespace FroguesFramework
         }
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
+
+        public void VisualizePreUseOnUnit(Unit target)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

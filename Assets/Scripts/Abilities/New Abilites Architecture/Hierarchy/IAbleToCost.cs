@@ -4,5 +4,6 @@ namespace FroguesFramework
     {
         public int GetCost();
         public bool IsActionPointsEnough();
+        public void SpendActionPoints();
     }
 }

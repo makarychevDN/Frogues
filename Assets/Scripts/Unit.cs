@@ -46,6 +46,7 @@ namespace FroguesFramework
         public Grid Grid => FindObjectOfType<Grid>();
         private bool _initAlready;
 
+        public void SelectUnit() => print($"{gameObject.name}: I'm selected!");
         /*private void OnMouseEnter()
         {
             MaterialInstanceContainer.MaterialInstance.SetInt("_OutlineEnabled", 1);

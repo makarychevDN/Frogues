@@ -4,7 +4,8 @@ namespace FroguesFramework
 {
     public interface IAbleToUseOnCells
     {
-        public bool PossibleToUseOnUnit(List<Cell> cells);
-        public void UseOnUnit(List<Cell> cells);
+        public List<Cell> SelectCells();
+        public bool PossibleToUseOnCells(List<Cell> cells);
+        public void UseOnCells(List<Cell> cells);
     }
 }

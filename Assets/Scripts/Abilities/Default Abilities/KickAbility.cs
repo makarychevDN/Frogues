@@ -148,5 +148,10 @@ namespace FroguesFramework
         {
             visualizationPreUseArrow.gameObject.SetActive(false);
         }
+
+        public void VisualizePreUseOnUnit(Unit target)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
