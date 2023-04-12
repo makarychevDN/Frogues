@@ -7,7 +7,6 @@ public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
     [SerializeField] private NewMovementAbility newMovementAbility;
     [SerializeField] private BaseAbility currentAbility;
     private Unit _unit;
-    [SerializeField] private Unit _bonfire;
 
     public bool InputIsPossible => true;
 
@@ -40,12 +39,13 @@ public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
         {
             var currentUnitAbility = (UnitTargetAbility)currentAbility;
 
+            var targetUnit = CellsTaker.TakeCellByMouseRaycast()?.Content;
             currentUnitAbility.CalculateUsingArea();
-            currentUnitAbility.VisualizePreUseOnUnit(_bonfire);
+            currentUnitAbility.VisualizePreUseOnUnit(targetUnit);
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                currentUnitAbility.UseOnUnit(_bonfire);
+                currentUnitAbility.UseOnUnit(targetUnit);
             }
         }
     }

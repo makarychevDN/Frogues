@@ -57,8 +57,8 @@ namespace FroguesFramework
 
             target.Health.PreTakeDamage(damage);
             lineFromOwnerToTarget.gameObject.SetActive(true);
-            lineFromOwnerToTarget.SetPosition(0, _owner.transform.position - _owner.transform.position);
-            lineFromOwnerToTarget.SetPosition(1, target.transform.position - _owner.transform.position);
+            lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position - _owner.transform.position);
+            lineFromOwnerToTarget.SetPosition(1, target.SpriteParent.position - _owner.transform.position);
 
             //lineFromOwnerToTarget.gameObject.SetActive(true);
 
