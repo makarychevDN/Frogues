@@ -99,6 +99,11 @@ namespace FroguesFramework
 
         public void EnableTrail(Vector2 direction) => trailsEnabler.EnableTrail(direction);
 
+        public void EnableTrail(Cell targetCell)
+        {
+            EnableTrail((targetCell.transform.position - transform.position).normalized.ToVector2());
+        }
+
         public void DisableTrails() => trailsEnabler.DisableTrails();
 
         public void EnableOnMouseHoverVisualization(bool isOn) => onMouseHoverVisualization.SetActive(isOn);

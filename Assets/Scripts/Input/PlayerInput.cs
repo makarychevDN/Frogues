@@ -1,50 +1,43 @@
-using System.Linq;
+using FroguesFramework;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace FroguesFramework
+public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
 {
-    public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
+    [SerializeField] private NewMovementAbility newMovementAbility;
+    public bool InputIsPossible => true;
+
+    public void Act()
     {
-        private Unit _unit;
-        private MovementAbility _movementAbility;
-        private IAbility _currentAbility;
-        private float bottomUiPanelHeight = 120f;
+        newMovementAbility.CalculateUsingArea();
+        var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
+        var path = newMovementAbility.SelectCells(targetCells);
+        newMovementAbility.VisualizePreUseOnCells(path);
 
-        public bool InputIsPossible => EntryPoint.Instance.UnitsQueue.IsUnitCurrent(_unit)
-                                       && !CurrentlyActiveObjects.SomethingIsActNow;
-
-        public void Act()
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (_currentAbility == null)
-                _currentAbility = _movementAbility;
-
-            AbilityInput(_currentAbility);
-            
-            if(Input.GetKeyDown(KeyCode.Mouse1))
-                ClearCurrentAbility();
+            newMovementAbility.UseOnCells(path);
         }
+    }
 
-        public void Init()
-        {
-            _unit = GetComponentInParent<Unit>();
-            _movementAbility = _unit.MovementAbility;
-            _currentAbility = _movementAbility;
-        }
+    public void ClearCurrentAbility()
+    {
 
-        private void AbilityInput(IAbility ability)
-        {
-            ability.VisualizePreUse();
+    }
 
-            if (Input.GetKeyDown(KeyCode.Mouse0) && Input.mousePosition.y > bottomUiPanelHeight)
-            {
-                ability.Use();
-            }
-        }
+    public IAbility GetCurrentAbility()
+    {
+        return null;
+    }
 
-        public void SetCurrentAbility(IAbility ability) => _currentAbility = ability;
+    public void Init()
+    {
+        newMovementAbility.Init(GetComponentInParent<Unit>());
+    }
 
-        public IAbility GetCurrentAbility() => _currentAbility;
+    public void SetCurrentAbility(IAbility ability)
+    {
 
-        public void ClearCurrentAbility() => _currentAbility = null;
     }
 }

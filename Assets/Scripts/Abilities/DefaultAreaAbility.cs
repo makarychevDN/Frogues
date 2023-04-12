@@ -26,7 +26,12 @@ namespace FroguesFramework
 
         public override void DisablePreVisualization() { }
 
-        public override List<Cell> SelectCells()
+        public override List<Cell> SelectCells(List<Cell> cells)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void VisualizePreUseOnCells(List<Cell> cells)
         {
             throw new System.NotImplementedException();
         }

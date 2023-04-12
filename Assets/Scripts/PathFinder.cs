@@ -51,6 +51,9 @@ namespace FroguesFramework
         public List<Cell> FindWay(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreSmallUnits,
             bool ignoreSurfaces)
         {
+            if (userCell == null || targetCell == null)
+                return null;
+
             ResetNodes();
             return AStar(userCell, targetCell, ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces);
         }
