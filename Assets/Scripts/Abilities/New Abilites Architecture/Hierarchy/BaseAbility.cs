@@ -8,7 +8,11 @@ namespace FroguesFramework
         protected Unit _owner;
 
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
-        public virtual void Init(Unit unit) => _owner = unit;
+        public virtual void Init(Unit unit) 
+        { 
+            _owner = unit;
+            _owner.AbilitiesManager.AddAbility(this);
+        }
         public virtual void UnInit() => _owner = null;
     }
 }

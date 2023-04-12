@@ -8,9 +8,9 @@ namespace FroguesFramework
     public class AbilitiesManager : MonoBehaviour
     {
         private IAbleToHaveCurrentAbility _ableToHaveCurrentAbility;
-        private List<IAbility> _abilities = new();
-        public UnityEvent<IAbility> AbilityHasBeenAdded;
-        public UnityEvent<IAbility> AbilityHasBeenRemoved;
+        private List<BaseAbility> _abilities = new();
+        public UnityEvent<BaseAbility> AbilityHasBeenAdded;
+        public UnityEvent<BaseAbility> AbilityHasBeenRemoved;
 
         public IAbleToHaveCurrentAbility AbleToHaveCurrentAbility => _ableToHaveCurrentAbility;
 
@@ -24,14 +24,17 @@ namespace FroguesFramework
             }
         }
         
-        public void AddAbility(IAbility ability)
+        public void AddAbility(BaseAbility ability)
         {
+            if (ability is NewMovementAbility)
+                return;
+
             _abilities.Add(ability);
             ((MonoBehaviour)ability).transform.parent = transform;
             AbilityHasBeenAdded.Invoke(ability);
         }
 
-        public void RemoveAbility(IAbility ability)
+        public void RemoveAbility(BaseAbility ability)
         {
             _abilities.Remove(ability);
             AbilityHasBeenRemoved.Invoke(ability);
@@ -39,8 +42,8 @@ namespace FroguesFramework
         
         public void RemoveAllWeaponAbilities()
         {
-            var abilitiesToRemove = _abilities.Where(ability => ability.IsPartOfWeapon()).ToList();
-            abilitiesToRemove.ForEach(abilityToRemove => RemoveAbility(abilityToRemove));
+            //var abilitiesToRemove = _abilities.Where(ability => ability.IsPartOfWeapon()).ToList();
+            //abilitiesToRemove.ForEach(abilityToRemove => RemoveAbility(abilityToRemove));
         }
     }
 }

@@ -11,21 +11,21 @@ namespace FroguesFramework
 
         private bool _dragNow;
         private float maxDistanceToClamp = 64;
-        private IAbility _ability;
+        private BaseAbility _ability;
         private AbilitiesPanel _abilitiesPanel;
         private bool _chosen;
         private Transform _currentButtonSlot;
         private bool _draggingNow;
 
-        public IAbility Ability => _ability;
+        public BaseAbility Ability => _ability;
         
-        public void Init(AbilitiesPanel abilitiesPanel, IAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
+        public void Init(AbilitiesPanel abilitiesPanel, BaseAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
         {
             _abilitiesPanel = abilitiesPanel;
             _ability = ability;
             image.material = ableToDrawAbilityButton.GetAbilityDataForButton().Material;
 
-            if((ability as MonoBehaviour).GetComponent<MarkToAddAbilityInTheEndOfAbilitesPanel>() == null)
+            if((ability).GetComponent<MarkToAddAbilityInTheEndOfAbilitesPanel>() == null)
                 _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
             else
                 _currentButtonSlot = abilitiesPanel.LastEmptySlot();

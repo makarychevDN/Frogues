@@ -70,7 +70,7 @@ namespace FroguesFramework
         public void Init(Unit unit)
         {
             _unit = unit;
-            unit.AbilitiesManager.AddAbility(this);
+            //unit.AbilitiesManager.AddAbility(this);
             _actionPoints = unit.ActionPoints;
             _movable = unit.Movable;
             _health = unit.Health;

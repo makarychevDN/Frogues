@@ -20,7 +20,7 @@ namespace FroguesFramework
             abilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
         }
 
-        private void AddAbilityButton(IAbility ability)
+        private void AddAbilityButton(BaseAbility ability)
         {
             var abilityAsAbleToDrawAbilityButton = ability as IAbleToDrawAbilityButton;
             
@@ -31,7 +31,7 @@ namespace FroguesFramework
             abilityButton.Init(this, ability, abilityAsAbleToDrawAbilityButton);
         }
 
-        private void RemoveAbilityButton(IAbility ability)
+        private void RemoveAbilityButton(BaseAbility ability)
         {
             foreach (var abilitySlot in abilitySlots)
             {

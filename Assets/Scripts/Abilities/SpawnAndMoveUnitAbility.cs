@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveUnitAbility : MonoBehaviour, IAbility
+    public class SpawnAndMoveUnitAbility : MonoBehaviour { /*, IAbility
     {
-        [SerializeField] private int radius;
-        [SerializeField] private int cost;
+        /*[SerializeField] private int radius;
+        //[SerializeField] private int cost;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
         [SerializeField] private Unit unitToSpawn;
         [SerializeField] private bool needToRotateSpriteOnUse;
@@ -92,6 +92,6 @@ namespace FroguesFramework
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             return _attackArea.EmptyCellsOnly().Count > 0;
-        }
+        }*/
     }
 }

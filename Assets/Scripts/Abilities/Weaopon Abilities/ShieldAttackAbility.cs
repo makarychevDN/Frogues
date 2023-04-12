@@ -73,7 +73,7 @@ namespace FroguesFramework
         {
             _unit = unit;
             _actionPoints = unit.ActionPoints;
-            unit.AbilitiesManager.AddAbility(this);
+            //unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
             _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.ShieldIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);

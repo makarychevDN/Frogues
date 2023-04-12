@@ -5,7 +5,7 @@ namespace FroguesFramework
     public class AbilityDataForButton : MonoBehaviour
     {
         [SerializeField] private Material material;
-        [SerializeField] private string name;
+        [SerializeField] private string abilityName;
         [SerializeField, Multiline] private string stats;
         [SerializeField, Multiline] private string description;
         public Material Material => material;

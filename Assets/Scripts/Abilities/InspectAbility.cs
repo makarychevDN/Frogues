@@ -35,7 +35,7 @@ namespace FroguesFramework
 
         public void Init(Unit unit)
         {
-            unit.AbilitiesManager.AddAbility(this);
+            //unit.AbilitiesManager.AddAbility(this);
         }
 
         public int GetCost() => 0;

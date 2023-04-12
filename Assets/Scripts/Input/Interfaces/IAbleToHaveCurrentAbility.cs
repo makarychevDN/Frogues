@@ -5,9 +5,9 @@ namespace FroguesFramework
 {
     public interface IAbleToHaveCurrentAbility
     {
-        public void SetCurrentAbility(IAbility ability);
+        public void SetCurrentAbility(BaseAbility ability);
         
-        public IAbility GetCurrentAbility();
+        public BaseAbility GetCurrentAbility();
 
         public void ClearCurrentAbility();
     }

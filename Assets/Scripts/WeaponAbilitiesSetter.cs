@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class WeaponAbilitiesSetter : MonoBehaviour
 {
-    private List<IAbility> _abilities;
+    [SerializeField] private List<BaseAbility> _abilities;
 
     private void Start()
     {
-        _abilities = GetComponentsInChildren<IAbility>().ToList();
+        _abilities = GetComponentsInChildren<BaseAbility>().ToList();
     }
 
     public void SetWeaponAbilities(Unit unit)
