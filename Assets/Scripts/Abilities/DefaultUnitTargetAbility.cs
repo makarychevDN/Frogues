@@ -63,6 +63,7 @@ namespace FroguesFramework
             lineFromOwnerToTarget.gameObject.SetActive(true);
             lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position - _owner.transform.position);
             lineFromOwnerToTarget.SetPosition(1, target.SpriteParent.position - _owner.transform.position);
+            target.MaterialInstanceContainer.EnableOutline(true);
         }
 
         public override void DisablePreVisualization()
