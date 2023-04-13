@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class InspectAbility : MonoBehaviour, IAbility, IAbleToDrawAbilityButton
+    public class InspectAbility : MonoBehaviour, IAbleToDrawAbilityButton
     {
         [SerializeField] private AbilityDataForButton abilityDataForButton;
         private Cell _targetCell;

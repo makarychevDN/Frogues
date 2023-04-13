@@ -28,7 +28,7 @@ namespace FroguesFramework
                 return;
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
-            abilityButton.Init(this, ability, abilityAsAbleToDrawAbilityButton);
+            abilityButton.Init(this, ability);
         }
 
         private void RemoveAbilityButton(BaseAbility ability)

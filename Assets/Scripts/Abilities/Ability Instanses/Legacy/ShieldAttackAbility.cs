@@ -4,7 +4,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
 
-    public class ShieldAttackAbility : MonoBehaviour, IAbility, IAbleToUseOnUnit, IAbleToDrawAbilityButton
+    public class ShieldAttackAbility : MonoBehaviour, IAbleToUseOnUnit, IAbleToDrawAbilityButton
     {
         [SerializeField] private int defaultDamage;
         [SerializeField] private int radius;

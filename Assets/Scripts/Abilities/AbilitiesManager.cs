@@ -18,7 +18,7 @@ namespace FroguesFramework
         {
             _ableToHaveCurrentAbility = unit.ActionsInput as IAbleToHaveCurrentAbility;
 
-            foreach (var ability in GetComponentsInChildren<IAbility>())
+            foreach (var ability in GetComponentsInChildren<BaseAbility>())
             {
                 ability.Init(unit);
             }
@@ -30,7 +30,7 @@ namespace FroguesFramework
                 return;
 
             _abilities.Add(ability);
-            ((MonoBehaviour)ability).transform.parent = transform;
+            (ability).transform.parent = transform;
             AbilityHasBeenAdded.Invoke(ability);
         }
 

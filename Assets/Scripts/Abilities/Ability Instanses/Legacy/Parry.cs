@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class Parry : MonoBehaviour, IAbility, IAbleToDrawAbilityButton
+    public class Parry : MonoBehaviour, IAbleToDrawAbilityButton
     {
         [SerializeField] private int cost;
         [SerializeField] private int temporaryBlockIncreaseValue;

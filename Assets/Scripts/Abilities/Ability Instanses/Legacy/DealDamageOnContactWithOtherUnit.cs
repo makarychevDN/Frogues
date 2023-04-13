@@ -1,21 +1,19 @@
-using FroguesFramework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 namespace FroguesFramework
 {
-    public class IncreaseBlockOnContactWithOtherUnit : MonoBehaviour, IAbleToUseOnUnit, IAbility
+    public class DealDamageOnContactWithOtherUnit : MonoBehaviour, IAbleToUseOnUnit
     {
-        [SerializeField] private int blockValue;
-
+        [SerializeField] private int damage;
+        
         public bool PossibleToUseOnUnit(Unit target)
         {
             return true;
         }
-
+        
         public void UseOnUnit(Unit target)
         {
-            target.Health.IncreaseTemporaryArmor(blockValue);
+            target.Health.TakeDamage(damage);
         }
 
         public void Init(Unit unit)
@@ -23,7 +21,7 @@ namespace FroguesFramework
             unit.OnStepOnThisUnitByTheUnit.AddListener(UseOnUnit);
             unit.Movable.OnBumpIntoUnit.AddListener(UseOnUnit);
         }
-
+        
         //todo need to remake interfaces stuff to remove this
 
         public int GetCost()

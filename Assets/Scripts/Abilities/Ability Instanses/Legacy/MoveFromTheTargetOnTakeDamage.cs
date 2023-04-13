@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class MoveFromTheTargetOnTakeDamage : MonoBehaviour, IAbility
+    public class MoveFromTheTargetOnTakeDamage : MonoBehaviour
     {
         private Unit _target;
         private Unit _user;

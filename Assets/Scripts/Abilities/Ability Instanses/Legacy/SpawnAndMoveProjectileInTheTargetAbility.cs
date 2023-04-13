@@ -3,19 +3,21 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class KickAbility : MonoBehaviour, IAbility, IAbleToUseOnUnit, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
+    public class SpawnAndMoveProjectileInTheTargetAbility : MonoBehaviour, IAbleToUseOnUnit, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
     {
         [SerializeField] private int radius;
         [SerializeField] private int cost;
-        [SerializeField] private float fullAnimationTime;
         [SerializeField] private AbilityDataForButton abilityDataForButton;
+        [SerializeField] private Unit projectilePrefab;
+        [SerializeField] private bool needToRotateSpriteOnUse;
         
         [Header("Visualization")]
+        [SerializeField] private float fullAnimationTime;
         [SerializeField] private float animationBeforeImpactTime;
-        [SerializeField] private float pushAnimationHeight;
-        [SerializeField] private float pushAnimationSpeed;
+        [SerializeField] private float projectileAnimationHeight;
         [SerializeField] private LineRenderer visualizationPreUseArrow;
         [SerializeField] private AnimationCurve animationCurve;
+        [SerializeField] private AudioSource spawnSound;
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Cell _targetCell;
@@ -36,38 +38,22 @@ namespace FroguesFramework
             _targetCell.EnableSelectedCellHighlight(true);
             _actionPoints.PreSpendPoints(cost);
 
-            if (!PossibleToUseOnUnit(_targetCell.Content))
+            if(_targetCell.Content == null)
                 return;
-
+            
             visualizationPreUseArrow.gameObject.SetActive(true);
 
             float curveDelta = 1.0f / visualizationPreUseArrow.positionCount;
             for (int i = 0; i < visualizationPreUseArrow.positionCount; i++)
             {
-                var position = PositionOnCurveCalculator.Calculate(_targetCell,
-                    CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell), animationCurve,
-                    curveDelta * (i + 1), pushAnimationHeight);
+                var position = PositionOnCurveCalculator.Calculate(_unit.CurrentCell,
+                    _targetCell, animationCurve, curveDelta * (i + 1), projectileAnimationHeight);
 
                 position -= _unit.transform.position;
                 
                 visualizationPreUseArrow.SetPosition(i, position); 
             }
-        }
-
-        private bool CheckPossibleToApplyEffect()
-        {
-            if (_unit.Movable.CanBumpIntoUnit)
-                return true;
-
-            var unitToBumpInto = CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell).Content;
-
-            if (unitToBumpInto == null)
-                return true;
-
-            if (unitToBumpInto.Small)
-                return true;
             
-            return false;
         }
 
         public void Use()
@@ -77,9 +63,16 @@ namespace FroguesFramework
             if (_targetCell == null || !PossibleToUseOnUnit(_targetCell.Content))
                 return;
             
-            _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
+            if(_targetCell.Content == null || _targetCell.Content.Health == null)
+                return;
             
-            _animator.SetTrigger(CharacterAnimatorParameters.Kick);
+            if(!_actionPoints.IsActionPointsEnough(cost))
+                return;
+            
+            if(needToRotateSpriteOnUse)
+                _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
+            
+            _animator.SetTrigger(CharacterAnimatorParameters.Attack);
 
             _actionPoints.SpendPoints(cost);
             
@@ -90,8 +83,13 @@ namespace FroguesFramework
 
         public void ApplyEffect()
         {
-            _targetCell.Content.Movable.FreeCostMove(CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell),
-                pushAnimationSpeed, pushAnimationHeight, true, false);
+            if(spawnSound != null)
+                spawnSound.Play();
+            
+            var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.Init();
+            projectile.CurrentCell = _unit.CurrentCell;
+            projectile.Movable.FreeCostMove(_targetCell, false);
         }
 
         private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
@@ -112,28 +110,7 @@ namespace FroguesFramework
         public bool PossibleToUseOnUnit(Unit target)
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
-
-            if (target == null)
-                return false;
-
-            if (!_attackArea.Contains(target.CurrentCell))
-                return false;
-
-            if (!_actionPoints.IsActionPointsEnough(cost))
-                return false;
-
-            if (target.Movable.CanBumpIntoUnit)
-                return true;
-
-            var unitToBumpInto = CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell).Content;
-
-            if (unitToBumpInto == null)
-                return true;
-
-            if (unitToBumpInto.Small)
-                return true;
-            
-            return false;
+            return target != null && _attackArea.Contains(target.CurrentCell);
         }
         
         public void UseOnUnit(Unit target)

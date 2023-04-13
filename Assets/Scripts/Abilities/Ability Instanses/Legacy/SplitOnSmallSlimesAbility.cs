@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SplitOnSmallSlimesAbility : MonoBehaviour, IAbility
+    public class SplitOnSmallSlimesAbility : MonoBehaviour
     {
         [SerializeField] private int radius;
         [SerializeField] private Unit prefabToSpawn;

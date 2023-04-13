@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class MovementAbility : MonoBehaviour, IAbility
+    public class MovementAbility : MonoBehaviour
     {
         [SerializeField] private bool findTargetByMouse;
         private Unit _unit;

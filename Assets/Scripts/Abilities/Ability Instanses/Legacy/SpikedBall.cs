@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpikedBall : MonoBehaviour, IAbility, IAbleToUseOnUnit, IAbleToDrawAbilityButton
+    public class SpikedBall : MonoBehaviour, IAbleToUseOnUnit, IAbleToDrawAbilityButton
     {
         [SerializeField] private int cost;
         [SerializeField] private AbilityDataForButton abilityDataForButton;

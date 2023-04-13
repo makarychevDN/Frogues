@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class TurnOnRatBox : MonoBehaviour, IAbility
+    public class TurnOnRatBox : MonoBehaviour
     {
         [SerializeField] private int armorValue;
 

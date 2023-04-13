@@ -1,0 +1,157 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace FroguesFramework
+{
+    public class KickAbility : MonoBehaviour, IAbleToUseOnUnit, IAbleToDrawAbilityButton, IAbleToDisablePreVisualization
+    {
+        [SerializeField] private int radius;
+        [SerializeField] private int cost;
+        [SerializeField] private float fullAnimationTime;
+        [SerializeField] private AbilityDataForButton abilityDataForButton;
+        
+        [Header("Visualization")]
+        [SerializeField] private float animationBeforeImpactTime;
+        [SerializeField] private float pushAnimationHeight;
+        [SerializeField] private float pushAnimationSpeed;
+        [SerializeField] private LineRenderer visualizationPreUseArrow;
+        [SerializeField] private AnimationCurve animationCurve;
+        private Unit _unit;
+        private ActionPoints _actionPoints;
+        private Cell _targetCell;
+        private List<Cell> _attackArea;
+        private Animator _animator;
+        private SpriteRotator _spriteRotator;
+        
+        public void VisualizePreUse()
+        {
+            visualizationPreUseArrow.gameObject.SetActive(false);
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+            _attackArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_attackArea));
+            _targetCell = CellsTaker.TakeCellByMouseRaycast();
+
+            if (!_attackArea.Contains(_targetCell))
+                return;
+            
+            _targetCell.EnableSelectedCellHighlight(true);
+            _actionPoints.PreSpendPoints(cost);
+
+            if (!PossibleToUseOnUnit(_targetCell.Content))
+                return;
+
+            visualizationPreUseArrow.gameObject.SetActive(true);
+
+            float curveDelta = 1.0f / visualizationPreUseArrow.positionCount;
+            for (int i = 0; i < visualizationPreUseArrow.positionCount; i++)
+            {
+                var position = PositionOnCurveCalculator.Calculate(_targetCell,
+                    CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell), animationCurve,
+                    curveDelta * (i + 1), pushAnimationHeight);
+
+                position -= _unit.transform.position;
+                
+                visualizationPreUseArrow.SetPosition(i, position); 
+            }
+        }
+
+        private bool CheckPossibleToApplyEffect()
+        {
+            if (_unit.Movable.CanBumpIntoUnit)
+                return true;
+
+            var unitToBumpInto = CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell).Content;
+
+            if (unitToBumpInto == null)
+                return true;
+
+            if (unitToBumpInto.Small)
+                return true;
+            
+            return false;
+        }
+
+        public void Use()
+        {
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+            
+            if (_targetCell == null || !PossibleToUseOnUnit(_targetCell.Content))
+                return;
+            
+            _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
+            
+            _animator.SetTrigger(CharacterAnimatorParameters.Kick);
+
+            _actionPoints.SpendPoints(cost);
+            
+            CurrentlyActiveObjects.Add(this);
+            Invoke(nameof(RemoveFromCurrentlyActiveList), fullAnimationTime);
+            Invoke(nameof(ApplyEffect), animationBeforeImpactTime);
+        }
+
+        public void ApplyEffect()
+        {
+            _targetCell.Content.Movable.FreeCostMove(CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell),
+                pushAnimationSpeed, pushAnimationHeight, true, false);
+        }
+
+        private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
+
+        public void Init(Unit unit)
+        {
+            _unit = unit;
+            _actionPoints = unit.ActionPoints;
+            //unit.AbilitiesManager.AddAbility(this);
+            _animator = unit.Animator;
+            _spriteRotator = unit.SpriteRotator;
+        }
+
+        public int GetCost() => cost;
+
+        public bool IsPartOfWeapon() => false;
+
+        public bool PossibleToUseOnUnit(Unit target)
+        {
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+
+            if (target == null)
+                return false;
+
+            if (!_attackArea.Contains(target.CurrentCell))
+                return false;
+
+            if (!_actionPoints.IsActionPointsEnough(cost))
+                return false;
+
+            if (target.Movable.CanBumpIntoUnit)
+                return true;
+
+            var unitToBumpInto = CellsTaker.JumpOverNeighborCell(_unit.CurrentCell, _targetCell).Content;
+
+            if (unitToBumpInto == null)
+                return true;
+
+            if (unitToBumpInto.Small)
+                return true;
+            
+            return false;
+        }
+        
+        public void UseOnUnit(Unit target)
+        {
+            _targetCell = target.CurrentCell;
+            Use();
+        }
+
+        public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
+        
+        public void DisablePreVisualization()
+        {
+            visualizationPreUseArrow.gameObject.SetActive(false);
+        }
+
+        public void VisualizePreUseOnUnit(Unit target)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+}

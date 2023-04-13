@@ -19,11 +19,11 @@ namespace FroguesFramework
 
         public BaseAbility Ability => _ability;
         
-        public void Init(AbilitiesPanel abilitiesPanel, BaseAbility ability, IAbleToDrawAbilityButton ableToDrawAbilityButton)
+        public void Init(AbilitiesPanel abilitiesPanel, BaseAbility ability)
         {
             _abilitiesPanel = abilitiesPanel;
             _ability = ability;
-            image.material = ableToDrawAbilityButton.GetAbilityDataForButton().Material;
+            image.material = ability.GetAbilityDataForButton().Material;
 
             if((ability).GetComponent<MarkToAddAbilityInTheEndOfAbilitesPanel>() == null)
                 _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
@@ -32,9 +32,16 @@ namespace FroguesFramework
 
             transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
-            abilityHint.Init(ableToDrawAbilityButton.GetAbilityDataForButton().AbilityName,
-                ableToDrawAbilityButton.GetAbilityDataForButton().Stats,
-                ableToDrawAbilityButton.GetAbilityDataForButton().Description);
+
+            if (ability == null)
+                print("1");
+
+            if (ability.GetAbilityDataForButton() == null)
+                print("2");
+
+            abilityHint.Init(ability.GetAbilityDataForButton().AbilityName,
+                ability.GetAbilityDataForButton().Stats,
+                ability.GetAbilityDataForButton().Description);
             abilityHint.EnableContent(false);
         }
         

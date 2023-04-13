@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using System.Linq;
-using FroguesFramework;
 using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SwordAttackAbility : MonoBehaviour, IAbility, IAbleToDrawAbilityButton
+    public class SpearAttackAbility : MonoBehaviour, IAbleToUseOnUnit, IAbleToDrawAbilityButton
     {
         [SerializeField] private int defaultDamage;
+        [SerializeField] private int criticalDamage;
         [SerializeField] private int radius;
+        [SerializeField] private int criticalCost;
         [SerializeField] private int cost;
         [SerializeField] private float animationBeforeImpactTime;
         [SerializeField] private float fullAnimationTime;
@@ -17,8 +17,6 @@ namespace FroguesFramework
         private Unit _unit;
         private ActionPoints _actionPoints;
         private Cell _targetCell;
-        private List<Cell> _additionalCells;
-        private List<Cell> _cellsToApplyEffect;
         private List<Cell> _attackArea;
         private Animator _animator;
         private SpriteRotator _spriteRotator;
@@ -33,36 +31,34 @@ namespace FroguesFramework
                 return;
             
             _targetCell.EnableSelectedCellHighlight(true);
-            _additionalCells = CellsTaker.TakeCellsAreaByRange(_targetCell, radius)
-                .Where(cell => _attackArea.Contains(cell)).ToList();
-            _additionalCells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
-            _actionPoints.PreSpendPoints(cost);
-            _cellsToApplyEffect = _additionalCells;
-            _cellsToApplyEffect.Add(_targetCell);
 
-            foreach (var cell in _cellsToApplyEffect)
-            {
-                if(!cell.IsEmpty)
-                    cell.Content.Health.PreTakeDamage(defaultDamage);
-            }
+            var currentCost = _unit.CurrentCell.DistanceToCell(_targetCell) == radius ? criticalCost : cost;
+            _actionPoints.PreSpendPoints(currentCost);
+            
+            if(!_targetCell.IsEmpty)
+                _targetCell.Content.Health.PreTakeDamage(CalculateDamage());
         }
 
         public void Use()
         {
             _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
             
-            if (_targetCell == null)
+            if (_targetCell == null || !PossibleToUseOnUnit(_targetCell.Content))
+                return;
+            
+            if(_targetCell.Content == null || _targetCell.Content.Health == null)
                 return;
 
-            if(!_actionPoints.IsActionPointsEnough(cost))
+            var currentCost = _unit.CurrentCell.DistanceToCell(_targetCell) == radius ? criticalCost : cost;
+            if (!_actionPoints.IsActionPointsEnough(currentCost))
                 return;
             
             _spriteRotator.TurnAroundByTarget(_targetCell.transform.position);
             
-            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SwordIndex);
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SpearIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.Attack);
 
-            _actionPoints.SpendPoints(cost);
+            _actionPoints.SpendPoints(currentCost);
             
             CurrentlyActiveObjects.Add(this);
             Invoke(nameof(RemoveFromCurrentlyActiveList), fullAnimationTime);
@@ -72,11 +68,14 @@ namespace FroguesFramework
 
         public void ApplyEffect()
         {
-            foreach (var cell in _cellsToApplyEffect)
-            {
-                if(!cell.IsEmpty)
-                    cell.Content.Health.TakeDamage(defaultDamage);
-            }
+            _targetCell.Content.Health.TakeDamage(CalculateDamage());
+        }
+
+        private int CalculateDamage()
+        {
+            return _unit.CurrentCell.DistanceToCell(_targetCell) == radius
+                ? criticalDamage
+                : defaultDamage;
         }
 
         private void RemoveFromCurrentlyActiveList() => CurrentlyActiveObjects.Remove(this);
@@ -87,7 +86,7 @@ namespace FroguesFramework
             _actionPoints = unit.ActionPoints;
             //unit.AbilitiesManager.AddAbility(this);
             _animator = unit.Animator;
-            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SwordIndex);
+            _animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, CharacterAnimatorParameters.SpearIndex);
             _animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
             _spriteRotator = unit.SpriteRotator;
         }
@@ -96,6 +95,23 @@ namespace FroguesFramework
 
         public bool IsPartOfWeapon() => true;
 
+        public bool PossibleToUseOnUnit(Unit target)
+        {
+            _attackArea = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, radius);
+            return target != null && _attackArea.Contains(target.CurrentCell);
+        }
+        
+        public void UseOnUnit(Unit target)
+        {
+            _targetCell = target.CurrentCell;
+            Use();
+        }
+
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
+
+        public void VisualizePreUseOnUnit(Unit target)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
