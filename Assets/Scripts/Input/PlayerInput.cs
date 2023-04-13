@@ -38,8 +38,7 @@ public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
         if (currentAbility is IAbleToUseOnUnit)
         {
             var currentUnitAbility = (UnitTargetAbility)currentAbility;
-
-            var targetUnit = CellsTaker.TakeCellByMouseRaycast()?.Content;
+            var targetUnit = CellsTaker.TakeUnitByMouseRaycast();
             currentUnitAbility.CalculateUsingArea();
             currentUnitAbility.VisualizePreUseOnUnit(targetUnit);
 

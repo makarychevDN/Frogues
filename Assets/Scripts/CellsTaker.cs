@@ -70,10 +70,19 @@ namespace FroguesFramework
             RaycastHit hit;
 
             return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)
-                ? hit.transform.parent.GetComponent<Cell>()
+                ? hit.transform.GetComponentInParent<Cell>()
                 : null;
         }
-        
+
+        public static Unit TakeUnitByMouseRaycast()
+        {
+            RaycastHit hit;
+
+            return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)
+                ? hit.transform.GetComponentInParent<Unit>()
+                : null;
+        }
+
         public static Cell JumpOverNeighborCell(Cell startCell, Cell targetCell)
         {
             var hexDir = startCell.CellNeighbours.GetHexDirByNeighbor(targetCell);
