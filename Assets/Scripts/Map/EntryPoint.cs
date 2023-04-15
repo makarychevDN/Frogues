@@ -78,7 +78,7 @@ public class EntryPoint : MonoBehaviour
     {
         foreach (var ableToDisablePreVisualization in FindObjectsOfType<MonoBehaviour>().OfType<IAbleToDisablePreVisualization>())
         {
-            ableToDisablePreVisualization.DisablePreVisualization();
+            ableToDisablePreVisualization.DisablePreVisualization();        
         }
 
         if (PauseIsActive)
