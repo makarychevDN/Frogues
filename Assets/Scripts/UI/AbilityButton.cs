@@ -32,12 +32,7 @@ namespace FroguesFramework
 
             transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
-
-            if (ability == null)
-                print("1");
-
-            if (ability.GetAbilityDataForButton() == null)
-                print("2");
+            transform.localScale = Vector3.one;
 
             abilityHint.Init(ability.GetAbilityDataForButton().AbilityName,
                 ability.GetAbilityDataForButton().Stats,
