@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private int radius;
 
         [Header("Animation Setup")]
+        [SerializeField] private bool needToRotateOwnersSprite = true;
         [SerializeField] private float timeBeforeImpact;
         [SerializeField] private float fullAnimationTime;
         [SerializeField] private AudioSource impactSoundSource;
@@ -34,6 +35,8 @@ namespace FroguesFramework
                 return;
 
             SpendActionPoints();
+
+            if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(target);
             _owner.Animator.SetTrigger(CharacterAnimatorParameters.Attack);
             impactSoundSource.Play();
 
