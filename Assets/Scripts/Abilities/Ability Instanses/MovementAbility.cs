@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class NewMovementAbility : AreaTargetAbility
+    public class MovementAbility : AreaTargetAbility
     {
+        [SerializeField] private bool ignoreSmallUnits = false;
+        [SerializeField] private bool ignoreSurfaces = false;
         private List<Cell> _currentPath = new List<Cell>();
 
         public override List<Cell> CalculateUsingArea()
@@ -18,6 +22,9 @@ namespace FroguesFramework
 
         public override bool PossibleToUseOnCells(List<Cell> cells)
         {
+            if(!IsActionPointsEnough())
+                return false;
+
             if (cells == null || cells.Count == 0)
                 return false;
 
@@ -32,7 +39,7 @@ namespace FroguesFramework
             if (cells == null || cells.Count == 0)
                 return null;
 
-            return EntryPoint.Instance.PathFinder.FindWay(_owner.CurrentCell, cells.GetLast(), false, false, false);
+            return EntryPoint.Instance.PathFinder.FindWay(_owner.CurrentCell, cells.GetLast(), false, ignoreSmallUnits, ignoreSurfaces);
         }
 
         public override void UseOnCells(List<Cell> cells)

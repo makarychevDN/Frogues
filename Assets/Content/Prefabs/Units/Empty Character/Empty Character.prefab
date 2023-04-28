@@ -1612,7 +1612,7 @@ Transform:
   - {fileID: 3036369896160266994}
   - {fileID: 9186810796872100348}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &707049996601828594
 MonoBehaviour:
@@ -1635,7 +1635,7 @@ MonoBehaviour:
   <ActionPoints>k__BackingField: {fileID: 1540128683254219491}
   <AbleToSkipTurn>k__BackingField: {fileID: 2207101790817794968}
   <Movable>k__BackingField: {fileID: 1790417060945075535}
-  <MovementAbility>k__BackingField: {fileID: 3205078161844319051}
+  <MovementAbility>k__BackingField: {fileID: 7386109588417128627}
   <Animator>k__BackingField: {fileID: 8480520208402276108}
   <SpriteParent>k__BackingField: {fileID: 1274513771182500915}
   <Shadow>k__BackingField: {fileID: 3172929009141702016}
@@ -1816,7 +1816,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3869895213538694829}
-  - component: {fileID: 3205078161844319051}
+  - component: {fileID: 7386109588417128627}
   m_Layer: 0
   m_Name: Movement Ability
   m_TagString: Untagged
@@ -1839,7 +1839,7 @@ Transform:
   m_Father: {fileID: 680648918859108477}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3205078161844319051
+--- !u!114 &7386109588417128627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1848,10 +1848,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7442025326768858339}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa375c861f070946bc5b480b975344d, type: 3}
+  m_Script: {fileID: 11500000, guid: e378280eededf7d4a876a57cf65d3ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  findTargetByMouse: 1
+  abilityDataForButton: {fileID: 0}
+  cost: 2
+  ignoreSmallUnits: 0
+  ignoreSurfaces: 0
 --- !u!1 &7468677728594168446
 GameObject:
   m_ObjectHideFlags: 0

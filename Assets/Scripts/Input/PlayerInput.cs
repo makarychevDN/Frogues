@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
 {
-    [SerializeField] private NewMovementAbility newMovementAbility;
+    [SerializeField] private MovementAbility movementAbility;
     [SerializeField] private BaseAbility currentAbility;
+    [SerializeField] private Texture2D defaultCursorTexture;
     private Unit _unit;
 
     public bool InputIsPossible => true;
@@ -18,7 +19,7 @@ public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
         }
 
         if (currentAbility == null)
-            currentAbility = newMovementAbility;
+            currentAbility = movementAbility;
 
         if(currentAbility is IAbleToUseOnCells)
         {
@@ -26,7 +27,7 @@ public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
 
             currentCellsAbility.CalculateUsingArea();
             var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
-            var path = newMovementAbility.SelectCells(targetCells);
+            var path = currentCellsAbility.SelectCells(targetCells);
             currentCellsAbility.VisualizePreUseOnCells(path);
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -47,6 +48,9 @@ public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
                 currentUnitAbility.UseOnUnit(targetUnit);
             }
         }
+
+        if (currentAbility == movementAbility)
+            Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
 
     public void ClearCurrentAbility() => currentAbility = null;
@@ -56,8 +60,8 @@ public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
     public void Init()
     {
         _unit = GetComponentInParent<Unit>();
-        newMovementAbility.Init(_unit);
-        currentAbility = newMovementAbility;
+        movementAbility.Init(_unit);
+        currentAbility = movementAbility;
     }
 
     public void SetCurrentAbility(BaseAbility ability) => currentAbility = ability;

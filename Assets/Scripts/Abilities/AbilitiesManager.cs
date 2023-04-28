@@ -26,7 +26,7 @@ namespace FroguesFramework
         
         public void AddAbility(BaseAbility ability)
         {
-            if (ability is NewMovementAbility)
+            if (ability is MovementAbility)
                 return;
 
             _abilities.Add(ability);
