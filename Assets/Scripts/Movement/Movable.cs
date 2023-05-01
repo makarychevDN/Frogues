@@ -7,7 +7,6 @@ namespace FroguesFramework
     public class Movable : MonoBehaviour
     {
         [SerializeField] private bool canBumpIntoUnit;
-        [SerializeField] private int defaultMovementCost;
         [Range(0.1f, 30), SerializeField] private float defaultSpeed;
         [SerializeField] private float defaultJumpHeight;
         [SerializeField] private AnimationCurve jumpCurve;
@@ -16,10 +15,8 @@ namespace FroguesFramework
         public UnityEvent OnMovementEnd;
         public UnityEvent OnBumpInto;
         public UnityEvent<Unit> OnBumpIntoUnit;
-        //public UnityEvent<List<Cell>> OnBumpIntoCell;
 
         private Unit _unit;
-        private ActionPoints _actionPoints;
         private Vector3 _startCellPosition, _targetCellPosition;
         private Cell _targetCell;
         private float _currentTime, _totalTime, _distance;
@@ -29,14 +26,11 @@ namespace FroguesFramework
         private Transform _spriteParent, _shadow;
         private SpriteRotator _spriteRotator;
 
-        public int DefaultMovementCost => defaultMovementCost;
-
         public bool CanBumpIntoUnit => canBumpIntoUnit;
 
         public void Init(Unit unit)
         {
             _unit = unit;
-            _actionPoints = unit.ActionPoints;
             _spriteParent = unit.SpriteParent;
             _spriteAlignment = _spriteParent.parent.localPosition.y;
             _shadow = _unit.Shadow;
@@ -45,34 +39,25 @@ namespace FroguesFramework
             _totalTime = jumpCurve.keys[jumpCurve.keys.Length - 1].time;
             OnBumpInto.AddListener(unit.Health.DieFromBumpInto);
         }
-        
-        public void FreeCostMove(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>
-            Move(targetCell, 0, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove,
-                needToRotateSprite);
-        
-        public void FreeCostMove(Cell targetCell, float speed, float jumpHeight,
-            bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>
-            Move(targetCell, 0, speed, jumpHeight, startCellBecomeEmptyOnMove,
-                needToRotateSprite);
+
+        public bool IsPossibleToMoveOnCell(Cell targetCell)
+        {
+            if (targetCell?.Content == _unit)
+                return false;
+
+            return targetCell.IsEmpty || canBumpIntoUnit || targetCell.Content.Small;
+        }
 
         public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>
-            Move(targetCell, defaultMovementCost, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove,
+            Move(targetCell, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove,
                 needToRotateSprite);
 
-        public void Move(Cell targetCell, int movementCost, float speed, float jumpHeight,
+        public void Move(Cell targetCell, float speed, float jumpHeight,
             bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true)
         {
-            if (!_actionPoints.IsActionPointsEnough(movementCost))
-            {
+            if (!IsPossibleToMoveOnCell(targetCell))
                 return;
-            }
 
-            if (!targetCell.IsEmpty && !canBumpIntoUnit && !targetCell.Content.Small)
-            {
-                return;
-            }
-
-            _actionPoints.SpendPoints(movementCost);
             targetCell.chosenToMovement = true;
 
             if (startCellBecomeEmptyOnMove)
@@ -113,11 +98,7 @@ namespace FroguesFramework
 
             targetCell.Content = _unit;
             OnMovementEnd.Invoke();
-        }
-        
-        private void Play(Cell startCell, Cell targetCell) =>
-            Play(startCell, targetCell, defaultSpeed, defaultJumpHeight);
-        
+        }        
 
         private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight, bool needToRotateSprite = true)
         {

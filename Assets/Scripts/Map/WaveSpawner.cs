@@ -69,7 +69,7 @@ namespace FroguesFramework
         {
             var spawnedObject = Instantiate(prefabToSpawn, EntryPoint.Instance.CenterOfRoom + Vector3.up * 7, Quaternion.identity);
             spawnedObject.Init();
-            spawnedObject.Movable.FreeCostMove(targetCell, 20, 1, false);
+            spawnedObject.Movable.Move(targetCell, 20, 1, false);
             EntryPoint.Instance.UnitsQueue.AddObjectInQueue(spawnedObject);
             spawnedObject.transform.parent = EntryPoint.Instance.Map.transform;
         }

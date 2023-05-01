@@ -10,11 +10,13 @@ namespace FroguesFramework
         [SerializeField] private bool ignoreSurfaces = false;
         private List<Cell> _currentPath = new List<Cell>();
 
+        public bool PathToMoveIsSelected => _currentPath.Count != 0;
+
         public override List<Cell> CalculateUsingArea()
         {
             _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
             _owner.ActionPoints.CurrentActionPoints,
-                _owner.Movable.DefaultMovementCost, false, true, true);
+                cost, false, true, true);
             return _usingArea;
         }
 
@@ -52,6 +54,9 @@ namespace FroguesFramework
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
         {
+            if (PathToMoveIsSelected)
+                return;
+
             _usingArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(_usingArea));
 
             if (!PossibleToUseOnCells(cells))
@@ -72,14 +77,19 @@ namespace FroguesFramework
             _owner.ActionPoints.PreSpendPoints((cells.Count - 1) * 2);
         }
 
-        public bool IsMoving => _currentPath.Count != 0;
-
         private void Update()
         {
-            if (!CurrentlyActiveObjects.SomethingIsActNow && IsMoving)
+            if (!CurrentlyActiveObjects.SomethingIsActNow && PathToMoveIsSelected)
             {
+                if (!_owner.Movable.IsPossibleToMoveOnCell(_currentPath[0]))
+                {
+                    _currentPath.RemoveAt(0);
+                    return;
+                }                    
+
                 _owner.Movable.Move(_currentPath[0]);
                 _currentPath.RemoveAt(0);
+                SpendActionPoints();
             }
         }
     }

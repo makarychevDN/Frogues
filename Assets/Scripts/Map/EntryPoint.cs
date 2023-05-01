@@ -31,7 +31,7 @@ public class EntryPoint : MonoBehaviour
     public int Score => score;
     public bool ExitActivated => _currentRoom.ExitActivated;
     public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer) 
-                                     && !_metaPlayer.MovementAbility.IsMoving 
+                                     && !_metaPlayer.MovementAbility.PathToMoveIsSelected 
                                      && !CurrentlyActiveObjects.SomethingIsActNow;
 
     public Vector3 CenterOfRoom => _currentRoom.CenterOfRoom;
