@@ -1,21 +1,22 @@
-using FroguesFramework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DealDamageOnContactWithUnitPassiveAbility : PassiveAbility
+namespace FroguesFramework
 {
-    [SerializeField] private int damage;
-    public override void Init(Unit unit)
+    public class DealDamageOnContactWithUnitPassiveAbility : PassiveAbility
     {
-        base.Init(unit);
+        [SerializeField] private int damage;
+        public override void Init(Unit unit)
+        {
+            base.Init(unit);
 
-        unit.OnStepOnThisUnitByTheUnit.AddListener(DealDamage);
-        unit.Movable.OnBumpIntoUnit.AddListener(DealDamage);
-    }
+            unit.OnStepOnThisUnitByTheUnit.AddListener(DealDamage);
+            unit.Movable.OnBumpIntoUnit.AddListener(DealDamage);
+        }
 
-    private void DealDamage(Unit unit)
-    {
-        unit.Health.TakeDamage(damage);
+        private void DealDamage(Unit unit)
+        {
+            unit.Health.TakeDamage(damage);
+        }
     }
 }
+
