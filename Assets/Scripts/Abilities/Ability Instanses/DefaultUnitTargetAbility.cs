@@ -13,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private bool needToRotateOwnersSprite = true;
         [SerializeField] private float timeBeforeImpact;
         [SerializeField] private float fullAnimationTime;
+        [SerializeField] private float delayBeforeImpactSound;
         [SerializeField] private AudioSource impactSoundSource;
 
         [Header("Previsualization Setup")]
@@ -38,20 +39,22 @@ namespace FroguesFramework
 
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(target);
             _owner.Animator.SetTrigger(CharacterAnimatorParameters.Attack);
-            impactSoundSource.Play();
 
             CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, target));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
+            Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);
         }
 
-        IEnumerator ApplyEffect(float time, Unit target)
+        protected virtual IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
             target.Health.TakeDamage(damage);
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+
+        private void PlayImpactSound() => impactSoundSource.Play();
 
         public override void VisualizePreUseOnUnit(Unit target)
         {
