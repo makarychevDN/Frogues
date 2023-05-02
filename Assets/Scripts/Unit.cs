@@ -62,8 +62,8 @@ namespace FroguesFramework
             ActionsInput?.Init();
             
             AbleToSkipTurn?.Init(this);
-            AbilitiesManager?.Init(this);
             EffectsVisualiser?.Init(this);
+            AbilitiesManager?.Init(this);
             ScoreContainer?.Init(this);
 
             _initAlready = true;

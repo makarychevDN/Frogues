@@ -13,8 +13,8 @@ namespace FroguesFramework
         {
             unit.Health.OnDamageBlockedSuccessfully.AddListener(ShowDamageSuccessfullyBlockedEffect);
             unit.Health.OnBlockDestroyed.AddListener(ShowBlockDestroyedEffect);
-            unit.Health.OnTemporaryBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
-            unit.Health.OnPermanentBlockIncreased.AddListener(ShowPermanentBlockIncreasedEffect);
+            unit.Health.OnBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
+            //unit.Health.OnPermanentBlockIncreased.AddListener(ShowPermanentBlockIncreasedEffect);
         }
 
         private void ShowDamageSuccessfullyBlockedEffect()
