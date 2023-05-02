@@ -9,6 +9,7 @@ namespace FroguesFramework
         public const string Cast = "Cast";
         public const string TakeDamage = "Take Damage";
         public const string ChangeWeapon = "Change Weapon";
+        public const string BoxIsOn = "BoxIsOn";
         
         public const int WeaponlessIndex = 0;
         public const int ShieldIndex = 1;
