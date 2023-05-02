@@ -10,10 +10,7 @@ namespace FroguesFramework
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
-            var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            projectile.Init();
-            projectile.CurrentCell = _owner.CurrentCell;
-            projectile.Movable.Move(target.CurrentCell, false);
+            EntryPoint.Instance.SpawnUnit(projectilePrefab, _owner, target.CurrentCell);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using FroguesFramework;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class EntryPoint : MonoBehaviour
 {
@@ -72,6 +73,14 @@ public class EntryPoint : MonoBehaviour
 
         _currentRoom.ActivateExit();
         _hashedScoreThenExitActivated += deltaOfScoreToOpenExit;
+    }
+
+    public void SpawnUnit(Unit prefab, Unit spawner, Cell targetCell)
+    {
+        var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
+        spawnedUnit.Init();
+        spawnedUnit.CurrentCell = spawner.CurrentCell;
+        spawnedUnit.Movable.Move(targetCell, false);
     }
 
     private void Update()
