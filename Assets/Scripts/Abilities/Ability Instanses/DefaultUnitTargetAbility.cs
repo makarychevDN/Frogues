@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private int radius;
 
         [Header("Animation Setup")]
+        [SerializeField] private WeaponIndexes weaponIndex = WeaponIndexes.NoNeedToChangeWeapon;
         [SerializeField] private bool needToRotateOwnersSprite = true;
         [SerializeField] private float timeBeforeImpact;
         [SerializeField] private float fullAnimationTime;
@@ -75,6 +76,17 @@ namespace FroguesFramework
         public override void DisablePreVisualization()
         {
             lineFromOwnerToTarget.gameObject.SetActive(false);
+        }
+
+        public override void Init(Unit unit)
+        {
+            base.Init(unit);
+
+            if (weaponIndex == WeaponIndexes.NoNeedToChangeWeapon)
+                return;
+
+            _owner.Animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, (int)weaponIndex);
+            _owner.Animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
         }
     }
 }

@@ -10,10 +10,21 @@ namespace FroguesFramework
         public const string TakeDamage = "Take Damage";
         public const string ChangeWeapon = "Change Weapon";
         public const string BoxIsOn = "BoxIsOn";
-        
-        public const int WeaponlessIndex = 0;
-        public const int ShieldIndex = 1;
-        public const int SwordIndex = 2;
-        public const int SpearIndex = 3;
+    }
+
+    public enum AbilityAnimatorTriggers
+    {
+        Attack = 1, 
+        DirectlyCast = 2,
+        NotDirectlyCast = 3
+    }
+
+    public enum WeaponIndexes
+    {
+        NoNeedToChangeWeapon = -1,
+        WeaponlessIndex = 0,
+        ShieldIndex = 1,
+        SwordIndex = 2,
+        SpearIndex = 3
     }
 }
