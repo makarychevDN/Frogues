@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 693724608207136343}
-  - component: {fileID: 7892966621917404392}
+  - component: {fileID: 7982002668142901935}
   - component: {fileID: 7358306875308271383}
   m_Layer: 0
   m_Name: "\u041F\u043B\u044E\u0432\u043E\u043A \u0441\u043B\u0430\u0439\u043C\u043E\u043C"
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 4257313444507470042}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7892966621917404392
+--- !u!114 &7982002668142901935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,18 +42,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3673360730347260864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39a1e6af57d0e2541b9fdc211ca30011, type: 3}
+  m_Script: {fileID: 11500000, guid: c6621e3d990d71149bfb0d41cda46192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
-  cost: 6
   abilityDataForButton: {fileID: 0}
-  unitToSpawn: {fileID: 493634843759417752, guid: 92ced180d91d7354f99bc13dea3840da, type: 3}
-  needToRotateSpriteOnUse: 0
+  cost: 6
+  abilityAnimatorTrigger: 1
+  weaponIndex: -1
+  timeBeforeImpact: 0.25
   fullAnimationTime: 0.5
-  animationBeforeImpactTime: 0.25
-  projectileAnimationHeight: 0.5
-  spawnSound: {fileID: 7358306875308271383}
+  delayBeforeImpactSound: 0.2
+  impactSoundSource: {fileID: 7358306875308271383}
+  needToRotateOwnersSprite: 0
+  radius: 1
+  unitPrefab: {fileID: 493634843759417752, guid: 92ced180d91d7354f99bc13dea3840da, type: 3}
 --- !u!82 &7358306875308271383
 AudioSource:
   m_ObjectHideFlags: 0
@@ -257,14 +259,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 650360554326565321, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6711921195068526100}
+      addedObject: {fileID: 3545802867167496948}
   m_SourcePrefab: {fileID: 100100000, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
 --- !u!1 &2002962904700002356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 650360554326565321, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
   m_PrefabInstance: {fileID: 1354879096699617789}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6711921195068526100
+--- !u!114 &3545802867167496948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,10 +275,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2002962904700002356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed0d39c8586965b4d95c8fbfe9e4e044, type: 3}
+  m_Script: {fileID: 11500000, guid: d94fd72cdee2861469555e1b8dada203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _attackAbility: {fileID: 7892966621917404392}
+  areaTargetAbility: {fileID: 7982002668142901935}
 --- !u!4 &4257313444507470042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3015295575613425959, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}

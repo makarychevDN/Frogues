@@ -19,7 +19,7 @@ namespace FroguesFramework
 
             _unit.MovementAbility.CalculateUsingArea();
             var theFirstCellOfPathAsList = new List<Cell> { 
-                _unit.MovementAbility.SelectCells(new List<Cell> { target.CurrentCell }).GetFirst() };
+                _unit.MovementAbility.SelectCells(new List<Cell> { target.CurrentCell })?.GetFirst() };
 
             if (!_unit.MovementAbility.PossibleToUseOnCells(theFirstCellOfPathAsList))
             {
