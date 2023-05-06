@@ -29,12 +29,12 @@ namespace FroguesFramework
 
                 currentCellsAbility.CalculateUsingArea();
                 var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
-                var path = currentCellsAbility.SelectCells(targetCells);
-                currentCellsAbility.VisualizePreUseOnCells(path);
+                var selectedCells = currentCellsAbility.SelectCells(targetCells);
+                currentCellsAbility.VisualizePreUseOnCells(selectedCells);
 
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    currentCellsAbility.UseOnCells(path);
+                    currentCellsAbility.UseOnCells(selectedCells);
                 }
             }
 
