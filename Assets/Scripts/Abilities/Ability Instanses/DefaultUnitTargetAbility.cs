@@ -9,15 +9,6 @@ namespace FroguesFramework
         [SerializeField] private int damage;
         [SerializeField] private int radius;
 
-        [Header("Animation Setup")]
-        [SerializeField] private AbilityAnimatorTriggers abilityAnimatorTrigger;
-        [SerializeField] private WeaponIndexes weaponIndex = WeaponIndexes.NoNeedToChangeWeapon;
-        [SerializeField] private bool needToRotateOwnersSprite = true;
-        [SerializeField] private float timeBeforeImpact;
-        [SerializeField] private float fullAnimationTime;
-        [SerializeField] private float delayBeforeImpactSound;
-        [SerializeField] private AudioSource impactSoundSource;
-
         [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
 

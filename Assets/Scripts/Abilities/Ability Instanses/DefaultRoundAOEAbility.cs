@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace FroguesFramework
 {
@@ -12,15 +11,6 @@ namespace FroguesFramework
         [SerializeField] private int usingRadius;
         [SerializeField] private int effectRadius;
         [SerializeField] private bool includeCellsOutOfUsingArea;
-
-        [Header("Animation Setup")]
-        [SerializeField] private AbilityAnimatorTriggers abilityAnimatorTrigger;
-        [SerializeField] private WeaponIndexes weaponIndex = WeaponIndexes.NoNeedToChangeWeapon;
-        [SerializeField] private bool needToRotateOwnersSprite = true;
-        [SerializeField] private float timeBeforeImpact;
-        [SerializeField] private float fullAnimationTime;
-        [SerializeField] private float delayBeforeImpactSound;
-        [SerializeField] private AudioSource impactSoundSource;
 
         private List<Cell> _selectedArea;
 
