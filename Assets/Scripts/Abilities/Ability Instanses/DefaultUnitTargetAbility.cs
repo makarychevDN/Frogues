@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private int radius;
 
         [Header("Animation Setup")]
+        [SerializeField] private AbilityAnimatorTriggers abilityAnimatorTrigger;
         [SerializeField] private WeaponIndexes weaponIndex = WeaponIndexes.NoNeedToChangeWeapon;
         [SerializeField] private bool needToRotateOwnersSprite = true;
         [SerializeField] private float timeBeforeImpact;
@@ -39,7 +40,7 @@ namespace FroguesFramework
             SpendActionPoints();
 
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(target);
-            _owner.Animator.SetTrigger(CharacterAnimatorParameters.Attack);
+            _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
             CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, target));
