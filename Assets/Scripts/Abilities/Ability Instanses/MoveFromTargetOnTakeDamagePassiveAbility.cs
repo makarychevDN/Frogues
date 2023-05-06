@@ -43,12 +43,13 @@ namespace FroguesFramework
                 return;
 
             _mostFarFromTargetNeighborCells = mostFarCells.GetRandomElement();
-            Invoke(nameof(MoveAfterDelay), 0.25f);
+            Invoke(nameof(MoveAfterDelay), 0.24f);
         }
 
         private void MoveAfterDelay()
         {
-            _owner.Movable.Move(_mostFarFromTargetNeighborCells);
+            _owner.MovementAbility.CalculateUsingArea();
+            _owner.MovementAbility.UseOnCells(new List<Cell> { _mostFarFromTargetNeighborCells });
         }
     }
 }
