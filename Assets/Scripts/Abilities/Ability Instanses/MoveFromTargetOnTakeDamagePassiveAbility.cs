@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class MoveFromTargetOnTakeDamage : PassiveAbility
+    public class MoveFromTargetOnTakeDamagePassiveAbility : PassiveAbility
     {
         [SerializeField] private Unit _target;
         private Cell _mostFarFromTargetNeighborCells;
