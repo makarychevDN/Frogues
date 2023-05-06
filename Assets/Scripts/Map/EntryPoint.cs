@@ -81,6 +81,9 @@ public class EntryPoint : MonoBehaviour
         spawnedUnit.Init();
         spawnedUnit.CurrentCell = spawner.CurrentCell;
         spawnedUnit.Movable.Move(targetCell, false);
+
+        if (spawnedUnit.ActionsInput != null)
+            UnitsQueue.AddObjectInQueue(spawnedUnit);
     }
 
     private void Update()
