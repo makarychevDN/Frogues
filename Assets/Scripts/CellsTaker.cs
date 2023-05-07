@@ -67,18 +67,20 @@ namespace FroguesFramework
 
         public static Cell TakeCellByMouseRaycast()
         {
+            var mask = LayerMask.GetMask("UI", "Cell");
             RaycastHit hit;
 
-            return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)
+            return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, mask)
                 ? hit.transform.GetComponentInParent<Cell>()
                 : null;
         }
 
         public static Unit TakeUnitByMouseRaycast()
         {
+            var mask = LayerMask.GetMask("UI", "Unit");
             RaycastHit hit;
 
-            return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit)
+            return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, mask)
                 ? hit.transform.GetComponentInParent<Unit>()
                 : null;
         }

@@ -1,6 +1,7 @@
 using FroguesFramework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace FroguesFramework
 {
@@ -30,6 +31,10 @@ namespace FroguesFramework
                 currentCellsAbility.CalculateUsingArea();
                 var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
                 var selectedCells = currentCellsAbility.SelectCells(targetCells);
+
+                if (IsMouseOverUI)
+                    selectedCells = null;
+
                 currentCellsAbility.VisualizePreUseOnCells(selectedCells);
 
                 if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -42,6 +47,10 @@ namespace FroguesFramework
             {
                 var currentUnitAbility = (UnitTargetAbility)currentAbility;
                 var targetUnit = CellsTaker.TakeUnitByMouseRaycast();
+
+                if (IsMouseOverUI)
+                    targetUnit = null;
+
                 currentUnitAbility.CalculateUsingArea();
                 currentUnitAbility.VisualizePreUseOnUnit(targetUnit);
 
@@ -54,6 +63,9 @@ namespace FroguesFramework
             if (currentAbility == movementAbility)
                 Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
         }
+
+        private bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
+        
 
         public void ClearCurrentAbility() => currentAbility = null;
 
