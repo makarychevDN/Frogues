@@ -30,7 +30,7 @@ namespace FroguesFramework
             _unit.MovementAbility.UseOnCells(theFirstCellOfPathAsList);
         }
 
-        public void Init()
+        public virtual void Init()
         {
             _unit = GetComponentInParent<Unit>();
 
