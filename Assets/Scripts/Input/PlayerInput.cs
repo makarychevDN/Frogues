@@ -66,7 +66,17 @@ namespace FroguesFramework
             currentAbility = movementAbility;
         }
 
-        public void SetCurrentAbility(BaseAbility ability) => currentAbility = ability;
+        //public void SetCurrentAbility(BaseAbility ability) => currentAbility = ability;
+        public void SetCurrentAbility(BaseAbility ability)
+        {
+            if (ability is IAbleToUseWithNoTarget)
+            {
+                (ability as IAbleToUseWithNoTarget).Use();
+                return;
+            }
+
+            currentAbility = ability;
+        }
     }
 
 }
