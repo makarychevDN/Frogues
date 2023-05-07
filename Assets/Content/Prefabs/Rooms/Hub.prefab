@@ -311,16 +311,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 2671843683474482390}
+  isPartOfWeapon: 1
   cost: 3
-  damage: 15
-  radius: 1
   abilityAnimatorTrigger: 1
   weaponIndex: -1
-  needToRotateOwnersSprite: 1
   timeBeforeImpact: 0.25
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0.15
   impactSoundSource: {fileID: 409580615296976454}
+  needToRotateOwnersSprite: 1
+  damage: 15
+  radius: 1
   lineFromOwnerToTarget: {fileID: 8968159967657709627}
 --- !u!114 &2671843683474482390
 MonoBehaviour:
@@ -484,16 +485,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 2700886677742363825}
+  isPartOfWeapon: 1
   cost: 4
-  damage: 1
-  radius: 1
   abilityAnimatorTrigger: 1
   weaponIndex: 1
-  needToRotateOwnersSprite: 1
   timeBeforeImpact: 0.25
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0.15
   impactSoundSource: {fileID: 6179450738361253341}
+  needToRotateOwnersSprite: 1
+  damage: 1
+  radius: 1
   lineFromOwnerToTarget: {fileID: 1919171175}
 --- !u!114 &2700886677742363825
 MonoBehaviour:
@@ -720,6 +722,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5541874911802547082}
+  - component: {fileID: 83008957158919890}
   - component: {fileID: 3366648924077706381}
   m_Layer: 0
   m_Name: Parry
@@ -743,6 +746,28 @@ Transform:
   m_Father: {fileID: 4153005971200137875}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &83008957158919890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671370262187223044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f351aba6ec135754fba77450e7452ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 3366648924077706381}
+  isPartOfWeapon: 1
+  cost: 0
+  abilityAnimatorTrigger: 0
+  weaponIndex: -1
+  timeBeforeImpact: 0
+  fullAnimationTime: 0
+  delayBeforeImpactSound: 0
+  impactSoundSource: {fileID: 0}
+  blockValue: 15
 --- !u!114 &3366648924077706381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,18 +1244,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 7661061891954001234}
+  isPartOfWeapon: 1
   cost: 4
-  damage: 15
-  usingRadius: 1
-  effectRadius: 1
-  includeCellsOutOfUsingArea: 0
   abilityAnimatorTrigger: 1
   weaponIndex: 2
-  needToRotateOwnersSprite: 1
   timeBeforeImpact: 0.25
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0.15
   impactSoundSource: {fileID: 2783479104266033006}
+  needToRotateOwnersSprite: 1
+  damage: 15
+  usingRadius: 1
+  effectRadius: 1
+  includeCellsOutOfUsingArea: 0
 --- !u!114 &7661061891954001234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1355,6 +1381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4720254270882003074}
+  - component: {fileID: 7579479274217315019}
   - component: {fileID: 257303029948584550}
   m_Layer: 0
   m_Name: Parry
@@ -1378,6 +1405,28 @@ Transform:
   m_Father: {fileID: 2093499037866642204}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7579479274217315019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3416414073733939166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f351aba6ec135754fba77450e7452ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 257303029948584550}
+  isPartOfWeapon: 1
+  cost: 2
+  abilityAnimatorTrigger: 0
+  weaponIndex: -1
+  timeBeforeImpact: 0
+  fullAnimationTime: 0
+  delayBeforeImpactSound: 0
+  impactSoundSource: {fileID: 0}
+  blockValue: 15
 --- !u!114 &257303029948584550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1743,6 +1792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2509627634464102463}
+  - component: {fileID: 6746376207908532101}
   - component: {fileID: 8238629139510886040}
   m_Layer: 0
   m_Name: Parry
@@ -1766,6 +1816,28 @@ Transform:
   m_Father: {fileID: 8261658074070117458}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6746376207908532101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6016458700492607777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f351aba6ec135754fba77450e7452ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 8238629139510886040}
+  isPartOfWeapon: 1
+  cost: 2
+  abilityAnimatorTrigger: 0
+  weaponIndex: -1
+  timeBeforeImpact: 0
+  fullAnimationTime: 0
+  delayBeforeImpactSound: 0
+  impactSoundSource: {fileID: 0}
+  blockValue: 25
 --- !u!114 &8238629139510886040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2459,16 +2531,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 62513605557544077}
+  isPartOfWeapon: 1
   cost: 3
-  damage: 15
-  radius: 2
   abilityAnimatorTrigger: 1
   weaponIndex: 3
-  needToRotateOwnersSprite: 1
   timeBeforeImpact: 0.25
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0.15
   impactSoundSource: {fileID: 2713689614575401638}
+  needToRotateOwnersSprite: 1
+  damage: 15
+  radius: 2
   lineFromOwnerToTarget: {fileID: 4494756150036510608}
 --- !u!114 &62513605557544077
 MonoBehaviour:

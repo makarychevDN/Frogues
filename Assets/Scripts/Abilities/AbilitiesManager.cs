@@ -42,8 +42,8 @@ namespace FroguesFramework
         
         public void RemoveAllWeaponAbilities()
         {
-            //var abilitiesToRemove = _abilities.Where(ability => ability.IsPartOfWeapon()).ToList();
-            //abilitiesToRemove.ForEach(abilityToRemove => RemoveAbility(abilityToRemove));
+            var abilitiesToRemove = _abilities.Where(ability => ability.IsPartOfWeapon).ToList();
+            abilitiesToRemove.ForEach(abilityToRemove => RemoveAbility(abilityToRemove));
         }
     }
 }

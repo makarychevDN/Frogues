@@ -5,8 +5,10 @@ namespace FroguesFramework
     public abstract class BaseAbility : MonoBehaviour, IInitializeable, IAbleToDrawAbilityButton
     {
         [SerializeField] private AbilityDataForButton abilityDataForButton;
+        [SerializeField] private bool isPartOfWeapon;
         protected Unit _owner;
 
+        public bool IsPartOfWeapon => isPartOfWeapon;
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
         public virtual void Init(Unit unit) 
         { 
