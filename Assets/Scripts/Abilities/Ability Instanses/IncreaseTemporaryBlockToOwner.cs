@@ -8,6 +8,10 @@ namespace FroguesFramework
 
         public override void Use()
         {
+            if (!PossibleToUse())
+                return;
+
+            SpendActionPoints();
             _owner.Health.IncreaseTemporaryArmor(blockValue);
         }
     }
