@@ -16,7 +16,8 @@ namespace FroguesFramework
     {
         Attack = 1, 
         DirectlyCast = 2,
-        NotDirectlyCast = 3
+        NotDirectlyCast = 3,
+        Kick = 4
     }
 
     public enum WeaponIndexes

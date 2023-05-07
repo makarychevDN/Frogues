@@ -21,6 +21,7 @@ namespace FroguesFramework
         private Cell _rightCell;
 
         public Cell GetNeighborByHexDir(HexDir hexDir) => _neighbours[hexDir];
+        public Cell GetOppositeNeighborByHexDir(HexDir hexDir) => _oppositeNeighbours[hexDir];
         public HexDir GetHexDirByNeighbor(Cell neighbor) => _hexDirsByCell[neighbor];
 
         #region Init

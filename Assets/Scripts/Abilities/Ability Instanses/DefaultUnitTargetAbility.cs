@@ -6,8 +6,8 @@ namespace FroguesFramework
 {
     public class DefaultUnitTargetAbility : UnitTargetAbility
     {
-        [SerializeField] private int damage;
-        [SerializeField] private int radius;
+        [SerializeField] protected int damage;
+        [SerializeField] protected int radius;
 
         [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
@@ -47,7 +47,11 @@ namespace FroguesFramework
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
 
-        private void PlayImpactSound() => impactSoundSource.Play();
+        private void PlayImpactSound()
+        {
+            if(impactSoundSource != null)
+                impactSoundSource.Play();
+        }
 
         public override void VisualizePreUseOnUnit(Unit target)
         {
