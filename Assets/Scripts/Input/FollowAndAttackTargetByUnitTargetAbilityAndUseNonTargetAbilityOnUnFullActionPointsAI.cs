@@ -1,15 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class FollowAndAttackTargetByUnitTargetAbilityAndUseNonTargetAbilityOnUnFullHealthAI : FollowAndAttackTargetByUnitTargetAbilityAI, IAbleToAct
+    public class FollowAndAttackTargetByUnitTargetAbilityAndUseNonTargetAbilityOnUnFullActionPointsAI : FollowAndAttackTargetByUnitTargetAbilityAI
     {
         [SerializeField] private NonTargetAbility nonTargetAbility;
 
         public override void Act()
         {
-            if (!_unit.Health.Full)
+            if (!_unit.ActionPoints.Full)
             {
                 nonTargetAbility.Use();
                 return;

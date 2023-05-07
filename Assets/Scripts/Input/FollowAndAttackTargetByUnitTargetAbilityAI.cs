@@ -7,9 +7,9 @@ namespace FroguesFramework
     {
         [SerializeField] private Unit target;
         [SerializeField] private UnitTargetAbility unitTargetAbilty;
-        private Unit _unit;
+        protected Unit _unit;
 
-        public void Act()
+        public virtual void Act()
         {
             if (unitTargetAbilty.PossibleToUseOnUnit(target))
             {
