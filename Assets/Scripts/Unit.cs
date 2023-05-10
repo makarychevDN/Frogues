@@ -14,7 +14,7 @@ namespace FroguesFramework
         [field : SerializeField] public ScoreContainer ScoreContainer { get; private set; }
         
         [field : Header("Input Setup")]
-        [field : SerializeField] public bool Enemy { get; private set; }
+        [field : SerializeField] public bool IsEnemy { get; private set; }
         [field : SerializeField] public AbilitiesManager AbilitiesManager { get; private set; }
         [field : SerializeField] public ActionPoints ActionPoints { get; private set; }
         
@@ -27,8 +27,7 @@ namespace FroguesFramework
         [field : SerializeField] public Animator Animator { get; private set; }
         [field : SerializeField] public Transform SpriteParent { get; private set; }
         [field : SerializeField] public Transform Shadow { get; private set; }
-        [field : SerializeField] public SpriteRotator SpriteRotator { get; private set; }
-        
+        [field : SerializeField] public SpriteRotator SpriteRotator { get; private set; }        
         [field : SerializeField] public MaterialInstanceContainer MaterialInstanceContainer { get; private set; }
 
         [field : Header("Health Setup")]

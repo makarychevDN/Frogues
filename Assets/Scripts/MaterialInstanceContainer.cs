@@ -7,9 +7,10 @@ namespace FroguesFramework
         private Material _materialInstance;
         public Material MaterialInstance => _materialInstance;
 
-        private void Awake()
+        private void Start()
         {
             _materialInstance = GetComponent<Renderer>().material;
+            AddMySelfToEntryPoint();
         }
 
         public void EnableOutline(bool value)
@@ -21,5 +22,16 @@ namespace FroguesFramework
         {
             EnableOutline(false);
         }
+
+        private void OnDestroy()
+        {
+            RemoveMySelfFromEntryPoint();
+        }
+
+        public void AddMySelfToEntryPoint() =>
+            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
+
+        public void RemoveMySelfFromEntryPoint() =>
+            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
     }
 }

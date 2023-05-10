@@ -22,6 +22,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private TMP_Text scoreText;
     private int _roomsCount;
     private int _hashedScoreThenExitActivated;
+    private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
 
     public bool CurrentRoomIsHub => _currentRoom == hub;
     public PathFinder PathFinder => _currentRoom.PathFinder;
@@ -43,8 +44,8 @@ public class EntryPoint : MonoBehaviour
 
     private void Awake()
     {
-        _abilitiesPanel.Init();
         Instance = this;
+        _abilitiesPanel.Init();
         _currentRoom = hub;
         _currentRoom.Init(_metaPlayer);
         _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
@@ -88,7 +89,7 @@ public class EntryPoint : MonoBehaviour
 
     private void Update()
     {
-        foreach (var ableToDisablePreVisualization in FindObjectsOfType<MonoBehaviour>().OfType<IAbleToDisablePreVisualization>())
+        foreach (var ableToDisablePreVisualization in ableToDisablePreVisualizationObjects)
         {
             ableToDisablePreVisualization.DisablePreVisualization();        
         }
@@ -97,5 +98,15 @@ public class EntryPoint : MonoBehaviour
             return;
 
         _currentRoom.UnitsQueue.ActForCurrentUnit();
+    }
+
+    public void AddAbleToDisablePreVisualizationToCollection(IAbleToDisablePreVisualization ableToDisablePreVisualization)
+    {
+        ableToDisablePreVisualizationObjects.Add(ableToDisablePreVisualization);
+    }
+
+    public void RemoveAbleToDisablePreVisualizationToCollection(IAbleToDisablePreVisualization ableToDisablePreVisualization)
+    {
+        ableToDisablePreVisualizationObjects.Remove(ableToDisablePreVisualization);
     }
 }

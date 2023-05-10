@@ -9,13 +9,14 @@ namespace FroguesFramework
         [SerializeField] private int maxPointsCount;
         [SerializeField] private int pointsRegeneration;
         private int _preTakenCurrentPoints;
-        private bool _enemy;
+        private bool _isEnemy;
 
         public UnityEvent OnActionPointsEnded;
 
         public void Init(Unit unit)
         {
-            _enemy = unit.Enemy;
+            _isEnemy = unit.IsEnemy;
+            AddMySelfToEntryPoint();
         }
 
         private void RegeneratePoints()
@@ -80,13 +81,13 @@ namespace FroguesFramework
 
         public void TickBeforePlayerTurn()
         { 
-            if (_enemy)
+            if (_isEnemy)
                 RegeneratePoints();
         }
         
         public void TickBeforeEnemiesTurn()
         {
-            if (!_enemy)
+            if (!_isEnemy)
                 RegeneratePoints();
         }
 
@@ -94,5 +95,17 @@ namespace FroguesFramework
         {
             _preTakenCurrentPoints = currentPoints;
         }
+
+        public void AddMySelfToEntryPoint() =>
+            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
+
+        public void RemoveMySelfFromEntryPoint() =>
+            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+
+        private void OnDestroy()
+        {
+            RemoveMySelfFromEntryPoint();
+        }
+
     }
 }

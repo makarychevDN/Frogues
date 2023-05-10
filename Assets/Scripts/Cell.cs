@@ -129,6 +129,7 @@ namespace FroguesFramework
         private void OnDestroy()
         {
             transform.GetComponentInParent<Map>()?.RemoveCell(this);
+            //RemoveMySelfFromEntryPoint();
         }
 
         private void ClampPosition()
@@ -157,6 +158,17 @@ namespace FroguesFramework
             EnablePathDot(false);
             EnableOnMouseHoverVisualization(false);
             EnableValidForMovementCellHighlight(false);
+        }
+
+        public void AddMySelfToEntryPoint() =>
+            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
+
+        public void RemoveMySelfFromEntryPoint() =>
+            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+
+        private void Start()
+        {
+            AddMySelfToEntryPoint();
         }
     }
 }

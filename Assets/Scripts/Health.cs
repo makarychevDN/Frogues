@@ -53,12 +53,13 @@ namespace FroguesFramework
         {
             _ableToDie = unit.AbleToDie;
             _animator = unit.Animator;
-            _enemy = unit.Enemy;
+            _enemy = unit.IsEnemy;
             
             _hashedHp = currentHP;
             _hashedArmor = Armor;
             OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
+            AddMySelfToEntryPoint();
         }
 
         private void Update()
@@ -190,5 +191,16 @@ namespace FroguesFramework
             _permanentArmorWithPreTakenDamage = permanentArmor;
             _temporaryArmorWithPreTakenDamage = temporaryArmor;
         }
+
+        private void OnDestroy()
+        {
+            RemoveMySelfFromEntryPoint();
+        }
+
+        public void AddMySelfToEntryPoint() =>
+            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
+
+        public void RemoveMySelfFromEntryPoint() =>
+            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
     }
 }
