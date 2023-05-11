@@ -168,7 +168,8 @@ namespace FroguesFramework
 
         private void Start()
         {
-            AddMySelfToEntryPoint();
+            if (Application.isPlaying)
+                AddMySelfToEntryPoint();
         }
     }
 }
