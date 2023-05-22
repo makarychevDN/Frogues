@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 4576512235939558098}
+  isPartOfWeapon: 0
   cost: 3
   abilityAnimatorTrigger: 1
   weaponIndex: 3
@@ -216,6 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
+  isPartOfWeapon: 0
   _target: {fileID: 0}
 --- !u!1 &6410083917210949720
 GameObject:
@@ -370,6 +372,53 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &8103360725955695338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4390482796817721747}
+  - component: {fileID: 6896791056357141618}
+  m_Layer: 0
+  m_Name: Spawn Blood Surface On Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4390482796817721747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103360725955695338}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.401, y: 0.125, z: 1.174}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1902415961164154653}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6896791056357141618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103360725955695338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5256781544d992a45861e9c7badebd1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 0}
+  isPartOfWeapon: 0
+  surfacePrefab: {fileID: 4759472496457446378, guid: 2b96d9b088ccdab4e875b32cb0f2154f, type: 3}
 --- !u!1001 &3728635678889070138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -523,6 +572,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3015295575613425959, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8067410950443558809}
+    - targetCorrespondingSourceObject: {fileID: 3015295575613425959, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4390482796817721747}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 650360554326565321, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       insertIndex: -1
