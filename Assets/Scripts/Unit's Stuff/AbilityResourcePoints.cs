@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class ActionPoints : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization
+    public class AbilityResourcePoints : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization
     {
         [SerializeField] private int currentPoints;
         [SerializeField] private int maxPointsCount;
@@ -49,7 +49,7 @@ namespace FroguesFramework
             get => pointsRegeneration;
         }
 
-        public bool IsActionPointsEnough(int cost)
+        public bool IsPointsEnough(int cost)
         {
             return currentPoints >= cost;
         }
