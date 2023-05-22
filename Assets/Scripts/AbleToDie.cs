@@ -24,7 +24,13 @@ namespace FroguesFramework
         private void RemoveUnitFromTheGame()
         {
             if (_unit.CurrentCell != null)
-                _unit.CurrentCell.Content = null;
+            {
+                if(_unit.CurrentCell.Content == _unit)
+                    _unit.CurrentCell.Content = null;
+
+                if (_unit.CurrentCell.Surfaces.Contains(_unit))
+                    _unit.CurrentCell.Surfaces.Remove(_unit);
+            }
             
             CurrentlyActiveObjects.Remove(this);
             EntryPoint.Instance.UnitsQueue.Remove(_unit);

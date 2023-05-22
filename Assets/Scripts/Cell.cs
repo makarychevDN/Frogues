@@ -14,13 +14,14 @@ namespace FroguesFramework
         public MapLayer mapLayer;
         [field : SerializeField] public Vector2Int coordinates { get; set; }
 
-        public UnityEvent OnBecameFull;
-        public UnityEvent OnBecameEmpty;
-        
-        public UnityEvent<Unit> OnBecameFullByUnit;
-        public UnityEvent<Unit> OnBecameEmptyByUnit;
-        
+        public UnityEvent OnBecameFull = new();
+        public UnityEvent OnBecameEmpty = new();
+
+        public UnityEvent<Unit> OnBecameFullByUnit = new();
+        public UnityEvent<Unit> OnBecameEmptyByUnit = new();
+
         [SerializeField] private Unit content;
+        [SerializeField] private List<Unit> surfaces;
         [SerializeField] private Transform hexagonModel;
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
@@ -32,6 +33,8 @@ namespace FroguesFramework
         [SerializeField] private Vector3 _hashedPosition;
 
         [ReadOnly] public bool chosenToMovement;
+
+        public List<Unit> Surfaces => surfaces;
 
         public Unit Content
         {
@@ -123,7 +126,11 @@ namespace FroguesFramework
             hexagonModel.localRotation = Quaternion.Euler(-90, Random.Range(0, 6) * 60, 0);
 
             if (Content != null)
+            {
                 Content.transform.position = transform.position;
+            }
+
+            surfaces.ForEach(surface => surface.transform.position = transform.position);
         }
 
         private void OnDestroy()
