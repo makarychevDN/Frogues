@@ -39,7 +39,7 @@ namespace FroguesFramework
         [field: SerializeField] public UnitDescription UnitDescription { get; private set; }
 
         public UnityEvent OnStepOnThisUnit = new UnityEvent();
-        public UnityEvent<Unit> OnStepOnThisUnitByTheUnit = new UnityEvent<Unit>();
+        public UnityEvent<Unit> OnStepOnThisUnitByUnit = new UnityEvent<Unit>();
         
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();

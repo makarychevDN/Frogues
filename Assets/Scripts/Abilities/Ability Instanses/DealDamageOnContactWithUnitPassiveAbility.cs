@@ -9,7 +9,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
 
-            unit.OnStepOnThisUnitByTheUnit.AddListener(DealDamage);
+            unit.OnStepOnThisUnitByUnit.AddListener(DealDamage);
             unit.Movable.OnBumpIntoUnit.AddListener(DealDamage);
         }
 

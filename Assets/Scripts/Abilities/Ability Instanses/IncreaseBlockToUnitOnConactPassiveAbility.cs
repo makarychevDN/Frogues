@@ -11,7 +11,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
 
-            unit.OnStepOnThisUnitByTheUnit.AddListener(IncreaseBlockToUnit);
+            unit.OnStepOnThisUnitByUnit.AddListener(IncreaseBlockToUnit);
             unit.Movable.OnBumpIntoUnit.AddListener(IncreaseBlockToUnit);
         }
 
