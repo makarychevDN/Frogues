@@ -59,6 +59,12 @@ namespace FroguesFramework
             currentPoints = value;
         }
 
+        public void IncreasePoints(int value)
+        {
+            currentPoints += value;
+            currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
+        }
+
         public void SpendPoints(int cost)
         {
             CalculateCost(ref currentPoints, cost);
