@@ -8,6 +8,8 @@ namespace FroguesFramework
     {
         public UnityEvent OnStepFromThisUnit = new UnityEvent();
         public UnityEvent<Unit> OnStepFromThisUnitByTheUnit = new UnityEvent<Unit>();
+        private UnityEvent OnStepOnThisUnit => _unit.OnStepOnThisUnit;
+        private UnityEvent<Unit> OnStepOnThisUnitByUnit => _unit.OnStepOnThisUnitByUnit;
 
         private Unit _unit;
 
@@ -16,14 +18,14 @@ namespace FroguesFramework
         {
             _unit = unit;
 
-            unit.CurrentCell.OnBecameFull.AddListener(() => unit.OnStepOnThisUnit.Invoke());
+            unit.CurrentCell.OnBecameFull.AddListener(() => OnStepOnThisUnit.Invoke());
             unit.CurrentCell.OnBecameFullByUnit.AddListener(InvokeOnStepOnThisUnitByTheUnit);
 
             unit.CurrentCell.OnBecameEmpty.AddListener(() => OnStepFromThisUnit.Invoke());
             unit.CurrentCell.OnBecameFullByUnit.AddListener(InvokeOnStepFromThisUnitByTheUnit);
         }
 
-        private void InvokeOnStepOnThisUnitByTheUnit(Unit unit) => unit.OnStepOnThisUnitByUnit.Invoke(unit);
+        private void InvokeOnStepOnThisUnitByTheUnit(Unit unit) => OnStepOnThisUnitByUnit.Invoke(unit);
         private void InvokeOnStepFromThisUnitByTheUnit(Unit unit) => OnStepFromThisUnitByTheUnit.Invoke(unit);
     }
 }
