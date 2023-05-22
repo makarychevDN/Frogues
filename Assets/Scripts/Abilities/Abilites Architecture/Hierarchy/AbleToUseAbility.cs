@@ -15,7 +15,7 @@ namespace FroguesFramework
         [SerializeField] protected float delayBeforeImpactSound;
         [SerializeField] protected AudioSource impactSoundSource;
 
-        public virtual bool IsActionPointsEnough() => _owner.ActionPoints.IsActionPointsEnough(cost);
+        public virtual bool IsActionPointsEnough() => _owner.ActionPoints.IsPointsEnough(cost);
         public virtual int GetCost() => cost;
         public virtual void SpendActionPoints() => _owner.ActionPoints.SpendPoints(cost);
     }

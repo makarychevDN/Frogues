@@ -16,7 +16,7 @@ namespace FroguesFramework
         [field : Header("Input Setup")]
         [field : SerializeField] public bool IsEnemy { get; private set; }
         [field : SerializeField] public AbilitiesManager AbilitiesManager { get; private set; }
-        [field : SerializeField] public ActionPoints ActionPoints { get; private set; }
+        [field : SerializeField] public AbilityResourcePoints ActionPoints { get; private set; }
         
         [field : SerializeField] public AbleToSkipTurn AbleToSkipTurn { get; private set; }
         [field : SerializeField] public Movable Movable { get; private set; }

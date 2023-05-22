@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public class ResourcePointsUI : MonoBehaviour
     {
-        [SerializeField] private ActionPoints actionPoints;
+        [SerializeField] private AbilityResourcePoints actionPoints;
         [SerializeField] private Transform iconsParent;
         [SerializeField] private List<ResourcePointUI> resourcePointIconPrefabs;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
