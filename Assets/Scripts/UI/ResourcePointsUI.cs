@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public class ResourcePointsUI : MonoBehaviour
     {
-        [SerializeField] private AbilityResourcePoints actionPoints;
+        [SerializeField] private AbilityResourcePoints ResourcePoints;
         [SerializeField] private Transform iconsParent;
         [SerializeField] private List<ResourcePointUI> resourcePointIconPrefabs;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
@@ -21,7 +21,7 @@ namespace FroguesFramework
 
             int iconsCount = 0;
 
-            for (int i = 0; i < actionPoints.MaxPointsCount; i++)
+            for (int i = 0; i < ResourcePoints.MaxPointsCount; i++)
             {
                 var spawnedIcon = Instantiate(resourcePointIconPrefabs[iconsCount], iconsParent);
                 resourcePointIcons.Add(spawnedIcon);
@@ -35,11 +35,11 @@ namespace FroguesFramework
         {
             resourcePointIcons.ForEach(icon => icon.EnableEmptyIcon());
 
-            int preCostsValue = actionPoints.CurrentActionPoints - actionPoints.PreTakenCurrentPoints;
+            int preCostsValue = ResourcePoints.CurrentActionPoints - ResourcePoints.PreTakenCurrentPoints;
             
-            if (preCostsValue > actionPoints.CurrentActionPoints)
+            if (preCostsValue > ResourcePoints.CurrentActionPoints)
             {
-                for (int i = 0; i < actionPoints.CurrentActionPoints; i++)
+                for (int i = 0; i < ResourcePoints.CurrentActionPoints; i++)
                 {
                     resourcePointIcons[i].EnableNotEnoughPointsIcon();
                 }
@@ -47,12 +47,12 @@ namespace FroguesFramework
                 return;
             }
 
-            for (int i = 0; i < actionPoints.CurrentActionPoints; i++)
+            for (int i = 0; i < ResourcePoints.CurrentActionPoints; i++)
             {
                 resourcePointIcons[i].EnableFullIcon();
             }
 
-            for (int i = actionPoints.CurrentActionPoints - 1; i > actionPoints.CurrentActionPoints - 1 - preCostsValue; i--)
+            for (int i = ResourcePoints.CurrentActionPoints - 1; i > ResourcePoints.CurrentActionPoints - 1 - preCostsValue; i--)
             {
                 resourcePointIcons[i].EnablePreCostIcon();
             }
