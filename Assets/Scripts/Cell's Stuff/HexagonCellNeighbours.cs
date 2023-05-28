@@ -120,7 +120,7 @@ namespace FroguesFramework
 
     public enum HexDir
     {
-        /*zero = 0,*/ left = 1, right = 2, topLeft = 3, topRight = 4, downLeft = 5, downRight = 6
+        /*zero = 0,*/ topRight = 1, right = 2, downRight = 3, downLeft = 4, left = 5, topLeft = 6
     }
 
 }

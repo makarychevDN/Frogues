@@ -88,5 +88,27 @@ namespace FroguesFramework
             if (list == null || list.Count == 0) return default(T);
             return list[Random.Range(0, list.Count)];
         }
+
+        public static HexDir GetHexDirByClockwiseRotation(this HexDir dir)
+        {
+            int dirValue = (int)dir;
+
+            dirValue++;
+            if (dirValue == 7)
+                dirValue = 1;
+
+            return (HexDir)dirValue;
+        }
+
+        public static HexDir GetHexDirByCounterClockwiseRotation(this HexDir dir) 
+        {
+            int dirValue = (int)dir;
+
+            dirValue--;
+            if (dirValue == 0)
+                dirValue = 6;
+
+            return (HexDir)dirValue;
+        }
     }
 }
