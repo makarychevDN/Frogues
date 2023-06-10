@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class BoxOnRat : PassiveAbility
+    public class BoxOnRatPassiveAbility : PassiveAbility
     {
         [SerializeField] private int blockValue;
 

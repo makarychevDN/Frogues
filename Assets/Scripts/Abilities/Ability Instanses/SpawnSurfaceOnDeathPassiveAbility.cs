@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnSurfaceOnDeath : PassiveAbility
+    public class SpawnSurfaceOnDeathPassiveAbility : PassiveAbility
     {
         [SerializeField] private Unit surfacePrefab;
 
