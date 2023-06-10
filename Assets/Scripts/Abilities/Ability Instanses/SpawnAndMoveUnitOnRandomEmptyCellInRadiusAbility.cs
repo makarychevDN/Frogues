@@ -50,6 +50,8 @@ namespace FroguesFramework
         public override void VisualizePreUseOnCells(List<Cell> cells)
         {
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
+            _owner.ActionPoints.PreSpendPoints(actionPointsCost);
+            _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
         }
 
         public override List<Cell> CalculateUsingArea() =>

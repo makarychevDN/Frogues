@@ -75,7 +75,8 @@ namespace FroguesFramework
             if (!PossibleToUseOnCells(cells))
                 return;
 
-            _owner.ActionPoints.PreSpendPoints(bloodPointsCost);
+            _owner.ActionPoints.PreSpendPoints(actionPointsCost);
+            _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
 
             foreach (var cell in cells) 
             {

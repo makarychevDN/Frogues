@@ -16,7 +16,7 @@ namespace FroguesFramework
         {
             _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
             _owner.ActionPoints.CurrentActionPoints,
-                bloodPointsCost, false, true, true);
+                actionPointsCost, false, true, true);
             return _usingArea;
         }
 
@@ -74,7 +74,7 @@ namespace FroguesFramework
             cells[0].EnableTrail(cells[1]);
             cells.GetLast().EnablePathDot(true);
 
-            _owner.ActionPoints.PreSpendPoints((cells.Count - 1) * 2);
+            _owner.ActionPoints.PreSpendPoints((cells.Count - 1) * actionPointsCost);
         }
 
         private void Update()
