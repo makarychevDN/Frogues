@@ -91,6 +91,7 @@ namespace FroguesFramework
                     return;
                 }
 
+                _unit.CurrentCell = targetCell;
                 OnBumpInto.Invoke();
                 OnBumpIntoUnit.Invoke(targetCell.Content);
                 return;
