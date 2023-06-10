@@ -561,6 +561,7 @@ Transform:
   m_Children:
   - {fileID: 5937111218682671931}
   - {fileID: 3363858701792772988}
+  - {fileID: 3828500708976338056}
   - {fileID: 2012900623007846135}
   - {fileID: 1182267925577545092}
   - {fileID: 3869895213538694829}
@@ -1634,7 +1635,7 @@ MonoBehaviour:
   <IsEnemy>k__BackingField: 0
   <AbilitiesManager>k__BackingField: {fileID: 3059790062465419283}
   <ActionPoints>k__BackingField: {fileID: 1540128683254219491}
-  <BloodPoints>k__BackingField: {fileID: 0}
+  <BloodPoints>k__BackingField: {fileID: 2863145593081677906}
   <AbleToSkipTurn>k__BackingField: {fileID: 2207101790817794968}
   <Movable>k__BackingField: {fileID: 1790417060945075535}
   <MovementAbility>k__BackingField: {fileID: 7386109588417128627}
@@ -1809,6 +1810,56 @@ Transform:
   m_Father: {fileID: 7978332964510163059}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6716792715630457761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3828500708976338056}
+  - component: {fileID: 2863145593081677906}
+  m_Layer: 7
+  m_Name: Blood Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3828500708976338056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716792715630457761}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 680648918859108477}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2863145593081677906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716792715630457761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745af59f9dc682d45babbf4774ced76c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPoints: 0
+  maxPointsCount: 0
+  pointsRegeneration: 0
+  OnActionPointsEnded:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7442025326768858339
 GameObject:
   m_ObjectHideFlags: 0
