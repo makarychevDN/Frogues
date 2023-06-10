@@ -1612,7 +1612,7 @@ Transform:
   - {fileID: 3036369896160266994}
   - {fileID: 9186810796872100348}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &707049996601828594
 MonoBehaviour:
@@ -1629,10 +1629,12 @@ MonoBehaviour:
   <unitType>k__BackingField: 0
   <CurrentCell>k__BackingField: {fileID: 0}
   <Small>k__BackingField: 0
+  <SurfaceUnitExtension>k__BackingField: {fileID: 0}
   <ScoreContainer>k__BackingField: {fileID: 3510354526871623767}
-  <Enemy>k__BackingField: 0
+  <IsEnemy>k__BackingField: 0
   <AbilitiesManager>k__BackingField: {fileID: 3059790062465419283}
   <ActionPoints>k__BackingField: {fileID: 1540128683254219491}
+  <BloodPoints>k__BackingField: {fileID: 0}
   <AbleToSkipTurn>k__BackingField: {fileID: 2207101790817794968}
   <Movable>k__BackingField: {fileID: 1790417060945075535}
   <MovementAbility>k__BackingField: {fileID: 7386109588417128627}
@@ -1648,7 +1650,7 @@ MonoBehaviour:
   OnStepOnThisUnit:
     m_PersistentCalls:
       m_Calls: []
-  OnStepOnThisUnitByTheUnit:
+  OnStepOnThisUnitByUnit:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4470639621562112939
@@ -1853,7 +1855,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
   isPartOfWeapon: 0
-  cost: 2
+  actionPointsCost: 2
+  bloodPointsCost: 0
   abilityAnimatorTrigger: 0
   weaponIndex: -1
   timeBeforeImpact: 0

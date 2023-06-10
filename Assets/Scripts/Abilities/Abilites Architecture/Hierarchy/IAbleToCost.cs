@@ -2,8 +2,9 @@ namespace FroguesFramework
 {
     public interface IAbleToCost
     {
-        public int GetCost();
-        public bool IsActionPointsEnough();
-        public void SpendActionPoints();
+        public int GetActionPointsCost();
+        public int GetBloodPointsCost();
+        public bool IsResoursePointsEnough();
+        public void SpendResourcePoints();
     }
 }

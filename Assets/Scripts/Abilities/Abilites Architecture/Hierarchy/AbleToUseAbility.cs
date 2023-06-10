@@ -5,7 +5,8 @@ namespace FroguesFramework
 {
     public abstract class AbleToUseAbility : BaseAbility, IAbleToCost
     {
-        [SerializeField] protected int cost;
+        [SerializeField] protected int actionPointsCost;
+        [SerializeField] protected int bloodPointsCost;
 
         [Header("Animation Setup")]
         [SerializeField] protected AbilityAnimatorTriggers abilityAnimatorTrigger;
@@ -15,8 +16,26 @@ namespace FroguesFramework
         [SerializeField] protected float delayBeforeImpactSound;
         [SerializeField] protected AudioSource impactSoundSource;
 
-        public virtual bool IsActionPointsEnough() => _owner.ActionPoints.IsPointsEnough(cost);
-        public virtual int GetCost() => cost;
-        public virtual void SpendActionPoints() => _owner.ActionPoints.SpendPoints(cost);
+        public virtual int GetBloodPointsCost() => bloodPointsCost;
+        public int GetActionPointsCost() => actionPointsCost;
+
+        public virtual void SpendResourcePoints()
+        {
+            _owner.ActionPoints.SpendPoints(actionPointsCost);
+
+            if(_owner.BloodPoints != null)
+                _owner.BloodPoints.SpendPoints(bloodPointsCost);
+        }
+
+        public virtual bool IsResoursePointsEnough()
+        {
+            if(_owner.BloodPoints != null)
+            {
+                return _owner.ActionPoints.IsPointsEnough(actionPointsCost)
+                    && _owner.BloodPoints.IsPointsEnough(bloodPointsCost);
+            }
+
+            return _owner.ActionPoints.IsPointsEnough(actionPointsCost);
+        }
     }
 }

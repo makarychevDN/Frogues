@@ -21,7 +21,7 @@ namespace FroguesFramework
             if (cells == null || cells.Count == 0 || cells[0] == null)
                 return false;
 
-            return IsActionPointsEnough() && _usingArea.Contains(cells[0]);
+            return IsResoursePointsEnough() && _usingArea.Contains(cells[0]);
         }
 
         public override void UseOnCells(List<Cell> cells)
@@ -29,7 +29,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnCells(cells))
                 return;
 
-            SpendActionPoints();
+            SpendResourcePoints();
 
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(cells[0]);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
@@ -75,7 +75,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnCells(cells))
                 return;
 
-            _owner.ActionPoints.PreSpendPoints(cost);
+            _owner.ActionPoints.PreSpendPoints(bloodPointsCost);
 
             foreach (var cell in cells) 
             {

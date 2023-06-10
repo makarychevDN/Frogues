@@ -16,7 +16,7 @@ namespace FroguesFramework
         {
             _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
             _owner.ActionPoints.CurrentActionPoints,
-                cost, false, true, true);
+                bloodPointsCost, false, true, true);
             return _usingArea;
         }
 
@@ -24,7 +24,7 @@ namespace FroguesFramework
 
         public override bool PossibleToUseOnCells(List<Cell> cells)
         {
-            if(!IsActionPointsEnough())
+            if(!IsResoursePointsEnough())
                 return false;
 
             if (cells == null || cells.Count == 0)
@@ -89,7 +89,7 @@ namespace FroguesFramework
 
                 _owner.Movable.Move(_currentPath[0]);
                 _currentPath.RemoveAt(0);
-                SpendActionPoints();
+                SpendResourcePoints();
             }
         }
     }

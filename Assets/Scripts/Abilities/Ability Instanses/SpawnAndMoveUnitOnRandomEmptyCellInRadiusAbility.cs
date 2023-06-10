@@ -18,7 +18,7 @@ namespace FroguesFramework
 
         public override bool PossibleToUseOnCells(List<Cell> cells)
         {
-            return IsActionPointsEnough() && cells != null && cells.Count > 0;
+            return IsResoursePointsEnough() && cells != null && cells.Count > 0;
         }
 
         public override void UseOnCells(List<Cell> cells)
@@ -26,7 +26,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnCells(cells))
                 return;
 
-            SpendActionPoints();
+            SpendResourcePoints();
 
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(cells[0]);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());

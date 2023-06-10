@@ -11,7 +11,7 @@ namespace FroguesFramework
             if (!PossibleToUse())
                 return;
 
-            SpendActionPoints();
+            SpendResourcePoints();
             _owner.Health.IncreaseTemporaryArmor(blockValue);
         }
     }
