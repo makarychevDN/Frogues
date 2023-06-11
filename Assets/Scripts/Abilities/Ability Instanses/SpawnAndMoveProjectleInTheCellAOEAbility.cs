@@ -9,7 +9,10 @@ namespace FroguesFramework
     {
         [SerializeField] private int usingRadius;
         [SerializeField] private Unit projectilePrefab;
+        [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
+        [SerializeField] private AnimationCurve parabolaAnimationCurve;
+        [SerializeField] private float parabolaHeight;
 
         private List<Cell> _selectedArea;
 
@@ -74,8 +77,9 @@ namespace FroguesFramework
             _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
 
             lineFromOwnerToTarget.gameObject.SetActive(true);
-            lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position - _owner.transform.position);
-            lineFromOwnerToTarget.SetPosition(1, cells[0].transform.position - _owner.transform.position);
+            lineFromOwnerToTarget.SetAnimationCurveShape(_owner.transform.position, _owner.SpriteParent.position, cells[0].transform.position, 
+                parabolaHeight * _owner.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
+            cells[0].EnableSelectedCellHighlight(true);
         }
     }
 }
