@@ -48,12 +48,12 @@ namespace FroguesFramework
             return targetCell.IsEmpty || canBumpIntoUnit || targetCell.Content.Small;
         }
 
-        public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true) =>
+        public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true) =>
             Move(targetCell, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove,
                 needToRotateSprite);
 
         public void Move(Cell targetCell, float speed, float jumpHeight,
-            bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true)
+            bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true)
         {
             if (!IsPossibleToMoveOnCell(targetCell))
                 return;
@@ -63,7 +63,7 @@ namespace FroguesFramework
             if (startCellBecomeEmptyOnMove)
                 _unit.CurrentCell.Content = null;
 
-            Play(_unit.CurrentCell, targetCell, speed, jumpHeight, needToRotateSprite);
+            Play(_unit.CurrentCell, targetCell, speed, jumpHeight, needToRotateSprite, needToModificateJumpHeightByDistance);
             _unit.CurrentCell = null;
             OnMovementStart.Invoke();
         }
@@ -101,10 +101,12 @@ namespace FroguesFramework
             OnMovementEnd.Invoke();
         }        
 
-        private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight, bool needToRotateSprite = true)
+        private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true)
         {
             _speed = speed;
             _jumpHeight = jumpHeight;
+            if(needToModificateJumpHeightByDistance)
+                _jumpHeight *= startCell.DistanceToCell(targetCell);
             _isPlaying = true;
             _targetCell = targetCell;
             _startCellPosition = startCell == null ? transform.position : startCell.transform.position;
