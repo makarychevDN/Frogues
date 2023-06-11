@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace FroguesFramework
 {
@@ -76,6 +77,16 @@ namespace FroguesFramework
         public static int DistanceToCell(this Cell from, Cell to)
         {
             return EntryPoint.Instance.PathFinder.FindWay(from, to, true, true, true).Count;
+        }
+
+        public static void SetAnimationCurveShape(this LineRenderer lineRenderer, Vector3 lineOwnerPosition, Vector3 startPosition, Vector3 endPosition, float parabolaHeight, AnimationCurve parabolaCurve)
+        {
+            var stepOnCurve = 1f / lineRenderer.positionCount;
+            for (int i = 0; i < lineRenderer.positionCount; i++)
+            {
+                var pos = PositionOnCurveCalculator.Calculate(startPosition, endPosition, parabolaCurve, stepOnCurve * i, parabolaHeight);
+                lineRenderer.SetPosition(i, pos - lineOwnerPosition);
+            }
         }
 
         public static Vector3 PositionRelativeToMainCamera(this Vector3 vector)
