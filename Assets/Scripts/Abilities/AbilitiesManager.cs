@@ -29,9 +29,10 @@ namespace FroguesFramework
             if (ability is MovementAbility)
                 return;
 
-            if (ability is IAbleToBeNativeAttack && _ableToHaveCurrentAbility is IAbleToHaveNativeAttack)
+            var nativeAttack = ability as IAbleToBeNativeAttack;
+            if (nativeAttack != null && nativeAttack.IsNativeAttack() && _ableToHaveCurrentAbility is IAbleToHaveNativeAttack)
             {
-                (_ableToHaveCurrentAbility as IAbleToHaveNativeAttack).SetCurrentNativeAttack(ability as IAbleToBeNativeAttack);
+                (_ableToHaveCurrentAbility as IAbleToHaveNativeAttack).SetCurrentNativeAttack(nativeAttack);
             }
 
             _abilities.Add(ability);
