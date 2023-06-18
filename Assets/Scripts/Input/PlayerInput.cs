@@ -36,7 +36,7 @@ namespace FroguesFramework
             {
                 var target = CellsTaker.TakeCellOrUnitByMouseRaycast();
 
-                if (target is Unit)
+                if (target is Unit && target != _unit)
                     temporaryCurrentAbility = nativeAttackAbility;
             }
 
