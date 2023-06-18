@@ -5,11 +5,12 @@ using UnityEngine.EventSystems;
 
 namespace FroguesFramework
 {
-    public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility
+    public class PlayerInput : MonoBehaviour, IAbleToAct, IAbleToHaveCurrentAbility, IAbleToHaveNativeAttack
     {
         [SerializeField] private MovementAbility movementAbility;
         [SerializeField] private InspectAbility inspectAbility;
         [SerializeField] private BaseAbility currentAbility;
+        [SerializeField] private UnitTargetAbility nativeAttackAbility;
 
         [Header("Cursors")]
         [SerializeField] private Texture2D defaultCursorTexture;
@@ -30,68 +31,84 @@ namespace FroguesFramework
             if (currentAbility == null)
                 currentAbility = movementAbility;
 
-            if (currentAbility is IAbleToUseOnCells)
+            var temporaryCurrentAbility = currentAbility;
+            if(currentAbility == movementAbility && nativeAttackAbility != null)
             {
-                var currentCellsAbility = (AreaTargetAbility)currentAbility;
+                var target = CellsTaker.TakeCellOrUnitByMouseRaycast();
 
-                currentCellsAbility.CalculateUsingArea();
-                var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
-                var selectedCells = currentCellsAbility.SelectCells(targetCells);
-
-                Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-                if (IsMouseOverUI)
-                {
-                    selectedCells = null;
-                }
-
-                currentCellsAbility.VisualizePreUseOnCells(selectedCells);
-
-                if(!currentCellsAbility.PossibleToUseOnCells(selectedCells))
-                    Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-
-                if (IsMouseOverUI)
-                    Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    currentCellsAbility.UseOnCells(selectedCells);
-                }
+                if (target is Unit)
+                    temporaryCurrentAbility = nativeAttackAbility;
             }
 
-            if (currentAbility is IAbleToUseOnUnit)
+            if (temporaryCurrentAbility is IAbleToUseOnCells)
             {
-                var currentUnitAbility = (UnitTargetAbility)currentAbility;
-                var targetUnit = CellsTaker.TakeUnitByMouseRaycast();
-
-                Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-                if (IsMouseOverUI)
-                {
-                    targetUnit = null;
-                }
-
-                currentUnitAbility.CalculateUsingArea();
-                currentUnitAbility.VisualizePreUseOnUnit(targetUnit);
-
-                if(!currentUnitAbility.PossibleToUseOnUnit(targetUnit))
-                    Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-                if(IsMouseOverUI)
-                    Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-                    currentUnitAbility.UseOnUnit(targetUnit);
-                }
+                IAbleToUseOnCellsAbilityInput((AreaTargetAbility)temporaryCurrentAbility);
             }
 
-            if (currentAbility == movementAbility)
+            if (temporaryCurrentAbility is IAbleToUseOnUnit)
+            {
+                AbleToUseOnUnitAbilityInput((UnitTargetAbility)temporaryCurrentAbility);
+            }
+
+            if (temporaryCurrentAbility == movementAbility)
                 Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
 
-            if (currentAbility == inspectAbility)
+            if (temporaryCurrentAbility == inspectAbility)
                 Cursor.SetCursor(inspectAbilityCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        }
+
+        private void AbleToUseOnUnitAbilityInput(UnitTargetAbility unitAbility)
+        {
+            var targetUnit = CellsTaker.TakeUnitByMouseRaycast();
+
+            Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+            if (IsMouseOverUI)
+            {
+                targetUnit = null;
+            }
+
+            unitAbility.CalculateUsingArea();
+            unitAbility.VisualizePreUseOnUnit(targetUnit);
+
+            if (!unitAbility.PossibleToUseOnUnit(targetUnit))
+                Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+            if (IsMouseOverUI)
+                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                unitAbility.UseOnUnit(targetUnit);
+            }
+        }
+
+        private void IAbleToUseOnCellsAbilityInput(AreaTargetAbility cellsAbility)
+        {
+            cellsAbility.CalculateUsingArea();
+            var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
+            var selectedCells = cellsAbility.SelectCells(targetCells);
+
+            Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+            if (IsMouseOverUI)
+            {
+                selectedCells = null;
+            }
+
+            cellsAbility.VisualizePreUseOnCells(selectedCells);
+
+            if (!cellsAbility.PossibleToUseOnCells(selectedCells))
+                Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+
+            if (IsMouseOverUI)
+                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                cellsAbility.UseOnCells(selectedCells);
+            }
         }
 
         private bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
@@ -118,6 +135,11 @@ namespace FroguesFramework
             }
 
             currentAbility = ability;
+        }
+
+        public void SetCurrentNativeAttack(IAbleToBeNativeAttack ableToBeNativeAttack)
+        {
+            nativeAttackAbility = ableToBeNativeAttack as UnitTargetAbility;
         }
     }
 

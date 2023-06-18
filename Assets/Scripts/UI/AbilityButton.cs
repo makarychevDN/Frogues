@@ -97,7 +97,11 @@ namespace FroguesFramework
 
         private void Update()
         {
-            image.material.SetInt("_AbilityUsingNow", (_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability).ToInt());
+            if (_ability is not IAbleToReturnIsPrevisualized)
+                return;
+
+            image.material.SetInt("_AbilityUsingNow",
+                (_ability as IAbleToReturnIsPrevisualized).IsPrevisualizedNow().ToInt());
         }
 
         private void SetSlot(Transform slot)

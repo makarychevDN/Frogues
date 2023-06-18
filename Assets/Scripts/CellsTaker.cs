@@ -75,6 +75,23 @@ namespace FroguesFramework
                 : null;
         }
 
+        public static MonoBehaviour TakeCellOrUnitByMouseRaycast()
+        {
+            var mask = LayerMask.GetMask("UI", "Cell", "Unit");
+            RaycastHit hit;
+
+            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, mask))
+            {
+                var cell = hit.transform.GetComponentInParent<Cell>();
+                if (cell != null)
+                    return cell;
+
+                return hit.transform.GetComponentInParent<Unit>();
+            }
+
+            return null;
+        }
+
         public static Unit TakeUnitByMouseRaycast()
         {
             var mask = LayerMask.GetMask("UI", "Unit");

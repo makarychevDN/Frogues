@@ -29,6 +29,11 @@ namespace FroguesFramework
             if (ability is MovementAbility)
                 return;
 
+            if (ability is IAbleToBeNativeAttack && _ableToHaveCurrentAbility is IAbleToHaveNativeAttack)
+            {
+                (_ableToHaveCurrentAbility as IAbleToHaveNativeAttack).SetCurrentNativeAttack(ability as IAbleToBeNativeAttack);
+            }
+
             _abilities.Add(ability);
             (ability).transform.parent = transform;
             AbilityHasBeenAdded.Invoke(ability);

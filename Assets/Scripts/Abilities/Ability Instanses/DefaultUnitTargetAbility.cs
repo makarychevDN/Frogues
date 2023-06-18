@@ -4,13 +4,16 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized
     {
         [SerializeField] protected int damage;
         [SerializeField] protected int radius;
+        [SerializeField] protected bool isNativeAttack;
 
         [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
+
+        private bool _isPrevisualizedNow;
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
 
@@ -55,8 +58,12 @@ namespace FroguesFramework
 
         public override void VisualizePreUseOnUnit(Unit target)
         {
+            _isPrevisualizedNow = true;
             CalculateUsingArea();
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
+
+            if(target!= null)
+                target.MaterialInstanceContainer.EnableOutline(true);
 
             if (!PossibleToUseOnUnit(target))
                 return;
@@ -67,12 +74,12 @@ namespace FroguesFramework
             lineFromOwnerToTarget.gameObject.SetActive(true);
             lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position - _owner.transform.position);
             lineFromOwnerToTarget.SetPosition(1, target.SpriteParent.position - _owner.transform.position);
-            target.MaterialInstanceContainer.EnableOutline(true);
         }
 
         public override void DisablePreVisualization()
         {
             lineFromOwnerToTarget.gameObject.SetActive(false);
+            _isPrevisualizedNow = false;
         }
 
         public override void Init(Unit unit)
@@ -84,6 +91,23 @@ namespace FroguesFramework
 
             _owner.Animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, (int)weaponIndex);
             _owner.Animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
+        }
+
+        public bool IsNativeAttack()
+        {
+            return isNativeAttack;
+        }
+
+        public void SetAsCurrentNativeAttack()
+        {
+            var ableToHaveNativeAttack = _owner.ActionsInput as IAbleToHaveNativeAttack;
+            if (ableToHaveNativeAttack != null)
+                ableToHaveNativeAttack.SetCurrentNativeAttack(this);
+        }
+
+        public bool IsPrevisualizedNow()
+        {
+            return _isPrevisualizedNow;
         }
     }
 }
