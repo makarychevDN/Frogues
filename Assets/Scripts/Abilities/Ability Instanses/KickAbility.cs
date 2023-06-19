@@ -41,6 +41,7 @@ namespace FroguesFramework
                 return;
 
             SpendResourcePoints();
+            SetCooldownAsAfterUse();
 
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(target);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());

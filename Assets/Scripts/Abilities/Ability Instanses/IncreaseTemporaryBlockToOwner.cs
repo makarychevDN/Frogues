@@ -12,6 +12,7 @@ namespace FroguesFramework
                 return;
 
             SpendResourcePoints();
+            SetCooldownAsAfterUse();
             _owner.Health.IncreaseTemporaryArmor(blockValue);
         }
     }

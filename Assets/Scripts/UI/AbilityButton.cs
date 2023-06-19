@@ -124,10 +124,18 @@ namespace FroguesFramework
 
                 if (abilityWithCooldown.GetCooldownCounter() != _hashedCooldown)
                 {
-                    cooldownCounterField.text = abilityWithCooldown.GetCooldownCounter().ToString();
-                    cooldownCounterField.enabled = abilityWithCooldown.GetCooldownCounter() != 0;
-                    cooldownEffect.fillAmount = (float)abilityWithCooldown.GetCooldownCounter() / abilityWithCooldown.GetCooldownAfterStart();
-                    _hashedCooldown = abilityWithCooldown.GetCooldownCounter();
+                    if (abilityWithCooldown.GetCurrentCooldown() != 0)
+                    {
+                        cooldownEffect.gameObject.SetActive(true);
+                        cooldownCounterField.text = abilityWithCooldown.GetCooldownCounter().ToString();
+                        cooldownCounterField.enabled = abilityWithCooldown.GetCooldownCounter() != 0;
+                        cooldownEffect.fillAmount = (float)abilityWithCooldown.GetCooldownCounter() / abilityWithCooldown.GetCurrentCooldown();
+                        _hashedCooldown = abilityWithCooldown.GetCooldownCounter();
+                    }
+                    else
+                    {
+                        cooldownEffect.gameObject.SetActive(false);
+                    }
                 }
             }
 

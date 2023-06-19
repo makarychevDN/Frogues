@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] protected int cooldownAfterUse;
         [SerializeField] protected int cooldownAfterStart;
         [SerializeField] protected int cooldownCounter;
+        [SerializeField] protected bool isCooldownedAfterStart;
 
         [Header("Animation Setup")]
         [SerializeField] protected AbilityAnimatorTriggers abilityAnimatorTrigger;
@@ -41,13 +42,22 @@ namespace FroguesFramework
             return _owner.ActionPoints.IsPointsEnough(actionPointsCost);
         }
 
+        #region cooldownsStuff
+
         public void DecreaseCooldown(int value = 1)
         {
             cooldownCounter--;
             cooldownCounter = Mathf.Clamp(cooldownCounter, 0, 99);
+
+            if(cooldownCounter == 0)
+                isCooldownedAfterStart = true;
         }
 
-        public void SetCooldownAsAfterStart() => cooldownCounter = cooldownAfterStart;        
+        public void SetCooldownAsAfterStart()
+        {
+            cooldownCounter = cooldownAfterStart;
+            isCooldownedAfterStart = false;
+        }   
 
         public void SetCooldownAsAfterUse() => cooldownCounter = cooldownAfterUse;
 
@@ -74,5 +84,13 @@ namespace FroguesFramework
         public int GetCooldownCounter() => cooldownCounter;
 
         public int GetCooldownAfterStart() => cooldownAfterStart;
+
+        public int GetCooldownAfterUse() => cooldownAfterUse;
+
+        public bool GetCooldownAfterStartIsDone() => isCooldownedAfterStart;
+
+        public int GetCurrentCooldown() => GetCooldownAfterStartIsDone() ? GetCooldownAfterUse() : GetCooldownAfterStart();
+
+        #endregion
     }
 }
