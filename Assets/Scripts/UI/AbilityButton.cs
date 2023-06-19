@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +8,9 @@ namespace FroguesFramework
     public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
     {
         [SerializeField] private Image image;
+        [SerializeField] private Image cooldownEffect;
         [SerializeField] private AbilityHint abilityHint;
+        [SerializeField] private TMP_Text cooldownCounterField;
 
         private bool _dragNow;
         private float maxDistanceToClamp = 64;
@@ -121,6 +124,9 @@ namespace FroguesFramework
 
                 if (abilityWithCooldown.GetCooldownCounter() != _hashedCooldown)
                 {
+                    cooldownCounterField.text = abilityWithCooldown.GetCooldownCounter().ToString();
+                    cooldownCounterField.enabled = abilityWithCooldown.GetCooldownCounter() != 0;
+                    cooldownEffect.fillAmount = (float)abilityWithCooldown.GetCooldownCounter() / abilityWithCooldown.GetCooldownAfterStart();
                     _hashedCooldown = abilityWithCooldown.GetCooldownCounter();
                 }
             }

@@ -72,5 +72,7 @@ namespace FroguesFramework
         }
 
         public int GetCooldownCounter() => cooldownCounter;
+
+        public int GetCooldownAfterStart() => cooldownAfterStart;
     }
 }
