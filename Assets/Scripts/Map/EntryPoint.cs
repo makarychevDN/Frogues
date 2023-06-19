@@ -62,6 +62,7 @@ public class EntryPoint : MonoBehaviour
         _metaPlayer.Health.TakeHealing(33);
         waveSpawner.ResetRoundsTimer();
         waveSpawner.SpawnPreWave();
+        FindObjectsOfType<MonoBehaviour>().OfType<IAbleToHaveCooldown>().ToList().ForEach(x => x.SetCooldownAsAfterStart());
     }
 
     public void IncreaseScore(int score)
