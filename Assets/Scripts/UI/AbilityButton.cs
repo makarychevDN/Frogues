@@ -48,11 +48,18 @@ namespace FroguesFramework
             if (_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability)
             {
                 _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+                return;
             }
-            else
-            {
-                _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(_ability);
-            }
+
+            var cooldownAbility = _ability as IAbleToHaveCooldown;
+            if (cooldownAbility != null && !cooldownAbility.IsCooldowned())
+                return;
+
+            var ableToCostAbility = _ability as IAbleToCost;
+            if (ableToCostAbility != null && !ableToCostAbility.IsResoursePointsEnough())
+                return;
+
+            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(_ability);
         }
 
         public void OnBeginDrag(PointerEventData eventData)
