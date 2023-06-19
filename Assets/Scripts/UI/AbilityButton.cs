@@ -16,6 +16,10 @@ namespace FroguesFramework
         private bool _chosen;
         private Transform _currentButtonSlot;
         private bool _draggingNow;
+        private bool _myAbilityIsAbleToReturnIsPrevisualized;
+        private bool _myAbilityIsAbleToHaveCooldown;
+        private bool _myAbilityIsAbleToCost;
+        private int _hashedCooldown;
 
         public BaseAbility Ability => _ability;
         
@@ -38,6 +42,11 @@ namespace FroguesFramework
                 ability.GetAbilityDataForButton().Stats,
                 ability.GetAbilityDataForButton().Description);
             abilityHint.EnableContent(false);
+
+            _myAbilityIsAbleToReturnIsPrevisualized = _ability is IAbleToReturnIsPrevisualized;
+            _myAbilityIsAbleToHaveCooldown = _ability is IAbleToHaveCooldown;
+            _myAbilityIsAbleToCost = _ability is IAbleToCost;
+            _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
         }
         
         public void PickAbility()
@@ -104,11 +113,30 @@ namespace FroguesFramework
 
         private void Update()
         {
-            if (_ability is not IAbleToReturnIsPrevisualized)
-                return;
+            bool myAbilityIsCooldowned = true;            
+            if (_myAbilityIsAbleToHaveCooldown)
+            {
+                var abilityWithCooldown = _ability as IAbleToHaveCooldown;
+                myAbilityIsCooldowned = abilityWithCooldown.IsCooldowned();
 
-            image.material.SetInt("_AbilityUsingNow",
-                (_ability as IAbleToReturnIsPrevisualized).IsPrevisualizedNow().ToInt());
+                if (abilityWithCooldown.GetCooldownCounter() != _hashedCooldown)
+                {
+                    _hashedCooldown = abilityWithCooldown.GetCooldownCounter();
+                }
+            }
+
+            bool myAbilityIsHasEnoughResourses = true;
+            if (_myAbilityIsAbleToCost)
+                myAbilityIsHasEnoughResourses = (_ability as IAbleToCost).IsResoursePointsEnough();
+
+            image.material.SetInt("_AbleToUse",
+                (myAbilityIsCooldowned && myAbilityIsHasEnoughResourses).ToInt());
+
+            if (_myAbilityIsAbleToReturnIsPrevisualized)
+            {
+                image.material.SetInt("_AbilityUsingNow",
+                    (_ability as IAbleToReturnIsPrevisualized).IsPrevisualizedNow().ToInt());
+            }
         }
 
         private void SetSlot(Transform slot)

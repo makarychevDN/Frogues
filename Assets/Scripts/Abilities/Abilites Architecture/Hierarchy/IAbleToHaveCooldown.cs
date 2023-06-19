@@ -6,5 +6,6 @@ namespace FroguesFramework
         public void SetCooldownAsAfterStart();
         public void SetCooldownAsAfterUse();
         public bool IsCooldowned();
+        public int GetCooldownCounter();
     }
 }

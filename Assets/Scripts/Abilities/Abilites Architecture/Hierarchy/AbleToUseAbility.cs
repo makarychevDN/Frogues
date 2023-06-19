@@ -70,5 +70,7 @@ namespace FroguesFramework
             if (_owner.IsEnemy)
                 DecreaseCooldown();
         }
+
+        public int GetCooldownCounter() => cooldownCounter;
     }
 }
