@@ -3,10 +3,13 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public abstract class AbleToUseAbility : BaseAbility, IAbleToCost
+    public abstract class AbleToUseAbility : BaseAbility, IAbleToCost, IAbleToHaveCooldown, IRoundTickable
     {
         [SerializeField] protected int actionPointsCost;
         [SerializeField] protected int bloodPointsCost;
+        [SerializeField] protected int cooldownAfterUse;
+        [SerializeField] protected int cooldownAfterStart;
+        [SerializeField] protected int cooldownCounter;
 
         [Header("Animation Setup")]
         [SerializeField] protected AbilityAnimatorTriggers abilityAnimatorTrigger;
@@ -23,19 +26,49 @@ namespace FroguesFramework
         {
             _owner.ActionPoints.SpendPoints(actionPointsCost);
 
-            if(_owner.BloodPoints != null)
+            if (_owner.BloodPoints != null)
                 _owner.BloodPoints.SpendPoints(bloodPointsCost);
         }
 
         public virtual bool IsResoursePointsEnough()
         {
-            if(_owner.BloodPoints != null)
+            if (_owner.BloodPoints != null)
             {
                 return _owner.ActionPoints.IsPointsEnough(actionPointsCost)
                     && _owner.BloodPoints.IsPointsEnough(bloodPointsCost);
             }
 
             return _owner.ActionPoints.IsPointsEnough(actionPointsCost);
+        }
+
+        public void DecreaseCooldown(int value = 1)
+        {
+            cooldownCounter--;
+            cooldownCounter = Mathf.Clamp(cooldownCounter, 0, 99);
+        }
+
+        public void SetCooldownAsAfterStart() => cooldownCounter = cooldownAfterStart;        
+
+        public void SetCooldownAsAfterUse() => cooldownCounter = cooldownAfterUse;
+
+        public bool IsCooldowned() => cooldownCounter == 0;
+
+        public void TickBeforePlayerTurn()
+        {
+            if (_owner == null)
+                return;
+
+            if (!_owner.IsEnemy)
+                DecreaseCooldown();
+        }
+
+        public void TickBeforeEnemiesTurn()
+        {
+            if (_owner == null)
+                return;
+
+            if (_owner.IsEnemy)
+                DecreaseCooldown();
         }
     }
 }
