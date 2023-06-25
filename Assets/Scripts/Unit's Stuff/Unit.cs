@@ -37,6 +37,9 @@ namespace FroguesFramework
         [field : SerializeField] public AbleToDie AbleToDie { get; private set; }
         [field : SerializeField] public EffectsVisualiser EffectsVisualiser { get; private set; }
 
+        [field: Header("Stats")]
+        [field: SerializeField] public Stats Stats { get; private set; }
+
         [field: Header("Description Setup")]
         [field: SerializeField] public UnitDescription UnitDescription { get; private set; }
 
