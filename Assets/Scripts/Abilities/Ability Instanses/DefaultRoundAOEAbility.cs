@@ -5,14 +5,20 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DefaultRoundAOEAbility : AreaTargetAbility
+    public class DefaultRoundAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized
     {
+        [SerializeField] private DamageType damageType;
         [SerializeField] private int damage;
         [SerializeField] private int usingRadius;
         [SerializeField] private int effectRadius;
         [SerializeField] private bool includeCellsOutOfUsingArea;
 
         private List<Cell> _selectedArea;
+        private bool _isPrevisualizedNow;
+
+        private int DamageWithModificators => damageType == DamageType.physics
+            ? (int)(damage * _owner.Stats.StrenghtModificator)
+            : (int)(damage * _owner.Stats.IntelegenceModificator);
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
 
@@ -44,14 +50,17 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, List<Cell> cells)
         {
             yield return new WaitForSeconds(time);
-            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(damage));
+            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(DamageWithModificators));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
 
         private void PlayImpactSound() => impactSoundSource.Play();
 
-        public override void DisablePreVisualization() { }
+        public override void DisablePreVisualization()
+        {
+            _isPrevisualizedNow = false;
+        }
 
         public override List<Cell> SelectCells(List<Cell> cells)
         {
@@ -71,6 +80,7 @@ namespace FroguesFramework
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
         {
+            _isPrevisualizedNow = true;
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
 
             if (!PossibleToUseOnCells(cells))
@@ -85,7 +95,7 @@ namespace FroguesFramework
 
                 if (!cell.IsEmpty)
                 {
-                    cell.Content.Health.PreTakeDamage(damage);
+                    cell.Content.Health.PreTakeDamage(DamageWithModificators);
                     cell.Content.MaterialInstanceContainer.EnableOutline(true);
                 }
             }
@@ -101,5 +111,7 @@ namespace FroguesFramework
             _owner.Animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, (int)weaponIndex);
             _owner.Animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
         }
+
+        public bool IsPrevisualizedNow() => _isPrevisualizedNow;
     }
 }

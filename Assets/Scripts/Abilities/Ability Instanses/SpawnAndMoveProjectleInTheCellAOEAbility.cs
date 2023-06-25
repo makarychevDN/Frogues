@@ -4,22 +4,25 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility
+    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized
     {
         [SerializeField] private int usingRadius;
         [SerializeField] private Unit projectilePrefab;
+
         [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
         [SerializeField] private AnimationCurve parabolaAnimationCurve;
         [SerializeField] private float parabolaHeight;
 
         private List<Cell> _selectedArea;
+        private bool _isPrevisualizedNow;
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
 
         public override void DisablePreVisualization()
         {
             lineFromOwnerToTarget.gameObject.SetActive(false);
+            _isPrevisualizedNow = false;
         }
 
         public override bool PossibleToUseOnCells(List<Cell> cells)
@@ -67,6 +70,7 @@ namespace FroguesFramework
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
         {
+            _isPrevisualizedNow = true;
             CalculateUsingArea();
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
 
@@ -81,5 +85,7 @@ namespace FroguesFramework
                 parabolaHeight * _owner.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
             cells[0].EnableSelectedCellHighlight(true);
         }
+
+        public bool IsPrevisualizedNow() => _isPrevisualizedNow;
     }
 }
