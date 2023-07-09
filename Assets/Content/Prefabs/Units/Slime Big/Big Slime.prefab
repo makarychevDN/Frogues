@@ -50,6 +50,10 @@ MonoBehaviour:
   isPartOfWeapon: 0
   actionPointsCost: 3
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: -1
   timeBeforeImpact: 0.15
@@ -59,6 +63,7 @@ MonoBehaviour:
   needToRotateOwnersSprite: 1
   damage: 5
   radius: 1
+  isNativeAttack: 0
   lineFromOwnerToTarget: {fileID: 8086884928607205461}
 --- !u!82 &6317830381340122575
 AudioSource:
@@ -349,6 +354,10 @@ MonoBehaviour:
   isPartOfWeapon: 0
   actionPointsCost: 0
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 0
   weaponIndex: -1
   timeBeforeImpact: 0
@@ -520,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   unitTargetAbilty: {fileID: 4018051424956567836}
-  nonTargetAbility: {fileID: 0}
+  nonTargetAbility: {fileID: 9089565196499747981}
 --- !u!4 &2852893292912100028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3015295575613425959, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
