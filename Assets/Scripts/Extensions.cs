@@ -79,6 +79,11 @@ namespace FroguesFramework
             return EntryPoint.Instance.PathFinder.FindWay(from, to, true, true, true).Count;
         }
 
+        public static int ModificateWithStat(this int value, int statValue, float modificatorStep)
+        {
+            return (int)(value * (1 + statValue * modificatorStep));
+        }
+
         public static void SetAnimationCurveShape(this LineRenderer lineRenderer, Vector3 lineOwnerPosition, Vector3 startPosition, Vector3 endPosition, float parabolaHeight, AnimationCurve parabolaCurve)
         {
             var stepOnCurve = 1f / lineRenderer.positionCount;

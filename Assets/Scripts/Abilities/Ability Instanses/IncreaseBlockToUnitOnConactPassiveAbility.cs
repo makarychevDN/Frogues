@@ -17,7 +17,7 @@ namespace FroguesFramework
 
         private void IncreaseBlockToUnit(Unit unit)
         {
-            unit.Health.IncreaseTemporaryArmor(blockValue);
+            unit.Health.IncreaseTemporaryBlock(blockValue);
         }
     }
 }

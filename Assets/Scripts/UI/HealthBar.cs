@@ -14,18 +14,18 @@ namespace FroguesFramework
 
         public void Update()
         {
-            hpSlider.maxValue = health.MaxHp + health.Armor;
-            armorSlider.maxValue = health.MaxHp + health.Armor;
-            preTakenDamageDeltaSlider.maxValue = health.MaxHp + health.Armor;
+            hpSlider.maxValue = health.MaxHp + health.Block;
+            armorSlider.maxValue = health.MaxHp + health.Block;
+            preTakenDamageDeltaSlider.maxValue = health.MaxHp + health.Block;
             
             hpSlider.value = health.HealthWithPreTakenDamage;
             armorSlider.value = health.HealthWithPreTakenDamage + health.ArmorWithPreTakenDamage;
-            preTakenDamageDeltaSlider.value = health.CurrentHp + health.Armor;
+            preTakenDamageDeltaSlider.value = health.CurrentHp + health.Block;
 
             if (textField == null)
                 return;
 
-            string text = (health.CurrentHp + health.Armor).ToString();
+            string text = (health.CurrentHp + health.Block).ToString();
 
             //if (health.Armor != 0)
                 //text += $"   <#aac0cd>{health.Armor}</color>";

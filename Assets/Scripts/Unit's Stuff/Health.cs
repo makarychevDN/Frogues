@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace FroguesFramework
 {
@@ -7,8 +8,8 @@ namespace FroguesFramework
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
-        [SerializeField] private int permanentArmor;
-        [SerializeField] private int temporaryArmor;
+        [SerializeField] private int permanentBlock;
+        [SerializeField] private int temporaryBlock;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnDamageBlockedSuccessfully;
         public UnityEvent OnBlockDestroyed;
@@ -18,45 +19,41 @@ namespace FroguesFramework
         public UnityEvent OnHpEnded;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
         private int _healthWithPreTakenDamage, _permanentArmorWithPreTakenDamage, _temporaryArmorWithPreTakenDamage;
-        private int _hashedHp, _hashedArmor;
-        private bool _enemy;
-        private AbleToDie _ableToDie;
-        private Animator _animator;
+        private int _hashedHp, _hashedBlock;
+        private Unit _unit;
 
         public int MaxHp => maxHP;
         public int CurrentHp => currentHP;
         public int HealthWithPreTakenDamage => _healthWithPreTakenDamage;
-        public int PermanentArmor => permanentArmor;
-        public int TemporaryArmor => temporaryArmor;
-        public int Armor => temporaryArmor + permanentArmor;
+        public int PermanentBlock => permanentBlock;
+        public int TemporaryBlock => temporaryBlock;
+        public int Block => temporaryBlock + permanentBlock;
         public int ArmorWithPreTakenDamage => _temporaryArmorWithPreTakenDamage + _permanentArmorWithPreTakenDamage;
 
         public bool Full => currentHP == maxHP;
 
-        public void IncreaseTemporaryArmor(int value)
+        public void IncreaseTemporaryBlock(int value)
         {
-            temporaryArmor += value;
-            _hashedArmor = Armor;
+            temporaryBlock += (int)(value * _unit.Stats.DefenceModificator);
+            _hashedBlock = Block;
             OnTemporaryBlockIncreased.Invoke();
             OnBlockIncreased.Invoke();
         }
         
-        public void IncreasePermanentArmor(int value)
+        public void IncreasePermanentBlock(int value)
         {
-            permanentArmor += value;
-            _hashedArmor = Armor;
+            permanentBlock += (int)(value * _unit.Stats.DefenceModificator);
+            permanentBlock += value;
+            _hashedBlock = Block;
             OnPermanentBlockIncreased.Invoke();
             OnBlockIncreased.Invoke();
         }
 
         public void Init(Unit unit)
         {
-            _ableToDie = unit.AbleToDie;
-            _animator = unit.Animator;
-            _enemy = unit.IsEnemy;
-            
+            _unit = unit;            
             _hashedHp = currentHP;
-            _hashedArmor = Armor;
+            _hashedBlock = Block;
             OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
             AddMySelfToEntryPoint();
@@ -64,14 +61,14 @@ namespace FroguesFramework
 
         private void Update()
         {
-            _hashedArmor = Armor;
+            _hashedBlock = Block;
             _hashedHp = currentHP;
         }
 
         private void TriggerTakeDamageAnimation()
         {
             CurrentlyActiveObjects.Add(this);
-            _animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
+            _unit.Animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
             Invoke("RemoveFromCurrentlyActiveObjects", 0.25f); //todo улучшить эту штуку
         }
 
@@ -91,13 +88,13 @@ namespace FroguesFramework
 
         public void TakeDamage(int damageValue, bool ignoreArmor)
         {
-            CalculateDamage(ref currentHP, ref permanentArmor,ref temporaryArmor, damageValue, ignoreArmor);
+            CalculateDamage(ref currentHP, ref permanentBlock,ref temporaryBlock, damageValue, ignoreArmor);
 
             if (!ignoreArmor)
             {
-                if (_hashedArmor != 0)
+                if (_hashedBlock != 0)
                 {
-                    if (Armor != 0)
+                    if (Block != 0)
                     {
                         OnDamageBlockedSuccessfully.Invoke();
                     }
@@ -120,7 +117,7 @@ namespace FroguesFramework
             }
             
             _hashedHp = currentHP;
-            _hashedArmor = Armor;
+            _hashedBlock = Block;
         }
 
         public void PreTakeDamage(int damageValue) =>
@@ -158,38 +155,38 @@ namespace FroguesFramework
         public void DieFromBumpInto()
         {
             deathFromStepOnThisUnitAudioSource.Play();
-            _ableToDie.DieWithoutAnimation();
+            _unit.AbleToDie.DieWithoutAnimation();
         }
 
         public void TickBeforePlayerTurn()
         {
-            if(_enemy)
+            if(_unit.IsEnemy)
                 return;
             
-            temporaryArmor = 0;
-            _hashedArmor = Armor;
+            temporaryBlock = 0;
+            _hashedBlock = Block;
         }
 
         public void TickBeforeEnemiesTurn()
         {
-            if(!_enemy)
+            if(!_unit.IsEnemy)
                 return;
             
-            temporaryArmor = 0;
-            _hashedArmor = Armor;
+            temporaryBlock = 0;
+            _hashedBlock = Block;
         }
 
         private void DieProcess()
         {
             OnHpEnded.Invoke();
-            _ableToDie.Die();
+            _unit.AbleToDie.Die();
         }
 
         public void DisablePreVisualization()
         {
             _healthWithPreTakenDamage = currentHP;
-            _permanentArmorWithPreTakenDamage = permanentArmor;
-            _temporaryArmorWithPreTakenDamage = temporaryArmor;
+            _permanentArmorWithPreTakenDamage = permanentBlock;
+            _temporaryArmorWithPreTakenDamage = temporaryBlock;
         }
 
         private void OnDestroy()
