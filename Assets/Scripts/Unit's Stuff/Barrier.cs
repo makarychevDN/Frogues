@@ -1,6 +1,6 @@
 namespace FroguesFramework
 {
-    public class Wall : Unit
+    public class Barrier : Unit
     {
 
     }

@@ -334,7 +334,7 @@ namespace FroguesFramework
 
         public bool Busy => !cell.AbleToStepOnIt;
 
-        public bool IsWall => cell.Content as Wall;
+        public bool IsWall => cell.Content as Barrier;
 
         public PathFinderNode(Cell cell)
         {

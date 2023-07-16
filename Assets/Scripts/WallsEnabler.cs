@@ -10,7 +10,7 @@ namespace FroguesFramework
         [SerializeField] private CameraController cameraController;
         [SerializeField] private List<Pillar> pillars;
         [SerializeField] private List<GameObject> walls;
-        [SerializeField] private float angleDelta = 45f;
+        [SerializeField] private float angleDelta = 55f;
 
         private void Update()
         {
