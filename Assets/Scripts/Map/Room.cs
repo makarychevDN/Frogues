@@ -9,7 +9,7 @@ namespace FroguesFramework
         [SerializeField] private Cell exit;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
-        [SerializeField] private CameraRotationPointController centerPointForCamera;
+        [SerializeField] private CameraController cameraController;
 
         [SerializeField] private Unit player;
         [SerializeField] private Unit metaPlayer;
@@ -20,11 +20,11 @@ namespace FroguesFramework
         public Map Map => map;
         public UnitsQueue UnitsQueue => unitsQueue;
         
-        public Vector3 CenterOfRoom => centerPointForCamera.transform.position;
+        public Vector3 CenterOfRoom => cameraController.transform.position;
 
         public void Init()
         {
-            centerPointForCamera.Init();
+            cameraController.Init();
             map.Init();
             pathFinder.Init();
             InitPlayer();
@@ -88,7 +88,7 @@ namespace FroguesFramework
 
         public void Deactivate()
         {
-            centerPointForCamera.Deactivate();
+            cameraController.Deactivate();
             gameObject.SetActive(false);
         }
     }
