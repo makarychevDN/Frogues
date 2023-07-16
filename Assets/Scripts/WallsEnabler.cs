@@ -9,7 +9,7 @@ namespace FroguesFramework
     {
         [SerializeField] private CameraController cameraController;
         [SerializeField] private List<Pillar> pillars;
-        [SerializeField] private List<GameObject> walls;
+        [SerializeField] private List<AnimatedWall> walls;
         [SerializeField] private float angleDelta = 55f;
 
         private void Update()
@@ -22,7 +22,7 @@ namespace FroguesFramework
         {
             foreach (var wall in walls)
             {
-                wall.SetActive(Vector3.Angle(Camera.main.transform.forward, wall.transform.right) > angleDelta);
+                wall.Showed = Vector3.Angle(Camera.main.transform.forward, wall.transform.forward) > angleDelta;
             }
         }
 
@@ -30,7 +30,7 @@ namespace FroguesFramework
         {
             foreach (var pillar in pillars)
             {
-                pillar.itSelf.SetActive(pillar.neighborWalls.Any(wall => wall.activeInHierarchy));
+                pillar.itSelf.Showed = pillar.neighborWalls.Any(wall => wall.Showed);
             }
         }
     }
@@ -38,7 +38,7 @@ namespace FroguesFramework
     [Serializable]
     public struct Pillar
     {
-        public GameObject itSelf;
-        public List<GameObject> neighborWalls;
+        public AnimatedWall itSelf;
+        public List<AnimatedWall> neighborWalls;
     }
 }
