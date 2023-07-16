@@ -10,7 +10,7 @@ namespace FroguesFramework
         [SerializeField] private float movementSpeed = 5f;
         [SerializeField] private float zoomingSpeed = 5f;
         private Transform _camera;
-        [SerializeField] private float maxXPosition, minXPosition, maxZPosition, minZPosition;
+        private float maxXPosition, minXPosition, maxZPosition, minZPosition;
 
         public void Init()
         {
