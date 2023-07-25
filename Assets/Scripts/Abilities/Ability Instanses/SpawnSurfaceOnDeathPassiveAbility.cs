@@ -22,11 +22,13 @@ namespace FroguesFramework
             //if (currentBloodSurface == null)
                 //return;
 
-            var surfaceInstance = Instantiate(surfacePrefab);
+            /*var surfaceInstance = Instantiate(surfacePrefab);
             surfaceInstance.CurrentCell = _owner.CurrentCell;
             surfaceInstance.Init();
             _owner.CurrentCell.Surfaces.Add(surfaceInstance);
-            surfaceInstance.transform.position = _owner.CurrentCell.transform.position;
+            surfaceInstance.transform.position = _owner.CurrentCell.transform.position;*/
+
+            EntryPoint.Instance.SpawnUnit(surfacePrefab, _owner.CurrentCell);
         }
     }
 }

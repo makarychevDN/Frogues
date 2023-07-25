@@ -80,9 +80,27 @@ public class EntryPoint : MonoBehaviour
     public void SpawnUnit(Unit prefab, Unit spawner, Cell targetCell)
     {
         var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
-        spawnedUnit.Init();
         spawnedUnit.CurrentCell = spawner.CurrentCell;
+        spawnedUnit.Init();
         spawnedUnit.Movable.Move(targetCell, false);
+        spawnedUnit.transform.parent = Map.transform;
+
+        if (spawnedUnit.ActionsInput != null)
+            UnitsQueue.AddObjectInQueue(spawnedUnit);
+    }
+
+    public void SpawnUnit(Unit prefab, Cell targetCell)
+    {
+        var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
+        spawnedUnit.CurrentCell = targetCell;
+        spawnedUnit.Init();
+        spawnedUnit.transform.position = targetCell.transform.position;
+        spawnedUnit.transform.parent = Map.transform;
+
+        if (prefab.SurfaceUnitExtension == null)
+            targetCell.Content = spawnedUnit;
+        else
+            targetCell.Surfaces.Add(spawnedUnit);
 
         if (spawnedUnit.ActionsInput != null)
             UnitsQueue.AddObjectInQueue(spawnedUnit);
