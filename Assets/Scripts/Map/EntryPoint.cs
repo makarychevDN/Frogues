@@ -15,6 +15,7 @@ public class EntryPoint : MonoBehaviour
     [SerializeField] private AbilitiesPanel _abilitiesPanel;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject loseScreen;
+    [SerializeField] private GameObject exitButton;
     [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
     [SerializeField] private int score;
     [SerializeField] private int deltaOfScoreToOpenExit = 200;
@@ -31,7 +32,7 @@ public class EntryPoint : MonoBehaviour
     public bool PauseIsActive => pausePanel.activeSelf;
     public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
     public int Score => score;
-    public bool ExitActivated => _currentRoom.ExitActivated;
+    public bool ExitActivated => exitButton.activeSelf;
     public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer) 
                                      && !_metaPlayer.MovementAbility.PathToMoveIsSelected 
                                      && !CurrentlyActiveObjects.SomethingIsActNow;
@@ -62,6 +63,7 @@ public class EntryPoint : MonoBehaviour
         _metaPlayer.Health.TakeHealing(33);
         waveSpawner.ResetRoundsTimer();
         waveSpawner.SpawnPreWave();
+        exitButton.SetActive(false);
         FindObjectsOfType<MonoBehaviour>().OfType<IAbleToHaveCooldown>().ToList().ForEach(x => x.SetCooldownAsAfterStart());
     }
 
@@ -73,7 +75,8 @@ public class EntryPoint : MonoBehaviour
         if (this.score - _hashedScoreThenExitActivated < deltaOfScoreToOpenExit)
             return;
 
-        _currentRoom.ActivateExit();
+        //_currentRoom.ActivateExit();
+        exitButton.SetActive(true);
         _hashedScoreThenExitActivated += deltaOfScoreToOpenExit;
     }
 

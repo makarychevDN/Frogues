@@ -10803,6 +10803,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
   m_PrefabInstance: {fileID: 4182687046851866784}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1768203701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6079162147580149893, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+  m_PrefabInstance: {fileID: 7732932570220718218}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1813852410 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5586868789273664390, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
@@ -11009,11 +11014,13 @@ MonoBehaviour:
   hub: {fileID: 1813852410}
   roomsPrefabs:
   - {fileID: 2638133752701027621, guid: fb294092750cf0545963bae84734545c, type: 3}
+  - {fileID: 4174472186004586126, guid: 3c7c38d618b200d40919ebfc530b59b0, type: 3}
   _currentRoom: {fileID: 0}
   _metaPlayer: {fileID: 4182687046851866785}
   _abilitiesPanel: {fileID: 1843630047}
   pausePanel: {fileID: 1909044773}
   loseScreen: {fileID: 2105252764}
+  exitButton: {fileID: 1768203701}
   unitDescriptionPanel: {fileID: 1843630051}
   score: 0
   deltaOfScoreToOpenExit: 200
@@ -11307,6 +11314,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 792038893775050994, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792038893775050994, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 792038893775050994, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1090869812846418280, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -11358,6 +11377,18 @@ PrefabInstance:
     - target: {fileID: 1387217609048461744, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1476939036078492583, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2024597958}
+    - target: {fileID: 1476939036078492583, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartNextRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 1476939036078492583, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EntryPoint, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1604921547193574016, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchorMax.y
