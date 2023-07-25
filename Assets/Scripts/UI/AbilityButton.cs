@@ -26,16 +26,10 @@ namespace FroguesFramework
 
         public BaseAbility Ability => _ability;
         
-        public void Init(AbilitiesPanel abilitiesPanel, BaseAbility ability)
+        public void Init(BaseAbility ability)
         {
-            _abilitiesPanel = abilitiesPanel;
             _ability = ability;
             image.material = ability.GetAbilityDataForButton().Material;
-
-            if((ability).GetComponent<MarkToAddAbilityInTheEndOfAbilitesPanel>() == null)
-                _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
-            else
-                _currentButtonSlot = abilitiesPanel.LastEmptySlot();
 
             transform.parent = _currentButtonSlot;
             transform.localPosition = Vector3.zero;
@@ -51,7 +45,18 @@ namespace FroguesFramework
             _myAbilityIsAbleToCost = _ability is IAbleToCost;
             _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
         }
-        
+
+        public void Init(AbilitiesPanel abilitiesPanel, BaseAbility ability)
+        {
+            _abilitiesPanel = abilitiesPanel;
+            if (ability.GetComponent<MarkToAddAbilityInTheEndOfAbilitesPanel>() == null)
+                _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
+            else
+                _currentButtonSlot = abilitiesPanel.LastEmptySlot();
+
+            Init(ability);
+        }
+
         public void PickAbility()
         {
             if(_draggingNow)
@@ -116,6 +121,9 @@ namespace FroguesFramework
 
         private void Update()
         {
+            if (!_ability.HasOwner)
+                return;
+
             bool myAbilityIsCooldowned = true;            
             if (_myAbilityIsAbleToHaveCooldown)
             {
