@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 namespace FroguesFramework
 {
@@ -102,7 +102,7 @@ namespace FroguesFramework
         public static T GetRandomElement<T>(this List<T> list)
         {
             if (list == null || list.Count == 0) return default(T);
-            return list[Random.Range(0, list.Count)];
+            return list[UnityEngine.Random.Range(0, list.Count)];
         }
 
         public static HexDir GetHexDirByClockwiseRotation(this HexDir dir)
@@ -133,6 +133,11 @@ namespace FroguesFramework
             if (sm > (double)max * (double)max) return v.normalized * max;
             else if (sm < (double)min * (double)min) return v.normalized * min;
             return v;
+        }
+
+        public static int RoundWithGameRules(this float value)
+        {
+            return (int)Math.Round(value, MidpointRounding.AwayFromZero);
         }
     }
 }
