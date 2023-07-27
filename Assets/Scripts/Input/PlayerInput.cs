@@ -50,6 +50,11 @@ namespace FroguesFramework
                 AbleToUseOnUnitAbilityInput((UnitTargetAbility)temporaryCurrentAbility);
             }
 
+            if (temporaryCurrentAbility is IAbleToUseInDirectionOfCursorPosition)
+            {
+                AbleToUseInDirectionAbilityInput((DirectionOfCursorTargetAbility)temporaryCurrentAbility);
+            }
+
             if (temporaryCurrentAbility == movementAbility)
                 Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
 
@@ -108,6 +113,33 @@ namespace FroguesFramework
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 cellsAbility.UseOnCells(selectedCells);
+            }
+        }
+
+        private void AbleToUseInDirectionAbilityInput(DirectionOfCursorTargetAbility directedAbility)
+        {
+            //var targetUnit = CellsTaker.TakeUnitByMouseRaycast();
+
+            Vector3 cursorPosition = Input.mousePosition;
+
+            Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+
+            directedAbility.CalculateUsingArea();
+            directedAbility.VisualizePreUseInDirection(cursorPosition);
+
+            if (!directedAbility.PossibleToUseInDirection(cursorPosition))
+                Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+
+            if (IsMouseOverUI)
+            {
+                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                directedAbility.UseInDirection(cursorPosition);
             }
         }
 

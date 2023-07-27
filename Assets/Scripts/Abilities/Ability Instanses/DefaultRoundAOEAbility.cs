@@ -12,8 +12,6 @@ namespace FroguesFramework
         [SerializeField] private int usingRadius;
         [SerializeField] private int effectRadius;
         [SerializeField] private bool includeCellsOutOfUsingArea;
-
-        private List<Cell> _selectedArea;
         private bool _isPrevisualizedNow;
 
         private int DamageWithModificators => damageType == DamageType.physics
