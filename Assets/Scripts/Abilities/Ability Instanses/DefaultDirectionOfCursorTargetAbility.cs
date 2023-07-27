@@ -71,7 +71,17 @@ namespace FroguesFramework
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
 
             var cells = SelectCells(cursorPosition);
-            cells.ForEach(cell => cell.EnableSelectedCellHighlight(true));
+
+            foreach (var cell in cells)
+            {
+                cell.EnableSelectedCellHighlight(true);
+
+                if (!cell.IsEmpty)
+                {
+                    cell.Content.Health.PreTakeDamage(damage);
+                    cell.Content.MaterialInstanceContainer.EnableOutline(true);
+                }
+            }
         }
 
         public bool IsPrevisualizedNow() => _isPrevisualizedNow;
