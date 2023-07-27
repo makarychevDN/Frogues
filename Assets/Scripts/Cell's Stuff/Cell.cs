@@ -25,7 +25,8 @@ namespace FroguesFramework
         [SerializeField] private Transform hexagonModel;
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
-        [SerializeField] private GameObject selectedByAbilityTileHighlighter;
+        [SerializeField] private CellHighlighter selectedByAbilityTileHighlighter;
+        //[SerializeField] private GameObject selectedByAbilityTileHighlighter;
         [SerializeField] private TrailsEnabler trailsEnabler;
         [SerializeField] private SpriteRenderer pathDot;
         [SerializeField] private GameObject onMouseHoverVisualization;
@@ -81,14 +82,20 @@ namespace FroguesFramework
         }
 
         //public bool CheckColumnIsEmpty() =>
-            //EntryPoint.Instance.Map.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.AbleToStepOnIt);
+        //EntryPoint.Instance.Map.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.AbleToStepOnIt);
 
-        public void EnableSelectedCellHighlight(bool isOn)
+        /*public void EnableSelectedCellHighlight(bool isOn)
         {
             EnableValidForAbilityCellHighlightOnly(false);
             selectedByAbilityTileHighlighter.gameObject.SetActive(isOn);
-        }
+        }*/
 
+        public void EnableSelectedByAbilityCellHighlight(List<Cell> cells) 
+        { 
+            selectedByAbilityTileHighlighter.EnableBordersAndHighlight(cells);
+            cells.ForEach(cell => cell.EnableValidForAbilityCellHighlight(false));
+        }
+        public void EnableSelectedByAbilityCellHighlight(bool isOn) => selectedByAbilityTileHighlighter.SetActive(isOn);
         public void EnableValidForAbilityCellHighlight(List<Cell> cells) => validForAbilityTileHighlighter.EnableBordersAndHighlight(cells);
         public void EnableValidForAbilityCellHighlight(bool isOn) => validForAbilityTileHighlighter.SetActive(isOn);
         
@@ -159,7 +166,7 @@ namespace FroguesFramework
 
         public void DisablePreVisualization()
         {
-            EnableSelectedCellHighlight(false);
+            EnableSelectedByAbilityCellHighlight(false);
             EnableValidForAbilityCellHighlight(false);
             DisableTrails();
             EnablePathDot(false);

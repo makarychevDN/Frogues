@@ -89,7 +89,7 @@ namespace FroguesFramework
 
             foreach (var cell in cells) 
             {
-                cell.EnableSelectedCellHighlight(true);
+                cell.EnableSelectedByAbilityCellHighlight(cells);
 
                 if (!cell.IsEmpty)
                 {
