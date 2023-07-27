@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] protected int radius;
         [SerializeField] protected CollidersContainer collidersContainer;
         [SerializeField] private bool includeCellsOutOfUsingArea;
+        [SerializeField] private NearestHexDirectionToMouseFinder nearestHexDirectionToMouseFinder;
         private bool _isPrevisualizedNow;
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
@@ -29,6 +30,10 @@ namespace FroguesFramework
             {
                 cells = cells.Where(cell => _usingArea.Contains(cell)).ToList();
             }
+
+            var nearestToCursorTranform = nearestHexDirectionToMouseFinder.FindNearestVectorToCursor(cursorPosition);
+            collidersContainer.transform.position = nearestToCursorTranform.position;
+            collidersContainer.transform.rotation = nearestToCursorTranform.rotation;
 
             return cells;
         }
