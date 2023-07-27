@@ -104,7 +104,7 @@ namespace FroguesFramework
 
         public void EnableTrail(Cell targetCell)
         {
-            EnableTrail((targetCell.transform.position - transform.position).normalized.ToVector2());
+            EnableTrail((targetCell.transform.position - transform.position).normalized.ToVector2ZasY());
         }
 
         public void DisableTrails() => trailsEnabler.DisableTrails();
