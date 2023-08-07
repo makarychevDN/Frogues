@@ -111,10 +111,6 @@ public class EntryPoint : MonoBehaviour
 
     private void Update()
     {
-        foreach (var ableToDisablePreVisualization in ableToDisablePreVisualizationObjects)
-        {
-            ableToDisablePreVisualization.DisablePreVisualization();        
-        }
 
         if (PauseIsActive)
             return;
@@ -130,5 +126,13 @@ public class EntryPoint : MonoBehaviour
     public void RemoveAbleToDisablePreVisualizationToCollection(IAbleToDisablePreVisualization ableToDisablePreVisualization)
     {
         ableToDisablePreVisualizationObjects.Remove(ableToDisablePreVisualization);
+    }
+
+    public void DisableAllPrevisualization()
+    {
+        foreach (var ableToDisablePreVisualization in ableToDisablePreVisualizationObjects)
+        {
+            ableToDisablePreVisualization.DisablePreVisualization();
+        }
     }
 }
