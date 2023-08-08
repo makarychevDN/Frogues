@@ -14,8 +14,14 @@ namespace FroguesFramework
         [SerializeField] private AnimationCurve parabolaAnimationCurve;
         [SerializeField] private float parabolaHeight;
 
-        private List<Cell> _selectedArea;
+        private Cell _hashedTargetCell;
         private bool _isPrevisualizedNow;
+
+        public override void PrepareToUsing(List<Cell> cells)
+        {
+            CalculateUsingArea();
+            _hashedTargetCell = cells[0];
+        }
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
 
@@ -87,5 +93,15 @@ namespace FroguesFramework
         }
 
         public bool IsPrevisualizedNow() => _isPrevisualizedNow;
+
+        public override int CalculateHashFunctionOfPrevisualisation()
+        {
+            int value = _usingArea.Count;
+
+            if (_hashedTargetCell != null)
+                value ^= _hashedTargetCell.GetHashCode();
+
+            return value;
+        }
     }
 }

@@ -13,10 +13,18 @@ namespace FroguesFramework
         [SerializeField] private int effectRadius;
         [SerializeField] private bool includeCellsOutOfUsingArea;
         private bool _isPrevisualizedNow;
+        private List<Cell> _hashedSelectedArea;
 
         private int DamageWithModificators => damageType == DamageType.physics
             ? (int)(damage * _owner.Stats.StrenghtModificator)
             : (int)(damage * _owner.Stats.IntelegenceModificator);
+
+
+        public override void PrepareToUsing(List<Cell> cells)
+        {
+            CalculateUsingArea();
+            _hashedSelectedArea = cells;
+        }
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
 
@@ -111,5 +119,20 @@ namespace FroguesFramework
         }
 
         public bool IsPrevisualizedNow() => _isPrevisualizedNow;
+
+        public override int CalculateHashFunctionOfPrevisualisation()
+        {
+            int value = _usingArea.Count;
+
+            if (_hashedSelectedArea != null && _hashedSelectedArea[0] != null)
+            {
+                for (int i = 0; i < _hashedSelectedArea.Count; i++)
+                {
+                    value ^= _hashedSelectedArea[i].GetHashCode();
+                }
+            }
+
+            return value;
+        }
     }
 }

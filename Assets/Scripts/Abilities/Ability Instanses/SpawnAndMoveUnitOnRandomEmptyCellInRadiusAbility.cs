@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
+    //todo remake it as nontarget ability
     public class SpawnAndMoveUnitOnRandomEmptyCellInRadiusAbility : AreaTargetAbility
     {
         [SerializeField] private int radius;
@@ -59,5 +60,15 @@ namespace FroguesFramework
             _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius).EmptyCellsOnly();
 
         public override void DisablePreVisualization(){}
+
+        public override int CalculateHashFunctionOfPrevisualisation()
+        {
+            return 0;
+        }
+
+        public override void PrepareToUsing(List<Cell> cells)
+        {
+            CalculateUsingArea();
+        }
     }
 }

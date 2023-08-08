@@ -24,7 +24,7 @@ namespace FroguesFramework
             int value = _usingArea.Count;
 
             if(_hashedFinishCell != null)
-                value ^= _hashedFinishCell.coordinates.x ^ _hashedFinishCell.coordinates.y;
+                value ^= _hashedFinishCell.GetHashCode();
 
             return value;
         }
