@@ -8,5 +8,6 @@ namespace FroguesFramework
         public abstract bool PossibleToUseOnCells(List<Cell> cells);
         public abstract void UseOnCells(List<Cell> cells);
         public abstract void VisualizePreUseOnCells(List<Cell> cells);
+        public abstract void PrepareToUsing(List<Cell> cells);
     }
 }

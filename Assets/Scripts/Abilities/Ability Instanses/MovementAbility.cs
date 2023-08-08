@@ -9,8 +9,25 @@ namespace FroguesFramework
         [SerializeField] private bool ignoreSmallUnits = false;
         [SerializeField] private bool ignoreSurfaces = false;
         private List<Cell> _currentPath = new List<Cell>();
+        private Cell _hashedFinishCell;
 
         public bool PathToMoveIsSelected => _currentPath.Count != 0;
+
+        public override void PrepareToUsing(List<Cell> cells)
+        {
+            CalculateUsingArea();
+            _hashedFinishCell = cells.GetLast();
+        }
+
+        public override int CalculateHashFunctionOfPrevisualisation()
+        {
+            int value = _usingArea.Count;
+
+            if(_hashedFinishCell != null)
+                value ^= _hashedFinishCell.coordinates.x ^ _hashedFinishCell.coordinates.y;
+
+            return value;
+        }
 
         public override List<Cell> CalculateUsingArea()
         {

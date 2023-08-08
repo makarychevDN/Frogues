@@ -98,8 +98,8 @@ namespace FroguesFramework
 
         private void IAbleToUseOnCellsAbilityInput(AreaTargetAbility cellsAbility)
         {
-            cellsAbility.CalculateUsingArea();
             var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
+            cellsAbility.PrepareToUsing(targetCells);
             var selectedCells = cellsAbility.SelectCells(targetCells);
 
             Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
@@ -109,7 +109,13 @@ namespace FroguesFramework
                 selectedCells = null;
             }
 
-            cellsAbility.VisualizePreUseOnCells(selectedCells);
+            if (_lastHashOfAbility != cellsAbility.CalculateHashFunctionOfPrevisualisation())
+            {
+                EntryPoint.Instance.DisableAllPrevisualization();
+                cellsAbility.VisualizePreUseOnCells(selectedCells);
+            }
+
+            _lastHashOfAbility = cellsAbility.CalculateHashFunctionOfPrevisualisation();
 
             if (!cellsAbility.PossibleToUseOnCells(selectedCells))
                 Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
