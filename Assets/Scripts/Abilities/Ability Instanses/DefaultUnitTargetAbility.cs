@@ -28,7 +28,6 @@ namespace FroguesFramework
             if(target == null) 
                 return false;
 
-            //CalculateUsingArea();
             return IsResoursePointsEnough() && _usingArea.Contains(target.CurrentCell);
         }
 
@@ -36,7 +35,6 @@ namespace FroguesFramework
         {
             _hashedTarget = target;
             CalculateUsingArea();
-            CalculateHashFunctionOfPrevisualisation();
         }
 
         public override void UseOnUnit(Unit target)
