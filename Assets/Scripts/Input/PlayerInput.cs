@@ -77,7 +77,10 @@ namespace FroguesFramework
             unitAbility.PrepareToUsing(targetUnit);
 
             if(_lastHashOfAbility != unitAbility.CalculateHashFunctionOfPrevisualisation())
+            {
+                EntryPoint.Instance.DisableAllPrevisualization();
                 unitAbility.VisualizePreUseOnUnit(targetUnit);
+            }
 
             _lastHashOfAbility = unitAbility.CalculateHashFunctionOfPrevisualisation();
 
