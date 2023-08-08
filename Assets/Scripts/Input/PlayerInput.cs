@@ -80,7 +80,6 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 unitAbility.VisualizePreUseOnUnit(targetUnit);
-                print("Redraw");
             }
 
             _lastHashOfAbility = unitAbility.CalculateHashFunctionOfPrevisualisation();
@@ -93,6 +92,7 @@ namespace FroguesFramework
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                EntryPoint.Instance.DisableAllPrevisualization();
                 unitAbility.UseOnUnit(targetUnit);
             }
         }
@@ -114,7 +114,6 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 cellsAbility.VisualizePreUseOnCells(selectedCells);
-                print("Redraw");
             }
 
             _lastHashOfAbility = cellsAbility.CalculateHashFunctionOfPrevisualisation();
@@ -128,6 +127,7 @@ namespace FroguesFramework
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                EntryPoint.Instance.DisableAllPrevisualization();
                 cellsAbility.UseOnCells(selectedCells);
             }
         }
@@ -144,7 +144,6 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 directedAbility.VisualizePreUseInDirection(cursorPosition);
-                print("Redraw");
             }
 
             _lastHashOfAbility = directedAbility.CalculateHashFunctionOfPrevisualisation();
@@ -160,6 +159,7 @@ namespace FroguesFramework
 
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                EntryPoint.Instance.DisableAllPrevisualization();
                 directedAbility.UseInDirection(cursorPosition);
             }
         }
@@ -183,6 +183,8 @@ namespace FroguesFramework
         {
             if (ability is IAbleToUseWithNoTarget)
             {
+                _lastHashOfAbility = 0;
+                EntryPoint.Instance.DisableAllPrevisualization();
                 (ability as IAbleToUseWithNoTarget).Use();
                 return;
             }
