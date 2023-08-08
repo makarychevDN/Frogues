@@ -15,6 +15,7 @@ namespace FroguesFramework
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
 
         private bool _isPrevisualizedNow;
+        private Unit _hashedTarget;
 
         private int DamageWithModificators => damageType == DamageType.physics
             ? (int)(damage * _owner.Stats.StrenghtModificator)
@@ -27,8 +28,15 @@ namespace FroguesFramework
             if(target == null) 
                 return false;
 
-            CalculateUsingArea();
+            //CalculateUsingArea();
             return IsResoursePointsEnough() && _usingArea.Contains(target.CurrentCell);
+        }
+
+        public override void PrepareToUsing(Unit target)
+        {
+            _hashedTarget = target;
+            CalculateUsingArea();
+            CalculateHashFunctionOfPrevisualisation();
         }
 
         public override void UseOnUnit(Unit target)
@@ -65,7 +73,7 @@ namespace FroguesFramework
         public override void VisualizePreUseOnUnit(Unit target)
         {
             _isPrevisualizedNow = true;
-            CalculateUsingArea();
+            //CalculateUsingArea();
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
 
             if(target!= null)
@@ -114,6 +122,16 @@ namespace FroguesFramework
         public bool IsPrevisualizedNow()
         {
             return _isPrevisualizedNow;
+        }
+
+        public override int CalculateHashFunctionOfPrevisualisation()
+        {
+            int value = _usingArea.Count;
+
+            if (_hashedTarget != null)
+                value ^= _hashedTarget.Coordinates.x ^ _hashedTarget.Coordinates.y ^ _hashedTarget.gameObject.name.GetHashCode();
+
+            return value;
         }
     }
 }

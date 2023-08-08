@@ -18,6 +18,7 @@ namespace FroguesFramework
         [SerializeField] private Texture2D attackIsNotPossibleCursorTexture;
         [SerializeField] private Texture2D inspectAbilityCursorTexture;
         private Unit _unit;
+        private int _lastHashOfAbility;
 
         public bool InputIsPossible => true;
 
@@ -73,8 +74,12 @@ namespace FroguesFramework
                 targetUnit = null;
             }
 
-            unitAbility.CalculateUsingArea();
-            unitAbility.VisualizePreUseOnUnit(targetUnit);
+            unitAbility.PrepareToUsing(targetUnit);
+
+            if(_lastHashOfAbility != unitAbility.CalculateHashFunctionOfPrevisualisation())
+                unitAbility.VisualizePreUseOnUnit(targetUnit);
+
+            _lastHashOfAbility = unitAbility.CalculateHashFunctionOfPrevisualisation();
 
             if (!unitAbility.PossibleToUseOnUnit(targetUnit))
                 Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);

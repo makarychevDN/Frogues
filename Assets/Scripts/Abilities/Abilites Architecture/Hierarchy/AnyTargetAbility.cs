@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public abstract class AnyTargetAbility : AbleToUseAbility, IAbleToCalculateUsingArea, IAbleToDisablePreVisualization
+    public abstract class AnyTargetAbility : AbleToUseAbility, IAbleToCalculateUsingArea, IAbleToDisablePreVisualization, IAbleToCalculateHashFunctionOfPrevisualisation
     {
         [SerializeField] protected bool needToRotateOwnersSprite = true;
 
@@ -27,5 +27,7 @@ namespace FroguesFramework
         {
             RemoveMySelfFromEntryPoint();
         }
+
+        public abstract int CalculateHashFunctionOfPrevisualisation();
     }
 }
