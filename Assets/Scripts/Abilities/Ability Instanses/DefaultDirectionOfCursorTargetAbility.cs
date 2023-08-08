@@ -14,6 +14,13 @@ namespace FroguesFramework
         [SerializeField] private bool includeCellsOutOfUsingArea;
         [SerializeField] private NearestHexDirectionToMouseFinder nearestHexDirectionToMouseFinder;
         private bool _isPrevisualizedNow;
+        private List<Cell> _hashedSelectedCells;
+
+        public override void PrepareToUsing(Vector3 cursorPosition)
+        {
+            CalculateUsingArea();
+            _hashedSelectedCells = SelectCells(cursorPosition);
+        }
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
 
@@ -87,5 +94,20 @@ namespace FroguesFramework
         public bool IsPrevisualizedNow() => _isPrevisualizedNow;
 
         public override void DisablePreVisualization() => _isPrevisualizedNow = false;
+
+        public override int CalculateHashFunctionOfPrevisualisation()
+        {
+            int value = _usingArea.Count;
+
+            if (_hashedSelectedCells != null && _hashedSelectedCells[0] != null)
+            {
+                for (int i = 0; i < _hashedSelectedCells.Count; i++)
+                {
+                    value ^= _hashedSelectedCells[i].GetHashCode();
+                }
+            }
+
+            return value;
+        }
     }
 }

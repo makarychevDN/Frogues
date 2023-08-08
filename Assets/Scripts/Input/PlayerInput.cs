@@ -80,6 +80,7 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 unitAbility.VisualizePreUseOnUnit(targetUnit);
+                print("Redraw");
             }
 
             _lastHashOfAbility = unitAbility.CalculateHashFunctionOfPrevisualisation();
@@ -113,6 +114,7 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 cellsAbility.VisualizePreUseOnCells(selectedCells);
+                print("Redraw");
             }
 
             _lastHashOfAbility = cellsAbility.CalculateHashFunctionOfPrevisualisation();
@@ -132,15 +134,20 @@ namespace FroguesFramework
 
         private void AbleToUseInDirectionAbilityInput(DirectionOfCursorTargetAbility directedAbility)
         {
-            //var targetUnit = CellsTaker.TakeUnitByMouseRaycast();
-
             Vector3 cursorPosition = Input.mousePosition;
 
             Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
 
+            directedAbility.PrepareToUsing(cursorPosition);
 
-            directedAbility.CalculateUsingArea();
-            directedAbility.VisualizePreUseInDirection(cursorPosition);
+            if(_lastHashOfAbility != directedAbility.CalculateHashFunctionOfPrevisualisation())
+            {
+                EntryPoint.Instance.DisableAllPrevisualization();
+                directedAbility.VisualizePreUseInDirection(cursorPosition);
+                print("Redraw");
+            }
+
+            _lastHashOfAbility = directedAbility.CalculateHashFunctionOfPrevisualisation();
 
             if (!directedAbility.PossibleToUseInDirection(cursorPosition))
                 Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
