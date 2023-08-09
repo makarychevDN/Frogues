@@ -94,6 +94,7 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 unitAbility.UseOnUnit(targetUnit);
+                _lastHashOfAbility = 0;
             }
         }
 
@@ -129,6 +130,7 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 cellsAbility.UseOnCells(selectedCells);
+                _lastHashOfAbility = 0;
             }
         }
 
@@ -161,6 +163,7 @@ namespace FroguesFramework
             {
                 EntryPoint.Instance.DisableAllPrevisualization();
                 directedAbility.UseInDirection(cursorPosition);
+                _lastHashOfAbility = 0;
             }
         }
 
@@ -178,7 +181,6 @@ namespace FroguesFramework
             currentAbility = movementAbility;
         }
 
-        //public void SetCurrentAbility(BaseAbility ability) => currentAbility = ability;
         public void SetCurrentAbility(BaseAbility ability)
         {
             if (ability is IAbleToUseWithNoTarget)
