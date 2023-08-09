@@ -77,7 +77,6 @@ namespace FroguesFramework
         public override void VisualizePreUseOnCells(List<Cell> cells)
         {
             _isPrevisualizedNow = true;
-            CalculateUsingArea();
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
 
             if (!PossibleToUseOnCells(cells))
