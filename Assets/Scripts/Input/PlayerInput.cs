@@ -1,7 +1,7 @@
-using FroguesFramework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 namespace FroguesFramework
 {
@@ -33,7 +33,7 @@ namespace FroguesFramework
                 currentAbility = movementAbility;
 
             var temporaryCurrentAbility = currentAbility;
-            if(currentAbility == movementAbility && nativeAttackAbility != null)
+            if (currentAbility == movementAbility && nativeAttackAbility != null)
             {
                 var target = CellsTaker.TakeCellOrUnitByMouseRaycast();
 
@@ -41,7 +41,7 @@ namespace FroguesFramework
                     temporaryCurrentAbility = nativeAttackAbility;
             }
 
-            if (temporaryCurrentAbility is IAbleToUseOnCells)
+            /*if (temporaryCurrentAbility is IAbleToUseOnCells)
             {
                 IAbleToUseOnCellsAbilityInput((AreaTargetAbility)temporaryCurrentAbility);
             }
@@ -54,13 +54,154 @@ namespace FroguesFramework
             if (temporaryCurrentAbility is IAbleToUseInDirectionOfCursorPosition)
             {
                 AbleToUseInDirectionAbilityInput((DirectionOfCursorTargetAbility)temporaryCurrentAbility);
-            }
+            }*/
+
+            UniversalAbilityInput(temporaryCurrentAbility);
 
             if (temporaryCurrentAbility == movementAbility)
                 Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
 
             if (temporaryCurrentAbility == inspectAbility)
                 Cursor.SetCursor(inspectAbilityCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+        }
+
+        private void UniversalAbilityInput(BaseAbility baseAbility)
+        {
+            var target = UniversalPrepareAbilityToUse(baseAbility);
+
+            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
+                print(target == null);
+
+            if (IsMouseOverUI)
+                ResetTarget(ref target);
+
+            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
+                print(target == null);
+
+            if (_lastHashOfAbility != (baseAbility as IAbleToCalculateHashFunctionOfPrevisualisation).CalculateHashFunctionOfPrevisualisation())
+                UniversalPrevisualization(baseAbility, target);
+            _lastHashOfAbility = (baseAbility as IAbleToCalculateHashFunctionOfPrevisualisation).CalculateHashFunctionOfPrevisualisation();
+
+            Cursor.SetCursor(
+                UniversalIsPossibleToUse(baseAbility, target) ? attackIsPossibleCursorTexture : attackIsNotPossibleCursorTexture, 
+                Vector2.zero, 
+                CursorMode.ForceSoftware);
+
+            if (IsMouseOverUI)
+            {
+                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+                return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                UniversalUseAbility(baseAbility, target);
+            }
+        }
+
+        private System.Object UniversalPrepareAbilityToUse(BaseAbility baseAbility)
+        {
+            if (baseAbility is IAbleToUseOnCells)
+            {
+                IAbleToUseOnCells cellsAbility = (IAbleToUseOnCells)baseAbility;
+                var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
+                cellsAbility.PrepareToUsing(targetCells);
+                return cellsAbility.SelectCells(targetCells);
+            }
+
+            if (baseAbility is IAbleToUseOnUnit)
+            {
+                IAbleToUseOnUnit unitAbility = (IAbleToUseOnUnit)baseAbility;
+                var target = CellsTaker.TakeUnitByMouseRaycast();
+                unitAbility.PrepareToUsing(target);
+                return target;
+            }
+
+            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
+            {
+                IAbleToUseInDirectionOfCursorPosition cursorAbility = (IAbleToUseInDirectionOfCursorPosition)baseAbility;
+                cursorAbility.PrepareToUsing(Input.mousePosition);
+                return Input.mousePosition;
+            }
+
+            return null;
+        }
+
+        private void ResetTarget(ref System.Object target)
+        {
+            if (target is not Vector3)
+            {
+                target = null;
+            }
+        }
+
+        private void UniversalPrevisualization(BaseAbility baseAbility, System.Object target)
+        {
+            EntryPoint.Instance.DisableAllPrevisualization();
+
+            if (baseAbility is IAbleToUseOnCells)
+            {
+                ((IAbleToUseOnCells)baseAbility).VisualizePreUseOnCells((List<Cell>)target);
+                return;
+            }
+
+            if (baseAbility is IAbleToUseOnUnit)
+            {
+                ((IAbleToUseOnUnit)baseAbility).VisualizePreUseOnUnit((Unit)target);
+                return;
+            }
+
+            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
+            {
+                ((IAbleToUseInDirectionOfCursorPosition)baseAbility).VisualizePreUseInDirection((Vector3)target);
+                return;
+            }
+        }
+
+        private bool UniversalIsPossibleToUse(BaseAbility baseAbility, System.Object target)
+        {
+            if (baseAbility is IAbleToUseOnCells)
+            {
+                return ((IAbleToUseOnCells)baseAbility).PossibleToUseOnCells((List<Cell>)target);
+            }
+
+            if (baseAbility is IAbleToUseOnUnit)
+            {
+                return ((IAbleToUseOnUnit)baseAbility).PossibleToUseOnUnit((Unit)target);
+            }
+
+            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
+            {
+                return ((IAbleToUseInDirectionOfCursorPosition)baseAbility).PossibleToUseInDirection((Vector3)target);
+            }
+
+            return false;
+        }
+
+        private void UniversalUseAbility(BaseAbility baseAbility, System.Object target)
+        {
+            EntryPoint.Instance.DisableAllPrevisualization();
+
+            if (baseAbility is IAbleToUseOnCells)
+            {
+                _lastHashOfAbility = 0;
+                ((IAbleToUseOnCells)baseAbility).UseOnCells((List<Cell>)target);
+                return;
+            }
+
+            if (baseAbility is IAbleToUseOnUnit)
+            {
+                _lastHashOfAbility = 0;
+                ((IAbleToUseOnUnit)baseAbility).UseOnUnit((Unit)target);
+                return;
+            }
+
+            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
+            {
+                _lastHashOfAbility = 0;
+                ((IAbleToUseInDirectionOfCursorPosition)baseAbility).UseInDirection((Vector3)target);
+                return;
+            }
         }
 
         private void AbleToUseOnUnitAbilityInput(UnitTargetAbility unitAbility)
@@ -121,7 +262,6 @@ namespace FroguesFramework
 
             if (!cellsAbility.PossibleToUseOnCells(selectedCells))
                 Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
 
             if (IsMouseOverUI)
                 Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
