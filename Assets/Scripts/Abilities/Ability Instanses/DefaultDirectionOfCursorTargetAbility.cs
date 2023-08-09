@@ -74,9 +74,7 @@ namespace FroguesFramework
         public override void VisualizePreUseInDirection(Vector3 cursorPosition)
         {
             _isPrevisualizedNow = true;
-
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
-
             var cells = SelectCells(cursorPosition);
 
             foreach (var cell in cells)
@@ -107,7 +105,7 @@ namespace FroguesFramework
                 }
             }
 
-            return value;
+            return value ^ GetHashCode();
         }
     }
 }

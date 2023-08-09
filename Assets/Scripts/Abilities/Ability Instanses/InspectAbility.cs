@@ -12,7 +12,7 @@ namespace FroguesFramework
             if(_hashedTarget != null)
                 hash ^= _hashedTarget.GetHashCode();
 
-            return hash;
+            return hash ^ GetHashCode();
         }
 
         public override List<Cell> CalculateUsingArea()

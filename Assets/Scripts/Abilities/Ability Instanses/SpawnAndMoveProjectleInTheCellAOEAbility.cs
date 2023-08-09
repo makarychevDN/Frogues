@@ -101,7 +101,7 @@ namespace FroguesFramework
             if (_hashedTargetCell != null)
                 value ^= _hashedTargetCell.GetHashCode();
 
-            return value;
+            return value ^ GetHashCode();
         }
     }
 }

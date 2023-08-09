@@ -26,7 +26,7 @@ namespace FroguesFramework
             if(_hashedFinishCell != null)
                 value ^= _hashedFinishCell.GetHashCode();
 
-            return value;
+            return value ^ GetHashCode();
         }
 
         public override List<Cell> CalculateUsingArea()

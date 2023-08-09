@@ -71,7 +71,6 @@ namespace FroguesFramework
         public override void VisualizePreUseOnUnit(Unit target)
         {
             _isPrevisualizedNow = true;
-            //CalculateUsingArea();
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
 
             if(target!= null)
@@ -129,7 +128,7 @@ namespace FroguesFramework
             if (_hashedTarget != null)
                 value ^= _hashedTarget.Coordinates.x ^ _hashedTarget.Coordinates.y ^ _hashedTarget.gameObject.name.GetHashCode();
 
-            return value;
+            return value ^ GetHashCode();
         }
     }
 }

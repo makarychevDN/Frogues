@@ -132,7 +132,7 @@ namespace FroguesFramework
                 }
             }
 
-            return value;
+            return value ^ GetHashCode();
         }
     }
 }
