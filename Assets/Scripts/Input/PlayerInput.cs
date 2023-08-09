@@ -41,21 +41,6 @@ namespace FroguesFramework
                     temporaryCurrentAbility = nativeAttackAbility;
             }
 
-            /*if (temporaryCurrentAbility is IAbleToUseOnCells)
-            {
-                IAbleToUseOnCellsAbilityInput((AreaTargetAbility)temporaryCurrentAbility);
-            }
-
-            if (temporaryCurrentAbility is IAbleToUseOnUnit)
-            {
-                AbleToUseOnUnitAbilityInput((UnitTargetAbility)temporaryCurrentAbility);
-            }
-
-            if (temporaryCurrentAbility is IAbleToUseInDirectionOfCursorPosition)
-            {
-                AbleToUseInDirectionAbilityInput((DirectionOfCursorTargetAbility)temporaryCurrentAbility);
-            }*/
-
             UniversalAbilityInput(temporaryCurrentAbility);
 
             if (temporaryCurrentAbility == movementAbility)
@@ -201,109 +186,6 @@ namespace FroguesFramework
                 _lastHashOfAbility = 0;
                 ((IAbleToUseInDirectionOfCursorPosition)baseAbility).UseInDirection((Vector3)target);
                 return;
-            }
-        }
-
-        private void AbleToUseOnUnitAbilityInput(UnitTargetAbility unitAbility)
-        {
-            var targetUnit = CellsTaker.TakeUnitByMouseRaycast();
-
-            Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            if (IsMouseOverUI)
-            {
-                targetUnit = null;
-            }
-
-            unitAbility.PrepareToUsing(targetUnit);
-
-            if(_lastHashOfAbility != unitAbility.CalculateHashFunctionOfPrevisualisation())
-            {
-                EntryPoint.Instance.DisableAllPrevisualization();
-                unitAbility.VisualizePreUseOnUnit(targetUnit);
-            }
-
-            _lastHashOfAbility = unitAbility.CalculateHashFunctionOfPrevisualisation();
-
-            if (!unitAbility.PossibleToUseOnUnit(targetUnit))
-                Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            if (IsMouseOverUI)
-                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                EntryPoint.Instance.DisableAllPrevisualization();
-                unitAbility.UseOnUnit(targetUnit);
-                _lastHashOfAbility = 0;
-            }
-        }
-
-        private void IAbleToUseOnCellsAbilityInput(AreaTargetAbility cellsAbility)
-        {
-            var targetCells = new List<Cell> { CellsTaker.TakeCellByMouseRaycast() };
-            cellsAbility.PrepareToUsing(targetCells);
-            var selectedCells = cellsAbility.SelectCells(targetCells);
-
-            Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            if (IsMouseOverUI)
-            {
-                selectedCells = null;
-            }
-
-            if (_lastHashOfAbility != cellsAbility.CalculateHashFunctionOfPrevisualisation())
-            {
-                EntryPoint.Instance.DisableAllPrevisualization();
-                cellsAbility.VisualizePreUseOnCells(selectedCells);
-            }
-
-            _lastHashOfAbility = cellsAbility.CalculateHashFunctionOfPrevisualisation();
-
-            if (!cellsAbility.PossibleToUseOnCells(selectedCells))
-                Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            if (IsMouseOverUI)
-                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                EntryPoint.Instance.DisableAllPrevisualization();
-                cellsAbility.UseOnCells(selectedCells);
-                _lastHashOfAbility = 0;
-            }
-        }
-
-        private void AbleToUseInDirectionAbilityInput(DirectionOfCursorTargetAbility directedAbility)
-        {
-            Vector3 cursorPosition = Input.mousePosition;
-
-            Cursor.SetCursor(attackIsPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            directedAbility.PrepareToUsing(cursorPosition);
-
-            if(_lastHashOfAbility != directedAbility.CalculateHashFunctionOfPrevisualisation())
-            {
-                EntryPoint.Instance.DisableAllPrevisualization();
-                directedAbility.VisualizePreUseInDirection(cursorPosition);
-            }
-
-            _lastHashOfAbility = directedAbility.CalculateHashFunctionOfPrevisualisation();
-
-            if (!directedAbility.PossibleToUseInDirection(cursorPosition))
-                Cursor.SetCursor(attackIsNotPossibleCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-
-            if (IsMouseOverUI)
-            {
-                Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
-                return;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                EntryPoint.Instance.DisableAllPrevisualization();
-                directedAbility.UseInDirection(cursorPosition);
-                _lastHashOfAbility = 0;
             }
         }
 
