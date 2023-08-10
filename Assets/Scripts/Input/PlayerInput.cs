@@ -54,14 +54,8 @@ namespace FroguesFramework
         {
             var target = UniversalPrepareAbilityToUse(baseAbility);
 
-            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
-                print(target == null);
-
             if (IsMouseOverUI)
                 ResetTarget(ref target);
-
-            if (baseAbility is IAbleToUseInDirectionOfCursorPosition)
-                print(target == null);
 
             if (_lastHashOfAbility != (baseAbility as IAbleToCalculateHashFunctionOfPrevisualisation).CalculateHashFunctionOfPrevisualisation())
                 UniversalPrevisualization(baseAbility, target);
