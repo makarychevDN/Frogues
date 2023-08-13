@@ -191,8 +191,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
   isPartOfWeapon: 0
-  actionPointsCost: 0
+  actionPointsCost: 1
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 0
   weaponIndex: -1
   timeBeforeImpact: 0
@@ -248,8 +252,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
   isPartOfWeapon: 0
-  actionPointsCost: 3
+  actionPointsCost: 1
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: 0
   timeBeforeImpact: 0.15
@@ -257,8 +265,10 @@ MonoBehaviour:
   delayBeforeImpactSound: 0.1
   impactSoundSource: {fileID: 2380007578627100151}
   needToRotateOwnersSprite: 1
-  damage: 8
+  damageType: 0
+  damage: 4
   radius: 1
+  isNativeAttack: 0
   lineFromOwnerToTarget: {fileID: 9219184774524211376}
 --- !u!82 &2380007578627100151
 AudioSource:
@@ -390,15 +400,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: maxHP
-      value: 20
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: currentHP
-      value: 20
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: permanentArmor
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
+      propertyPath: permanentBlock
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3645448770716902811, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -481,15 +495,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: currentPoints
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: maxPointsCount
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: pointsRegeneration
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

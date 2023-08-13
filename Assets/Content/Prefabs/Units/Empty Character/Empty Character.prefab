@@ -47,8 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 100
-  permanentArmor: 0
-  temporaryArmor: 0
+  permanentBlock: 0
+  temporaryBlock: 0
   OnApplyUnblockedDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -213,8 +213,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strenght: 0
   intelegence: 0
+  defence: 0
   strengtModificatorStep: 0.2
   intelegenceModificatorStep: 0.2
+  defenceModificatorStep: 0
 --- !u!1 &1092774737546061406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,9 +1388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745af59f9dc682d45babbf4774ced76c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPoints: 2
-  maxPointsCount: 2
-  pointsRegeneration: 2
+  currentPoints: 1
+  maxPointsCount: 1
+  pointsRegeneration: 1
   OnActionPointsEnded:
     m_PersistentCalls:
       m_Calls: []
@@ -1956,7 +1958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
   isPartOfWeapon: 0
-  actionPointsCost: 2
+  actionPointsCost: 1
   bloodPointsCost: 0
   cooldownAfterUse: 0
   cooldownAfterStart: 0

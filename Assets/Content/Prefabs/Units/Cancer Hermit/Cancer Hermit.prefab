@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
-  damage: 30
+  isPartOfWeapon: 0
+  damage: 15
 --- !u!1001 &8489658747191077436
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85,6 +86,10 @@ PrefabInstance:
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: permanentArmor
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
+      propertyPath: permanentBlock
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3645448770716902811, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -189,18 +194,6 @@ PrefabInstance:
     - target: {fileID: 7745381928869242089, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
-      propertyPath: currentPoints
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
-      propertyPath: maxPointsCount
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
-      propertyPath: pointsRegeneration
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8247025855277784814, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: <Small>k__BackingField

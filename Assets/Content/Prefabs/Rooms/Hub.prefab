@@ -312,8 +312,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 2671843683474482390}
   isPartOfWeapon: 1
-  actionPointsCost: 3
+  actionPointsCost: 2
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: -1
   timeBeforeImpact: 0.25
@@ -321,6 +325,7 @@ MonoBehaviour:
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 409580615296976454}
   needToRotateOwnersSprite: 1
+  damageType: 0
   damage: 15
   radius: 1
   isNativeAttack: 1
@@ -488,8 +493,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 2700886677742363825}
   isPartOfWeapon: 1
-  actionPointsCost: 3
+  actionPointsCost: 1
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: 1
   timeBeforeImpact: 0.25
@@ -497,7 +506,8 @@ MonoBehaviour:
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 6179450738361253341}
   needToRotateOwnersSprite: 1
-  damage: 15
+  damageType: 0
+  damage: 7
   radius: 1
   isNativeAttack: 1
   lineFromOwnerToTarget: {fileID: 1919171175}
@@ -748,13 +758,17 @@ MonoBehaviour:
   isPartOfWeapon: 1
   actionPointsCost: 2
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 0
   weaponIndex: -1
   timeBeforeImpact: 0
   fullAnimationTime: 0
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
-  blockValue: 15
+  blockValue: 8
 --- !u!114 &3366648924077706381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1232,8 +1246,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 7661061891954001234}
   isPartOfWeapon: 1
-  actionPointsCost: 4
+  actionPointsCost: 2
   bloodPointsCost: 0
+  cooldownAfterUse: 4
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: 2
   timeBeforeImpact: 0.25
@@ -1241,6 +1259,7 @@ MonoBehaviour:
   delayBeforeImpactSound: 0.15
   impactSoundSource: {fileID: 2783479104266033006}
   needToRotateOwnersSprite: 1
+  damageType: 0
   damage: 15
   usingRadius: 1
   effectRadius: 1
@@ -1409,13 +1428,17 @@ MonoBehaviour:
   isPartOfWeapon: 1
   actionPointsCost: 2
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 0
   weaponIndex: -1
   timeBeforeImpact: 0
   fullAnimationTime: 0
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
-  blockValue: 15
+  blockValue: 8
 --- !u!114 &257303029948584550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1785,13 +1808,17 @@ MonoBehaviour:
   isPartOfWeapon: 1
   actionPointsCost: 2
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 0
   weaponIndex: -1
   timeBeforeImpact: 0
   fullAnimationTime: 0
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
-  blockValue: 25
+  blockValue: 8
 --- !u!114 &8238629139510886040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2468,8 +2495,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 62513605557544077}
   isPartOfWeapon: 1
-  actionPointsCost: 3
+  actionPointsCost: 2
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: 3
   timeBeforeImpact: 0.25
@@ -2477,7 +2508,8 @@ MonoBehaviour:
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 2713689614575401638}
   needToRotateOwnersSprite: 1
-  damage: 15
+  damageType: 0
+  damage: 10
   radius: 2
   isNativeAttack: 1
   lineFromOwnerToTarget: {fileID: 4494756150036510608}

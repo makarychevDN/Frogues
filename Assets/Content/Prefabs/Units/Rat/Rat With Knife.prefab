@@ -49,8 +49,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 4576512235939558098}
   isPartOfWeapon: 0
-  actionPointsCost: 3
+  actionPointsCost: 1
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: 3
   timeBeforeImpact: 0.15
@@ -58,8 +62,10 @@ MonoBehaviour:
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 4053704896009409152}
   needToRotateOwnersSprite: 1
-  damage: 10
+  damageType: 0
+  damage: 5
   radius: 1
+  isNativeAttack: 1
   lineFromOwnerToTarget: {fileID: 4092757398978962738}
 --- !u!114 &4576512235939558098
 MonoBehaviour:
@@ -474,11 +480,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: maxHP
-      value: 24
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: currentHP
-      value: 24
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3645448770716902811, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -554,15 +560,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: currentPoints
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: maxPointsCount
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: pointsRegeneration
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

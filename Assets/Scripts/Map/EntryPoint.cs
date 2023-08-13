@@ -59,7 +59,7 @@ public class EntryPoint : MonoBehaviour
         _currentRoom.Deactivate();
         _currentRoom = newRoom;
         _currentRoom.Init(_metaPlayer);
-        _metaPlayer.ActionPoints.SetPoints(8);
+        _metaPlayer.ActionPoints.SetPoints(4);
         _metaPlayer.Health.TakeHealing(33);
         waveSpawner.ResetRoundsTimer();
         waveSpawner.SpawnPreWave();

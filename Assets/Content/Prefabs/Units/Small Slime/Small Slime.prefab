@@ -48,8 +48,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
   isPartOfWeapon: 0
-  actionPointsCost: 3
+  actionPointsCost: 1
   bloodPointsCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 1
   weaponIndex: -1
   timeBeforeImpact: 0.15
@@ -57,8 +61,10 @@ MonoBehaviour:
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 2344475560507474899}
   needToRotateOwnersSprite: 1
+  damageType: 0
   damage: 5
   radius: 1
+  isNativeAttack: 0
   lineFromOwnerToTarget: {fileID: 4749301288272192208}
 --- !u!82 &2344475560507474899
 AudioSource:
@@ -343,11 +349,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: maxHP
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: currentHP
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3645448770716902811, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -416,15 +422,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: currentPoints
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: maxPointsCount
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7990232961812134143, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: pointsRegeneration
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8247025855277784814, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: <Small>k__BackingField
