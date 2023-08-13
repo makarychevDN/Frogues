@@ -13,6 +13,7 @@ namespace FroguesFramework
         {
             areaTargetAbility.CalculateUsingArea();
             var targetCellToList = new List<Cell> { _target.CurrentCell };
+            areaTargetAbility.PrepareToUsing(targetCellToList);
             var selectedCells = areaTargetAbility.SelectCells(targetCellToList);
 
 

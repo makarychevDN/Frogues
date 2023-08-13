@@ -10,6 +10,7 @@ namespace FroguesFramework
 
         public void Act()
         {
+            unitTargetAbilty.PrepareToUsing(target);
             if (unitTargetAbilty.PossibleToUseOnUnit(target))
             {
                 unitTargetAbilty.UseOnUnit(target);
