@@ -26,6 +26,7 @@ namespace FroguesFramework
         WeaponlessIndex = 0,
         ShieldIndex = 1,
         SwordIndex = 2,
-        SpearIndex = 3
+        SpearIndex = 3,
+        KnifeIndex = 4
     }
 }
