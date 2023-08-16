@@ -24,7 +24,7 @@ namespace FroguesFramework
             int value = _usingArea.Count;
 
             if(_hashedFinishCell != null)
-                value ^= _hashedFinishCell.GetHashCode();
+                value ^= _hashedFinishCell.GetHashCode() ^ _hashedFinishCell.IsEmpty.ToInt();
 
             return value ^ GetHashCode();
         }
