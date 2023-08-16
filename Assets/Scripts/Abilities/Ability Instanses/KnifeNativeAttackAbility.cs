@@ -25,9 +25,7 @@ namespace FroguesFramework
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
-            yield return new WaitForSeconds(time);
-            target.Health.TakeDamage(CalculateDamage, _nextAttackIsCritical);
-            TurnOffCriticalMode();
+            return base.ApplyEffect(time, target);
         }
 
         protected override int CalculateDamage => damageType == DamageType.physics
@@ -36,7 +34,16 @@ namespace FroguesFramework
 
         private int GetDamageValue() => _nextAttackIsCritical ? critDamage : damage;
 
-        private void TurnOnCriticalMode() => _nextAttackIsCritical = true;
-        private void TurnOffCriticalMode() => _nextAttackIsCritical = false;
+        private void TurnOnCriticalMode()
+        {
+            _nextAttackIsCritical = true;
+            ignoreArmor = true;
+        }
+
+        private void TurnOffCriticalMode()
+        {
+            _nextAttackIsCritical = false;
+            ignoreArmor = false;
+        }
     }
 }

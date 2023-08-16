@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] protected int damage;
         [SerializeField] protected int radius;
         [SerializeField] protected bool isNativeAttack;
+        [SerializeField] protected bool ignoreArmor;
 
         [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
@@ -57,7 +58,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
-            target.Health.TakeDamage(CalculateDamage);
+            target.Health.TakeDamage(CalculateDamage, ignoreArmor);
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
@@ -79,7 +80,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnUnit(target))
                 return;
 
-            target.Health.PreTakeDamage(CalculateDamage);
+            target.Health.PreTakeDamage(CalculateDamage, ignoreArmor);
             _owner.ActionPoints.PreSpendPoints(actionPointsCost);
             _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
             lineFromOwnerToTarget.gameObject.SetActive(true);
