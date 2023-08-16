@@ -6,7 +6,7 @@ namespace FroguesFramework
 {
     public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized
     {
-        [SerializeField] private DamageType damageType;
+        [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
         [SerializeField] protected int radius;
         [SerializeField] protected bool isNativeAttack;
@@ -17,7 +17,7 @@ namespace FroguesFramework
         private bool _isPrevisualizedNow;
         private Unit _hashedTarget;
 
-        private int DamageWithModificators => damageType == DamageType.physics
+        protected virtual int CalculateDamage => damageType == DamageType.physics
             ? (int)(damage * _owner.Stats.StrenghtModificator)
             : (int)(damage * _owner.Stats.IntelegenceModificator);
 
@@ -57,7 +57,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
-            target.Health.TakeDamage(DamageWithModificators);
+            target.Health.TakeDamage(CalculateDamage);
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
@@ -79,7 +79,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnUnit(target))
                 return;
 
-            target.Health.PreTakeDamage(DamageWithModificators);
+            target.Health.PreTakeDamage(CalculateDamage);
             _owner.ActionPoints.PreSpendPoints(actionPointsCost);
             _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
             lineFromOwnerToTarget.gameObject.SetActive(true);
