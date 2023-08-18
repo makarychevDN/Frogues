@@ -8,6 +8,7 @@ namespace FroguesFramework
     {
         [SerializeField] private Slider hpSlider;
         [SerializeField] private Slider armorSlider;
+        [SerializeField] private Slider emptyHPSlider;
         [SerializeField] private Slider preTakenDamageHPSlider;
         [SerializeField] private Slider preTakenDamageArmorSlider;
         [SerializeField] private Health health;
@@ -15,24 +16,23 @@ namespace FroguesFramework
 
         public void Update()
         {
-            hpSlider.maxValue = health.MaxHp + health.Block;
-            armorSlider.maxValue = health.MaxHp + health.Block;
-            preTakenDamageHPSlider.maxValue = health.MaxHp + health.Block;
-            preTakenDamageArmorSlider.maxValue = health.MaxHp + health.Block;
+            int maxSlidersValue = health.MaxHp + health.Block;
+            hpSlider.maxValue = maxSlidersValue;
+            armorSlider.maxValue = maxSlidersValue;
+            emptyHPSlider.maxValue = maxSlidersValue;
+            preTakenDamageHPSlider.maxValue = maxSlidersValue;
+            preTakenDamageArmorSlider.maxValue = maxSlidersValue;
             
             hpSlider.value = health.HealthWithPreTakenDamage;
-            armorSlider.value = health.ArmorWithPreTakenDamage;
             preTakenDamageHPSlider.value = health.CurrentHp;
-            preTakenDamageArmorSlider.value = health.Block;
+            emptyHPSlider.value = health.MaxHp;
+            armorSlider.value = health.ArmorWithPreTakenDamage + health.MaxHp;
+            preTakenDamageArmorSlider.value = health.Block + health.MaxHp;
 
             if (textField == null)
                 return;
 
-            string text = (health.CurrentHp + health.Block).ToString();
-
-            //if (health.Armor != 0)
-                //text += $"   <#aac0cd>{health.Armor}</color>";
-            
+            string text = (health.CurrentHp + health.Block).ToString();            
             textField.text = text;
         }
     }
