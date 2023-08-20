@@ -15,8 +15,8 @@ namespace FroguesFramework
     public enum AbilityAnimatorTriggers
     {
         Attack = 1, 
-        DirectlyCast = 2,
-        NotDirectlyCast = 3,
+        DirectCast = 2,
+        UndirectCast = 3,
         Kick = 4
     }
 
