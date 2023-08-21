@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class KnifeNativeAttackAbility : DefaultUnitTargetAbility
+    public class KnifeNativeAttackAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton
     {
         [SerializeField] private int critDamage;
         private bool _nextAttackIsCritical;
+        private UnityEvent<bool> _nextAttackIsCriticalStateEvent = new UnityEvent<bool>();
 
         public override void Init(Unit unit)
         {
@@ -25,6 +27,7 @@ namespace FroguesFramework
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
+            TurnOffCriticalMode();
             return base.ApplyEffect(time, target);
         }
 
@@ -36,14 +39,18 @@ namespace FroguesFramework
 
         private void TurnOnCriticalMode()
         {
+            _nextAttackIsCriticalStateEvent.Invoke(true);
             _nextAttackIsCritical = true;
             ignoreArmor = true;
         }
 
         private void TurnOffCriticalMode()
         {
+            _nextAttackIsCriticalStateEvent.Invoke(false);
             _nextAttackIsCritical = false;
             ignoreArmor = false;
         }
+
+        public UnityEvent<bool> GetHighlightEvent() => _nextAttackIsCriticalStateEvent;
     }
 }

@@ -12,11 +12,9 @@ namespace FroguesFramework
         [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private TMP_Text cooldownCounterField;
 
-        private bool _dragNow;
         private float maxDistanceToClamp = 64;
         private BaseAbility _ability;
         private AbilitiesPanel _abilitiesPanel;
-        private bool _chosen;
         private Transform _currentButtonSlot;
         private bool _draggingNow;
         private bool _myAbilityIsAbleToReturnIsPrevisualized;
@@ -54,7 +52,17 @@ namespace FroguesFramework
             else
                 _currentButtonSlot = abilitiesPanel.LastEmptySlot();
 
+            if(ability is IAbleToHighlightAbilityButton)
+            {
+                ((IAbleToHighlightAbilityButton)ability).GetHighlightEvent().AddListener(EnableHighlight);
+            }
+
             Init(ability);
+        }
+
+        private void EnableHighlight(bool value)
+        {
+            image.material.SetInt("_NeedToHighlight", value.ToInt());
         }
 
         public void PickAbility()
