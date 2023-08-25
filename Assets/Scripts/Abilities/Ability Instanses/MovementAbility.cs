@@ -96,8 +96,6 @@ namespace FroguesFramework
 
         private void Update()
         {
-            print(_hashedFinishCell);
-
             if (!CurrentlyActiveObjects.SomethingIsActNow && PathToMoveIsSelected)
             {
                 if (!_owner.Movable.IsPossibleToMoveOnCell(_currentPath[0]))
