@@ -116,11 +116,6 @@ namespace FroguesFramework
             RemoveMySelfFromEntryPoint();
         }
 
-        private void Update()
-        {
-            print(_preTakenCurrentPoints + gameObject.name + GetComponentInParent<Unit>().gameObject.name);
-        }
-
         public int CalculateHashFunctionOfPrevisualisation()
         {
             return maxPointsCount ^ currentPoints ^ _preTakenCurrentPoints;
