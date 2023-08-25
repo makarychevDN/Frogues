@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class AbilityResourcePoints : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization
+    public class AbilityResourcePoints : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization, IAbleToCalculateHashFunctionOfPrevisualisation
     {
         [SerializeField] private int currentPoints;
         [SerializeField] private int maxPointsCount;
@@ -11,7 +11,8 @@ namespace FroguesFramework
         private int _preTakenCurrentPoints;
         private bool _isEnemy;
 
-        public UnityEvent OnActionPointsEnded;
+        public UnityEvent OnPointsEnded;
+        public UnityEvent OnPointsRegenerated;
 
         public void Init(Unit unit)
         {
@@ -23,6 +24,8 @@ namespace FroguesFramework
         {
             currentPoints += pointsRegeneration;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
+            _preTakenCurrentPoints = currentPoints;
+            OnPointsRegenerated.Invoke();
         }
 
         #region GetSet
@@ -32,7 +35,7 @@ namespace FroguesFramework
             get => maxPointsCount;
         }
         
-        public int CurrentActionPoints
+        public int CurrentPoints
         {
             get => currentPoints;
         }
@@ -44,7 +47,7 @@ namespace FroguesFramework
         
         #endregion
         
-        public int RegenActionPoints
+        public int PointsRegeneration
         {
             get => pointsRegeneration;
         }
@@ -70,7 +73,7 @@ namespace FroguesFramework
             CalculateCost(ref currentPoints, cost);
 
             if (currentPoints <= 0)
-                OnActionPointsEnded.Invoke();
+                OnPointsEnded.Invoke();
         }
         
         public void PreSpendPoints(int preCost)
@@ -113,5 +116,14 @@ namespace FroguesFramework
             RemoveMySelfFromEntryPoint();
         }
 
+        private void Update()
+        {
+            print(_preTakenCurrentPoints + gameObject.name + GetComponentInParent<Unit>().gameObject.name);
+        }
+
+        public int CalculateHashFunctionOfPrevisualisation()
+        {
+            return maxPointsCount ^ currentPoints ^ _preTakenCurrentPoints;
+        }
     }
 }

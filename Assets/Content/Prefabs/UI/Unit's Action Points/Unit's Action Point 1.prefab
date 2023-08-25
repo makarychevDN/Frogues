@@ -193,8 +193,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7328021929205867162}
   - component: {fileID: 4708960516127510596}
-  - component: {fileID: 5171469399555901924}
   - component: {fileID: 5083002054579827795}
+  - component: {fileID: 5171469399555901924}
   m_Layer: 5
   m_Name: Unit's Action Point 1
   m_TagString: Untagged
@@ -235,6 +235,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8302906405357406573}
   m_CullTransparentMesh: 1
+--- !u!114 &5083002054579827795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8302906405357406573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af0780ef77bec4642bf3292a5d367c82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fullResourcePointIcon: {fileID: 3861751502822400116}
+  preCostedResourcePoint: {fileID: 4897171273468150047}
+  emptyResourcePoint: {fileID: 4897171273468150047}
+  notEnoughResourcePointsIcon: {fileID: 4897171273468150047}
+  animator: {fileID: 5171469399555901924}
 --- !u!95 &5171469399555901924
 Animator:
   serializedVersion: 5
@@ -255,22 +272,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &5083002054579827795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8302906405357406573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af0780ef77bec4642bf3292a5d367c82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fullResourcePointIcon: {fileID: 3861751502822400116}
-  preCostedResourcePoint: {fileID: 4897171273468150047}
-  emptyResourcePoint: {fileID: 4897171273468150047}
-  notEnoughResourcePointsIcon: {fileID: 4897171273468150047}
 --- !u!1 &8307643561311773069
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,7 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.88235295, g: 0.9254902, b: 0.9490196, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

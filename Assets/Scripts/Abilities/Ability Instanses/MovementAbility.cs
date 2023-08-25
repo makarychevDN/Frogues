@@ -32,7 +32,7 @@ namespace FroguesFramework
         public override List<Cell> CalculateUsingArea()
         {
             _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
-            _owner.ActionPoints.CurrentActionPoints,
+            _owner.ActionPoints.CurrentPoints,
                 actionPointsCost, false, true, true);
             return _usingArea;
         }
@@ -96,6 +96,8 @@ namespace FroguesFramework
 
         private void Update()
         {
+            print(_hashedFinishCell);
+
             if (!CurrentlyActiveObjects.SomethingIsActNow && PathToMoveIsSelected)
             {
                 if (!_owner.Movable.IsPossibleToMoveOnCell(_currentPath[0]))

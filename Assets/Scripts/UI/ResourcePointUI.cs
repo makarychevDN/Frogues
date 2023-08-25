@@ -9,6 +9,7 @@ namespace FroguesFramework
         [SerializeField] private GameObject preCostedResourcePoint;
         [SerializeField] private GameObject emptyResourcePoint;
         [SerializeField] private GameObject notEnoughResourcePointsIcon;
+        [SerializeField] private Animator animator;
         private List<GameObject> allIcons;
 
         private void Start()
@@ -30,26 +31,35 @@ namespace FroguesFramework
 
         public void EnableFullIcon()
         {
-            DisableAllIcons();
-            fullResourcePointIcon.SetActive(true);
+            if (animator != null)
+                animator.SetBool("Full", true);
         }
 
         public void EnablePreCostIcon()
         {
-            DisableAllIcons();
-            preCostedResourcePoint.SetActive(true);
+            if (animator != null)
+            {
+                animator.SetBool("PreCost", true);
+                animator.SetTrigger("ResetPreCostBlinking");
+            }
+        }
+
+        public void DisablePreCostIcon()
+        {
+            if (animator != null)
+                animator.SetBool("PreCost", false);
         }
 
         public void EnableEmptyIcon()
         {
-            DisableAllIcons();
-            emptyResourcePoint.SetActive(true);
+            if (animator != null)
+                animator.SetBool("Full", false);
         }
 
-        public void EnableNotEnoughPointsIcon()
+        public void Regen()
         {
-            DisableAllIcons();
-            notEnoughResourcePointsIcon.SetActive(true);
+            if(animator != null)
+                animator.SetTrigger("Regen");
         }
 
         private void DisableAllIcons() => allIcons?.ForEach(icon => icon.SetActive(false));
