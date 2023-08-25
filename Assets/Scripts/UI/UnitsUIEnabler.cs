@@ -1,15 +1,20 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
 {
+    [RequireComponent(typeof(Canvas))]
     public class UnitsUIEnabler : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> uiObjects;
+        private Canvas canvas;
+
+        private void Awake()
+        {
+            canvas = GetComponent<Canvas>();
+        }
 
         private void Update()
         {
-            uiObjects.ForEach(uiObject => uiObject.SetActive(EntryPoint.Instance.NeedToShowUnitsUI));
+            canvas.enabled = EntryPoint.Instance.NeedToShowUnitsUI;
         }
     }
 }
