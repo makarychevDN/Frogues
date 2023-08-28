@@ -8,11 +8,14 @@ namespace FroguesFramework
     {
         [SerializeField] private AbilitiesManager abilitiesManager;
         [SerializeField] private AbilityButton abilityButtonPrefab;
-        [SerializeField] private List<Transform> abilitySlots;
+        [SerializeField] private GameObject singleAbilityCellPrefab;
+        [SerializeField] private GameObject topPanel;
+        [SerializeField] private List<Transform> activeAbilitySlots;
+        [SerializeField] private List<Transform> passiveAbilitySlots;
 
         public AbilitiesManager AbilitiesManager => abilitiesManager;
-
-        public List<Transform> AbilitySlots => abilitySlots;
+        public List<Transform> ActiveAbilitySlots => activeAbilitySlots;
+        public List<Transform> PassiveAbilitySlots => passiveAbilitySlots;
 
         public void Init()
         {
@@ -33,7 +36,7 @@ namespace FroguesFramework
 
         private void RemoveAbilityButton(BaseAbility ability)
         {
-            foreach (var abilitySlot in abilitySlots)
+            foreach (var abilitySlot in activeAbilitySlots)
             {
                 var button = abilitySlot.GetComponentInChildren<AbilityButton>();
                 
@@ -47,12 +50,21 @@ namespace FroguesFramework
 
         public Transform FirstEmptySlot()
         {
-            return abilitySlots.First(slot => slot.childCount == 0);
+            return activeAbilitySlots.First(slot => slot.childCount == 0);
         }
 
         public Transform LastEmptySlot()
         {
-            return abilitySlots.Last(slot => slot.childCount == 0);
+            return activeAbilitySlots.Last(slot => slot.childCount == 0);
+        }
+
+        public Transform AddTopAbilitySlot()
+        {
+            var singleCell = Instantiate(singleAbilityCellPrefab, topPanel.transform);
+            //singleCell.transform.localScale = Vector3.one * 2;
+            passiveAbilitySlots.Add(singleCell.transform);
+
+            return singleCell.transform;
         }
     }
 }

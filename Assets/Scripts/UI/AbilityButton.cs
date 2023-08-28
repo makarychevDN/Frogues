@@ -35,22 +35,30 @@ namespace FroguesFramework
 
             abilityHint.Init(ability.GetAbilityDataForButton().AbilityName,
                 ability.GetAbilityDataForButton().Stats,
-                ability.GetAbilityDataForButton().Description);
+                ability.GetAbilityDataForButton().Description,
+                ability is PassiveAbility);
             abilityHint.EnableContent(false);
 
             _myAbilityIsAbleToReturnIsPrevisualized = _ability is IAbleToReturnIsPrevisualized;
             _myAbilityIsAbleToHaveCooldown = _ability is IAbleToHaveCooldown;
             _myAbilityIsAbleToCost = _ability is IAbleToCost;
-            _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
+
+            if(_myAbilityIsAbleToHaveCooldown)
+                _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
         }
 
         public void Init(AbilitiesPanel abilitiesPanel, BaseAbility ability)
         {
             _abilitiesPanel = abilitiesPanel;
-            if (ability.GetComponent<MarkToAddAbilityInTheEndOfAbilitesPanel>() == null)
-                _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
+
+            if(ability is PassiveAbility)
+            {
+                _currentButtonSlot = abilitiesPanel.AddTopAbilitySlot();
+            }
             else
-                _currentButtonSlot = abilitiesPanel.LastEmptySlot();
+            {
+                _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
+            }
 
             if(ability is IAbleToHighlightAbilityButton)
             {
@@ -67,7 +75,7 @@ namespace FroguesFramework
 
         public void PickAbility()
         {
-            if(_draggingNow)
+            if(_draggingNow || _ability is not AbleToUseAbility)
                 return;
             
             if (_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability)
@@ -90,7 +98,7 @@ namespace FroguesFramework
         public void OnBeginDrag(PointerEventData eventData)
         {
             _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
-            transform.parent = _currentButtonSlot.parent;
+            transform.parent = _currentButtonSlot.parent.parent;
             _draggingNow = true;
         }
 
@@ -105,7 +113,8 @@ namespace FroguesFramework
             
             var closestSlot = _currentButtonSlot;
 
-            foreach (var temp in _abilitiesPanel.AbilitySlots)
+            var abilitiesSlots = _ability is PassiveAbility ? _abilitiesPanel.PassiveAbilitySlots : _abilitiesPanel.ActiveAbilitySlots;
+            foreach (var temp in abilitiesSlots)
             {
                 if (Vector3.Distance(closestSlot.transform.position, transform.position) >
                     Vector3.Distance(temp.transform.position, transform.position))
