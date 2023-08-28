@@ -12,7 +12,19 @@ namespace FroguesFramework
         [SerializeField] private StatVisualizationSegment defenceSegment;
         [SerializeField] private StatVisualizationSegment spikesSegment;
 
+        private int lastStatsHash;
+
         void Update()
+        {
+            if(lastStatsHash != stats.CalculateHashFunctionOfPrevisualisation()) 
+            {
+                RedrawIcons();
+            }
+
+            lastStatsHash = stats.CalculateHashFunctionOfPrevisualisation();
+        }
+
+        private void RedrawIcons()
         {
             strenghtSegment.gameObject.SetActive(stats.Strenght != 0);
             strenghtSegment.SetValue(stats.Strenght);

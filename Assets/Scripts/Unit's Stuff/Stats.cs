@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class Stats : MonoBehaviour
+    public class Stats : MonoBehaviour, IAbleToCalculateHashFunctionOfPrevisualisation
     {
         [SerializeField] private int strenght;
         [SerializeField] private int intelegence;
@@ -24,5 +24,7 @@ namespace FroguesFramework
         public float IntelegenceModificator => (1 + intelegence * intelegenceModificatorStep);
         public float DexterityeModificator => (1 + dexterity * dexterityModificatorStep);
         public float DefenceModificator => (1 + defence * defenceModificatorStep);
+
+        public int CalculateHashFunctionOfPrevisualisation() => strenght ^ intelegence ^ dexterity ^ defence ^ spikes;
     }
 }
