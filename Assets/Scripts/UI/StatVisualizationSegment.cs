@@ -14,11 +14,13 @@ namespace FroguesFramework
 
         [SerializeField] private GameObject effectIcon;
 
-        private Color statIncresedColor = new Color(123, 140, 27);
-        private Color statDecreasedColor = new Color(140, 81, 27);
+        private Color statIncresedColor;
+        private Color statDecreasedColor;
 
         private void Awake()
         {
+            ColorUtility.TryParseHtmlString("#7B8C1B", out statIncresedColor);
+            ColorUtility.TryParseHtmlString("#8C511B", out statDecreasedColor);
             upArrow.GetComponent<Image>().color = statIncresedColor;
             downArrow.GetComponent<Image>().color = statDecreasedColor;
         }
@@ -31,22 +33,25 @@ namespace FroguesFramework
             upArrow.SetActive(!valueIsNegative);
             downArrow.SetActive(valueIsNegative);
 
-            var firstDigit = value % 10;
-            firstDigits[firstDigit].GetComponent<Image>().color = valueIsNegative ? statDecreasedColor : statIncresedColor;
+            Color currentColor = valueIsNegative ? statDecreasedColor : statIncresedColor;
+
+            var firstDigit = Mathf.Abs(value % 10);
+            firstDigits[firstDigit].GetComponent<Image>().color = currentColor;
             for (int i = 0; i < firstDigits.Length; i++)
             {
                 firstDigits[i].SetActive(firstDigit == i);
+                firstDigits[i].GetComponent<Image>().color = currentColor;
             }
 
-            if (value < 10)
+            if (Mathf.Abs(value) < 10)
                 return;
 
             secondDigitsParents.SetActive(true);
-            var secondDigit = value / 10;
-            firstDigits[firstDigit].GetComponent<Image>().color = valueIsNegative ? statDecreasedColor : statIncresedColor;
+            var secondDigit = Mathf.Abs(value / 10);
+            secondDigits[firstDigit].GetComponent<Image>().color = currentColor;
             for (int i = 0; i < secondDigits.Length; i++)
             {
-                firstDigits[i].SetActive(secondDigit == i);
+                secondDigits[i].SetActive(secondDigit == i);
             }
         }
     }
