@@ -158,7 +158,7 @@ namespace FroguesFramework
             _unit.AbleToDie.DieWithoutAnimation();
         }
 
-        public void TickBeforePlayerTurn()
+        public void TickAfterEnemiesTurn()
         {
             if(_unit.IsEnemy)
                 return;
@@ -167,7 +167,7 @@ namespace FroguesFramework
             _hashedBlock = Block;
         }
 
-        public void TickBeforeEnemiesTurn()
+        public void TickAfterPlayerTurn()
         {
             if(!_unit.IsEnemy)
                 return;

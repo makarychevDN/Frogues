@@ -9,9 +9,9 @@ namespace FroguesFramework
         public void RoundTick()
         {
             if(triggerBeforePlayer)
-                FindObjectsOfType<MonoBehaviour>().OfType<IRoundTickable>().ToList().ForEach(x => x.TickBeforePlayerTurn());
+                FindObjectsOfType<MonoBehaviour>().OfType<IRoundTickable>().ToList().ForEach(x => x.TickAfterEnemiesTurn());
             else
-                FindObjectsOfType<MonoBehaviour>().OfType<IRoundTickable>().ToList().ForEach(x => x.TickBeforeEnemiesTurn());
+                FindObjectsOfType<MonoBehaviour>().OfType<IRoundTickable>().ToList().ForEach(x => x.TickAfterPlayerTurn());
         }
     }
 }

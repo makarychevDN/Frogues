@@ -12,7 +12,7 @@ namespace FroguesFramework
         
         public void ResetRoundsTimer() => _roundsCounter = 0;
 
-        public void TickBeforePlayerTurn()
+        public void TickAfterEnemiesTurn()
         {
             if (EntryPoint.Instance.CurrentRoomIsHub || EntryPoint.Instance.ExitActivated)
                 return;
@@ -45,7 +45,7 @@ namespace FroguesFramework
             }
         }
 
-        public void TickBeforeEnemiesTurn()
+        public void TickAfterPlayerTurn()
         {
             //do nothing
         }

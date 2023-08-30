@@ -88,13 +88,13 @@ namespace FroguesFramework
 
         public bool Full => currentPoints >= maxPointsCount;
 
-        public void TickBeforePlayerTurn()
+        public void TickAfterEnemiesTurn()
         { 
             if (_isEnemy)
                 RegeneratePoints();
         }
         
-        public void TickBeforeEnemiesTurn()
+        public void TickAfterPlayerTurn()
         {
             if (!_isEnemy)
                 RegeneratePoints();

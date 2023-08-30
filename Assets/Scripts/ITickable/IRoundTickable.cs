@@ -2,8 +2,8 @@ namespace FroguesFramework
 {
     public interface IRoundTickable
     {
-        public void TickBeforePlayerTurn();
+        public void TickAfterEnemiesTurn();
         
-        public void TickBeforeEnemiesTurn();
+        public void TickAfterPlayerTurn();
     }
 }
