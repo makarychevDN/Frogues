@@ -46,6 +46,17 @@ namespace FroguesFramework
                 DestroyImmediate(button.gameObject);
                 return;
             }
+
+            foreach (var abilitySlot in passiveAbilitySlots)
+            {
+                var button = abilitySlot.GetComponentInChildren<AbilityButton>();
+
+                if (button == null || button.Ability != ability)
+                    continue;
+
+                DestroyImmediate(abilitySlot.gameObject);
+                return;
+            }
         }
 
         public Transform FirstEmptySlot()

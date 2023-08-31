@@ -8,7 +8,7 @@ namespace FroguesFramework
     public class AbilitiesManager : MonoBehaviour
     {
         private IAbleToHaveCurrentAbility _ableToHaveCurrentAbility;
-        private List<BaseAbility> _abilities = new();
+        [SerializeField] private List<BaseAbility> _abilities = new();
         public UnityEvent<BaseAbility> AbilityHasBeenAdded;
         public UnityEvent<BaseAbility> AbilityHasBeenRemoved;
 
@@ -48,8 +48,11 @@ namespace FroguesFramework
         
         public void RemoveAllWeaponAbilities()
         {
-            var abilitiesToRemove = _abilities.Where(ability => ability.IsPartOfWeapon).ToList();
-            abilitiesToRemove.ForEach(abilityToRemove => RemoveAbility(abilityToRemove));
+            foreach(var abilityToRemove in _abilities.Where(ability => ability.IsPartOfWeapon).ToList())
+            {
+                abilityToRemove.UnInit();
+                RemoveAbility(abilityToRemove);
+            }
         }
     }
 }

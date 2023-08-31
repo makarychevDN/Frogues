@@ -20,9 +20,9 @@ namespace FroguesFramework
 
         public override void UnInit()
         {
-            base.UnInit();
             _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(TurnOffCriticalMode);
             _owner.Movable.OnMovementEnd.RemoveListener(TurnOnCriticalMode);
+            base.UnInit();
         }
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
