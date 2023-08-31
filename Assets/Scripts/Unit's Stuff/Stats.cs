@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 
 namespace FroguesFramework
 {
@@ -19,9 +18,9 @@ namespace FroguesFramework
         [SerializeField] private float dexterityModificatorStep;
         [SerializeField] private float defenceModificatorStep;
         private Unit _owner;
-        private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary;
-        private Dictionary<StatEffectTypes, UnityEvent<int>> _statsUpdatedEventsDictionary;
-        private UnityEvent<int> _strenghtUpdated, _intelegenceUpdated, _dexterityUpdated, _defenceUpdated, _spikesUpdated;
+        private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
+        private Dictionary<StatEffectTypes, UnityEvent<int>> _statsUpdatedEventsDictionary = new();
+        public UnityEvent<int> _strenghtUpdated, _intelegenceUpdated, _dexterityUpdated, _defenceUpdated, _spikesUpdated;
 
         public int Strenght => strenght.Sum(effectInstance => effectInstance.Value);
         public int Intelegence => intelegence.Sum(effectInstance => effectInstance.Value);
@@ -80,12 +79,11 @@ namespace FroguesFramework
             defence.ForEach(effectInstance => effectInstance.Tick());
             spikes.ForEach(effectInstance => effectInstance.Tick());
 
-
-            //todo remove elemenes on their timeToEnd >= 0
-            for(int i = 0; i < strenght.Count; i++)
-            {
-
-            }
+            strenght.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
+            intelegence.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
+            dexterity.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
+            defence.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
+            spikes.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
         }
         #endregion
 
@@ -127,7 +125,7 @@ namespace FroguesFramework
     }
 
     [Serializable]
-    public struct StatEffect
+    public class StatEffect
     {
         private int value;
         public int timeToTheEndOfEffect;
