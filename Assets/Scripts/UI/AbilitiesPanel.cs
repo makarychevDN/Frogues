@@ -54,6 +54,7 @@ namespace FroguesFramework
                 if (button == null || button.Ability != ability)
                     continue;
 
+                PassiveAbilitySlots.Remove(abilitySlot);
                 DestroyImmediate(abilitySlot.gameObject);
                 return;
             }
