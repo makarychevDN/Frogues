@@ -1,3 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -8,13 +12,39 @@ namespace FroguesFramework
         [SerializeField] private GameObject blockDestroyedEffect;
         [SerializeField] private GameObject temporaryBlockIncreasedEffect;
         [SerializeField] private GameObject permanentBlockIncreasedEffect;
+        [SerializeField] private TMP_Text statEffectPrefab;
+        [SerializeField] private List<TMP_Text> statEffectTextFields = new();
+        [SerializeField] private Canvas canvas;
         
         public void Init(Unit unit)
         {
             unit.Health.OnDamageBlockedSuccessfully.AddListener(ShowDamageSuccessfullyBlockedEffect);
             unit.Health.OnBlockDestroyed.AddListener(ShowBlockDestroyedEffect);
             unit.Health.OnBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
-            //unit.Health.OnPermanentBlockIncreased.AddListener(ShowPermanentBlockIncreasedEffect);
+            unit.Stats.OnStrenghtUpdated.AddListener(OnStatUpdated);
+            unit.Stats.OnIntelegenceUpdated.AddListener(OnStatUpdated);
+            unit.Stats.OnDexterityUpdated.AddListener(OnStatUpdated);
+            unit.Stats.OnDefenceUpdated.AddListener(OnStatUpdated);
+            unit.Stats.OnSpikesUpdated.AddListener(OnStatUpdated);
+        }
+
+        private void OnStatUpdated(int delta)
+        {
+            var currentTextEffect = statEffectTextFields.FirstOrDefault(textField => !textField.gameObject.activeSelf);
+
+            if(currentTextEffect == null)
+                statEffectTextFields.Add(currentTextEffect = Instantiate(statEffectPrefab, canvas.transform));
+
+
+            currentTextEffect.gameObject.SetActive(true);
+            currentTextEffect.text = delta > 0 ? $"<color=green>+{delta} strength</color=green>" : $"<color=red>{delta} strength</color=red>";
+            StartCoroutine(HideEffect(currentTextEffect.gameObject));
+        }
+
+        private IEnumerator HideEffect(GameObject effect)
+        {
+            yield return new WaitForSeconds(1f);
+            effect.SetActive(false);
         }
 
         private void ShowDamageSuccessfullyBlockedEffect()

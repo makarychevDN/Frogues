@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace FroguesFramework
 {
@@ -17,10 +19,10 @@ namespace FroguesFramework
         [SerializeField] private float intelegenceModificatorStep;
         [SerializeField] private float dexterityModificatorStep;
         [SerializeField] private float defenceModificatorStep;
+        public UnityEvent<int> OnStrenghtUpdated, OnIntelegenceUpdated, OnDexterityUpdated, OnDefenceUpdated, OnSpikesUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<int>> _statsUpdatedEventsDictionary = new();
-        public UnityEvent<int> _strenghtUpdated, _intelegenceUpdated, _dexterityUpdated, _defenceUpdated, _spikesUpdated;
 
         public int Strenght => strenght.Sum(effectInstance => effectInstance.Value);
         public int Intelegence => intelegence.Sum(effectInstance => effectInstance.Value);
@@ -37,21 +39,30 @@ namespace FroguesFramework
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect)
         {
-            StatEffect statEffect = new StatEffect(value, timeToTheEndOfEffect);
+            StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect);
             _statsDictionary[type].Add(statEffect);
             _statsUpdatedEventsDictionary[type].Invoke(value);
-            statEffect.OnEffectValueChanged.AddListener(_ => _statsUpdatedEventsDictionary[type].Invoke(value));
+            statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
             return statEffect;
+        }
+
+        private void InvokeEventByKey(StatEffectTypes key, int value)
+        {
+            _statsUpdatedEventsDictionary[key].Invoke(value);
         }
 
         public void AddStatEffect(StatEffect statEffect)
         {
-            strenght.Add(statEffect);
+            _statsDictionary[statEffect.type].Add(statEffect);
+            _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.Value);
+            statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
         }
 
         public void RemoveStatEffect(StatEffect statEffect)
         {
-            strenght.Remove(statEffect);
+            statEffect.OnEffectValueChanged.RemoveListener(InvokeEventByKey);
+            _statsDictionary[statEffect.type].Remove(statEffect);
+            _statsUpdatedEventsDictionary[statEffect.type].Invoke(-statEffect.Value);
         }
 
         #region timerStuff
@@ -73,18 +84,21 @@ namespace FroguesFramework
 
         private void TickAllEffects()
         {
-            strenght.ForEach(effectInstance => effectInstance.Tick());
-            intelegence.ForEach(effectInstance => effectInstance.Tick());
-            dexterity.ForEach(effectInstance => effectInstance.Tick());
-            defence.ForEach(effectInstance => effectInstance.Tick());
-            spikes.ForEach(effectInstance => effectInstance.Tick());
+            foreach(var key in _statsDictionary.Keys)
+            {
+                for(int i = 0; i < _statsDictionary[key].Count; i++)
+                {
+                    _statsDictionary[key][i].Tick();
 
-            strenght.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
-            intelegence.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
-            dexterity.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
-            defence.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
-            spikes.RemoveAll(effectInstance => effectInstance.timeToTheEndOfEffect <= 0);
+                    if(_statsDictionary[key][i].timeToTheEndOfEffect <= 0)
+                    {
+                        RemoveStatEffect(_statsDictionary[key][i]);
+                        i--;
+                    }
+                }
+            }
         }
+
         #endregion
 
         #region InitStuff
@@ -102,11 +116,11 @@ namespace FroguesFramework
 
             _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<int>>
             {
-                { StatEffectTypes.strenght, _strenghtUpdated },
-                { StatEffectTypes.intelegence, _intelegenceUpdated },
-                { StatEffectTypes.dexterity, _dexterityUpdated },
-                { StatEffectTypes.defence, _defenceUpdated },
-                { StatEffectTypes.spikes, _spikesUpdated }
+                { StatEffectTypes.strenght, OnStrenghtUpdated },
+                { StatEffectTypes.intelegence, OnIntelegenceUpdated },
+                { StatEffectTypes.dexterity, OnDexterityUpdated },
+                { StatEffectTypes.defence, OnDefenceUpdated },
+                { StatEffectTypes.spikes, OnSpikesUpdated }
             };
         }
 
@@ -127,15 +141,17 @@ namespace FroguesFramework
     [Serializable]
     public class StatEffect
     {
-        private int value;
+        public StatEffectTypes type;
+        [SerializeField] private int value;
         public int timeToTheEndOfEffect;
-        public UnityEvent<int> OnEffectValueChanged;
+        public UnityEvent<StatEffectTypes, int> OnEffectValueChanged;
 
-        public StatEffect(int value, int timeToTheEndOfEffect)
+        public StatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect)
         {
+            this.type = type;
             this.value = value;
             this.timeToTheEndOfEffect = timeToTheEndOfEffect;
-            OnEffectValueChanged = new UnityEvent<int>();
+            OnEffectValueChanged = new UnityEvent<StatEffectTypes, int>();
         }
 
         public void Tick(int value = 1)
@@ -152,7 +168,8 @@ namespace FroguesFramework
                 int delta = value - this.value;
                 this.value = value;
 
-                OnEffectValueChanged.Invoke(delta);
+                if(delta != 0)
+                    OnEffectValueChanged.Invoke(type ,delta);
             }
         }
     }
