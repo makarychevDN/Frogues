@@ -17,12 +17,36 @@ namespace FroguesFramework
         [SerializeField] private Texture2D attackIsPossibleCursorTexture;
         [SerializeField] private Texture2D attackIsNotPossibleCursorTexture;
         [SerializeField] private Texture2D inspectAbilityCursorTexture;
+
+        [SerializeField] private Texture2D moveCameraLeftTopCursorTexture;
+        [SerializeField] private Texture2D moveCameraTopCursorTexture;
+        [SerializeField] private Texture2D moveCameraRightTopCursorTexture;
+        [SerializeField] private Texture2D moveCameraLeftCursorTexture;
+        [SerializeField] private Texture2D moveCameraRightCursorTexture;
+        [SerializeField] private Texture2D moveCameraLeftBottomCursorTexture;
+        [SerializeField] private Texture2D moveCameraBottomCursorTexture;
+        [SerializeField] private Texture2D moveCameraRightBottomCursorTexture;
+        private Dictionary<Vector2Int, Texture2D> moveCameraCursorsByVectorsDictionary;
+
         private Unit _unit;
         private int _lastHashOfAbility;
 
-        public bool InputIsPossible => true;
+        public bool InputIsPossible => _isPlayersTurn;
+        private bool _isPlayersTurn;
 
-        public void Act()
+        public void Act() 
+        {
+            _isPlayersTurn = true;
+            PlayersTurnInput();
+        }
+
+        private void LateUpdate()
+        {
+            CameraMovementInput();
+        }
+
+        #region PlayersTurnInput
+        private void PlayersTurnInput()
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
@@ -182,10 +206,62 @@ namespace FroguesFramework
                 return;
             }
         }
+        #endregion
+
+        private void CameraMovementInput()
+        {
+            SetMouseLockMode();
+            if (EntryPoint.Instance.PauseIsActive)
+                return;
+
+            EntryPoint.Instance.CameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                EntryPoint.Instance.CameraController.ResetCamera();
+            }
+
+            if (Input.GetKey(KeyCode.Mouse2))
+            {
+                EntryPoint.Instance.CameraController.Rotate(Input.GetAxis("Mouse X"));
+            }
+
+            Vector2 movementInput = Vector2.zero;
+            if (!Input.GetKey(KeyCode.Mouse2))
+                movementInput = CheckMouseOnBordrers();
+            Vector2 keyBoardInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            if (keyBoardInput != Vector2.zero)
+                movementInput = keyBoardInput;
+            EntryPoint.Instance.CameraController.Move(movementInput);
+        }
+
+        private Vector2Int CheckMouseOnBordrers()
+        {
+            var mousePositionRelativeBorders = Input.mousePosition;
+            int x = 0;
+            int y = 0;
+
+            if (mousePositionRelativeBorders.x <= 0) x = -1;
+            else if (mousePositionRelativeBorders.x >= Screen.width - 1) x = 1;
+            if (mousePositionRelativeBorders.y <= 0) y = -1;
+            else if (mousePositionRelativeBorders.y >= Screen.height - 1)  y = 1;
+            Vector2Int mousePositionInput = new Vector2Int(x, y);
+
+            if (mousePositionInput == Vector2.zero)
+                return Vector2Int.zero;
+
+            Vector2 offset = new Vector2(mousePositionInput.x == 1 ? 39 : 0, mousePositionInput.y == -1 ? 39 : 0);
+            Cursor.SetCursor(moveCameraCursorsByVectorsDictionary[mousePositionInput], offset, CursorMode.ForceSoftware);
+            return mousePositionInput;
+        }
+
+        private void SetMouseLockMode()
+        {
+            Cursor.lockState = EntryPoint.Instance.PauseIsActive ? CursorLockMode.None : CursorLockMode.Confined;
+        }
 
         private bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
         
-
         public void ClearCurrentAbility() => currentAbility = null;
 
         public BaseAbility GetCurrentAbility() => currentAbility;
@@ -193,8 +269,23 @@ namespace FroguesFramework
         public void Init()
         {
             _unit = GetComponentInParent<Unit>();
+            _unit.AbleToSkipTurn.OnSkipTurn.AddListener(() => _isPlayersTurn = false);
             movementAbility.Init(_unit);
             currentAbility = movementAbility;
+
+            moveCameraCursorsByVectorsDictionary = new Dictionary<Vector2Int, Texture2D>
+            {
+                { new Vector2Int(-1, 1), moveCameraLeftTopCursorTexture },
+                { new Vector2Int(0, 1), moveCameraTopCursorTexture },
+                { new Vector2Int(1, 1), moveCameraRightTopCursorTexture },
+
+                { new Vector2Int(-1, 0), moveCameraLeftCursorTexture },
+                { new Vector2Int(1, 0), moveCameraRightCursorTexture },
+
+                { new Vector2Int(-1, -1), moveCameraLeftBottomCursorTexture },
+                { new Vector2Int(0, -1), moveCameraBottomCursorTexture },
+                { new Vector2Int(1, -1), moveCameraRightBottomCursorTexture }
+            };
         }
 
         public void SetCurrentAbility(BaseAbility ability)

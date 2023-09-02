@@ -23,22 +23,6 @@ namespace FroguesFramework
             maxZPosition = EntryPoint.Instance.Map.allCells.Max(cell => cell.transform.position.z);
             minZPosition = EntryPoint.Instance.Map.allCells.Min(cell => cell.transform.position.z);
         }
-        
-        void Update()
-        {
-            if (Input.GetKey(KeyCode.Mouse2))
-            {
-                cameraRotationPoint.Rotate(cameraRotationPoint.up, Input.GetAxis("Mouse X"));
-            }
-
-            if(Input.GetKey(KeyCode.Space))
-            {
-                ResetCamera();
-            }
-
-            Move(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
-            Zoom(Input.GetAxis("Mouse ScrollWheel"));
-        }
 
         public void Deactivate() => Camera.main.transform.parent = null;
 
@@ -49,7 +33,12 @@ namespace FroguesFramework
             var clampedZPosition = Mathf.Clamp(cameraRotationPoint.transform.position.z, minZPosition, maxZPosition);
             cameraRotationPoint.transform.position = new Vector3(clampedXPosition, 0, clampedZPosition);
         }
-        
+
+        public void Rotate(float value)
+        {
+            cameraRotationPoint.Rotate(cameraRotationPoint.up, value);
+        }
+
         public void Zoom(float value)
         {
             Vector3 updatedPosition = _camera.transform.position + _camera.forward * value * zoomingSpeed;

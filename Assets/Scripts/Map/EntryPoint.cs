@@ -26,6 +26,7 @@ public class EntryPoint : MonoBehaviour
     private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
 
     public bool CurrentRoomIsHub => _currentRoom == hub;
+    public CameraController CameraController => _currentRoom.CameraController;
     public PathFinder PathFinder => _currentRoom.PathFinder;
     public Map Map => _currentRoom.Map;
     public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;

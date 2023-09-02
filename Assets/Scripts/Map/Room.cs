@@ -17,6 +17,7 @@ namespace FroguesFramework
         public PathFinder PathFinder => pathFinder;
         public Map Map => map;
         public UnitsQueue UnitsQueue => unitsQueue;
+        public CameraController CameraController => cameraController;
         
         public Vector3 CenterOfRoom => cameraController.transform.position;
 
