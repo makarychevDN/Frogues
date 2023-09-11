@@ -12,7 +12,9 @@ namespace FroguesFramework
         [SerializeField] private AnimationCurve jumpCurve;
 
         public UnityEvent OnMovementStart;
+        public UnityEvent<Cell> OnMovementStartFromCell;
         public UnityEvent OnMovementEnd;
+        public UnityEvent<Cell> OnMovementEndOnCell;
         public UnityEvent OnBumpInto;
         public UnityEvent<Unit> OnBumpIntoUnit;
 
@@ -64,8 +66,9 @@ namespace FroguesFramework
                 _unit.CurrentCell.Content = null;
 
             Play(_unit.CurrentCell, targetCell, speed, jumpHeight, needToRotateSprite, needToModificateJumpHeightByDistance);
-            _unit.CurrentCell = null;
             OnMovementStart.Invoke();
+            OnMovementStartFromCell.Invoke(_unit.CurrentCell);
+            _unit.CurrentCell = null;
         }
 
         private void StopMovement(Cell targetCell)
@@ -99,6 +102,7 @@ namespace FroguesFramework
 
             targetCell.Content = _unit;
             OnMovementEnd.Invoke();
+            OnMovementEndOnCell.Invoke(_unit.CurrentCell);
         }        
 
         private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true)

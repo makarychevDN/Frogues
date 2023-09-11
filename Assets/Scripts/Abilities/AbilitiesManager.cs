@@ -13,6 +13,7 @@ namespace FroguesFramework
         public UnityEvent<BaseAbility> AbilityHasBeenRemoved;
 
         public IAbleToHaveCurrentAbility AbleToHaveCurrentAbility => _ableToHaveCurrentAbility;
+        public List<BaseAbility> Abilities => _abilities;
 
         public void Init(Unit unit)
         {

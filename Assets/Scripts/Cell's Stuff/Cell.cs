@@ -21,7 +21,7 @@ namespace FroguesFramework
         public UnityEvent<Unit> OnBecameEmptyByUnit = new();
 
         [SerializeField] private Unit content;
-        [SerializeField] private List<Unit> surfaces;
+        [SerializeField] private List<Unit> surfaces = new();
         [SerializeField] private Transform hexagonModel;
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
