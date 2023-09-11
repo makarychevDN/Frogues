@@ -10599,7 +10599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 9f74a7fc70024b444b4c15f61644ad9f, type: 2}
+  material: {fileID: 2100000, guid: c3481f4b2039ded4b9f840d867f4fd53, type: 2}
   abilityName: 
   stats: 
   description: 
@@ -10616,9 +10616,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 761990249}
-  isPartOfWeapon: 1
-  effectType: 0
+  isPartOfWeapon: 0
+  effectType: 20
   value: 1
+  effectIsConstantly: 0
   timer: 6
 --- !u!1 &785984549
 GameObject:
@@ -10856,6 +10857,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &909061203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 909061204}
+  - component: {fileID: 909061206}
+  - component: {fileID: 909061205}
+  m_Layer: 7
+  m_Name: Passive Ability (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &909061204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909061203}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1591628998}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &909061205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909061203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: fb1600521c322d24fbce1f538a5078b9, type: 2}
+  abilityName: 
+  stats: 
+  description: 
+--- !u!114 &909061206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909061203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b852f2c1d721cdc4195c763f8e935ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 909061205}
+  isPartOfWeapon: 0
+  effectType: 40
+  value: 1
+  effectIsConstantly: 0
+  timer: 6
 --- !u!114 &1049493761 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5445841421307519126, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
@@ -11398,7 +11466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 9f74a7fc70024b444b4c15f61644ad9f, type: 2}
+  material: {fileID: 2100000, guid: 3eb14c1b3d8607a4584720756cdb48ef, type: 2}
   abilityName: 
   stats: 
   description: 
@@ -11415,9 +11483,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 1472725863}
-  isPartOfWeapon: 1
+  isPartOfWeapon: 0
   effectType: 0
   value: 1
+  effectIsConstantly: 0
   timer: 6
 --- !u!1 &1500121083
 GameObject:
@@ -16247,6 +16316,73 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1538516423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1538516424}
+  - component: {fileID: 1538516426}
+  - component: {fileID: 1538516425}
+  m_Layer: 7
+  m_Name: Passive Ability (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1538516424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538516423}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1591628998}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1538516425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538516423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 2ae765f5391b9c04bb70c60d330ae4ab, type: 2}
+  abilityName: 
+  stats: 
+  description: 
+--- !u!114 &1538516426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538516423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b852f2c1d721cdc4195c763f8e935ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 1538516425}
+  isPartOfWeapon: 0
+  effectType: 30
+  value: 1
+  effectIsConstantly: 0
+  timer: 6
 --- !u!1 &1585368727
 GameObject:
   m_ObjectHideFlags: 0
@@ -16614,7 +16750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: 9f74a7fc70024b444b4c15f61644ad9f, type: 2}
+  material: {fileID: 2100000, guid: 45c122b7d6ca0fb45a04861b2e0631b6, type: 2}
   abilityName: 
   stats: 
   description: 
@@ -16631,9 +16767,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 1826447032}
-  isPartOfWeapon: 1
-  effectType: 0
+  isPartOfWeapon: 0
+  effectType: 10
   value: 1
+  effectIsConstantly: 0
   timer: 6
 --- !u!114 &1843630047 stripped
 MonoBehaviour:
@@ -17296,6 +17433,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 761990248}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1538516424}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 909061204}
     - targetCorrespondingSourceObject: {fileID: 7512397265278902572, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133876481}

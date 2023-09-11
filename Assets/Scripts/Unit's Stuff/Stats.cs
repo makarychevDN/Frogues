@@ -144,19 +144,22 @@ namespace FroguesFramework
         public StatEffectTypes type;
         [SerializeField] private int value;
         public int timeToTheEndOfEffect;
+        public bool effectIsConstantly;
         public UnityEvent<StatEffectTypes, int> OnEffectValueChanged;
 
-        public StatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect)
+        public StatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, bool effectIsConstantly = false)
         {
             this.type = type;
             this.value = value;
             this.timeToTheEndOfEffect = timeToTheEndOfEffect;
+            this.effectIsConstantly = effectIsConstantly;
             OnEffectValueChanged = new UnityEvent<StatEffectTypes, int>();
         }
 
         public void Tick(int value = 1)
         {
-            timeToTheEndOfEffect -= value;
+            if(!effectIsConstantly)
+                timeToTheEndOfEffect -= value;
         }
 
         public int Value
