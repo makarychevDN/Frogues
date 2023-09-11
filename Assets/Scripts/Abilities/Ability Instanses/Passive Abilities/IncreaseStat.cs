@@ -2,10 +2,11 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseStatOnRoomStarted : PassiveAbility
+    public class IncreaseStat : PassiveAbility
     {
         [SerializeField] private StatEffectTypes effectType;
         [SerializeField] private int value;
+        [SerializeField] private bool effectIsConstantly;
         [SerializeField] private int timer;
         StatEffect _statEffect;
 
