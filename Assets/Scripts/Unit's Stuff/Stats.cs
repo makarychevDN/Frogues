@@ -37,9 +37,9 @@ namespace FroguesFramework
 
         public int CalculateHashFunctionOfPrevisualisation() => Strenght ^ Intelegence ^ Dexterity ^ Defence ^ Spikes;
 
-        public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect)
+        public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, bool effectIsConstantly = false)
         {
-            StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect);
+            StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect, effectIsConstantly);
             _statsDictionary[type].Add(statEffect);
             _statsUpdatedEventsDictionary[type].Invoke(value);
             statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
