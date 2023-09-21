@@ -4993,6 +4993,70 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &114455539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 114455540}
+  - component: {fileID: 114455542}
+  - component: {fileID: 114455541}
+  m_Layer: 7
+  m_Name: "\u0414\u043B\u0438\u043D\u043D\u044B\u0435 \u043A\u043E\u0440\u043D\u0438"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &114455540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114455539}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1591628998}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114455541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114455539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 22f8730fc5716df4aa1f7b4b75e5f52f, type: 2}
+  abilityName: 
+  stats: 
+  description: 
+--- !u!114 &114455542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114455539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed374cabd7a59544ba4419028ad61bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 114455541}
+  isPartOfWeapon: 0
+  distance: 1
 --- !u!114 &201313021 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9170523256639427357, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
@@ -17439,6 +17503,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 909061204}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 114455540}
     - targetCorrespondingSourceObject: {fileID: 7512397265278902572, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133876481}
@@ -17912,7 +17979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3263458795400577826, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3263458795400577826, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -18156,7 +18223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5063856386705548518, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5063856386705548518, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -19041,11 +19108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4093177135085648636, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
       propertyPath: surfaces.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4093177135085648636, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
-      propertyPath: surfaces.Array.data[0]
-      value: 
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4590183403020468375, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
       propertyPath: m_LocalPosition.x
