@@ -17243,7 +17243,6 @@ MonoBehaviour:
   hub: {fileID: 1813852410}
   roomsPrefabs:
   - {fileID: 2638133752701027621, guid: fb294092750cf0545963bae84734545c, type: 3}
-  - {fileID: 4174472186004586126, guid: 3c7c38d618b200d40919ebfc530b59b0, type: 3}
   _currentRoom: {fileID: 0}
   _metaPlayer: {fileID: 4182687046851866785}
   _abilitiesPanel: {fileID: 1843630047}
@@ -17252,7 +17251,7 @@ MonoBehaviour:
   exitButton: {fileID: 531273045}
   unitDescriptionPanel: {fileID: 1843630051}
   score: 0
-  deltaOfScoreToOpenExit: 200
+  deltaOfScoreToOpenExit: 10
   waveSpawner: {fileID: 2024597960}
   scoreText: {fileID: 845689063}
 --- !u!4 &2024597959
@@ -17557,6 +17556,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82004001889828865, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 2140583522}
     - target: {fileID: 478522585241677484, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -18352,6 +18355,18 @@ PrefabInstance:
     - target: {fileID: 5499867764720563293, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702663765207299611, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2024597958}
+    - target: {fileID: 5702663765207299611, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartNextRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5702663765207299611, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: EntryPoint, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5747653599430032986, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchorMax.y

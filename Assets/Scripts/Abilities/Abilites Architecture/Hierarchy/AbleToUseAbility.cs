@@ -7,6 +7,7 @@ namespace FroguesFramework
     {
         [SerializeField] protected int actionPointsCost;
         [SerializeField] protected int bloodPointsCost;
+        [SerializeField] protected int healthCost;
         [SerializeField] protected int cooldownAfterUse;
         [SerializeField] protected int cooldownAfterStart;
         [SerializeField] protected int cooldownCounter;
@@ -22,6 +23,10 @@ namespace FroguesFramework
 
         public virtual int GetBloodPointsCost() => bloodPointsCost;
         public int GetActionPointsCost() => actionPointsCost;
+        public int GetHealthCost() => actionPointsCost;
+        public void IncreaseActionPointsCost(int value) => actionPointsCost += value;
+        public void IncreaseBloodPointsCost(int value) => bloodPointsCost += value;
+        public void IncreaseHealthCost(int value) => healthCost += value;
 
         public virtual void SpendResourcePoints()
         {
@@ -29,6 +34,8 @@ namespace FroguesFramework
 
             if (_owner.BloodPoints != null)
                 _owner.BloodPoints.SpendPoints(bloodPointsCost);
+
+            _owner.Health.TakeDamage(healthCost, true);
         }
 
         public virtual bool IsResoursePointsEnough()
