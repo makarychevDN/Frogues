@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.MaterialProperty;
 
 namespace FroguesFramework
 {
@@ -12,27 +13,41 @@ namespace FroguesFramework
             return EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, true, false);
         }
 
-        public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction)
+        public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction, bool includeBusyCells)
         {
             List<Cell> cells = new List<Cell>();
             Cell currentCell = startCell;
 
-            while (currentCell.CellNeighbours.GetNeighborByHexDir(direction).Content == null)
+            while (true)
             {
-                currentCell = currentCell.CellNeighbours.GetNeighborByHexDir(direction);
+                currentCell = currentCell.CellNeighbours.GetNeighborByHexDir(direction);     
+                
+                if (includeBusyCells ? currentCell.Content is Barrier : currentCell.Content != null)
+                    break;
+
                 cells.Add(currentCell);
             }
 
             return cells;
         }
-        
-        public static List<Cell> TakeCellsLinesInAllDirections(Cell startCell)
+
+        private static bool CheckUnitIsBarrier(Unit unit)
+        {
+            return unit is Barrier;
+        }
+
+        private static bool CheckUnitIsNull(Unit unit)
+        {
+            return unit == null;
+        }
+
+        public static List<Cell> TakeCellsLinesInAllDirections(Cell startCell, bool includeBusyCells)
         {
             List<Cell> cells = new List<Cell>();
 
             foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
             {
-                cells.AddRange(TakeCellsLineInDirection(startCell, hexDir));   
+                cells.AddRange(TakeCellsLineInDirection(startCell, hexDir, includeBusyCells));   
             }
 
             return cells;
@@ -48,13 +63,13 @@ namespace FroguesFramework
             return EntryPoint.Instance.Map.allCells.Where(cell => cell.IsEmpty).ToList();
         }
 
-
-        public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell)
+        public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell, bool includeBusyCells)
         {
             foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
             {
-                if (TakeCellsLineInDirection(startCell, hexDir).Contains(targetCell))
-                    return TakeCellsLineInDirection(startCell, hexDir);
+                var line = TakeCellsLineInDirection(startCell, hexDir, includeBusyCells);
+                if (line.Contains(targetCell))
+                    return line;
             }
 
             return new List<Cell>();
