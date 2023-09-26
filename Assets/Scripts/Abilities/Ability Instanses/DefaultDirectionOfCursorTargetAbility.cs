@@ -97,7 +97,8 @@ namespace FroguesFramework
         {
             int value = _usingArea.Count;
 
-            if (_hashedSelectedCells != null && _hashedSelectedCells[0] != null)
+            if (_hashedSelectedCells != null && _hashedSelectedCells.Count > 0
+                && _hashedSelectedCells[0] != null)
             {
                 for (int i = 0; i < _hashedSelectedCells.Count; i++)
                 {
