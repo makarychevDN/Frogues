@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace FroguesFramework
 {
@@ -176,6 +177,13 @@ namespace FroguesFramework
                 image.material.SetInt("_AbilityUsingNow",
                     (_ability as IAbleToReturnIsPrevisualized).IsPrevisualizedNow().ToInt());
             }
+        }
+
+        public void ResetButtonMaterial()
+        {
+            image.material.SetInt("_AbilityUsingNow", false.ToInt());
+            image.material.SetInt("_AbleToUse", true.ToInt());
+            image.material.SetInt("_NeedToHighlight", false.ToInt());
         }
 
         private void SetSlot(Transform slot)
