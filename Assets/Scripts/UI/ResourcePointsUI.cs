@@ -80,7 +80,6 @@ namespace FroguesFramework
             for (int i = pretakenValue; i < currentValue; i++)
             {
                 iconsList[i].EnablePreCostIcon();
-                print(pretakenValue);
             }
 
             hashedValue = currentValue;
