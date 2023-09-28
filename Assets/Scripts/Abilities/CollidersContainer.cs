@@ -8,7 +8,6 @@ namespace FroguesFramework
     {
         private List<Collider> colliders = new List<Collider>();
         private List<Cell> cells = new List<Cell>();
-
         public List<Cell> Cells => cells;
 
         private void OnTriggerEnter(Collider other)

@@ -5364,8 +5364,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 534110771}
-  - component: {fileID: 534110773}
   - component: {fileID: 534110772}
+  - component: {fileID: 534110773}
   m_Layer: 0
   m_Name: Colliders Container
   m_TagString: Untagged
@@ -5428,8 +5428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fddb98f7a4c314db9346b8b31b6a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders: []
-  cells: []
 --- !u!1 &584111867
 GameObject:
   m_ObjectHideFlags: 0
@@ -17528,6 +17526,70 @@ Transform:
   m_Father: {fileID: 1838763290}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1793818043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1793818044}
+  - component: {fileID: 1793818046}
+  - component: {fileID: 1793818045}
+  m_Layer: 7
+  m_Name: Passive Ability (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1793818044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793818043}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1591628998}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1793818045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793818043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 7e8a1a0aa8c81174b83704a980001f8d, type: 2}
+  abilityName: 
+  stats: 
+  description: 
+--- !u!114 &1793818046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793818043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0843072f097cd11479cfbd9b9899d90a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 1793818045}
+  isPartOfWeapon: 0
+  value: 2
 --- !u!1 &1808042065
 GameObject:
   m_ObjectHideFlags: 0
@@ -18300,6 +18362,9 @@ MonoBehaviour:
   deltaOfScoreToOpenExit: 10
   waveSpawner: {fileID: 2024597960}
   scoreText: {fileID: 845689063}
+  OnNextRoomStarted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2024597959
 Transform:
   m_ObjectHideFlags: 0
@@ -18450,8 +18515,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22fddb98f7a4c314db9346b8b31b6a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders: []
-  cells: []
 --- !u!4 &2133876481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2354519853673079646, guid: 8003428f0ee43b047bcde0a2f05fd810, type: 3}
@@ -18635,6 +18698,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1581167644}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1793818044}
     - targetCorrespondingSourceObject: {fileID: 7512397265278902572, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133876481}
