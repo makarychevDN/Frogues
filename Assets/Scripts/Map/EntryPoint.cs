@@ -3,7 +3,6 @@ using System.Linq;
 using FroguesFramework;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class EntryPoint : MonoBehaviour
 {
@@ -60,7 +59,7 @@ public class EntryPoint : MonoBehaviour
         _currentRoom.Deactivate();
         _currentRoom = newRoom;
         _currentRoom.Init(_metaPlayer);
-        _metaPlayer.ActionPoints.SetPoints(4);
+        _metaPlayer.ActionPoints.SetCurrentPoints(4);
         _metaPlayer.Health.TakeHealing(33);
         waveSpawner.ResetRoundsTimer();
         waveSpawner.SpawnPreWave();

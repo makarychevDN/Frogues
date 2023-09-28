@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private int maxPointsCount;
         [SerializeField] private int pointsRegeneration;
         private int _preTakenCurrentPoints;
+        private int _preTakenTemporaryPoints;
         private bool _isEnemy;
 
         public UnityEvent OnPointsEnded;
@@ -93,7 +94,7 @@ namespace FroguesFramework
         
         public void PreSpendPoints(int preCost)
         {
-            CalculateCost(ref _preTakenCurrentPoints, ref tempraryPoints, preCost);
+            CalculateCost(ref _preTakenCurrentPoints, ref _preTakenTemporaryPoints, preCost);
         }
 
         private void CalculateCost(ref int points, ref int temporarypPoints, int cost)
@@ -122,6 +123,7 @@ namespace FroguesFramework
         public void DisablePreVisualization()
         {
             _preTakenCurrentPoints = currentPoints;
+            _preTakenTemporaryPoints = tempraryPoints;
         }
 
         public void AddMySelfToEntryPoint() =>
@@ -137,7 +139,7 @@ namespace FroguesFramework
 
         public int CalculateHashFunctionOfPrevisualisation()
         {
-            return maxPointsCount ^ currentPoints ^ _preTakenCurrentPoints;
+            return maxPointsCount ^ currentPoints ^ tempraryPoints ^ _preTakenCurrentPoints;
         }
     }
 }

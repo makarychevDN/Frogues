@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -7,95 +8,76 @@ namespace FroguesFramework
     {
         [SerializeField] private AbilityResourcePoints resourcePoints;
         [SerializeField] private Transform iconsParent;
-        [SerializeField] private List<ResourcePointUI> resourcePointIconPrefabs;
+        [SerializeField] private ResourcePointUI resourcePointIconPrefab;
+        [SerializeField] private ResourcePointUI temporaryResourcePointIconPrefab;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
+        [SerializeField] private List<ResourcePointUI> temporaryResourcePointIcons = new();
         [SerializeField] private bool generateIconsOnStart;
         private int hashedResourcePointsCount;
         private int hashedPrevisualization;
 
         private void Start()
         {
-            hashedResourcePointsCount = resourcePoints.CurrentPoints;
-
-            if (!generateIconsOnStart)
-                return;
-
-            if (iconsParent == null)
-                iconsParent = transform;
-
-            int iconsCount = 0;
-
-            for (int i = 0; i < resourcePoints.MaxPointsCount; i++)
-            {
-                var spawnedIcon = Instantiate(resourcePointIconPrefabs[iconsCount], iconsParent);
-                resourcePointIcons.Add(spawnedIcon);
-
-                iconsCount++;
-                iconsCount = (int) Mathf.Repeat(iconsCount, resourcePointIconPrefabs.Count);
-            }
-
-            resourcePoints.OnPointsRegenerated.AddListener(RedrawIcon);
+            resourcePoints.OnPointsRegenerated.AddListener(() => 
+            RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref hashedResourcePointsCount));            
         }
 
         private void Update()
         {
-            /*resourcePointIcons.ForEach(icon => icon.EnableEmptyIcon());
-
-            int preCostsValue = ResourcePoints.CurrentActionPoints - ResourcePoints.PreTakenCurrentPoints;
-            
-            if (preCostsValue > ResourcePoints.CurrentActionPoints)
-            {
-                for (int i = 0; i < ResourcePoints.CurrentActionPoints; i++)
-                {
-                    resourcePointIcons[i].EnableNotEnoughPointsIcon();
-                }
-
-                return;
-            }
-
-            for (int i = 0; i < ResourcePoints.CurrentActionPoints; i++)
-            {
-                resourcePointIcons[i].EnableFullIcon();
-            }
-
-            for (int i = ResourcePoints.CurrentActionPoints - 1; i > ResourcePoints.CurrentActionPoints - 1 - preCostsValue; i--)
-            {
-                resourcePointIcons[i].EnablePreCostIcon();
-            }*/
-
             if(hashedPrevisualization != resourcePoints.CalculateHashFunctionOfPrevisualisation())
             {
-                RedrawIcon();
+                RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref hashedResourcePointsCount);
             }
 
             hashedPrevisualization = resourcePoints.CalculateHashFunctionOfPrevisualisation();
         }
 
-        private void RedrawIcon()
+        private void RedrawIcons(int currentValue, int maxValue, int pretakenValue, List<ResourcePointUI> iconsList, ResourcePointUI iconPrefab, ref int hashedValue)
         {
-            for (int i = 0; i < resourcePoints.MaxPointsCount; i++)
+            if(iconsList.Count < maxValue)
             {
-                resourcePointIcons[i].DisablePreCostIcon();
-                resourcePointIcons[i].EnableEmptyIcon();
-
-                if (i < resourcePoints.CurrentPoints)
-                    resourcePointIcons[i].EnableFullIcon();
-            }
-
-            if (hashedResourcePointsCount < resourcePoints.CurrentPoints)
-            {
-                for (int i = hashedResourcePointsCount; i < resourcePoints.CurrentPoints; i++)
+                while (iconsList.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
                 {
-                    resourcePointIcons[i].Regen();
+                    var currentIcon = iconsList.FirstOrDefault(icon => !icon.gameObject.activeSelf);
+
+                    if (currentIcon == null)
+                        iconsList.Add(currentIcon = Instantiate(iconPrefab, iconsParent));
+
+                    currentIcon.gameObject.SetActive(true);
                 }
             }
 
-            for (int i = resourcePoints.PreTakenCurrentPoints; i < resourcePoints.CurrentPoints; i++)
+            if(iconsList.Count > maxValue)
             {
-                resourcePointIcons[i].EnablePreCostIcon();
+                while(iconsList.Where(icon => icon.gameObject.activeSelf).ToList().Count > maxValue)
+                {
+                    iconsList.Where(icon => icon.gameObject.activeSelf).ToList().GetLast().gameObject.SetActive(false);
+                }
             }
 
-            hashedResourcePointsCount = resourcePoints.CurrentPoints;
+            for (int i = 0; i < maxValue; i++)
+            {
+                iconsList[i].DisablePreCostIcon();
+                iconsList[i].EnableEmptyIcon();
+
+                if (i < currentValue)
+                    iconsList[i].EnableFullIcon();
+            }
+
+            if (hashedValue < currentValue)
+            {
+                for (int i = hashedValue; i < currentValue; i++)
+                {
+                    iconsList[i].Regen();
+                }
+            }
+
+            for (int i = pretakenValue; i < currentValue; i++)
+            {
+                iconsList[i].EnablePreCostIcon();
+            }
+
+            hashedValue = currentValue;
         }
     }
 }
