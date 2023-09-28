@@ -13,20 +13,25 @@ namespace FroguesFramework
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
         [SerializeField] private List<ResourcePointUI> temporaryResourcePointIcons = new();
         [SerializeField] private bool generateIconsOnStart;
-        private int hashedResourcePointsCount;
+        private int _hashedResourcePointsCount;
+        private int _hashedTemporaryResourcePointsCount;
         private int hashedPrevisualization;
 
         private void Start()
         {
             resourcePoints.OnPointsRegenerated.AddListener(() => 
-            RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref hashedResourcePointsCount));            
+            RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount));
+
+            resourcePoints.OnPointsRegenerated.AddListener(() =>
+            RedrawIcons(resourcePoints.TemporaryPoints, resourcePoints.TemporaryPoints, resourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount));
         }
 
         private void Update()
         {
             if(hashedPrevisualization != resourcePoints.CalculateHashFunctionOfPrevisualisation())
             {
-                RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref hashedResourcePointsCount);
+                RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount);
+                RedrawIcons(resourcePoints.TemporaryPoints, resourcePoints.TemporaryPoints, resourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount);
             }
 
             hashedPrevisualization = resourcePoints.CalculateHashFunctionOfPrevisualisation();
@@ -75,6 +80,7 @@ namespace FroguesFramework
             for (int i = pretakenValue; i < currentValue; i++)
             {
                 iconsList[i].EnablePreCostIcon();
+                print(pretakenValue);
             }
 
             hashedValue = currentValue;

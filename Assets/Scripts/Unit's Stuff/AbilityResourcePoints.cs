@@ -29,6 +29,7 @@ namespace FroguesFramework
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
             tempraryPoints = 0;
+            _preTakenTemporaryPoints = tempraryPoints;
             OnPointsRegenerated.Invoke();
         }
 
@@ -43,14 +44,24 @@ namespace FroguesFramework
         {
             get => currentPoints;
         }
-        
+
+        public int TemporaryPoints
+        {
+            get => tempraryPoints;
+        }
+
         public int PreTakenCurrentPoints
         {
             get => _preTakenCurrentPoints;
         }
-        
+
+        public int PreTakenTemporaryPoints
+        {
+            get => _preTakenTemporaryPoints;
+        }
+
         #endregion
-        
+
         public int PointsRegeneration
         {
             get => pointsRegeneration;
@@ -102,6 +113,7 @@ namespace FroguesFramework
             int spendedTemporaryCost = Mathf.Clamp(cost, 0, temporarypPoints);
             cost -= spendedTemporaryCost;
             temporarypPoints -= spendedTemporaryCost;
+            print(temporarypPoints);
 
             points -= cost;
         }
@@ -139,7 +151,7 @@ namespace FroguesFramework
 
         public int CalculateHashFunctionOfPrevisualisation()
         {
-            return maxPointsCount ^ currentPoints ^ tempraryPoints ^ _preTakenCurrentPoints;
+            return maxPointsCount ^ currentPoints ^ tempraryPoints ^ _preTakenCurrentPoints ^ _preTakenTemporaryPoints;
         }
     }
 }
