@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using static UnityEditor.MaterialProperty;
 
 namespace FroguesFramework
 {
