@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class AbilityResourcePoints : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization, IAbleToCalculateHashFunctionOfPrevisualisation
     {
         [SerializeField] private int currentPoints;
+        [SerializeField] private int tempraryPoints;
         [SerializeField] private int maxPointsCount;
         [SerializeField] private int pointsRegeneration;
         private int _preTakenCurrentPoints;
@@ -13,6 +14,7 @@ namespace FroguesFramework
 
         public UnityEvent OnPointsEnded;
         public UnityEvent OnPointsRegenerated;
+        public UnityEvent OnPointsIncreased;
 
         public void Init(Unit unit)
         {
@@ -25,6 +27,7 @@ namespace FroguesFramework
             currentPoints += pointsRegeneration;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
+            tempraryPoints = 0;
             OnPointsRegenerated.Invoke();
         }
 
@@ -54,10 +57,15 @@ namespace FroguesFramework
 
         public bool IsPointsEnough(int cost)
         {
-            return currentPoints >= cost;
+            return currentPoints + tempraryPoints >= cost;
         }
 
-        public void SetPoints(int value)
+        public void SetCurrentPoints(int value)
+        {
+            currentPoints = value;
+        }
+
+        public void SetTemporaryPoints(int value)
         {
             currentPoints = value;
         }
@@ -66,11 +74,18 @@ namespace FroguesFramework
         {
             currentPoints += value;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
+            OnPointsIncreased.Invoke();
+        }
+
+        public void IncreaseTemporaryPoints(int value)
+        {
+            tempraryPoints += value;
+            OnPointsIncreased.Invoke();
         }
 
         public void SpendPoints(int cost)
         {
-            CalculateCost(ref currentPoints, cost);
+            CalculateCost(ref currentPoints, ref tempraryPoints, cost);
 
             if (currentPoints <= 0)
                 OnPointsEnded.Invoke();
@@ -78,11 +93,15 @@ namespace FroguesFramework
         
         public void PreSpendPoints(int preCost)
         {
-            CalculateCost(ref _preTakenCurrentPoints, preCost);
+            CalculateCost(ref _preTakenCurrentPoints, ref tempraryPoints, preCost);
         }
 
-        private void CalculateCost(ref int points, int cost)
+        private void CalculateCost(ref int points, ref int temporarypPoints, int cost)
         {
+            int spendedTemporaryCost = Mathf.Clamp(cost, 0, temporarypPoints);
+            cost -= spendedTemporaryCost;
+            temporarypPoints -= spendedTemporaryCost;
+
             points -= cost;
         }
 
