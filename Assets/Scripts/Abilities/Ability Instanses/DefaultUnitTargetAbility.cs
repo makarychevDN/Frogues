@@ -58,7 +58,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
-            target.Health.TakeDamage(CalculateDamage, ignoreArmor);
+            target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);

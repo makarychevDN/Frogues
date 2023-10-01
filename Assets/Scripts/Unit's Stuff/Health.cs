@@ -83,12 +83,12 @@ namespace FroguesFramework
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         }
 
-        public void TakeDamage(int damageValue) =>
-            TakeDamage(damageValue, false);
+        public void TakeDamage(int damageValue, Unit damageSource) =>
+            TakeDamage(damageValue, false, damageSource);
 
-        public void TakeDamage(int damageValue, bool ignoreArmor)
+        public void TakeDamage(int damageValue, bool ignoreArmor, Unit damageSource)
         {
-            CalculateDamage(ref currentHP, ref permanentBlock,ref temporaryBlock, damageValue, ignoreArmor);
+            CalculateDamage(ref currentHP, ref permanentBlock, ref temporaryBlock, damageValue, ignoreArmor);
 
             if (!ignoreArmor)
             {
@@ -103,6 +103,11 @@ namespace FroguesFramework
                         OnBlockDestroyed.Invoke();
                     }
                 }
+            }
+
+            if(damageSource != null && _unit.Stats.Spikes > 0)
+            {
+                damageSource.Health.TakeDamage(damageValue, null);
             }
 
             if (currentHP < _hashedHp)
@@ -149,7 +154,7 @@ namespace FroguesFramework
         public void DieFromStepOnUnit()
         {
             deathFromStepOnThisUnitAudioSource.Play();
-            TakeDamage(maxHP, true);
+            TakeDamage(maxHP, true, null);
         }
         
         public void DieFromBumpInto()

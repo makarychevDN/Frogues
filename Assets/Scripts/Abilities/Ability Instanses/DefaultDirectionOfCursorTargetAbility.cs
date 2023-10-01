@@ -64,7 +64,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, List<Cell> cells)
         {
             yield return new WaitForSeconds(time);
-            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(damage));
+            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(damage, _owner));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);

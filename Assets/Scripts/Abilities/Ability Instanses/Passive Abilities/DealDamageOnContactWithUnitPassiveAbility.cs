@@ -15,7 +15,7 @@ namespace FroguesFramework
 
         private void DealDamage(Unit unit)
         {
-            unit.Health.TakeDamage(damage);
+            unit.Health.TakeDamage(damage, null);
         }
     }
 }

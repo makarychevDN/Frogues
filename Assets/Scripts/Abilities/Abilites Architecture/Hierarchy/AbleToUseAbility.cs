@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -35,7 +34,7 @@ namespace FroguesFramework
             if (_owner.BloodPoints != null)
                 _owner.BloodPoints.SpendPoints(bloodPointsCost);
 
-            _owner.Health.TakeDamage(healthCost, true);
+            _owner.Health.TakeDamage(healthCost, true, null);
         }
 
         public virtual bool IsResoursePointsEnough()
