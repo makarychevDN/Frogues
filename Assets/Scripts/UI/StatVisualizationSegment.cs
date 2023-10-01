@@ -12,6 +12,9 @@ namespace FroguesFramework
         [SerializeField] private GameObject[] secondDigits;
         [SerializeField] private GameObject secondDigitsParents;
 
+        [SerializeField] private string statIsPositiveColorCode = "#7B8C1B";
+        [SerializeField] private string statIsNegativeColorCode = "#8C511B";
+
         [SerializeField] private GameObject effectIcon;
 
         private Color statIncresedColor;
@@ -19,8 +22,8 @@ namespace FroguesFramework
 
         private void Awake()
         {
-            ColorUtility.TryParseHtmlString("#7B8C1B", out statIncresedColor);
-            ColorUtility.TryParseHtmlString("#8C511B", out statDecreasedColor);
+            ColorUtility.TryParseHtmlString(statIsPositiveColorCode, out statIncresedColor);
+            ColorUtility.TryParseHtmlString(statIsNegativeColorCode, out statDecreasedColor);
             upArrow.GetComponent<Image>().color = statIncresedColor;
             downArrow.GetComponent<Image>().color = statDecreasedColor;
         }
