@@ -13,6 +13,8 @@ namespace FroguesFramework
 
         public bool PathToMoveIsSelected => _currentPath.Count != 0;
 
+        public bool Immobilized => false; //Stats.immobilized;
+
         public override void PrepareToUsing(List<Cell> cells)
         {
             CalculateUsingArea();
@@ -41,6 +43,9 @@ namespace FroguesFramework
 
         public override bool PossibleToUseOnCells(List<Cell> cells)
         {
+            if (Immobilized)
+                return false;
+
             if(!IsResoursePointsEnough())
                 return false;
 
