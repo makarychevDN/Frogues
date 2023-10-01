@@ -13,9 +13,9 @@ namespace FroguesFramework
         [SerializeField] protected bool ignoreArmor;
 
         [Header("Previsualization Setup")]
-        [SerializeField] private LineRenderer lineFromOwnerToTarget;
+        [SerializeField] protected LineRenderer lineFromOwnerToTarget;
 
-        private bool _isPrevisualizedNow;
+        protected bool _isPrevisualizedNow;
         private Unit _hashedTarget;
 
         protected virtual int CalculateDamage => damageType == DamageType.physics
