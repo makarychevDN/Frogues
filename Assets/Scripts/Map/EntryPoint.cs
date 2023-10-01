@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class EntryPoint : MonoBehaviour
+    public class EntryPoint : MonoBehaviour, IRoundTickable
     {
         public static EntryPoint Instance;
         [SerializeField] private Room hub;
@@ -23,6 +23,7 @@ namespace FroguesFramework
         [SerializeField] private int deltaOfScoreToOpenExit = 200;
         [SerializeField] private WaveSpawner waveSpawner;
         [SerializeField] private TMP_Text scoreText;
+        [SerializeField] private int turnCounter;
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
         private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
@@ -42,10 +43,9 @@ namespace FroguesFramework
                                          && !CurrentlyActiveObjects.SomethingIsActNow;
 
         public Vector3 CenterOfRoom => _currentRoom.CenterOfRoom;
-
         public void ActivateExit() => _currentRoom.ActivateExit();
-
         public Unit MetaPlayer => _metaPlayer;
+        public int TurnCounter => turnCounter;
 
         private void Awake()
         {
@@ -54,10 +54,12 @@ namespace FroguesFramework
             _currentRoom = hub;
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
+            turnCounter = 1;
         }
 
         public void StartNextRoom()
         {
+            turnCounter = 1;
             var newRoom = Instantiate(roomsPrefabs.GetRandomElement());
             _roomsCount++;
             _currentRoom.Deactivate();
@@ -116,7 +118,6 @@ namespace FroguesFramework
 
         private void Update()
         {
-
             if (PauseIsActive)
                 return;
 
@@ -140,5 +141,9 @@ namespace FroguesFramework
                 ableToDisablePreVisualization.DisablePreVisualization();
             }
         }
+
+        public void TickAfterEnemiesTurn() => turnCounter++;
+
+        public void TickAfterPlayerTurn(){}
     }
 }

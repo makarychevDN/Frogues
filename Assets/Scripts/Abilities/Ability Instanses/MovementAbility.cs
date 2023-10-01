@@ -28,7 +28,7 @@ namespace FroguesFramework
             if(_hashedFinishCell != null)
                 value ^= _hashedFinishCell.GetHashCode() ^ _hashedFinishCell.IsEmpty.ToInt();
 
-            return value ^ GetHashCode();
+            return EntryPoint.Instance.TurnCounter ^ value ^ GetHashCode();
         }
 
         public override List<Cell> CalculateUsingArea()
@@ -76,7 +76,7 @@ namespace FroguesFramework
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
         {
-            if (PathToMoveIsSelected)
+            if (PathToMoveIsSelected || Immobilized)
                 return;
 
             _usingArea.ForEach(cell => cell.EnableValidForMovementCellHighlight(_usingArea));
