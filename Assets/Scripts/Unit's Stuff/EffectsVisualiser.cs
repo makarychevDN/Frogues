@@ -29,7 +29,7 @@ namespace FroguesFramework
             unit.Stats.OnImmobilizedUpdated.AddListener(OnStatUpdated);
         }
 
-        private void OnStatUpdated(int delta)
+        private void OnStatUpdated(StatEffectTypes type, int delta)
         {
             var currentTextEffect = statEffectTextFields.FirstOrDefault(textField => !textField.gameObject.activeSelf);
 
@@ -37,7 +37,7 @@ namespace FroguesFramework
                 statEffectTextFields.Add(currentTextEffect = Instantiate(statEffectPrefab, canvas.transform));
 
             currentTextEffect.gameObject.SetActive(true);
-            currentTextEffect.text = delta > 0 ? $"<color=green>+{delta} strength</color=green>" : $"<color=red>{delta} strength</color=red>";
+            currentTextEffect.text = delta > 0 ? $"<color=green>+{delta} {type}</color=green>" : $"<color=red>{delta} {type}</color=red>";
             StartCoroutine(HideEffect(currentTextEffect.gameObject));
         }
 

@@ -18,10 +18,10 @@ namespace FroguesFramework
         [SerializeField] private float intelegenceModificatorStep;
         [SerializeField] private float dexterityModificatorStep;
         [SerializeField] private float defenceModificatorStep;
-        public UnityEvent<int> OnStrenghtUpdated, OnIntelegenceUpdated, OnDexterityUpdated, OnDefenceUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
+        public UnityEvent<StatEffectTypes, int> OnStrenghtUpdated, OnIntelegenceUpdated, OnDexterityUpdated, OnDefenceUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
-        private Dictionary<StatEffectTypes, UnityEvent<int>> _statsUpdatedEventsDictionary = new();
+        private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
 
         public int Strenght => strenght.Sum(effectInstance => effectInstance.Value);
         public int Intelegence => intelegence.Sum(effectInstance => effectInstance.Value);
@@ -41,20 +41,20 @@ namespace FroguesFramework
         {
             StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect, effectIsConstantly);
             _statsDictionary[type].Add(statEffect);
-            _statsUpdatedEventsDictionary[type].Invoke(value);
+            _statsUpdatedEventsDictionary[type].Invoke(type, value);
             statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
             return statEffect;
         }
 
         private void InvokeEventByKey(StatEffectTypes key, int value)
         {
-            _statsUpdatedEventsDictionary[key].Invoke(value);
+            _statsUpdatedEventsDictionary[key].Invoke(key, value);
         }
 
         public void AddStatEffect(StatEffect statEffect)
         {
             _statsDictionary[statEffect.type].Add(statEffect);
-            _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.Value);
+            _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.type, statEffect.Value);
             statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
         }
 
@@ -62,7 +62,7 @@ namespace FroguesFramework
         {
             statEffect.OnEffectValueChanged.RemoveListener(InvokeEventByKey);
             _statsDictionary[statEffect.type].Remove(statEffect);
-            _statsUpdatedEventsDictionary[statEffect.type].Invoke(-statEffect.Value);
+            _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.type, - statEffect.Value);
         }
 
         #region timerStuff
@@ -115,7 +115,7 @@ namespace FroguesFramework
                 { StatEffectTypes.immobilized, immobilized }
             };
 
-            _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<int>>
+            _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes,int>>
             {
                 { StatEffectTypes.strenght, OnStrenghtUpdated },
                 { StatEffectTypes.intelegence, OnIntelegenceUpdated },
