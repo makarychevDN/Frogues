@@ -13,7 +13,7 @@ namespace FroguesFramework
 
         public bool PathToMoveIsSelected => _currentPath.Count != 0;
 
-        public bool Immobilized => false; //Stats.immobilized;
+        public bool Immobilized => _owner.Stats.Immobilized > 0;
 
         public override void PrepareToUsing(List<Cell> cells)
         {

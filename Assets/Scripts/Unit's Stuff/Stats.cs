@@ -13,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private List<StatEffect> dexterity;
         [SerializeField] private List<StatEffect> defence;
         [SerializeField] private List<StatEffect> spikes;
+        [SerializeField] private List<StatEffect> immobilized;
         [SerializeField] private float strengtModificatorStep;
         [SerializeField] private float intelegenceModificatorStep;
         [SerializeField] private float dexterityModificatorStep;
@@ -27,6 +28,7 @@ namespace FroguesFramework
         public int Dexterity => dexterity.Sum(effectInstance => effectInstance.Value);
         public int Defence => defence.Sum(effectInstance => effectInstance.Value);
         public int Spikes => spikes.Sum(effectInstance => effectInstance.Value);
+        public int Immobilized => immobilized.Sum(effectInstance => effectInstance.Value);
 
         public float StrenghtModificator => (1 + Strenght * strengtModificatorStep);
         public float IntelegenceModificator => (1 + Intelegence * intelegenceModificatorStep);
