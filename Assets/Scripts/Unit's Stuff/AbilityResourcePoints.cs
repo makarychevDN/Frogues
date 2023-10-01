@@ -113,8 +113,6 @@ namespace FroguesFramework
             int spendedTemporaryCost = Mathf.Clamp(cost, 0, temporarypPoints);
             cost -= spendedTemporaryCost;
             temporarypPoints -= spendedTemporaryCost;
-            print(temporarypPoints);
-
             points -= cost;
         }
 
