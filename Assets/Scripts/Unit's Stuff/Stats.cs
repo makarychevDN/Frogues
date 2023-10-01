@@ -18,7 +18,7 @@ namespace FroguesFramework
         [SerializeField] private float intelegenceModificatorStep;
         [SerializeField] private float dexterityModificatorStep;
         [SerializeField] private float defenceModificatorStep;
-        public UnityEvent<int> OnStrenghtUpdated, OnIntelegenceUpdated, OnDexterityUpdated, OnDefenceUpdated, OnSpikesUpdated;
+        public UnityEvent<int> OnStrenghtUpdated, OnIntelegenceUpdated, OnDexterityUpdated, OnDefenceUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<int>> _statsUpdatedEventsDictionary = new();
@@ -111,7 +111,8 @@ namespace FroguesFramework
                 { StatEffectTypes.intelegence, intelegence },
                 { StatEffectTypes.dexterity, dexterity },
                 { StatEffectTypes.defence, defence },
-                { StatEffectTypes.spikes, spikes }
+                { StatEffectTypes.spikes, spikes },
+                { StatEffectTypes.immobilized, immobilized }
             };
 
             _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<int>>
@@ -120,7 +121,8 @@ namespace FroguesFramework
                 { StatEffectTypes.intelegence, OnIntelegenceUpdated },
                 { StatEffectTypes.dexterity, OnDexterityUpdated },
                 { StatEffectTypes.defence, OnDefenceUpdated },
-                { StatEffectTypes.spikes, OnSpikesUpdated }
+                { StatEffectTypes.spikes, OnSpikesUpdated },
+                { StatEffectTypes.immobilized, OnImmobilizedUpdated }
             };
         }
 
@@ -135,7 +137,8 @@ namespace FroguesFramework
         intelegence = 10,
         dexterity = 20,
         defence = 30,
-        spikes = 40
+        spikes = 40,
+        immobilized = 50
     }
 
     [Serializable]

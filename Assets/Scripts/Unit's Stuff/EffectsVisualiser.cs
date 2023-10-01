@@ -26,6 +26,7 @@ namespace FroguesFramework
             unit.Stats.OnDexterityUpdated.AddListener(OnStatUpdated);
             unit.Stats.OnDefenceUpdated.AddListener(OnStatUpdated);
             unit.Stats.OnSpikesUpdated.AddListener(OnStatUpdated);
+            unit.Stats.OnImmobilizedUpdated.AddListener(OnStatUpdated);
         }
 
         private void OnStatUpdated(int delta)
@@ -34,7 +35,6 @@ namespace FroguesFramework
 
             if(currentTextEffect == null)
                 statEffectTextFields.Add(currentTextEffect = Instantiate(statEffectPrefab, canvas.transform));
-
 
             currentTextEffect.gameObject.SetActive(true);
             currentTextEffect.text = delta > 0 ? $"<color=green>+{delta} strength</color=green>" : $"<color=red>{delta} strength</color=red>";

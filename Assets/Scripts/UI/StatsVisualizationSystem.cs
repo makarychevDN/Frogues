@@ -11,6 +11,7 @@ namespace FroguesFramework
         [SerializeField] private StatVisualizationSegment dexteritySegment;
         [SerializeField] private StatVisualizationSegment defenceSegment;
         [SerializeField] private StatVisualizationSegment spikesSegment;
+        [SerializeField] private StatVisualizationSegment immobilizedSegment;
 
         private int lastStatsHash;
 
@@ -40,6 +41,9 @@ namespace FroguesFramework
 
             spikesSegment.gameObject.SetActive(stats.Spikes != 0);
             spikesSegment.SetValue(stats.Spikes);
+
+            immobilizedSegment.gameObject.SetActive(stats.Immobilized != 0);
+            immobilizedSegment.SetValue(stats.Spikes);
         }
     }
 }
