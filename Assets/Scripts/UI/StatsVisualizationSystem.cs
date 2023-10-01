@@ -5,7 +5,6 @@ namespace FroguesFramework
     public class StatsVisualizationSystem : MonoBehaviour
     {
         [SerializeField] private Stats stats;
-
         [SerializeField] private StatVisualizationSegment strenghtSegment;
         [SerializeField] private StatVisualizationSegment intelligenceSegment;
         [SerializeField] private StatVisualizationSegment dexteritySegment;
@@ -43,7 +42,7 @@ namespace FroguesFramework
             spikesSegment.SetValue(stats.Spikes);
 
             immobilizedSegment.gameObject.SetActive(stats.Immobilized != 0);
-            immobilizedSegment.SetValue(stats.Spikes);
+            immobilizedSegment.SetValue(stats.Immobilized);
         }
     }
 }

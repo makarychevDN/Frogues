@@ -144,5 +144,17 @@ namespace FroguesFramework
         {
             return (int)Math.Round(value, MidpointRounding.AwayFromZero);
         }
+
+        public static int GetStatValue(this List<StatEffect> listOfStatEffects)
+        {
+            return listOfStatEffects.Sum(effectInstance => effectInstance.Value);
+        }
+
+        public static int GetTimeToTheEndOfEffect(this List<StatEffect> listOfStatEffects)
+        {
+            if(listOfStatEffects.Count == 0)
+                return 0;
+            return listOfStatEffects.Max(statInstance => statInstance.timeToTheEndOfEffect);
+        }
     }
 }

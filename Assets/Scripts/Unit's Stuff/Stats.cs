@@ -23,19 +23,19 @@ namespace FroguesFramework
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
 
-        public int Strenght => strenght.Sum(effectInstance => effectInstance.Value);
-        public int Intelegence => intelegence.Sum(effectInstance => effectInstance.Value);
-        public int Dexterity => dexterity.Sum(effectInstance => effectInstance.Value);
-        public int Defence => defence.Sum(effectInstance => effectInstance.Value);
-        public int Spikes => spikes.Sum(effectInstance => effectInstance.Value);
-        public int Immobilized => immobilized.Sum(effectInstance => effectInstance.Value);
+        public int Strenght => strenght.GetStatValue();
+        public int Intelegence => intelegence.GetStatValue();
+        public int Dexterity => dexterity.GetStatValue();
+        public int Defence => defence.GetStatValue();
+        public int Spikes => spikes.GetStatValue();
+        public int Immobilized => immobilized.GetTimeToTheEndOfEffect();
 
-        public float StrenghtModificator => (1 + Strenght * strengtModificatorStep);
-        public float IntelegenceModificator => (1 + Intelegence * intelegenceModificatorStep);
-        public float DexterityeModificator => (1 + Dexterity * dexterityModificatorStep);
-        public float DefenceModificator => (1 + Defence * defenceModificatorStep);
+        public float StrenghtModificator => (1 + strenght.GetStatValue() * strengtModificatorStep);
+        public float IntelegenceModificator => (1 + intelegence.GetStatValue() * intelegenceModificatorStep);
+        public float DexterityeModificator => (1 + dexterity.GetStatValue() * dexterityModificatorStep);
+        public float DefenceModificator => (1 + defence.GetStatValue() * defenceModificatorStep);
 
-        public int CalculateHashFunctionOfPrevisualisation() => Strenght ^ Intelegence ^ Dexterity ^ Defence ^ Spikes;
+        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() ^ intelegence.GetStatValue() ^ dexterity.GetStatValue() ^ defence.GetStatValue() ^ spikes.GetStatValue() ^ immobilized.GetTimeToTheEndOfEffect();
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, bool effectIsConstantly = false)
         {
