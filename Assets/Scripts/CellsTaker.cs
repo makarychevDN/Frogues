@@ -74,7 +74,19 @@ namespace FroguesFramework
 
             return new List<Cell>();
         }
-        
+
+        public static HexDir GetHexDirByOtherCell(Cell startCell, Cell targetCell, bool includeBusyCells)
+        {
+            foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
+            {
+                var line = TakeCellsLineInDirection(startCell, hexDir, includeBusyCells);
+                if (line.Contains(targetCell))
+                    return hexDir;
+            }
+
+            return HexDir.right;
+        }
+
         public static List<Cell> EmptyCellsOnly(this List<Cell> cells)
         {
             return cells.Where(cell => cell.IsEmpty).ToList();
