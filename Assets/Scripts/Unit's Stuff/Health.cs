@@ -134,9 +134,9 @@ namespace FroguesFramework
             CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentBlockrWithPreTakenDamage,
                 ref _temporaryBlockWithPreTakenDamage, damageValue, ignoreBlock);
 
-        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, int damageValue, bool Block)
+        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, int damageValue, bool ignoreBlock)
         {
-            if (!Block)
+            if (!ignoreBlock)
             {
                 int damageToTemporaryBlock = Mathf.Clamp(damageValue, 0, calculatingTemporaryBlock);
                 damageValue -= damageToTemporaryBlock;
