@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaceStrenghtForMissingHealthPassiveAbility : PassiveAbility
+    public class IncreaceStatForMissingHealthPassiveAbility : PassiveAbility
     {
+        [SerializeField] private StatEffectTypes statEffectType;
         [SerializeField] private int missingHealthStep;
         [SerializeField] private int additionalStrenghtForEachStep;
         [SerializeField] private int additionalStrenghtValue;
@@ -12,7 +13,7 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            statEffect = new StatEffect(StatEffectTypes.strenght, additionalStrenghtValue, 1, true);
+            statEffect = new StatEffect(statEffectType, additionalStrenghtValue, 1, true);
             _owner.Stats.AddStatEffect(statEffect);
             _owner.Health.OnApplyUnblockedDamage.AddListener(RecalculateStrenght);
             _owner.Health.OnHpHealed.AddListener(RecalculateStrenght);
