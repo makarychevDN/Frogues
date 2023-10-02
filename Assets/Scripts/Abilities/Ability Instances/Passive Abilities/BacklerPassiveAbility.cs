@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace FroguesFramework
 {
@@ -12,6 +13,12 @@ namespace FroguesFramework
         {
             base.Init(unit);
             unit.Health.OnDamageFromUnitBlockedSuccessfully.AddListener(DecreaseDeffenceToDamageSource);
+        }
+
+        public override void UnInit()
+        {
+            _owner.Health.OnDamageFromUnitBlockedSuccessfully.RemoveListener(DecreaseDeffenceToDamageSource);
+            base.UnInit();
         }
 
         public void DecreaseDeffenceToDamageSource(Unit damageSource)
