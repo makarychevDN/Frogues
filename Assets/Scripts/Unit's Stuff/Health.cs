@@ -17,6 +17,7 @@ namespace FroguesFramework
         public UnityEvent OnPermanentBlockIncreased;
         public UnityEvent OnBlockIncreased;
         public UnityEvent OnHpEnded;
+        public UnityEvent OnHpHealed;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
         private int _healthWithPreTakenDamage, _permanentBlockrWithPreTakenDamage, _temporaryBlockWithPreTakenDamage;
         private int _hashedHp, _hashedBlock;
@@ -81,6 +82,7 @@ namespace FroguesFramework
         {
             currentHP += value;
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+            OnHpHealed.Invoke();
         }
 
         public void TakeDamage(int damageValue, Unit damageSource) =>
