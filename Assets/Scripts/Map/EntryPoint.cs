@@ -23,6 +23,7 @@ namespace FroguesFramework
         [SerializeField] private int deltaOfScoreToOpenExit = 200;
         [SerializeField] private WaveSpawner waveSpawner;
         [SerializeField] private TMP_Text scoreText;
+        [SerializeField] private int bonfireHealingValue;
         [SerializeField] private int turnCounter;
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
@@ -37,6 +38,7 @@ namespace FroguesFramework
         public bool PauseIsActive => pausePanel.activeSelf;
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
         public int Score => score;
+        public int BonfireHealingValue => bonfireHealingValue;
         public bool ExitActivated => exitButton.activeSelf;
         public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer)
                                          && !_metaPlayer.MovementAbility.PathToMoveIsSelected
@@ -76,6 +78,8 @@ namespace FroguesFramework
             OnNextRoomStarted.Invoke();
         }
 
+        public void IncreaseBonfireHealingValue(int value) => bonfireHealingValue += value;
+
         public void IncreaseScore(int score)
         {
             this.score += score;
@@ -84,7 +88,6 @@ namespace FroguesFramework
             if (this.score - _hashedScoreThenExitActivated < deltaOfScoreToOpenExit)
                 return;
 
-            //_currentRoom.ActivateExit();
             exitButton.SetActive(true);
             _hashedScoreThenExitActivated += deltaOfScoreToOpenExit;
         }
