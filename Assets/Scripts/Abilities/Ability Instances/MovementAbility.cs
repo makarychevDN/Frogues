@@ -31,6 +31,11 @@ namespace FroguesFramework
             return EntryPoint.Instance.TurnCounter ^ value ^ GetHashCode();
         }
 
+        public void ResetPath()
+        {
+            _currentPath.Clear();
+        }
+
         public override List<Cell> CalculateUsingArea()
         {
             _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,

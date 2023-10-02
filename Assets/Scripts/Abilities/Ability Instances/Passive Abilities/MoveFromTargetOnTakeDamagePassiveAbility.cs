@@ -42,6 +42,7 @@ namespace FroguesFramework
             if (mostFarCells.Contains(_owner.CurrentCell))
                 return;
 
+            EntryPoint.Instance.MetaPlayer.MovementAbility.ResetPath();
             _mostFarFromTargetNeighborCells = mostFarCells.GetRandomElement();
             Invoke(nameof(MoveAfterDelay), 0.24f);
         }
