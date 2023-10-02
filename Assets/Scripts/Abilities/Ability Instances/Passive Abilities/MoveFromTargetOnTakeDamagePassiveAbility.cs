@@ -62,12 +62,16 @@ namespace FroguesFramework
         {
             if (_owner.IsEnemy)
                 _movedOnTakeDamageAlready = false;
+            else
+                _movedOnTakeDamageAlready = true;
         }
 
         public void TickAfterPlayerTurn()
         {
             if (!_owner.IsEnemy)
                 _movedOnTakeDamageAlready = false;
+            else
+                _movedOnTakeDamageAlready = true;
         }
     }
 }
