@@ -33,6 +33,16 @@ namespace FroguesFramework
 
         public bool Full => currentHP == maxHP;
 
+        public void Init(Unit unit)
+        {
+            _unit = unit;
+            _hashedHp = currentHP;
+            _hashedBlock = Block;
+            OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
+            unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
+            AddMySelfToEntryPoint();
+        }
+
         public void RemoveAllBlockEffects()
         {
             temporaryBlock = 0;
@@ -46,7 +56,7 @@ namespace FroguesFramework
             OnTemporaryBlockIncreased.Invoke();
             OnBlockIncreased.Invoke();
         }
-        
+
         public void IncreasePermanentBlock(int value)
         {
             permanentBlock += (int)(value * _unit.Stats.DefenceModificator);
@@ -56,14 +66,9 @@ namespace FroguesFramework
             OnBlockIncreased.Invoke();
         }
 
-        public void Init(Unit unit)
+        public void IncreaseMaxHp(int value)
         {
-            _unit = unit;            
-            _hashedHp = currentHP;
-            _hashedBlock = Block;
-            OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
-            unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
-            AddMySelfToEntryPoint();
+            maxHP += value;
         }
 
         private void Update()
