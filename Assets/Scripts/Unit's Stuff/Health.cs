@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using static UnityEngine.UI.CanvasScaler;
 
 namespace FroguesFramework
 {
@@ -12,13 +11,14 @@ namespace FroguesFramework
         [SerializeField] private int temporaryBlock;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnDamageBlockedSuccessfully;
+        public UnityEvent<Unit> OnDamageFromUnitBlockedSuccessfully;
         public UnityEvent OnBlockDestroyed;
         public UnityEvent OnTemporaryBlockIncreased;
         public UnityEvent OnPermanentBlockIncreased;
         public UnityEvent OnBlockIncreased;
         public UnityEvent OnHpEnded;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
-        private int _healthWithPreTakenDamage, _permanentArmorWithPreTakenDamage, _temporaryArmorWithPreTakenDamage;
+        private int _healthWithPreTakenDamage, _permanentBlockrWithPreTakenDamage, _temporaryBlockWithPreTakenDamage;
         private int _hashedHp, _hashedBlock;
         private Unit _unit;
 
@@ -28,7 +28,7 @@ namespace FroguesFramework
         public int PermanentBlock => permanentBlock;
         public int TemporaryBlock => temporaryBlock;
         public int Block => temporaryBlock + permanentBlock;
-        public int ArmorWithPreTakenDamage => _temporaryArmorWithPreTakenDamage + _permanentArmorWithPreTakenDamage;
+        public int BlockWithPreTakenDamage => _temporaryBlockWithPreTakenDamage + _permanentBlockrWithPreTakenDamage;
 
         public bool Full => currentHP == maxHP;
 
@@ -86,17 +86,18 @@ namespace FroguesFramework
         public void TakeDamage(int damageValue, Unit damageSource) =>
             TakeDamage(damageValue, false, damageSource);
 
-        public void TakeDamage(int damageValue, bool ignoreArmor, Unit damageSource)
+        public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource)
         {
-            CalculateDamage(ref currentHP, ref permanentBlock, ref temporaryBlock, damageValue, ignoreArmor);
+            CalculateDamage(ref currentHP, ref permanentBlock, ref temporaryBlock, damageValue, ignoreBlock);
 
-            if (!ignoreArmor)
+            if (!ignoreBlock)
             {
                 if (_hashedBlock != 0)
                 {
                     if (Block != 0)
                     {
                         OnDamageBlockedSuccessfully.Invoke();
+                        OnDamageFromUnitBlockedSuccessfully.Invoke(damageSource);
                     }
                     else
                     {
@@ -126,24 +127,24 @@ namespace FroguesFramework
         }
 
         public void PreTakeDamage(int damageValue) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentArmorWithPreTakenDamage,
-                ref _temporaryArmorWithPreTakenDamage, damageValue, false);
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentBlockrWithPreTakenDamage,
+                ref _temporaryBlockWithPreTakenDamage, damageValue, false);
 
-        public void PreTakeDamage(int damageValue, bool ignoreArmor) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentArmorWithPreTakenDamage,
-                ref _temporaryArmorWithPreTakenDamage, damageValue, ignoreArmor);
+        public void PreTakeDamage(int damageValue, bool ignoreBlock) =>
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentBlockrWithPreTakenDamage,
+                ref _temporaryBlockWithPreTakenDamage, damageValue, ignoreBlock);
 
-        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentArmor, ref int calculatingTemporaryArmor, int damageValue, bool ignoreArmor)
+        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, int damageValue, bool Block)
         {
-            if (!ignoreArmor)
+            if (!Block)
             {
-                int damageToTemporaryArmor = Mathf.Clamp(damageValue, 0, calculatingTemporaryArmor);
-                damageValue -= damageToTemporaryArmor;
-                calculatingTemporaryArmor -= damageToTemporaryArmor;
+                int damageToTemporaryBlock = Mathf.Clamp(damageValue, 0, calculatingTemporaryBlock);
+                damageValue -= damageToTemporaryBlock;
+                calculatingTemporaryBlock -= damageToTemporaryBlock;
 
-                int damageToArmor = Mathf.Clamp(damageValue, 0, calculatingPermanentArmor);
-                damageValue -= damageToArmor;
-                calculatingPermanentArmor -= damageToArmor;
+                int damageToBlock = Mathf.Clamp(damageValue, 0, calculatingPermanentBlock);
+                damageValue -= damageToBlock;
+                calculatingPermanentBlock -= damageToBlock;
                 
                 damageValue = Mathf.Clamp(damageValue, 0, 1000);
             }
@@ -190,8 +191,8 @@ namespace FroguesFramework
         public void DisablePreVisualization()
         {
             _healthWithPreTakenDamage = currentHP;
-            _permanentArmorWithPreTakenDamage = permanentBlock;
-            _temporaryArmorWithPreTakenDamage = temporaryBlock;
+            _permanentBlockrWithPreTakenDamage = permanentBlock;
+            _temporaryBlockWithPreTakenDamage = temporaryBlock;
         }
 
         private void OnDestroy()
