@@ -13,6 +13,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
             statEffect = new StatEffect(StatEffectTypes.strenght, additionalStrenghtValue, 1, true);
+            _owner.Stats.AddStatEffect(statEffect);
             _owner.Health.OnApplyUnblockedDamage.AddListener(RecalculateStrenght);
             _owner.Health.OnHpHealed.AddListener(RecalculateStrenght);
             RecalculateStrenght();
