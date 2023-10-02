@@ -67,6 +67,8 @@ namespace FroguesFramework
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.ActionPoints.SetCurrentPoints(4);
             _metaPlayer.Health.TakeHealing(33);
+            _metaPlayer.Stats.RemoveAllNonConstantlyEffects();
+            _metaPlayer.Health.RemoveAllBlockEffects();
             waveSpawner.ResetRoundsTimer();
             waveSpawner.SpawnPreWave();
             exitButton.SetActive(false);

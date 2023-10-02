@@ -33,6 +33,12 @@ namespace FroguesFramework
 
         public bool Full => currentHP == maxHP;
 
+        public void RemoveAllBlockEffects()
+        {
+            temporaryBlock = 0;
+            permanentBlock = 0;
+        }
+
         public void IncreaseTemporaryBlock(int value)
         {
             temporaryBlock += (int)(value * _unit.Stats.DefenceModificator);

@@ -65,6 +65,14 @@ namespace FroguesFramework
             _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.type, - statEffect.Value);
         }
 
+        public void RemoveAllNonConstantlyEffects()
+        {
+            foreach(var statEffectsList in _statsDictionary.Values)
+            {
+                statEffectsList.RemoveAll(statEffect => !statEffect.effectIsConstantly);
+            }
+        }
+
         #region timerStuff
         public void TickAfterEnemiesTurn()
         {
