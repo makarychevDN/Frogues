@@ -60,7 +60,6 @@ namespace FroguesFramework
         public void IncreasePermanentBlock(int value)
         {
             permanentBlock += (int)(value * _unit.Stats.DefenceModificator);
-            permanentBlock += value;
             _hashedBlock = Block;
             OnPermanentBlockIncreased.Invoke();
             OnBlockIncreased.Invoke();
