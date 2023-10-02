@@ -108,7 +108,7 @@ namespace FroguesFramework
 
             if(damageSource != null && _unit.Stats.Spikes > 0)
             {
-                damageSource.Health.TakeDamage(damageValue, null);
+                damageSource.Health.TakeDamage(_unit.Stats.Spikes, null);
             }
 
             if (currentHP < _hashedHp)
