@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class MoveFromTargetOnTakeDamagePassiveAbility : PassiveAbility
+    public class MoveFromTargetOnTakeDamagePassiveAbility : PassiveAbility, IRoundTickable
     {
         [SerializeField] private Unit _target;
         private Cell _mostFarFromTargetNeighborCells;
+        private bool _movedOnTakeDamageAlready;
 
         public override void Init(Unit unit)
         {
@@ -20,6 +21,9 @@ namespace FroguesFramework
 
         private void TryToMoveFromTarget(Unit target)
         {
+            if(_movedOnTakeDamageAlready) 
+                return;
+
             if (_owner.Health.CurrentHp <= 0)
                 return;
 
@@ -44,6 +48,7 @@ namespace FroguesFramework
 
             EntryPoint.Instance.MetaPlayer.MovementAbility.ResetPath();
             _mostFarFromTargetNeighborCells = mostFarCells.GetRandomElement();
+            _movedOnTakeDamageAlready = true;
             Invoke(nameof(MoveAfterDelay), 0.24f);
         }
 
@@ -51,6 +56,18 @@ namespace FroguesFramework
         {
             _owner.MovementAbility.CalculateUsingArea();
             _owner.MovementAbility.UseOnCells(new List<Cell> { _mostFarFromTargetNeighborCells });
+        }
+
+        public void TickAfterEnemiesTurn()
+        {
+            if (_owner.IsEnemy)
+                _movedOnTakeDamageAlready = false;
+        }
+
+        public void TickAfterPlayerTurn()
+        {
+            if (!_owner.IsEnemy)
+                _movedOnTakeDamageAlready = false;
         }
     }
 }
