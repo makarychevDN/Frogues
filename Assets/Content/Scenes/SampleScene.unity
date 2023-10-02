@@ -5173,6 +5173,74 @@ Transform:
   m_Father: {fileID: 1838763290}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &438209193
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 438209194}
+  - component: {fileID: 438209196}
+  - component: {fileID: 438209195}
+  m_Layer: 7
+  m_Name: Passive Ability (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &438209194
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438209193}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1437220344}
+  m_Father: {fileID: 1591628998}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &438209195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438209193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 7e8a1a0aa8c81174b83704a980001f8d, type: 2}
+  abilityName: 
+  stats: 
+  description: 
+--- !u!114 &438209196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438209193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb8cf3bbe581e044588199039f1347d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 438209195}
+  isPartOfWeapon: 0
+  damagePerMaxHpStep: 1
+  maxHpDeltaStep: 15
+  radius: 1
+  visualizationEffect: {fileID: 1437220343}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -11819,6 +11887,16 @@ Transform:
   m_Father: {fileID: 1639142364}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1437220343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3550273190816655362, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+  m_PrefabInstance: {fileID: 3550273192248612341}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1437220344 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+  m_PrefabInstance: {fileID: 3550273192248612341}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1472725861
 GameObject:
   m_ObjectHideFlags: 0
@@ -16940,61 +17018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7926708780ec14c97f5dc59cfbb11b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityDataForButton: {fileID: 1581167646}
-  isPartOfWeapon: 0
-  actionPointsCost: 0
-  bloodPointsCost: 0
-  healthCost: 0
-  cooldownAfterUse: 0
-  cooldownAfterStart: 0
-  cooldownCounter: 0
-  isCooldownedAfterStart: 0
-  abilityAnimatorTrigger: 0
-  weaponIndex: -1
-  timeBeforeImpact: 0
-  fullAnimationTime: 0
-  delayBeforeImpactSound: 0
-  impactSoundSource: {fileID: 1581167645}
-  needToRotateOwnersSprite: 1
-  damageType: 0
-  damage: 0
-  radius: 0
-  isNativeAttack: 0
-  ignoreArmor: 0
-  lineFromOwnerToTarget: {fileID: 1588656947}
-  animationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2.7552083
-      outSlope: 2.7552083
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.034026463
-    - serializedVersion: 3
-      time: 0.5
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -3.5655394
-      outSlope: -3.5655394
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.03213632
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1583863873
 GameObject:
   m_ObjectHideFlags: 0
@@ -18362,6 +18385,7 @@ MonoBehaviour:
   deltaOfScoreToOpenExit: 10
   waveSpawner: {fileID: 2024597960}
   scoreText: {fileID: 845689063}
+  turnCounter: 0
   OnNextRoomStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -18596,6 +18620,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8003428f0ee43b047bcde0a2f05fd810, type: 3}
+--- !u!1001 &3550273192248612341
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 438209194}
+    m_Modifications:
+    - target: {fileID: 3550273190816655362, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_Name
+      value: Heavy Steps Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655362, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3550273190816655373, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b96a44e625137104eb33db6b8d40e5e4, type: 3}
 --- !u!1001 &4182687046851866784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18701,6 +18774,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1793818044}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 438209194}
     - targetCorrespondingSourceObject: {fileID: 7512397265278902572, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133876481}

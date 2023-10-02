@@ -16,7 +16,7 @@ namespace FroguesFramework
             base.Init(unit);
             _owner.Movable.OnMovementEnd.AddListener(MakeShockWave);
             visualizationEffect.transform.parent = _owner.transform;
-            visualizationEffect.transform.localPosition = Vector3.zero;
+            visualizationEffect.transform.localPosition = Vector3.zero + Vector3.up * 0.05f;
         }
 
         public override void UnInit()
@@ -30,7 +30,7 @@ namespace FroguesFramework
             List<Cell> targetsCells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radius, true, false);
             targetsCells.Where(cell => cell.Content != null).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage(), null));
             visualizationEffect.SetActive(true);
-            Invoke(nameof(TurnOffVisualizationEffect), 0.25f);
+            Invoke(nameof(TurnOffVisualizationEffect), 0.1f);
         }
 
         private void TurnOffVisualizationEffect() => visualizationEffect.SetActive(false);
