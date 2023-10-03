@@ -92,7 +92,7 @@ namespace FroguesFramework
             _hashedScoreThenExitActivated += deltaOfScoreToOpenExit;
         }
 
-        public void SpawnUnit(Unit prefab, Unit spawner, Cell targetCell)
+        public Unit SpawnUnit(Unit prefab, Unit spawner, Cell targetCell)
         {
             var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
             spawnedUnit.CurrentCell = spawner.CurrentCell;
@@ -102,6 +102,8 @@ namespace FroguesFramework
 
             if (spawnedUnit.ActionsInput != null)
                 UnitsQueue.AddObjectInQueue(spawnedUnit);
+
+            return spawnedUnit;
         }
 
         public void SpawnUnit(Unit prefab, Cell targetCell)
