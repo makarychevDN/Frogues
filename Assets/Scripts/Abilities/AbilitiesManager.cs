@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] private List<BaseAbility> _abilities = new();
         public UnityEvent<BaseAbility> AbilityHasBeenAdded;
         public UnityEvent<BaseAbility> AbilityHasBeenRemoved;
+        public UnityEvent OnWeaponsDamageUpdated;
         private IAbleToHaveCurrentAbility _ableToHaveCurrentAbility;
 
         public IAbleToHaveCurrentAbility AbleToHaveCurrentAbility => _ableToHaveCurrentAbility;
@@ -69,9 +70,5 @@ namespace FroguesFramework
         {
             weaponActionPointsCost = value;
         }
-
-        public int GetWeaponDamage() => weaponDamage;
-
-        public int GetWeaponActionPointsCost() => weaponActionPointsCost;
     }
 }

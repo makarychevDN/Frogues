@@ -34,13 +34,14 @@ namespace FroguesFramework
             ? (int)(GetDamageValue() * _owner.Stats.StrenghtModificator)
             : (int)(GetDamageValue() * _owner.Stats.IntelegenceModificator);
 
-        private int GetDamageValue() => _owner.AbilitiesManager.GetWeaponDamage(); 
+        private int GetDamageValue() => _owner.AbilitiesManager.WeaponDamage; 
 
         private void TurnOnCriticalMode()
         {
             _nextAttackIsCriticalStateEvent.Invoke(true);
             ignoreArmor = true;
             _owner.AbilitiesManager.SetWeaponDamage(critDamage);
+            _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
 
         private void TurnOffCriticalMode()
@@ -48,6 +49,7 @@ namespace FroguesFramework
             _nextAttackIsCriticalStateEvent.Invoke(false);
             ignoreArmor = false;
             _owner.AbilitiesManager.SetWeaponDamage(damage);
+            _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
 
         public UnityEvent<bool> GetHighlightEvent() => _nextAttackIsCriticalStateEvent;
