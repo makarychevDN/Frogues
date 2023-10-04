@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
@@ -17,6 +18,8 @@ namespace FroguesFramework
 
         [Header("Previsualization Setup")]
         [SerializeField] protected LineRenderer lineFromOwnerToTarget;
+
+        public UnityEvent OnEffectApplied;
 
         protected bool _isPrevisualizedNow;
         private Unit _hashedTarget;
@@ -62,6 +65,7 @@ namespace FroguesFramework
         {
             yield return new WaitForSeconds(time);
             target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+            OnEffectApplied.Invoke();
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);

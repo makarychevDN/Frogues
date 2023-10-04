@@ -69,5 +69,9 @@ namespace FroguesFramework
         {
             weaponActionPointsCost = value;
         }
+
+        public int GetWeaponDamage() => weaponDamage;
+
+        public int GetWeaponActionPointsCost() => weaponActionPointsCost;
     }
 }

@@ -7,7 +7,6 @@ namespace FroguesFramework
     public class KnifeNativeAttackAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton
     {
         [SerializeField] private int critDamage;
-        private bool _nextAttackIsCritical;
         private UnityEvent<bool> _nextAttackIsCriticalStateEvent = new UnityEvent<bool>();
 
         public override void Init(Unit unit)
@@ -15,18 +14,19 @@ namespace FroguesFramework
             base.Init(unit);
             _owner.AbleToSkipTurn.OnSkipTurn.AddListener(TurnOffCriticalMode);
             _owner.Movable.OnMovementEnd.AddListener(TurnOnCriticalMode);
+            OnEffectApplied.AddListener(TurnOffCriticalMode);
         }
 
         public override void UnInit()
         {
             _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(TurnOffCriticalMode);
             _owner.Movable.OnMovementEnd.RemoveListener(TurnOnCriticalMode);
+            OnEffectApplied.RemoveListener(TurnOffCriticalMode);
             base.UnInit();
         }
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
-            TurnOffCriticalMode();
             return base.ApplyEffect(time, target);
         }
 
@@ -34,20 +34,20 @@ namespace FroguesFramework
             ? (int)(GetDamageValue() * _owner.Stats.StrenghtModificator)
             : (int)(GetDamageValue() * _owner.Stats.IntelegenceModificator);
 
-        private int GetDamageValue() => _nextAttackIsCritical ? critDamage : damage;
+        private int GetDamageValue() => _owner.AbilitiesManager.GetWeaponDamage(); 
 
         private void TurnOnCriticalMode()
         {
             _nextAttackIsCriticalStateEvent.Invoke(true);
-            _nextAttackIsCritical = true;
             ignoreArmor = true;
+            _owner.AbilitiesManager.SetWeaponDamage(critDamage);
         }
 
         private void TurnOffCriticalMode()
         {
             _nextAttackIsCriticalStateEvent.Invoke(false);
-            _nextAttackIsCritical = false;
             ignoreArmor = false;
+            _owner.AbilitiesManager.SetWeaponDamage(damage);
         }
 
         public UnityEvent<bool> GetHighlightEvent() => _nextAttackIsCriticalStateEvent;
