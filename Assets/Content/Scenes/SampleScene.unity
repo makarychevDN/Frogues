@@ -18624,6 +18624,82 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba2dfaf2c8163874381939910c041533, type: 2}
   currentWaveSetup: {fileID: 0}
   _roundsCounter: 0
+--- !u!1 &2043564454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2043564455}
+  - component: {fileID: 2043564457}
+  - component: {fileID: 2043564456}
+  m_Layer: 7
+  m_Name: Passive Ability (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2043564455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043564454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1591628998}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2043564456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043564454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 25e555f33db700847a446eee78da2179, type: 2}
+  abilityName: 
+  stats: 
+  description: 
+--- !u!114 &2043564457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043564454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3fa72670e51c4488147292fd5c95c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 2043564456}
+  isPartOfWeapon: 0
+  actionPointsCost: 1
+  bloodPointsCost: 1
+  healthCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
+  abilityAnimatorTrigger: 3
+  weaponIndex: -1
+  timeBeforeImpact: 0
+  fullAnimationTime: 0
+  delayBeforeImpactSound: 0
+  impactSoundSource: {fileID: 0}
 --- !u!1 &2062546996
 GameObject:
   m_ObjectHideFlags: 0
@@ -18980,6 +19056,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 972942011}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2043564455}
     - targetCorrespondingSourceObject: {fileID: 7512397265278902572, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133876481}
