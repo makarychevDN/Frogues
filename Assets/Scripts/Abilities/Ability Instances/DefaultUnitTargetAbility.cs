@@ -11,6 +11,9 @@ namespace FroguesFramework
         [SerializeField] protected int radius;
         [SerializeField] protected bool isNativeAttack;
         [SerializeField] protected bool ignoreArmor;
+        [SerializeField] private bool shouldUseWeapondamageInstead;
+        [SerializeField] private bool shouldUseWeaponActionPointsCostInstead;
+        [SerializeField] private bool shouldSetMyDamageAndCostAsWeaponCharacteristics;
 
         [Header("Previsualization Setup")]
         [SerializeField] protected LineRenderer lineFromOwnerToTarget;
@@ -97,6 +100,12 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
+
+            if (shouldSetMyDamageAndCostAsWeaponCharacteristics)
+            {
+                _owner.AbilitiesManager.SetWeaponActionPointsCost(actionPointsCost);
+                _owner.AbilitiesManager.SetWeaponDamage(damage);
+            }
 
             if (weaponIndex == WeaponIndexes.NoNeedToChangeWeapon)
                 return;
