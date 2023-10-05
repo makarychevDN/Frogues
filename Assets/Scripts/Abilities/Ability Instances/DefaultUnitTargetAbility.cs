@@ -19,10 +19,10 @@ namespace FroguesFramework
         [Header("Previsualization Setup")]
         [SerializeField] protected LineRenderer lineFromOwnerToTarget;
 
-        public UnityEvent OnEffectApplied;
-
         protected bool _isPrevisualizedNow;
         private Unit _hashedTarget;
+
+        public UnityEvent OnEffectApplied;
 
         protected virtual int CalculateDamage => damageType == DamageType.physics
             ? (int)(damage * _owner.Stats.StrenghtModificator)

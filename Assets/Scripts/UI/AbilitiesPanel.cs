@@ -27,7 +27,7 @@ namespace FroguesFramework
         {
             var abilityAsAbleToDrawAbilityButton = ability as IAbleToDrawAbilityButton;
             
-            if (abilityAsAbleToDrawAbilityButton == null)
+            if (abilityAsAbleToDrawAbilityButton == null || abilityAsAbleToDrawAbilityButton.IsIgnoringDrawingFunctionality())
                 return;
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
