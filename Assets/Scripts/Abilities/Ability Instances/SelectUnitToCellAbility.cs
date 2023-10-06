@@ -10,7 +10,6 @@ namespace FroguesFramework
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
         [SerializeField] private int radius;
-        [SerializeField] private int cost;
         [SerializeField] private AreaTargetAbility areaTargetAbility;
 
         [Header("Previsualization Setup")]
@@ -22,8 +21,8 @@ namespace FroguesFramework
         public UnityEvent<Unit> OnUnitSelected;
 
         private int CalculateDamage => damageType == DamageType.physics
-            ? (int)(damage * _owner.Stats.StrenghtModificator)
-            : (int)(damage * _owner.Stats.IntelegenceModificator);
+            ? (damage * _owner.Stats.StrenghtModificator).RoundWithGameRules()
+            : (damage * _owner.Stats.IntelegenceModificator).RoundWithGameRules();
 
         public override void Init(Unit unit)
         {

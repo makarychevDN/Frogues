@@ -5371,7 +5371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 474423773}
   isPartOfWeapon: 0
-  actionPointsCost: 0
+  actionPointsCost: 1
   bloodPointsCost: 0
   healthCost: 0
   cooldownAfterUse: 0
@@ -5386,9 +5386,8 @@ MonoBehaviour:
   impactSoundSource: {fileID: 0}
   needToRotateOwnersSprite: 1
   damageType: 0
-  damage: 1
+  damage: 5
   radius: 1
-  cost: 1
   areaTargetAbility: {fileID: 1054011537}
   lineFromOwnerToTarget: {fileID: 2115046979}
   OnUnitSelected:
@@ -11665,7 +11664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 0}
   isPartOfWeapon: 0
-  actionPointsCost: 0
+  actionPointsCost: 1
   bloodPointsCost: 0
   healthCost: 0
   cooldownAfterUse: 0
@@ -11679,13 +11678,41 @@ MonoBehaviour:
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
   needToRotateOwnersSprite: 1
-  range: 3
+  damage: 5
+  damageType: 0
   movementSpeed: 13
   movementHeight: 0.7
   lineFromOwnerToTarget: {fileID: 2140951949}
   parabolaAnimationCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.7552083
+      outSlope: 2.7552083
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.034026463
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -3.5655394
+      outSlope: -3.5655394
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.03213632
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.MaterialProperty;
 
 namespace FroguesFramework
 {
@@ -13,22 +12,56 @@ namespace FroguesFramework
             return EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, true, false);
         }
 
-        public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction, bool includeBusyCells)
+        public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
         {
             List<Cell> cells = new List<Cell>();
             Cell currentCell = startCell;
+            bool isTheFirstObstacleInARow = true;
 
             while (true)
             {
-                currentCell = currentCell.CellNeighbours.GetNeighborByHexDir(direction);     
-                
-                if (includeBusyCells ? currentCell.Content is Barrier : currentCell.Content != null)
-                    break;
+                currentCell = currentCell.CellNeighbours.GetNeighborByHexDir(direction); //todo сломалась водна€ стру€
+
+                if(IsCellContainsObstacle(currentCell, obstacleMode))
+                {
+                    if (includeFirstCellWithObstacle && isTheFirstObstacleInARow)
+                    {
+                        cells.Add(currentCell);
+                        isTheFirstObstacleInARow = false;
+                    }
+
+                    if (lineStopsWithObstacle)
+                    {
+                        break;
+                    }
+
+                    continue;
+                }
 
                 cells.Add(currentCell);
+                isTheFirstObstacleInARow = true;
             }
 
             return cells;
+        }
+
+        private static bool IsCellContainsObstacle(Cell cell, ObstacleMode obstacleMode)
+        {
+            if (cell.Content is Barrier)
+                return true;
+
+            if (cell.IsEmpty || obstacleMode == ObstacleMode.noObstacles)
+                return false;
+
+            if(obstacleMode == ObstacleMode.everyUnitIsObstacle)
+                return true;
+
+            return !cell.Content.Small;
+        }
+
+        public enum ObstacleMode
+        {
+            noObstacles = 10, onlyBigUnitsAreObstacles = 20, everyUnitIsObstacle = 30
         }
 
         private static bool CheckUnitIsBarrier(Unit unit)
@@ -41,13 +74,13 @@ namespace FroguesFramework
             return unit == null;
         }
 
-        public static List<Cell> TakeCellsLinesInAllDirections(Cell startCell, bool includeBusyCells)
+        public static List<Cell> TakeCellsLinesInAllDirections(Cell startCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
         {
             List<Cell> cells = new List<Cell>();
 
             foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
             {
-                cells.AddRange(TakeCellsLineInDirection(startCell, hexDir, includeBusyCells));   
+                cells.AddRange(TakeCellsLineInDirection(startCell, hexDir, obstacleMode, includeFirstCellWithObstacle, lineStopsWithObstacle));   
             }
 
             return cells;
@@ -63,11 +96,11 @@ namespace FroguesFramework
             return EntryPoint.Instance.Map.allCells.Where(cell => cell.IsEmpty).ToList();
         }
 
-        public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell, bool includeBusyCells)
+        public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
         {
             foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
             {
-                var line = TakeCellsLineInDirection(startCell, hexDir, includeBusyCells);
+                var line = TakeCellsLineInDirection(startCell, hexDir, obstacleMode, includeFirstCellWithObstacle, lineStopsWithObstacle);
                 if (line.Contains(targetCell))
                     return line;
             }

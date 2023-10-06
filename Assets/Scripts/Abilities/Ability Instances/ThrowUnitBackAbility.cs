@@ -5,7 +5,9 @@ namespace FroguesFramework
 {
     public class ThrowUnitBackAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToHashUnitTarget
     {
-        [SerializeField] private int range = 3;
+        [SerializeField] private int damage;
+        [SerializeField] private DamageType damageType;
+
         [SerializeField] private float movementSpeed = 13;
         [SerializeField] private float movementHeight = 0.7f;
 
@@ -19,7 +21,7 @@ namespace FroguesFramework
 
         public override int CalculateHashFunctionOfPrevisualisation()
         {
-            int value = range;
+            int value = 1;
             if (_hashedCell != null)
                 value ^= _hashedCell.GetHashCode();
 
@@ -28,7 +30,8 @@ namespace FroguesFramework
 
         public override List<Cell> CalculateUsingArea()
         {
-            return _usingArea = CellsTaker.TakeCellsLineInDirection(_owner.CurrentCell, HexDir.right, false);
+            HexDir direction = _hashedTarget.CurrentCell.CellNeighbours.GetHexDirByNeighbor(_owner.CurrentCell);
+            return _usingArea = CellsTaker.TakeCellsLineInDirection(_owner.CurrentCell, direction, CellsTaker.ObstacleMode.onlyBigUnitsAreObstacles, false, false);
         }
 
         public override void DisablePreVisualization()
@@ -68,7 +71,9 @@ namespace FroguesFramework
             SpendResourcePoints();
             SetCooldownAsAfterUse();
 
+            _hashedTarget.Movable.OnMovementEnd.AddListener(DealDamage);
             _hashedTarget.Movable.Move(cells[0], movementSpeed, movementHeight);
+            _owner.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
         }
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
@@ -87,8 +92,20 @@ namespace FroguesFramework
             lineFromOwnerToTarget.SetAnimationCurveShape(_hashedTarget.transform.position, _hashedTarget.SpriteParent.position, cells[0].transform.position,
                 movementHeight * _hashedTarget.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
             cells[0].EnableSelectedByAbilityCellHighlight(new List<Cell> { cells[0] });
+
+            _hashedTarget.Health.PreTakeDamage(CalculateDamage);
         }
 
         public override bool IsIgnoringDrawingFunctionality() => true;
+
+        private void DealDamage()
+        {
+            _hashedTarget.Health.TakeDamage(CalculateDamage, _owner);
+            _hashedTarget.Movable.OnMovementEnd.RemoveListener(DealDamage);
+        }
+
+        private int CalculateDamage => damageType == DamageType.physics
+            ? (damage * _owner.Stats.StrenghtModificator).RoundWithGameRules()
+            : (damage * _owner.Stats.IntelegenceModificator).RoundWithGameRules();
     }
 }
