@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public class JumpOnCellAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized
     {
-        [SerializeField] private int range = 3;
+        [SerializeField] protected int range = 3;
         [SerializeField] private float movementSpeed = 13;
         [SerializeField] private float movementHeight = 0.7f;
 
@@ -27,7 +27,7 @@ namespace FroguesFramework
 
         public override List<Cell> CalculateUsingArea()
         {
-            return _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, range);
+            return _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByRange(_owner.CurrentCell, range, false, true, true);
         }
 
         public override void DisablePreVisualization()

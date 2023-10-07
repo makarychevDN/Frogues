@@ -80,6 +80,13 @@ namespace FroguesFramework
                 ignoreSmallUnits, ignoreSurfaces);
         }
 
+        public List<Cell> GetCellsAreaByRange(Cell userCell, int range,
+            bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
+        {
+            ResetNodes();
+            return WaveAlgorithm(userCell, range, ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces);
+        }
+
         public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool ignoreBusyCell, bool diagonalStep)
         {
             ResetNodes();
@@ -179,8 +186,7 @@ namespace FroguesFramework
             return resultCells;
         }
 
-        private List<Cell> WaveAlgorithmForAOEWeapon(Cell userCell, int actionPoints, bool ignoreBusyCells,
-            bool diagonalStep)
+        private List<Cell> WaveAlgorithmForAOEWeapon(Cell userCell, int actionPoints, bool ignoreBusyCells, bool diagonalStep)
         {
             _childNodes = new List<PathFinderNode>();
             _currentNodes = new List<PathFinderNode>();

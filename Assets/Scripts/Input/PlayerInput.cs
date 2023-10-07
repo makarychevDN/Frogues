@@ -305,6 +305,8 @@ namespace FroguesFramework
         {
             nativeAttackAbility = ableToBeNativeAttack as UnitTargetAbility;
         }
+
+        public UnitTargetAbility GetCurrentNativeAttack() => nativeAttackAbility;
     }
 
 }

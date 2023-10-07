@@ -74,6 +74,9 @@ namespace FroguesFramework
 
         public override void UseOnUnit(Unit target)
         {
+            if (target == null)
+                return;
+
             OnUnitSelected.Invoke(target);
             _owner.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(areaTargetAbility);
         }

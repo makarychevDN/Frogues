@@ -29,10 +29,10 @@ namespace FroguesFramework
 
         public virtual void SpendResourcePoints()
         {
-            _owner.ActionPoints.SpendPoints(actionPointsCost);
+            _owner.ActionPoints.SpendPoints(CalculateActionPointsCost);
 
             if (_owner.BloodPoints != null)
-                _owner.BloodPoints.SpendPoints(bloodPointsCost);
+                _owner.BloodPoints.SpendPoints(CalculateBloodPointsCost);
 
             _owner.Health.TakeDamage(healthCost, true, null);
         }
@@ -41,12 +41,16 @@ namespace FroguesFramework
         {
             if (_owner.BloodPoints != null)
             {
-                return _owner.ActionPoints.IsPointsEnough(actionPointsCost)
-                    && _owner.BloodPoints.IsPointsEnough(bloodPointsCost);
+                return _owner.ActionPoints.IsPointsEnough(CalculateActionPointsCost)
+                    && _owner.BloodPoints.IsPointsEnough(CalculateBloodPointsCost);
             }
 
             return _owner.ActionPoints.IsPointsEnough(actionPointsCost);
         }
+
+        protected virtual int CalculateActionPointsCost => actionPointsCost;
+
+        protected virtual int CalculateBloodPointsCost => bloodPointsCost;
 
         #region cooldownsStuff
 

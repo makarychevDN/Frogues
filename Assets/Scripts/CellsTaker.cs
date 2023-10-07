@@ -7,9 +7,9 @@ namespace FroguesFramework
 {
     public static class CellsTaker
     {
-        public static List<Cell> TakeCellsAreaByRange(Cell startCell, int radius)
+        public static List<Cell> TakeCellsAreaByRange(Cell startCell, int radius, bool ignoreBusyCell = true)
         {
-            return EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, true, false);
+            return EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, ignoreBusyCell, false);
         }
 
         public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
@@ -20,9 +20,12 @@ namespace FroguesFramework
 
             while (true)
             {
-                currentCell = currentCell.CellNeighbours.GetNeighborByHexDir(direction); //todo сломалась водна€ стру€
+                currentCell = currentCell.CellNeighbours.GetNeighborByHexDir(direction);
 
-                if(IsCellContainsObstacle(currentCell, obstacleMode))
+                if (currentCell.Content is Barrier)
+                    break;
+
+                if (IsCellContainsObstacle(currentCell, obstacleMode))
                 {
                     if (includeFirstCellWithObstacle && isTheFirstObstacleInARow)
                     {
