@@ -30,6 +30,7 @@ namespace FroguesFramework
         {
             base.VisualizePreUseOnCells(cells);
             _owner.ActionPoints.PreSpendPoints(CalculateActionPointsCost + _owner.AbilitiesManager.WeaponActionPointsCost);
+            _hashedTarget.Health.PreTakeDamage(_owner.AbilitiesManager.WeaponDamage);
         }
 
         public override void UseOnCells(List<Cell> cells)
