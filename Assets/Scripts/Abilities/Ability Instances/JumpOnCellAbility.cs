@@ -76,8 +76,8 @@ namespace FroguesFramework
             if (!PossibleToUseOnCells(cells))
                 return;
 
-            _owner.ActionPoints.PreSpendPoints(actionPointsCost);
-            _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
+            _owner.ActionPoints.PreSpendPoints(CalculateActionPointsCost);
+            _owner.BloodPoints.PreSpendPoints(CalculateBloodPointsCost);
 
             lineFromOwnerToTarget.gameObject.SetActive(true);
             lineFromOwnerToTarget.SetAnimationCurveShape(_owner.transform.position, _owner.SpriteParent.position, cells[0].transform.position,

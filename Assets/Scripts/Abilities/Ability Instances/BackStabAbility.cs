@@ -26,6 +26,12 @@ namespace FroguesFramework
             return _owner.ActionPoints.IsPointsEnough(actionPointsCost + _owner.AbilitiesManager.WeaponActionPointsCost);
         }
 
+        public override void VisualizePreUseOnCells(List<Cell> cells)
+        {
+            base.VisualizePreUseOnCells(cells);
+            _owner.ActionPoints.PreSpendPoints(CalculateActionPointsCost + _owner.AbilitiesManager.WeaponActionPointsCost);
+        }
+
         public override void UseOnCells(List<Cell> cells)
         {
             _owner.Movable.OnMovementEnd.AddListener(UseNativeAttack);
