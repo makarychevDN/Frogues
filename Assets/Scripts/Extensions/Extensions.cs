@@ -106,7 +106,7 @@ namespace FroguesFramework
         
         public static T GetRandomElement<T>(this List<T> list)
         {
-            if (list == null || list.Count == 0) return default(T);
+            if (list == null || list.Count == 0) return default;
             return list[UnityEngine.Random.Range(0, list.Count)];
         }
 

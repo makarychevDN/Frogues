@@ -87,10 +87,10 @@ namespace FroguesFramework
             return WaveAlgorithm(userCell, range, ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces);
         }
 
-        public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool ignoreBusyCell, bool diagonalStep)
+        public List<Cell> GetCellsAreaForAOE(Cell userCell, int radius, bool includeBusyCell, bool diagonalStep)
         {
             ResetNodes();
-            return WaveAlgorithmForAOEWeapon(userCell, radius, ignoreBusyCell, diagonalStep);
+            return WaveAlgorithmForAOEWeapon(userCell, radius, includeBusyCell, diagonalStep);
         }
 
         private List<Cell> AStar(Cell userCell, Cell targetCell, bool ignoreDefaultUnits, bool ignoreSmallUnits,
