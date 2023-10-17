@@ -51,7 +51,7 @@ namespace FroguesFramework
         {
             _abilitiesPanel = abilitiesPanel;
 
-            if(ability is PassiveAbility)
+            if (ability is PassiveAbility)
             {
                 _currentButtonSlot = abilitiesPanel.AddTopAbilitySlot();
             }
@@ -60,7 +60,7 @@ namespace FroguesFramework
                 _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
             }
 
-            if(ability is IAbleToHighlightAbilityButton)
+            if (ability is IAbleToHighlightAbilityButton)
             {
                 ((IAbleToHighlightAbilityButton)ability).GetHighlightEvent().AddListener(EnableHighlight);
             }
@@ -75,7 +75,7 @@ namespace FroguesFramework
 
         public void PickAbility()
         {
-            if(_draggingNow || _ability is not AbleToUseAbility)
+            if (_draggingNow || _ability is not AbleToUseAbility)
                 return;
             
             if (_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability)
@@ -149,19 +149,20 @@ namespace FroguesFramework
 
                 if (abilityWithCooldown.GetCooldownCounter() != _hashedCooldown)
                 {
-                    if (abilityWithCooldown.GetCurrentCooldown() != 0)
+                    if (abilityWithCooldown.GetCooldownCounter() != 0)
                     {
                         cooldownEffect.gameObject.SetActive(true);
                         cooldownCounterField.text = abilityWithCooldown.GetCooldownCounter().ToString();
                         cooldownCounterField.enabled = abilityWithCooldown.GetCooldownCounter() != 0;
                         cooldownEffect.fillAmount = (float)abilityWithCooldown.GetCooldownCounter() / abilityWithCooldown.GetCurrentCooldown();
-                        _hashedCooldown = abilityWithCooldown.GetCooldownCounter();
                     }
                     else
                     {
                         cooldownEffect.gameObject.SetActive(false);
                     }
                 }
+
+                _hashedCooldown = abilityWithCooldown.GetCooldownCounter();
             }
 
             bool myAbilityIsHasEnoughResourses = true;
