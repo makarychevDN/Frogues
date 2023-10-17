@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -7,6 +8,7 @@ namespace FroguesFramework
     {
         [SerializeField] private Unit projectilePrefab;
         [SerializeField] private AudioSource onProjectileContactWithTargetSound;
+        [SerializeField] private List<StatEffect> addtionalDebufs;
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
@@ -19,6 +21,11 @@ namespace FroguesFramework
         {
             target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
             onProjectileContactWithTargetSound.Play();
+            
+            foreach (var effect in addtionalDebufs)
+            {
+                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.effectIsConstantly));
+            }
         }
     }
 }
