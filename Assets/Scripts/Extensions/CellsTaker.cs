@@ -158,5 +158,18 @@ namespace FroguesFramework
             var hexDir = startCell.CellNeighbours.GetHexDirByNeighbor(targetCell);
             return targetCell.CellNeighbours.GetNeighborByHexDir(hexDir);
         }
+
+        public static Cell GetCellBeforeOtherCellInDirection(Cell startCell, Cell otherCell)
+        {
+            List<Cell> line = TakeCellsLineWhichContainCell(startCell, otherCell, ObstacleMode.noObstacles, false, false);
+            
+            for(int i = 0; i < line.Count; i++)
+            {
+                if (line[i] == otherCell)
+                    return line[i - 1];
+            }
+
+            return null;
+        }
     }
 }

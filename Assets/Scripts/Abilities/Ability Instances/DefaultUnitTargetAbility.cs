@@ -70,7 +70,7 @@ namespace FroguesFramework
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
 
-        private void PlayImpactSound()
+        protected void PlayImpactSound()
         {
             if(impactSoundSource != null)
                 impactSoundSource.Play();
@@ -81,7 +81,7 @@ namespace FroguesFramework
             _isPrevisualizedNow = true;
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
 
-            if(target!= null)
+            if(target != null)
                 target.MaterialInstanceContainer.EnableOutline(true);
 
             if (!PossibleToUseOnUnit(target))

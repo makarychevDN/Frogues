@@ -8,7 +8,7 @@ namespace FroguesFramework
     {
         [SerializeField] private MovementAbility movementAbility;
         [SerializeField] private InspectAbility inspectAbility;
-        [SerializeField] private BaseAbility currentAbility;
+        [SerializeField] private AbleToUseAbility currentAbility;
         [SerializeField] private UnitTargetAbility nativeAttackAbility;
 
         [Header("Cursors")]
@@ -98,7 +98,9 @@ namespace FroguesFramework
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 UniversalUseAbility(baseAbility, target);
-                //ClearCurrentAbility();
+
+                if(!currentAbility.IsResoursePointsEnough() || currentAbility.GetCooldownCounter() > 0)
+                    ClearCurrentAbility();
             }
         }
 
@@ -298,7 +300,7 @@ namespace FroguesFramework
                 return;
             }
 
-            currentAbility = ability;
+            currentAbility = (AbleToUseAbility)ability;
         }
 
         public void SetCurrentNativeAttack(IAbleToBeNativeAttack ableToBeNativeAttack)
