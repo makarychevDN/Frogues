@@ -20,6 +20,7 @@ namespace FroguesFramework
 
             OnSkipTurn.Invoke();
             EntryPoint.Instance.UnitsQueue.ActivateNext();
+            EntryPoint.Instance.DisableAllPrevisualization();
         }
     }
 }
