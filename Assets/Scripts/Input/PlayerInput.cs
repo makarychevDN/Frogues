@@ -98,7 +98,7 @@ namespace FroguesFramework
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 UniversalUseAbility(baseAbility, target);
-                ClearCurrentAbility();
+                //ClearCurrentAbility();
             }
         }
 
