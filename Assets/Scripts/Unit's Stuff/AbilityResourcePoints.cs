@@ -16,6 +16,7 @@ namespace FroguesFramework
         public UnityEvent OnPointsEnded;
         public UnityEvent OnPointsRegenerated;
         public UnityEvent OnPointsIncreased;
+        public UnityEvent OnPickUpPoints;
 
         public void Init(Unit unit)
         {
@@ -89,6 +90,12 @@ namespace FroguesFramework
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
             OnPointsIncreased.Invoke();
+        }
+
+        public void PickupPoints(int value)
+        {
+            OnPickUpPoints.Invoke();
+            IncreasePoints(value);
         }
 
         public void IncreaseTemporaryPoints(int value)

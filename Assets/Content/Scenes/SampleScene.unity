@@ -5400,6 +5400,72 @@ Transform:
   m_Father: {fileID: 1838763290}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &386484331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 386484332}
+  - component: {fileID: 386484334}
+  - component: {fileID: 386484333}
+  m_Layer: 7
+  m_Name: Passive Ability (12)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &386484332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386484331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1591628998}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &386484333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386484331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 750927b1d33233148bb84f3aad313654, type: 2}
+  abilityName: 
+  stats: 
+  description: 
+--- !u!114 &386484334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386484331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f030d6f4530ca7a458203d4fbcb39ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 386484333}
+  isPartOfWeapon: 0
+  valueOfEffect: 1
+  timerOfEffect: 2
+  type: 10
 --- !u!1 &438209193
 GameObject:
   m_ObjectHideFlags: 0
@@ -21731,6 +21797,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1488637616}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 386484332}
     - targetCorrespondingSourceObject: {fileID: 7512397265278902572, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2133876481}

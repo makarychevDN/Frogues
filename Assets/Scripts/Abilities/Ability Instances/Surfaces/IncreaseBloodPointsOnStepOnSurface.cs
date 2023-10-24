@@ -20,7 +20,7 @@ namespace FroguesFramework
             if (unit.BloodPoints.Full)
                 return;
 
-            unit.BloodPoints.IncreasePoints(increaseValue);
+            unit.BloodPoints.PickupPoints(increaseValue);
             _owner.AbleToDie.DieWithoutAnimation();
         }
     }

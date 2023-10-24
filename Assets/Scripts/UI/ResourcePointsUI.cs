@@ -19,10 +19,10 @@ namespace FroguesFramework
 
         private void Start()
         {
-            resourcePoints.OnPointsRegenerated.AddListener(() => 
+            resourcePoints.OnPointsIncreased.AddListener(() => 
             RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount));
 
-            resourcePoints.OnPointsRegenerated.AddListener(() =>
+            resourcePoints.OnPointsIncreased.AddListener(() =>
             RedrawIcons(resourcePoints.TemporaryPoints, resourcePoints.TemporaryPoints, resourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount));
         }
 
