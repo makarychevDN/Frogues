@@ -31,6 +31,7 @@ namespace FroguesFramework
             tempraryPoints = 0;
             _preTakenTemporaryPoints = tempraryPoints;
             OnPointsRegenerated.Invoke();
+            OnPointsIncreased.Invoke();
         }
 
         #region GetSet
@@ -86,6 +87,7 @@ namespace FroguesFramework
         {
             currentPoints += value;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
+            _preTakenCurrentPoints = currentPoints;
             OnPointsIncreased.Invoke();
         }
 
