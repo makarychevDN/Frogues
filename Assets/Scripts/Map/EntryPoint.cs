@@ -27,8 +27,11 @@ namespace FroguesFramework
         [SerializeField] private int turnCounter;
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
+        private List<Unit> _bloodSurfacesInCurrentRoom = new();
         private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
         public UnityEvent OnNextRoomStarted;
+        public UnityEvent OnSomeoneMoved;
+        public UnityEvent OnBloodSurfacesCountOnTheMapUpdated;
 
         public bool CurrentRoomIsHub => _currentRoom == hub;
         public CameraController CameraController => _currentRoom.CameraController;
@@ -76,6 +79,8 @@ namespace FroguesFramework
             exitButton.SetActive(false);
             FindObjectsOfType<MonoBehaviour>().OfType<IAbleToHaveCooldown>().ToList().ForEach(x => x.SetCooldownAsAfterStart());
             OnNextRoomStarted.Invoke();
+            _bloodSurfacesInCurrentRoom.Clear();
+            OnBloodSurfacesCountOnTheMapUpdated.Invoke();
         }
 
         public void IncreaseBonfireHealingValue(int value) => bonfireHealingValue += value;
@@ -131,6 +136,20 @@ namespace FroguesFramework
             _currentRoom.UnitsQueue.ActForCurrentUnit();
         }
 
+        public void AddBloodSurface(Unit bloodSurface)
+        {
+            _bloodSurfacesInCurrentRoom.Add(bloodSurface);
+            OnBloodSurfacesCountOnTheMapUpdated.Invoke();
+        }
+
+        public void RemoveBloodSurface(Unit bloodSurface)
+        {
+            _bloodSurfacesInCurrentRoom.Remove(bloodSurface);
+            OnBloodSurfacesCountOnTheMapUpdated.Invoke();
+        }
+
+        public int BloodSurfacesCount => _bloodSurfacesInCurrentRoom.Count;
+
         public void AddAbleToDisablePreVisualizationToCollection(IAbleToDisablePreVisualization ableToDisablePreVisualization)
         {
             ableToDisablePreVisualizationObjects.Add(ableToDisablePreVisualization);
@@ -147,6 +166,11 @@ namespace FroguesFramework
             {
                 ableToDisablePreVisualization.DisablePreVisualization();
             }
+        }
+
+        public void InvokeSomeoneMoved()
+        {
+            OnSomeoneMoved.Invoke();
         }
 
         public void TickAfterEnemiesTurn() => turnCounter++;

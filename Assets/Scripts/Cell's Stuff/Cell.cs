@@ -26,7 +26,6 @@ namespace FroguesFramework
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
         [SerializeField] private CellHighlighter selectedByAbilityTileHighlighter;
-        //[SerializeField] private GameObject selectedByAbilityTileHighlighter;
         [SerializeField] private TrailsEnabler trailsEnabler;
         [SerializeField] private SpriteRenderer pathDot;
         [SerializeField] private GameObject onMouseHoverVisualization;
@@ -48,6 +47,7 @@ namespace FroguesFramework
                     value.CurrentCell = this;
                     OnBecameFull.Invoke();
                     OnBecameFullByUnit.Invoke(content);
+                    EntryPoint.Instance.InvokeSomeoneMoved();
                 }
                 else
                 {

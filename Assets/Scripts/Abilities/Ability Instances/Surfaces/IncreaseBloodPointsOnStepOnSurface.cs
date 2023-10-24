@@ -10,6 +10,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
             unit.OnStepOnThisUnitByUnit.AddListener(TryToIncreaseBloodPoints);
+            EntryPoint.Instance.AddBloodSurface(_owner);
         }
 
         private void TryToIncreaseBloodPoints(Unit unit)
@@ -22,6 +23,7 @@ namespace FroguesFramework
 
             unit.BloodPoints.PickupPoints(increaseValue);
             _owner.AbleToDie.DieWithoutAnimation();
+            EntryPoint.Instance.RemoveBloodSurface(_owner);
         }
     }
 }
