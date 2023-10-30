@@ -117,7 +117,14 @@ namespace FroguesFramework
             if (baseAbility is IAbleToUseOnUnit)
             {
                 IAbleToUseOnUnit unitAbility = (IAbleToUseOnUnit)baseAbility;
-                var target = CellsTaker.TakeUnitByMouseRaycast();
+
+                Unit target;
+
+                if(baseAbility is not BloodTargetAbility)
+                    target = CellsTaker.TakeBloodSurfaceByMouseRaycast();
+                else
+                    target = CellsTaker.TakeUnitByMouseRaycast();
+
                 unitAbility.PrepareToUsing(target);
                 return target;
             }

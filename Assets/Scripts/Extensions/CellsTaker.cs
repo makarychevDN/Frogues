@@ -153,6 +153,16 @@ namespace FroguesFramework
                 : null;
         }
 
+        public static Unit TakeBloodSurfaceByMouseRaycast()
+        {
+            var mask = LayerMask.GetMask("UI", "Blood Surface");
+            RaycastHit hit;
+
+            return Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity, mask)
+                ? hit.transform.GetComponentInParent<Unit>()
+                : null;
+        }
+
         public static Cell JumpOverNeighborCell(Cell startCell, Cell targetCell)
         {
             var hexDir = startCell.CellNeighbours.GetHexDirByNeighbor(targetCell);
