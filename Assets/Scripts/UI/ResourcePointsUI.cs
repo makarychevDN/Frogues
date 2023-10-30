@@ -39,7 +39,7 @@ namespace FroguesFramework
 
         private void RedrawIcons(int currentValue, int maxValue, int pretakenValue, List<ResourcePointUI> iconsList, ResourcePointUI iconPrefab, ref int hashedValue)
         {
-            if(iconsList.Count < maxValue)
+            if(iconsList.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
             {
                 while (iconsList.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
                 {
@@ -54,7 +54,7 @@ namespace FroguesFramework
 
             if(iconsList.Count > maxValue)
             {
-                while(iconsList.Where(icon => icon.gameObject.activeSelf).ToList().Count > maxValue)
+                while (iconsList.Where(icon => icon.gameObject.activeSelf).ToList().Count > maxValue)
                 {
                     iconsList.Where(icon => icon.gameObject.activeSelf).ToList().GetLast().gameObject.SetActive(false);
                 }

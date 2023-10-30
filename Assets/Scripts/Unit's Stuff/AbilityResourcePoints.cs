@@ -101,6 +101,7 @@ namespace FroguesFramework
         public void IncreaseTemporaryPoints(int value)
         {
             tempraryPoints += value;
+            _preTakenTemporaryPoints = tempraryPoints;
             OnPointsIncreased.Invoke();
         }
 
