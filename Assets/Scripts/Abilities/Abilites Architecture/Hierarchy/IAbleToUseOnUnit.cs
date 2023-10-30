@@ -6,5 +6,7 @@ namespace FroguesFramework
         public bool PossibleToUseOnUnit(Unit target);      
         public void UseOnUnit(Unit target);
         public void VisualizePreUseOnUnit(Unit target);
+        public bool CheckItUsableOnDefaultUnit();
+        public bool CheckItUsableOnBloodSurfaceUnit();
     }
 }

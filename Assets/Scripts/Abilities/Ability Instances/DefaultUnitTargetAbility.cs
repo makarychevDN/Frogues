@@ -145,5 +145,9 @@ namespace FroguesFramework
 
             return value ^ GetHashCode();
         }
+
+        public override bool CheckItUsableOnDefaultUnit() => true;
+
+        public override bool CheckItUsableOnBloodSurfaceUnit() => false;
     }
 }

@@ -11,6 +11,8 @@ namespace FroguesFramework
         [SerializeField] protected int damage;
         [SerializeField] private int radius;
         [SerializeField] private AreaTargetAbility areaTargetAbility;
+        [SerializeField] private bool isAbleToSelectDefaultUnit = true;
+        [SerializeField] private bool isAbleToSelectBloodSurface = false;
 
         [Header("Previsualization Setup")]
         [SerializeField] protected LineRenderer lineFromOwnerToTarget;
@@ -99,5 +101,9 @@ namespace FroguesFramework
             lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position - _owner.transform.position);
             lineFromOwnerToTarget.SetPosition(1, target.SpriteParent.position - _owner.transform.position);
         }
+
+        public override bool CheckItUsableOnDefaultUnit() => isAbleToSelectDefaultUnit;
+
+        public override bool CheckItUsableOnBloodSurfaceUnit() => isAbleToSelectBloodSurface;
     }
 }

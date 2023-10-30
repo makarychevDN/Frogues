@@ -120,10 +120,13 @@ namespace FroguesFramework
 
                 Unit target;
 
-                if(baseAbility is not BloodTargetAbility)
-                    target = CellsTaker.TakeBloodSurfaceByMouseRaycast();
-                else
-                    target = CellsTaker.TakeUnitByMouseRaycast();
+                List<string> layers = new List<string>();
+                if (unitAbility.CheckItUsableOnDefaultUnit())
+                    layers.Add("Unit");
+                if (unitAbility.CheckItUsableOnBloodSurfaceUnit())
+                    layers.Add("Blood Surface");
+
+                target = CellsTaker.TakeUnitByLayersWithMouseRaycast(layers);
 
                 unitAbility.PrepareToUsing(target);
                 return target;

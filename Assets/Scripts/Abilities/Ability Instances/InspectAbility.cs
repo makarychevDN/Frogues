@@ -44,5 +44,9 @@ namespace FroguesFramework
             target.MaterialInstanceContainer.EnableOutline(true);
             EntryPoint.Instance.UnitDescriptionPanel.Activate(target.UnitDescription.Description);
         }
+
+        public override bool CheckItUsableOnBloodSurfaceUnit() => true;
+
+        public override bool CheckItUsableOnDefaultUnit() => true;
     }
 }
