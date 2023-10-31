@@ -8,7 +8,6 @@ namespace FroguesFramework
     {
         [SerializeField] private Unit projectilePrefab;
         [SerializeField] private AudioSource onProjectileContactWithTargetSound;
-        [SerializeField] private List<StatEffect> addtionalDebufs;
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {

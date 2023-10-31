@@ -12,9 +12,10 @@ namespace FroguesFramework
         [SerializeField] protected int radius;
         [SerializeField] protected bool isNativeAttack;
         [SerializeField] protected bool ignoreArmor;
-        [SerializeField] private bool shouldUseWeapondamageInstead;
-        [SerializeField] private bool shouldUseWeaponActionPointsCostInstead;
-        [SerializeField] private bool shouldSetMyDamageAndCostAsWeaponCharacteristics;
+        [SerializeField] protected bool shouldUseWeapondamageInstead;
+        [SerializeField] protected bool shouldUseWeaponActionPointsCostInstead;
+        [SerializeField] protected bool shouldSetMyDamageAndCostAsWeaponCharacteristics;
+        [SerializeField] protected List<StatEffect> addtionalDebufs;
 
         [Header("Previsualization Setup")]
         [SerializeField] protected LineRenderer lineFromOwnerToTarget;
@@ -64,7 +65,13 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
+
             target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+            foreach (var effect in addtionalDebufs)
+            {
+                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.effectIsConstantly));
+            }
+
             OnEffectApplied.Invoke();
         }
 

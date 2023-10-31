@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 namespace FroguesFramework
 {
@@ -28,9 +29,19 @@ namespace FroguesFramework
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
-            TakeUnitsAroundSurfaceTarget(target).ForEach(targetInArea => targetInArea.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner));
+            TakeUnitsAroundSurfaceTarget(target).ForEach(targetInArea => ApplyEffectOnTargetInTheArea(targetInArea));
             target.AbleToDie.DieWithoutAnimation();
             OnEffectApplied.Invoke();
+        } 
+
+        private void ApplyEffectOnTargetInTheArea(Unit target)
+        {
+            target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+
+            foreach (var effect in addtionalDebufs)
+            {
+                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.effectIsConstantly));
+            }
         }
 
         public override void VisualizePreUseOnUnit(Unit target)
