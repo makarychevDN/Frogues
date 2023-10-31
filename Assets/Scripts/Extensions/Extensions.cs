@@ -37,6 +37,19 @@ namespace FroguesFramework
             return cells.Where(cell => cell.Content != null).ToList();
         }
 
+        public static List<Unit> ContentFromEachCellWioutNulls(this List<Cell> cells)
+        {
+            List<Unit> result = new List<Unit>();
+
+            foreach(Cell cell in cells)
+            {
+                if(cell.Content != null)
+                    result.Add(cell.Content);
+            }
+
+            return result;
+        }
+
         public static T GetFirst<T>(this List<T> list) => list[0];
 
         public static T GetLast<T>(this List<T> list) => list[list.Count - 1];

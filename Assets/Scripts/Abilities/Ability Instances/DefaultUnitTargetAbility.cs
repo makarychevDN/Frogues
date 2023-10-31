@@ -68,7 +68,7 @@ namespace FroguesFramework
             OnEffectApplied.Invoke();
         }
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        protected void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
 
         protected void PlayImpactSound()
         {
