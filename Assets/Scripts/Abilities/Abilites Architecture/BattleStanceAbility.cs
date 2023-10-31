@@ -1,8 +1,11 @@
+using UnityEngine.Events;
+
 namespace FroguesFramework
 {
     public abstract class BattleStanceAbility : NonTargetAbility
     {
         protected bool stanceActiveNow;
+        public UnityEvent<BattleStanceAbility> OnThisStanceSelected;
 
         public override void Use()
         {
@@ -16,7 +19,10 @@ namespace FroguesFramework
 
         public virtual void ApplyEffect(bool isActive)
         {
-
+            if (isActive)
+            {
+                OnThisStanceSelected.Invoke(this);
+            }
         }
     }
 }
