@@ -73,7 +73,7 @@ namespace FroguesFramework
 
         public bool IsCooldowned() => cooldownCounter == 0;
 
-        public void TickAfterEnemiesTurn()
+        public virtual void TickAfterEnemiesTurn()
         {
             if (_owner == null)
                 return;
@@ -82,7 +82,7 @@ namespace FroguesFramework
                 DecreaseCooldown();
         }
 
-        public void TickAfterPlayerTurn()
+        public virtual void TickAfterPlayerTurn()
         {
             if (_owner == null)
                 return;

@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public class ChageStatsStanceAbility : BattleStanceAbility
     {
-        [SerializeField] protected List<StatEffect> effects;
+        [SerializeField] private List<StatEffect> effects;
 
         public override void ApplyEffect(bool isActive)
         {
