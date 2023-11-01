@@ -2,10 +2,11 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public abstract class BattleStanceAbility : NonTargetAbility
+    public abstract class BattleStanceAbility : NonTargetAbility, IAbleToHighlightAbilityButton
     {
         protected bool stanceActiveNow;
         public UnityEvent<BattleStanceAbility> OnThisStanceSelected;
+        public UnityEvent<bool> OnActiveNowUpdated;
 
         public override void Use()
         {
@@ -14,6 +15,7 @@ namespace FroguesFramework
 
             SpendResourcePoints();
             stanceActiveNow = !stanceActiveNow;
+            OnActiveNowUpdated.Invoke(stanceActiveNow);
             ApplyEffect(stanceActiveNow);
         }
 
@@ -24,5 +26,7 @@ namespace FroguesFramework
                 OnThisStanceSelected.Invoke(this);
             }
         }
+
+        public UnityEvent<bool> GetHighlightEvent() => OnActiveNowUpdated;
     }
 }
