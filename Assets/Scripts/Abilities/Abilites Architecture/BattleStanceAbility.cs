@@ -1,3 +1,5 @@
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace FroguesFramework
@@ -16,7 +18,17 @@ namespace FroguesFramework
             SpendResourcePoints();
             stanceActiveNow = !stanceActiveNow;
             OnActiveNowUpdated.Invoke(stanceActiveNow);
-            ApplyEffect(stanceActiveNow);
+
+            _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
+            CurrentlyActiveObjects.Add(this);
+            StartCoroutine(ApplyEffectWithDelay(timeBeforeImpact, stanceActiveNow));   
+            Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
+        }
+
+        public virtual IEnumerator ApplyEffectWithDelay(float time, bool isActive)
+        {
+            yield return new WaitForSeconds(time);
+            ApplyEffect(isActive);
         }
 
         public virtual void ApplyEffect(bool isActive)
@@ -26,6 +38,8 @@ namespace FroguesFramework
                 OnThisStanceSelected.Invoke(this);
             }
         }
+
+        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
 
         public UnityEvent<bool> GetHighlightEvent() => OnActiveNowUpdated;
     }
