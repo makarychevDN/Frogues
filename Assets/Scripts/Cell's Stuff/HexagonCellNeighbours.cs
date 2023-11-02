@@ -12,7 +12,7 @@ namespace FroguesFramework
         private Dictionary<Cell, HexDir> _hexDirsByCell;
         private Dictionary<Cell, HexDir> _oppositeDirsByCell;
 
-
+        private List<Cell> _neighbors;
         private Cell _topLeftCell;
         private Cell _topRightCell;
         private Cell _downLeftCell;
@@ -23,6 +23,7 @@ namespace FroguesFramework
         public Cell GetNeighborByHexDir(HexDir hexDir) => _neighbours[hexDir];
         public Cell GetOppositeNeighborByHexDir(HexDir hexDir) => _oppositeNeighbours[hexDir];
         public HexDir GetHexDirByNeighbor(Cell neighbor) => _hexDirsByCell[neighbor];
+        public List<Cell> GetAllNeighbors() => _neighbors;
 
         #region Init
 
@@ -58,8 +59,16 @@ namespace FroguesFramework
                 EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y - 1),
                     myCell.mapLayer);
 
-            _rightCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right, myCell.mapLayer);
             _leftCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.left, myCell.mapLayer);
+            _rightCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right, myCell.mapLayer);
+
+            _neighbors = new List<Cell>();
+            _neighbors.Add(_topLeftCell);
+            _neighbors.Add(_topRightCell);
+            _neighbors.Add(_downLeftCell);
+            _neighbors.Add(_downRightCell);
+            _neighbors.Add(_leftCell);
+            _neighbors.Add(_rightCell);
         }
         
         private void InitNeighbours()
