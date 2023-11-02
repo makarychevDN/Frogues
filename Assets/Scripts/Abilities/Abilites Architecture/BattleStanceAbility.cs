@@ -6,9 +6,9 @@ namespace FroguesFramework
 {
     public abstract class BattleStanceAbility : NonTargetAbility, IAbleToHighlightAbilityButton
     {
-        protected bool stanceActiveNow;
+        [SerializeField] protected bool stanceActiveNow;
         public UnityEvent<BattleStanceAbility> OnThisStanceSelected;
-        public UnityEvent<bool> OnActiveNowUpdated;
+        public UnityEvent<bool> HighlightButtonEvent;
 
         public override void Use()
         {
@@ -16,12 +16,11 @@ namespace FroguesFramework
                 return;
 
             SpendResourcePoints();
-            stanceActiveNow = !stanceActiveNow;
-            OnActiveNowUpdated.Invoke(stanceActiveNow);
 
+            var updatedValue = !stanceActiveNow;
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
             CurrentlyActiveObjects.Add(this);
-            StartCoroutine(ApplyEffectWithDelay(timeBeforeImpact, stanceActiveNow));   
+            StartCoroutine(ApplyEffectWithDelay(timeBeforeImpact, updatedValue));   
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
         }
 
@@ -33,6 +32,9 @@ namespace FroguesFramework
 
         public virtual void ApplyEffect(bool isActive)
         {
+            stanceActiveNow = isActive;
+            HighlightButtonEvent.Invoke(stanceActiveNow);
+
             if (isActive)
             {
                 OnThisStanceSelected.Invoke(this);
@@ -41,6 +43,8 @@ namespace FroguesFramework
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
 
-        public UnityEvent<bool> GetHighlightEvent() => OnActiveNowUpdated;
+        public UnityEvent<bool> GetHighlightEvent() => HighlightButtonEvent;
+
+        public bool StanceActiveNow => stanceActiveNow;
     }
 }
