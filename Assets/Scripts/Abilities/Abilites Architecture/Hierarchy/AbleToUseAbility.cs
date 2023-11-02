@@ -15,8 +15,8 @@ namespace FroguesFramework
         [Header("Animation Setup")]
         [SerializeField] protected AbilityAnimatorTriggers abilityAnimatorTrigger;
         [SerializeField] protected WeaponIndexes weaponIndex = WeaponIndexes.NoNeedToChangeWeapon;
-        [SerializeField] protected float timeBeforeImpact;
-        [SerializeField] protected float fullAnimationTime;
+        [SerializeField] protected float timeBeforeImpact = 0.15f;
+        [SerializeField] protected float fullAnimationTime = 0.8f;
         [SerializeField] protected float delayBeforeImpactSound;
         [SerializeField] protected AudioSource impactSoundSource;
 

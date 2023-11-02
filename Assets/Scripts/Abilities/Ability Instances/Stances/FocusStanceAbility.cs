@@ -5,8 +5,8 @@ namespace FroguesFramework
 {
     public class FocusStanceAbility : BattleStanceAbility
     {
-        [SerializeField] protected int decreasingDelta;
-        [SerializeField] protected List<StatEffect> effects;
+        [SerializeField] private int decreasingDelta;
+        [SerializeField] private List<StatEffect> effects;
         private Dictionary<StatEffect, int> _effectsStartValues = new Dictionary<StatEffect, int>();
 
 
