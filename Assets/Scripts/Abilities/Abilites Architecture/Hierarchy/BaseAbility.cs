@@ -21,5 +21,10 @@ namespace FroguesFramework
         public virtual void UnInit() => _owner = null;
 
         public virtual bool IsIgnoringDrawingFunctionality() => false;
+
+        private void Reset()
+        {
+            abilityDataForButton = GetComponent<AbilityDataForButton>();
+        }
     }
 }

@@ -46,8 +46,12 @@ namespace FroguesFramework
             if (ableToHaveNativeAtack == null)
                 return;
 
-            ableToHaveNativeAtack.GetCurrentNativeAttack().PrepareToUsing(_hashedTarget);
-            ableToHaveNativeAtack.GetCurrentNativeAttack().UseOnUnit(_hashedTarget);
+            if (ableToHaveNativeAtack.GetCurrentNativeAttack() != null)
+            {
+                ableToHaveNativeAtack.GetCurrentNativeAttack().PrepareToUsing(_hashedTarget);
+                ableToHaveNativeAtack.GetCurrentNativeAttack().UseOnUnit(_hashedTarget);
+            }
+
             _owner.Movable.OnMovementEnd.RemoveListener(UseNativeAttack);
         }
 

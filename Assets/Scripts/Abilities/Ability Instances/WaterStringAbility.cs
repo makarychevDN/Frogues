@@ -6,7 +6,6 @@ namespace FroguesFramework
     {
         public override List<Cell> CalculateUsingArea()
         {
-            //return _usingArea = CellsTaker.TakeCellsLinesInAllDirections(_owner.CurrentCell, CellsTaker.ObstacleMode.onlyBigUnitsAreObstacles, false, false);
             return _usingArea = CellsTaker.TakeCellsLinesInAllDirections(_owner.CurrentCell, CellsTaker.ObstacleMode.noObstacles, false, true);
         }
 

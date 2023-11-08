@@ -99,6 +99,9 @@ namespace FroguesFramework
             {
                 UniversalUseAbility(baseAbility, target);
 
+                if (currentAbility == null)
+                    return;
+
                 if(!currentAbility.IsResoursePointsEnough() || currentAbility.GetCooldownCounter() > 0)
                     ClearCurrentAbility();
             }

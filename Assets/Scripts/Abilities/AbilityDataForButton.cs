@@ -9,7 +9,7 @@ namespace FroguesFramework
         [SerializeField, Multiline] private string stats;
         [SerializeField, Multiline] private string description;
         public Material Material => material;
-        public string AbilityName => name;
+        public string AbilityName => abilityName;
         public string Stats => stats;
         public string Description => description;
     }
