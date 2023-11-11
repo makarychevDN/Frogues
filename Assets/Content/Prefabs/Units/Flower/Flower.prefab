@@ -63,12 +63,19 @@ MonoBehaviour:
   delayBeforeImpactSound: 0.245
   impactSoundSource: {fileID: 4911180689903934565}
   needToRotateOwnersSprite: 0
-  damageType: 0
+  damageType: 10
   damage: 7
   radius: 3
   isNativeAttack: 0
   ignoreArmor: 0
+  shouldUseWeapondamageInstead: 0
+  shouldUseWeaponActionPointsCostInstead: 0
+  shouldSetMyDamageAndCostAsWeaponCharacteristics: 0
+  addtionalDebufs: []
   lineFromOwnerToTarget: {fileID: 2857349709538984315}
+  OnEffectApplied:
+    m_PersistentCalls:
+      m_Calls: []
   projectilePrefab: {fileID: 4126032325568882792, guid: 645a8491e62378745a76b5f611dfa643, type: 3}
   onProjectileContactWithTargetSound: {fileID: 8396506892005630615}
 --- !u!1 &1284146177467252194

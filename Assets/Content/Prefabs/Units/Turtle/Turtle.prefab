@@ -193,6 +193,7 @@ MonoBehaviour:
   isPartOfWeapon: 0
   actionPointsCost: 1
   bloodPointsCost: 0
+  healthCost: 0
   cooldownAfterUse: 0
   cooldownAfterStart: 0
   cooldownCounter: 0
@@ -254,6 +255,7 @@ MonoBehaviour:
   isPartOfWeapon: 0
   actionPointsCost: 1
   bloodPointsCost: 0
+  healthCost: 0
   cooldownAfterUse: 0
   cooldownAfterStart: 0
   cooldownCounter: 0
@@ -265,11 +267,19 @@ MonoBehaviour:
   delayBeforeImpactSound: 0.1
   impactSoundSource: {fileID: 2380007578627100151}
   needToRotateOwnersSprite: 1
-  damageType: 0
+  damageType: 10
   damage: 4
   radius: 1
   isNativeAttack: 0
+  ignoreArmor: 0
+  shouldUseWeapondamageInstead: 0
+  shouldUseWeaponActionPointsCostInstead: 0
+  shouldSetMyDamageAndCostAsWeaponCharacteristics: 0
+  addtionalDebufs: []
   lineFromOwnerToTarget: {fileID: 9219184774524211376}
+  OnEffectApplied:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &2380007578627100151
 AudioSource:
   m_ObjectHideFlags: 0
