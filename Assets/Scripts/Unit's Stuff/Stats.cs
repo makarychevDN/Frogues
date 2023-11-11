@@ -32,6 +32,7 @@ namespace FroguesFramework
 
         public float StrenghtModificator => (1 + strenght.GetStatValue() * strengtModificatorStep);
         public float IntelegenceModificator => (1 + intelegence.GetStatValue() * intelegenceModificatorStep);
+        public float StrenghtAndIntelligenceSumModificator => (1 + strenght.GetStatValue() * strengtModificatorStep + intelegence.GetStatValue() * intelegenceModificatorStep);
         public float DexterityeModificator => (1 + dexterity.GetStatValue() * dexterityModificatorStep);
         public float DefenceModificator => (1 + defence.GetStatValue() * defenceModificatorStep);
 

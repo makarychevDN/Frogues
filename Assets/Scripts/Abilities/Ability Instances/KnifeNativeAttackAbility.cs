@@ -30,9 +30,7 @@ namespace FroguesFramework
             return base.ApplyEffect(time, target);
         }
 
-        protected override int CalculateDamage => damageType == DamageType.physics
-            ? (int)(GetDamageValue() * _owner.Stats.StrenghtModificator)
-            : (int)(GetDamageValue() * _owner.Stats.IntelegenceModificator);
+        protected override int CalculateDamage => Extensions.CalculateDamageWithGameRules(GetDamageValue(), damageType, _owner.Stats);
 
         private int GetDamageValue() => _owner.AbilitiesManager.WeaponDamage; 
 

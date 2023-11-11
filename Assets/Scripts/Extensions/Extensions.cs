@@ -158,6 +158,28 @@ namespace FroguesFramework
             return (int)Math.Round(value, MidpointRounding.AwayFromZero);
         }
 
+        public static int CalculateDamageWithGameRules(int damageValue, DamageType damageType, Stats stats)
+        {
+            switch (damageType)
+            {
+                case DamageType.physics:
+                    return (damageValue * stats.StrenghtModificator).RoundWithGameRules();
+                case DamageType.elemental:
+                    return (damageValue * stats.IntelegenceModificator).RoundWithGameRules();
+                case DamageType.blood:
+                    return (damageValue * stats.StrenghtAndIntelligenceSumModificator).RoundWithGameRules();
+                case DamageType.powder:
+                    return damageValue;
+            }
+
+            return 0;
+        }
+
+        public static int CalculateBlockWithGameRules(int blockValue, Stats stats)
+        {
+            return (blockValue * stats.DexterityeModificator).RoundWithGameRules();
+        }
+
         public static int GetStatValue(this List<StatEffect> listOfStatEffects)
         {
             return listOfStatEffects.Sum(effectInstance => effectInstance.Value);

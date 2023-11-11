@@ -24,7 +24,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time)
         {
             yield return new WaitForSeconds(time);
-            _owner.Health.IncreaseTemporaryBlock(blockValue);
+            _owner.Health.IncreaseTemporaryBlock(Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);

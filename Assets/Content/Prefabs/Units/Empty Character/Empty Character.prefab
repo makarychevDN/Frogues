@@ -55,6 +55,9 @@ MonoBehaviour:
   OnDamageBlockedSuccessfully:
     m_PersistentCalls:
       m_Calls: []
+  OnDamageFromUnitBlockedSuccessfully:
+    m_PersistentCalls:
+      m_Calls: []
   OnBlockDestroyed:
     m_PersistentCalls:
       m_Calls: []
@@ -68,6 +71,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnHpEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHpHealed:
     m_PersistentCalls:
       m_Calls: []
   deathFromStepOnThisUnitAudioSource: {fileID: 5268333603411451123}
@@ -216,10 +222,11 @@ MonoBehaviour:
   dexterity: []
   defence: []
   spikes: []
-  strengtModificatorStep: 0.2
-  intelegenceModificatorStep: 0.2
-  dexterityModificatorStep: 0
-  defenceModificatorStep: 0
+  immobilized: []
+  strengtModificatorStep: 0.1
+  intelegenceModificatorStep: 0.1
+  dexterityModificatorStep: 0.1
+  defenceModificatorStep: 0.1
   OnStrenghtUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -233,6 +240,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnSpikesUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnImmobilizedUpdated:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1092774737546061406
@@ -1550,12 +1560,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPoints: 1
+  tempraryPoints: 0
   maxPointsCount: 1
   pointsRegeneration: 1
   OnPointsEnded:
     m_PersistentCalls:
       m_Calls: []
   OnPointsRegenerated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointsIncreased:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPickUpPoints:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &5128396487294630355
@@ -2071,12 +2088,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPoints: 0
+  tempraryPoints: 0
   maxPointsCount: 0
   pointsRegeneration: 0
   OnPointsEnded:
     m_PersistentCalls:
       m_Calls: []
   OnPointsRegenerated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointsIncreased:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPickUpPoints:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &7442025326768858339
@@ -2127,6 +2151,7 @@ MonoBehaviour:
   isPartOfWeapon: 0
   actionPointsCost: 1
   bloodPointsCost: 0
+  healthCost: 0
   cooldownAfterUse: 0
   cooldownAfterStart: 0
   cooldownCounter: 0
@@ -2184,6 +2209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f94f611abb0c84c93ac90b78641b90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponDamage: 0
+  weaponActionPointsCost: 0
   _abilities: []
   AbilityHasBeenAdded:
     m_PersistentCalls:
@@ -2191,6 +2218,10 @@ MonoBehaviour:
   AbilityHasBeenRemoved:
     m_PersistentCalls:
       m_Calls: []
+  OnWeaponsDamageUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  _battleStanceAbilities: []
 --- !u!1 &7803607776110080487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,7 +2337,13 @@ MonoBehaviour:
   OnMovementStart:
     m_PersistentCalls:
       m_Calls: []
+  OnMovementStartFromCell:
+    m_PersistentCalls:
+      m_Calls: []
   OnMovementEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMovementEndOnCell:
     m_PersistentCalls:
       m_Calls: []
   OnBumpInto:

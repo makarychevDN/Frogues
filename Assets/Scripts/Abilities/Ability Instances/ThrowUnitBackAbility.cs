@@ -104,8 +104,6 @@ namespace FroguesFramework
             _hashedTarget.Movable.OnMovementEnd.RemoveListener(DealDamage);
         }
 
-        private int CalculateDamage => damageType == DamageType.physics
-            ? (damage * _owner.Stats.StrenghtModificator).RoundWithGameRules()
-            : (damage * _owner.Stats.IntelegenceModificator).RoundWithGameRules();
+        private int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
     }
 }

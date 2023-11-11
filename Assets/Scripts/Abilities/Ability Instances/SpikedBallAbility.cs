@@ -46,9 +46,7 @@ namespace FroguesFramework
             StartCoroutine(ApplyEffect(timeBeforeImpact, target));
         }
 
-        protected override int CalculateDamage => damageType == DamageType.physics
-            ? (int)(_owner.Health.Block * _owner.Stats.StrenghtModificator)
-            : (int)(_owner.Health.Block * _owner.Stats.IntelegenceModificator);
+        protected override int CalculateDamage => Extensions.CalculateDamageWithGameRules(_owner.Health.Block, damageType, _owner.Stats);
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {

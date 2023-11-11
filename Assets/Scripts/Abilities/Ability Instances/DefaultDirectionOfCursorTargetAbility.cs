@@ -22,6 +22,9 @@ namespace FroguesFramework
             _hashedSelectedCells = SelectCells(cursorPosition);
         }
 
+        protected virtual int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+
+
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
 
         public override bool PossibleToUseInDirection(Vector3 cursorPosition)
@@ -64,7 +67,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, List<Cell> cells)
         {
             yield return new WaitForSeconds(time);
-            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(damage, _owner));
+            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage, _owner));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
@@ -83,7 +86,7 @@ namespace FroguesFramework
 
                 if (!cell.IsEmpty)
                 {
-                    cell.Content.Health.PreTakeDamage(damage);
+                    cell.Content.Health.PreTakeDamage(CalculateDamage);
                     cell.Content.MaterialInstanceContainer.EnableOutline(true);
                 }
             }

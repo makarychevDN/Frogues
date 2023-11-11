@@ -15,10 +15,7 @@ namespace FroguesFramework
         private bool _isPrevisualizedNow;
         private List<Cell> _hashedSelectedArea;
 
-        private int DamageWithModificators => damageType == DamageType.physics
-            ? (int)(damage * _owner.Stats.StrenghtModificator)
-            : (int)(damage * _owner.Stats.IntelegenceModificator);
-
+        protected virtual int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
 
         public override void PrepareToUsing(List<Cell> cells)
         {
@@ -56,7 +53,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, List<Cell> cells)
         {
             yield return new WaitForSeconds(time);
-            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(DamageWithModificators, _owner));
+            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage, _owner));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
@@ -101,7 +98,7 @@ namespace FroguesFramework
 
                 if (!cell.IsEmpty)
                 {
-                    cell.Content.Health.PreTakeDamage(DamageWithModificators);
+                    cell.Content.Health.PreTakeDamage(CalculateDamage);
                     cell.Content.MaterialInstanceContainer.EnableOutline(true);
                 }
             }
