@@ -24,7 +24,11 @@ namespace FroguesFramework
         private Unit _hashedTarget;
         public UnityEvent OnEffectApplied;
 
-        protected virtual int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        private int DamageValue => shouldUseWeapondamageInstead ? _owner.AbilitiesManager.WeaponDamage : damage;
+
+        protected virtual int CalculateDamage => Extensions.CalculateDamageWithGameRules(DamageValue, damageType, _owner.Stats);
+
+        protected override int CalculateActionPointsCost => shouldUseWeaponActionPointsCostInstead ? _owner.AbilitiesManager.WeaponActionPointsCost : actionPointsCost;
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
 
