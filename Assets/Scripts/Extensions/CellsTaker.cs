@@ -67,16 +67,6 @@ namespace FroguesFramework
             noObstacles = 10, onlyBigUnitsAreObstacles = 20, everyUnitIsObstacle = 30
         }
 
-        private static bool CheckUnitIsBarrier(Unit unit)
-        {
-            return unit is Barrier;
-        }
-
-        private static bool CheckUnitIsNull(Unit unit)
-        {
-            return unit == null;
-        }
-
         public static List<Cell> TakeCellsLinesInAllDirections(Cell startCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
         {
             List<Cell> cells = new List<Cell>();
@@ -114,6 +104,11 @@ namespace FroguesFramework
         public static List<Cell> EmptyCellsOnly(this List<Cell> cells)
         {
             return cells.Where(cell => cell.IsEmpty).ToList();
+        }
+
+        public static List<Cell> AbleToStepCellsOnly(this List<Cell> cells)
+        {
+            return cells.Where(cell => cell.AbleToStepOnIt).ToList();
         }
 
         public static Cell TakeCellByMouseRaycast()
