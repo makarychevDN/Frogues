@@ -15,6 +15,7 @@ namespace FroguesFramework
         public UnityEvent OnWeaponsDamageUpdated;
         private IAbleToHaveCurrentAbility _ableToHaveCurrentAbility;
         [SerializeField] private List<BattleStanceAbility> _battleStanceAbilities = new();
+        public UnityEvent OnWeaponChanged;
 
         public IAbleToHaveCurrentAbility AbleToHaveCurrentAbility => _ableToHaveCurrentAbility;
         public List<BaseAbility> Abilities => _abilities;
@@ -86,6 +87,8 @@ namespace FroguesFramework
                 RemoveAbility(abilityToRemove);
             }
         }
+
+        public void InvokeOnWeaponChanged() => OnWeaponChanged.Invoke();
 
         public void SetWeaponDamage(int value)
         {

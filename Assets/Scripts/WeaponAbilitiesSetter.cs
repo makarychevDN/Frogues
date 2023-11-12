@@ -16,5 +16,6 @@ public class WeaponAbilitiesSetter : MonoBehaviour
     {
         unit.AbilitiesManager.RemoveAllWeaponAbilities();
         _abilities.ForEach(ability => ability.Init(unit));
+        unit.AbilitiesManager.InvokeOnWeaponChanged();
     }
 }
