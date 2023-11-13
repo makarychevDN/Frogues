@@ -12,11 +12,10 @@ namespace FroguesFramework
 
         public override void UseOnCells(List<Cell> cells)
         {
-            base.UseOnCells(cells);
-
             if (!PossibleToUseOnCells(cells))
                 return;
 
+            base.UseOnCells(cells);
             _owner.Movable.OnMovementEnd.AddListener(DealDamage);
         }
 

@@ -27,7 +27,6 @@ namespace FroguesFramework
 
         public override List<Cell> CalculateUsingArea()
         {
-            //return _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByRange(_owner.CurrentCell, range, false, true, true);
             return _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, range, true, false).AbleToStepCellsOnly();
         }
 
