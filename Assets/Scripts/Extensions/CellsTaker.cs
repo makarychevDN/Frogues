@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static FroguesFramework.CellsTaker;
 
 namespace FroguesFramework
 {
@@ -77,6 +78,23 @@ namespace FroguesFramework
             }
 
             return cells;
+        }
+
+        public static HexDir GetDirByStartAndEndCells(Cell startCell, Cell endCell)
+        {
+            List<Cell> cells = new List<Cell>();
+
+            foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
+            {
+                cells.AddRange(TakeCellsLineInDirection(startCell, hexDir,ObstacleMode.noObstacles, false, false));
+
+                if (cells.Contains(endCell))
+                {
+                    return hexDir;
+                }
+            }
+
+            return (Enum.Parse<HexDir>("exception"));
         }
         
         public static List<Cell> TakeAllCells()
