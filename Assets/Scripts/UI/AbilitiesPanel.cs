@@ -20,6 +20,8 @@ namespace FroguesFramework
         [SerializeField] private int sizeDelta = 39;
         [SerializeField] private int slotsInTheRowQuantity = 12;
         [SerializeField] private int minRowsQuantity = 3;
+        [SerializeField] private bool showThemAll;
+        [SerializeField] private int currentShowingRow = 0;
         private int currentRowsQuantity;
 
         public AbilitiesManager AbilitiesManager => abilitiesManager;
@@ -57,6 +59,33 @@ namespace FroguesFramework
                     currentSlot.gameObject.SetActive(true);
                 }
             }
+
+            if (showThemAll)
+            {
+                for (int i = 0; i < slotsInTheRowQuantity * currentRowsQuantity; i++)
+                {
+                    activeAbilitySlots[i].gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < activeAbilitySlots.Count; i++)
+                {
+                    activeAbilitySlots[i].gameObject.SetActive(i >= currentShowingRow * slotsInTheRowQuantity && i < (currentShowingRow + 1) * slotsInTheRowQuantity);
+                }
+            }
+        }
+
+        public void SetShowThemAllMode(bool value)
+        {
+            showThemAll = value;
+            UpdateEnabledSlots();
+        }
+
+        public void SwitchShowThemAllMode()
+        {
+            showThemAll = !showThemAll;
+            UpdateEnabledSlots();
         }
 
         private int activeNowSlotsCount => activeAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
