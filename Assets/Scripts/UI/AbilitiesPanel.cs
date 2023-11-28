@@ -13,6 +13,11 @@ namespace FroguesFramework
         [SerializeField] private List<Transform> activeAbilitySlots;
         [SerializeField] private List<Transform> passiveAbilitySlots;
 
+        [Header("Panel Size Controller Setup")]
+        [SerializeField] private RectTransform abilityButtonsSlotsPanel;
+        [SerializeField] private int sizeDelta = 39;
+        [SerializeField] private int slotsInTheRowQuantity = 12;
+
         public AbilitiesManager AbilitiesManager => abilitiesManager;
         public List<Transform> ActiveAbilitySlots => activeAbilitySlots;
         public List<Transform> PassiveAbilitySlots => passiveAbilitySlots;
@@ -78,5 +83,22 @@ namespace FroguesFramework
 
             return singleCell.transform;
         }
+
+        public int SlotsInTheRowQuantity
+        {
+            get => slotsInTheRowQuantity;
+
+            set
+            {
+                slotsInTheRowQuantity = value;
+                abilityButtonsSlotsPanel.sizeDelta = new Vector2(CalculateWidth(), abilityButtonsSlotsPanel.sizeDelta.y);
+            }
+        }
+
+        public void IncreaseSlotsInTheRowQuantity() => SlotsInTheRowQuantity += 1;
+
+        public void DecreaseSlotsInTheRowQuantity() => SlotsInTheRowQuantity -= 1;
+
+        private int CalculateWidth() => sizeDelta * slotsInTheRowQuantity;
     }
 }
