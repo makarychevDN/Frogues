@@ -191,5 +191,15 @@ namespace FroguesFramework
                 return 0;
             return listOfStatEffects.Max(statInstance => statInstance.timeToTheEndOfEffect);
         }
+
+        public static bool None<TSource>(this IEnumerable<TSource> source)
+        {
+            return !source.Any();
+        }
+
+        public static bool None<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
+        {
+            return !source.Any(predicate);
+        }
     }
 }

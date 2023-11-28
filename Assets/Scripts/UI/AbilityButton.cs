@@ -15,7 +15,7 @@ namespace FroguesFramework
         private float maxDistanceToClamp = 64;
         private BaseAbility _ability;
         private AbilitiesPanel _abilitiesPanel;
-        private Transform _currentButtonSlot;
+        private AbilityButtonSlot _currentButtonSlot;
         private bool _draggingNow;
         private bool _myAbilityIsAbleToReturnIsPrevisualized;
         private bool _myAbilityIsAbleToHaveCooldown;
@@ -29,7 +29,7 @@ namespace FroguesFramework
             _ability = ability;
             image.material = ability.GetAbilityDataForButton().Material;
 
-            transform.parent = _currentButtonSlot;
+            transform.parent = _currentButtonSlot.transform;
             transform.localPosition = Vector3.zero;
             transform.localScale = Vector3.one;
 
@@ -59,6 +59,8 @@ namespace FroguesFramework
             {
                 _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
             }
+
+            _currentButtonSlot.AddButton(this);
 
             if (ability is IAbleToHighlightAbilityButton)
             {
@@ -98,7 +100,7 @@ namespace FroguesFramework
         public void OnBeginDrag(PointerEventData eventData)
         {
             _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
-            transform.parent = _currentButtonSlot.parent.parent;
+            transform.parent = _currentButtonSlot.transform.parent.parent;
             _draggingNow = true;
         }
 
@@ -123,16 +125,17 @@ namespace FroguesFramework
             
             if (Vector3.Distance(closestSlot.transform.position, transform.position) < maxDistanceToClamp)
             {
-                if (closestSlot.childCount != 0)
+                _currentButtonSlot.Clear();
+
+                if (!closestSlot.Empty)
                 {
-                    closestSlot.GetComponentInChildren<AbilityButton>().SetSlot(_currentButtonSlot);
+                    closestSlot.AbilityButton.SetSlot(_currentButtonSlot);
                 }
                 
                 _currentButtonSlot = closestSlot;
-            }
-            
-            transform.parent = _currentButtonSlot;
-            transform.localPosition = Vector3.zero;
+            }            
+
+            _currentButtonSlot.AddButton(this);
             _draggingNow = false;
         }
 
@@ -186,11 +189,11 @@ namespace FroguesFramework
             image.material.SetInt("_NeedToHighlight", false.ToInt());
         }
 
-        private void SetSlot(Transform slot)
+        private void SetSlot(AbilityButtonSlot slot)
         {
+            _currentButtonSlot.Clear();
             _currentButtonSlot = slot;
-            transform.parent = slot;
-            transform.localPosition = Vector3.zero;
+            slot.AddButton(this);
         }
     }
 }

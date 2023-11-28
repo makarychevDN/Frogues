@@ -8,25 +8,58 @@ namespace FroguesFramework
     {
         [SerializeField] private AbilitiesManager abilitiesManager;
         [SerializeField] private AbilityButton abilityButtonPrefab;
-        [SerializeField] private AbilityButtonSlot topAbilityCellPrefab;
+        [SerializeField] private AbilityButtonSlot topAbilitySlotPrefab;
+        [SerializeField] private AbilityButtonSlot bottomAbilitySlotPrefab;
         [SerializeField] private GameObject topPanel;
-        [SerializeField] private List<Transform> activeAbilitySlots;
-        [SerializeField] private List<Transform> passiveAbilitySlots;
+        [SerializeField] private List<AbilityButtonSlot> activeAbilitySlots;
+        [SerializeField] private List<AbilityButtonSlot> passiveAbilitySlots;
 
         [Header("Panel Size Controller Setup")]
         [SerializeField] private RectTransform abilityButtonsSlotsPanel;
+        [SerializeField] private Transform parentForBottomAbilitySlots;
         [SerializeField] private int sizeDelta = 39;
         [SerializeField] private int slotsInTheRowQuantity = 12;
+        [SerializeField] private int minRowsQuantity = 3;
+        private int currentRowsQuantity;
 
         public AbilitiesManager AbilitiesManager => abilitiesManager;
-        public List<Transform> ActiveAbilitySlots => activeAbilitySlots;
-        public List<Transform> PassiveAbilitySlots => passiveAbilitySlots;
+        public List<AbilityButtonSlot> ActiveAbilitySlots => activeAbilitySlots;
+        public List<AbilityButtonSlot> PassiveAbilitySlots => passiveAbilitySlots;
 
         public void Init()
         {
             abilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
             abilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
+            currentRowsQuantity = minRowsQuantity;
+
+            UpdateEnabledSlots();
         }
+
+        private void UpdateEnabledSlots()
+        {
+            if (activeNowSlotsCount > currentRowsQuantity * slotsInTheRowQuantity)
+            {
+                while (activeNowSlotsCount > currentRowsQuantity * slotsInTheRowQuantity)
+                {
+                    activeAbilitySlots.Last(slot => slot.gameObject.activeSelf).gameObject.SetActive(false);
+                }
+            }
+
+            if (activeAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count() < currentRowsQuantity * slotsInTheRowQuantity)
+            {
+                while (activeAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count() < currentRowsQuantity * slotsInTheRowQuantity)
+                {
+                    var currentSlot = activeAbilitySlots.FirstOrDefault(slot => !slot.gameObject.activeSelf);
+
+                    if (currentSlot == null)
+                        activeAbilitySlots.Add(currentSlot = Instantiate(bottomAbilitySlotPrefab, parentForBottomAbilitySlots));
+
+                    currentSlot.gameObject.SetActive(true);
+                }
+            }
+        }
+
+        private int activeNowSlotsCount => activeAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
 
         private void AddAbilityButton(BaseAbility ability)
         {
@@ -65,23 +98,23 @@ namespace FroguesFramework
             }
         }
 
-        public Transform FirstEmptySlot()
+        public AbilityButtonSlot FirstEmptySlot()
         {
-            return activeAbilitySlots.First(slot => slot.childCount == 0);
+            if(activeAbilitySlots.None(slot => slot.Empty))
+            {
+                currentRowsQuantity++;
+                UpdateEnabledSlots();
+            }
+
+            return activeAbilitySlots.First(slot => slot.Empty);
         }
 
-        public Transform LastEmptySlot()
+        public AbilityButtonSlot AddTopAbilitySlot()
         {
-            return activeAbilitySlots.Last(slot => slot.childCount == 0);
-        }
+            var singleCell = Instantiate(topAbilitySlotPrefab, topPanel.transform);
+            passiveAbilitySlots.Add(singleCell);
 
-        public Transform AddTopAbilitySlot()
-        {
-            var singleCell = Instantiate(topAbilityCellPrefab, topPanel.transform);
-            //singleCell.transform.localScale = Vector3.one * 2;
-            passiveAbilitySlots.Add(singleCell.transform);
-
-            return singleCell.transform;
+            return singleCell;
         }
 
         public int SlotsInTheRowQuantity
@@ -92,6 +125,8 @@ namespace FroguesFramework
             {
                 slotsInTheRowQuantity = value;
                 abilityButtonsSlotsPanel.sizeDelta = new Vector2(CalculateWidth(), abilityButtonsSlotsPanel.sizeDelta.y);
+
+                UpdateEnabledSlots();
             }
         }
 
