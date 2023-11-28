@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -22,6 +23,10 @@ namespace FroguesFramework
         [SerializeField] private int minRowsQuantity = 3;
         [SerializeField] private bool showThemAll;
         [SerializeField] private int currentShowingRow = 0;
+
+        [Header("Panel Size Controller Setup")]
+        [SerializeField] private TMP_Text currentPageIndexIndicator;
+
         private int currentRowsQuantity;
 
         public AbilitiesManager AbilitiesManager => abilitiesManager;
@@ -93,7 +98,7 @@ namespace FroguesFramework
         private void AddAbilityButton(BaseAbility ability)
         {
             var abilityAsAbleToDrawAbilityButton = ability as IAbleToDrawAbilityButton;
-            
+
             if (abilityAsAbleToDrawAbilityButton == null || abilityAsAbleToDrawAbilityButton.IsIgnoringDrawingFunctionality())
                 return;
 
@@ -106,10 +111,10 @@ namespace FroguesFramework
             foreach (var abilitySlot in activeAbilitySlots)
             {
                 var button = abilitySlot.GetComponentInChildren<AbilityButton>();
-                
-                if(button == null || button.Ability != ability)
+
+                if (button == null || button.Ability != ability)
                     continue;
-                
+
                 DestroyImmediate(button.gameObject);
                 return;
             }
@@ -129,7 +134,7 @@ namespace FroguesFramework
 
         public AbilityButtonSlot FirstEmptySlot()
         {
-            if(activeAbilitySlots.None(slot => slot.Empty))
+            if (activeAbilitySlots.None(slot => slot.Empty))
             {
                 currentRowsQuantity++;
                 UpdateEnabledSlots();
@@ -144,6 +149,22 @@ namespace FroguesFramework
             passiveAbilitySlots.Add(singleCell);
 
             return singleCell;
+        }
+
+        public void IncreaseIndexOfCurrentShowingRow()
+        {
+            currentShowingRow++;
+            currentShowingRow = (int)Mathf.Repeat(currentShowingRow, currentRowsQuantity);
+            currentPageIndexIndicator.text = (currentShowingRow + 1).ToString();
+            UpdateEnabledSlots();
+        }
+
+        public void DecreaseIndexOfCurrentShowingRow()
+        {
+            currentShowingRow--;
+            currentShowingRow = (int)Mathf.Repeat(currentShowingRow, currentRowsQuantity);
+            currentPageIndexIndicator.text = (currentShowingRow + 1).ToString();
+            UpdateEnabledSlots();
         }
 
         public int SlotsInTheRowQuantity
