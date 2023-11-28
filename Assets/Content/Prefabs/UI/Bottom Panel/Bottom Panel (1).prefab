@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4087347865356660194}
   - component: {fileID: 4423872395817590355}
-  - component: {fileID: 7279792534822376940}
   m_Layer: 5
   m_Name: Ability Button Slots
   m_TagString: Untagged
@@ -42,13 +41,13 @@ RectTransform:
   - {fileID: 5662924300800528527}
   - {fileID: 2090794480559092942}
   - {fileID: 4800740653075110301}
-  m_Father: {fileID: 988270353501696488}
+  m_Father: {fileID: 1518437505861308441}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 280.5, y: 0}
-  m_SizeDelta: {x: 469, y: 46}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4423872395817590355
 MonoBehaviour:
@@ -74,20 +73,6 @@ MonoBehaviour:
   m_Spacing: {x: 7, y: 7}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &7279792534822376940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191111392123202435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 0
 --- !u!1 &941863281866957884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +997,58 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2411787236573252278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1518437505861308441}
+  - component: {fileID: 2394382064925505539}
+  m_Layer: 5
+  m_Name: Parent To Control Size
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1518437505861308441
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2411787236573252278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4087347865356660194}
+  m_Father: {fileID: 988270353501696488}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 280.5, y: 0}
+  m_SizeDelta: {x: 469, y: 46}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2394382064925505539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2411787236573252278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 0
 --- !u!1 &2638540387286048200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1082,7 @@ RectTransform:
   - {fileID: 7515201059365393634}
   - {fileID: 2494957300150704785}
   - {fileID: 2136198323320474259}
-  - {fileID: 4087347865356660194}
+  - {fileID: 1518437505861308441}
   - {fileID: 7515201059257963962}
   - {fileID: 9213884908362863311}
   - {fileID: 8933060067552297593}
@@ -3520,11 +3557,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitiesManager: {fileID: 0}
   abilityButtonPrefab: {fileID: 3793479938070960072, guid: 92922efd5479cc043aa6af1a4ad0e9f1, type: 3}
-  singleAbilityCellPrefab: {fileID: 0}
+  topAbilityCellPrefab: {fileID: 8240731189555802436, guid: 4c3767aaad798084fa94a0874e76d406, type: 3}
   topPanel: {fileID: 0}
   activeAbilitySlots: []
   passiveAbilitySlots: []
-  abilityButtonsSlotsPanel: {fileID: 4087347865356660194}
+  abilityButtonsSlotsPanel: {fileID: 1518437505861308441}
   sizeDelta: 39
   slotsInTheRowQuantity: 12
 --- !u!1 &7515201059257963963

@@ -8,7 +8,7 @@ namespace FroguesFramework
     {
         [SerializeField] private AbilitiesManager abilitiesManager;
         [SerializeField] private AbilityButton abilityButtonPrefab;
-        [SerializeField] private GameObject singleAbilityCellPrefab;
+        [SerializeField] private AbilityButtonSlot topAbilityCellPrefab;
         [SerializeField] private GameObject topPanel;
         [SerializeField] private List<Transform> activeAbilitySlots;
         [SerializeField] private List<Transform> passiveAbilitySlots;
@@ -77,7 +77,7 @@ namespace FroguesFramework
 
         public Transform AddTopAbilitySlot()
         {
-            var singleCell = Instantiate(singleAbilityCellPrefab, topPanel.transform);
+            var singleCell = Instantiate(topAbilityCellPrefab, topPanel.transform);
             //singleCell.transform.localScale = Vector3.one * 2;
             passiveAbilitySlots.Add(singleCell.transform);
 
