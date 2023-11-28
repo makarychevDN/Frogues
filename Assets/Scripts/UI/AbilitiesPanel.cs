@@ -12,8 +12,8 @@ namespace FroguesFramework
         [SerializeField] private AbilityButtonSlot topAbilitySlotPrefab;
         [SerializeField] private AbilityButtonSlot bottomAbilitySlotPrefab;
         [SerializeField] private GameObject topPanel;
-        [SerializeField] private List<AbilityButtonSlot> activeAbilitySlots;
-        [SerializeField] private List<AbilityButtonSlot> passiveAbilitySlots;
+        [SerializeField] private List<AbilityButtonSlot> bottomPanelAbilitySlots;
+        [SerializeField] private List<AbilityButtonSlot> topPanelAbilitySlots;
 
         [Header("Panel Size Controller Setup")]
         [SerializeField] private RectTransform abilityButtonsSlotsPanel;
@@ -23,15 +23,17 @@ namespace FroguesFramework
         [SerializeField] private int minRowsQuantity = 3;
         [SerializeField] private bool showThemAll;
         [SerializeField] private int currentShowingRow = 0;
+        [SerializeField] private int minSlotsInTheRowQuantity = 10;
+        [SerializeField] private int maxSlotsInTheRowQuantity = 20;
 
-        [Header("Panel Size Controller Setup")]
+        [Header("Scrolling Indicator Setup")]
         [SerializeField] private TMP_Text currentPageIndexIndicator;
 
         private int currentRowsQuantity;
 
         public AbilitiesManager AbilitiesManager => abilitiesManager;
-        public List<AbilityButtonSlot> ActiveAbilitySlots => activeAbilitySlots;
-        public List<AbilityButtonSlot> PassiveAbilitySlots => passiveAbilitySlots;
+        public List<AbilityButtonSlot> ActiveAbilitySlots => bottomPanelAbilitySlots;
+        public List<AbilityButtonSlot> PassiveAbilitySlots => topPanelAbilitySlots;
 
         public void Init()
         {
@@ -48,18 +50,18 @@ namespace FroguesFramework
             {
                 while (activeNowSlotsCount > currentRowsQuantity * slotsInTheRowQuantity)
                 {
-                    activeAbilitySlots.Last(slot => slot.gameObject.activeSelf).gameObject.SetActive(false);
+                    bottomPanelAbilitySlots.Last(slot => slot.gameObject.activeSelf).gameObject.SetActive(false);
                 }
             }
 
-            if (activeAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count() < currentRowsQuantity * slotsInTheRowQuantity)
+            if (bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count() < currentRowsQuantity * slotsInTheRowQuantity)
             {
-                while (activeAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count() < currentRowsQuantity * slotsInTheRowQuantity)
+                while (bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count() < currentRowsQuantity * slotsInTheRowQuantity)
                 {
-                    var currentSlot = activeAbilitySlots.FirstOrDefault(slot => !slot.gameObject.activeSelf);
+                    var currentSlot = bottomPanelAbilitySlots.FirstOrDefault(slot => !slot.gameObject.activeSelf);
 
                     if (currentSlot == null)
-                        activeAbilitySlots.Add(currentSlot = Instantiate(bottomAbilitySlotPrefab, parentForBottomAbilitySlots));
+                        bottomPanelAbilitySlots.Add(currentSlot = Instantiate(bottomAbilitySlotPrefab, parentForBottomAbilitySlots));
 
                     currentSlot.gameObject.SetActive(true);
                 }
@@ -69,14 +71,14 @@ namespace FroguesFramework
             {
                 for (int i = 0; i < slotsInTheRowQuantity * currentRowsQuantity; i++)
                 {
-                    activeAbilitySlots[i].gameObject.SetActive(true);
+                    bottomPanelAbilitySlots[i].gameObject.SetActive(true);
                 }
             }
             else
             {
-                for (int i = 0; i < activeAbilitySlots.Count; i++)
+                for (int i = 0; i < bottomPanelAbilitySlots.Count; i++)
                 {
-                    activeAbilitySlots[i].gameObject.SetActive(i >= currentShowingRow * slotsInTheRowQuantity && i < (currentShowingRow + 1) * slotsInTheRowQuantity);
+                    bottomPanelAbilitySlots[i].gameObject.SetActive(i >= currentShowingRow * slotsInTheRowQuantity && i < (currentShowingRow + 1) * slotsInTheRowQuantity);
                 }
             }
         }
@@ -93,7 +95,7 @@ namespace FroguesFramework
             UpdateEnabledSlots();
         }
 
-        private int activeNowSlotsCount => activeAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
+        private int activeNowSlotsCount => bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
 
         private void AddAbilityButton(BaseAbility ability)
         {
@@ -108,7 +110,7 @@ namespace FroguesFramework
 
         private void RemoveAbilityButton(BaseAbility ability)
         {
-            foreach (var abilitySlot in activeAbilitySlots)
+            foreach (var abilitySlot in bottomPanelAbilitySlots)
             {
                 var button = abilitySlot.GetComponentInChildren<AbilityButton>();
 
@@ -119,7 +121,7 @@ namespace FroguesFramework
                 return;
             }
 
-            foreach (var abilitySlot in passiveAbilitySlots)
+            foreach (var abilitySlot in topPanelAbilitySlots)
             {
                 var button = abilitySlot.GetComponentInChildren<AbilityButton>();
 
@@ -134,19 +136,19 @@ namespace FroguesFramework
 
         public AbilityButtonSlot FirstEmptySlot()
         {
-            if (activeAbilitySlots.None(slot => slot.Empty))
+            if (bottomPanelAbilitySlots.None(slot => slot.Empty))
             {
                 currentRowsQuantity++;
                 UpdateEnabledSlots();
             }
 
-            return activeAbilitySlots.First(slot => slot.Empty);
+            return bottomPanelAbilitySlots.First(slot => slot.Empty);
         }
 
         public AbilityButtonSlot AddTopAbilitySlot()
         {
             var singleCell = Instantiate(topAbilitySlotPrefab, topPanel.transform);
-            passiveAbilitySlots.Add(singleCell);
+            topPanelAbilitySlots.Add(singleCell);
 
             return singleCell;
         }
@@ -174,6 +176,7 @@ namespace FroguesFramework
             set
             {
                 slotsInTheRowQuantity = value;
+                slotsInTheRowQuantity = Mathf.Clamp(slotsInTheRowQuantity, minSlotsInTheRowQuantity, maxSlotsInTheRowQuantity);
                 abilityButtonsSlotsPanel.sizeDelta = new Vector2(CalculateWidth(), abilityButtonsSlotsPanel.sizeDelta.y);
 
                 UpdateEnabledSlots();
