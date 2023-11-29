@@ -50,7 +50,13 @@ namespace FroguesFramework
             {
                 while (activeNowSlotsCount > currentRowsQuantity * slotsInTheRowQuantity)
                 {
-                    bottomPanelAbilitySlots.Last(slot => slot.gameObject.activeSelf).gameObject.SetActive(false);
+                    var slotToDisable = bottomPanelAbilitySlots.Last(slot => slot.gameObject.activeSelf && slot.Empty);
+                    
+                    slotToDisable.transform.SetAsLastSibling();
+                    bottomPanelAbilitySlots.Remove(slotToDisable);
+                    bottomPanelAbilitySlots.Add(slotToDisable); // to place it in the end of the list
+
+                    slotToDisable.gameObject.SetActive(false);
                 }
             }
 
@@ -96,6 +102,7 @@ namespace FroguesFramework
         }
 
         private int activeNowSlotsCount => bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
+        private int emptySlots => bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
 
         private void AddAbilityButton(BaseAbility ability)
         {
