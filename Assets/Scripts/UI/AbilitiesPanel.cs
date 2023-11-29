@@ -102,7 +102,7 @@ namespace FroguesFramework
         }
 
         private int activeNowSlotsCount => bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
-        private int emptySlots => bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
+        private int fullSlotsCount => bottomPanelAbilitySlots.Where(slot => !slot.Empty).Count();
 
         private void AddAbilityButton(BaseAbility ability)
         {
@@ -182,6 +182,9 @@ namespace FroguesFramework
 
             set
             {
+                if (value * currentRowsQuantity < fullSlotsCount)
+                    return;
+
                 slotsInTheRowQuantity = value;
                 slotsInTheRowQuantity = Mathf.Clamp(slotsInTheRowQuantity, minSlotsInTheRowQuantity, maxSlotsInTheRowQuantity);
                 abilityButtonsSlotsPanel.sizeDelta = new Vector2(CalculateWidth(), abilityButtonsSlotsPanel.sizeDelta.y);
