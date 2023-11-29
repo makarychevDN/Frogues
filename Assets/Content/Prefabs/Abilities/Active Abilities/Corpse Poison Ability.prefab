@@ -163,6 +163,10 @@ PrefabInstance:
         0"
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 47c74f4a997817141a3215d901481681, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: abilityName
       value: "\u0422\u0440\u0443\u043F\u043D\u044B\u0439 \u044F\u0434"
       objectReference: {fileID: 0}
@@ -177,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -221,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_Name
-      value: "\u0422\u0440\u0443\u043F\u043D\u044B\u0439 \u044F\u0434"
+      value: Corpse Poison Ability
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -234,6 +238,17 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 4961226969395613666}
   m_SourcePrefab: {fileID: 100100000, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+--- !u!114 &2823228197380545314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+  m_PrefabInstance: {fileID: 8534653700222760968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2823228197380545317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2823228197380545316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
@@ -256,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3d74f44db17894da5998d055fba99a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityDataForButton: {fileID: 0}
+  abilityDataForButton: {fileID: 2823228197380545314}
   isPartOfWeapon: 0
   actionPointsCost: 1
   bloodPointsCost: 1
