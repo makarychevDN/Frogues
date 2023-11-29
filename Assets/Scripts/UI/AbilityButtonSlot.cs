@@ -6,6 +6,7 @@ namespace FroguesFramework
     {
         [SerializeField] private AbilityButton abilityButton;
         [SerializeField] private Transform buttonHolder;
+        [SerializeField] private HotKey hotkey;
 
         public void AddButton(AbilityButton button)
         {
@@ -23,5 +24,7 @@ namespace FroguesFramework
         public bool Empty => abilityButton == null;
 
         public AbilityButton AbilityButton => abilityButton;
+
+        public HotKey HotKey => hotkey;
     }
 }
