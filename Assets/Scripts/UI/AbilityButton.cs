@@ -29,9 +29,7 @@ namespace FroguesFramework
             _ability = ability;
             image.material = ability.GetAbilityDataForButton().Material;
 
-            transform.parent = _currentButtonSlot.transform;
-            transform.localPosition = Vector3.zero;
-            transform.localScale = Vector3.one;
+            _currentButtonSlot.AddButton(this);
 
             abilityHint.Init(ability.GetAbilityDataForButton().AbilityName,
                 ability.GetAbilityDataForButton().Stats,
