@@ -143,7 +143,7 @@ namespace FroguesFramework
 
         public AbilityButtonSlot FirstEmptySlot()
         {
-            if (bottomPanelAbilitySlots.None(slot => slot.Empty))
+            if (bottomPanelAbilitySlots.None(slot => slot.Empty) || (slotsInTheRowQuantity * currentRowsQuantity < (fullSlotsCount + 1)))
             {
                 currentRowsQuantity++;
                 UpdateEnabledSlots();
