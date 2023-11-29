@@ -5,12 +5,14 @@ namespace FroguesFramework
     public class AbilityButtonSlot : MonoBehaviour
     {
         [SerializeField] private AbilityButton abilityButton;
+        [SerializeField] private Transform buttonHolder;
 
         public void AddButton(AbilityButton button)
         {
             abilityButton = button;
-            button.transform.parent = transform;
+            button.transform.parent = buttonHolder;
             button.transform.localPosition = Vector3.zero;
+            button.transform.localScale = Vector3.one;
         }
 
         public void Clear()
