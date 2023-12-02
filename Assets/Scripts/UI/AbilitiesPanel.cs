@@ -18,6 +18,7 @@ namespace FroguesFramework
 
         [Header("Panel Size Controller Setup")]
         [SerializeField] private RectTransform abilityButtonsSlotsPanel;
+        [SerializeField] private List<RectTransform> abilitySlotsBorders;
         [SerializeField] private Transform parentForBottomAbilitySlots;
         [SerializeField] private int sizeDelta = 39;
         [SerializeField] private int slotsInTheRowQuantity = 12;
@@ -31,6 +32,7 @@ namespace FroguesFramework
         [SerializeField] private TMP_Text currentPageIndexIndicator;
 
         private int currentRowsQuantity;
+        private int abilitySlotBorderHeight = 46;
         private Dictionary<int, KeyCode> keyCodesByInt = new Dictionary<int, KeyCode>
         {
             { 0, KeyCode.Alpha1},
@@ -89,6 +91,8 @@ namespace FroguesFramework
                 }
             }
 
+            abilitySlotsBorders.ForEach(border => border.sizeDelta = new Vector2(border.sizeDelta.x, showThemAll ? abilitySlotBorderHeight * currentRowsQuantity : abilitySlotBorderHeight));
+
             if (showThemAll)
             {
                 for (int i = 0; i < slotsInTheRowQuantity * currentRowsQuantity; i++)
@@ -112,14 +116,6 @@ namespace FroguesFramework
             if (!enableHotKeys || showThemAll)
                 return;
 
-            /*for (int i = currentShowingRow * slotsInTheRowQuantity; i < (currentShowingRow + 1) * slotsInTheRowQuantity; i++)
-            {
-                bottomPanelAbilitySlots[i].HotKey.EnableHotKey(true);
-                var repeatedCount = (int)Mathf.Repeat(i, 12);
-                bottomPanelAbilitySlots[i].HotKey.SetKeyCode(keyCodesByInt[repeatedCount]);
-            }*/
-
-            //while()
             int count = 0;
             foreach(var slot in bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf))
             {
