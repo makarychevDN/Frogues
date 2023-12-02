@@ -6,7 +6,7 @@ namespace FroguesFramework
 {
     public class ResourcePointsUI : MonoBehaviour
     {
-        [SerializeField] private AbilityResourcePoints resourcePoints;
+        [SerializeField] private AbilityResourcePoints currentResourcePoints;
         [SerializeField] private Transform iconsParent;
         [SerializeField] private ResourcePointUI resourcePointIconPrefab;
         [SerializeField] private ResourcePointUI temporaryResourcePointIconPrefab;
@@ -19,22 +19,46 @@ namespace FroguesFramework
 
         private void Start()
         {
-            resourcePoints.OnPointsIncreased.AddListener(() => 
-            RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount));
-
-            resourcePoints.OnPointsIncreased.AddListener(() =>
-            RedrawIcons(resourcePoints.TemporaryPoints, resourcePoints.TemporaryPoints, resourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount));
+            if(currentResourcePoints != null)
+                Init(currentResourcePoints);
         }
+
+        public void Init(AbilityResourcePoints resourcePoints)
+        {
+            currentResourcePoints?.OnPointsIncreased.RemoveListener(RedrawCurrentActionPointsIcons);
+            currentResourcePoints?.OnPointsIncreased.RemoveListener(RedrawTemporaryActionPointsIcons);
+
+            currentResourcePoints = resourcePoints;
+
+            currentResourcePoints.OnPointsIncreased.AddListener(RedrawCurrentActionPointsIcons);
+            currentResourcePoints.OnPointsIncreased.AddListener(RedrawTemporaryActionPointsIcons);
+        }
+
+        private void RedrawCurrentActionPointsIcons() =>
+            RedrawIcons(currentResourcePoints.CurrentPoints,
+            currentResourcePoints.MaxPointsCount,
+            currentResourcePoints.PreTakenCurrentPoints,
+            resourcePointIcons, 
+            resourcePointIconPrefab,
+            ref _hashedResourcePointsCount);
+
+        private void RedrawTemporaryActionPointsIcons() =>
+            RedrawIcons(currentResourcePoints.TemporaryPoints,
+            currentResourcePoints.TemporaryPoints,
+            currentResourcePoints.PreTakenTemporaryPoints,
+            temporaryResourcePointIcons,
+            temporaryResourcePointIconPrefab,
+            ref _hashedResourcePointsCount);
 
         private void Update()
         {
-            if(hashedPrevisualization != resourcePoints.CalculateHashFunctionOfPrevisualisation())
+            if(hashedPrevisualization != currentResourcePoints.CalculateHashFunctionOfPrevisualisation())
             {
-                RedrawIcons(resourcePoints.CurrentPoints, resourcePoints.MaxPointsCount, resourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount);
-                RedrawIcons(resourcePoints.TemporaryPoints, resourcePoints.TemporaryPoints, resourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount);
+                RedrawIcons(currentResourcePoints.CurrentPoints, currentResourcePoints.MaxPointsCount, currentResourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount);
+                RedrawIcons(currentResourcePoints.TemporaryPoints, currentResourcePoints.TemporaryPoints, currentResourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount);
             }
 
-            hashedPrevisualization = resourcePoints.CalculateHashFunctionOfPrevisualisation();
+            hashedPrevisualization = currentResourcePoints.CalculateHashFunctionOfPrevisualisation();
         }
 
         private void RedrawIcons(int currentValue, int maxValue, int pretakenValue, List<ResourcePointUI> iconsList, ResourcePointUI iconPrefab, ref int hashedValue)
