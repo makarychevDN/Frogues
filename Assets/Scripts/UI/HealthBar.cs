@@ -14,6 +14,11 @@ namespace FroguesFramework
         [SerializeField] private Health health;
         [SerializeField] private TextMeshProUGUI textField;
 
+        public void SetHealth(Health health)
+        {
+            this.health = health;
+        }
+
         public void Update()
         {
             int maxSlidersValue = health.MaxHp + health.Block;

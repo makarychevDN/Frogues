@@ -9,6 +9,9 @@ namespace FroguesFramework
         [SerializeField] private TMP_Text nameLabel;
         [SerializeField] private TMP_Text descriptionLable;
         [SerializeField] private AbilitiesPanel abilitiesPanel;
+        [SerializeField] private HealthBar healthBar;
+        [SerializeField] private StatsVisualizationSystem statsVisualizationSystem;
+        [SerializeField] private ResourcePointsUI resourcePointsUI;
 
         private void Start()
         {
@@ -26,6 +29,9 @@ namespace FroguesFramework
             abilitiesPanel.Init(unit);
             nameLabel.text = unit.UnitDescription.UnitName;
             descriptionLable.text = unit.UnitDescription.Description;
+            healthBar.SetHealth(unit.Health);
+            statsVisualizationSystem.SetStats(unit.Stats);
+            resourcePointsUI.Init(unit.ActionPoints);
         }
 
         public void DisablePreVisualization()

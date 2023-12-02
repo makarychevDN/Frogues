@@ -14,6 +14,11 @@ namespace FroguesFramework
 
         private int lastStatsHash;
 
+        public void SetStats(Stats stats)
+        {
+            this.stats = stats;
+        }
+
         void Update()
         {
             if(lastStatsHash != stats.CalculateHashFunctionOfPrevisualisation()) 
