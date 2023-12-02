@@ -55,7 +55,7 @@ namespace FroguesFramework
         private void Awake()
         {
             Instance = this;
-            _abilitiesPanel.Init();
+            _abilitiesPanel.Init(_metaPlayer);
             _currentRoom = hub;
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));

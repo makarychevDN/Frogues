@@ -6,7 +6,9 @@ namespace FroguesFramework
     public class UnitDescriptionPanel : MonoBehaviour, IAbleToDisablePreVisualization
     {
         [SerializeField] private GameObject panel;
-        [SerializeField] private TMP_Text textField;
+        [SerializeField] private TMP_Text nameLabel;
+        [SerializeField] private TMP_Text descriptionLable;
+        [SerializeField] private AbilitiesPanel abilitiesPanel;
 
         private void Start()
         {
@@ -18,10 +20,12 @@ namespace FroguesFramework
             RemoveMySelfFromEntryPoint();
         }
 
-        public void Activate(string text)
+        public void Activate(Unit unit)
         {
             panel.SetActive(true);
-            textField.text = text;
+            abilitiesPanel.Init(unit);
+            nameLabel.text = unit.UnitDescription.UnitName;
+            descriptionLable.text = unit.UnitDescription.Description;
         }
 
         public void DisablePreVisualization()

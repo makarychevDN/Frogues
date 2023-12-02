@@ -53,10 +53,10 @@ namespace FroguesFramework
         public List<AbilityButtonSlot> ActiveAbilitySlots => bottomPanelAbilitySlots;
         public List<AbilityButtonSlot> PassiveAbilitySlots => topPanelAbilitySlots;
 
-        public void Init()
+        public void Init(Unit unit)
         {
-            abilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
-            abilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
+            unit.AbilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
+            unit.AbilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
             currentRowsQuantity = minRowsQuantity;
 
             UpdateEnabledSlots();
