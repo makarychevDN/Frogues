@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Playables;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -33,6 +34,7 @@ namespace FroguesFramework
 
         private int currentRowsQuantity;
         private int abilitySlotBorderHeight = 46;
+        private float maxDistanceToClamp = 64;
         private Dictionary<int, KeyCode> keyCodesByInt = new Dictionary<int, KeyCode>
         {
             { 0, KeyCode.Alpha1},
@@ -159,6 +161,7 @@ namespace FroguesFramework
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
             abilityButton.Init(ability, slot);
             abilityButton.OnAbilityPicked.AddListener(setCurrentAbility);
+            abilityButton.OnDropButton.AddListener(PlaceButtonInTheClosetstClot);
         }
 
         private void setCurrentAbility(AbleToUseAbility ability)
@@ -171,6 +174,33 @@ namespace FroguesFramework
 
             else
                 abilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(ability);
+        }
+
+        private void PlaceButtonInTheClosetstClot(AbilityButton abilityButton)
+        {
+            var closestSlot = abilityButton.AbilityButtonSlot;
+            var abilitiesSlots = topPanel != null && abilityButton.Ability is PassiveAbility ? PassiveAbilitySlots : ActiveAbilitySlots;
+
+            foreach (var temp in abilitiesSlots)
+            {
+                if (Vector3.Distance(closestSlot.transform.position, abilityButton.transform.position) >
+                    Vector3.Distance(temp.transform.position, abilityButton.transform.position))
+                    closestSlot = temp;
+            }
+
+            if (Vector3.Distance(closestSlot.transform.position, abilityButton.transform.position) < maxDistanceToClamp)
+            {
+                abilityButton.AbilityButtonSlot.Clear();
+
+                if (!closestSlot.Empty)
+                {
+                    closestSlot.AbilityButton.SetSlot(abilityButton.AbilityButtonSlot);
+                }
+
+                abilityButton.AbilityButtonSlot = closestSlot;
+            }
+
+            abilityButton.AbilityButtonSlot.AddButton(abilityButton);
         }
 
         private void RemoveAbilityButton(BaseAbility ability)

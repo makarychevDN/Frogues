@@ -16,7 +16,6 @@ namespace FroguesFramework
         private BaseAbility _ability;
         private AbilityButtonSlot _currentButtonSlot;
 
-        private float maxDistanceToClamp = 64;
         private bool _draggingNow;
         
         private bool _myAbilityIsAbleToReturnIsPrevisualized;
@@ -25,10 +24,15 @@ namespace FroguesFramework
         private int _hashedCooldown;
 
         public UnityEvent<AbleToUseAbility> OnAbilityPicked;
-        public UnityEvent OnDragButton;
-        public UnityEvent OnDropButton;
+        public UnityEvent<AbilityButton> OnDragButton;
+        public UnityEvent<AbilityButton> OnDropButton;
 
         public BaseAbility Ability => _ability;
+        public AbilityButtonSlot AbilityButtonSlot
+        {
+            get => _currentButtonSlot;
+            set => _currentButtonSlot = value;
+        }
 
         public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot)
         {
@@ -75,7 +79,7 @@ namespace FroguesFramework
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            OnDragButton.Invoke();
+            OnDragButton.Invoke(this);
             transform.parent = _currentButtonSlot.transform.parent.parent;
             _draggingNow = true;
         }
@@ -87,7 +91,7 @@ namespace FroguesFramework
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            OnDropButton.Invoke();            
+            OnDropButton.Invoke(this);            
             /*var closestSlot = _currentButtonSlot;
 
             var abilitiesSlots = _ability is PassiveAbility ? _abilitiesPanel.PassiveAbilitySlots : _abilitiesPanel.ActiveAbilitySlots;
@@ -114,7 +118,7 @@ namespace FroguesFramework
             _draggingNow = false;
         }
 
-        private void SetSlot(AbilityButtonSlot slot)
+        public void SetSlot(AbilityButtonSlot slot)
         {
             _currentButtonSlot.Clear();
             _currentButtonSlot = slot;
