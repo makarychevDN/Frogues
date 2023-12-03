@@ -12,6 +12,8 @@ namespace FroguesFramework
         [SerializeField] private Image cooldownEffect;
         [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private TMP_Text cooldownCounterField;
+        [SerializeField] private AudioSource putInTheSlotSound;
+        [SerializeField] private AudioSource putOutOfTheSlotSound;
 
         private BaseAbility _ability;
         private AbilityButtonSlot _currentButtonSlot;
@@ -59,6 +61,9 @@ namespace FroguesFramework
                 ability.GetAbilityDataForButton().Description,
                 ability is PassiveAbility);
             abilityHint.EnableContent(false);
+
+            OnDragButton.AddListener(_ => putOutOfTheSlotSound.Play());
+            OnDropButton.AddListener(_ => putInTheSlotSound.Play());
         }
 
         public void PickAbility()
