@@ -154,7 +154,7 @@ namespace FroguesFramework
             if (topPanel != null && ability is PassiveAbility)
                 slot = AddTopAbilitySlot();
             else
-                slot = FirstEmptySlot();
+                slot = FirstEmptySlotInBottonPanel();
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
             abilityButton.Init(ability, slot);
@@ -186,7 +186,7 @@ namespace FroguesFramework
             }
         }
 
-        public AbilityButtonSlot FirstEmptySlot()
+        private AbilityButtonSlot FirstEmptySlotInBottonPanel()
         {
             if (bottomPanelAbilitySlots.None(slot => slot.Empty) || (slotsInTheRowQuantity * currentRowsQuantity < (fullSlotsCount + 1)))
             {
@@ -197,7 +197,7 @@ namespace FroguesFramework
             return bottomPanelAbilitySlots.First(slot => slot.Empty);
         }
 
-        public AbilityButtonSlot AddTopAbilitySlot()
+        private AbilityButtonSlot AddTopAbilitySlot()
         {
             var singleCell = Instantiate(topAbilitySlotPrefab, topPanel.transform);
             topPanelAbilitySlots.Add(singleCell);
