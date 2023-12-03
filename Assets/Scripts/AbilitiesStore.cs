@@ -25,7 +25,7 @@ namespace FroguesFramework
 
             for (int i = 0; i < abilities.Count; i++)
             {
-                var verticalLayoutGroup = Instantiate(verticalLayoutGroupPrefab, buttonsParent);
+                /*var verticalLayoutGroup = Instantiate(verticalLayoutGroupPrefab, buttonsParent);
 
                 var abilityButton = Instantiate(abilityButtonPrefab);
                 abilityButton.Init(abilities[i]);
@@ -38,7 +38,7 @@ namespace FroguesFramework
                 selectionButtons.Add(selectionButton);
                 selectionButton.onClick.AddListener(() => currentAbility.Init(EntryPoint.Instance.MetaPlayer));
                 selectionButton.onClick.AddListener(CloseAbilitiesStore);
-                selectionButton.onClick.AddListener(() => selectionButtons.ForEach(button => button.interactable = false));
+                selectionButton.onClick.AddListener(() => selectionButtons.ForEach(button => button.interactable = false));*/
             }
         }
 
