@@ -24,7 +24,7 @@ namespace FroguesFramework
         private bool _myAbilityIsAbleToCost;
         private int _hashedCooldown;
 
-        public UnityEvent OnAbilityPicked;
+        public UnityEvent<AbleToUseAbility> OnAbilityPicked;
         public UnityEvent OnDragButton;
         public UnityEvent OnDropButton;
 
@@ -70,7 +70,7 @@ namespace FroguesFramework
             if (ableToCostAbility != null && !ableToCostAbility.IsResoursePointsEnough())
                 return;
 
-            OnAbilityPicked.Invoke();
+            OnAbilityPicked.Invoke(_ability as AbleToUseAbility);
         }
 
         public void OnBeginDrag(PointerEventData eventData)

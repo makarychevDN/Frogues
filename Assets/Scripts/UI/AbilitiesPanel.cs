@@ -158,13 +158,26 @@ namespace FroguesFramework
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
             abilityButton.Init(ability, slot);
+            abilityButton.OnAbilityPicked.AddListener(setCurrentAbility);
+        }
+
+        private void setCurrentAbility(AbleToUseAbility ability)
+        {
+            if (abilitiesManager.AbleToHaveCurrentAbility == null)
+                return;
+
+            if (abilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == ability)
+                abilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+
+            else
+                abilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(ability);
         }
 
         private void RemoveAbilityButton(BaseAbility ability)
         {
             foreach (var abilitySlot in bottomPanelAbilitySlots)
             {
-                var button = abilitySlot.GetComponentInChildren<AbilityButton>();
+                var button = abilitySlot.AbilityButton;
 
                 if (button == null || button.Ability != ability)
                     continue;
@@ -175,7 +188,7 @@ namespace FroguesFramework
 
             foreach (var abilitySlot in topPanelAbilitySlots)
             {
-                var button = abilitySlot.GetComponentInChildren<AbilityButton>();
+                var button = abilitySlot.AbilityButton;
 
                 if (button == null || button.Ability != ability)
                     continue;
