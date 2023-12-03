@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -12,51 +13,28 @@ namespace FroguesFramework
         [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private TMP_Text cooldownCounterField;
 
-        private float maxDistanceToClamp = 64;
         private BaseAbility _ability;
-        private AbilitiesPanel _abilitiesPanel;
         private AbilityButtonSlot _currentButtonSlot;
+
+        private float maxDistanceToClamp = 64;
         private bool _draggingNow;
+        
         private bool _myAbilityIsAbleToReturnIsPrevisualized;
         private bool _myAbilityIsAbleToHaveCooldown;
         private bool _myAbilityIsAbleToCost;
         private int _hashedCooldown;
 
+        public UnityEvent OnAbilityPicked;
+        public UnityEvent OnDragButton;
+        public UnityEvent OnDropButton;
+
         public BaseAbility Ability => _ability;
-        
-        public void Init(BaseAbility ability)
+
+        public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot)
         {
             _ability = ability;
+            _currentButtonSlot = abilityButtonSlot;
             image.material = ability.GetAbilityDataForButton().Material;
-
-            _currentButtonSlot.AddButton(this);
-
-            abilityHint.Init(ability.GetAbilityDataForButton().AbilityName,
-                ability.GetAbilityDataForButton().Stats,
-                ability.GetAbilityDataForButton().Description,
-                ability is PassiveAbility);
-            abilityHint.EnableContent(false);
-
-            _myAbilityIsAbleToReturnIsPrevisualized = _ability is IAbleToReturnIsPrevisualized;
-            _myAbilityIsAbleToHaveCooldown = _ability is IAbleToHaveCooldown;
-            _myAbilityIsAbleToCost = _ability is IAbleToCost;
-
-            if(_myAbilityIsAbleToHaveCooldown)
-                _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
-        }
-
-        public void Init(AbilitiesPanel abilitiesPanel, BaseAbility ability)
-        {
-            _abilitiesPanel = abilitiesPanel;
-
-            if (ability is PassiveAbility)
-            {
-                _currentButtonSlot = abilitiesPanel.AddTopAbilitySlot();
-            }
-            else
-            {
-                _currentButtonSlot = abilitiesPanel.FirstEmptySlot();
-            }
 
             _currentButtonSlot.AddButton(this);
 
@@ -65,24 +43,24 @@ namespace FroguesFramework
                 ((IAbleToHighlightAbilityButton)ability).GetHighlightEvent().AddListener(EnableHighlight);
             }
 
-            Init(ability);
-        }
+            _myAbilityIsAbleToReturnIsPrevisualized = _ability is IAbleToReturnIsPrevisualized;
+            _myAbilityIsAbleToHaveCooldown = _ability is IAbleToHaveCooldown;
+            _myAbilityIsAbleToCost = _ability is IAbleToCost;
 
-        private void EnableHighlight(bool value)
-        {
-            image.material.SetInt("_NeedToHighlight", value.ToInt());
+            if (_myAbilityIsAbleToHaveCooldown)
+                _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
+
+            abilityHint.Init(ability.GetAbilityDataForButton().AbilityName,
+                ability.GetAbilityDataForButton().Stats,
+                ability.GetAbilityDataForButton().Description,
+                ability is PassiveAbility);
+            abilityHint.EnableContent(false);
         }
 
         public void PickAbility()
         {
             if (_draggingNow || _ability is not AbleToUseAbility)
                 return;
-            
-            if (_abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == _ability)
-            {
-                _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
-                return;
-            }
 
             var cooldownAbility = _ability as IAbleToHaveCooldown;
             if (cooldownAbility != null && !cooldownAbility.IsCooldowned())
@@ -92,12 +70,12 @@ namespace FroguesFramework
             if (ableToCostAbility != null && !ableToCostAbility.IsResoursePointsEnough())
                 return;
 
-            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(_ability);
+            OnAbilityPicked.Invoke();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+            OnDragButton.Invoke();
             transform.parent = _currentButtonSlot.transform.parent.parent;
             _draggingNow = true;
         }
@@ -109,9 +87,8 @@ namespace FroguesFramework
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            _abilitiesPanel.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
-            
-            var closestSlot = _currentButtonSlot;
+            OnDropButton.Invoke();            
+            /*var closestSlot = _currentButtonSlot;
 
             var abilitiesSlots = _ability is PassiveAbility ? _abilitiesPanel.PassiveAbilitySlots : _abilitiesPanel.ActiveAbilitySlots;
             foreach (var temp in abilitiesSlots)
@@ -133,8 +110,15 @@ namespace FroguesFramework
                 _currentButtonSlot = closestSlot;
             }            
 
-            _currentButtonSlot.AddButton(this);
+            _currentButtonSlot.AddButton(this);*/
             _draggingNow = false;
+        }
+
+        private void SetSlot(AbilityButtonSlot slot)
+        {
+            _currentButtonSlot.Clear();
+            _currentButtonSlot = slot;
+            slot.AddButton(this);
         }
 
         private void Update()
@@ -187,11 +171,9 @@ namespace FroguesFramework
             image.material.SetInt("_NeedToHighlight", false.ToInt());
         }
 
-        private void SetSlot(AbilityButtonSlot slot)
+        private void EnableHighlight(bool value)
         {
-            _currentButtonSlot.Clear();
-            _currentButtonSlot = slot;
-            slot.AddButton(this);
+            image.material.SetInt("_NeedToHighlight", value.ToInt());
         }
     }
 }
