@@ -150,8 +150,14 @@ namespace FroguesFramework
             if (abilityAsAbleToDrawAbilityButton == null || abilityAsAbleToDrawAbilityButton.IsIgnoringDrawingFunctionality())
                 return;
 
+            AbilityButtonSlot slot;
+            if (topPanel != null && ability is PassiveAbility)
+                slot = AddTopAbilitySlot();
+            else
+                slot = FirstEmptySlot();
+
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
-            abilityButton.Init(this, ability);
+            abilityButton.Init(ability, slot);
         }
 
         private void RemoveAbilityButton(BaseAbility ability)
