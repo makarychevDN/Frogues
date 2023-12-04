@@ -34,6 +34,7 @@ namespace FroguesFramework
 
         public override void UseOnUnit(Unit target)
         {
+            EntryPoint.Instance.UnitDescriptionPanel.Activate(target);
         }
 
         public override void VisualizePreUseOnUnit(Unit target)
@@ -42,7 +43,6 @@ namespace FroguesFramework
                 return;
 
             target.MaterialInstanceContainer.EnableOutline(true);
-            EntryPoint.Instance.UnitDescriptionPanel.Activate(target);
         }
 
         public override bool CheckItUsableOnBloodSurfaceUnit() => true;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class UnitDescriptionPanel : MonoBehaviour, IAbleToDisablePreVisualization
+    public class UnitDescriptionPanel : MonoBehaviour
     {
         [SerializeField] private GameObject panel;
         [SerializeField] private TMP_Text nameLabel;
@@ -13,36 +13,18 @@ namespace FroguesFramework
         [SerializeField] private StatsVisualizationSystem statsVisualizationSystem;
         [SerializeField] private ResourcePointsUI resourcePointsUI;
 
-        private void Start()
-        {
-            AddMySelfToEntryPoint();
-        }
-
-        private void OnDestroy()
-        {
-            RemoveMySelfFromEntryPoint();
-        }
-
         public void Activate(Unit unit)
         {
-            panel.SetActive(true);
+            abilitiesPanel.RemoveAllAbilitiesButtons();
             abilitiesPanel.Init(unit);
+            abilitiesPanel.AddAbilitiesButtons(unit.AbilitiesManager.Abilities);
+            panel.SetActive(true);
+
             nameLabel.text = unit.UnitDescription.UnitName;
             descriptionLable.text = unit.UnitDescription.Description;
             healthBar.SetHealth(unit.Health);
             statsVisualizationSystem.SetStats(unit.Stats);
             resourcePointsUI.Init(unit.ActionPoints);
         }
-
-        public void DisablePreVisualization()
-        {
-            panel.SetActive(false);
-        }
-
-        public void AddMySelfToEntryPoint() =>
-            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
-
-        public void RemoveMySelfFromEntryPoint() =>
-            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
     }
 }

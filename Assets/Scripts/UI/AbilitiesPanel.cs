@@ -32,7 +32,7 @@ namespace FroguesFramework
         [Header("Scrolling Indicator Setup")]
         [SerializeField] private TMP_Text currentPageIndexIndicator;
 
-        private int currentRowsQuantity;
+        [SerializeField] private int currentRowsQuantity;
         private int abilitySlotBorderHeight = 46;
         private float maxDistanceToClamp = 64;
         private Dictionary<int, KeyCode> keyCodesByInt = new Dictionary<int, KeyCode>
@@ -57,10 +57,15 @@ namespace FroguesFramework
 
         public void Init(Unit unit)
         {
-            unit.AbilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
-            unit.AbilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
-            currentRowsQuantity = minRowsQuantity;
+            abilitiesManager?.AbilityHasBeenAdded.RemoveListener(AddAbilityButton);
+            abilitiesManager?.AbilityHasBeenRemoved.RemoveListener(RemoveAbilityButton);
 
+            abilitiesManager = unit.AbilitiesManager;
+
+            abilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
+            abilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
+
+            currentRowsQuantity = minRowsQuantity;
             UpdateEnabledSlots();
         }
 
@@ -145,6 +150,14 @@ namespace FroguesFramework
         private int activeNowSlotsCount => bottomPanelAbilitySlots.Where(slot => slot.gameObject.activeSelf).Count();
         private int fullSlotsCount => bottomPanelAbilitySlots.Where(slot => !slot.Empty).Count();
 
+        public void AddAbilitiesButtons(List<BaseAbility> abilities)
+        {
+            foreach(var ability in abilities)
+            {
+                AddAbilityButton(ability);
+            }
+        }
+
         private void AddAbilityButton(BaseAbility ability)
         {
             var abilityAsAbleToDrawAbilityButton = ability as IAbleToDrawAbilityButton;
@@ -227,6 +240,32 @@ namespace FroguesFramework
                 DestroyImmediate(abilitySlot.gameObject);
                 return;
             }
+        }
+
+        public void RemoveAllAbilitiesButtons()
+        {
+            foreach (var abilitySlot in bottomPanelAbilitySlots)
+            {
+                if (abilitySlot.Empty)
+                    continue;
+
+                var button = abilitySlot.AbilityButton;
+                abilitySlot.Clear();
+                if(button.Ability is AbleToUseAbility)
+                    button.OnAbilityPicked.RemoveListener(setCurrentAbility);
+                button.OnDropButton.RemoveListener(PlaceButtonInTheClosetstClot);
+                DestroyImmediate(button.gameObject);
+            }
+
+            while(topPanelAbilitySlots.Count > 0)
+            {
+                var slot = topPanelAbilitySlots[0];;
+                slot.Clear();
+                PassiveAbilitySlots.Remove(slot);
+                DestroyImmediate(slot.gameObject);
+            }
+
+            UpdateEnabledSlots();
         }
 
         private AbilityButtonSlot FirstEmptySlotInBottonPanel()
