@@ -108,6 +108,9 @@ namespace FroguesFramework
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if (!_isInteractable)
+                return;
+
             OnDropButton.Invoke(this);            
             _draggingNow = false;
         }
