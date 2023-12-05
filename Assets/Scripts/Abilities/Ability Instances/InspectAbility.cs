@@ -1,10 +1,19 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FroguesFramework
 {
     public class InspectAbility : UnitTargetAbility
     {
+        [SerializeField] private bool showMovementHighlighting;
         private Unit _hashedTarget;
+
+        public bool ShowMovementHighlighting
+        {
+            get { return showMovementHighlighting; }
+            set { showMovementHighlighting = value; }
+        }
 
         public override int CalculateHashFunctionOfPrevisualisation()
         {
@@ -39,6 +48,18 @@ namespace FroguesFramework
 
         public override void VisualizePreUseOnUnit(Unit target)
         {
+            if (showMovementHighlighting)
+            {
+                if (_owner.Stats.Immobilized == 0)
+                {
+                    var movementCells = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
+                        _owner.ActionPoints.CurrentPoints,
+                        _owner.MovementAbility.GetActionPointsCost(), false, true, true);
+                    movementCells.ForEach(cell => cell.EnableValidForMovementCellHighlight(movementCells));
+                }
+                   
+            }
+
             if (!PossibleToUseOnUnit(target))
                 return;
 

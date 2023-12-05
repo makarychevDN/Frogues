@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEngine.GraphicsBuffer;
 
 namespace FroguesFramework
 {
@@ -10,6 +11,7 @@ namespace FroguesFramework
         [SerializeField] private InspectAbility inspectAbility;
         [SerializeField] private AbleToUseAbility currentAbility;
         [SerializeField] private UnitTargetAbility nativeAttackAbility;
+        [SerializeField] private HowerOnUnitWhileMovementMode howerOnUnitWhileMovementMode;
 
         [Header("Cursors")]
         [SerializeField] private Texture2D defaultCursorTexture;
@@ -56,12 +58,24 @@ namespace FroguesFramework
                 currentAbility = movementAbility;
 
             var temporaryCurrentAbility = currentAbility;
-            if (currentAbility == movementAbility && nativeAttackAbility != null)
+
+
+            if (currentAbility == movementAbility)
             {
                 var target = CellsTaker.TakeCellOrUnitByMouseRaycast();
+                inspectAbility.ShowMovementHighlighting = howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateInspectAbility;
 
-                if (target is Unit && target != _unit)
-                    temporaryCurrentAbility = nativeAttackAbility;
+                if(howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateNativeAttack && nativeAttackAbility != null)
+                {
+                    if (target is Unit && target != _unit)
+                        temporaryCurrentAbility = nativeAttackAbility;
+                }
+
+                if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateInspectAbility)
+                {
+                    if (target is Unit && target)
+                        temporaryCurrentAbility = inspectAbility;
+                }
             }
 
             UniversalAbilityInput(temporaryCurrentAbility);
@@ -277,7 +291,25 @@ namespace FroguesFramework
 
         private bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
         
-        public void ClearCurrentAbility() => currentAbility = null;
+        //public void ClearCurrentAbility() => currentAbility = null;
+        public void ClearCurrentAbility()
+        {
+            if (currentAbility == movementAbility)
+            {
+                if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateNativeAttack)
+                {
+                    currentAbility = inspectAbility;
+                }
+
+                if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateInspectAbility)
+                {
+                    currentAbility = nativeAttackAbility;
+                }
+            }
+
+            else
+                currentAbility = null;
+        }
 
         public BaseAbility GetCurrentAbility() => currentAbility;
 
@@ -322,6 +354,12 @@ namespace FroguesFramework
         }
 
         public UnitTargetAbility GetCurrentNativeAttack() => nativeAttackAbility;
+
+        public enum HowerOnUnitWhileMovementMode
+        {
+            activateInspectAbility = 10,
+            activateNativeAttack = 20
+        }
     }
 
 }
