@@ -9,6 +9,7 @@ namespace FroguesFramework
     public class UnitDescriptionPanel : MonoBehaviour
     {
         [SerializeField] private RectTransform parentOfContent;
+        [SerializeField] private GameObject background;
         [SerializeField] private List<RectTransform> resizableContent;
         [SerializeField] private TMP_Text nameLabel;
         [SerializeField] private TMP_Text descriptionLable;
@@ -22,7 +23,7 @@ namespace FroguesFramework
             abilitiesPanel.RemoveAllAbilitiesButtons();
             abilitiesPanel.Init(unit);
             abilitiesPanel.AddAbilitiesButtons(unit.AbilitiesManager.Abilities);
-            parentOfContent.gameObject.SetActive(enabled);
+            EnableContent(true);
             resizableContent.ForEach(content => LayoutRebuilder.ForceRebuildLayoutImmediate(content));
 
             nameLabel.text = unit.UnitDescription.UnitName;
@@ -32,13 +33,13 @@ namespace FroguesFramework
             resourcePointsUI.Init(unit.ActionPoints);
         }
 
-        private void ForceUpdateCanvases() => Canvas.ForceUpdateCanvases();
-
         public void EnableContent(bool enabled)
         {
             parentOfContent.gameObject.SetActive(enabled);
+            background.gameObject.SetActive(enabled);
         }
 
-        private void EnableAbilitiesPanel() => abilitiesPanel.gameObject.SetActive(true);
+        public bool IsActive => parentOfContent.gameObject.activeSelf; 
+
     }
 }

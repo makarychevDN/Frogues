@@ -40,7 +40,7 @@ namespace FroguesFramework
         public PathFinder PathFinder => _currentRoom.PathFinder;
         public Map Map => _currentRoom.Map;
         public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;
-        public bool PauseIsActive => pausePanel.activeSelf;
+        public bool PauseIsActive => pausePanel.activeSelf || unitDescriptionPanel.IsActive;
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
         public int Score => score;
         public int BonfireHealingValue => bonfireHealingValue;
