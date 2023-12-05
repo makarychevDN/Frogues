@@ -100,6 +100,9 @@ namespace FroguesFramework
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (!_isInteractable)
+                return;
+
             transform.position = Input.mousePosition;
         }
 
