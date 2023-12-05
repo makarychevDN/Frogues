@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace FroguesFramework
 {
-    public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+    public class AbilityButton : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private Image cooldownEffect;
@@ -26,6 +26,9 @@ namespace FroguesFramework
         private int _hashedCooldown;
         private bool _isInteractable;
 
+        private Vector2 _positionOfHintRelativeToButton;
+        private Vector2 _pivotOfHintRectTransformWhenHover;
+
         public UnityEvent<AbleToUseAbility> OnAbilityPicked;
         public UnityEvent<AbilityButton> OnDragButton;
         public UnityEvent<AbilityButton> OnDropButton;
@@ -37,12 +40,14 @@ namespace FroguesFramework
             set => _currentButtonSlot = value;
         }
 
-        public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot, bool isInteractable ,Transform parentToDragAndDropProcess = null)
+        public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot, bool isInteractable, Vector2 pivotOfHintRectTransformWhenHover, Vector2 positionOfHintRelativeToButton, Transform parentToDragAndDropProcess = null)
         {
             _isInteractable = isInteractable;
             _parentToDragAndDropProcess = parentToDragAndDropProcess;
             _ability = ability;
             _currentButtonSlot = abilityButtonSlot;
+            _pivotOfHintRectTransformWhenHover = pivotOfHintRectTransformWhenHover;
+            _positionOfHintRelativeToButton = positionOfHintRelativeToButton;
             image.material = ability.GetAbilityDataForButton().Material;
 
             _currentButtonSlot.AddButton(this);
@@ -58,12 +63,6 @@ namespace FroguesFramework
 
             if (_myAbilityIsAbleToHaveCooldown)
                 _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
-
-            abilityHint.Init(ability.GetAbilityDataForButton().AbilityName,
-                ability.GetAbilityDataForButton().Stats,
-                ability.GetAbilityDataForButton().Description,
-                ability is PassiveAbility);
-            abilityHint.EnableContent(false);
 
             OnDragButton.AddListener(_ => putOutOfTheSlotSound.Play());
             OnDropButton.AddListener(_ => putInTheSlotSound.Play());
@@ -93,6 +92,7 @@ namespace FroguesFramework
             if (!_isInteractable)
                 return;
 
+            EntryPoint.Instance.AbilityHint.EnableContent(false);
             OnDragButton.Invoke(this);
             transform.parent = _parentToDragAndDropProcess;
             _draggingNow = true;
@@ -175,6 +175,18 @@ namespace FroguesFramework
         private void EnableHighlight(bool value)
         {
             image.material.SetInt("_NeedToHighlight", value.ToInt());
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            var data = _ability.GetAbilityDataForButton();
+            EntryPoint.Instance.AbilityHint.Init(data.AbilityName, data.Stats, data.Description, transform, _pivotOfHintRectTransformWhenHover, _positionOfHintRelativeToButton);
+            EntryPoint.Instance.AbilityHint.EnableContent(true);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            EntryPoint.Instance.AbilityHint.EnableContent(false);
         }
     }
 }

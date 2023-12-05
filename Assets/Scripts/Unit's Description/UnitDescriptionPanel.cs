@@ -8,7 +8,7 @@ namespace FroguesFramework
 {
     public class UnitDescriptionPanel : MonoBehaviour
     {
-        [SerializeField] private RectTransform parentOfContent;
+        [SerializeField] private GameObject parentOfContent;
         [SerializeField] private GameObject background;
         [SerializeField] private List<RectTransform> resizableContent;
         [SerializeField] private TMP_Text nameLabel;
@@ -35,11 +35,11 @@ namespace FroguesFramework
 
         public void EnableContent(bool enabled)
         {
-            parentOfContent.gameObject.SetActive(enabled);
-            background.gameObject.SetActive(enabled);
+            parentOfContent.SetActive(enabled);
+            background.SetActive(enabled);
         }
 
-        public bool IsActive => parentOfContent.gameObject.activeSelf; 
+        public bool IsActive => parentOfContent.activeSelf; 
 
     }
 }

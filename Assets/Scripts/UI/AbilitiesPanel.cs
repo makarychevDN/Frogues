@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.Playables;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -13,11 +12,15 @@ namespace FroguesFramework
         [SerializeField] private AbilityButtonSlot topAbilitySlotPrefab;
         [SerializeField] private AbilityButtonSlot bottomAbilitySlotPrefab;
         [SerializeField] private GameObject topPanel;
+        [SerializeField] private Transform parentToDragAndDrop;
         [SerializeField] private List<AbilityButtonSlot> bottomPanelAbilitySlots;
         [SerializeField] private List<AbilityButtonSlot> topPanelAbilitySlots;
         [SerializeField] private bool enableHotKeys;
-        [SerializeField] private Transform parentToDragAndDrop;
         [SerializeField] private bool itsButtonsAreInteractive;
+        [SerializeField] private Vector2 positionOfHintRelativeToButtonInBottomPanel;
+        [SerializeField] private Vector2 pivotOfHintRectTransformWhenHoverInBottomPanel;
+        [SerializeField] private Vector2 positionOfHintRelativeToButtonInTopPanel;
+        [SerializeField] private Vector2 pivotOfHintRectTransformWhenHoverInTopPanel;
 
         [Header("Panel Size Controller Setup")]
         [SerializeField] private RectTransform abilityButtonsSlotsPanel;
@@ -168,13 +171,24 @@ namespace FroguesFramework
                 return;
 
             AbilityButtonSlot slot;
+            Vector2 pivot;
+            Vector2 relatiovePosition;
+
             if (topPanel != null && ability is PassiveAbility)
+            {
                 slot = AddTopAbilitySlot();
+                pivot = pivotOfHintRectTransformWhenHoverInTopPanel;
+                relatiovePosition = positionOfHintRelativeToButtonInTopPanel;
+            }
             else
+            {
                 slot = FirstEmptySlotInBottonPanel();
+                pivot = pivotOfHintRectTransformWhenHoverInBottomPanel;
+                relatiovePosition = positionOfHintRelativeToButtonInBottomPanel;
+            }
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
-            abilityButton.Init(ability, slot, itsButtonsAreInteractive, parentToDragAndDrop);
+            abilityButton.Init(ability, slot, itsButtonsAreInteractive, pivot, relatiovePosition, parentToDragAndDrop);
             abilityButton.OnAbilityPicked.AddListener(setCurrentAbility);
             abilityButton.OnDropButton.AddListener(PlaceButtonInTheClosetstClot);
         }

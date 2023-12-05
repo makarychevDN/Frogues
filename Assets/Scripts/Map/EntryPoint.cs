@@ -19,6 +19,7 @@ namespace FroguesFramework
         [SerializeField] private GameObject loseScreen;
         [SerializeField] private GameObject exitButton;
         [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
+        [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private int score;
         [SerializeField] private int deltaOfScoreToOpenExit = 200;
         [SerializeField] private WaveSpawner waveSpawner;
@@ -42,6 +43,7 @@ namespace FroguesFramework
         public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;
         public bool PauseIsActive => pausePanel.activeSelf || unitDescriptionPanel.IsActive;
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
+        public AbilityHint AbilityHint => abilityHint;
         public int Score => score;
         public int BonfireHealingValue => bonfireHealingValue;
         public bool ExitActivated => exitButton.activeSelf;

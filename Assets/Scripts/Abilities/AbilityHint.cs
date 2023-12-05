@@ -12,23 +12,18 @@ namespace FroguesFramework
         [SerializeField] private bool showHintUnderButton;        
         [SerializeField] private List<GameObject> contentObjects;
 
-        public void Init(string name, string stats, string description, bool showHintUnderButton)
+        public void Init(string name, string stats, string description, Transform button, Vector2 pivot, Vector2 positionRelativeToButton)
         {
             this.name.text = name;
             this.stats.text = stats;
             this.description.text = description;
-            this.showHintUnderButton = showHintUnderButton;
+            (transform as RectTransform).pivot = pivot;
+            transform.position = button.position.ToVector2() + positionRelativeToButton;
         }
 
         public void EnableContent(bool value)
         {
             contentObjects.ForEach(contentObject => contentObject.SetActive(value));
-
-            if (!showHintUnderButton)
-                return;
-
-            transform.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 1);
-            transform.localPosition = new Vector3(0, -38, 0);
         }
     }
 }
