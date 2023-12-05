@@ -66,6 +66,8 @@ namespace FroguesFramework
             target.MaterialInstanceContainer.EnableOutline(true);
         }
 
+        public override bool IsIgnoringDrawingFunctionality() => true;
+
         public override bool CheckItUsableOnBloodSurfaceUnit() => true;
 
         public override bool CheckItUsableOnDefaultUnit() => true;
