@@ -59,22 +59,24 @@ namespace FroguesFramework
 
             var temporaryCurrentAbility = currentAbility;
 
-
-            if (currentAbility == movementAbility)
+            if (!IsMouseOverUI)
             {
-                var target = CellsTaker.TakeCellOrUnitByMouseRaycast();
-                inspectAbility.ShowMovementHighlighting = howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateInspectAbility;
-
-                if(howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateNativeAttack && nativeAttackAbility != null)
+                if (currentAbility == movementAbility)
                 {
-                    if (target is Unit && target != _unit)
-                        temporaryCurrentAbility = nativeAttackAbility;
-                }
+                    var target = CellsTaker.TakeCellOrUnitByMouseRaycast();
+                    inspectAbility.ShowMovementHighlighting = howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateInspectAbility;
 
-                if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateInspectAbility)
-                {
-                    if (target is Unit && target)
-                        temporaryCurrentAbility = inspectAbility;
+                    if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateNativeAttack && nativeAttackAbility != null)
+                    {
+                        if (target is Unit && target != _unit)
+                            temporaryCurrentAbility = nativeAttackAbility;
+                    }
+
+                    if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateInspectAbility)
+                    {
+                        if (target is Unit && target)
+                            temporaryCurrentAbility = inspectAbility;
+                    }
                 }
             }
 
