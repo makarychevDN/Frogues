@@ -16,6 +16,8 @@ namespace FroguesFramework
         [SerializeField] private List<AbilityButtonSlot> bottomPanelAbilitySlots;
         [SerializeField] private List<AbilityButtonSlot> topPanelAbilitySlots;
         [SerializeField] private bool enableHotKeys;
+        [SerializeField] private Transform parentToDragAndDrop;
+        [SerializeField] private bool itsButtonsAreInteractive;
 
         [Header("Panel Size Controller Setup")]
         [SerializeField] private RectTransform abilityButtonsSlotsPanel;
@@ -172,7 +174,7 @@ namespace FroguesFramework
                 slot = FirstEmptySlotInBottonPanel();
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
-            abilityButton.Init(ability, slot);
+            abilityButton.Init(ability, slot, itsButtonsAreInteractive, parentToDragAndDrop);
             abilityButton.OnAbilityPicked.AddListener(setCurrentAbility);
             abilityButton.OnDropButton.AddListener(PlaceButtonInTheClosetstClot);
         }

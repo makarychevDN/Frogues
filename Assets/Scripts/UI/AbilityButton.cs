@@ -17,13 +17,14 @@ namespace FroguesFramework
 
         private BaseAbility _ability;
         private AbilityButtonSlot _currentButtonSlot;
+        private Transform _parentToDragAndDropProcess;
 
-        private bool _draggingNow;
-        
+        private bool _draggingNow;        
         private bool _myAbilityIsAbleToReturnIsPrevisualized;
         private bool _myAbilityIsAbleToHaveCooldown;
         private bool _myAbilityIsAbleToCost;
         private int _hashedCooldown;
+        private bool _isInteractable;
 
         public UnityEvent<AbleToUseAbility> OnAbilityPicked;
         public UnityEvent<AbilityButton> OnDragButton;
@@ -36,8 +37,10 @@ namespace FroguesFramework
             set => _currentButtonSlot = value;
         }
 
-        public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot)
+        public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot, bool isInteractable ,Transform parentToDragAndDropProcess = null)
         {
+            _isInteractable = isInteractable;
+            _parentToDragAndDropProcess = parentToDragAndDropProcess;
             _ability = ability;
             _currentButtonSlot = abilityButtonSlot;
             image.material = ability.GetAbilityDataForButton().Material;
@@ -68,6 +71,9 @@ namespace FroguesFramework
 
         public void PickAbility()
         {
+            if (!_isInteractable)
+                return;
+
             if (_draggingNow || _ability is not AbleToUseAbility)
                 return;
 
@@ -84,8 +90,11 @@ namespace FroguesFramework
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if (!_isInteractable)
+                return;
+
             OnDragButton.Invoke(this);
-            transform.parent = _currentButtonSlot.transform.parent.parent;
+            transform.parent = _parentToDragAndDropProcess;
             _draggingNow = true;
         }
 
@@ -97,29 +106,6 @@ namespace FroguesFramework
         public void OnEndDrag(PointerEventData eventData)
         {
             OnDropButton.Invoke(this);            
-            /*var closestSlot = _currentButtonSlot;
-
-            var abilitiesSlots = _ability is PassiveAbility ? _abilitiesPanel.PassiveAbilitySlots : _abilitiesPanel.ActiveAbilitySlots;
-            foreach (var temp in abilitiesSlots)
-            {
-                if (Vector3.Distance(closestSlot.transform.position, transform.position) >
-                    Vector3.Distance(temp.transform.position, transform.position))
-                    closestSlot = temp;
-            }
-            
-            if (Vector3.Distance(closestSlot.transform.position, transform.position) < maxDistanceToClamp)
-            {
-                _currentButtonSlot.Clear();
-
-                if (!closestSlot.Empty)
-                {
-                    closestSlot.AbilityButton.SetSlot(_currentButtonSlot);
-                }
-                
-                _currentButtonSlot = closestSlot;
-            }            
-
-            _currentButtonSlot.AddButton(this);*/
             _draggingNow = false;
         }
 
