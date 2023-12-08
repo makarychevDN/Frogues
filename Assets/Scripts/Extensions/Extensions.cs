@@ -102,13 +102,13 @@ namespace FroguesFramework
             return (int)(value * (1 + statValue * modificatorStep));
         }
 
-        public static void SetAnimationCurveShape(this LineRenderer lineRenderer, Vector3 lineOwnerPosition, Vector3 startPosition, Vector3 endPosition, float parabolaHeight, AnimationCurve parabolaCurve)
+        public static void SetAnimationCurveShape(this LineRenderer lineRenderer, Vector3 startPosition, Vector3 endPosition, float parabolaHeight, AnimationCurve parabolaCurve)
         {
             var stepOnCurve = 1f / (lineRenderer.positionCount - 1);
             for (int i = 0; i < lineRenderer.positionCount; i++)
             {
                 var pos = PositionOnCurveCalculator.Calculate(startPosition, endPosition, parabolaCurve, stepOnCurve * i, parabolaHeight);
-                lineRenderer.SetPosition(i, pos - lineOwnerPosition);
+                lineRenderer.SetPosition(i, pos);
             }
         }
 
