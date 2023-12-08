@@ -104,7 +104,7 @@ namespace FroguesFramework
 
         public static void SetAnimationCurveShape(this LineRenderer lineRenderer, Vector3 lineOwnerPosition, Vector3 startPosition, Vector3 endPosition, float parabolaHeight, AnimationCurve parabolaCurve)
         {
-            var stepOnCurve = 1f / lineRenderer.positionCount;
+            var stepOnCurve = 1f / (lineRenderer.positionCount - 1);
             for (int i = 0; i < lineRenderer.positionCount; i++)
             {
                 var pos = PositionOnCurveCalculator.Calculate(startPosition, endPosition, parabolaCurve, stepOnCurve * i, parabolaHeight);
