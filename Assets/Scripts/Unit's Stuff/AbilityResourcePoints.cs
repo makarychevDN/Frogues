@@ -26,13 +26,16 @@ namespace FroguesFramework
 
         private void RegeneratePoints()
         {
+            var hashedPoints = currentPoints;
             currentPoints += pointsRegeneration;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
             tempraryPoints = 0;
             _preTakenTemporaryPoints = tempraryPoints;
             OnPointsRegenerated.Invoke();
-            OnPointsIncreased.Invoke();
+
+            if (hashedPoints < currentPoints)
+                OnPointsIncreased.Invoke();
         }
 
         #region GetSet
@@ -86,10 +89,13 @@ namespace FroguesFramework
 
         public void IncreasePoints(int value)
         {
+            var hashedPoints = currentPoints;
             currentPoints += value;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
-            OnPointsIncreased.Invoke();
+
+            if(hashedPoints < currentPoints)
+                OnPointsIncreased.Invoke();
         }
 
         public void PickupPoints(int value)
