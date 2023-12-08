@@ -30,7 +30,9 @@ namespace FroguesFramework
 
             lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position - _owner.transform.position);
             Cell targetCell = CellsTaker.GetCellBeforeOtherCellInDirection(_owner.CurrentCell, target.CurrentCell);
-            lineFromOwnerToTarget.SetPosition(1, targetCell.transform.position - _owner.transform.position);
+            //lineFromOwnerToTarget.SetPosition(1, targetCell.transform.position - _owner.transform.position);
+            //lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, targetCell.transform.position, 0.3f, EntryPoint.Instance.DefaultMovementCurve);
+            lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, targetCell.transform.position, 0.3f, EntryPoint.Instance.DefaultMovementCurve);
         }
 
         public override void UseOnUnit(Unit target)

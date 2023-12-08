@@ -86,7 +86,7 @@ namespace FroguesFramework
             _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
 
             lineFromOwnerToTarget.gameObject.SetActive(true);
-            lineFromOwnerToTarget.SetAnimationCurveShape(_owner.transform.position, _owner.SpriteParent.position, cells[0].transform.position, 
+            lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, cells[0].transform.position, 
                 parabolaHeight * _owner.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
             cells[0].EnableSelectedByAbilityCellHighlight(new List<Cell> { cells[0] });
         }

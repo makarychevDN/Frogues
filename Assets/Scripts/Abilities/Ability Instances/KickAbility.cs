@@ -32,7 +32,7 @@ namespace FroguesFramework
             var targetCell = target.CurrentCell.CellNeighbours.GetNeighborByHexDir(hexDir);
 
             lineFromTargetUnitToTargetCell.gameObject.SetActive(true);
-            lineFromTargetUnitToTargetCell.SetAnimationCurveShape(_owner.transform.position, target.CurrentCell.transform.position, targetCell.transform.position, parabolaHeight, parabolaCurve);
+            lineFromTargetUnitToTargetCell.SetAnimationCurveShape(target.CurrentCell.transform.position, targetCell.transform.position, parabolaHeight, parabolaCurve);
         }
 
         public override void UseOnUnit(Unit target)

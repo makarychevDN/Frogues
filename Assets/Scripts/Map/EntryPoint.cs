@@ -28,6 +28,7 @@ namespace FroguesFramework
         [SerializeField] private int turnCounter;
         [SerializeField] private ResourcePointsUI playersActionPointsUI;
         [SerializeField] private ResourcePointsUI playersBloodPointsUI;
+        [SerializeField] private AnimationCurve defaultMovementCurve;
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
         private List<Unit> _bloodSurfacesInCurrentRoom = new();
@@ -47,6 +48,7 @@ namespace FroguesFramework
         public int Score => score;
         public int BonfireHealingValue => bonfireHealingValue;
         public bool ExitActivated => exitButton.activeSelf;
+        public AnimationCurve DefaultMovementCurve => defaultMovementCurve;
         public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer)
                                          && !_metaPlayer.MovementAbility.PathToMoveIsSelected
                                          && !CurrentlyActiveObjects.SomethingIsActNow;

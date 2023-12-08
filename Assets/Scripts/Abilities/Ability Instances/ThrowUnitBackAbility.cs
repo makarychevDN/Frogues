@@ -89,7 +89,7 @@ namespace FroguesFramework
 
             lineFromOwnerToTarget.gameObject.SetActive(true);
             lineFromOwnerToTarget.transform.position = _hashedTarget.transform.position;
-            lineFromOwnerToTarget.SetAnimationCurveShape(_hashedTarget.transform.position, _hashedTarget.SpriteParent.position, cells[0].transform.position,
+            lineFromOwnerToTarget.SetAnimationCurveShape(_hashedTarget.SpriteParent.position, cells[0].transform.position,
                 movementHeight * _hashedTarget.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
             cells[0].EnableSelectedByAbilityCellHighlight(new List<Cell> { cells[0] });
 
