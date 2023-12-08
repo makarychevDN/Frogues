@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,7 +27,6 @@ namespace FroguesFramework
         [SerializeField] private CellHighlighter selectedByAbilityTileHighlighter;
         [SerializeField] private TrailsEnabler trailsEnabler;
         [SerializeField] private SpriteRenderer pathDot;
-        [SerializeField] private GameObject onMouseHoverVisualization;
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
         [SerializeField] private Vector3 _hashedPosition;
 
@@ -75,20 +73,8 @@ namespace FroguesFramework
                 return false;
             }
 
-            //if (!ignoreSurfaces/* && !Map.Instance.layers[MapLayer.Surface][coordinates.x, coordinates.y].IsEmpty*/)
-                //return false;
-
             return true;
         }
-
-        //public bool CheckColumnIsEmpty() =>
-        //EntryPoint.Instance.Map.GetCellsColumnIgnoreSurfaces(coordinates).All(cell => cell.AbleToStepOnIt);
-
-        /*public void EnableSelectedCellHighlight(bool isOn)
-        {
-            EnableValidForAbilityCellHighlightOnly(false);
-            selectedByAbilityTileHighlighter.gameObject.SetActive(isOn);
-        }*/
 
         public void EnableSelectedByAbilityCellHighlight(List<Cell> cells) 
         { 
@@ -115,8 +101,6 @@ namespace FroguesFramework
         }
 
         public void DisableTrails() => trailsEnabler.DisableTrails();
-
-        public void EnableOnMouseHoverVisualization(bool isOn) => onMouseHoverVisualization.SetActive(isOn);
 
         private void Update()
         {
@@ -170,7 +154,6 @@ namespace FroguesFramework
             EnableValidForAbilityCellHighlight(false);
             DisableTrails();
             EnablePathDot(false);
-            EnableOnMouseHoverVisualization(false);
             EnableValidForMovementCellHighlight(false);
         }
 

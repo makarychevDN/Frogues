@@ -17,15 +17,6 @@ namespace FroguesFramework
             foreach (var borderWithDir in bordersAndDirs)
             {
                 borderWithDir.border.SetActive(!highlightedCells.Contains(hexagonCellNeighbours.GetNeighborByHexDir(borderWithDir.hexDir)));
-
-                if (!borderWithDir.border.activeSelf)
-                    continue;
-
-                var needToEnableSubBorderByClockwiseRotation = highlightedCells.Contains(hexagonCellNeighbours.GetNeighborByHexDir(borderWithDir.hexDir.GetHexDirByClockwiseRotation()));
-                borderWithDir.subBorderByClockwiseRotation.SetActive(needToEnableSubBorderByClockwiseRotation);
-
-                var needToEnableSubBorderByCounterClockwiseRotation = highlightedCells.Contains(hexagonCellNeighbours.GetNeighborByHexDir(borderWithDir.hexDir.GetHexDirByCounterClockwiseRotation()));
-                borderWithDir.subBorderByCounterClockwiseRotation.SetActive(needToEnableSubBorderByCounterClockwiseRotation);
             }
         }
 
@@ -36,8 +27,6 @@ namespace FroguesFramework
             foreach(var borderWithDir in bordersAndDirs)
             {
                 borderWithDir.border.SetActive(on);
-                borderWithDir.subBorderByClockwiseRotation.SetActive(on);
-                borderWithDir.subBorderByCounterClockwiseRotation.SetActive(on);
             }
         }
         
@@ -56,8 +45,6 @@ namespace FroguesFramework
         {
             public HexDir hexDir;
             public GameObject border;
-            public GameObject subBorderByClockwiseRotation;
-            public GameObject subBorderByCounterClockwiseRotation;
         }
     }
 }
