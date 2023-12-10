@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -157,5 +157,7 @@ namespace FroguesFramework
         public override bool CheckItUsableOnDefaultUnit() => true;
 
         public override bool CheckItUsableOnBloodSurfaceUnit() => false;
+
+        public int ReturnRange() => radius;
     }
 }
