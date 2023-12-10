@@ -48,7 +48,7 @@ namespace FroguesFramework
             _currentButtonSlot = abilityButtonSlot;
             _pivotOfHintRectTransformWhenHover = pivotOfHintRectTransformWhenHover;
             _positionOfHintRelativeToButton = positionOfHintRelativeToButton;
-            image.material = ability.GetAbilityDataForButton().Material;
+            image.material = new Material(ability.GetAbilityDataForButton().Material);
 
             _currentButtonSlot.AddButton(this);
 
