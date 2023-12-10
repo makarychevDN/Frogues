@@ -55,14 +55,6 @@ namespace FroguesFramework
             Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);
         }
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
-
-        private void PlayImpactSound()
-        {
-            if (impactSoundSource != null)
-                impactSoundSource.Play();
-        }
-
         protected IEnumerator ApplyEffect(float time, Unit target, Cell targetCell)
         {
             yield return new WaitForSeconds(time);
