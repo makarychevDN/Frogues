@@ -24,7 +24,15 @@ namespace FroguesFramework
         private void Awake()
         {
             ability = GetComponent<BaseAbility>();
+
             dataByKeyWords.Add("{range}", () => (ability as IAbleToReturnRange).ReturnRange().ToString());
+
+            dataByKeyWords.Add("{cooldown after use}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterUse().ToString());
+            dataByKeyWords.Add("{cooldown after start}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterStart().ToString());
+
+            dataByKeyWords.Add("{action points cost}", () => (ability as IAbleToCost).GetActionPointsCost().ToString());
+            dataByKeyWords.Add("{blood points cost}", () => (ability as IAbleToCost).GetBloodPointsCost().ToString());
+            dataByKeyWords.Add("{health points cost}", () => (ability as IAbleToCost).GetHealthCost().ToString());
         }
 
         private string GetStats()
@@ -44,19 +52,33 @@ namespace FroguesFramework
             foreach (var tag in statsTags)
             {
                 string tagText = tag.DescriptionText;
+                bool ignoreTag = false;
 
                 foreach (var dataByKeyWord in dataByKeyWords)
                 {
                     if (tagText.Contains(dataByKeyWord.Key))
                     {
-                        tagText = tagText.Replace(dataByKeyWord.Key, dataByKeyWord.Value.Invoke());
+                        string textToReplaceTag = dataByKeyWord.Value.Invoke();
+
+                        for(int i = 0; i < tag.BlackListTags.Count; i++)
+                        {
+                            if (tag.BlackListTags[i] == dataByKeyWord.Key && tag.BlackListValues[i] == textToReplaceTag)
+                            {
+                                ignoreTag = true;
+                            }
+                        }
+
+                        tagText = tagText.Replace(dataByKeyWord.Key, textToReplaceTag);
                     }
                 }
 
-                stringBuilder.AppendLine(tagText);
+                if (ignoreTag)
+                    continue;
+
+                stringBuilder.Append(tagText);
 
                 if (thereAreNewLinesBetweenTags)
-                    stringBuilder.AppendLine("\n");
+                    stringBuilder.Append("\n");
             }
 
             return stringBuilder.ToString();

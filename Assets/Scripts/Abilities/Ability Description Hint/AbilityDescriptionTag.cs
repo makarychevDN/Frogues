@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -6,6 +7,13 @@ namespace FroguesFramework
     public class AbilityDescriptionTag : ScriptableObject
     {
         [SerializeField] private string descriptionText;
+
+        [Header("Black List Setup")]
+        [SerializeField] private List<string> blackListTags;
+        [SerializeField] private List<string> blackListValues;
+
         public string DescriptionText => descriptionText;
+        public List<string> BlackListTags => blackListTags;
+        public List<string> BlackListValues => blackListValues;
     }
 }
