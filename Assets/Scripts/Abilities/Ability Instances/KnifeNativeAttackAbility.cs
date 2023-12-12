@@ -30,7 +30,7 @@ namespace FroguesFramework
             return base.ApplyEffect(time, target);
         }
 
-        protected override int CalculateDamage => Extensions.CalculateDamageWithGameRules(GetDamageValue(), damageType, _owner.Stats);
+        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(GetDamageValue(), damageType, _owner.Stats);
 
         private int GetDamageValue() => _owner.AbilitiesManager.WeaponDamage; 
 

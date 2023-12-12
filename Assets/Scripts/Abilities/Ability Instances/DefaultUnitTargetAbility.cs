@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -26,7 +26,7 @@ namespace FroguesFramework
 
         private int DamageValue => shouldUseWeapondamageInstead ? _owner.AbilitiesManager.WeaponDamage : damage;
 
-        protected virtual int CalculateDamage => Extensions.CalculateDamageWithGameRules(DamageValue, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateDamageWithGameRules(DamageValue, damageType, _owner.Stats);
 
         protected override int CalculateActionPointsCost => shouldUseWeaponActionPointsCostInstead ? _owner.AbilitiesManager.WeaponActionPointsCost : actionPointsCost;
 
@@ -67,7 +67,7 @@ namespace FroguesFramework
         {
             yield return new WaitForSeconds(time);
 
-            target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+            target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
             foreach (var effect in addtionalDebufs)
             {
                 target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.effectIsConstantly));
@@ -95,7 +95,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnUnit(target))
                 return;
 
-            target.Health.PreTakeDamage(CalculateDamage, ignoreArmor);
+            target.Health.PreTakeDamage(CalculateDamage(), ignoreArmor);
             _owner.ActionPoints.PreSpendPoints(actionPointsCost);
             _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
             lineFromOwnerToTarget.gameObject.SetActive(true);
@@ -159,5 +159,9 @@ namespace FroguesFramework
         public override bool CheckItUsableOnBloodSurfaceUnit() => false;
 
         public int ReturnRange() => radius;
+
+        public int GetDefaultDamage() => damage;
+
+        public DamageType GetDamageType() => damageType;
     }
 }

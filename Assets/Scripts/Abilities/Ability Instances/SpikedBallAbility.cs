@@ -48,7 +48,7 @@ namespace FroguesFramework
             StartCoroutine(ApplyEffect(timeBeforeImpact, target));
         }
 
-        protected override int CalculateDamage => Extensions.CalculateDamageWithGameRules(_owner.Health.Block, damageType, _owner.Stats);
+        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(_owner.Health.Block, damageType, _owner.Stats);
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
@@ -62,7 +62,7 @@ namespace FroguesFramework
 
         private void DealDamageOnMovementStopped()
         {
-            hashedTarget.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+            hashedTarget.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
             OnEffectApplied.Invoke();
             hashedTarget = null;
             _owner.Movable.OnMovementEnd.RemoveListener(DealDamageOnMovementStopped);

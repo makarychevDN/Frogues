@@ -11,7 +11,7 @@ namespace FroguesFramework
         {
             yield return new WaitForSeconds(time);
 
-            target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+            target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
             foreach (var effect in addtionalDebufs)
             {
                 target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.effectIsConstantly));

@@ -18,7 +18,7 @@ namespace FroguesFramework
 
         private void DealDamage(Unit target)
         {
-            target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+            target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
             onProjectileContactWithTargetSound.Play();
             
             foreach (var effect in addtionalDebufs)

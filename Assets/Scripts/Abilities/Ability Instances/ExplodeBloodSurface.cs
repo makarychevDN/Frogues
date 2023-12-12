@@ -35,7 +35,7 @@ namespace FroguesFramework
 
         private void ApplyEffectOnTargetInTheArea(Unit target)
         {
-            target.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner);
+            target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
 
             foreach (var effect in addtionalDebufs)
             {
@@ -60,7 +60,7 @@ namespace FroguesFramework
             lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position);
             lineFromOwnerToTarget.SetPosition(1, target.SpriteParent.position);
 
-            TakeUnitsAroundSurfaceTarget(target).ForEach(targetInTheArea => targetInTheArea.Health.PreTakeDamage(CalculateDamage, ignoreArmor));
+            TakeUnitsAroundSurfaceTarget(target).ForEach(targetInTheArea => targetInTheArea.Health.PreTakeDamage(CalculateDamage(), ignoreArmor));
         }
 
         private List<Unit> TakeUnitsAroundSurfaceTarget(Unit surfaceTarget)

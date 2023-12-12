@@ -29,7 +29,7 @@ namespace FroguesFramework
                 _targets.Add(theNextTarget);
             }
 
-            _targets.ForEach(unit => unit.Health.TakeDamage(CalculateDamage, ignoreArmor, _owner));
+            _targets.ForEach(unit => unit.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner));
             ShowLighting(_targets);
 
             OnEffectApplied.Invoke();
