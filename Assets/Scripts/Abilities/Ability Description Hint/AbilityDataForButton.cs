@@ -12,15 +12,15 @@ namespace FroguesFramework
         [SerializeField] private string abilityName;
         [SerializeField, Multiline] private string stats;
         [SerializeField, Multiline] private string description;
-        [SerializeField] private List<AbilityDescriptionTag> statsDataTags;
+        [SerializeField] private List<AbilityDescriptionTag> shortDataTags;
         [SerializeField] private List<AbilityDescriptionTag> descriptionTags;
         private BaseAbility ability;
         private Dictionary<string, Func<string>> dataByKeyWords = new Dictionary<string, Func<string>>();
 
         public Material Material => material;
         public string AbilityName => abilityName;
-        public string Stats => GetStats();
-        public string Description => description;
+        public string ShortData => GetShortData();
+        public string Description => GetDescription();
 
         private void Awake()
         {
@@ -40,21 +40,31 @@ namespace FroguesFramework
             dataByKeyWords.Add("{damage type}", () => (ability as IAbleToDealDamage).GetDamageType().ToString());
         }
 
-        private string GetStats()
+        private string GetShortData()
         {
-            if(statsDataTags.Count > 0)
+            if(shortDataTags.Count > 0)
             {
-                return GenerateDescription(true);
+                return GenerateDescription(shortDataTags, true);
             }
 
             return stats;
         }
 
-        private string GenerateDescription(bool thereAreNewLinesBetweenTags)
+        private string GetDescription()
+        {
+            if (descriptionTags.Count > 0)
+            {
+                return GenerateDescription(descriptionTags, true);
+            }
+
+            return description;
+        }
+
+        private string GenerateDescription(List<AbilityDescriptionTag> tags, bool thereAreNewLinesBetweenTags)
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            foreach (var tag in statsDataTags)
+            foreach (var tag in tags)
             {
                 string tagText = tag.DescriptionText;
                 bool ignoreTag = false;

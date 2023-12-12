@@ -180,7 +180,7 @@ namespace FroguesFramework
         public void OnPointerEnter(PointerEventData eventData)
         {
             var data = _ability.GetAbilityDataForButton();
-            EntryPoint.Instance.AbilityHint.Init(data.AbilityName, data.Stats, data.Description, transform, _pivotOfHintRectTransformWhenHover, _positionOfHintRelativeToButton);
+            EntryPoint.Instance.AbilityHint.Init(data.AbilityName, data.ShortData, data.Description, transform, _pivotOfHintRectTransformWhenHover, _positionOfHintRelativeToButton);
             EntryPoint.Instance.AbilityHint.EnableContent(true);
         }
 
