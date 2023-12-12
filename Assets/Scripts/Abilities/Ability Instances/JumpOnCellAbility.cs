@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class JumpOnCellAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized
+    public class JumpOnCellAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange
     {
         [SerializeField] protected int range = 3;
         [SerializeField] private float movementSpeed = 13;
@@ -51,6 +51,8 @@ namespace FroguesFramework
             CalculateUsingArea();
             _hashedCell = cells[0];
         }
+
+        public int ReturnRange() => range;
 
         public override List<Cell> SelectCells(List<Cell> cells)
         {

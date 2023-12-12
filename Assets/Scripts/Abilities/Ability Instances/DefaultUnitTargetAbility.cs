@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -163,5 +163,7 @@ namespace FroguesFramework
         public int GetDefaultDamage() => damage;
 
         public DamageType GetDamageType() => damageType;
+
+        public List<StatEffect> GetStatEffects() => addtionalDebufs;
     }
 }
