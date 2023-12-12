@@ -12,7 +12,8 @@ namespace FroguesFramework
         [SerializeField] private string abilityName;
         [SerializeField, Multiline] private string stats;
         [SerializeField, Multiline] private string description;
-        [SerializeField] private List<AbilityDescriptionTag> statsTags;
+        [SerializeField] private List<AbilityDescriptionTag> statsDataTags;
+        [SerializeField] private List<AbilityDescriptionTag> descriptionTags;
         private BaseAbility ability;
         private Dictionary<string, Func<string>> dataByKeyWords = new Dictionary<string, Func<string>>();
 
@@ -41,7 +42,7 @@ namespace FroguesFramework
 
         private string GetStats()
         {
-            if(statsTags.Count > 0)
+            if(statsDataTags.Count > 0)
             {
                 return GenerateDescription(true);
             }
@@ -53,7 +54,7 @@ namespace FroguesFramework
         {
             StringBuilder stringBuilder = new StringBuilder();
 
-            foreach (var tag in statsTags)
+            foreach (var tag in statsDataTags)
             {
                 string tagText = tag.DescriptionText;
                 bool ignoreTag = false;
