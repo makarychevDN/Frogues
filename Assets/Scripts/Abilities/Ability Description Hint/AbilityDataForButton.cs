@@ -38,6 +38,8 @@ namespace FroguesFramework
             dataByKeyWords.Add("{default damage value}", () => (ability as IAbleToDealDamage).GetDefaultDamage().ToString());
             dataByKeyWords.Add("{calculated damage value}", () => (ability as IAbleToDealDamage).CalculateDamage().ToString());
             dataByKeyWords.Add("{damage type}", () => (ability as IAbleToDealDamage).GetDamageType().ToString());
+
+            //dataByKeyWords.Add("{strenght}")
         }
 
         private string GetShortData()

@@ -13,7 +13,7 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            _statEffect = _owner.Stats.AddStatEffect(effectType, value, timer, effectIsConstantly);
+            _statEffect = _owner.Stats.AddStatEffect(effectType, value, timer, 0, effectIsConstantly);
         }
 
         public override void UnInit()

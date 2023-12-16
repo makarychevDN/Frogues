@@ -18,7 +18,7 @@ namespace FroguesFramework
             for (int i = 0; i < startEffectsAndDeltas.Count; i++)
             {
                 var startValue = startEffectsAndDeltas[i].startValue;
-                _effects.Add(new StatEffect(startValue.type, startValue.Value, startValue.timeToTheEndOfEffect, startValue.effectIsConstantly));
+                _effects.Add(new StatEffect(startValue.type, startValue.Value, startValue.timeToTheEndOfEffect, startValue.deltaValueForEachTurn, startValue.effectIsConstantly));
             }
         }
 

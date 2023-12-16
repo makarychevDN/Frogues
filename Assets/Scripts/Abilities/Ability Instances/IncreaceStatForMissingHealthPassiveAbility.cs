@@ -13,7 +13,7 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            statEffect = new StatEffect(statEffectType, additionalStrenghtValue, 1, true);
+            statEffect = new StatEffect(statEffectType, additionalStrenghtValue, 1, 0, true);
             _owner.Stats.AddStatEffect(statEffect);
             _owner.Health.OnApplyUnblockedDamage.AddListener(RecalculateStrenght);
             _owner.Health.OnHpHealed.AddListener(RecalculateStrenght);

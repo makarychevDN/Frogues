@@ -38,9 +38,9 @@ namespace FroguesFramework
 
         public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue()  * 4 + intelegence.GetStatValue() * 4 + dexterity.GetStatValue() * 4 + defence.GetStatValue() * 4 + spikes.GetStatValue() * 4 + immobilized.GetTimeToTheEndOfEffect() * 4;
 
-        public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, bool effectIsConstantly = false)
+        public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
-            StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect, effectIsConstantly);
+            StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect, deltaValueForEachTurn, effectIsConstantly);
             _statsDictionary[type].Add(statEffect);
             _statsUpdatedEventsDictionary[type].Invoke(type, value);
             statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
@@ -155,23 +155,27 @@ namespace FroguesFramework
     {
         public StatEffectTypes type;
         [SerializeField] private int value;
+        public int deltaValueForEachTurn;
         public int timeToTheEndOfEffect;
         public bool effectIsConstantly;
         public UnityEvent<StatEffectTypes, int> OnEffectValueChanged;
 
-        public StatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, bool effectIsConstantly = false)
+        public StatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaForEachTurn = 0, bool effectIsConstantly = false)
         {
             this.type = type;
             this.value = value;
             this.timeToTheEndOfEffect = timeToTheEndOfEffect;
             this.effectIsConstantly = effectIsConstantly;
+            this.deltaValueForEachTurn = deltaForEachTurn;
             OnEffectValueChanged = new UnityEvent<StatEffectTypes, int>();
         }
 
-        public void Tick(int value = 1)
+        public void Tick(int ticksValue = 1)
         {
             if(!effectIsConstantly)
-                timeToTheEndOfEffect -= value;
+                timeToTheEndOfEffect -= ticksValue;
+
+            Value += deltaValueForEachTurn;
         }
 
         public int Value
