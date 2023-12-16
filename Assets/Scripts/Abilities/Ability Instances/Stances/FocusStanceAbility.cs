@@ -5,7 +5,6 @@ namespace FroguesFramework
 {
     public class FocusStanceAbility : BattleStanceAbility
     {
-        [SerializeField] private int decreasingDelta;
         [SerializeField] private List<StatEffect> effects;
         private Dictionary<StatEffect, int> _effectsStartValues = new Dictionary<StatEffect, int>();
 
@@ -52,8 +51,6 @@ namespace FroguesFramework
 
             if (_owner.IsEnemy)
                 return;
-
-            TickEffects();
         }
 
         public override void TickAfterEnemiesTurn()
@@ -65,16 +62,6 @@ namespace FroguesFramework
 
             if (!_owner.IsEnemy)
                 return;
-
-            TickEffects();
-        }
-
-        private void TickEffects()
-        {
-            foreach(var effect in effects)
-            {
-                effect.Value -= decreasingDelta;
-            }
         }
     }
 }
