@@ -39,7 +39,10 @@ namespace FroguesFramework
             dataByKeyWords.Add("{calculated damage value}", () => (ability as IAbleToDealDamage).CalculateDamage().ToString());
             dataByKeyWords.Add("{damage type}", () => (ability as IAbleToDealDamage).GetDamageType().ToString());
 
-            //dataByKeyWords.Add("{strenght}")
+            dataByKeyWords.Add("{defence effect value}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceModificatorValue().ToString());
+            dataByKeyWords.Add("{defence effect delta}", () => (ability as IAbleToApplyDefenceModificator).GetdeltaOfDefenceValueForEachTurn().ToString());
+            dataByKeyWords.Add("{defence effect time}", () => (ability as IAbleToApplyDefenceModificator).GetTimeToEndOfDefenceEffect().ToString());
+            dataByKeyWords.Add("{defence effect constantly}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceEffectIsConstantly().ToString());
         }
 
         private string GetShortData()
@@ -56,7 +59,7 @@ namespace FroguesFramework
         {
             if (descriptionTags.Count > 0)
             {
-                return GenerateDescription(descriptionTags, true);
+                return GenerateDescription(descriptionTags, false);
             }
 
             return description;
@@ -96,6 +99,8 @@ namespace FroguesFramework
 
                 if (thereAreNewLinesBetweenTags)
                     stringBuilder.Append("\n");
+                else 
+                    stringBuilder.Append(" ");
             }
 
             return stringBuilder.ToString();

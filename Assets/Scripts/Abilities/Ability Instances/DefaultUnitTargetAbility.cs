@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects, IAbleToApplyDefenceModificator
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -165,5 +166,45 @@ namespace FroguesFramework
         public DamageType GetDamageType() => damageType;
 
         public List<StatEffect> GetStatEffects() => addtionalDebufs;
+
+        public int GetDefenceModificatorValue()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
+
+            if (effect == null)
+                return 0;
+
+            return effect.Value;
+        }
+
+        public int GetdeltaOfDefenceValueForEachTurn()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
+
+            if (effect == null)
+                return 0;
+
+            return effect.deltaValueForEachTurn;
+        }
+
+        public int GetTimeToEndOfDefenceEffect()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
+
+            if (effect == null)
+                return 0;
+
+            return effect.timeToTheEndOfEffect;
+        }
+
+        public bool GetDefenceEffectIsConstantly()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
+
+            if (effect == null)
+                return false;
+
+            return effect.effectIsConstantly;
+        }
     }
 }
