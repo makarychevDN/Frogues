@@ -7,7 +7,7 @@ using UnityEngine.Events;
 namespace FroguesFramework
 {
     public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects, 
-        IAbleToApplyDefenceModificator, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplySpikesModificator
+        IAbleToApplyDefenceModificator, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -375,6 +375,18 @@ namespace FroguesFramework
                 return false;
 
             return effect.effectIsConstantly;
+        }
+        #endregion
+
+        #region IAbleToApplyImmobilizedModificator
+        public int GetTimeToEndOfImmpobilizedEffect()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.immobilized);
+
+            if (effect == null)
+                return 0;
+
+            return effect.timeToTheEndOfEffect;
         }
         #endregion
     }
