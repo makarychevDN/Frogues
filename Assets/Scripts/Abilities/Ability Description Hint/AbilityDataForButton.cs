@@ -43,6 +43,26 @@ namespace FroguesFramework
             dataByKeyWords.Add("{defence effect delta}", () => (ability as IAbleToApplyDefenceModificator).GetdeltaOfDefenceValueForEachTurn().ToString());
             dataByKeyWords.Add("{defence effect time}", () => (ability as IAbleToApplyDefenceModificator).GetTimeToEndOfDefenceEffect().ToString());
             dataByKeyWords.Add("{defence effect constantly}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceEffectIsConstantly().ToString());
+
+            dataByKeyWords.Add("{strenght effect value}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtModificatorValue().ToString());
+            dataByKeyWords.Add("{strenght effect delta}", () => (ability as IAbleToApplyStrenghtModificator).GetDeltaOfStrenghtValueForEachTurn().ToString());
+            dataByKeyWords.Add("{strenght effect time}", () => (ability as IAbleToApplyStrenghtModificator).GetTimeToEndOfStrenghtEffect().ToString());
+            dataByKeyWords.Add("{strenght effect constantly}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtEffectIsConstantly().ToString());
+
+            dataByKeyWords.Add("{intelligence effect value}", () => (ability as IAbleToApplyIntelligenceModificator).GetIntelligenceModificatorValue().ToString());
+            dataByKeyWords.Add("{intelligence effect delta}", () => (ability as IAbleToApplyIntelligenceModificator).GetDeltaOfIntelligenceValueForEachTurn().ToString());
+            dataByKeyWords.Add("{intelligence effect time}", () => (ability as IAbleToApplyIntelligenceModificator).GetTimeToEndOfIntelligenceEffect().ToString());
+            dataByKeyWords.Add("{intelligence effect constantly}", () => (ability as IAbleToApplyIntelligenceModificator).GetIntelligenceEffectIsConstantly().ToString());
+
+            dataByKeyWords.Add("{dexterity effect value}", () => (ability as IAbleToApplyDexterityModificator).GetDexterityModificatorValue().ToString());
+            dataByKeyWords.Add("{dexterity effect delta}", () => (ability as IAbleToApplyDexterityModificator).GetDeltaOfDexterityValueForEachTurn().ToString());
+            dataByKeyWords.Add("{dexterity effect time}", () => (ability as IAbleToApplyDexterityModificator).GetTimeToEndOfDexterityEffect().ToString());
+            dataByKeyWords.Add("{dexterity effect constantly}", () => (ability as IAbleToApplyDexterityModificator).GetDexterityEffectIsConstantly().ToString());
+
+            dataByKeyWords.Add("{spikes effect value}", () => (ability as IAbleToApplySpikesModificator).GetSpikesModificatorValue().ToString());
+            dataByKeyWords.Add("{spikes effect delta}", () => (ability as IAbleToApplySpikesModificator).GetdeltaOfSpikesValueForEachTurn().ToString());
+            dataByKeyWords.Add("{spikes effect time}", () => (ability as IAbleToApplySpikesModificator).GetTimeToEndOfSpikesEffect().ToString());
+            dataByKeyWords.Add("{spikes effect constantly}", () => (ability as IAbleToApplySpikesModificator).GetSpikesEffectIsConstantly().ToString());
         }
 
         private string GetShortData()
