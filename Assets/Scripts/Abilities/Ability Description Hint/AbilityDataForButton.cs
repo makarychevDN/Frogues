@@ -63,6 +63,8 @@ namespace FroguesFramework
             dataByKeyWords.Add("{spikes effect delta}", () => (ability as IAbleToApplySpikesModificator).GetdeltaOfSpikesValueForEachTurn().ToString());
             dataByKeyWords.Add("{spikes effect time}", () => (ability as IAbleToApplySpikesModificator).GetTimeToEndOfSpikesEffect().ToString());
             dataByKeyWords.Add("{spikes effect constantly}", () => (ability as IAbleToApplySpikesModificator).GetSpikesEffectIsConstantly().ToString());
+
+            dataByKeyWords.Add("{immobilized effect time}", () => (ability as IAbleToApplyImmobilizedModificator).GetTimeToEndOfImmpobilizedEffect().ToString());
         }
 
         private string GetShortData()

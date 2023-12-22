@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized
+    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange
     {
         [SerializeField] private int usingRadius;
         [SerializeField] private Unit projectilePrefab;
@@ -102,5 +102,7 @@ namespace FroguesFramework
 
             return value ^ GetHashCode();
         }
+
+        public int ReturnRange() => usingRadius;
     }
 }

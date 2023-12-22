@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class SelectUnitToCellAbility : UnitTargetAbility, IAbleToReturnIsPrevisualized
+    public class SelectUnitToCellAbility : UnitTargetAbility, IAbleToReturnIsPrevisualized, IAbleToDealDamage
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -21,10 +21,6 @@ namespace FroguesFramework
         private Unit _hashedTarget;
 
         public UnityEvent<Unit> OnUnitSelected;
-
-        private int CalculateDamage => damageType == DamageType.physics
-            ? (damage * _owner.Stats.StrenghtModificator).RoundWithGameRules()
-            : (damage * _owner.Stats.IntelegenceModificator).RoundWithGameRules();
 
         public override void Init(Unit unit)
         {
@@ -95,7 +91,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnUnit(target))
                 return;
 
-            target.Health.PreTakeDamage(CalculateDamage);
+            target.Health.PreTakeDamage(CalculateDamage());
             _owner.ActionPoints.PreSpendPoints(actionPointsCost);
             _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
             lineFromOwnerToTarget.gameObject.SetActive(true);
@@ -106,5 +102,11 @@ namespace FroguesFramework
         public override bool CheckItUsableOnDefaultUnit() => isAbleToSelectDefaultUnit;
 
         public override bool CheckItUsableOnBloodSurfaceUnit() => isAbleToSelectBloodSurface;
+
+        public int GetDefaultDamage() => damage;
+
+        public DamageType GetDamageType() => damageType;
+
+        public int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
     }
 }
