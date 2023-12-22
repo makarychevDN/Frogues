@@ -6,7 +6,8 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects, IAbleToApplyDefenceModificator
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects, 
+        IAbleToApplyDefenceModificator, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplySpikesModificator
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -167,6 +168,7 @@ namespace FroguesFramework
 
         public List<StatEffect> GetStatEffects() => addtionalDebufs;
 
+        #region IAbleToApplyDefenceModificator
         public int GetDefenceModificatorValue()
         {
             StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
@@ -206,5 +208,174 @@ namespace FroguesFramework
 
             return effect.effectIsConstantly;
         }
+        #endregion
+
+        #region IAbleToApplyStrenghtModificator
+        public int GetStrenghtModificatorValue()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
+
+            if (effect == null)
+                return 0;
+
+            return effect.Value;
+        }
+
+        public int GetDeltaOfStrenghtValueForEachTurn()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
+
+            if (effect == null)
+                return 0;
+
+            return effect.deltaValueForEachTurn;
+        }
+
+        public int GetTimeToEndOfStrenghtEffect()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
+
+            if (effect == null)
+                return 0;
+
+            return effect.timeToTheEndOfEffect;
+        }
+
+        public bool GetStrenghtEffectIsConstantly()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
+
+            if (effect == null)
+                return false;
+
+            return effect.effectIsConstantly;
+        }
+        #endregion
+
+        #region IAbleToApplyIntelligenceModificator
+        public int GetIntelligenceModificatorValue()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
+
+            if (effect == null)
+                return 0;
+
+            return effect.Value;
+        }
+
+        public int GetDeltaOfIntelligenceValueForEachTurn()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
+
+            if (effect == null)
+                return 0;
+
+            return effect.deltaValueForEachTurn;
+        }
+
+        public int GetTimeToEndOfIntelligenceEffect()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
+
+            if (effect == null)
+                return 0;
+
+            return effect.timeToTheEndOfEffect;
+        }
+
+        public bool GetIntelligenceEffectIsConstantly()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
+
+            if (effect == null)
+                return false;
+
+            return effect.effectIsConstantly;
+        }
+        #endregion
+
+        #region IAbleToApplyDexterityModificator
+        public int GetDexterityModificatorValue()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
+
+            if (effect == null)
+                return 0;
+
+            return effect.Value;
+        }
+
+        public int GetDeltaOfDexterityValueForEachTurn()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
+
+            if (effect == null)
+                return 0;
+
+            return effect.deltaValueForEachTurn;
+        }
+
+        public int GetTimeToEndOfDexterityEffect()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
+
+            if (effect == null)
+                return 0;
+
+            return effect.timeToTheEndOfEffect;
+        }
+
+        public bool GetDexterityEffectIsConstantly()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
+
+            if (effect == null)
+                return false;
+
+            return effect.effectIsConstantly;
+        }
+        #endregion
+
+        #region IAbleToApplySpikesModificator
+        public int GetSpikesModificatorValue()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
+
+            if (effect == null)
+                return 0;
+
+            return effect.Value;
+        }
+
+        public int GetdeltaOfSpikesValueForEachTurn()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
+
+            if (effect == null)
+                return 0;
+
+            return effect.deltaValueForEachTurn;
+        }
+
+        public int GetTimeToEndOfSpikesEffect()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
+
+            if (effect == null)
+                return 0;
+
+            return effect.timeToTheEndOfEffect;
+        }
+
+        public bool GetSpikesEffectIsConstantly()
+        {
+            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
+
+            if (effect == null)
+                return false;
+
+            return effect.effectIsConstantly;
+        }
+        #endregion
     }
 }
