@@ -21,8 +21,8 @@ namespace FroguesFramework
         [SerializeField] protected AudioSource impactSoundSource;
 
         public virtual int GetBloodPointsCost() => bloodPointsCost;
-        public int GetActionPointsCost() => actionPointsCost;
-        public int GetHealthCost() => healthCost;
+        public virtual int GetActionPointsCost() => actionPointsCost;
+        public virtual int GetHealthCost() => healthCost;
         public void IncreaseActionPointsCost(int value) => actionPointsCost += value;
         public void IncreaseBloodPointsCost(int value) => bloodPointsCost += value;
         public void IncreaseHealthCost(int value) => healthCost += value;

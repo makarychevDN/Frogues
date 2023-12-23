@@ -65,6 +65,18 @@ namespace FroguesFramework
             dataByKeyWords.Add("{spikes effect constantly}", () => (ability as IAbleToApplySpikesModificator).GetSpikesEffectIsConstantly().ToString());
 
             dataByKeyWords.Add("{immobilized effect time}", () => (ability as IAbleToApplyImmobilizedModificator).GetTimeToEndOfImmpobilizedEffect().ToString());
+
+            dataByKeyWords.Add("{default block value}", () => (ability as IAbleToApplyBlock).GetDefaultBlockValue().ToString());
+            dataByKeyWords.Add("{calculated block value}", () => (ability as IAbleToApplyBlock).CalculateBlock().ToString());
+
+            dataByKeyWords.Add("{default armor value}", () => (ability as IAbleToApplyArmor).GetDefaultArmorValue().ToString());
+            dataByKeyWords.Add("{calculated armor value}", () => (ability as IAbleToApplyArmor).CalculateArmor().ToString());
+
+            dataByKeyWords.Add("{delta value}", () => (ability as IAbleToHaveDelta).GetDeltaValue().ToString());
+            dataByKeyWords.Add("{step value}", () => (ability as IAbleToHaveDelta).GetStepValue().ToString());
+
+            dataByKeyWords.Add("{alternative delta value}", () => (ability as IAbleToHaveAlternativeDelta).GetAlternativeDeltaValue().ToString());
+            dataByKeyWords.Add("{alternative step value}", () => (ability as IAbleToHaveAlternativeDelta).GetAlternativeStepValue().ToString());
         }
 
         private string GetShortData()
