@@ -103,10 +103,10 @@ namespace FroguesFramework
 
         public override bool CheckItUsableOnBloodSurfaceUnit() => isAbleToSelectBloodSurface;
 
-        public int GetDefaultDamage() => damage;
+        public virtual int GetDefaultDamage() => damage;
 
-        public DamageType GetDamageType() => damageType;
+        public virtual DamageType GetDamageType() => damageType;
 
-        public int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
     }
 }
