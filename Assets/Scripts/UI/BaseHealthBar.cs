@@ -14,6 +14,9 @@ namespace FroguesFramework
         [SerializeField] protected Slider preTakenDamageHPSlider;
         [SerializeField] protected Slider preTakenDamageAnimatedHPSlider;
 
+        protected int _hashFuncionOfHealth;
+        protected int _hashFuncionOfStats;
+
         public void SetHealthAndStats(Health health, Stats stats)
         {
             this.health = health;
@@ -22,7 +25,14 @@ namespace FroguesFramework
 
         public void Update()
         {
-            Redraw();
+            if(_hashFuncionOfHealth != health.CalculateHashFunctionOfPrevisualisation()
+                || _hashFuncionOfStats != stats.CalculateHashFunctionOfPrevisualisation())
+            {
+                Redraw();
+            }
+
+            _hashFuncionOfHealth = health.CalculateHashFunctionOfPrevisualisation();
+            _hashFuncionOfStats = stats.CalculateHashFunctionOfPrevisualisation();
         }
 
         protected virtual void Redraw()

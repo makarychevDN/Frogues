@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FroguesFramework
 {
     public class StatsVisualizationSystem : MonoBehaviour
     {
         [SerializeField] private Stats stats;
+        [SerializeField] protected RectTransform resizableParent;
         [SerializeField] private StatVisualizationSegment strenghtSegment;
         [SerializeField] private StatVisualizationSegment intelligenceSegment;
         [SerializeField] private StatVisualizationSegment dexteritySegment;
@@ -48,6 +50,8 @@ namespace FroguesFramework
 
             immobilizedSegment.gameObject.SetActive(stats.Immobilized != 0);
             immobilizedSegment.SetValue(stats.Immobilized);
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
         }
     }
 }

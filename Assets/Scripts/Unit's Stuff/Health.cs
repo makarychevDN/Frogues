@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class Health : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization
+    public class Health : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization, IAbleToCalculateHashFunctionOfPrevisualisation
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
@@ -217,5 +217,7 @@ namespace FroguesFramework
 
         public void RemoveMySelfFromEntryPoint() =>
             EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+
+        public int CalculateHashFunctionOfPrevisualisation() => 4 * MaxHp + 4 * CurrentHp + 4 * HealthWithPreTakenDamage + 4 * PermanentBlock + 4 * TemporaryBlock + 4;
     }
 }
