@@ -14,7 +14,7 @@ namespace FroguesFramework
         [SerializeField] private TMP_Text nameLabel;
         [SerializeField] private TMP_Text descriptionLable;
         [SerializeField] private AbilitiesPanel abilitiesPanel;
-        [SerializeField] private HealthBar healthBar;
+        [SerializeField] private AbilitiesPanelHealthBar healthBar;
         [SerializeField] private StatsVisualizationSystem statsVisualizationSystem;
         [SerializeField] private ResourcePointsUI resourcePointsUI;
 
