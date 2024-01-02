@@ -31,6 +31,7 @@ namespace FroguesFramework
                 Redraw();
             }
 
+
             _hashFuncionOfHealth = health.CalculateHashFunctionOfPrevisualisation();
             _hashFuncionOfStats = stats.CalculateHashFunctionOfPrevisualisation();
         }
