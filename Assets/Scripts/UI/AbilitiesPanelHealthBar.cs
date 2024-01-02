@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FroguesFramework
 {
@@ -26,6 +27,8 @@ namespace FroguesFramework
             blockTextField.text = (health.TemporaryBlock).ToString();
             armorTextField.text = (health.PermanentBlock).ToString();
             spikesTextField.text = (stats.Spikes).ToString();
+
+            LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
         }
     }
 }

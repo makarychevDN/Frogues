@@ -8,6 +8,8 @@ namespace FroguesFramework
         [SerializeField] protected Health health;
         [SerializeField] protected Stats stats;
 
+        [SerializeField] protected RectTransform resizableParent;
+
         [SerializeField] protected Slider hpSlider;
         [SerializeField] protected Slider preTakenDamageHPSlider;
         [SerializeField] protected Slider preTakenDamageAnimatedHPSlider;
