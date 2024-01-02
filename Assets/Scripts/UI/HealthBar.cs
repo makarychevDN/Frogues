@@ -6,42 +6,47 @@ namespace FroguesFramework
 {
     public class HealthBar : MonoBehaviour
     {
+        [SerializeField] private Health health;
+        [SerializeField] private Stats stats;
+
         [SerializeField] private Slider hpSlider;
-        [SerializeField] private Slider armorSlider;
-        [SerializeField] private Slider emptyHPSlider;
         [SerializeField] private Slider preTakenDamageHPSlider;
         [SerializeField] private Slider preTakenDamageAnimatedHPSlider;
-        [SerializeField] private Slider preTakenDamageArmorSlider;
-        [SerializeField] private Health health;
-        [SerializeField] private TextMeshProUGUI textField;
 
-        public void SetHealth(Health health)
+        [SerializeField] private TextMeshProUGUI healthTextField;
+        [SerializeField] private TextMeshProUGUI blockTextField;
+        [SerializeField] private TextMeshProUGUI armorTextField;
+        [SerializeField] private TextMeshProUGUI spikesTextField;
+
+        public void SetHealthAndStats(Health health, Stats stats)
         {
             this.health = health;
+            this.stats = stats;
+        }
+
+        public void SetStats(Stats stats)
+        {
+            this.stats = stats;
         }
 
         public void Update()
         {
-            int maxSlidersValue = health.MaxHp + health.Block;
+            int maxSlidersValue = health.MaxHp;
             hpSlider.maxValue = maxSlidersValue;
-            armorSlider.maxValue = maxSlidersValue;
-            emptyHPSlider.maxValue = maxSlidersValue;
             preTakenDamageHPSlider.maxValue = maxSlidersValue;
             if(preTakenDamageAnimatedHPSlider != null) preTakenDamageAnimatedHPSlider.maxValue = maxSlidersValue;
-            preTakenDamageArmorSlider.maxValue = maxSlidersValue;
             
             hpSlider.value = health.HealthWithPreTakenDamage;
             preTakenDamageHPSlider.value = health.CurrentHp;
             if (preTakenDamageAnimatedHPSlider != null) preTakenDamageAnimatedHPSlider.value = health.CurrentHp;
-            emptyHPSlider.value = health.MaxHp;
-            armorSlider.value = health.BlockWithPreTakenDamage + health.MaxHp;
-            preTakenDamageArmorSlider.value = health.Block + health.MaxHp;
 
-            if (textField == null)
+            if (healthTextField == null)
                 return;
-
-            string text = (health.CurrentHp + health.Block).ToString();            
-            textField.text = text;
+          
+            healthTextField.text = (health.CurrentHp).ToString();
+            blockTextField.text = (health.TemporaryBlock).ToString();
+            armorTextField.text = (health.PermanentBlock).ToString();
+            spikesTextField.text = (stats.Spikes).ToString();
         }
     }
 }

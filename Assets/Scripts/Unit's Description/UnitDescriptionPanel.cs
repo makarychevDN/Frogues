@@ -28,7 +28,7 @@ namespace FroguesFramework
 
             nameLabel.text = unit.UnitDescription.UnitName;
             descriptionLable.text = unit.UnitDescription.Description;
-            healthBar.SetHealth(unit.Health);
+            healthBar.SetHealthAndStats(unit.Health, unit.Stats);
             statsVisualizationSystem.SetStats(unit.Stats);
             resourcePointsUI.Init(unit.ActionPoints);
         }
