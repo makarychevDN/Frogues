@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_Name
-      value: SpikeAbility
+      value: Spike Ability
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -115,6 +115,10 @@ MonoBehaviour:
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
-  spikesValue: 0
-  timeToEndEffect: 1
-  effectIsConstantly: 0
+  temporaryBlockValue: 0
+  permanentBlockValue: 0
+  Buffs:
+  - BuffType: 40
+    BuffValue: 1
+    TimeToEndBuff: 1
+    BuffIsConstantly: 0
