@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ShapelessnessAbility : JumpOnCellAbility
+    public class ShapelessnessAbility : JumpOnCellAbility, IAbleToDealDamage
     {
         [SerializeField] private int damage;
         [SerializeField] private DamageType damageType;
@@ -66,6 +66,10 @@ namespace FroguesFramework
             units.ForEach(unit => unit.Health.PreTakeDamage(CalculateDamage(), _owner));
         }
 
-        private int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+
+        public int GetDefaultDamage() => damage;
+
+        public DamageType GetDamageType() => damageType;
     }
 }
