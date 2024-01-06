@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ReliableStrike : DefaultUnitTargetAbility
+    public class ReliableStrike : DefaultUnitTargetAbility, IAbleToApplyBlock
     {
         [SerializeField] private int blockValue;
 
@@ -17,8 +17,12 @@ namespace FroguesFramework
                 target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.deltaValueForEachTurn, effect.effectIsConstantly));
             }
 
-            _owner.Health.IncreaseTemporaryBlock(Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats));
+            _owner.Health.IncreaseTemporaryBlock(CalculateBlock());
             OnEffectApplied.Invoke();
         }
+
+
+        public int CalculateBlock() => Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats);
+        public int GetDefaultBlockValue() => blockValue;
     }
 }
