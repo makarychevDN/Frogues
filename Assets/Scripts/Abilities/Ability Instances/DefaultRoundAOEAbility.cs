@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DefaultRoundAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized
+    public class DefaultRoundAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToDealDamage
     {
         [SerializeField] private DamageType damageType;
         [SerializeField] private int damage;
@@ -15,7 +15,7 @@ namespace FroguesFramework
         private bool _isPrevisualizedNow;
         private List<Cell> _hashedSelectedArea;
 
-        protected virtual int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
 
         public override void PrepareToUsing(List<Cell> cells)
         {
@@ -53,7 +53,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, List<Cell> cells)
         {
             yield return new WaitForSeconds(time);
-            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage, _owner));
+            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage(), _owner));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
@@ -98,7 +98,7 @@ namespace FroguesFramework
 
                 if (!cell.IsEmpty)
                 {
-                    cell.Content.Health.PreTakeDamage(CalculateDamage);
+                    cell.Content.Health.PreTakeDamage(CalculateDamage());
                     cell.Content.MaterialInstanceContainer.EnableOutline(true);
                 }
             }
@@ -131,5 +131,9 @@ namespace FroguesFramework
 
             return value ^ GetHashCode();
         }
+
+        public int GetDefaultDamage() => damage;
+
+        public DamageType GetDamageType() => damageType;
     }
 }
