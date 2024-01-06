@@ -27,6 +27,7 @@ namespace FroguesFramework
             ability = GetComponent<BaseAbility>();
 
             dataByKeyWords.Add("{range}", () => (ability as IAbleToReturnRange).ReturnRange().ToString());
+            dataByKeyWords.Add("{alternative range}", () => (ability as IAbleToHaveAlternativeRange).GetAlternativeRange().ToString());
 
             dataByKeyWords.Add("{cooldown after use}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterUse().ToString());
             dataByKeyWords.Add("{cooldown after start}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterStart().ToString());
@@ -77,6 +78,8 @@ namespace FroguesFramework
 
             dataByKeyWords.Add("{alternative delta value}", () => (ability as IAbleToHaveAlternativeDelta).GetAlternativeDeltaValue().ToString());
             dataByKeyWords.Add("{alternative step value}", () => (ability as IAbleToHaveAlternativeDelta).GetAlternativeStepValue().ToString());
+
+            dataByKeyWords.Add("{count}", () => (ability as IAbleToHaveCount).GetCount().ToString());
         }
 
         private string GetShortData()
