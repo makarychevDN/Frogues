@@ -3,13 +3,14 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpikeAbility : NonTargetAbility
+    public class SpikeAbility : NonTargetAbility, IAbleToApplySpikesModificator
     {
         [Space, Header("Ability Settings")]
         [SerializeField] private int spikesValue;
+        [SerializeField] private int deltaValue;
         [SerializeField] private int timeToEndEffect = 1;
         [SerializeField] private bool effectIsConstantly;
-        
+
         public override void Use()
         {
             if (!PossibleToUse())
@@ -32,5 +33,13 @@ namespace FroguesFramework
         }
 
         private void RemoveCurrentlyActive() => CurrentlyActiveObjects.Remove(this);
+
+        public int GetdeltaOfSpikesValueForEachTurn() => deltaValue;
+
+        public bool GetSpikesEffectIsConstantly() => effectIsConstantly;
+
+        public int GetSpikesModificatorValue() => spikesValue;
+
+        public int GetTimeToEndOfSpikesEffect() => timeToEndEffect;
     }
 }
