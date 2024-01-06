@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ExplodeBloodSurface : DefaultUnitTargetAbility
+    public class ExplodeBloodSurface : DefaultUnitTargetAbility, IAbleToHaveAlternativeRange
     {
         [SerializeField] private int radiusOfExplosion = 1;
 
@@ -73,5 +73,7 @@ namespace FroguesFramework
         public override bool CheckItUsableOnDefaultUnit() => false;
 
         public override bool CheckItUsableOnBloodSurfaceUnit() => true;
+
+        public int GetAlternativeRange() => radiusOfExplosion;
     }
 }
