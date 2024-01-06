@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class RollAbility : JumpOnCellAbility
+    public class RollAbility : JumpOnCellAbility, IAbleToApplyBlock
     {
         [SerializeField] private int blockValue;
 
@@ -20,7 +20,7 @@ namespace FroguesFramework
         public override List<Cell> CalculateUsingArea()
         {
             return _usingArea = CellsTaker.TakeCellsLinesInAllDirections(_owner.CurrentCell, CellsTaker.ObstacleMode.onlyBigUnitsAreObstacles, false, true).ToList()
-                .Where(cell => cell.DistanceToCell(_owner.CurrentCell) == 2).ToList();
+                .Where(cell => cell.DistanceToCell(_owner.CurrentCell) == range).ToList();
         }
 
         private void IncreaseTemporaryBlock()
@@ -30,5 +30,9 @@ namespace FroguesFramework
         }
 
         private int CalculateBlock() => Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats);
+
+        public int GetDefaultBlockValue() => blockValue;
+
+        int IAbleToApplyBlock.CalculateBlock() => CalculateBlock();
     }
 }
