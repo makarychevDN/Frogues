@@ -4,9 +4,10 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class KnifeNativeAttackAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton
+    public class KnifeNativeAttackAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton, IAbleToDealAlternativeDamage, IAbleToReturnCurrentDamage
     {
         [SerializeField] private int critDamage;
+        private bool nextAttackIsCritical;
         private UnityEvent<bool> _nextAttackIsCriticalStateEvent = new UnityEvent<bool>();
 
         public override void Init(Unit unit)
@@ -27,17 +28,21 @@ namespace FroguesFramework
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
-            return base.ApplyEffect(time, target);
+            yield return new WaitForSeconds(time);
+
+            target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
+            foreach (var effect in addtionalDebufs)
+            {
+                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.deltaValueForEachTurn, effect.effectIsConstantly));
+            }
+
+            OnEffectApplied.Invoke();
         }
-
-        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(GetDamageValue(), damageType, _owner.Stats);
-
-        private int GetDamageValue() => _owner.AbilitiesManager.WeaponDamage; 
 
         private void TurnOnCriticalMode()
         {
             _nextAttackIsCriticalStateEvent.Invoke(true);
-            ignoreArmor = true;
+            nextAttackIsCritical = true;
             _owner.AbilitiesManager.SetWeaponDamage(critDamage);
             _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
@@ -45,11 +50,19 @@ namespace FroguesFramework
         private void TurnOffCriticalMode()
         {
             _nextAttackIsCriticalStateEvent.Invoke(false);
-            ignoreArmor = false;
+            
+            nextAttackIsCritical = false;
             _owner.AbilitiesManager.SetWeaponDamage(damage);
             _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
 
         public UnityEvent<bool> GetHighlightEvent() => _nextAttackIsCriticalStateEvent;
+
+        public int GetDefaultAlternativeDamage() => critDamage;
+        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public DamageType GetAlternativeDamageType() => damageType;
+        public int CalculateAlternativeDamage() => Extensions.CalculateDamageWithGameRules(critDamage, damageType, _owner.Stats);
+        public int GetCalculatedCurrentDamage() => nextAttackIsCritical ? CalculateAlternativeDamage() : CalculateDamage();
+        public int GetDefaultCurrentDamage() => nextAttackIsCritical ? critDamage : damage;
     }
 }
