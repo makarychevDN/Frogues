@@ -77,7 +77,7 @@ namespace FroguesFramework
         #region timerStuff
         public void TickAfterEnemiesTurn()
         {
-            if (!_owner.IsEnemy)
+            if (_owner.IsEnemy)
                 return;
 
             TickAllEffects();
@@ -85,7 +85,7 @@ namespace FroguesFramework
 
         public void TickAfterPlayerTurn()
         {
-            if (_owner.IsEnemy)
+            if (!_owner.IsEnemy)
                 return;
 
             TickAllEffects();
