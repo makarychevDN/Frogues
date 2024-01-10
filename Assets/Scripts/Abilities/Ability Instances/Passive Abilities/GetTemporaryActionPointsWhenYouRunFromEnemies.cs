@@ -35,7 +35,7 @@ namespace FroguesFramework
             if(AnyEnemyNearby(lastCell) && !AnyEnemyNearby(reachedCell))
             {
                 _owner.ActionPoints.IncreaseTemporaryPoints(additionalTemporaryActionPoints);
-                ownerEscapedOnThisTurnAlready = false;
+                ownerEscapedOnThisTurnAlready = true;
             }
         }
 
