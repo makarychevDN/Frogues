@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DealDamageToClosestEnemiesOnBlockOrArmorIncreased : PassiveAbility
+    public class DealDamageToClosestEnemiesOnBlockOrArmorIncreased : PassiveAbility, IAbleToReturnSingleValue
     {
         [SerializeField] private int damageValue;
 
@@ -28,5 +28,7 @@ namespace FroguesFramework
             base.UnInit();
             _owner.Health.OnBlockIncreased.RemoveListener(DealDamageToClosestEnemies);
         }
+
+        public int GetValue() => damageValue;
     }
 }
