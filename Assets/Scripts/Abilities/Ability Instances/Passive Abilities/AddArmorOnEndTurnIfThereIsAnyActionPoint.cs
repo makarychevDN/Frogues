@@ -12,7 +12,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
             _owner.AbleToSkipTurn.OnSkipTurn.AddListener(TryToIncreaseArmor);
-            _owner.ActionPoints.OnPointsIncreased.AddListener(TryToHighlightButton);
+            _owner.ActionPoints.OnAnyPointsIncreased.AddListener(TryToHighlightButton);
             _owner.ActionPoints.OnPointsEnded.AddListener(TryToHighlightButton);
         }
 
@@ -20,7 +20,7 @@ namespace FroguesFramework
         {
             base.UnInit();
             _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(TryToIncreaseArmor);
-            _owner.ActionPoints.OnPointsIncreased.RemoveListener(TryToHighlightButton);
+            _owner.ActionPoints.OnAnyPointsIncreased.RemoveListener(TryToHighlightButton);
             _owner.ActionPoints.OnPointsEnded.RemoveListener(TryToHighlightButton);
 
         }

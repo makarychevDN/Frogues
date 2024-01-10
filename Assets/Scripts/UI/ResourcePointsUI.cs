@@ -28,13 +28,13 @@ namespace FroguesFramework
 
         public void Init(AbilityResourcePoints resourcePoints)
         {
-            currentResourcePoints?.OnPointsIncreased.RemoveListener(RedrawCurrentActionPointsIcons);
-            currentResourcePoints?.OnPointsIncreased.RemoveListener(RedrawTemporaryActionPointsIcons);
+            currentResourcePoints?.OnDefaultPointsIncreased.RemoveListener(RedrawCurrentActionPointsIcons);
+            currentResourcePoints?.OnTemporaryPointsIncreased.RemoveListener(RedrawTemporaryActionPointsIcons);
 
             currentResourcePoints = resourcePoints;
 
-            currentResourcePoints.OnPointsIncreased.AddListener(RedrawCurrentActionPointsIcons);
-            currentResourcePoints.OnPointsIncreased.AddListener(RedrawTemporaryActionPointsIcons);
+            currentResourcePoints.OnDefaultPointsIncreased.AddListener(RedrawCurrentActionPointsIcons);
+            currentResourcePoints.OnTemporaryPointsIncreased.AddListener(RedrawTemporaryActionPointsIcons);
         }
 
         private void RedrawCurrentActionPointsIcons() =>
@@ -51,7 +51,7 @@ namespace FroguesFramework
             currentResourcePoints.PreTakenTemporaryPoints,
             temporaryResourcePointIcons,
             temporaryResourcePointIconPrefab,
-            ref _hashedResourcePointsCount);
+            ref _hashedTemporaryResourcePointsCount);
 
         private void Update()
         {
