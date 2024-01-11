@@ -43,7 +43,7 @@ namespace FroguesFramework
 
             foreach(Cell cell in cells)
             {
-                if(cell.Content != null)
+                if(cell.Content != null && cell.Content is not Barrier)
                     result.Add(cell.Content);
             }
 
