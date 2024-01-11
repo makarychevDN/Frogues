@@ -93,6 +93,11 @@ namespace FroguesFramework
             currentPoints = value;
         }
 
+        public void IncreaseLimit(int value)
+        {
+            maxPointsCount += value;
+        }
+
         public void IncreasePoints(int value)
         {
             var hashedPoints = currentPoints;

@@ -9,6 +9,7 @@ namespace FroguesFramework
         [SerializeField] private int currentHP;
         [SerializeField] private int permanentBlock;
         [SerializeField] private int temporaryBlock;
+        [SerializeField] private int escapesFromDeathCount;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnDamageBlockedSuccessfully;
         public UnityEvent<Unit> OnDamageFromUnitBlockedSuccessfully;
@@ -18,6 +19,7 @@ namespace FroguesFramework
         public UnityEvent OnBlockIncreased;
         public UnityEvent OnHpEnded;
         public UnityEvent OnHpHealed;
+        public UnityEvent OnEscapedFromDeath;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
         private int _healthWithPreTakenDamage, _permanentBlockrWithPreTakenDamage, _temporaryBlockWithPreTakenDamage;
         private int _hashedHp, _hashedBlock;
@@ -69,6 +71,11 @@ namespace FroguesFramework
         {
             maxHP += value;
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        }
+
+        public void IncreaseEscapesFromDeathCount(int value)
+        {
+            escapesFromDeathCount += value;
         }
 
         private void Update()
@@ -132,7 +139,18 @@ namespace FroguesFramework
 
             if (currentHP <= 0)
             {
-                Invoke(nameof(DieProcess), 0.25f);
+                OnHpEnded.Invoke();
+
+                if (escapesFromDeathCount <= 0)
+                {
+                    Invoke(nameof(DieProcess), 0.25f);
+                }
+                else
+                {
+                    OnEscapedFromDeath.Invoke();
+                    currentHP = maxHP / 2;
+                    escapesFromDeathCount--;
+                }
             }
             
             _hashedHp = currentHP;
@@ -197,7 +215,6 @@ namespace FroguesFramework
 
         private void DieProcess()
         {
-            OnHpEnded.Invoke();
             _unit.AbleToDie.Die();
         }
 
