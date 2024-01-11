@@ -68,6 +68,7 @@ namespace FroguesFramework
         public void IncreaseMaxHp(int value)
         {
             maxHP += value;
+            currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         }
 
         private void Update()
