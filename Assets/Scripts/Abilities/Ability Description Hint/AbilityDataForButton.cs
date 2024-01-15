@@ -47,6 +47,11 @@ namespace FroguesFramework
             dataByKeyWords.Add("{current default damage value}", () => (ability as IAbleToReturnCurrentDamage).GetDefaultCurrentDamage().ToString());
             dataByKeyWords.Add("{calculated current damage value}", () => (ability as IAbleToReturnCurrentDamage).GetCalculatedCurrentDamage().ToString());
 
+            dataByKeyWords.Add("{effect value}", () => (ability as IAbleToApplyAnyModificator).GetModificatorValue().ToString());
+            dataByKeyWords.Add("{effect delta}", () => (ability as IAbleToApplyAnyModificator).GetDeltaValueForEachTurn().ToString());
+            dataByKeyWords.Add("{effect time}", () => (ability as IAbleToApplyAnyModificator).GetTimeToEndOfEffect().ToString());
+            dataByKeyWords.Add("{effect constantly}", () => (ability as IAbleToApplyAnyModificator).GetEffectIsConstantly().ToString());
+
             dataByKeyWords.Add("{defence effect value}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceModificatorValue().ToString());
             dataByKeyWords.Add("{defence effect delta}", () => (ability as IAbleToApplyDefenceModificator).GetdeltaOfDefenceValueForEachTurn().ToString());
             dataByKeyWords.Add("{defence effect time}", () => (ability as IAbleToApplyDefenceModificator).GetTimeToEndOfDefenceEffect().ToString());

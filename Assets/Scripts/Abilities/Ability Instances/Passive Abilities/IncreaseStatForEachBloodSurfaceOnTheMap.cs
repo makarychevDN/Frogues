@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseStatForEachBloodSurfaceOnTheMap : PassiveAbility
+    public class IncreaseStatForEachBloodSurfaceOnTheMap : PassiveAbility, IAbleToApplyAnyModificator, IAbleToHaveCount
     {
         [SerializeField] private StatEffectTypes type;
+        [SerializeField] private int requredCountOfBloodToIncreaseStat;
         private StatEffect _statEffect;
 
         public override void Init(Unit unit)
@@ -24,12 +25,22 @@ namespace FroguesFramework
 
         private void UpdateStatEffect()
         {
-            _statEffect.Value = CalculateValue() / 2;
+            _statEffect.Value = CalculateValue() / requredCountOfBloodToIncreaseStat;
         }
 
         private int CalculateValue()
         {
             return EntryPoint.Instance.BloodSurfacesCount;
         }
+
+        public int GetModificatorValue() => 1;
+
+        public int GetDeltaValueForEachTurn() => 0;
+
+        public int GetTimeToEndOfEffect() => 0;
+
+        public bool GetEffectIsConstantly() => true;
+
+        public int GetCount() => requredCountOfBloodToIncreaseStat;
     }
 }
