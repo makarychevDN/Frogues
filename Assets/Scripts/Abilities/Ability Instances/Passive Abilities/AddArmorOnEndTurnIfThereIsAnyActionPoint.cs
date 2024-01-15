@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class AddArmorOnEndTurnIfThereIsAnyActionPoint : PassiveAbility, IAbleToReturnSingleValue, IAbleToHighlightAbilityButton
+    public class AddArmorOnEndTurnIfThereIsAnyActionPoint : PassiveAbility, IAbleToReturnSingleValue, IAbleToHighlightAbilityButton, IAbleToApplyArmor
     {
         [SerializeField] private int AromorValue;
         private UnityEvent<bool> highlightEvent = new();
@@ -38,5 +38,9 @@ namespace FroguesFramework
         private void TryToHighlightButton() => highlightEvent.Invoke(_owner.ActionPoints.CurrentPoints > 0);
 
         public UnityEvent<bool> GetHighlightEvent() => highlightEvent;
+
+        public int GetDefaultArmorValue() => AromorValue;
+
+        public int CalculateArmor() => AromorValue;
     }
 }
