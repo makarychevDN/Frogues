@@ -7,6 +7,7 @@ namespace FroguesFramework
     public class KnifeNativeAttackAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton, IAbleToDealAlternativeDamage, IAbleToReturnCurrentDamage
     {
         [SerializeField] private int critDamage;
+        [SerializeField] private int additionalDamage;
         private bool nextAttackIsCritical;
         private UnityEvent<bool> _nextAttackIsCriticalStateEvent = new UnityEvent<bool>();
 
@@ -30,7 +31,7 @@ namespace FroguesFramework
         {
             yield return new WaitForSeconds(time);
 
-            target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
+            target.Health.TakeDamage(GetCalculatedCurrentDamage(), ignoreArmor, _owner);
             foreach (var effect in addtionalDebufs)
             {
                 target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.deltaValueForEachTurn, effect.effectIsConstantly));
@@ -43,26 +44,42 @@ namespace FroguesFramework
         {
             _nextAttackIsCriticalStateEvent.Invoke(true);
             nextAttackIsCritical = true;
-            _owner.AbilitiesManager.SetWeaponDamage(critDamage);
             _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
 
         private void TurnOffCriticalMode()
         {
-            _nextAttackIsCriticalStateEvent.Invoke(false);
-            
+            _nextAttackIsCriticalStateEvent.Invoke(false);            
             nextAttackIsCritical = false;
-            _owner.AbilitiesManager.SetWeaponDamage(damage);
             _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
 
         public UnityEvent<bool> GetHighlightEvent() => _nextAttackIsCriticalStateEvent;
 
-        public int GetDefaultAlternativeDamage() => critDamage;
-        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public int GetDefaultAlternativeDamage() => additionalDamage;
+
+        public DamageType GetAlternativeDamageType() => damageType;
+
+        public int CalculateAlternativeDamage()
+        {
+            return GetCalculatedCurrentDamage() - Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        }
+
+        public override int CalculateDamage()
+        {
+            return Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        }
+
+        public int GetCalculatedCurrentDamage() => Extensions.CalculateDamageWithGameRules(GetDefaultCurrentDamage(), damageType, _owner.Stats);
+
+        public int GetDefaultCurrentDamage() => damage + additionalDamage * nextAttackIsCritical.ToInt();
+
+        /*
+        public int GetDefaultAlternativeDamage() => additionalDamage;
+        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage , damageType, _owner.Stats);
         public DamageType GetAlternativeDamageType() => damageType;
         public int CalculateAlternativeDamage() => Extensions.CalculateDamageWithGameRules(critDamage, damageType, _owner.Stats);
         public int GetCalculatedCurrentDamage() => nextAttackIsCritical ? CalculateAlternativeDamage() : CalculateDamage();
-        public int GetDefaultCurrentDamage() => nextAttackIsCritical ? critDamage : damage;
+        public int GetDefaultCurrentDamage() => nextAttackIsCritical ? critDamage : damage;*/
     }
 }
