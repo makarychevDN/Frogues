@@ -1,25 +1,25 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseStatForEachFewMoves : PassiveAbility, IRoundTickable
+    public class IncreaseStatForEachFewMoves : PassiveAbility, IRoundTickable, IAbleToHaveCount, IAbleToApplyStrenghtModificator
     {
-        [SerializeField] private List<StatEffect> statEffects;
-        [SerializeField] private int StepsRequredToIncreaseStat;
+        [SerializeField] private StatEffect statEffect;
+        [SerializeField] private int stepsRequredToIncreaseStat;
+        [SerializeField] private int additionalStrenght = 1;
         private int counter;
 
         public override void Init(Unit unit)
         {
             base.Init(unit);
             _owner.Movable.OnMovementEnd.AddListener(TryToIncreaseStats);
-            statEffects.ForEach(statEffect => _owner.Stats.AddStatEffect(statEffect));
+            _owner.Stats.AddStatEffect(statEffect);
         }
 
         public override void UnInit()
         {
             _owner.Movable.OnMovementEnd.RemoveListener(TryToIncreaseStats);
-            statEffects.ForEach(statEffect => _owner.Stats.RemoveStatEffect(statEffect));
+            _owner.Stats.RemoveStatEffect(statEffect);
             base.UnInit();
         }
 
@@ -42,20 +42,30 @@ namespace FroguesFramework
         public void ResetEffects()
         {
             ResetCounter();
-            statEffects.ForEach(stat => stat.Value = 0);
+            statEffect.Value = 0;
         }
 
         private void TryToIncreaseStats()
         {
             counter++;
 
-            if(counter >= StepsRequredToIncreaseStat)
+            if(counter >= stepsRequredToIncreaseStat)
             {
-                statEffects.ForEach(stat => stat.Value++);
+                statEffect.Value += additionalStrenght;
                 ResetCounter();
             }
         }
 
         private int ResetCounter() => counter = 0;
+
+        public int GetCount() => stepsRequredToIncreaseStat;
+
+        public int GetStrenghtModificatorValue() => additionalStrenght;
+
+        public int GetDeltaOfStrenghtValueForEachTurn() => 0;
+
+        public int GetTimeToEndOfStrenghtEffect() => 1;
+
+        public bool GetStrenghtEffectIsConstantly() => true;
     }
 }

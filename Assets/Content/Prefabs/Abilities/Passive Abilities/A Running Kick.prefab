@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 90a6d9089122f13459073dd9fb0ce4c5, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: abilityName
-      value: "\u041F\u0443\u0442\u044C \u043A \u043E\u0442\u0441\u0442\u0443\u043F\u043B\u0435\u043D\u0438\u044E"
+      value: "\u0423\u0434\u0430\u0440 \u0441 \u0440\u0430\u0437\u0431\u0435\u0433\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: description
@@ -27,9 +27,17 @@ PrefabInstance:
         \u0441\u0431\u0440\u0430\u0441\u044B\u0432\u0430\u0435\u0442\u0441\u044F
         \u0432 \u043A\u043E\u043D\u0446\u0435 \u0445\u043E\u0434\u0430."
       objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a47708ec6d3231b479a042c29b5a1808, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,8 +121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 5653574240887673385}
   isPartOfWeapon: 0
-  statEffects:
-  - type: 0
+  statEffect:
+    type: 0
     value: 0
     deltaValueForEachTurn: 0
     timeToTheEndOfEffect: 1
@@ -122,4 +130,5 @@ MonoBehaviour:
     OnEffectValueChanged:
       m_PersistentCalls:
         m_Calls: []
-  StepsRequredToIncreaseStat: 2
+  stepsRequredToIncreaseStat: 2
+  additionalStrenght: 1
