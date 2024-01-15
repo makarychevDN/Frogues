@@ -3,7 +3,7 @@ using static UnityEngine.UI.CanvasScaler;
 
 namespace FroguesFramework
 {
-    public class BacklerPassiveAbility : PassiveAbility, IRoundTickable
+    public class BucklerPassiveAbility : PassiveAbility, IRoundTickable, IAbleToApplyDefenceModificator
     {
         [SerializeField] private int decreaseDeffenceToDamageSourceValue;
         [SerializeField] private int timeToEndEffect = 1;
@@ -41,5 +41,13 @@ namespace FroguesFramework
             if (_owner.IsEnemy)
                 _deffenceDecreasedOnThisTurnAlready = false;
         }
+
+        public int GetDefenceModificatorValue() => decreaseDeffenceToDamageSourceValue;
+
+        public int GetdeltaOfDefenceValueForEachTurn() => 0;
+
+        public int GetTimeToEndOfDefenceEffect() => timeToEndEffect;
+
+        public bool GetDefenceEffectIsConstantly() => false;
     }
 }
