@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private int permanentBlock;
         [SerializeField] private int temporaryBlock;
         [SerializeField] private int escapesFromDeathCount;
+        [SerializeField] private bool dieImmedeatlyAfterStepOnItByUnit;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnDamageBlockedSuccessfully;
         public UnityEvent<Unit> OnDamageFromUnitBlockedSuccessfully;
@@ -186,7 +187,15 @@ namespace FroguesFramework
         public void DieFromStepOnUnit()
         {
             deathFromStepOnThisUnitAudioSource.Play();
-            TakeDamage(maxHP, true, null);
+
+            if (dieImmedeatlyAfterStepOnItByUnit)
+            {
+                _unit.AbleToDie.DieWithoutAnimation();
+            }
+            else
+            {
+                TakeDamage(maxHP, true, null);
+            }
         }
         
         public void DieFromBumpInto()
