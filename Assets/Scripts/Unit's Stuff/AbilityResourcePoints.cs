@@ -180,7 +180,7 @@ namespace FroguesFramework
 
         public int CalculateHashFunctionOfPrevisualisation()
         {
-            return maxPointsCount ^ currentPoints ^ tempraryPoints ^ _preTakenCurrentPoints ^ _preTakenTemporaryPoints;
+            return maxPointsCount * 4 + currentPoints * 4 + tempraryPoints * 4 + _preTakenCurrentPoints * 4 + _preTakenTemporaryPoints * 4;
         }
     }
 }
