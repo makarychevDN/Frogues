@@ -169,225 +169,57 @@ namespace FroguesFramework
         public List<StatEffect> GetStatEffects() => addtionalDebufs;
 
         #region IAbleToApplyDefenceModificator
-        public int GetDefenceModificatorValue()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
+        public int GetDefenceModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.defence);
 
-            if (effect == null)
-                return 0;
+        public int GetdeltaOfDefenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.defence);
 
-            return effect.Value;
-        }
+        public int GetTimeToEndOfDefenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.defence);
 
-        public int GetdeltaOfDefenceValueForEachTurn()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
-
-            if (effect == null)
-                return 0;
-
-            return effect.deltaValueForEachTurn;
-        }
-
-        public int GetTimeToEndOfDefenceEffect()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
-
-            if (effect == null)
-                return 0;
-
-            return effect.timeToTheEndOfEffect;
-        }
-
-        public bool GetDefenceEffectIsConstantly()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.defence);
-
-            if (effect == null)
-                return false;
-
-            return effect.effectIsConstantly;
-        }
+        public bool GetDefenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.defence);
         #endregion
 
         #region IAbleToApplyStrenghtModificator
-        public int GetStrenghtModificatorValue()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
+        public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.strenght);
 
-            if (effect == null)
-                return 0;
+        public int GetDeltaOfStrenghtValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.strenght);
 
-            return effect.Value;
-        }
+        public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.strenght);
 
-        public int GetDeltaOfStrenghtValueForEachTurn()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
-
-            if (effect == null)
-                return 0;
-
-            return effect.deltaValueForEachTurn;
-        }
-
-        public int GetTimeToEndOfStrenghtEffect()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
-
-            if (effect == null)
-                return 0;
-
-            return effect.timeToTheEndOfEffect;
-        }
-
-        public bool GetStrenghtEffectIsConstantly()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.strenght);
-
-            if (effect == null)
-                return false;
-
-            return effect.effectIsConstantly;
-        }
+        public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.strenght);
         #endregion
 
         #region IAbleToApplyIntelligenceModificator
-        public int GetIntelligenceModificatorValue()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
+        public int GetIntelligenceModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.intelegence);
 
-            if (effect == null)
-                return 0;
+        public int GetDeltaOfIntelligenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.intelegence);
 
-            return effect.Value;
-        }
+        public int GetTimeToEndOfIntelligenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.intelegence);
 
-        public int GetDeltaOfIntelligenceValueForEachTurn()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
-
-            if (effect == null)
-                return 0;
-
-            return effect.deltaValueForEachTurn;
-        }
-
-        public int GetTimeToEndOfIntelligenceEffect()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
-
-            if (effect == null)
-                return 0;
-
-            return effect.timeToTheEndOfEffect;
-        }
-
-        public bool GetIntelligenceEffectIsConstantly()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.intelegence);
-
-            if (effect == null)
-                return false;
-
-            return effect.effectIsConstantly;
-        }
+        public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.intelegence);
         #endregion
 
         #region IAbleToApplyDexterityModificator
-        public int GetDexterityModificatorValue()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
+        public int GetDexterityModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.dexterity);
 
-            if (effect == null)
-                return 0;
+        public int GetDeltaOfDexterityValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.dexterity);
 
-            return effect.Value;
-        }
+        public int GetTimeToEndOfDexterityEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.dexterity);
 
-        public int GetDeltaOfDexterityValueForEachTurn()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
-
-            if (effect == null)
-                return 0;
-
-            return effect.deltaValueForEachTurn;
-        }
-
-        public int GetTimeToEndOfDexterityEffect()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
-
-            if (effect == null)
-                return 0;
-
-            return effect.timeToTheEndOfEffect;
-        }
-
-        public bool GetDexterityEffectIsConstantly()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.dexterity);
-
-            if (effect == null)
-                return false;
-
-            return effect.effectIsConstantly;
-        }
+        public bool GetDexterityEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.dexterity);
         #endregion
 
         #region IAbleToApplySpikesModificator
-        public int GetSpikesModificatorValue()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
+        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.spikes);
 
-            if (effect == null)
-                return 0;
+        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.spikes);
 
-            return effect.Value;
-        }
+        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.spikes);
 
-        public int GetdeltaOfSpikesValueForEachTurn()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
-
-            if (effect == null)
-                return 0;
-
-            return effect.deltaValueForEachTurn;
-        }
-
-        public int GetTimeToEndOfSpikesEffect()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
-
-            if (effect == null)
-                return 0;
-
-            return effect.timeToTheEndOfEffect;
-        }
-
-        public bool GetSpikesEffectIsConstantly()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.spikes);
-
-            if (effect == null)
-                return false;
-
-            return effect.effectIsConstantly;
-        }
+        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.spikes);
         #endregion
 
         #region IAbleToApplyImmobilizedModificator
-        public int GetTimeToEndOfImmpobilizedEffect()
-        {
-            StatEffect effect = addtionalDebufs.FirstOrDefault(statEffect => statEffect.type is StatEffectTypes.immobilized);
-
-            if (effect == null)
-                return 0;
-
-            return effect.timeToTheEndOfEffect;
-        }
-        #endregion
+        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.immobilized);
     }
+        #endregion
 }

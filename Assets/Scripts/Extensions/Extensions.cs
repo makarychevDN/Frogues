@@ -201,5 +201,45 @@ namespace FroguesFramework
         {
             return !source.Any(predicate);
         }
+
+        public static int GetModificatorValue(List<StatEffect> statEffects, StatEffectTypes effectType)
+        {
+            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
+
+            if (effect == null)
+                return 0;
+
+            return effect.Value;
+        }
+
+        public static int GetDeltaValueOfModificatorForEachTurn(List<StatEffect> statEffects, StatEffectTypes effectType)
+        {
+            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
+
+            if (effect == null)
+                return 0;
+
+            return effect.deltaValueForEachTurn;
+        }
+
+        public static int GetTimeToEndOfEffect(List<StatEffect> statEffects, StatEffectTypes effectType)
+        {
+            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
+
+            if (effect == null)
+                return 0;
+
+            return effect.timeToTheEndOfEffect;
+        }
+
+        public static bool GetEffectIsConstantly(List<StatEffect> statEffects, StatEffectTypes effectType)
+        {
+            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
+
+            if (effect == null)
+                return false;
+
+            return effect.effectIsConstantly;
+        }
     }
 }
