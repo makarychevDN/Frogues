@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class IncreaseEscapesFromTheDeathCount : PassiveAbility, IAbleToHighlightAbilityButton
+    public class IncreaseEscapesFromTheDeathCount : PassiveAbility, IAbleToHighlightAbilityButton, IAbleToHaveCount
     {
         [SerializeField] private int additionalEscapesFromDeath;
         private bool shouldHiglightButton;
@@ -34,5 +34,7 @@ namespace FroguesFramework
         }
 
         public UnityEvent<bool> GetHighlightEvent() => highlightButtonEvent;
+
+        public int GetCount() => additionalEscapesFromDeath;
     }
 }
