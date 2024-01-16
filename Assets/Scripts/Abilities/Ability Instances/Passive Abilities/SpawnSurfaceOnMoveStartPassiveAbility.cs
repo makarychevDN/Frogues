@@ -1,9 +1,12 @@
 using FroguesFramework;
 using UnityEngine;
 
-public class SpawnSurfaceOnMoveStartPassiveAbility : PassiveAbility
+public class SpawnSurfaceOnMoveStartPassiveAbility : PassiveAbility, IAbleToReturnSingleValue
 {
     [SerializeField] private Unit surfacePrefab;
+    [SerializeField] private int damageOfSurface;
+
+    public int GetValue() => damageOfSurface;
 
     public override void Init(Unit unit)
     {
