@@ -2,13 +2,17 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaceStatForMissingHealthPassiveAbility : PassiveAbility
+    public class IncreaceStatForMissingHealthPassiveAbility : PassiveAbility, IAbleToHaveDelta
     {
         [SerializeField] private StatEffectTypes statEffectType;
         [SerializeField] private int missingHealthStep;
         [SerializeField] private int additionalStrenghtForEachStep;
         [SerializeField] private int additionalStrenghtValue;
         private StatEffect statEffect;
+
+        public int GetDeltaValue() => additionalStrenghtForEachStep;
+
+        public int GetStepValue() => missingHealthStep;
 
         public override void Init(Unit unit)
         {
