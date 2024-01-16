@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class HeavySteps : PassiveAbility
+    public class HeavySteps : PassiveAbility, IAbleToReturnRange, IAbleToDealDamage, IAbleToHaveDelta
     {
         [SerializeField] private int damagePerMaxHpStep;
         [SerializeField] private int maxHpDeltaStep;
@@ -35,6 +35,16 @@ namespace FroguesFramework
 
         private void TurnOffVisualizationEffect() => visualizationEffect.SetActive(false);
 
-        private int CalculateDamage() => _owner.Health.MaxHp / maxHpDeltaStep * damagePerMaxHpStep;
+        public int CalculateDamage() => _owner.Health.MaxHp / maxHpDeltaStep * damagePerMaxHpStep;
+
+        public int ReturnRange() => radius;
+
+        public int GetDefaultDamage() => CalculateDamage();
+
+        public DamageType GetDamageType() => DamageType.none;
+
+        public int GetDeltaValue() => damagePerMaxHpStep;
+
+        public int GetStepValue() => maxHpDeltaStep;
     }
 }
