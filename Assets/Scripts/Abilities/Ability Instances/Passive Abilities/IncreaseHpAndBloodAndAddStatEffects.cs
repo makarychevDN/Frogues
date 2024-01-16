@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseHpAndBloodAndAddStatEffects : PassiveAbility, IAbleToReturnSingleValue, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator
+    public class IncreaseHpAndBloodAndAddStatEffects : PassiveAbility, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator
+        , IAbleToModifyMaxHP, IAbleToModifyMaxBloodPoints
     {
         [SerializeField] private int additionalHp;
         [SerializeField] private int additionalMaxBlood;
@@ -25,7 +26,9 @@ namespace FroguesFramework
             effects.ForEach(effect => _owner.Stats.RemoveStatEffect(effect));
         }
 
-        public int GetValue() => additionalHp;
+        public int GetModificatorForMaxHP() => additionalHp;
+
+        public int GetModificatorForMaxBloodPoints() => additionalMaxBlood;
 
         #region IAbleToApplyDefenceModificator
         public int GetDefenceModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.defence);

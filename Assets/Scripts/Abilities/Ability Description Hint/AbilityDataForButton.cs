@@ -28,6 +28,9 @@ namespace FroguesFramework
 
             dataByKeyWords.Add("{value}", () => (ability as IAbleToReturnSingleValue).GetValue().ToString());
 
+            dataByKeyWords.Add("{max blood points mod}", () => (ability as IAbleToModifyMaxBloodPoints).GetModificatorForMaxBloodPoints().ToString());
+            dataByKeyWords.Add("{max hp mod}", () => (ability as IAbleToModifyMaxHP).GetModificatorForMaxHP().ToString());
+
             dataByKeyWords.Add("{range}", () => (ability as IAbleToReturnRange).ReturnRange().ToString());
             dataByKeyWords.Add("{alternative range}", () => (ability as IAbleToHaveAlternativeRange).GetAlternativeRange().ToString());
 
