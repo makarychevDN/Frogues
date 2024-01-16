@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class PushNerbyEnemiesThenHpRedusedTooMuch : PassiveAbility
+    public class PushNerbyEnemiesThenHpRedusedTooMuch : PassiveAbility, IAbleToReturnSingleValue
     {
         [SerializeField] private List<StatEffect> effects;
-        [SerializeField] private float lerpValue = 0.4f;
+        [SerializeField] private int requredPercentageOfHPToExecute = 40;
         private int _hashedHp;
 
         public override void Init(Unit unit)
@@ -24,7 +24,7 @@ namespace FroguesFramework
 
         private void TryToExecute()
         {
-            float lerpedHpValue = _owner.Health.MaxHp * lerpValue;
+            float lerpedHpValue = _owner.Health.MaxHp * ConvertToLerpValue(requredPercentageOfHPToExecute);
 
             if (_hashedHp > lerpedHpValue && _owner.Health.CurrentHp < lerpedHpValue)
             {
@@ -33,6 +33,8 @@ namespace FroguesFramework
 
             _hashedHp = _owner.Health.CurrentHp;
         }
+
+        private float ConvertToLerpValue(int value) => requredPercentageOfHPToExecute * 0.01f;
 
         protected void Execute()
         {
@@ -46,5 +48,7 @@ namespace FroguesFramework
                 target.Movable.Move(targetCell, 10, 0.4f, true, false);
             }
         }
+
+        public int GetValue() => requredPercentageOfHPToExecute;
     }
 }
