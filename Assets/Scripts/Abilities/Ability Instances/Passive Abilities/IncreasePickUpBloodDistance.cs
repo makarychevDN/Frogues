@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreasePickUpBloodDistance : PassiveAbility
+    public class IncreasePickUpBloodDistance : PassiveAbility, IAbleToReturnRange
     {
         [SerializeField] private int distance;
 
@@ -13,6 +13,8 @@ namespace FroguesFramework
             base.Init(unit);
             _owner.Movable.OnMovementEndOnCell.AddListener(TryToStepOnBloodOnTheDistance);
         }
+
+        public int ReturnRange() => distance;
 
         private void TryToStepOnBloodOnTheDistance(Cell unitsCell)
         {
