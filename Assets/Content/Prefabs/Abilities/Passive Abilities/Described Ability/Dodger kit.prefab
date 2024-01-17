@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9130479184343957168
+--- !u!1001 &2906531616413832186
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -15,19 +15,27 @@ PrefabInstance:
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: material
       value: 
-      objectReference: {fileID: 2100000, guid: 2ae765f5391b9c04bb70c60d330ae4ab, type: 2}
+      objectReference: {fileID: 2100000, guid: c3481f4b2039ded4b9f840d867f4fd53, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: abilityName
-      value: "\u041D\u0430\u0431\u043E\u0440 \u0437\u0434\u043E\u0440\u043E\u0432\u044F\u043A\u0430"
+      value: "\u041D\u0430\u0431\u043E\u0440 \u043B\u043E\u0432\u043A\u0430\u0447\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: description
       value: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
-        \u0437\u0430\u0449\u0438\u0442\u0443 \u043D\u0430 1"
+        \u043B\u043E\u0432\u043A\u043E\u0441\u0442\u044C \u043D\u0430 1"
       objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b117ee7473c061445a0815a1288c509b, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,7 +79,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_Name
-      value: Big guy kit
+      value: Dodger kit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -79,39 +87,54 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 489752215}
+      addedObject: {fileID: 8582871971895944659}
   m_SourcePrefab: {fileID: 100100000, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
---- !u!114 &3452795494329261466 stripped
+--- !u!114 &8721539945043472592 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
-  m_PrefabInstance: {fileID: 9130479184343957168}
+  m_PrefabInstance: {fileID: 2906531616413832186}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3452795494329261469}
+  m_GameObject: {fileID: 8721539945043472599}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3452795494329261469 stripped
+--- !u!1 &8721539945043472599 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
-  m_PrefabInstance: {fileID: 9130479184343957168}
+  m_PrefabInstance: {fileID: 2906531616413832186}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &489752215
+--- !u!114 &8582871971895944659
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3452795494329261469}
+  m_GameObject: {fileID: 8721539945043472599}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b852f2c1d721cdc4195c763f8e935ec4, type: 3}
+  m_Script: {fileID: 11500000, guid: 255d52718d3c0ee459f0c24faafe7feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityDataForButton: {fileID: 3452795494329261466}
+  abilityDataForButton: {fileID: 8721539945043472592}
   isPartOfWeapon: 0
-  effectType: 30
-  value: 1
-  effectIsConstantly: 1
-  timer: 6
+  additionalHp: 0
+  additionalMaxBlood: 0
+  effects:
+  - type: 20
+    value: 1
+    deltaValueForEachTurn: 0
+    timeToTheEndOfEffect: 1
+    effectIsConstantly: 1
+    OnEffectValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  - type: 30
+    value: -1
+    deltaValueForEachTurn: 0
+    timeToTheEndOfEffect: 1
+    effectIsConstantly: 1
+    OnEffectValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
