@@ -25,9 +25,17 @@ PrefabInstance:
       value: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
         \u0441\u0438\u043B\u0443 \u043D\u0430 1"
       objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 500a5fd9bf2ff23498d95f280d0cefc8, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -79,14 +87,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 1285544085374927111}
+      addedObject: {fileID: 3114357297023302236}
   m_SourcePrefab: {fileID: 100100000, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
 --- !u!1 &5266542276429351952 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
   m_PrefabInstance: {fileID: 1750128976432328509}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1285544085374927111
+--- !u!114 &3114357297023302236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,15 +103,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 5266542276429351952}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b852f2c1d721cdc4195c763f8e935ec4, type: 3}
+  m_Script: {fileID: 11500000, guid: 255d52718d3c0ee459f0c24faafe7feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 5266542276429351959}
   isPartOfWeapon: 0
-  effectType: 0
-  value: 1
-  effectIsConstantly: 1
-  timer: 6
+  additionalHp: 0
+  additionalMaxBlood: 0
+  effects:
+  - type: 0
+    value: 1
+    deltaValueForEachTurn: 0
+    timeToTheEndOfEffect: 1
+    effectIsConstantly: 1
+    OnEffectValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  - type: 10
+    value: -1
+    deltaValueForEachTurn: 0
+    timeToTheEndOfEffect: 1
+    effectIsConstantly: 1
+    OnEffectValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!114 &5266542276429351959 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
