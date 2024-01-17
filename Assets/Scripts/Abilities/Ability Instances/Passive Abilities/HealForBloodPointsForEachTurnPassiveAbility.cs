@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class HealForBloodPointsForEachTurnPassiveAbility : PassiveAbility, IRoundTickable
+    public class HealForBloodPointsForEachTurnPassiveAbility : PassiveAbility, IRoundTickable, IAbleToCost, IAbleToReturnSingleValue
     {
         [SerializeField] private int cost;
         [SerializeField] private int healingValue;
@@ -44,11 +44,23 @@ namespace FroguesFramework
 
         private void TryToExecute()
         {
-            if (_owner.BloodPoints.IsPointsEnough(cost) && !_owner.Health.Full)
+            if (IsResoursePointsEnough() && !_owner.Health.Full)
             {
-                _owner.BloodPoints.SpendPoints(cost);
+                SpendResourcePoints();
                 _owner.Health.TakeHealing(healingValue);
             }
         }
+
+        public int GetActionPointsCost() => 0;
+
+        public int GetBloodPointsCost() => cost;
+
+        public int GetHealthCost() => -healingValue;
+
+        public bool IsResoursePointsEnough() => _owner.BloodPoints.IsPointsEnough(cost);
+
+        public void SpendResourcePoints() => _owner.BloodPoints.SpendPoints(cost);
+
+        public int GetValue() => healingValue;
     }
 }
