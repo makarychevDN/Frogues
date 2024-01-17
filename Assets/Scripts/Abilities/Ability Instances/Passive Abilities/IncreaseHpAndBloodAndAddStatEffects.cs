@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseHpAndBloodAndAddStatEffects : PassiveAbility, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator
+    public class IncreaseHpAndBloodAndAddStatEffects : PassiveAbility, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator, IAbleToApplySpikesModificator
         , IAbleToModifyMaxHP, IAbleToModifyMaxBloodPoints
     {
         [SerializeField] private int additionalHp;
@@ -68,6 +68,16 @@ namespace FroguesFramework
         public int GetTimeToEndOfDexterityEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.dexterity);
 
         public bool GetDexterityEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.dexterity);
+        #endregion
+
+        #region IAbleToApplySpikesModificator
+        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.spikes);
+
+        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(effects, StatEffectTypes.spikes);
+
+        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.spikes);
+
+        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.spikes);
         #endregion
     }
 }   

@@ -18,14 +18,21 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: fb1600521c322d24fbce1f538a5078b9, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: abilityName
-      value: "\u041D\u0430\u0431\u043E\u0440 \u043A\u043E\u043B\u044E\u0447\u0435\u0433\u043E
-        \u043F\u0430\u0440\u043D\u044F"
+      value: "\u041D\u0430\u0431\u043E\u0440 \u043E\u0441\u0442\u0440\u044F\u043A\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: description
       value: "\u0423\u0432\u0435\u043B\u0438\u0447\u0438\u0432\u0430\u0435\u0442
         \u043A\u043E\u043B\u044E\u0447\u043A\u0438 \u043D\u0430 1"
       objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1dfd16c4cfb760a42a1a287e06d763b7, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -80,7 +87,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 5546730661586323439}
+      addedObject: {fileID: 5107624233639965394}
   m_SourcePrefab: {fileID: 100100000, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
 --- !u!114 &4621239066200062162 stripped
 MonoBehaviour:
@@ -98,7 +105,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
   m_PrefabInstance: {fileID: 1260657384481151992}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5546730661586323439
+--- !u!114 &5107624233639965394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,12 +114,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4621239066200062165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b852f2c1d721cdc4195c763f8e935ec4, type: 3}
+  m_Script: {fileID: 11500000, guid: 255d52718d3c0ee459f0c24faafe7feb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 4621239066200062162}
   isPartOfWeapon: 0
-  effectType: 40
-  value: 1
-  effectIsConstantly: 1
-  timer: 6
+  additionalHp: 0
+  additionalMaxBlood: 0
+  effects:
+  - type: 40
+    value: 1
+    deltaValueForEachTurn: 0
+    timeToTheEndOfEffect: 1
+    effectIsConstantly: 1
+    OnEffectValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
