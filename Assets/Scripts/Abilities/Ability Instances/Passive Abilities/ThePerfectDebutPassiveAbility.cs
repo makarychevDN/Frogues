@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ThePerfectDebutPassiveAbility : PassiveAbility
+    public class ThePerfectDebutPassiveAbility : PassiveAbility, IAbleToReturnSingleValue
     {
         [SerializeField] private int value;
 
@@ -16,5 +16,7 @@ namespace FroguesFramework
         {
             _owner.ActionPoints.IncreaseTemporaryPoints(value);
         }
+
+        public int GetValue() => value;
     }
 }

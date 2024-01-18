@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseBonfireHealingPassiveAbility : PassiveAbility
+    public class IncreaseBonfireHealingPassiveAbility : PassiveAbility, IAbleToReturnSingleValue
     {
         [SerializeField] private int additionalValue;
 
@@ -17,5 +17,8 @@ namespace FroguesFramework
             EntryPoint.Instance.IncreaseBonfireHealingValue(-additionalValue);
             base.UnInit();
         }
+
+        public int GetValue() => additionalValue;
+
     }
 }

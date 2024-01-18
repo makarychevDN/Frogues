@@ -62,13 +62,15 @@ namespace FroguesFramework
             _leftCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.left, myCell.mapLayer);
             _rightCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right, myCell.mapLayer);
 
-            _neighbors = new List<Cell>();
-            _neighbors.Add(_topLeftCell);
-            _neighbors.Add(_topRightCell);
-            _neighbors.Add(_downLeftCell);
-            _neighbors.Add(_downRightCell);
-            _neighbors.Add(_leftCell);
-            _neighbors.Add(_rightCell);
+            _neighbors = new List<Cell>
+            {
+                _topLeftCell,
+                _topRightCell,
+                _downLeftCell,
+                _downRightCell,
+                _leftCell,
+                _rightCell
+            };
         }
         
         private void InitNeighbours()

@@ -15,7 +15,9 @@ namespace FroguesFramework
 
         public UnityEvent OnPointsEnded;
         public UnityEvent OnPointsRegenerated;
-        public UnityEvent OnPointsIncreased;
+        public UnityEvent OnAnyPointsIncreased;
+        public UnityEvent OnDefaultPointsIncreased;
+        public UnityEvent OnTemporaryPointsIncreased;
         public UnityEvent OnPickUpPoints;
 
         public void Init(Unit unit)
@@ -35,7 +37,11 @@ namespace FroguesFramework
             OnPointsRegenerated.Invoke();
 
             if (hashedPoints < currentPoints)
-                OnPointsIncreased.Invoke();
+            {
+                OnAnyPointsIncreased.Invoke();
+                OnDefaultPointsIncreased.Invoke();
+
+            }
         }
 
         #region GetSet
@@ -87,6 +93,11 @@ namespace FroguesFramework
             currentPoints = value;
         }
 
+        public void IncreaseLimit(int value)
+        {
+            maxPointsCount += value;
+        }
+
         public void IncreasePoints(int value)
         {
             var hashedPoints = currentPoints;
@@ -95,7 +106,10 @@ namespace FroguesFramework
             _preTakenCurrentPoints = currentPoints;
 
             if(hashedPoints < currentPoints)
-                OnPointsIncreased.Invoke();
+            {
+                OnAnyPointsIncreased.Invoke();
+                OnDefaultPointsIncreased.Invoke();
+            }
         }
 
         public void PickupPoints(int value)
@@ -108,7 +122,8 @@ namespace FroguesFramework
         {
             tempraryPoints += value;
             _preTakenTemporaryPoints = tempraryPoints;
-            OnPointsIncreased.Invoke();
+            OnAnyPointsIncreased.Invoke();
+            OnTemporaryPointsIncreased.Invoke();
         }
 
         public void SpendPoints(int cost)
@@ -165,7 +180,7 @@ namespace FroguesFramework
 
         public int CalculateHashFunctionOfPrevisualisation()
         {
-            return maxPointsCount ^ currentPoints ^ tempraryPoints ^ _preTakenCurrentPoints ^ _preTakenTemporaryPoints;
+            return maxPointsCount * 4 + currentPoints * 4 + tempraryPoints * 4 + _preTakenCurrentPoints * 4 + _preTakenTemporaryPoints * 4;
         }
     }
 }

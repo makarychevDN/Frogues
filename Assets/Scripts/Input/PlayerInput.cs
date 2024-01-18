@@ -96,9 +96,9 @@ namespace FroguesFramework
             if (IsMouseOverUI)
                 ResetTarget(ref target);
 
-            if (_lastHashOfAbility != (baseAbility as IAbleToCalculateHashFunctionOfPrevisualisation).CalculateHashFunctionOfPrevisualisation())
+            if (_lastHashOfAbility != (baseAbility as IAbleToCalculateHashFunctionOfPrevisualisation).CalculateHashFunctionOfPrevisualisation() + IsMouseOverUI.ToInt())
                 UniversalPrevisualization(baseAbility, target);
-            _lastHashOfAbility = (baseAbility as IAbleToCalculateHashFunctionOfPrevisualisation).CalculateHashFunctionOfPrevisualisation();
+            _lastHashOfAbility = (baseAbility as IAbleToCalculateHashFunctionOfPrevisualisation).CalculateHashFunctionOfPrevisualisation() + IsMouseOverUI.ToInt();
 
             Cursor.SetCursor(
                 UniversalIsPossibleToUse(baseAbility, target) ? attackIsPossibleCursorTexture : attackIsNotPossibleCursorTexture, 

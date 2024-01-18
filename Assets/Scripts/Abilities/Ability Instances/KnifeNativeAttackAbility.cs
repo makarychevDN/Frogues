@@ -4,9 +4,11 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class KnifeNativeAttackAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton
+    public class KnifeNativeAttackAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton, IAbleToDealAlternativeDamage, IAbleToReturnCurrentDamage
     {
         [SerializeField] private int critDamage;
+        [SerializeField] private int additionalDamage;
+        private bool nextAttackIsCritical;
         private UnityEvent<bool> _nextAttackIsCriticalStateEvent = new UnityEvent<bool>();
 
         public override void Init(Unit unit)
@@ -27,29 +29,49 @@ namespace FroguesFramework
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
-            return base.ApplyEffect(time, target);
+            yield return new WaitForSeconds(time);
+
+            target.Health.TakeDamage(GetCalculatedCurrentDamage(), ignoreArmor, _owner);
+            foreach (var effect in addtionalDebufs)
+            {
+                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.deltaValueForEachTurn, effect.effectIsConstantly));
+            }
+
+            OnEffectApplied.Invoke();
         }
-
-        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(GetDamageValue(), damageType, _owner.Stats);
-
-        private int GetDamageValue() => _owner.AbilitiesManager.WeaponDamage; 
 
         private void TurnOnCriticalMode()
         {
             _nextAttackIsCriticalStateEvent.Invoke(true);
-            ignoreArmor = true;
-            _owner.AbilitiesManager.SetWeaponDamage(critDamage);
+            nextAttackIsCritical = true;
             _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
 
         private void TurnOffCriticalMode()
         {
-            _nextAttackIsCriticalStateEvent.Invoke(false);
-            ignoreArmor = false;
-            _owner.AbilitiesManager.SetWeaponDamage(damage);
+            _nextAttackIsCriticalStateEvent.Invoke(false);            
+            nextAttackIsCritical = false;
             _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
         }
 
         public UnityEvent<bool> GetHighlightEvent() => _nextAttackIsCriticalStateEvent;
+
+        public int GetDefaultAlternativeDamage() => additionalDamage;
+
+        public DamageType GetAlternativeDamageType() => damageType;
+
+        public int CalculateAlternativeDamage()
+        {
+            return GetCalculatedCurrentDamage() - Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        }
+
+        public override int CalculateDamage()
+        {
+            return Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        }
+
+        public int GetCalculatedCurrentDamage() => Extensions.CalculateDamageWithGameRules(GetDefaultCurrentDamage(), damageType, _owner.Stats);
+
+        public int GetDefaultCurrentDamage() => damage + additionalDamage * nextAttackIsCritical.ToInt();
     }
 }

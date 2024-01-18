@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FroguesFramework
 {
@@ -13,6 +15,7 @@ namespace FroguesFramework
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
         [SerializeField] private List<ResourcePointUI> temporaryResourcePointIcons = new();
         [SerializeField] private bool generateIconsOnStart;
+        [SerializeField] private RectTransform resizableParent;
         private int _hashedResourcePointsCount;
         private int _hashedTemporaryResourcePointsCount;
         private int hashedPrevisualization;
@@ -25,13 +28,13 @@ namespace FroguesFramework
 
         public void Init(AbilityResourcePoints resourcePoints)
         {
-            currentResourcePoints?.OnPointsIncreased.RemoveListener(RedrawCurrentActionPointsIcons);
-            currentResourcePoints?.OnPointsIncreased.RemoveListener(RedrawTemporaryActionPointsIcons);
+            currentResourcePoints?.OnDefaultPointsIncreased.RemoveListener(RedrawCurrentActionPointsIcons);
+            currentResourcePoints?.OnTemporaryPointsIncreased.RemoveListener(RedrawTemporaryActionPointsIcons);
 
             currentResourcePoints = resourcePoints;
 
-            currentResourcePoints.OnPointsIncreased.AddListener(RedrawCurrentActionPointsIcons);
-            currentResourcePoints.OnPointsIncreased.AddListener(RedrawTemporaryActionPointsIcons);
+            currentResourcePoints.OnDefaultPointsIncreased.AddListener(RedrawCurrentActionPointsIcons);
+            currentResourcePoints.OnTemporaryPointsIncreased.AddListener(RedrawTemporaryActionPointsIcons);
         }
 
         private void RedrawCurrentActionPointsIcons() =>
@@ -48,7 +51,7 @@ namespace FroguesFramework
             currentResourcePoints.PreTakenTemporaryPoints,
             temporaryResourcePointIcons,
             temporaryResourcePointIconPrefab,
-            ref _hashedResourcePointsCount);
+            ref _hashedTemporaryResourcePointsCount);
 
         private void Update()
         {
@@ -74,6 +77,9 @@ namespace FroguesFramework
 
                     currentIcon.gameObject.SetActive(true);
                 }
+
+                if(resizableParent != null)
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
             }
 
             if(iconsList.Count > maxValue)
@@ -82,6 +88,9 @@ namespace FroguesFramework
                 {
                     iconsList.Where(icon => icon.gameObject.activeSelf).ToList().GetLast().gameObject.SetActive(false);
                 }
+
+                if (resizableParent != null)
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
             }
 
             for (int i = 0; i < maxValue; i++)

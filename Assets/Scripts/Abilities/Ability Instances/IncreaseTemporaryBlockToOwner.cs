@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseTemporaryBlockToOwner : NonTargetAbility
+    public class IncreaseTemporaryBlockToOwner : NonTargetAbility, IAbleToApplyBlock
     {
         [SerializeField] private int blockValue;
 
@@ -24,9 +24,11 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time)
         {
             yield return new WaitForSeconds(time);
-            _owner.Health.IncreaseTemporaryBlock(Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats));
+            _owner.Health.IncreaseTemporaryBlock(CalculateBlock());
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        public int CalculateBlock() => Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats);
+        public int GetDefaultBlockValue() => blockValue;
     }
 }

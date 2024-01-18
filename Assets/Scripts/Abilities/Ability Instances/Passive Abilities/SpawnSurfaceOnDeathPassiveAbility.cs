@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -10,24 +9,17 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-
             _owner.AbleToDie.OnDeath.AddListener(SpawnSurfaceUnderOwner);
+        }
+
+        public override void UnInit()
+        {
+            base.UnInit();
+            _owner.AbleToDie.OnDeath.RemoveListener(SpawnSurfaceUnderOwner);
         }
 
         private void SpawnSurfaceUnderOwner()
         {
-            //var currentBloodSurface = 
-                //_owner.CurrentCell.Surfaces.First(surface => surface.GetComponentInChildren<SpawnSurfaceOnDeath>());
-
-            //if (currentBloodSurface == null)
-                //return;
-
-            /*var surfaceInstance = Instantiate(surfacePrefab);
-            surfaceInstance.CurrentCell = _owner.CurrentCell;
-            surfaceInstance.Init();
-            _owner.CurrentCell.Surfaces.Add(surfaceInstance);
-            surfaceInstance.transform.position = _owner.CurrentCell.transform.position;*/
-
             EntryPoint.Instance.SpawnUnit(surfacePrefab, _owner.CurrentCell);
         }
     }

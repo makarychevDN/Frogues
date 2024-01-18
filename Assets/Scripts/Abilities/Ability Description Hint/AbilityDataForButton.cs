@@ -26,7 +26,13 @@ namespace FroguesFramework
         {
             ability = GetComponent<BaseAbility>();
 
+            dataByKeyWords.Add("{value}", () => (ability as IAbleToReturnSingleValue).GetValue().ToString());
+
+            dataByKeyWords.Add("{max blood points mod}", () => (ability as IAbleToModifyMaxBloodPoints).GetModificatorForMaxBloodPoints().ToString());
+            dataByKeyWords.Add("{max hp mod}", () => (ability as IAbleToModifyMaxHP).GetModificatorForMaxHP().ToString());
+
             dataByKeyWords.Add("{range}", () => (ability as IAbleToReturnRange).ReturnRange().ToString());
+            dataByKeyWords.Add("{alternative range}", () => (ability as IAbleToHaveAlternativeRange).GetAlternativeRange().ToString());
 
             dataByKeyWords.Add("{cooldown after use}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterUse().ToString());
             dataByKeyWords.Add("{cooldown after start}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterStart().ToString());
@@ -38,6 +44,18 @@ namespace FroguesFramework
             dataByKeyWords.Add("{default damage value}", () => (ability as IAbleToDealDamage).GetDefaultDamage().ToString());
             dataByKeyWords.Add("{calculated damage value}", () => (ability as IAbleToDealDamage).CalculateDamage().ToString());
             dataByKeyWords.Add("{damage type}", () => (ability as IAbleToDealDamage).GetDamageType().ToString());
+
+            dataByKeyWords.Add("{alternative default damage value}", () => (ability as IAbleToDealAlternativeDamage).GetDefaultAlternativeDamage().ToString());
+            dataByKeyWords.Add("{calculated alternative damage value}", () => (ability as IAbleToDealAlternativeDamage).CalculateAlternativeDamage().ToString());
+            dataByKeyWords.Add("{alternative damage type}", () => (ability as IAbleToDealAlternativeDamage).GetAlternativeDamageType().ToString());
+
+            dataByKeyWords.Add("{current default damage value}", () => (ability as IAbleToReturnCurrentDamage).GetDefaultCurrentDamage().ToString());
+            dataByKeyWords.Add("{calculated current damage value}", () => (ability as IAbleToReturnCurrentDamage).GetCalculatedCurrentDamage().ToString());
+
+            dataByKeyWords.Add("{effect value}", () => (ability as IAbleToApplyAnyModificator).GetModificatorValue().ToString());
+            dataByKeyWords.Add("{effect delta}", () => (ability as IAbleToApplyAnyModificator).GetDeltaValueForEachTurn().ToString());
+            dataByKeyWords.Add("{effect time}", () => (ability as IAbleToApplyAnyModificator).GetTimeToEndOfEffect().ToString());
+            dataByKeyWords.Add("{effect constantly}", () => (ability as IAbleToApplyAnyModificator).GetEffectIsConstantly().ToString());
 
             dataByKeyWords.Add("{defence effect value}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceModificatorValue().ToString());
             dataByKeyWords.Add("{defence effect delta}", () => (ability as IAbleToApplyDefenceModificator).GetdeltaOfDefenceValueForEachTurn().ToString());
@@ -77,6 +95,8 @@ namespace FroguesFramework
 
             dataByKeyWords.Add("{alternative delta value}", () => (ability as IAbleToHaveAlternativeDelta).GetAlternativeDeltaValue().ToString());
             dataByKeyWords.Add("{alternative step value}", () => (ability as IAbleToHaveAlternativeDelta).GetAlternativeStepValue().ToString());
+
+            dataByKeyWords.Add("{count}", () => (ability as IAbleToHaveCount).GetCount().ToString());
         }
 
         private string GetShortData()

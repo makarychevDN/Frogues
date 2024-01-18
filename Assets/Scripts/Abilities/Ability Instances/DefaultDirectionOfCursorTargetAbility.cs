@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DefaultDirectionOfCursorTargetAbility : DirectionOfCursorTargetAbility, IAbleToReturnIsPrevisualized
+    public class DefaultDirectionOfCursorTargetAbility : DirectionOfCursorTargetAbility, IAbleToReturnIsPrevisualized, IAbleToDealDamage, IAbleToReturnRange
     {
         [SerializeField] private DamageType damageType;
         [SerializeField] protected int damage;
@@ -22,7 +22,7 @@ namespace FroguesFramework
             _hashedSelectedCells = SelectCells(cursorPosition);
         }
 
-        protected virtual int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
 
 
         public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
@@ -67,7 +67,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, List<Cell> cells)
         {
             yield return new WaitForSeconds(time);
-            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage, _owner));
+            cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage(), _owner));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
@@ -86,7 +86,7 @@ namespace FroguesFramework
 
                 if (!cell.IsEmpty)
                 {
-                    cell.Content.Health.PreTakeDamage(CalculateDamage);
+                    cell.Content.Health.PreTakeDamage(CalculateDamage());
                     cell.Content.MaterialInstanceContainer.EnableOutline(true);
                 }
             }
@@ -111,5 +111,11 @@ namespace FroguesFramework
 
             return value ^ GetHashCode();
         }
+
+        public int GetDefaultDamage() => damage;
+
+        public DamageType GetDamageType() => damageType;
+
+        public int ReturnRange() => radius;
     }
 }

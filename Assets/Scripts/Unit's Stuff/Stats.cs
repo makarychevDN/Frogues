@@ -36,7 +36,7 @@ namespace FroguesFramework
         public float DexterityeModificator => (1 + dexterity.GetStatValue() * dexterityModificatorStep);
         public float DefenceModificator => (1 + defence.GetStatValue() * defenceModificatorStep);
 
-        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue()  * 4 + intelegence.GetStatValue() * 4 + dexterity.GetStatValue() * 4 + defence.GetStatValue() * 4 + spikes.GetStatValue() * 4 + immobilized.GetTimeToTheEndOfEffect() * 4;
+        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 1 + intelegence.GetStatValue() * 10 + dexterity.GetStatValue() * 100 + defence.GetStatValue() * 1000 + spikes.GetStatValue() * 10000 + immobilized.GetTimeToTheEndOfEffect() * 100000;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
@@ -77,7 +77,7 @@ namespace FroguesFramework
         #region timerStuff
         public void TickAfterEnemiesTurn()
         {
-            if (!_owner.IsEnemy)
+            if (_owner.IsEnemy)
                 return;
 
             TickAllEffects();
@@ -85,7 +85,7 @@ namespace FroguesFramework
 
         public void TickAfterPlayerTurn()
         {
-            if (_owner.IsEnemy)
+            if (!_owner.IsEnemy)
                 return;
 
             TickAllEffects();

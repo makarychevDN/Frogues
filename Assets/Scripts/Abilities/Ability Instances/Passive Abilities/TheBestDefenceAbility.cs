@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class TheBestDefenceAbility : NonTargetAbility
+    public class TheBestDefenceAbility : NonTargetAbility, IAbleToApplySpikesModificator
     {
         public override void Use()
         {
@@ -26,5 +26,13 @@ namespace FroguesFramework
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+
+        public int GetdeltaOfSpikesValueForEachTurn() => 0;
+
+        public bool GetSpikesEffectIsConstantly() => false;
+
+        public int GetSpikesModificatorValue() => _owner.AbilitiesManager.WeaponDamage;
+
+        public int GetTimeToEndOfSpikesEffect() => 1;
     }
 }

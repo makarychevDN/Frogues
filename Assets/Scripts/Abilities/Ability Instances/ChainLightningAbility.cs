@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ChainLightningAbility : DefaultUnitTargetAbility
+    public class ChainLightningAbility : DefaultUnitTargetAbility, IAbleToHaveAlternativeRange, IAbleToHaveCount
     {
         [SerializeField] private int ricochetsCount;
         [SerializeField] private int rangeOfRicochet;
@@ -54,5 +54,9 @@ namespace FroguesFramework
             lightingVisualizatuion.gameObject.SetActive(false);
             CurrentlyActiveObjects.Remove(this);
         }
+
+        public int GetAlternativeRange() => rangeOfRicochet;
+
+        public int GetCount() => ricochetsCount;
     }
 }

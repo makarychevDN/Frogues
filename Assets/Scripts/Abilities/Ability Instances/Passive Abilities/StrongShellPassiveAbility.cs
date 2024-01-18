@@ -1,9 +1,8 @@
-using System;
 using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class StrongShellPassiveAbility : PassiveAbility
+    public class StrongShellPassiveAbility : PassiveAbility, IAbleToApplyArmor, IAbleToModifyMaxHP
     {
         [SerializeField] private int additionalConstantlyBlockValue;
         [SerializeField] private int healthCostValue;
@@ -26,5 +25,11 @@ namespace FroguesFramework
         {
             _owner.Health.IncreasePermanentBlock(additionalConstantlyBlockValue);
         }
+
+        public int CalculateArmor() => additionalConstantlyBlockValue;
+
+        public int GetDefaultArmorValue() => additionalConstantlyBlockValue;
+
+        public int GetModificatorForMaxHP() => healthCostValue;
     }
 }

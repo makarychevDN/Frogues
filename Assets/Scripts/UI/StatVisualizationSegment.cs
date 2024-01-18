@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,20 +6,18 @@ namespace FroguesFramework
 {
     public class StatVisualizationSegment : MonoBehaviour
     {
+        [SerializeField] private bool ignoreArrows;
         [SerializeField] private GameObject upArrow;
         [SerializeField] private GameObject downArrow;
-
-        [SerializeField] private GameObject[] firstDigits;
-        [SerializeField] private GameObject[] secondDigits;
-        [SerializeField] private GameObject secondDigitsParents;
+        [SerializeField] private GameObject iconPrefab;
+        [SerializeField] private Transform parentForSpwanedIcons;
 
         [SerializeField] private string statIsPositiveColorCode = "#7B8C1B";
         [SerializeField] private string statIsNegativeColorCode = "#8C511B";
 
-        [SerializeField] private GameObject effectIcon;
-
         private Color statIncresedColor;
         private Color statDecreasedColor;
+        private List<Image> statIcons = new();
 
         private void Awake()
         {
@@ -30,31 +29,29 @@ namespace FroguesFramework
 
         public void SetValue(int value)
         {
-            secondDigitsParents.SetActive(false);
-
             var valueIsNegative = value < 0;
-            upArrow.SetActive(!valueIsNegative);
-            downArrow.SetActive(valueIsNegative);
-
             Color currentColor = valueIsNegative ? statDecreasedColor : statIncresedColor;
+            value = Mathf.Abs(value);
 
-            var firstDigit = Mathf.Abs(value % 10);
-            firstDigits[firstDigit].GetComponent<Image>().color = currentColor;
-            for (int i = 0; i < firstDigits.Length; i++)
+            if (!ignoreArrows)
             {
-                firstDigits[i].SetActive(firstDigit == i);
-                firstDigits[i].GetComponent<Image>().color = currentColor;
+                upArrow.SetActive(!valueIsNegative);
+                downArrow.SetActive(valueIsNegative);
             }
 
-            if (Mathf.Abs(value) < 10)
-                return;
-
-            secondDigitsParents.SetActive(true);
-            var secondDigit = Mathf.Abs(value / 10);
-            secondDigits[firstDigit].GetComponent<Image>().color = currentColor;
-            for (int i = 0; i < secondDigits.Length; i++)
+            if (statIcons.Count < value)
             {
-                secondDigits[i].SetActive(secondDigit == i);
+                while(statIcons.Count < value)
+                {
+                    var newIcon = Instantiate(iconPrefab, parentForSpwanedIcons);
+                    statIcons.Add(newIcon.GetComponentInChildren<Image>());
+                }
+            }
+
+            for (int i = 0; i < statIcons.Count; i++)
+            {
+                statIcons[i].color = currentColor;
+                statIcons[i].transform.parent.gameObject.SetActive(i < value);
             }
         }
     }

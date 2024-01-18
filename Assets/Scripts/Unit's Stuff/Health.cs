@@ -3,12 +3,14 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class Health : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization
+    public class Health : MonoBehaviour, IRoundTickable, IAbleToDisablePreVisualization, IAbleToCalculateHashFunctionOfPrevisualisation
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
         [SerializeField] private int permanentBlock;
         [SerializeField] private int temporaryBlock;
+        [SerializeField] private int escapesFromDeathCount;
+        [SerializeField] private bool dieImmedeatlyAfterStepOnItByUnit;
         public UnityEvent OnApplyUnblockedDamage;
         public UnityEvent OnDamageBlockedSuccessfully;
         public UnityEvent<Unit> OnDamageFromUnitBlockedSuccessfully;
@@ -18,6 +20,7 @@ namespace FroguesFramework
         public UnityEvent OnBlockIncreased;
         public UnityEvent OnHpEnded;
         public UnityEvent OnHpHealed;
+        public UnityEvent OnEscapedFromDeath;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
         private int _healthWithPreTakenDamage, _permanentBlockrWithPreTakenDamage, _temporaryBlockWithPreTakenDamage;
         private int _hashedHp, _hashedBlock;
@@ -68,6 +71,12 @@ namespace FroguesFramework
         public void IncreaseMaxHp(int value)
         {
             maxHP += value;
+            currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        }
+
+        public void IncreaseEscapesFromDeathCount(int value)
+        {
+            escapesFromDeathCount += value;
         }
 
         private void Update()
@@ -131,7 +140,18 @@ namespace FroguesFramework
 
             if (currentHP <= 0)
             {
-                Invoke(nameof(DieProcess), 0.25f);
+                OnHpEnded.Invoke();
+
+                if (escapesFromDeathCount <= 0)
+                {
+                    Invoke(nameof(DieProcess), 0.25f);
+                }
+                else
+                {
+                    OnEscapedFromDeath.Invoke();
+                    currentHP = maxHP / 2;
+                    escapesFromDeathCount--;
+                }
             }
             
             _hashedHp = currentHP;
@@ -167,7 +187,15 @@ namespace FroguesFramework
         public void DieFromStepOnUnit()
         {
             deathFromStepOnThisUnitAudioSource.Play();
-            TakeDamage(maxHP, true, null);
+
+            if (dieImmedeatlyAfterStepOnItByUnit)
+            {
+                _unit.AbleToDie.DieWithoutAnimation();
+            }
+            else
+            {
+                TakeDamage(maxHP, true, null);
+            }
         }
         
         public void DieFromBumpInto()
@@ -196,7 +224,6 @@ namespace FroguesFramework
 
         private void DieProcess()
         {
-            OnHpEnded.Invoke();
             _unit.AbleToDie.Die();
         }
 
@@ -217,5 +244,7 @@ namespace FroguesFramework
 
         public void RemoveMySelfFromEntryPoint() =>
             EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+
+        public int CalculateHashFunctionOfPrevisualisation() => 4 * MaxHp + 4 * CurrentHp + 4 * HealthWithPreTakenDamage + 4 * PermanentBlock + 4 * TemporaryBlock + 4;
     }
 }

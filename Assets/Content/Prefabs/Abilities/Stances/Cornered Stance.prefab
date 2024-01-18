@@ -31,6 +31,30 @@ PrefabInstance:
         \u043A\u043B\u0435\u0442\u043A\u0443 \u0441\u043E \u0441\u0442\u0435\u043D\u043E\u0439
         \u043F\u043E\u0431\u043B\u0438\u0437\u043E\u0441\u0442\u0438"
       objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: shortDataTags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: shortDataTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c0a444990c3e069499efb72c2f1b4304, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: shortDataTags.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8487eb9d594b3324d972bb1e6268aa3c, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1eb40116b443abc4ebf3f7be634ee45d, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 41e7dee7692f75443b1f6b3de04f473e, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -126,20 +150,23 @@ MonoBehaviour:
   HighlightButtonEvent:
     m_PersistentCalls:
       m_Calls: []
+  addBonusForEachWallNearby: 0
   startEffectsAndDeltas:
-  - deltaForEachWallNearby: 1
+  - additionalValueForWallsNearby: 2
     startValue:
       type: 0
       value: -1
+      deltaValueForEachTurn: 0
       timeToTheEndOfEffect: 1
       effectIsConstantly: 1
       OnEffectValueChanged:
         m_PersistentCalls:
           m_Calls: []
-  - deltaForEachWallNearby: 1
+  - additionalValueForWallsNearby: 3
     startValue:
       type: 20
       value: -1
+      deltaValueForEachTurn: 0
       timeToTheEndOfEffect: 1
       effectIsConstantly: 1
       OnEffectValueChanged:
