@@ -170,6 +170,8 @@ namespace FroguesFramework
             OnEffectValueChanged = new UnityEvent<StatEffectTypes, int>();
         }
 
+        public StatEffect(StatEffect statEffect) : this(statEffect.type, statEffect.value, statEffect.timeToTheEndOfEffect, statEffect.deltaValueForEachTurn, statEffect.effectIsConstantly) { }
+
         public void Tick(int ticksValue = 1)
         {
             if(!effectIsConstantly)
