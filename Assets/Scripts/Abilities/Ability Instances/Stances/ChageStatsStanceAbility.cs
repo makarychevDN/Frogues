@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class ChageStatsStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator, IAbleToApplySpikesModificator
     {
         [SerializeField] private List<StatEffect> effects;
+        private List<StatEffect> currentEffects = new();
 
         public override void ApplyEffect(bool isActive)
         {
@@ -13,11 +14,21 @@ namespace FroguesFramework
 
             if (isActive)
             {
-                effects.ForEach(effect => _owner.Stats.AddStatEffect(effect));
+                foreach(var effect in effects)
+                {
+                    var spawnedEffect = new StatEffect(effect);
+                    _owner.Stats.AddStatEffect(spawnedEffect);
+                    currentEffects.Add(spawnedEffect);
+                }
             }
             else
             {
-                effects.ForEach(effect => _owner.Stats.RemoveStatEffect(effect));
+                foreach (var effect in currentEffects)
+                {
+                    _owner.Stats.RemoveStatEffect(effect);
+                }
+
+                currentEffects.Clear();
             }
         }
 
