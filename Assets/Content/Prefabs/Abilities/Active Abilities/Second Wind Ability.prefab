@@ -11,18 +11,18 @@ PrefabInstance:
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: material
       value: 
-      objectReference: {fileID: 2100000, guid: f124592f99263ec448bff478012110a8, type: 2}
+      objectReference: {fileID: 2100000, guid: dae6e9382839e1e428ea6c4afb64dc90, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: abilityName
-      value: "\u0422\u0435\u0440\u043D\u043E\u0432\u044B\u0435 \u0437\u0430\u0440\u043E\u0441\u043B\u0438"
+      value: "\u0412\u0442\u043E\u0440\u043E\u0435 \u0434\u044B\u0445\u0430\u043D\u0438\u0435"
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: shortDataTags.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: shortDataTags.Array.data[0]
@@ -35,25 +35,21 @@ PrefabInstance:
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: shortDataTags.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: 8f9e38295d2ec2b458fb82bead9abc4d, type: 2}
+      objectReference: {fileID: 11400000, guid: 3684894c1d9da29409ebcea6c3014484, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: shortDataTags.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f9e38295d2ec2b458fb82bead9abc4d, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: shortDataTags.Array.data[4]
       value: 
       objectReference: {fileID: 11400000, guid: da947f555b4326a4984c78ddc7c198a4, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 76f06f9786d3d66478800f0a5442ddab, type: 2}
-    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
-      propertyPath: descriptionTags.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: bf67d11ffd4bc864da9287ea5f01684c, type: 2}
-    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
-      propertyPath: descriptionTags.Array.data[2]
-      value: 
       objectReference: {fileID: 11400000, guid: c4cf281f26a92904aa47e79658439bab, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
-      propertyPath: descriptionTags.Array.data[3]
+      propertyPath: descriptionTags.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: eee6ff61df4a56946bca67e86f44be2a, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
@@ -102,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_Name
-      value: Spike Bushes Ability
+      value: Second Wind Ability
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -110,7 +106,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5774373266950952726}
+      addedObject: {fileID: 5785306727670875927}
   m_SourcePrefab: {fileID: 100100000, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
 --- !u!114 &8592677024977933672 stripped
 MonoBehaviour:
@@ -128,7 +124,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5863459408028885805, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
   m_PrefabInstance: {fileID: 2765319565851473474}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5774373266950952726
+--- !u!114 &5785306727670875927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,20 +145,12 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
-  abilityAnimatorTrigger: 0
+  abilityAnimatorTrigger: 3
   weaponIndex: -1
   timeBeforeImpact: 0.15
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
-  temporaryBlockValue: 1
-  permanentBlockValue: 1
-  effects:
-  - type: 40
-    value: 1
-    deltaValueForEachTurn: 0
-    timeToTheEndOfEffect: 1
-    effectIsConstantly: 0
-    OnEffectValueChanged:
-      m_PersistentCalls:
-        m_Calls: []
+  temporaryBlockValue: 0
+  permanentBlockValue: 0
+  effects: []

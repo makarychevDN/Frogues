@@ -147,6 +147,19 @@ MonoBehaviour:
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
-  spikesValue: 0
-  timeToEndEffect: 1
-  effectIsConstantly: 0
+  temporaryBlockValue: 0
+  permanentBlockValue: 0
+  Buffs:
+  - BuffType: 40
+    BuffValue: 1
+    TimeToEndBuff: 1
+    BuffIsConstantly: 0
+  effects:
+  - type: 40
+    value: 1
+    deltaValueForEachTurn: 0
+    timeToTheEndOfEffect: 1
+    effectIsConstantly: 0
+    OnEffectValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
