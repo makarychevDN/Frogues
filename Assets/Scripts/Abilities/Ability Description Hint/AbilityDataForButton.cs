@@ -10,8 +10,6 @@ namespace FroguesFramework
     {
         [SerializeField] private Material material;
         [SerializeField] private string abilityName;
-        [SerializeField, Multiline] private string stats;
-        [SerializeField, Multiline] private string description;
         [SerializeField] private List<AbilityDescriptionTag> shortDataTags;
         [SerializeField] private List<AbilityDescriptionTag> descriptionTags;
         private BaseAbility ability;
@@ -102,22 +100,12 @@ namespace FroguesFramework
 
         private string GetShortData()
         {
-            if(shortDataTags.Count > 0)
-            {
-                return GenerateDescription(shortDataTags, true);
-            }
-
-            return stats;
+            return GenerateDescription(shortDataTags, true);
         }
 
         private string GetDescription()
         {
-            if (descriptionTags.Count > 0)
-            {
-                return GenerateDescription(descriptionTags, false);
-            }
-
-            return description;
+            return GenerateDescription(descriptionTags, false);
         }
 
         private string GenerateDescription(List<AbilityDescriptionTag> tags, bool thereAreNewLinesBetweenTags)
