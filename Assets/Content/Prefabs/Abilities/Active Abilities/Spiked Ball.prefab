@@ -150,7 +150,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 7349c0221f575e14794cf8d8e009ead3, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -249,20 +249,10 @@ MonoBehaviour:
   impactSoundSource: {fileID: 8466096928884297273}
   needToRotateOwnersSprite: 1
   damageType: 10
-  damage: 0
-  radius: 0
-  isNativeAttack: 0
-  ignoreArmor: 0
-  shouldUseWeapondamageInstead: 0
-  shouldUseWeaponActionPointsCostInstead: 0
-  shouldSetMyDamageAndCostAsWeaponCharacteristics: 0
-  addtionalDebufs: []
-  lineFromOwnerToTarget: {fileID: 724009176669923847}
-  OnEffectApplied:
-    m_PersistentCalls:
-      m_Calls: []
   speed: 20
   jumpHeight: 0.2
+  lineFromOwnerToTargetCell: {fileID: 724009176669923847}
+  audioSource: {fileID: 8466096928884297273}
 --- !u!82 &8466096928884297273
 AudioSource:
   m_ObjectHideFlags: 0

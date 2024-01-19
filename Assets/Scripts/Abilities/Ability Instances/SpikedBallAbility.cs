@@ -1,72 +1,135 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
+using static UnityEngine.GraphicsBuffer;
 
 namespace FroguesFramework
 {
-    public class SpikedBallAbility : DefaultUnitTargetAbility
+    public class SpikedBallAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToDealDamage
     {
+        [SerializeField] DamageType damageType;
         [SerializeField] private float speed;
         [SerializeField] private float jumpHeight;
+        [SerializeField] private LineRenderer lineFromOwnerToTargetCell;
+        [SerializeField] private AudioSource audioSource;
         private Unit hashedTarget;
+        private bool _isPrevisualizedNow;
+        private List<Cell> _hashedSelectedArea;
 
-        public override List<Cell> CalculateUsingArea()
+        public override int CalculateHashFunctionOfPrevisualisation()
         {
-            var cells = CellsTaker.TakeCellsLinesInAllDirections(_owner.CurrentCell, CellsTaker.ObstacleMode.onlyBigUnitsAreObstacles, true, true);
-            var closestToUserCells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, 1, true, false);
-            foreach ( var cell in closestToUserCells)
+            int value = _usingArea.Count;
+
+            if (_hashedSelectedArea != null && _hashedSelectedArea[0] != null)
             {
-                cells.Remove(cell);
+                for (int i = 0; i < _hashedSelectedArea.Count; i++)
+                {
+                    value ^= _hashedSelectedArea[i].GetHashCode();
+                }
             }
-            return _usingArea = cells;
+
+            return value ^ GetHashCode();
         }
 
-        public override void VisualizePreUseOnUnit(Unit target)
+        public override List<Cell> CalculateUsingArea() 
         {
-            base.VisualizePreUseOnUnit(target);
+            return _usingArea = CellsTaker.TakeCellsLinesInAllDirections(_owner.CurrentCell, CellsTaker.ObstacleMode.onlyBigUnitsAreObstacles, false, true);
+        }
 
-            if (!PossibleToUseOnUnit(target))
+        public override void DisablePreVisualization()
+        {
+            lineFromOwnerToTargetCell.gameObject.SetActive(false);
+            _isPrevisualizedNow = false;
+        }
+
+        public bool IsPrevisualizedNow() => _isPrevisualizedNow;
+
+        public override bool PossibleToUseOnCells(List<Cell> cells)
+        {
+            if (cells == null || cells.Count == 0 || cells[0] == null)
+                return false;
+
+            return IsResoursePointsEnough() && _usingArea.Contains(cells[0]);
+        }
+
+        public override void PrepareToUsing(List<Cell> cells)
+        {
+            CalculateUsingArea();
+            _hashedSelectedArea = cells;
+        }
+
+        public override List<Cell> SelectCells(List<Cell> cells)
+        {
+            if (!PossibleToUseOnCells(cells))
+                return null;
+
+            return CellsTaker.TakeCellsLineWhichContainCell(_owner.CurrentCell, cells[0], CellsTaker.ObstacleMode.onlyBigUnitsAreObstacles, false, true);
+        }
+
+        public override void VisualizePreUseOnCells(List<Cell> cells)
+        {
+            _isPrevisualizedNow = true;
+            _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
+
+            if (!PossibleToUseOnCells(cells))
                 return;
 
-            lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position - _owner.transform.position);
-            Cell targetCell = CellsTaker.GetCellBeforeOtherCellInDirection(_owner.CurrentCell, target.CurrentCell);
-            //lineFromOwnerToTarget.SetPosition(1, targetCell.transform.position - _owner.transform.position);
-            //lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, targetCell.transform.position, 0.3f, EntryPoint.Instance.DefaultMovementCurve);
-            lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, targetCell.transform.position, 0.3f, EntryPoint.Instance.DefaultMovementCurve);
+            cells.ForEach(cell => cell.EnableSelectedByAbilityCellHighlight(cells));
+            lineFromOwnerToTargetCell.gameObject.SetActive(true);
+            lineFromOwnerToTargetCell.SetAnimationCurveShape(_owner.transform.position, cells.GetLast().transform.position, jumpHeight, EntryPoint.Instance.DefaultMovementCurve);
+
+            var obstacle = GetObstacle(_owner, cells);
+            if(obstacle != null && obstacle is not Barrier)
+            {
+                obstacle.Health.PreTakeDamage(CalculateDamage());
+                obstacle.MaterialInstanceContainer.EnableOutline(true);
+            }
         }
 
-        public override void UseOnUnit(Unit target)
+        private Unit GetObstacle(Unit user, List<Cell> line)
         {
-            if (!PossibleToUseOnUnit(target))
+            HexDir hexDir = CellsTaker.GetDirByStartAndEndCells(user.CurrentCell, line.Last());
+            return line.Last().CellNeighbours.GetNeighborByHexDir(hexDir).Content;
+        }
+
+        public override void UseOnCells(List<Cell> cells)
+        {
+            if (!PossibleToUseOnCells(cells))
                 return;
 
             SpendResourcePoints();
             SetCooldownAsAfterUse();
 
-            if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(target);
-            _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
-            StartCoroutine(ApplyEffect(timeBeforeImpact, target));
+            if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(cells[0]);
+
+            hashedTarget = GetObstacle(_owner, cells);
+            _owner.Movable.OnMovementEnd.AddListener(DealDamageOnMovementStopped);
+            _owner.Movable.Move(cells.Last(), speed, jumpHeight);
         }
 
-        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(_owner.Health.Block, damageType, _owner.Stats);
-
-        protected override IEnumerator ApplyEffect(float time, Unit target)
+        private void PlayImpactSound()
         {
-            yield return new WaitForSeconds(time);
-            hashedTarget = target;
-            _owner.Movable.OnMovementEnd.AddListener(DealDamageOnMovementStopped);
-            Cell targetCell = CellsTaker.GetCellBeforeOtherCellInDirection(_owner.CurrentCell, target.CurrentCell);
-            _owner.Movable.Move(targetCell, speed, jumpHeight);
-            EntryPoint.Instance.DisableAllPrevisualization();
+            audioSource.Play();
         }
 
         private void DealDamageOnMovementStopped()
         {
-            hashedTarget.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
-            OnEffectApplied.Invoke();
+            if (hashedTarget != null && hashedTarget is not Barrier)
+            {
+                hashedTarget.Health.TakeDamage(CalculateDamage(), false, _owner); 
+            }
+
             hashedTarget = null;
             _owner.Movable.OnMovementEnd.RemoveListener(DealDamageOnMovementStopped);
             PlayImpactSound();
         }
+
+        public int GetDefaultDamage() => 0;
+
+        public DamageType GetDamageType() => damageType;
+
+        public int CalculateDamage() => _owner.Stats.Spikes + _owner.Health.Block;
     }
 }
