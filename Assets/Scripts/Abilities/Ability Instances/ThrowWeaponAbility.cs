@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class ThrowWeaponAbility : SpawnAndMoveProjectileInTheTargetAbility
+    public class ThrowWeaponAbility : SpawnAndMoveProjectileInTheTargetAbility, IAbleToReturnSingleValue, IAbleToReturnSecondSingleValue
     {
         [SerializeField] private int cooldownForLightWeapon;
         [SerializeField] private int cooldownForHeavyWeapon;
@@ -24,5 +24,9 @@ namespace FroguesFramework
         {
             cooldownAfterUse = _owner.AbilitiesManager.WeaponActionPointsCost == 2 ? cooldownForHeavyWeapon : cooldownForLightWeapon;
         }
+
+        public int GetValue() => cooldownForLightWeapon;
+
+        public int GetSecondValue() => cooldownForHeavyWeapon;
     }
 }
