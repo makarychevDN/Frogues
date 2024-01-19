@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DuelistStanceAbility : BattleStanceAbility/*, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator, IAbleToHaveAlternativeDelta*/
+    public class DuelistStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator
     {
         [SerializeField] private List<StatEffectAndDeltaWhenOnlyOneEnemieNearby> startEffectsAndDeltas;
         private List<StatEffect> _effects;
@@ -57,6 +57,48 @@ namespace FroguesFramework
                 _effects[i].Value = startEffectsAndDeltas[i].startValue.Value + onlyOneEnemieNearbyModificator * startEffectsAndDeltas[i].deltaForOneEnemyNearby;
             }
         }
+
+        #region IAbleToApplyStrenghtModificator
+        public int GetStrenghtModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).startValue.Value;
+
+        public int GetDeltaOfStrenghtValueForEachTurn()
+        {
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).deltaForOneEnemyNearby;
+            return delta - Mathf.Abs(GetStrenghtModificatorValue());
+        }
+
+        public int GetTimeToEndOfStrenghtEffect() => int.MaxValue;
+
+        public bool GetStrenghtEffectIsConstantly() => true;
+        #endregion
+
+        #region IAbleToApplyDexterityModificator
+        public int GetDexterityModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.dexterity).startValue.Value;
+
+        public int GetDeltaOfDexterityValueForEachTurn()
+        {
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.dexterity).deltaForOneEnemyNearby;
+            return delta - Mathf.Abs(GetDexterityModificatorValue());
+        }
+
+        public int GetTimeToEndOfDexterityEffect() => int.MaxValue;
+
+        public bool GetDexterityEffectIsConstantly() => true;
+        #endregion
+
+        #region #IAbleToApplyIntelligenceModificator
+        public int GetIntelligenceModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.intelegence).startValue.Value;
+
+        public int GetDeltaOfIntelligenceValueForEachTurn()
+        {
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.intelegence).deltaForOneEnemyNearby;
+            return delta - Mathf.Abs(GetIntelligenceModificatorValue());
+        }
+
+        public int GetTimeToEndOfIntelligenceEffect() => int.MaxValue;
+
+        public bool GetIntelligenceEffectIsConstantly() => true;
+        #endregion
     }
 
     [Serializable]
