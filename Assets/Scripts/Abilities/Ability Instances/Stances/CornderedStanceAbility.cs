@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class CornderedStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator, IAbleToHaveDelta, IAbleToHaveAlternativeDelta
+    public class CornderedStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator
     {
         [SerializeField] private bool addBonusForEachWallNearby;
         [SerializeField] private List<StatEffectAndDelaForEachWallNearby> startEffectsAndDeltas;
@@ -62,7 +62,11 @@ namespace FroguesFramework
 
         public int GetStrenghtModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).startValue.Value;
 
-        public int GetDeltaOfStrenghtValueForEachTurn() => 0;
+        public int GetDeltaOfStrenghtValueForEachTurn()
+        {
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).additionalValueForWallsNearby;
+            return delta - Mathf.Abs(GetStrenghtModificatorValue());
+        }
 
         public int GetTimeToEndOfStrenghtEffect() => int.MaxValue;
 
@@ -70,27 +74,15 @@ namespace FroguesFramework
 
         public int GetDexterityModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.dexterity).startValue.Value;
 
-        public int GetDeltaOfDexterityValueForEachTurn() => 0;
-
-        public int GetTimeToEndOfDexterityEffect() => int.MaxValue;
-
-        public bool GetDexterityEffectIsConstantly() => true;
-
-        public int GetDeltaValue()
-        {
-            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).additionalValueForWallsNearby;
-            return delta - Mathf.Abs(GetStrenghtModificatorValue());
-        }
-
-        public int GetStepValue() => 1;
-
-        public int GetAlternativeDeltaValue()
+        public int GetDeltaOfDexterityValueForEachTurn()
         {
             int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.dexterity).additionalValueForWallsNearby;
             return delta - Mathf.Abs(GetDexterityModificatorValue());
         }
 
-        public int GetAlternativeStepValue() => 1;
+        public int GetTimeToEndOfDexterityEffect() => int.MaxValue;
+
+        public bool GetDexterityEffectIsConstantly() => true;
     }
 
     [Serializable]

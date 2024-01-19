@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DuelistStanceAbility : BattleStanceAbility
+    public class DuelistStanceAbility : BattleStanceAbility/*, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator, IAbleToHaveAlternativeDelta*/
     {
         [SerializeField] private List<StatEffectAndDeltaWhenOnlyOneEnemieNearby> startEffectsAndDeltas;
         private List<StatEffect> _effects;
