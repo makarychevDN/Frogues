@@ -6,15 +6,15 @@ namespace FroguesFramework
     public class JumpOnCellAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange
     {
         [SerializeField] protected int range = 3;
-        [SerializeField] private float movementSpeed = 13;
-        [SerializeField] private float movementHeight = 0.7f;
+        [SerializeField] protected float movementSpeed = 13;
+        [SerializeField] protected float movementHeight = 0.7f;
 
         [Header("Previsualization Setup")]
-        [SerializeField] private LineRenderer lineFromOwnerToTarget;
-        [SerializeField] private AnimationCurve parabolaAnimationCurve;
+        [SerializeField] protected LineRenderer lineFromOwnerToTarget;
+        [SerializeField] protected AnimationCurve parabolaAnimationCurve;
 
         private Cell _hashedCell;
-        private bool _isPrevisualizedNow;
+        protected bool _isPrevisualizedNow;
 
         public override int CalculateHashFunctionOfPrevisualisation()
         {

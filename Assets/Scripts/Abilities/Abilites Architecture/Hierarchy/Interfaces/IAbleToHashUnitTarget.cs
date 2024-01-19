@@ -2,6 +2,6 @@ namespace FroguesFramework
 {
     public interface IAbleToHashUnitTarget
     {
-        public void HashUnitTarget(Unit target);
+        public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost);
     }
 }

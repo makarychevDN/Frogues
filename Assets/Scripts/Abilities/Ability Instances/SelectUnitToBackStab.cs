@@ -1,7 +1,11 @@
+using UnityEngine;
+
 namespace FroguesFramework
 {
-    public class SelectUnitToBackStab : SelectUnitToCellAbility
+    public class SelectUnitToBackStab : SelectUnitToCellAbility, IAbleToReturnSingleValue, IAbleToReturnSecondSingleValue
     {
+        [SerializeField] protected int additionalCostForHeavyWeapon = 1;
+
         public override void VisualizePreUseOnUnit(Unit target)
         {
             base.VisualizePreUseOnUnit(target);
@@ -16,8 +20,22 @@ namespace FroguesFramework
 
         public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(_owner.AbilitiesManager.WeaponDamage, damageType, _owner.Stats);
 
-        public override int GetActionPointsCost() => CalculateActionPointsCost;
+        public override int GetActionPointsCost()
+        {
+            return CalculateActionPointsCost;
+        }
 
-        protected override int CalculateActionPointsCost => _owner.AbilitiesManager.WeaponActionPointsCost == 2 ? 3 : 1;
+        protected override int CalculateActionPointsCost => _owner.AbilitiesManager.WeaponActionPointsCost + CurrentAdditionalCost;
+
+        protected override void HashUnitToAreaTargetAbility(Unit unit)
+        {
+            ((IAbleToHashUnitTarget)areaTargetAbility).HashUnitTargetAndCosts(unit, CurrentAdditionalCost, CalculateBloodPointsCost);
+        }
+
+        public int GetValue() => 1;
+
+        public int GetSecondValue() => 2 + additionalCostForHeavyWeapon;
+
+        private int CurrentAdditionalCost => _owner.AbilitiesManager.WeaponActionPointsCost == 2 ? additionalCostForHeavyWeapon : 0;
     }
 }

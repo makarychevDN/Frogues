@@ -40,7 +40,7 @@ namespace FroguesFramework
             _isPrevisualizedNow = false;
         }
 
-        public void HashUnitTarget(Unit target) => _hashedTarget = target;
+        public void HashUnitTargetAndCosts(Unit target) => _hashedTarget = target;
 
         public bool IsPrevisualizedNow() => _isPrevisualizedNow;
 
@@ -102,6 +102,11 @@ namespace FroguesFramework
         {
             _hashedTarget.Health.TakeDamage(CalculateDamage, _owner);
             _hashedTarget.Movable.OnMovementEnd.RemoveListener(DealDamage);
+        }
+
+        public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost)
+        {
+            throw new System.NotImplementedException();
         }
 
         private int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);

@@ -6,30 +6,45 @@ namespace FroguesFramework
     {
         private Unit _hashedTarget;
 
-        public void HashUnitTarget(Unit target) => _hashedTarget = target;
+        public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost)
+        {
+            _hashedTarget = target;
+            this.actionPointsCost = actionPointsCost;
+            this.bloodPointsCost = bloodPointsCost;
+        }
 
         public override List<Cell> CalculateUsingArea()
         {
             return _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByRange(_hashedTarget.CurrentCell, range, false, false, true);
         }
 
-        protected override int CalculateActionPointsCost => _owner.AbilitiesManager.WeaponActionPointsCost == 2 ? 1 : 0;
-
         public override bool IsResoursePointsEnough()
         {
             if (_owner.BloodPoints != null)
             {
-                return _owner.ActionPoints.IsPointsEnough(CalculateActionPointsCost + _owner.AbilitiesManager.WeaponActionPointsCost)
-                    && _owner.BloodPoints.IsPointsEnough(CalculateBloodPointsCost);
+                return _owner.ActionPoints.IsPointsEnough(actionPointsCost)
+                    && _owner.BloodPoints.IsPointsEnough(bloodPointsCost);
             }
 
-            return _owner.ActionPoints.IsPointsEnough(actionPointsCost + _owner.AbilitiesManager.WeaponActionPointsCost);
+            return _owner.ActionPoints.IsPointsEnough(actionPointsCost);
         }
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
         {
-            base.VisualizePreUseOnCells(cells);
+            _isPrevisualizedNow = true;
+            _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
+
+            if (!PossibleToUseOnCells(cells))
+                return;
+
             _owner.ActionPoints.PreSpendPoints(CalculateActionPointsCost + _owner.AbilitiesManager.WeaponActionPointsCost);
+            _owner.BloodPoints.PreSpendPoints(CalculateBloodPointsCost);
+
+            lineFromOwnerToTarget.gameObject.SetActive(true);
+            lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, cells[0].transform.position,
+                movementHeight * _owner.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
+            cells[0].EnableSelectedByAbilityCellHighlight(new List<Cell> { cells[0] });
+
             _hashedTarget.Health.PreTakeDamage(_owner.AbilitiesManager.WeaponDamage);
         }
 

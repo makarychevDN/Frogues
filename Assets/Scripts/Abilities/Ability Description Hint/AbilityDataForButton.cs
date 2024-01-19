@@ -27,6 +27,7 @@ namespace FroguesFramework
             ability = GetComponent<BaseAbility>();
 
             dataByKeyWords.Add("{value}", () => (ability as IAbleToReturnSingleValue).GetValue().ToString());
+            dataByKeyWords.Add("{value 2}", () => (ability as IAbleToReturnSecondSingleValue).GetSecondValue().ToString());
 
             dataByKeyWords.Add("{max blood points mod}", () => (ability as IAbleToModifyMaxBloodPoints).GetModificatorForMaxBloodPoints().ToString());
             dataByKeyWords.Add("{max hp mod}", () => (ability as IAbleToModifyMaxHP).GetModificatorForMaxHP().ToString());

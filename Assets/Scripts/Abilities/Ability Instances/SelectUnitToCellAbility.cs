@@ -10,7 +10,7 @@ namespace FroguesFramework
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
         [SerializeField] private int radius;
-        [SerializeField] private AreaTargetAbility areaTargetAbility;
+        [SerializeField] protected AreaTargetAbility areaTargetAbility;
         [SerializeField] private bool isAbleToSelectDefaultUnit = true;
         [SerializeField] private bool isAbleToSelectBloodSurface = false;
 
@@ -29,9 +29,9 @@ namespace FroguesFramework
             OnUnitSelected.AddListener(HashUnitToAreaTargetAbility);
         }
 
-        private void HashUnitToAreaTargetAbility(Unit unit)
+        protected virtual void HashUnitToAreaTargetAbility(Unit unit)
         {
-            ((IAbleToHashUnitTarget)areaTargetAbility).HashUnitTarget(unit);
+            ((IAbleToHashUnitTarget)areaTargetAbility).HashUnitTargetAndCosts(unit, CalculateActionPointsCost, CalculateBloodPointsCost);
         }
 
         public override int CalculateHashFunctionOfPrevisualisation()
@@ -92,8 +92,8 @@ namespace FroguesFramework
                 return;
 
             target.Health.PreTakeDamage(CalculateDamage());
-            _owner.ActionPoints.PreSpendPoints(actionPointsCost);
-            _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
+            _owner.ActionPoints.PreSpendPoints(GetActionPointsCost());
+            _owner.BloodPoints.PreSpendPoints(GetBloodPointsCost());
             lineFromOwnerToTarget.gameObject.SetActive(true);
             lineFromOwnerToTarget.SetPosition(0, _owner.SpriteParent.position);
             lineFromOwnerToTarget.SetPosition(1, target.SpriteParent.position);

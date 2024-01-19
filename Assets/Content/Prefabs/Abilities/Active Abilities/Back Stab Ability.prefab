@@ -48,7 +48,7 @@ MonoBehaviour:
   abilityDataForButton: {fileID: 0}
   isPartOfWeapon: 0
   actionPointsCost: 0
-  bloodPointsCost: 0
+  bloodPointsCost: 1
   healthCost: 0
   cooldownAfterUse: 0
   cooldownAfterStart: 0
@@ -194,6 +194,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 072d41a38dbf53840801f6275ee7930d, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: abilityName
+      value: "\u0423\u0434\u0430\u0440 \u0432 \u0441\u043F\u0438\u043D\u0443"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: description
       value: "\u041F\u0440\u044B\u0433\u0430\u0435\u0442 \u043D\u0430 \u0443\u043A\u0430\u0437\u0430\u043D\u043D\u0443\u044E
         \u043A\u043B\u0435\u0442\u043A\u0443 \u0432\u043E\u0437\u043B\u0435 \u0432\u044B\u0431\u043E\u0440\u0430\u043D\u043D\u043E\u0433\u043E
@@ -209,7 +213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: shortDataTags.Array.data[0]
@@ -243,9 +247,13 @@ PrefabInstance:
       propertyPath: descriptionTags.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: 1c83236bfc6d5554baf9e853b7d4d21c, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2c7063e6cb170254c9cc5736bed80a72, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -364,6 +372,7 @@ MonoBehaviour:
   OnUnitSelected:
     m_PersistentCalls:
       m_Calls: []
+  additionalCostForHeavyWeapon: 1
 --- !u!1001 &7701765819169492815
 PrefabInstance:
   m_ObjectHideFlags: 0
