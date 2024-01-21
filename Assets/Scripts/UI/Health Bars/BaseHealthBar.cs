@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +22,25 @@ namespace FroguesFramework
         public void SetHealthAndStats(Health health, Stats stats)
         {
             this.health = health;
-            this.stats = stats;
+            this.stats = stats;            
+        }
+
+        void Start()
+        {
+            StartCoroutine(RedrawOnSecondFrame());
+        }
+
+        IEnumerator RedrawOnSecondFrame()
+        {
+            //returning 0 will make it wait 1 frame
+            yield return 0;
+            Redraw();
+        }
+
+        private void BLYAT()
+        {
+            resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
+            print("blyat");
         }
 
         public void Update()
@@ -31,7 +50,6 @@ namespace FroguesFramework
             {
                 Redraw();
             }
-
 
             _hashFuncionOfHealth = health.CalculateHashFunctionOfPrevisualisation();
             _hashFuncionOfStats = stats.CalculateHashFunctionOfPrevisualisation();
