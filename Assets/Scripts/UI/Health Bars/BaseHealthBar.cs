@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,7 @@ namespace FroguesFramework
         [SerializeField] protected Health health;
         [SerializeField] protected Stats stats;
 
-        [SerializeField] protected RectTransform resizableParent;
+        [SerializeField] protected List<RectTransform> resizableParents;
 
         [SerializeField] protected Slider hpSlider;
         [SerializeField] protected Slider preTakenDamageHPSlider;

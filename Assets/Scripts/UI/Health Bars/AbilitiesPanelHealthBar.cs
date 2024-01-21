@@ -28,7 +28,7 @@ namespace FroguesFramework
             armorTextField.text = (health.PermanentBlock).ToString();
             spikesTextField.text = (stats.Spikes).ToString();
 
-            LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
+            resizableParents.ForEach(resizableParent => LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent));
         }
     }
 }
