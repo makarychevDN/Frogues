@@ -1,52 +1,75 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6596561887842777884
-GameObject:
+--- !u!1001 &7249270687748532143
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2608596794837206128}
-  - component: {fileID: 4639699010654216672}
-  m_Layer: 7
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2608596794837206128
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4512319194081742538}
+    m_Modifications:
+    - target: {fileID: 5653574240887673390, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_Name
+      value: Deal Damage On Contact Ability
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6305869636837654842, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+      propertyPath: damage
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+--- !u!4 &3093711918650602880 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 5653574240887673391, guid: c77d61a06f6a2d640a7511551f436373, type: 3}
+  m_PrefabInstance: {fileID: 7249270687748532143}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6596561887842777884}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4512319194081742538}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4639699010654216672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6596561887842777884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4761be288f048d54a89da0e17c6673c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityDataForButton: {fileID: 0}
-  isPartOfWeapon: 0
-  damage: 1
 --- !u!1001 &7852625545639132657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -127,6 +150,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4470639621562112939, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
+      propertyPath: unitName
+      value: "\u041A\u043E\u043B\u044E\u0447\u0438\u0439 \u043C\u0443\u0441\u043E\u0440"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470639621562112939, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
+      propertyPath: description
+      value: "\u041A\u043B\u0430\u0441\u0441\u0438\u0447\u0435\u0441\u043A\u0430\u044F
+        \u0443\u043B\u043E\u0432\u043A\u0430 \u043E\u043F\u044B\u0442\u043D\u044B\u0445
+        \u0432\u043E\u0438\u0442\u0435\u043B\u0435\u0439. \u041F\u043E\u043C\u043E\u0433\u0430\u0435\u0442
+        \u0443\u043F\u0440\u043E\u0441\u0442\u0438\u0442\u044C \u043F\u0443\u0442\u044C
+        \u043A \u043E\u0442\u0441\u0442\u0443\u043F\u043B\u0435\u043D\u0438\u044E."
+      objectReference: {fileID: 0}
     - target: {fileID: 5694739744037664986, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
       propertyPath: m_Name
       value: Sharp Stars
@@ -184,7 +219,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5937111218682671931, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2608596794837206128}
+      addedObject: {fileID: 3093711918650602880}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5694739744037664986, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
       insertIndex: -1
