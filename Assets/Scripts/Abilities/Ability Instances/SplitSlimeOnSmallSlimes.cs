@@ -2,11 +2,15 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SplitSlimeOnSmallSlimes : NonTargetAbility
+    public class SplitSlimeOnSmallSlimes : NonTargetAbility, IAbleToReturnRange, IAbleToHaveCount
     {
         [SerializeField] private int radius;
         [SerializeField] private int samllSlimesQuantity;
         [SerializeField] private Unit smallSlimePrefab;
+
+        public int GetCount() => samllSlimesQuantity;
+
+        public int ReturnRange() => radius;
 
         public override void Use()
         {
