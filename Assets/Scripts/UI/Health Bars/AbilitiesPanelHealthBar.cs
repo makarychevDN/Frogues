@@ -38,7 +38,7 @@ namespace FroguesFramework
 
         public void ShowHealthHint() => ShowHint("«доровье", GenerateHealthStatsString(), transform);
         public void ShowBlockHint() => ShowHint("Ѕлок", blockMechanicDescription.DescriptionText, blockIcon.transform);
-        public void ShowArmorHint() => ShowHint("Ўипы", armorMechanicDescription.DescriptionText, spikesIcon.transform);
+        public void ShowArmorHint() => ShowHint("Ѕрон€", armorMechanicDescription.DescriptionText, spikesIcon.transform);
         public void ShowSpikesHint() => ShowHint("Ўипы", spikesMechanicDescription.DescriptionText, spikesIcon.transform);
 
         private string GenerateHealthStatsString()
