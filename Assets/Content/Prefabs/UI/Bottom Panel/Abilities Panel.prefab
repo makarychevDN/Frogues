@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 638603090473671905}
+  - component: {fileID: 3549478561719382192}
   m_Layer: 5
   m_Name: Parent Of Block Icon
   m_TagString: Untagged
@@ -37,6 +38,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 15, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3549478561719382192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794660058466838187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: ShowBlockHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1 &2459852390105491005
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +191,7 @@ RectTransform:
   m_Children:
   - {fileID: 638603090473671905}
   - {fileID: 6866225857482230424}
-  m_Father: {fileID: 6088515221956970026}
+  m_Father: {fileID: 6088515223555456567}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -366,7 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -738,6 +784,7 @@ GameObject:
   - component: {fileID: 6088515221956970023}
   - component: {fileID: 6088515221956970020}
   - component: {fileID: 6088515221956970021}
+  - component: {fileID: 4618043813848248480}
   m_Layer: 5
   m_Name: Health Bar
   m_TagString: Untagged
@@ -757,11 +804,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6088515223624828900}
-  - {fileID: 6088515223292255830}
   - {fileID: 6088515222220705339}
   - {fileID: 6088515221994318939}
-  - {fileID: 4226006014938782671}
+  - {fileID: 6088515223624828900}
+  - {fileID: 6088515223292255830}
   m_Father: {fileID: 6088515223555456567}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -834,6 +880,54 @@ MonoBehaviour:
   blockTextField: {fileID: 6831971646895669042}
   armorTextField: {fileID: 5364192010920824440}
   spikesTextField: {fileID: 2886359808257623386}
+  blockMechanicDescription: {fileID: 11400000, guid: a81c654dddd09c94398c2bbd7ac0f8d9, type: 2}
+  armorMechanicDescription: {fileID: 11400000, guid: 103d29ee167819743be36043060eea6f, type: 2}
+  spikesMechanicDescription: {fileID: 11400000, guid: 1733d4b41debb194f84dff613571909d, type: 2}
+--- !u!114 &4618043813848248480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088515221956970027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: ShowHealthHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1 &6088515221994318936
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,15 +3204,6 @@ MonoBehaviour:
   generateIconsOnStart: 1
   resizableParent: {fileID: 0}
   header: "\u041E\u0447\u043A\u0438 \u043A\u0440\u043E\u0432\u0438 (\u041E\u041A)"
-  description: "\u041E\u0447\u043A\u0438 \u043A\u0440\u043E\u0432\u0438 \u0442\u0440\u0430\u0442\u044F\u0442\u0441\u044F
-    \u043D\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435
-    \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0435\u0439.
-    \u0412\u043E\u0441\u043F\u043E\u043B\u043D\u044F\u044E\u0442\u0441\u044F, \u043A\u0430\u043A
-    \u043F\u0440\u0430\u0432\u0438\u043B\u043E, \u043F\u043E\u0434\u0431\u0438\u0440\u0430\u0435\u043D\u0438\u0435\u043C
-    \u043B\u0443\u0436 \u043A\u0440\u043E\u0432\u0438. \u0412\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0435
-    \u041E\u041A \u043F\u0440\u043E\u043F\u0430\u0434\u0430\u044E\u0442, \u0435\u0441\u043B\u0438
-    \u043D\u0435 \u0432\u043E\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F
-    \u0438\u043C\u0438 \u043D\u0430 \u044D\u0442\u043E\u043C \u0445\u043E\u0434\u0443."
 --- !u!114 &6088515223235368702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3616,6 +3701,7 @@ RectTransform:
   - {fileID: 6088515223621267372}
   - {fileID: 6088515221956970026}
   - {fileID: 6088515223235368701}
+  - {fileID: 4226006014938782671}
   m_Father: {fileID: 6088515223686458311}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3797,14 +3883,6 @@ MonoBehaviour:
   resizableParent: {fileID: 0}
   header: "\u041E\u0447\u043A\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439
     (\u041E\u0414)"
-  description: "\u041E\u0447\u043A\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439
-    \u0442\u0440\u0430\u0442\u044F\u0442\u0441\u044F \u043D\u0430 \u0441\u043E\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u0435
-    \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0439 \u0438
-    \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435
-    \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0435\u0439. \u0412\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0435
-    \u041E\u0414 \u043F\u0440\u043E\u043F\u0430\u0434\u0430\u044E\u0442, \u0435\u0441\u043B\u0438
-    \u043D\u0435 \u0432\u043E\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F
-    \u0438\u043C\u0438 \u043D\u0430 \u044D\u0442\u043E\u043C \u0445\u043E\u0434\u0443."
 --- !u!114 &6088515223621267369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4495,7 +4573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4716,6 +4794,7 @@ GameObject:
   - component: {fileID: 5197163839788837156}
   - component: {fileID: 8603098114766228255}
   - component: {fileID: 3663365390237231966}
+  - component: {fileID: 846015666830038333}
   m_Layer: 5
   m_Name: Armor Icon (1)
   m_TagString: Untagged
@@ -4782,6 +4861,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &846015666830038333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8421649515651192137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: ShowArmorHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1 &9160670311932172302
 GameObject:
   m_ObjectHideFlags: 0
@@ -4793,6 +4917,7 @@ GameObject:
   - component: {fileID: 6866225857482230424}
   - component: {fileID: 2912577211493720033}
   - component: {fileID: 4990086122324003481}
+  - component: {fileID: 6149654749525528336}
   m_Layer: 5
   m_Name: Spikes
   m_TagString: Untagged
@@ -4859,6 +4984,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6149654749525528336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9160670311932172302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: ShowSpikesHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515221956970021}
+          m_TargetAssemblyTypeName: FroguesFramework.AbilitiesPanelHealthBar, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1001 &1011373539010944991
 PrefabInstance:
   m_ObjectHideFlags: 0
