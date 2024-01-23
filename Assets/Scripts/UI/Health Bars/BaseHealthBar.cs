@@ -37,12 +37,6 @@ namespace FroguesFramework
             Redraw();
         }
 
-        private void BLYAT()
-        {
-            resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
-            print("blyat");
-        }
-
         public void Update()
         {
             if(_hashFuncionOfHealth != health.CalculateHashFunctionOfPrevisualisation()
