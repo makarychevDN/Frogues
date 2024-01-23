@@ -36,10 +36,10 @@ namespace FroguesFramework
             resizableParents.ForEach(resizableParent => LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent));
         }
 
-        public void ShowHealthHint() => ShowHint("«доровье", GenerateHealthStatsString());
-        public void ShowBlockHint() => ShowHint("Ѕлок", blockMechanicDescription.DescriptionText);
-        public void ShowArmorHint() => ShowHint("Ўипы", armorMechanicDescription.DescriptionText);
-        public void ShowSpikesHint() => ShowHint("Ўипы", spikesMechanicDescription.DescriptionText);
+        public void ShowHealthHint() => ShowHint("«доровье", GenerateHealthStatsString(), transform);
+        public void ShowBlockHint() => ShowHint("Ѕлок", blockMechanicDescription.DescriptionText, blockIcon.transform);
+        public void ShowArmorHint() => ShowHint("Ўипы", armorMechanicDescription.DescriptionText, spikesIcon.transform);
+        public void ShowSpikesHint() => ShowHint("Ўипы", spikesMechanicDescription.DescriptionText, spikesIcon.transform);
 
         private string GenerateHealthStatsString()
         {
@@ -51,9 +51,9 @@ namespace FroguesFramework
             return sb.ToString();
         }
 
-        private void ShowHint(string header, string descriptionTag)
+        private void ShowHint(string header, string descriptionTag, Transform transformOfIcon)
         {
-            EntryPoint.Instance.AbilityHint.Init(header, descriptionTag, "", spikesIcon.transform, new Vector2(0.5f, 0), Vector2.up * 36);
+            EntryPoint.Instance.AbilityHint.Init(header, descriptionTag, "", transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
             EntryPoint.Instance.AbilityHint.EnableContent(true, true);
         }
 
