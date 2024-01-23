@@ -3061,6 +3061,7 @@ GameObject:
   - component: {fileID: 6088515223235368702}
   - component: {fileID: 6088515223235368703}
   - component: {fileID: 6088515223235368700}
+  - component: {fileID: 6506990690763915925}
   m_Layer: 5
   m_Name: Blood Points
   m_TagString: Untagged
@@ -3108,6 +3109,16 @@ MonoBehaviour:
   temporaryResourcePointIcons: []
   generateIconsOnStart: 1
   resizableParent: {fileID: 0}
+  header: "\u041E\u0447\u043A\u0438 \u043A\u0440\u043E\u0432\u0438 (\u041E\u041A)"
+  description: "\u041E\u0447\u043A\u0438 \u043A\u0440\u043E\u0432\u0438 \u0442\u0440\u0430\u0442\u044F\u0442\u0441\u044F
+    \u043D\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435
+    \u043D\u0435\u043A\u043E\u0442\u043E\u0440\u044B\u0445 \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0435\u0439.
+    \u0412\u043E\u0441\u043F\u043E\u043B\u043D\u044F\u044E\u0442\u0441\u044F, \u043A\u0430\u043A
+    \u043F\u0440\u0430\u0432\u0438\u043B\u043E, \u043F\u043E\u0434\u0431\u0438\u0440\u0430\u0435\u043D\u0438\u0435\u043C
+    \u043B\u0443\u0436 \u043A\u0440\u043E\u0432\u0438. \u0412\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0435
+    \u041E\u041A \u043F\u0440\u043E\u043F\u0430\u0434\u0430\u044E\u0442, \u0435\u0441\u043B\u0438
+    \u043D\u0435 \u0432\u043E\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F
+    \u0438\u043C\u0438 \u043D\u0430 \u044D\u0442\u043E\u043C \u0445\u043E\u0434\u0443."
 --- !u!114 &6088515223235368702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3213,6 +3224,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &6506990690763915925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088515223235368450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223235368697}
+          m_TargetAssemblyTypeName: FroguesFramework.ResourcePointsUI, Assembly-CSharp
+          m_MethodName: ShowHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223235368697}
+          m_TargetAssemblyTypeName: FroguesFramework.ResourcePointsUI, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1 &6088515223292255831
 GameObject:
   m_ObjectHideFlags: 0
@@ -3691,6 +3747,7 @@ GameObject:
   - component: {fileID: 6088515223621267369}
   - component: {fileID: 6088515223621267374}
   - component: {fileID: 6088515223621267375}
+  - component: {fileID: 7713595135555520516}
   m_Layer: 5
   m_Name: Action Points
   m_TagString: Untagged
@@ -3738,6 +3795,16 @@ MonoBehaviour:
   temporaryResourcePointIcons: []
   generateIconsOnStart: 1
   resizableParent: {fileID: 0}
+  header: "\u041E\u0447\u043A\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439
+    (\u041E\u0414)"
+  description: "\u041E\u0447\u043A\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439
+    \u0442\u0440\u0430\u0442\u044F\u0442\u0441\u044F \u043D\u0430 \u0441\u043E\u0432\u0435\u0440\u0448\u0435\u043D\u0438\u0435
+    \u043F\u0435\u0440\u0435\u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0439 \u0438
+    \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435
+    \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u043E\u0441\u0442\u0435\u0439. \u0412\u0440\u0435\u043C\u0435\u043D\u043D\u044B\u0435
+    \u041E\u0414 \u043F\u0440\u043E\u043F\u0430\u0434\u0430\u044E\u0442, \u0435\u0441\u043B\u0438
+    \u043D\u0435 \u0432\u043E\u0441\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F
+    \u0438\u043C\u0438 \u043D\u0430 \u044D\u0442\u043E\u043C \u0445\u043E\u0434\u0443."
 --- !u!114 &6088515223621267369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3843,6 +3910,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 0
+--- !u!114 &7713595135555520516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088515223621267373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223621267368}
+          m_TargetAssemblyTypeName: FroguesFramework.ResourcePointsUI, Assembly-CSharp
+          m_MethodName: ShowHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223621267368}
+          m_TargetAssemblyTypeName: FroguesFramework.ResourcePointsUI, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1 &6088515223624828901
 GameObject:
   m_ObjectHideFlags: 0
