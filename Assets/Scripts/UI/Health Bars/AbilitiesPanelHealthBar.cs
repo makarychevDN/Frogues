@@ -36,34 +36,10 @@ namespace FroguesFramework
             resizableParents.ForEach(resizableParent => LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent));
         }
 
-        public void ShowHealthHint()
-        {
-            EntryPoint.Instance.AbilityHint.Init("Здоровье", GenerateHealthStatsString(), "", transform, new Vector2(0.5f, 0), Vector2.up * 36);
-            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
-        }
-
-        public void ShowBlockHint()
-        {
-            EntryPoint.Instance.AbilityHint.Init("Блок", blockMechanicDescription.DescriptionText, "", blockIcon.transform, new Vector2(0.5f, 0), Vector2.up * 36);
-            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
-        }
-
-        public void ShowArmorHint()
-        {
-            EntryPoint.Instance.AbilityHint.Init("Броня", armorMechanicDescription.DescriptionText, "", armorIcon.transform, new Vector2(0.5f, 0), Vector2.up * 36);
-            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
-        }
-
-        public void ShowSpikesHint()
-        {
-            EntryPoint.Instance.AbilityHint.Init("Шипы", spikesMechanicDescription.DescriptionText, "", spikesIcon.transform, new Vector2(0.5f, 0), Vector2.up * 36);
-            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
-        }
-
-        public void HideHint()
-        {
-            EntryPoint.Instance.AbilityHint.EnableContent(false);
-        }
+        public void ShowHealthHint() => ShowHint("Здоровье", GenerateHealthStatsString());
+        public void ShowBlockHint() => ShowHint("Блок", blockMechanicDescription.DescriptionText);
+        public void ShowArmorHint() => ShowHint("Шипы", armorMechanicDescription.DescriptionText);
+        public void ShowSpikesHint() => ShowHint("Шипы", spikesMechanicDescription.DescriptionText);
 
         private string GenerateHealthStatsString()
         {
@@ -73,6 +49,17 @@ namespace FroguesFramework
                 .AppendLine($"Максимальный запас: {health.MaxHp}");
 
             return sb.ToString();
+        }
+
+        private void ShowHint(string header, string descriptionTag)
+        {
+            EntryPoint.Instance.AbilityHint.Init(header, descriptionTag, "", spikesIcon.transform, new Vector2(0.5f, 0), Vector2.up * 36);
+            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
+        }
+
+        public void HideHint()
+        {
+            EntryPoint.Instance.AbilityHint.EnableContent(false);
         }
     }
 }
