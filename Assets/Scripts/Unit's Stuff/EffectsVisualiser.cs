@@ -12,6 +12,8 @@ namespace FroguesFramework
         [SerializeField] private GameObject blockDestroyedEffect;
         [SerializeField] private GameObject temporaryBlockIncreasedEffect;
         [SerializeField] private GameObject permanentBlockIncreasedEffect;
+        [SerializeField] private Animator armorImpactAnimator;
+        [SerializeField] private AudioSource armorImpactSound;
         [SerializeField] private TMP_Text statEffectPrefab;
         [SerializeField] private List<TMP_Text> statEffectTextFields = new();
         [SerializeField] private Canvas canvas;
@@ -21,6 +23,10 @@ namespace FroguesFramework
             unit.Health.OnDamagePreventedByBlock.AddListener(ShowDamageSuccessfullyBlockedEffect);
             unit.Health.OnBlockDestroyed.AddListener(ShowBlockDestroyedEffect);
             unit.Health.OnBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
+
+            unit.Health.OnDamageAppliedByArmor.AddListener(ShowArmorImpactEffect);
+            unit.Health.OnArmorIncreased.AddListener(ShowArmorImpactEffect);
+
             unit.Stats.OnStrenghtUpdated.AddListener(OnStatUpdated);
             unit.Stats.OnIntelegenceUpdated.AddListener(OnStatUpdated);
             unit.Stats.OnDexterityUpdated.AddListener(OnStatUpdated);
@@ -97,6 +103,12 @@ namespace FroguesFramework
         {
             CurrentlyActiveObjects.Remove(this);
             permanentBlockIncreasedEffect.SetActive(false);
+        }
+
+        private void ShowArmorImpactEffect()
+        {
+            armorImpactAnimator.SetTrigger("impact");
+            armorImpactSound.Play();
         }
     }
 }
