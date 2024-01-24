@@ -58,6 +58,7 @@ namespace FroguesFramework
             hpSlider.value = health.HealthWithPreTakenDamage;
             preTakenDamageHPSlider.value = health.CurrentHp;
             preTakenDamageAnimatedHPSlider.value = health.CurrentHp;
+            preTakenDamageAnimatedHPSlider.gameObject.SetActive(health.CurrentHp != health.HealthWithPreTakenDamage);
         }
     }
 }

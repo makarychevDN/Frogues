@@ -23,7 +23,7 @@ namespace FroguesFramework
         public UnityEvent OnEscapedFromDeath;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
         private int _healthWithPreTakenDamage, _permanentBlockrWithPreTakenDamage, _temporaryBlockWithPreTakenDamage;
-        private int _hashedHp, _hashedBlock;
+        private int _hashedHp, /*_hashedBlock;*/ _hashedTemporaryBlock, _hashedArmor;
         private Unit _unit;
 
         public int MaxHp => maxHP;
@@ -31,8 +31,9 @@ namespace FroguesFramework
         public int HealthWithPreTakenDamage => _healthWithPreTakenDamage;
         public int PermanentBlock => permanentBlock;
         public int TemporaryBlock => temporaryBlock;
-        public int Block => temporaryBlock + permanentBlock;
-        public int BlockWithPreTakenDamage => _temporaryBlockWithPreTakenDamage + _permanentBlockrWithPreTakenDamage;
+        //public int Block => temporaryBlock + permanentBlock;
+        public int TemporaryBlockWithPreTakenDamage => _temporaryBlockWithPreTakenDamage;
+        public int ArmorWithPreTakenDamage => _permanentBlockrWithPreTakenDamage;
 
         public bool Full => currentHP == maxHP;
 
@@ -40,7 +41,9 @@ namespace FroguesFramework
         {
             _unit = unit;
             _hashedHp = currentHP;
-            _hashedBlock = Block;
+            //_hashedBlock = Block;
+            _hashedArmor = permanentBlock;
+            _hashedTemporaryBlock = temporaryBlock;
             OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
             AddMySelfToEntryPoint();
@@ -55,7 +58,8 @@ namespace FroguesFramework
         public void IncreaseTemporaryBlock(int value)
         {
             temporaryBlock += (int)(value * _unit.Stats.DefenceModificator);
-            _hashedBlock = Block;
+            //_hashedBlock = Block;
+            _hashedTemporaryBlock = temporaryBlock;
             OnTemporaryBlockIncreased.Invoke();
             OnBlockIncreased.Invoke();
         }
@@ -63,7 +67,8 @@ namespace FroguesFramework
         public void IncreasePermanentBlock(int value)
         {
             permanentBlock += (int)(value * _unit.Stats.DefenceModificator);
-            _hashedBlock = Block;
+            //hashedBlock = Block;
+            _hashedArmor = permanentBlock;
             OnPermanentBlockIncreased.Invoke();
             OnBlockIncreased.Invoke();
         }
@@ -81,8 +86,10 @@ namespace FroguesFramework
 
         private void Update()
         {
-            _hashedBlock = Block;
+            //_hashedBlock = Block;
             _hashedHp = currentHP;
+            _hashedArmor = permanentBlock;
+            _hashedTemporaryBlock = temporaryBlock;
         }
 
         private void TriggerTakeDamageAnimation()
@@ -113,9 +120,9 @@ namespace FroguesFramework
 
             if (!ignoreBlock)
             {
-                if (_hashedBlock != 0)
+                if (_hashedTemporaryBlock != 0)
                 {
-                    if (Block != 0)
+                    if (temporaryBlock != 0)
                     {
                         OnDamageBlockedSuccessfully.Invoke();
                         OnDamageFromUnitBlockedSuccessfully.Invoke(damageSource);
@@ -155,7 +162,8 @@ namespace FroguesFramework
             }
             
             _hashedHp = currentHP;
-            _hashedBlock = Block;
+            _hashedArmor = permanentBlock;
+            _hashedTemporaryBlock = temporaryBlock;
         }
 
         public void PreTakeDamage(int damageValue) =>
@@ -210,7 +218,7 @@ namespace FroguesFramework
                 return;
             
             temporaryBlock = 0;
-            _hashedBlock = Block;
+            _hashedTemporaryBlock = temporaryBlock;
         }
 
         public void TickAfterPlayerTurn()
@@ -219,7 +227,7 @@ namespace FroguesFramework
                 return;
             
             temporaryBlock = 0;
-            _hashedBlock = Block;
+            _hashedTemporaryBlock = temporaryBlock;
         }
 
         private void DieProcess()
@@ -245,6 +253,6 @@ namespace FroguesFramework
         public void RemoveMySelfFromEntryPoint() =>
             EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
 
-        public int CalculateHashFunctionOfPrevisualisation() => 4 * MaxHp + 4 * CurrentHp + 4 * HealthWithPreTakenDamage + 4 * PermanentBlock + 4 * TemporaryBlock + 4;
+        public int CalculateHashFunctionOfPrevisualisation() => 4 * MaxHp + 4 * CurrentHp + 4 * HealthWithPreTakenDamage + 4 * TemporaryBlockWithPreTakenDamage + 4 * ArmorWithPreTakenDamage + 4;
     }
 }
