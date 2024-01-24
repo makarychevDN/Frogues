@@ -13,13 +13,13 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            _owner.Health.OnApplyUnblockedDamage.AddListener(TryToExecute);
+            _owner.Health.OnBlockDestroyed.AddListener(TryToExecute);
         }
 
         public override void UnInit()
         {
             base.UnInit();
-            _owner.Health.OnApplyUnblockedDamage.RemoveListener(TryToExecute);
+            _owner.Health.OnBlockDestroyed.RemoveListener(TryToExecute);
         }
 
         private void TryToExecute()

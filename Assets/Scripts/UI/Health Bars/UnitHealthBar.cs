@@ -24,8 +24,8 @@ namespace FroguesFramework
         {
             base.Redraw();
 
-            blockIcon.SetActive(health.TemporaryBlock != 0);
-            armorIcon.SetActive(health.PermanentBlock != 0);
+            blockIcon.SetActive(health.Block != 0);
+            armorIcon.SetActive(health.Armor != 0);
             spikesIcon.SetActive(stats.Spikes != 0);
 
             healthTextField.SetValue(health.HealthWithPreTakenDamage);
@@ -34,11 +34,11 @@ namespace FroguesFramework
 
             armorTextField.SetValue(health.ArmorWithPreTakenDamage);
             armorTextFieldPretakenAnimation.SetValue(health.ArmorWithPreTakenDamage);
-            armorTextFieldPretakenAnimation.gameObject.SetActive(health.ArmorWithPreTakenDamage != health.PermanentBlock);
+            armorTextFieldPretakenAnimation.gameObject.SetActive(health.ArmorWithPreTakenDamage != health.Armor);
 
-            blockTextField.SetValue(health.TemporaryBlockWithPreTakenDamage);
-            blockTextFieldPretakenAnimation.SetValue(health.TemporaryBlockWithPreTakenDamage);
-            blockTextFieldPretakenAnimation.gameObject.SetActive(health.TemporaryBlockWithPreTakenDamage != health.TemporaryBlock);
+            blockTextField.SetValue(health.BlockWithPreTakenDamage);
+            blockTextFieldPretakenAnimation.SetValue(health.BlockWithPreTakenDamage);
+            blockTextFieldPretakenAnimation.gameObject.SetActive(health.BlockWithPreTakenDamage != health.Block);
 
             spikesTextField.SetValue(stats.Spikes);
 

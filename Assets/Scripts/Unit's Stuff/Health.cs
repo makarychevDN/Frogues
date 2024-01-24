@@ -7,33 +7,53 @@ namespace FroguesFramework
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
-        [SerializeField] private int permanentBlock;
-        [SerializeField] private int temporaryBlock;
+        [SerializeField] private int armor;
+        [SerializeField] private int block;
         [SerializeField] private int escapesFromDeathCount;
         [SerializeField] private bool dieImmedeatlyAfterStepOnItByUnit;
-        public UnityEvent OnApplyUnblockedDamage;
-        public UnityEvent OnDamageBlockedSuccessfully;
-        public UnityEvent<Unit> OnDamageFromUnitBlockedSuccessfully;
-        public UnityEvent OnBlockDestroyed;
-        public UnityEvent OnTemporaryBlockIncreased;
-        public UnityEvent OnPermanentBlockIncreased;
-        public UnityEvent OnBlockIncreased;
-        public UnityEvent OnHpEnded;
-        public UnityEvent OnHpHealed;
-        public UnityEvent OnEscapedFromDeath;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
-        private int _healthWithPreTakenDamage, _permanentBlockrWithPreTakenDamage, _temporaryBlockWithPreTakenDamage;
-        private int _hashedHp, /*_hashedBlock;*/ _hashedTemporaryBlock, _hashedArmor;
+
+        [Header("Increase Parameters Events")]
+        public UnityEvent OnBlockIncreased;
+        public UnityEvent OnArmorIncreased;
+        public UnityEvent OnArmorOrBlockIncreased;
+        public UnityEvent OnHpHealed;
+
+        [Header("Apply Damage On Block Events")]
+        public UnityEvent OnDamageAppliedByBlock;
+        public UnityEvent<Unit> OnDamageFromUnitAppliedByBlock;
+        public UnityEvent OnDamagePreventedByBlock;
+        public UnityEvent<Unit> OnDamageFromUnitPreventedByBlock;
+        public UnityEvent OnBlockDestroyed;
+        public UnityEvent<Unit> OnBlockDestroyedByUnit;
+
+        [Header("Apply Damage On Armor Events")]
+        public UnityEvent OnDamageAppliedByArmor;
+        public UnityEvent<Unit> OnDamageFromUnitAppliedByArmor;
+        public UnityEvent OnDamagePreventedByArmor;
+        public UnityEvent<Unit> OnDamageFromUnitPreventedByArmor;
+        public UnityEvent OnArmorDestroyed;
+        public UnityEvent<Unit> OnArmorDestroyedByUnit;
+
+        [Header("Apply Damage On Health Events")]
+        public UnityEvent OnDamageAppledByHealth;
+        public UnityEvent<Unit> OnDamageFromUnitAppliedByHealth;
+
+        [Header("Death Events")]
+        public UnityEvent OnHpEnded;
+        public UnityEvent OnEscapedFromDeath;
+        
+        private int _healthWithPreTakenDamage, _armorWithPreTakenDamage, _blockWithPreTakenDamage;
+        private int _hashedHp, _hashedBlock, _hashedArmor;
         private Unit _unit;
 
         public int MaxHp => maxHP;
         public int CurrentHp => currentHP;
         public int HealthWithPreTakenDamage => _healthWithPreTakenDamage;
-        public int PermanentBlock => permanentBlock;
-        public int TemporaryBlock => temporaryBlock;
-        //public int Block => temporaryBlock + permanentBlock;
-        public int TemporaryBlockWithPreTakenDamage => _temporaryBlockWithPreTakenDamage;
-        public int ArmorWithPreTakenDamage => _permanentBlockrWithPreTakenDamage;
+        public int Armor => armor;
+        public int Block => block;
+        public int BlockWithPreTakenDamage => _blockWithPreTakenDamage;
+        public int ArmorWithPreTakenDamage => _armorWithPreTakenDamage;
 
         public bool Full => currentHP == maxHP;
 
@@ -41,35 +61,32 @@ namespace FroguesFramework
         {
             _unit = unit;
             _hashedHp = currentHP;
-            //_hashedBlock = Block;
-            _hashedArmor = permanentBlock;
-            _hashedTemporaryBlock = temporaryBlock;
-            OnApplyUnblockedDamage.AddListener(TriggerTakeDamageAnimation);
+            _hashedArmor = armor;
+            _hashedBlock = block;
+            OnDamageAppledByHealth.AddListener(TriggerTakeDamageAnimation);
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
             AddMySelfToEntryPoint();
         }
 
         public void RemoveAllBlockEffects()
         {
-            temporaryBlock = 0;
-            permanentBlock = 0;
+            block = 0;
+            armor = 0;
         }
 
         public void IncreaseTemporaryBlock(int value)
         {
-            temporaryBlock += (int)(value * _unit.Stats.DefenceModificator);
-            //_hashedBlock = Block;
-            _hashedTemporaryBlock = temporaryBlock;
-            OnTemporaryBlockIncreased.Invoke();
+            block += (int)(value * _unit.Stats.DefenceModificator);
+            _hashedBlock = block;
+            OnBlockIncreased.Invoke();
             OnBlockIncreased.Invoke();
         }
 
         public void IncreasePermanentBlock(int value)
         {
-            permanentBlock += (int)(value * _unit.Stats.DefenceModificator);
-            //hashedBlock = Block;
-            _hashedArmor = permanentBlock;
-            OnPermanentBlockIncreased.Invoke();
+            armor += (int)(value * _unit.Stats.DefenceModificator);
+            _hashedArmor = armor;
+            OnArmorIncreased.Invoke();
             OnBlockIncreased.Invoke();
         }
 
@@ -86,10 +103,9 @@ namespace FroguesFramework
 
         private void Update()
         {
-            //_hashedBlock = Block;
             _hashedHp = currentHP;
-            _hashedArmor = permanentBlock;
-            _hashedTemporaryBlock = temporaryBlock;
+            _hashedArmor = armor;
+            _hashedBlock = block;
         }
 
         private void TriggerTakeDamageAnimation()
@@ -116,21 +132,24 @@ namespace FroguesFramework
 
         public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource)
         {
-            CalculateDamage(ref currentHP, ref permanentBlock, ref temporaryBlock, damageValue, ignoreBlock);
+            CalculateDamage(ref currentHP, ref armor, ref block, damageValue, ignoreBlock);
 
             if (!ignoreBlock)
             {
-                if (_hashedTemporaryBlock != 0)
+                if (_hashedBlock != 0)
                 {
-                    if (temporaryBlock != 0)
-                    {
-                        OnDamageBlockedSuccessfully.Invoke();
-                        OnDamageFromUnitBlockedSuccessfully.Invoke(damageSource);
-                    }
-                    else
-                    {
-                        OnBlockDestroyed.Invoke();
-                    }
+                    OnDamageApplyedByAnyPreventingSystem(block, damageSource,
+                        OnDamageAppliedByBlock, OnDamageFromUnitAppliedByBlock,
+                        OnDamagePreventedByBlock, OnDamageFromUnitPreventedByBlock,
+                        OnBlockDestroyed, OnBlockDestroyedByUnit);
+                }
+
+                if (_hashedArmor != 0)
+                {
+                    OnDamageApplyedByAnyPreventingSystem(armor, damageSource,
+                        OnDamageAppliedByArmor, OnDamageFromUnitAppliedByArmor,
+                        OnDamagePreventedByArmor, OnDamageFromUnitPreventedByArmor,
+                        OnArmorDestroyed, OnArmorDestroyedByUnit);
                 }
             }
 
@@ -142,7 +161,8 @@ namespace FroguesFramework
             if (currentHP < _hashedHp)
             {
                 CurrentlyActiveObjects.Add(this);
-                OnApplyUnblockedDamage.Invoke();
+                OnDamageAppledByHealth.Invoke();
+                OnDamageFromUnitAppliedByHealth.Invoke(damageSource);
             }
 
             if (currentHP <= 0)
@@ -162,17 +182,37 @@ namespace FroguesFramework
             }
             
             _hashedHp = currentHP;
-            _hashedArmor = permanentBlock;
-            _hashedTemporaryBlock = temporaryBlock;
+            _hashedArmor = armor;
+            _hashedBlock = block;
+        }
+
+        private void OnDamageApplyedByAnyPreventingSystem(int preventingSystemValue, Unit damageSource,
+            UnityEvent OnDamageApplyed, UnityEvent<Unit> OnDamageFromUnitApplyed, 
+            UnityEvent OnDamagePrevented, UnityEvent<Unit> OnDamageFromUnitPrevented, 
+            UnityEvent OnPreventingSystemDestroyed, UnityEvent<Unit> OnPreventingSystemDestroyedByUnit)
+        {
+            OnDamageApplyed.Invoke();
+            OnDamageFromUnitApplyed.Invoke(damageSource);
+
+            if (preventingSystemValue != 0)
+            {
+                OnDamagePrevented.Invoke();
+                OnDamageFromUnitPrevented.Invoke(damageSource);
+            }
+            else
+            {
+                OnPreventingSystemDestroyed.Invoke();
+                OnPreventingSystemDestroyedByUnit.Invoke(damageSource);
+            }
         }
 
         public void PreTakeDamage(int damageValue) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentBlockrWithPreTakenDamage,
-                ref _temporaryBlockWithPreTakenDamage, damageValue, false);
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage,
+                ref _blockWithPreTakenDamage, damageValue, false);
 
         public void PreTakeDamage(int damageValue, bool ignoreBlock) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _permanentBlockrWithPreTakenDamage,
-                ref _temporaryBlockWithPreTakenDamage, damageValue, ignoreBlock);
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage,
+                ref _blockWithPreTakenDamage, damageValue, ignoreBlock);
 
         private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, int damageValue, bool ignoreBlock)
         {
@@ -217,8 +257,8 @@ namespace FroguesFramework
             if(_unit.IsEnemy)
                 return;
             
-            temporaryBlock = 0;
-            _hashedTemporaryBlock = temporaryBlock;
+            block = 0;
+            _hashedBlock = block;
         }
 
         public void TickAfterPlayerTurn()
@@ -226,8 +266,8 @@ namespace FroguesFramework
             if(!_unit.IsEnemy)
                 return;
             
-            temporaryBlock = 0;
-            _hashedTemporaryBlock = temporaryBlock;
+            block = 0;
+            _hashedBlock = block;
         }
 
         private void DieProcess()
@@ -238,8 +278,8 @@ namespace FroguesFramework
         public void DisablePreVisualization()
         {
             _healthWithPreTakenDamage = currentHP;
-            _permanentBlockrWithPreTakenDamage = permanentBlock;
-            _temporaryBlockWithPreTakenDamage = temporaryBlock;
+            _armorWithPreTakenDamage = armor;
+            _blockWithPreTakenDamage = block;
         }
 
         private void OnDestroy()
@@ -253,6 +293,6 @@ namespace FroguesFramework
         public void RemoveMySelfFromEntryPoint() =>
             EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
 
-        public int CalculateHashFunctionOfPrevisualisation() => 4 * MaxHp + 4 * CurrentHp + 4 * HealthWithPreTakenDamage + 4 * TemporaryBlockWithPreTakenDamage + 4 * ArmorWithPreTakenDamage + 4;
+        public int CalculateHashFunctionOfPrevisualisation() => 4 * MaxHp + 4 * CurrentHp + 4 * HealthWithPreTakenDamage + 4 * BlockWithPreTakenDamage + 4 * ArmorWithPreTakenDamage + 4;
     }
 }

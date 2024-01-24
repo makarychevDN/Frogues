@@ -24,13 +24,13 @@ namespace FroguesFramework
         {
             base.Redraw();
 
-            blockIcon.SetActive(health.TemporaryBlock != 0);
-            armorIcon.SetActive(health.PermanentBlock != 0);
+            blockIcon.SetActive(health.Block != 0);
+            armorIcon.SetActive(health.Armor != 0);
             spikesIcon.SetActive(stats.Spikes != 0);
 
             healthTextField.text = (health.CurrentHp).ToString();
-            blockTextField.text = (health.TemporaryBlock).ToString();
-            armorTextField.text = (health.PermanentBlock).ToString();
+            blockTextField.text = (health.Block).ToString();
+            armorTextField.text = (health.Armor).ToString();
             spikesTextField.text = (stats.Spikes).ToString();
 
             resizableParents.ForEach(resizableParent => LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent));

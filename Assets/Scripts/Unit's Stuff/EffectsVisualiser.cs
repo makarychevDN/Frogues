@@ -18,7 +18,7 @@ namespace FroguesFramework
         
         public void Init(Unit unit)
         {
-            unit.Health.OnDamageBlockedSuccessfully.AddListener(ShowDamageSuccessfullyBlockedEffect);
+            unit.Health.OnDamagePreventedByBlock.AddListener(ShowDamageSuccessfullyBlockedEffect);
             unit.Health.OnBlockDestroyed.AddListener(ShowBlockDestroyedEffect);
             unit.Health.OnBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
             unit.Stats.OnStrenghtUpdated.AddListener(OnStatUpdated);
