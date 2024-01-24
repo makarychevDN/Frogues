@@ -14,7 +14,7 @@ namespace FroguesFramework
 
         private void IncreaseBlock()
         {
-            _owner.Health.IncreaseTemporaryBlock(blockValue);
+            _owner.Health.IncreaseBlock(blockValue);
         }
 
         public override void UnInit()

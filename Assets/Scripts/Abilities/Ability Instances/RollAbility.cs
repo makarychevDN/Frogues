@@ -25,7 +25,7 @@ namespace FroguesFramework
 
         private void IncreaseTemporaryBlock()
         {
-            _owner.Health.IncreaseTemporaryBlock(CalculateBlock());
+            _owner.Health.IncreaseBlock(CalculateBlock());
             _owner.Movable.OnMovementEnd.RemoveListener(IncreaseTemporaryBlock);
         }
 

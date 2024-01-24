@@ -36,9 +36,9 @@ namespace FroguesFramework
             yield return new WaitForSeconds(time);
 
             if (temporaryBlockValue != 0)
-                _owner.Health.IncreaseTemporaryBlock(temporaryBlockValue);
+                _owner.Health.IncreaseBlock(temporaryBlockValue);
             if (permanentBlockValue != 0)
-                _owner.Health.IncreasePermanentBlock(permanentBlockValue);
+                _owner.Health.IncreaseArmor(permanentBlockValue);
 
             foreach (StatEffect buff in effects)
                 _owner.Stats.AddStatEffect(buff);

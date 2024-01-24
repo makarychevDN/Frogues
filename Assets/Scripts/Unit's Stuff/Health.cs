@@ -74,20 +74,20 @@ namespace FroguesFramework
             armor = 0;
         }
 
-        public void IncreaseTemporaryBlock(int value)
+        public void IncreaseBlock(int value)
         {
             block += (int)(value * _unit.Stats.DefenceModificator);
             _hashedBlock = block;
             OnBlockIncreased.Invoke();
-            OnBlockIncreased.Invoke();
+            OnArmorOrBlockIncreased.Invoke();
         }
 
-        public void IncreasePermanentBlock(int value)
+        public void IncreaseArmor(int value)
         {
             armor += (int)(value * _unit.Stats.DefenceModificator);
             _hashedArmor = armor;
             OnArmorIncreased.Invoke();
-            OnBlockIncreased.Invoke();
+            OnArmorOrBlockIncreased.Invoke();
         }
 
         public void IncreaseMaxHp(int value)
@@ -138,7 +138,7 @@ namespace FroguesFramework
             {
                 if (_hashedBlock != 0)
                 {
-                    OnDamageApplyedByAnyPreventingSystem(block, damageSource,
+                    OnDamageApplyedByAnyPreventingSystem(block, _hashedBlock, damageSource,
                         OnDamageAppliedByBlock, OnDamageFromUnitAppliedByBlock,
                         OnDamagePreventedByBlock, OnDamageFromUnitPreventedByBlock,
                         OnBlockDestroyed, OnBlockDestroyedByUnit);
@@ -146,7 +146,7 @@ namespace FroguesFramework
 
                 if (_hashedArmor != 0)
                 {
-                    OnDamageApplyedByAnyPreventingSystem(armor, damageSource,
+                    OnDamageApplyedByAnyPreventingSystem(armor, _hashedArmor, damageSource,
                         OnDamageAppliedByArmor, OnDamageFromUnitAppliedByArmor,
                         OnDamagePreventedByArmor, OnDamageFromUnitPreventedByArmor,
                         OnArmorDestroyed, OnArmorDestroyedByUnit);
@@ -186,11 +186,14 @@ namespace FroguesFramework
             _hashedBlock = block;
         }
 
-        private void OnDamageApplyedByAnyPreventingSystem(int preventingSystemValue, Unit damageSource,
+        private void OnDamageApplyedByAnyPreventingSystem(int preventingSystemValue, int hashedPreventingSystemValue, Unit damageSource,
             UnityEvent OnDamageApplyed, UnityEvent<Unit> OnDamageFromUnitApplyed, 
             UnityEvent OnDamagePrevented, UnityEvent<Unit> OnDamageFromUnitPrevented, 
             UnityEvent OnPreventingSystemDestroyed, UnityEvent<Unit> OnPreventingSystemDestroyedByUnit)
         {
+            if (preventingSystemValue == hashedPreventingSystemValue)
+                return;
+
             OnDamageApplyed.Invoke();
             OnDamageFromUnitApplyed.Invoke(damageSource);
 

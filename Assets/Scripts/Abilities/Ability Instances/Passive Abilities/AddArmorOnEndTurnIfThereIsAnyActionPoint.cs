@@ -31,7 +31,7 @@ namespace FroguesFramework
         {
             if(_owner.ActionPoints.CurrentPoints > 0)
             {
-                _owner.Health.IncreasePermanentBlock(AromorValue);
+                _owner.Health.IncreaseArmor(AromorValue);
             }
         }
 

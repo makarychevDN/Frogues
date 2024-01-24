@@ -13,8 +13,8 @@ namespace FroguesFramework
             if (!PossibleToUse())
                 return;
 
-            _owner.Health.IncreaseTemporaryBlock(CalculateBlock());
-            _owner.Health.IncreasePermanentBlock(CalculateArmor());
+            _owner.Health.IncreaseBlock(CalculateBlock());
+            _owner.Health.IncreaseArmor(CalculateArmor());
             SpendResourcePoints();
 
             CurrentlyActiveObjects.Add(this);
@@ -26,7 +26,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time)
         {
             yield return new WaitForSeconds(time);
-            _owner.Health.IncreaseTemporaryBlock(CalculateBlock());
+            _owner.Health.IncreaseBlock(CalculateBlock());
         }
 
         public override bool PossibleToUse()

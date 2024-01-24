@@ -14,7 +14,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
 
-            _owner.Health.IncreasePermanentBlock(armorValue);
+            _owner.Health.IncreaseArmor(armorValue);
             _owner.Animator.SetBool(CharacterAnimatorParameters.BoxIsOn, true);
             _owner.Animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
             _owner.Health.OnBlockDestroyed.AddListener(() => _owner.Animator.SetBool(CharacterAnimatorParameters.BoxIsOn, false));

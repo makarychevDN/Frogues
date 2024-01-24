@@ -17,7 +17,7 @@ namespace FroguesFramework
                 target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.deltaValueForEachTurn, effect.effectIsConstantly));
             }
 
-            _owner.Health.IncreaseTemporaryBlock(CalculateBlock());
+            _owner.Health.IncreaseBlock(CalculateBlock());
             OnEffectApplied.Invoke();
         }
 

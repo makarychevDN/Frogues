@@ -25,7 +25,7 @@ namespace FroguesFramework
 
         private void IncreaseArmorAndBlockToUnit(Unit unit)
         {
-            unit.Health.IncreasePermanentBlock(armorValue);
+            unit.Health.IncreaseArmor(armorValue);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace FroguesFramework
 
         private void AddConstantlyBlock()
         {
-            _owner.Health.IncreasePermanentBlock(additionalConstantlyBlockValue);
+            _owner.Health.IncreaseArmor(additionalConstantlyBlockValue);
         }
 
         public int CalculateArmor() => additionalConstantlyBlockValue;
