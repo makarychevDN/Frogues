@@ -2353,7 +2353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 69.65, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6088515222854075225
@@ -2661,7 +2661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 69.65, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6088515222976966691
@@ -3477,7 +3477,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 280, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 468, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &6088515223341951821
@@ -3751,7 +3751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 69.65, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6088515223572167249
@@ -3820,6 +3820,11 @@ MonoBehaviour:
   dexteritySegment: {fileID: 154284295533932558}
   defenceSegment: {fileID: 7073632073849449657}
   immobilizedSegment: {fileID: 2975843279284217768}
+  strenghtMechanicDescription: {fileID: 11400000, guid: 0b1f1daa37d9a7542ae5fa51d0a7226c, type: 2}
+  intelligenceMehanicDescription: {fileID: 11400000, guid: 78dc6686bbdceed478ead9ad8e13f558, type: 2}
+  dexterityMechanicDescription: {fileID: 11400000, guid: 42aefa5f4f880614981ee0c290bdb0b8, type: 2}
+  defenceMechanicDescription: {fileID: 11400000, guid: c3ca814fff84b724eb7363f25d6aab77, type: 2}
+  immobilizedMechanicDescription: {fileID: 11400000, guid: 57f8bd10740892445a2bab26f6b118c8, type: 2}
 --- !u!1 &6088515223621267373
 GameObject:
   m_ObjectHideFlags: 0
@@ -5148,19 +5153,72 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2946200525508018935}
   m_SourcePrefab: {fileID: 100100000, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
 --- !u!114 &154284295533932558 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 877426083811733457, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
   m_PrefabInstance: {fileID: 1011373539010944991}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1933304317061309509}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0977d70bc91656448267466f2fbd9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1933304317061309509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+  m_PrefabInstance: {fileID: 1011373539010944991}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2946200525508018935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933304317061309509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: ShowDexterityHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!224 &8467921166200695325 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8902780351401522626, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
@@ -5296,19 +5354,72 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8902780351401522626, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
       insertIndex: 2
       addedObject: {fileID: 7901771723794987351}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8524110353083556656}
   m_SourcePrefab: {fileID: 100100000, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
 --- !u!114 &2975843279284217768 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 877426083811733457, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
   m_PrefabInstance: {fileID: 2693557120048728185}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3583751521468920803}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0977d70bc91656448267466f2fbd9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3583751521468920803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+  m_PrefabInstance: {fileID: 2693557120048728185}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8524110353083556656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583751521468920803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: ShowImmobolizedHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!224 &6839956706268020155 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8902780351401522626, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
@@ -5433,19 +5544,72 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2152514070932271446}
   m_SourcePrefab: {fileID: 100100000, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
 --- !u!114 &2352177452244953655 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 877426083811733457, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
   m_PrefabInstance: {fileID: 3209275094530311654}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 4059087251352452732}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0977d70bc91656448267466f2fbd9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4059087251352452732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+  m_PrefabInstance: {fileID: 3209275094530311654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2152514070932271446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059087251352452732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: ShowIntelligenceHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!224 &6270318268748247076 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8902780351401522626, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
@@ -5570,14 +5734,67 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6407894314168662836}
   m_SourcePrefab: {fileID: 100100000, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+--- !u!1 &3407366126234044834 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+  m_PrefabInstance: {fileID: 4293058100882059832}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6407894314168662836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3407366126234044834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: ShowStrenghtHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!114 &4015310666799947241 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 877426083811733457, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
   m_PrefabInstance: {fileID: 4293058100882059832}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3407366126234044834}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0977d70bc91656448267466f2fbd9ce, type: 3}
@@ -7159,7 +7376,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5251211769587072259}
   m_SourcePrefab: {fileID: 100100000, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
 --- !u!224 &1552245663302219434 stripped
 RectTransform:
@@ -7171,9 +7391,59 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 877426083811733457, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
   m_PrefabInstance: {fileID: 7928491191796597608}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8852612678314146034}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0977d70bc91656448267466f2fbd9ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8852612678314146034 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1503468800535772058, guid: 96e9efa753cf73a439c15283d51e60ad, type: 3}
+  m_PrefabInstance: {fileID: 7928491191796597608}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5251211769587072259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8852612678314146034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: ShowDefenceHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6088515223572167255}
+          m_TargetAssemblyTypeName: FroguesFramework.StatsVisualizationSystem, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1

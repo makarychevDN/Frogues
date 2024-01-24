@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,13 @@ namespace FroguesFramework
         [SerializeField] private StatVisualizationSegment dexteritySegment;
         [SerializeField] private StatVisualizationSegment defenceSegment;
         [SerializeField] private StatVisualizationSegment immobilizedSegment;
+
+        [Header("description tags")]
+        [SerializeField] private AbilityDescriptionTag strenghtMechanicDescription;
+        [SerializeField] private AbilityDescriptionTag intelligenceMehanicDescription;
+        [SerializeField] private AbilityDescriptionTag dexterityMechanicDescription;
+        [SerializeField] private AbilityDescriptionTag defenceMechanicDescription;
+        [SerializeField] private AbilityDescriptionTag immobilizedMechanicDescription;
 
         private int lastStatsHash;
 
@@ -49,6 +57,24 @@ namespace FroguesFramework
             immobilizedSegment.SetValue(stats.Immobilized);
 
             resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
+        }
+
+        public void ShowStrenghtHint() => ShowHint("Сила", strenghtMechanicDescription.DescriptionText, strenghtSegment.transform, (int)stats.StrenghtModificatorPersentages);
+        public void ShowIntelligenceHint() => ShowHint("Интеллект", intelligenceMehanicDescription.DescriptionText, intelligenceSegment.transform, (int)stats.IntelegenceModificatorPersentages);
+        public void ShowDexterityHint() => ShowHint("Ловкость", dexterityMechanicDescription.DescriptionText, dexteritySegment.transform, (int)stats.DexterityeModificatorPersentages);
+        public void ShowDefenceHint() => ShowHint("Защита", defenceMechanicDescription.DescriptionText, defenceSegment.transform, (int)stats.DefenceModificatorPersentages);
+        public void ShowImmobolizedHint() => ShowHint("Обездвиженность", immobilizedMechanicDescription.DescriptionText, immobilizedSegment.transform, stats.Immobilized);
+
+        private void ShowHint(string header, string descriptionTag, Transform transformOfIcon, int value)
+        {
+            descriptionTag = descriptionTag.Replace("{value}", value.ToString());            
+            EntryPoint.Instance.AbilityHint.Init(header, descriptionTag, "", transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
+            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
+        }
+
+        public void HideHint()
+        {
+            EntryPoint.Instance.AbilityHint.EnableContent(false);
         }
     }
 }

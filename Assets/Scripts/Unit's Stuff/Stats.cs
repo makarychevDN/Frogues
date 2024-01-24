@@ -36,6 +36,11 @@ namespace FroguesFramework
         public float DexterityeModificator => (1 + dexterity.GetStatValue() * dexterityModificatorStep);
         public float DefenceModificator => (1 + defence.GetStatValue() * defenceModificatorStep);
 
+        public float StrenghtModificatorPersentages => strengtModificatorStep * 100;
+        public float IntelegenceModificatorPersentages => intelegenceModificatorStep * 100;
+        public float DexterityeModificatorPersentages => dexterityModificatorStep * 100;
+        public float DefenceModificatorPersentages => defenceModificatorStep * 100;
+
         public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 1 + intelegence.GetStatValue() * 10 + dexterity.GetStatValue() * 100 + defence.GetStatValue() * 1000 + spikes.GetStatValue() * 10000 + immobilized.GetTimeToTheEndOfEffect() * 100000;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
