@@ -62,15 +62,15 @@ namespace FroguesFramework
 
         public int CalculateAlternativeDamage()
         {
-            return GetCalculatedCurrentDamage() - Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+            return GetCalculatedCurrentDamage() - Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
         }
 
         public override int CalculateDamage()
         {
-            return Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+            return Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
         }
 
-        public int GetCalculatedCurrentDamage() => Extensions.CalculateDamageWithGameRules(GetDefaultCurrentDamage(), damageType, _owner.Stats);
+        public int GetCalculatedCurrentDamage() => Extensions.CalculateOutgoingDamageWithGameRules(GetDefaultCurrentDamage(), damageType, _owner.Stats);
 
         public int GetDefaultCurrentDamage() => damage + additionalDamage * nextAttackIsCritical.ToInt();
     }

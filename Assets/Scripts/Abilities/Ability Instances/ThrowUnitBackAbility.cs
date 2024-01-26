@@ -109,6 +109,6 @@ namespace FroguesFramework
             throw new System.NotImplementedException();
         }
 
-        private int CalculateDamage => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        private int CalculateDamage => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
     }
 }

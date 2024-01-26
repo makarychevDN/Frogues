@@ -37,7 +37,7 @@ namespace FroguesFramework
             _owner.Movable.OnMovementEnd.RemoveListener(DealDamage);
         }
 
-        public int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
 
         public int GetDefaultDamage() => damage;
 
