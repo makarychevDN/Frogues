@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -28,7 +27,7 @@ namespace FroguesFramework
 
         private int DamageValue => shouldUseWeapondamageInstead ? _owner.AbilitiesManager.WeaponDamage : damage;
 
-        public virtual int CalculateDamage() => Extensions.CalculateDamageWithGameRules(DamageValue, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(DamageValue, damageType, _owner.Stats);
 
         protected override int CalculateActionPointsCost => shouldUseWeaponActionPointsCostInstead ? _owner.AbilitiesManager.WeaponActionPointsCost : actionPointsCost;
 

@@ -15,7 +15,7 @@ namespace FroguesFramework
         private bool _isPrevisualizedNow;
         private List<Cell> _hashedSelectedArea;
 
-        public virtual int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
 
         public override void PrepareToUsing(List<Cell> cells)
         {

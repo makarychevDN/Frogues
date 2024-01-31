@@ -159,7 +159,7 @@ namespace FroguesFramework
             return (int)Math.Round(value, MidpointRounding.AwayFromZero);
         }
 
-        public static int CalculateDamageWithGameRules(int damageValue, DamageType damageType, Stats stats)
+        public static int CalculateOutgoingDamageWithGameRules(int damageValue, DamageType damageType, Stats stats)
         {
             switch (damageType)
             {
@@ -174,6 +174,11 @@ namespace FroguesFramework
             }
 
             return 0;
+        }
+
+        public static int CalculateIncomingDamageWithGameRules(int damageValue, Stats stats)
+        {
+            return (damageValue * stats.DefenceModificator).RoundWithGameRules();
         }
 
         public static int CalculateBlockWithGameRules(int blockValue, Stats stats)

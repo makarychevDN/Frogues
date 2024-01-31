@@ -107,6 +107,6 @@ namespace FroguesFramework
 
         public virtual DamageType GetDamageType() => damageType;
 
-        public virtual int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
     }
 }

@@ -219,6 +219,8 @@ namespace FroguesFramework
 
         private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, int damageValue, bool ignoreBlock)
         {
+            damageValue = Extensions.CalculateIncomingDamageWithGameRules(damageValue, _unit.Stats);
+
             if (!ignoreBlock)
             {
                 int damageToTemporaryBlock = Mathf.Clamp(damageValue, 0, calculatingTemporaryBlock);

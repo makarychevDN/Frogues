@@ -18,7 +18,7 @@ namespace FroguesFramework
 
         public override DamageType GetDamageType() => damageType;
 
-        public override int CalculateDamage() => Extensions.CalculateDamageWithGameRules(_owner.AbilitiesManager.WeaponDamage, damageType, _owner.Stats);
+        public override int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(_owner.AbilitiesManager.WeaponDamage, damageType, _owner.Stats);
 
         public override int GetActionPointsCost()
         {

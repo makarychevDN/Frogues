@@ -66,7 +66,7 @@ namespace FroguesFramework
             units.ForEach(unit => unit.Health.PreTakeDamage(CalculateDamage(), _owner));
         }
 
-        public int CalculateDamage() => Extensions.CalculateDamageWithGameRules(damage, damageType, _owner.Stats);
+        public int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
 
         public int GetDefaultDamage() => damage;
 
