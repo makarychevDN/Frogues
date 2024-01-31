@@ -14,7 +14,6 @@ namespace FroguesFramework
         private StatEffect _strenghtEffect = new (StatEffectTypes.strenght, 0, 1, effectIsConstantly: true);
         private StatEffect _intelegenceEffect = new (StatEffectTypes.intelegence, 0, 1, effectIsConstantly: true);
         
-        private bool _isActive = false;
         private bool _isOddTurn = true;
         
         public override void Init(Unit unit)
@@ -28,8 +27,7 @@ namespace FroguesFramework
         public override void ApplyEffect(bool isActive)
         {
             base.ApplyEffect(isActive);
-
-            _isActive = isActive;
+            
             if (isActive == false)
             {
                 _isOddTurn = true;
@@ -42,7 +40,7 @@ namespace FroguesFramework
         {
             base.TickAfterPlayerTurn();
 
-            if (!_isActive || !_owner.IsEnemy)
+            if (!stanceActiveNow || !_owner.IsEnemy)
                 return;
             _strenghtEffect.Value = _isOddTurn ? strenghtBuff : strenghtDebuff;
             _intelegenceEffect.Value = _isOddTurn ? intelegenceDebuff : intelegenceBuff;
@@ -53,7 +51,7 @@ namespace FroguesFramework
         {
             base.TickAfterEnemiesTurn();
 
-            if (!_isActive || _owner.IsEnemy)
+            if (!stanceActiveNow || _owner.IsEnemy)
                 return;
             _strenghtEffect.Value = _isOddTurn ? strenghtBuff : strenghtDebuff;
             _intelegenceEffect.Value = _isOddTurn ? intelegenceDebuff : intelegenceBuff;
