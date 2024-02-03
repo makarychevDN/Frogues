@@ -29,6 +29,7 @@ namespace FroguesFramework
         [SerializeField] private ResourcePointsUI playersActionPointsUI;
         [SerializeField] private ResourcePointsUI playersBloodPointsUI;
         [SerializeField] private AnimationCurve defaultMovementCurve;
+        [SerializeField] private int countOfRats = 0;
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
         private List<Unit> _bloodSurfacesInCurrentRoom = new();
@@ -36,6 +37,7 @@ namespace FroguesFramework
         public UnityEvent OnNextRoomStarted;
         public UnityEvent OnSomeoneMoved;
         public UnityEvent OnBloodSurfacesCountOnTheMapUpdated;
+        public UnityEvent<int> OnCountOfRatsUpdated;
 
         public bool CurrentRoomIsHub => _currentRoom == hub;
         public CameraController CameraController => _currentRoom.CameraController;
@@ -57,6 +59,16 @@ namespace FroguesFramework
         public void ActivateExit() => _currentRoom.ActivateExit();
         public Unit MetaPlayer => _metaPlayer;
         public int TurnCounter => turnCounter;
+        public int CountOfRats 
+        { 
+            get => countOfRats; 
+
+            set 
+            {
+                countOfRats = value;
+                OnCountOfRatsUpdated.Invoke(value);
+            } 
+        }
 
         private void Awake()
         {
@@ -72,6 +84,7 @@ namespace FroguesFramework
 
         public void StartNextRoom()
         {
+            countOfRats = 0;
             turnCounter = 1;
             var newRoom = Instantiate(roomsPrefabs.GetRandomElement());
             _roomsCount++;
