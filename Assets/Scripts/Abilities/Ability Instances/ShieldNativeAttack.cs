@@ -22,6 +22,9 @@ namespace FroguesFramework
         {
             base.TickAfterEnemiesTurn();
 
+            if (_owner == null)
+                return;
+
             if (!_owner.IsEnemy)
             {
                 WaitAttackOwnerModeOff();
@@ -35,6 +38,9 @@ namespace FroguesFramework
         public override void TickAfterPlayerTurn()
         {
             base.TickAfterPlayerTurn();
+
+            if (_owner == null)
+                return;
 
             if (_owner.IsEnemy)
             {
