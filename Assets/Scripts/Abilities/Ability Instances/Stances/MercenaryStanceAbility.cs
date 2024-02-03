@@ -27,8 +27,12 @@ namespace FroguesFramework
         public override void ApplyEffect(bool isActive)
         {
             base.ApplyEffect(isActive);
-            
-            if (isActive == false)
+
+            if (isActive)
+            {
+                ActivateEffects();
+            }
+            else
             {
                 _isOddTurn = true;
                 _strenghtEffect.Value = 0;
@@ -42,9 +46,8 @@ namespace FroguesFramework
 
             if (!stanceActiveNow || !_owner.IsEnemy)
                 return;
-            _strenghtEffect.Value = _isOddTurn ? strenghtBuff : strenghtDebuff;
-            _intelegenceEffect.Value = _isOddTurn ? intelegenceDebuff : intelegenceBuff;
-            _isOddTurn = !_isOddTurn;
+
+            ActivateEffects();
         }
 
         public override void TickAfterEnemiesTurn()
@@ -53,6 +56,12 @@ namespace FroguesFramework
 
             if (!stanceActiveNow || _owner.IsEnemy)
                 return;
+
+            ActivateEffects();
+        }
+
+        private void ActivateEffects()
+        {
             _strenghtEffect.Value = _isOddTurn ? strenghtBuff : strenghtDebuff;
             _intelegenceEffect.Value = _isOddTurn ? intelegenceDebuff : intelegenceBuff;
             _isOddTurn = !_isOddTurn;
