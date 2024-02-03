@@ -5565,6 +5565,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2976862296004436751, guid: 8bed2a417c56d074c87a0f32ee8271c9, type: 3}
   m_PrefabInstance: {fileID: 8651627331572396440}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &616870456
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1591628998}
+    m_Modifications:
+    - target: {fileID: 5347758190951671494, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_Name
+      value: Mercenary Stance
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3244684df04355a49bc486578839afab, type: 3}
 --- !u!1001 &619029431
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11266,6 +11327,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91efcadbe9c2ac2479088278d53d6a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1077104613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5347758190951671495, guid: 3244684df04355a49bc486578839afab, type: 3}
+  m_PrefabInstance: {fileID: 616870456}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1095922541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 480260031568659775, guid: 55093888d7d8c3146910c5c472a4ec3f, type: 3}
@@ -17543,6 +17609,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  countOfRats: 0
   OnNextRoomStarted:
     m_PersistentCalls:
       m_Calls: []
@@ -17550,6 +17617,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnBloodSurfacesCountOnTheMapUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCountOfRatsUpdated:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &2024597959
@@ -18820,6 +18890,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1406942472}
+    - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1077104613}
     - targetCorrespondingSourceObject: {fileID: 528728460141996085, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       insertIndex: -1
       addedObject: {fileID: 574210864}

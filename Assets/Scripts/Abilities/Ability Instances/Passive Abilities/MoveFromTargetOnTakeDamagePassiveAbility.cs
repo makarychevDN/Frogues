@@ -16,7 +16,7 @@ namespace FroguesFramework
             if (_target == null)
                 _target = EntryPoint.Instance.MetaPlayer;
 
-            unit.Health.OnBlockDestroyed.AddListener(() => TryToMoveFromTarget(_target));
+            unit.Health.OnDamageAppledByHealth.AddListener(() => TryToMoveFromTarget(_target));
         }
 
         private void TryToMoveFromTarget(Unit target)
