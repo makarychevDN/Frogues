@@ -107,6 +107,14 @@ namespace FroguesFramework
             return EntryPoint.Instance.Map.allCells.Where(cell => cell.IsEmpty).ToList();
         }
 
+        public static List<Unit> TakeAllUnits()
+        {
+            var cellsWithContent = EntryPoint.Instance.Map.allCells.Where(cell => !cell.IsEmpty).ToList();
+            List<Unit> units = new List<Unit>();
+            cellsWithContent.ForEach(cell => units.Add(cell.Content));
+            return units;
+        }
+
         public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
         {
             foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
