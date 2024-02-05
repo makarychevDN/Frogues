@@ -20,7 +20,7 @@ namespace FroguesFramework
 
         [SerializeField] private IntSpriteFontSegment spikesTextField;
 
-        protected override void Redraw()
+        public override void Redraw()
         {
             base.Redraw();
 

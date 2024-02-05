@@ -50,7 +50,7 @@ namespace FroguesFramework
             _hashFuncionOfStats = stats.CalculateHashFunctionOfPrevisualisation();
         }
 
-        protected virtual void Redraw()
+        public virtual void Redraw()
         {
             hpSlider.maxValue = health.MaxHp;
             preTakenDamageHPSlider.maxValue = health.MaxHp;

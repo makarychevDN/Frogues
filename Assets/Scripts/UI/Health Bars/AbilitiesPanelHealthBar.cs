@@ -20,7 +20,7 @@ namespace FroguesFramework
         [SerializeField] private AbilityDescriptionTag armorMechanicDescription;
         [SerializeField] private AbilityDescriptionTag spikesMechanicDescription;
 
-        protected override void Redraw()
+        public override void Redraw()
         {
             base.Redraw();
 
