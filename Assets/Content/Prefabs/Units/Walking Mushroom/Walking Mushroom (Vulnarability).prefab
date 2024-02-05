@@ -18,11 +18,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2881889048147653625, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
       propertyPath: weaponIndex
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2881889048147653625, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
-      propertyPath: additionalBlockToTarget
-      value: 5
+      propertyPath: addtionalDebufs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881889048147653625, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: addtionalDebufs.Array.data[0].type
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881889048147653625, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: addtionalDebufs.Array.data[0].value
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881889048147653625, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: addtionalDebufs.Array.data[0].timeToTheEndOfEffect
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5457397350455094722, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
       propertyPath: m_RootOrder
@@ -70,25 +82,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5457397350455094723, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
       propertyPath: m_Name
-      value: Give Block To Random Enemy
+      value: Destroy Defence Of Target
       objectReference: {fileID: 0}
     - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
       propertyPath: material
       value: 
-      objectReference: {fileID: 2100000, guid: b03c93d89ece83f4e9d7f7068e3360b4, type: 2}
+      objectReference: {fileID: 2100000, guid: 50ee5d2456a20254ebe3dcec71c1e553, type: 2}
     - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
       propertyPath: abilityName
-      value: "\u0411\u043B\u043E\u043A\u0438\u0440\u0443\u044E\u0449\u0430\u044F
+      value: "\u0420\u0430\u0437\u0440\u0443\u0448\u0430\u044E\u0449\u0430\u044F
         \u0441\u043F\u043E\u0440\u0430"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: shortDataTags.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: descriptionTags.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
       propertyPath: shortDataTags.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: f56a0293406dc7642ae7d55e7849b8f1, type: 2}
+      objectReference: {fileID: 11400000, guid: e1becf05c3278334c83002ea96b47a9c, type: 2}
+    - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: shortDataTags.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f9e38295d2ec2b458fb82bead9abc4d, type: 2}
+    - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: shortDataTags.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: da947f555b4326a4984c78ddc7c198a4, type: 2}
     - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
       propertyPath: descriptionTags.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 66294acd5de59b146860b205d755d212, type: 2}
+      objectReference: {fileID: 11400000, guid: 5954158026fc89a40bdbfe332ea93e0b, type: 2}
+    - target: {fileID: 5457397350455094724, guid: 4614a29a95b13de4abd6da23ea713add, type: 3}
+      propertyPath: descriptionTags.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b64de534de5b4744fbcab003d7a3ecce, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -129,7 +161,7 @@ PrefabInstance:
     - target: {fileID: 955825343840086625, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 519729897, guid: c7dedbf35d6b92c489fefc68a358c56e, type: 3}
+      objectReference: {fileID: 2124925321, guid: 19455b8d4323231469c8c06d296b9948, type: 3}
     - target: {fileID: 1012320739907937552, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_Controller
       value: 
@@ -304,7 +336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3799744835867771590, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_Name
-      value: Walking Mushroom (Block)
+      value: Walking Mushroom (Vulnarability)
       objectReference: {fileID: 0}
     - target: {fileID: 3860054668833496195, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -368,23 +400,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5023280943986696631, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: unitName
-      value: "\u0411\u043B\u043E\u043A\u0438\u0440\u0443\u044E\u0449\u0430\u044F
+      value: "\u0420\u0430\u0437\u0440\u0443\u0448\u0430\u044E\u0449\u0430\u044F
         \u0433\u0440\u0438\u0431\u043E\u043D\u043E\u0436\u043A\u0430"
       objectReference: {fileID: 0}
     - target: {fileID: 5023280943986696631, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: description
-      value: "\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442
-        \u0432\u0440\u0430\u0436\u0435\u0441\u043A\u0438\u0445 \u044E\u043D\u0438\u0442\u043E\u0432
-        \u043D\u0430 \u043F\u043E\u043B\u0435 \u0431\u043E\u044F. \u0421\u043E \u0432\u0440\u0435\u043C\u0435\u043D\u0435\u043C
-        \u0433\u0440\u0438\u0431\u044B \u0434\u043E\u0433\u0430\u0434\u0430\u043B\u0438\u0441\u044C,
-        \u0447\u0442\u043E \u0436\u0438\u0432\u044B\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0430
-        \u043D\u0435 \u0441\u0442\u0430\u043D\u0443\u0442 \u0441\u043E\u043F\u0440\u043E\u0442\u0438\u0432\u043B\u044F\u0442\u044C\u0441\u044F
-        \u0440\u0430\u0441\u043F\u0440\u043E\u0441\u0442\u0440\u043E\u043D\u0435\u043D\u0438\u044E
-        \u0441\u043F\u043E\u0440, \u0435\u0441\u043B\u0438 \u0441\u043F\u043E\u0440\u044B
-        \u0431\u0443\u0434\u0443\u0442 \u043F\u043E\u043C\u043E\u0433\u0430\u0442\u044C,
-        \u0430 \u043D\u0435 \u0432\u0440\u0435\u0434\u0438\u0442\u044C. \u0412\u043F\u0440\u043E\u0447\u0435\u043C,
-        \u0443 \u0433\u0440\u0438\u0431\u043E\u0432 \u0438 \u0446\u0435\u043B\u0438
-        \u0442\u0435\u043F\u0435\u0440\u044C \u0438\u043D\u044B\u0435."
+      value: "\u0412 \u043E\u0442\u043B\u0438\u0447\u0438\u0438 \u043E\u0442 \u0441\u0432\u043E\u0438\u0445
+        \u0441\u043E\u0431\u0440\u0430\u0442\u044C\u0435\u0432, \u0447\u0442\u043E
+        \u0443\u0441\u0438\u043B\u044F\u044E\u0442 \u0432\u0440\u0430\u0433\u043E\u0432,
+        \u044D\u0442\u0430 \u043D\u0430\u043C\u0435\u0440\u0435\u043D\u043D\u0430
+        \u0440\u0430\u0437\u0434\u0435\u043B\u0430\u0442\u044C\u0441\u044F \u0441
+        \u0436\u0430\u0431\u043E\u0439 \u043A\u0430\u043A \u043C\u043E\u0436\u043D\u043E
+        \u0431\u044B\u0441\u0442\u0440\u0435\u0435. \u0412\u0441\u0435 \u0435\u0449\u0435
+        \u043D\u0435 \u0441\u043F\u043E\u0441\u043E\u0431\u043D\u0430\u044F \u043D\u0430\u043D\u043E\u0441\u0438\u0442\u044C
+        \u0443\u0440\u043E\u043D \u043E\u043D\u0430 \u0434\u0435\u043B\u0430\u0435\u0442
+        \u0441\u0432\u043E\u044E \u0446\u0435\u043B\u044C \u0443\u044F\u0437\u0432\u0438\u043C\u043E\u0439
+        \u0434\u043B\u044F \u0434\u0440\u0443\u0433\u0438\u0445 \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u043E\u0432."
       objectReference: {fileID: 0}
     - target: {fileID: 5332120902867407492, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -627,7 +658,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 650360554326565321, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6093028894421903032}
+      addedObject: {fileID: 2328672068940475951}
     - targetCorrespondingSourceObject: {fileID: 5903018320294155564, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 867833582075002814}
@@ -670,7 +701,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 650360554326565321, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
   m_PrefabInstance: {fileID: 8726335536808058310}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6093028894421903032
+--- !u!114 &2328672068940475951
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -679,8 +710,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8078508396606684175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ca932bdf60a12a42bec03b527929b9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6831460decd89c04191e0b2990ae1acc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  supportUnitAbilty: {fileID: 1993349140722501236}
+  hitTargetAbilty: {fileID: 1993349140722501236}
