@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using FroguesFramework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;

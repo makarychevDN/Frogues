@@ -24,6 +24,7 @@ namespace FroguesFramework
         {
             _isEnemy = unit.IsEnemy;
             AddMySelfToEntryPoint();
+            unit.AbleToSkipTurn.OnSkipTurn.AddListener(RegeneratePoints);
         }
 
         private void RegeneratePoints()
@@ -151,14 +152,14 @@ namespace FroguesFramework
 
         public void TickAfterEnemiesTurn()
         { 
-            if (_isEnemy)
-                RegeneratePoints();
+            //if (_isEnemy)
+                //RegeneratePoints();
         }
         
         public void TickAfterPlayerTurn()
         {
-            if (!_isEnemy)
-                RegeneratePoints();
+            //if (!_isEnemy)
+               // RegeneratePoints();
         }
 
         public void DisablePreVisualization()
@@ -180,7 +181,7 @@ namespace FroguesFramework
 
         public int CalculateHashFunctionOfPrevisualisation()
         {
-            return maxPointsCount * 4 + currentPoints * 4 + tempraryPoints * 4 + _preTakenCurrentPoints * 4 + _preTakenTemporaryPoints * 4;
+            return maxPointsCount * 1 + currentPoints * 10 + tempraryPoints * 100 + _preTakenCurrentPoints * 1000 + _preTakenTemporaryPoints * 10000;
         }
     }
 }

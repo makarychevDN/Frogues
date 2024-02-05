@@ -1,5 +1,3 @@
-using System;
-using FroguesFramework;
 using UnityEngine;
 
 [ExecuteAlways]

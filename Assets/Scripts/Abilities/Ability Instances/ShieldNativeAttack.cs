@@ -1,7 +1,3 @@
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Events;
-
 namespace FroguesFramework
 {
     public class ShieldNativeAttack : DefaultCritableUnitTargetAbility
