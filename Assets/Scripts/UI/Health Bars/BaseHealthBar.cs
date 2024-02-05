@@ -18,6 +18,7 @@ namespace FroguesFramework
 
         protected int _hashFuncionOfHealth;
         protected int _hashFuncionOfStats;
+        protected int _hashFuncionOfActionPoints;
 
         public void SetHealthAndStats(Health health, Stats stats)
         {
@@ -25,7 +26,7 @@ namespace FroguesFramework
             this.stats = stats;            
         }
 
-        void Start()
+        void OnEnable()
         {
             StartCoroutine(RedrawOnSecondFrame());
         }
