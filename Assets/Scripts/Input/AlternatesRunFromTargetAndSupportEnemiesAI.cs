@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class AkternatesRunFromTargetAndSupportEnemiesAI : MonoBehaviour, IAbleToAct
+    public class AlternatesRunFromTargetAndSupportEnemiesAI : MonoBehaviour, IAbleToAct
     {
         [SerializeField] private Unit target;
         [SerializeField] private UnitTargetAbility supportUnitAbilty;
