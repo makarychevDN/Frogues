@@ -20,10 +20,10 @@ namespace FroguesFramework
 
         public override void UnInit()
         {
-            base.UnInit();
             _owner.Health.IncreaseMaxHp(-additionalHp);
             _owner.BloodPoints.IncreaseLimit(-additionalMaxBlood);
             effects.ForEach(effect => _owner.Stats.RemoveStatEffect(effect));
+            base.UnInit();
         }
 
         public int GetModificatorForMaxHP() => additionalHp;
