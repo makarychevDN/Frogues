@@ -108,11 +108,10 @@ namespace FroguesFramework
         {
             base.Init(unit);
 
-            if (weaponIndex == WeaponIndexes.NoNeedToChangeWeapon)
+            if (animatorControllerForAbility == null)
                 return;
 
-            _owner.Animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, (int)weaponIndex);
-            _owner.Animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
+            _owner.Animator.runtimeAnimatorController = animatorControllerForAbility;
         }
 
         public bool IsPrevisualizedNow() => _isPrevisualizedNow;

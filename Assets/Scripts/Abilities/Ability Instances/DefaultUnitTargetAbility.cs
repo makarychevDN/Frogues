@@ -121,11 +121,10 @@ namespace FroguesFramework
                 _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
             }
 
-            if (weaponIndex == WeaponIndexes.NoNeedToChangeWeapon)
+            if (animatorControllerForAbility == null)
                 return;
 
-            _owner.Animator.SetInteger(CharacterAnimatorParameters.WeaponIndex, (int)weaponIndex);
-            _owner.Animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
+            _owner.Animator.runtimeAnimatorController = animatorControllerForAbility;
         }
 
         public bool IsNativeAttack()
