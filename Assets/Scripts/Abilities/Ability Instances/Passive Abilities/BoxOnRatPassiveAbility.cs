@@ -5,6 +5,7 @@ namespace FroguesFramework
     public class BoxOnRatPassiveAbility : PassiveAbility, IAbleToApplyArmor
     {
         [SerializeField] private int armorValue;
+        [SerializeField] private RuntimeAnimatorController ownerWithoutBoxController;
 
         public int CalculateArmor() => armorValue;
 
@@ -15,9 +16,7 @@ namespace FroguesFramework
             base.Init(unit);
 
             _owner.Health.IncreaseArmor(armorValue);
-            _owner.Animator.SetBool(CharacterAnimatorParameters.BoxIsOn, true);
-            _owner.Animator.SetTrigger(CharacterAnimatorParameters.ChangeWeapon);
-            _owner.Health.OnBlockDestroyed.AddListener(() => _owner.Animator.SetBool(CharacterAnimatorParameters.BoxIsOn, false));
+            _owner.Health.OnArmorDestroyed.AddListener(() => _owner.Animator.runtimeAnimatorController = ownerWithoutBoxController);
         }
     }
 }
