@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class IncreaseEscapesFromTheDeathCount : PassiveAbility, IAbleToHighlightAbilityButton, IAbleToHaveCount
     {
         [SerializeField] private int additionalEscapesFromDeath;
+        [SerializeField] private RuntimeAnimatorController animatorAfterTailDestroyed;
         private bool shouldHiglightButton;
         private UnityEvent<bool> highlightButtonEvent = new();
 
@@ -13,7 +14,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
             _owner.Health.IncreaseEscapesFromDeathCount(additionalEscapesFromDeath);
-            _owner.Health.OnHpEnded.AddListener(UpdatedStatus);
+            _owner.Health.OnHpEnded.AddListener(UpdateStatus);
             shouldHiglightButton = true;
             highlightButtonEvent.Invoke(shouldHiglightButton);
         }
@@ -22,15 +23,20 @@ namespace FroguesFramework
         {
             base.UnInit();
             _owner.Health.IncreaseEscapesFromDeathCount(-additionalEscapesFromDeath);
-            _owner.Health.OnHpEnded.RemoveListener(UpdatedStatus);
+            _owner.Health.OnHpEnded.RemoveListener(UpdateStatus);
             shouldHiglightButton = false;
             highlightButtonEvent.Invoke(shouldHiglightButton);
         }
 
-        public void UpdatedStatus()
+        public void UpdateStatus()
         {
             shouldHiglightButton = false;
             highlightButtonEvent.Invoke(shouldHiglightButton);
+
+            if(animatorAfterTailDestroyed != null)
+            {
+                _owner.Animator.runtimeAnimatorController = animatorAfterTailDestroyed;
+            }
         }
 
         public UnityEvent<bool> GetHighlightEvent() => highlightButtonEvent;
