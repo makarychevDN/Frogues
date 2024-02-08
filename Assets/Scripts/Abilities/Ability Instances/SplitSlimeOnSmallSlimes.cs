@@ -1,30 +1,44 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SplitSlimeOnSmallSlimes : NonTargetAbility, IAbleToReturnRange, IAbleToHaveCount
+    public class SplitSlimeOnSmallSlimes : NonTargetAbility, IAbleToReturnRange, IAbleToReturnSingleValue, IAbleToReturnSecondSingleValue
     {
         [SerializeField] private int radius;
         [SerializeField] private int samllSlimesQuantity;
-        [SerializeField] private Unit smallSlimePrefab;
+        [SerializeField] private List<UnitAndCount> unitAndCounts;
 
-        public int GetCount() => samllSlimesQuantity;
+        public int GetValue() => unitAndCounts[0].count;
+
+        public int GetSecondValue() => unitAndCounts[1].count;
 
         public int ReturnRange() => radius;
 
         public override void Use()
         {
-            for (int i = 0; i < samllSlimesQuantity; i++) 
+            foreach (var unitAndCount in unitAndCounts)
             {
-                var emptyCells = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius).EmptyCellsOnly();
+                for (int i = 0; i < unitAndCount.count; i++)
+                {
+                    var emptyCells = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius).EmptyCellsOnly();
 
-                if (emptyCells == null || emptyCells.Count == 0)
-                    break;
+                    if (emptyCells == null || emptyCells.Count == 0)
+                        break;
 
-                EntryPoint.Instance.SpawnUnit(smallSlimePrefab, _owner, emptyCells.GetRandomElement());
+                    EntryPoint.Instance.SpawnUnit(unitAndCount.unit, _owner, emptyCells.GetRandomElement());
+                }
             }
 
             _owner.AbleToDie.Die();
+        }
+
+        [Serializable]
+        public struct UnitAndCount
+        {
+            public Unit unit;
+            public int count;
         }
     }
 }
