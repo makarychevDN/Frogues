@@ -14,6 +14,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
             _owner.Health.IncreaseMaxHp(additionalHp);
+            _owner.Health.TakeHealing(additionalHp);
             _owner.BloodPoints.IncreaseLimit(additionalMaxBlood);
             effects.ForEach(effect => _owner.Stats.AddStatEffect(effect));
         }
