@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -31,7 +32,7 @@ namespace FroguesFramework
                 return;
             }
 
-            var mostFarCells = new List<Cell>() { _unit.CurrentCell };
+            var theBestToRunCells = new List<Cell>() { _unit.CurrentCell };
             var neighborCells = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, 1).EmptyCellsOnly();
             var farestDistance = target.CurrentCell.DistanceToCell(_unit.CurrentCell);
 
@@ -39,22 +40,42 @@ namespace FroguesFramework
             {
                 if (target.CurrentCell.DistanceToCell(cell) > farestDistance)
                 {
-                    mostFarCells.Clear();
+                    theBestToRunCells.Clear();
                     farestDistance = target.CurrentCell.DistanceToCell(cell);
                 }
 
                 if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
-                    mostFarCells.Add(cell);
+                    theBestToRunCells.Add(cell);
             }
 
-            if (mostFarCells.Contains(_unit.CurrentCell))
+            if (theBestToRunCells.Contains(_unit.CurrentCell))
             {
-                EndTurn();
-                return;
+                int leastBarriersQuantity = 6;
+
+                foreach(var cell in neighborCells)
+                {
+                    int barriersQuantity = cell.CellNeighbours.GetAllNeighbors().Where(cell => cell.Content is Barrier).Count();
+
+                    if (barriersQuantity < leastBarriersQuantity)
+                    {
+                        leastBarriersQuantity = barriersQuantity;
+                        theBestToRunCells.Clear();
+                        farestDistance = target.CurrentCell.DistanceToCell(cell);
+                    }
+
+                    if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
+                        theBestToRunCells.Add(cell);
+                }
+
+                if (theBestToRunCells.Contains(_unit.CurrentCell))
+                {
+                    EndTurn();
+                    return;
+                }
             }
 
             _unit.MovementAbility.CalculateUsingArea();
-            _unit.MovementAbility.UseOnCells(new List<Cell> { mostFarCells.GetRandomElement() });
+            _unit.MovementAbility.UseOnCells(new List<Cell> { theBestToRunCells.GetRandomElement() });
         }
 
         protected void EndTurn()
