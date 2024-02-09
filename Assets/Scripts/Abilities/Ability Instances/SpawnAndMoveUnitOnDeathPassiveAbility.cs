@@ -10,12 +10,12 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            _owner.Health.OnHpEnded.AddListener(TryToSpawnAndMoveUnit);
+            _owner.AbleToDie.OnDeath.AddListener(TryToSpawnAndMoveUnit);
         }
 
         public override void UnInit()
         {
-            _owner.Health.OnHpEnded.RemoveListener(TryToSpawnAndMoveUnit);
+            _owner.AbleToDie.OnDeath.RemoveListener(TryToSpawnAndMoveUnit);
             base.UnInit();
         }
 
