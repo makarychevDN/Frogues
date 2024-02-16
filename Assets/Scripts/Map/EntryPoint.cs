@@ -22,6 +22,7 @@ namespace FroguesFramework
         [SerializeField] private int score;
         [SerializeField] private int deltaOfScoreToOpenExit = 200;
         [SerializeField] private WaveSpawner waveSpawner;
+        [SerializeField] private WavesGenerator wavesGenerator;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private int bonfireHealingValue;
         [SerializeField] private int turnCounter;
@@ -91,11 +92,12 @@ namespace FroguesFramework
             _currentRoom = newRoom;
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.ActionPoints.SetCurrentPoints(4);
-            _metaPlayer.Health.TakeHealing(33);
+            //_metaPlayer.Health.TakeHealing(33);
             _metaPlayer.Stats.RemoveAllNonConstantlyEffects();
             _metaPlayer.Health.RemoveAllBlockEffects();
-            waveSpawner.ResetRoundsTimer();
-            waveSpawner.SpawnPreWave();
+            //waveSpawner.ResetRoundsTimer();
+            //waveSpawner.SpawnPreWave();
+            wavesGenerator.ResetRoundsTimer();
             exitButton.SetActive(false);
             FindObjectsOfType<MonoBehaviour>().OfType<IAbleToHaveCooldown>().ToList().ForEach(x => x.SetCooldownAsAfterStart());
             OnNextRoomStarted.Invoke();

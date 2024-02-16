@@ -11565,7 +11565,7 @@ Transform:
   m_Children:
   - {fileID: 4182687046851866786}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1265455942
 PrefabInstance:
@@ -17537,7 +17537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2024597959}
   - component: {fileID: 2024597958}
-  - component: {fileID: 2024597960}
+  - component: {fileID: 2024597961}
   m_Layer: 0
   m_Name: Entry Point
   m_TagString: Untagged
@@ -17570,7 +17570,8 @@ MonoBehaviour:
   abilityHint: {fileID: 1483526553}
   score: 0
   deltaOfScoreToOpenExit: 300
-  waveSpawner: {fileID: 2024597960}
+  waveSpawner: {fileID: 0}
+  wavesGenerator: {fileID: 2024597961}
   scoreText: {fileID: 845689063}
   bonfireHealingValue: 15
   turnCounter: 0
@@ -17637,7 +17638,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2024597960
+--- !u!114 &2024597961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17646,23 +17647,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 2024597957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad44de979088936428256a84f26db00f, type: 3}
+  m_Script: {fileID: 11500000, guid: 15a653a82e0d84641b5ff4a2461e28b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveSetups:
-  - {fileID: 11400000, guid: ccbc26882db8de642af44a172c53be9e, type: 2}
-  - {fileID: 11400000, guid: 96a06c257cbba2c44a23d221b203cc54, type: 2}
-  - {fileID: 11400000, guid: ec7ae0cd3b3fea84996cce5fdae95c2b, type: 2}
-  - {fileID: 11400000, guid: 5a193f94524045c428c2f2fbd47b8beb, type: 2}
-  - {fileID: 11400000, guid: eea5cf8fae4ddb7419bf35dc951fb32e, type: 2}
-  - {fileID: 11400000, guid: b188718face4775428d7aa9d0ddaa95a, type: 2}
-  - {fileID: 11400000, guid: ceb907b143b589348a277ea53154e046, type: 2}
-  - {fileID: 11400000, guid: f5905deb3d3ca294d8b3585dbe2e8348, type: 2}
-  - {fileID: 11400000, guid: 786b2f92a00baae4d81081f36b2f9a7d, type: 2}
-  - {fileID: 11400000, guid: 3eaae6861a626954e835364c77851eb1, type: 2}
-  - {fileID: 11400000, guid: ba2dfaf2c8163874381939910c041533, type: 2}
-  currentWaveSetup: {fileID: 0}
-  _roundsCounter: 0
+  expectedMinimumOfEnemiesOnTheMap: 3
+  roundsToSpawn: 2
+  unitsPool: []
+  commonSchemeOfPool:
+  - {fileID: 11400000, guid: b5e146417981b4048a9b40f212cfb7c5, type: 2}
+  - {fileID: 11400000, guid: b5e146417981b4048a9b40f212cfb7c5, type: 2}
+  - {fileID: 11400000, guid: 19d9a4ea1133bae4a8a6aedee799f407, type: 2}
+  - {fileID: 11400000, guid: 19d9a4ea1133bae4a8a6aedee799f407, type: 2}
+  - {fileID: 11400000, guid: 19d9a4ea1133bae4a8a6aedee799f407, type: 2}
+  - {fileID: 11400000, guid: ad5c334e243ce6b4187c9a779d9fb1f3, type: 2}
+  difficultyOfEnemiesInThePoolSetup:
+  - {fileID: 11400000, guid: edfa7ebca7eb8eb4db26bb8a4e1cadbf, type: 2}
+  - {fileID: 11400000, guid: 5851b84c8e91ef94a8e7f16fffe1c5c5, type: 2}
+  - {fileID: 11400000, guid: 9587c9847edbcb540a95679a1f8ccf67, type: 2}
+  - {fileID: 11400000, guid: 7fa4676f13ad8ec4eac0769f1d58f818, type: 2}
+  roundsCounter: 0
 --- !u!4 &2033296788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7496883552950247067, guid: 7a516f7dd7881bc489ffe40d850a4058, type: 3}
@@ -25255,7 +25258,7 @@ PrefabInstance:
       objectReference: {fileID: 4182687046851866785}
     - target: {fileID: 5586868789273664391, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5586868789273664391, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25296,10 +25299,6 @@ PrefabInstance:
     - target: {fileID: 5586868789273664391, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5608915732547974460, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
-      propertyPath: content
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5992048510501439298, guid: c91ddc65bf94d3f49877b9d1694c4ce6, type: 3}
       propertyPath: animatorControllerForAbility
