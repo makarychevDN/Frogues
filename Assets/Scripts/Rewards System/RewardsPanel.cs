@@ -11,14 +11,14 @@ namespace FroguesFramework
         [SerializeField] private List<SingleRewardPanel> singleRewardPanels;
         public UnityEvent<SingleRewardPanel> OnRewardChoosed;
 
-        private void AddSingleReward(SingleRewardPanel singleReward)
+        public void AddSingleReward(SingleRewardPanel singleReward)
         {
             singleRewardPanels.Add(singleReward);
             singleReward.transform.parent = parentForRewards;
             OnRewardChoosed.AddListener(RemoveRewardFromPanel);
         }
 
-        private void RemoveRewardFromPanel(SingleRewardPanel singleReward)
+        public void RemoveRewardFromPanel(SingleRewardPanel singleReward)
         {
             singleRewardPanels.Remove(singleReward);
         }

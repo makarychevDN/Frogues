@@ -21,7 +21,6 @@ namespace FroguesFramework
         [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private int score;
         [SerializeField] private int deltaOfScoreToOpenExit = 200;
-        [SerializeField] private WaveSpawner waveSpawner;
         [SerializeField] private WavesGenerator wavesGenerator;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private int bonfireHealingValue;
