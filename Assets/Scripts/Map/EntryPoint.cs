@@ -30,16 +30,23 @@ namespace FroguesFramework
         [SerializeField] private ResourcePointsUI playersBloodPointsUI;
         [SerializeField] private AnimationCurve defaultMovementCurve;
         [SerializeField] private int countOfRats = 0;
+        [Header("Abilities Setup")]
+        [SerializeField] private List<BaseAbility> poolOfActiveAbilitiesPerRun;
+        [SerializeField] private List<BaseAbility> poolOfPassiveAbilitiesPerRun;
+
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
         private List<Unit> _bloodSurfacesInCurrentRoom = new();
         private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
         public UnityEvent OnNextRoomStarted;
         public UnityEvent OnSomeoneMoved;
+        public UnityEvent OnScoreIncreased;
         public UnityEvent OnBloodSurfacesCountOnTheMapUpdated;
         public UnityEvent<int> OnCountOfRatsUpdated;
 
         public bool CurrentRoomIsHub => _currentRoom == hub;
+        public List<BaseAbility> PoolOfActiveAbilitiesPerRun => poolOfActiveAbilitiesPerRun;
+        public List<BaseAbility> PoolOfPassiveAbilitiesPerRun => poolOfPassiveAbilitiesPerRun;
         public CameraController CameraController => _currentRoom.CameraController;
         public PathFinder PathFinder => _currentRoom.PathFinder;
         public Map Map => _currentRoom.Map;
@@ -111,6 +118,7 @@ namespace FroguesFramework
         {
             this.score += score;
             scoreText.text = this.score.ToString();
+            OnScoreIncreased.Invoke();
 
             if (this.score - _hashedScoreThenExitActivated < deltaOfScoreToOpenExit)
                 return;
