@@ -12,23 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cf76758c45acf42afa238b873866de, type: 3}
   m_Name: Range Enemy Provider
   m_EditorClassIdentifier: 
-  setup:
-  - difficultyLevel: 1
-    units:
-    - {fileID: 4741608946841456852, guid: 3678640387bc3564ba3609f87029ff9b, type: 3}
-    - {fileID: 550004254658000082, guid: 69dd2c6f0e03ab447b6cd1b74949f425, type: 3}
-  - difficultyLevel: 2
-    units:
-    - {fileID: 4028098273107479003, guid: 07372fce145e4654bb3623389ff6e011, type: 3}
-    - {fileID: 4028098273107479003, guid: 32f884b74d5d09448b5dc14190087595, type: 3}
-    - {fileID: 8895371916106782857, guid: 44defda134cdc7f4e95610b48a66b56f, type: 3}
-    - {fileID: 8895371916106782857, guid: 44defda134cdc7f4e95610b48a66b56f, type: 3}
-  - difficultyLevel: 3
-    units:
-    - {fileID: 4028098273107479003, guid: 55a362f2b7b42fc4fb4555fdb98d867a, type: 3}
-    - {fileID: 1498247074911062081, guid: 27d5f4f673e76224a876ab8fc083a061, type: 3}
-    - {fileID: 8952217480452593013, guid: f64518c9d3f153c4c8797624471c19af, type: 3}
-  - difficultyLevel: 4
-    units:
-    - {fileID: 8952217480452593013, guid: 350696aaae24d824182ad3d75409e523, type: 3}
-    - {fileID: 1199900718835248876, guid: 756aabc361afc6f498fba00d8d47fd0f, type: 3}
+  unitsByDifficultyDictionary:
+    _serializedList:
+    - Key: 1
+      Value:
+      - {fileID: 4741608946841456852, guid: 3678640387bc3564ba3609f87029ff9b, type: 3}
+      - {fileID: 550004254658000082, guid: 69dd2c6f0e03ab447b6cd1b74949f425, type: 3}
+    - Key: 2
+      Value:
+      - {fileID: 4028098273107479003, guid: 07372fce145e4654bb3623389ff6e011, type: 3}
+      - {fileID: 4028098273107479003, guid: 32f884b74d5d09448b5dc14190087595, type: 3}
+      - {fileID: 8895371916106782857, guid: 44defda134cdc7f4e95610b48a66b56f, type: 3}
+      - {fileID: 8895371916106782857, guid: 44defda134cdc7f4e95610b48a66b56f, type: 3}
+    - Key: 3
+      Value:
+      - {fileID: 4028098273107479003, guid: 55a362f2b7b42fc4fb4555fdb98d867a, type: 3}
+      - {fileID: 1498247074911062081, guid: 27d5f4f673e76224a876ab8fc083a061, type: 3}
+      - {fileID: 8952217480452593013, guid: f64518c9d3f153c4c8797624471c19af, type: 3}
+    - Key: 4
+      Value:
+      - {fileID: 1199900718835248876, guid: 756aabc361afc6f498fba00d8d47fd0f, type: 3}
+      - {fileID: 8952217480452593013, guid: 350696aaae24d824182ad3d75409e523, type: 3}
