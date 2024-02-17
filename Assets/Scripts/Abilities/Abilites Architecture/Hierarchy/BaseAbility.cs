@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public abstract class BaseAbility : MonoBehaviour, IInitializeable, IAbleToDrawAbilityButton
+    public abstract class BaseAbility : MonoBehaviour, IInitializeableAbility, IAbleToDrawAbilityButton
     {
         [SerializeField] private AbilityDataForButton abilityDataForButton;
         [SerializeField] private bool isPartOfWeapon;
@@ -12,11 +12,15 @@ namespace FroguesFramework
         public bool IsPartOfWeapon => isPartOfWeapon;
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
 
-        public virtual void Init(Unit unit) 
+        public virtual void Init(Unit unit, bool unitBecomesAnOwner = true) 
         { 
             _owner = unit;
-            _owner.AbilitiesManager.AddAbility(this);
+
+            if(unitBecomesAnOwner)
+                _owner.AbilitiesManager.AddAbility(this);
         }
+
+        public virtual void Init(Unit unit) => Init(unit, true);
 
         public virtual void UnInit() => _owner = null;
 

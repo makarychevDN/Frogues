@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class Stats : MonoBehaviour, IAbleToCalculateHashFunctionOfPrevisualisation, IRoundTickable, IInitializeable
+    public class Stats : MonoBehaviour, IAbleToCalculateHashFunctionOfPrevisualisation, IRoundTickable
     {
         [SerializeField] private List<StatEffect> strenght;
         [SerializeField] private List<StatEffect> intelegence;

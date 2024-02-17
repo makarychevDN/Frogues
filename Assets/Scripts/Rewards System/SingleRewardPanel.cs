@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SingleRewardPanel : MonoBehaviour
+namespace FroguesFramework
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SingleRewardPanel : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Button selectThisRewardAbility;
+        [SerializeField] private AbilityButtonSlot abilitySlot;
+        [SerializeField] private AbilityButton abilityButtonPrefab;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void Init(BaseAbility ability, Unit unit)
+        {
+            ability.Init(unit, false);
+            var abilityButton = Instantiate(abilityButtonPrefab);;
+            abilityButton.Init(ability, abilitySlot, false, new Vector2(0.5f, 1), Vector2.down * 40 * 2);
+        }
     }
 }

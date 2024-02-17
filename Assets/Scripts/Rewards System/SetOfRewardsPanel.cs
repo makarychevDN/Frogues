@@ -22,6 +22,7 @@ namespace FroguesFramework
                 var singleRewardPanel = Instantiate(singleRewardPanelPrefab);
                 singleRewardPanel.transform.parent = parentForSignleRewardPanels;
                 singleRewardPanel.transform.SetSiblingIndex(1);
+                singleRewardPanel.Init(abilty, EntryPoint.Instance.MetaPlayer);
             }
         }
     }
