@@ -18,15 +18,18 @@ namespace FroguesFramework
 
         private void TryToGiveReward()
         {
-            RewardPanelSetup reward = rewards.FirstOrDefault(rewardSetup => !rewardSetup.isGivenAlready && rewardSetup.scoreRequirement <= EntryPoint.Instance.Score);
+            List<RewardPanelSetup> currentRewards = rewards.Where(rewardSetup => !rewardSetup.isGivenAlready && rewardSetup.scoreRequirement <= EntryPoint.Instance.Score).ToList();
 
-            if (reward == null)
+            if (currentRewards == null || currentRewards.Count == 0)
                 return;
 
-            reward.isGivenAlready = true;
-            var newRewardPanel = Instantiate(singleRewardPanelPrefab);
-            newRewardPanel.Init(reward.isPassiveAbilitiesPool, reward.countOfPossibleRewards);
-            rewardsPanel.AddSingleReward(newRewardPanel);
+            foreach (var reward in currentRewards)
+            {
+                reward.isGivenAlready = true;
+                var newRewardPanel = Instantiate(singleRewardPanelPrefab);
+                newRewardPanel.Init(reward.isPassiveAbilitiesPool, reward.countOfPossibleRewards);
+                rewardsPanel.AddSingleReward(newRewardPanel);
+            }
         }
 
         [Serializable]
