@@ -7,9 +7,8 @@ namespace FroguesFramework
 {
     public class RewardsGenerator : MonoBehaviour
     {
-        [SerializeField] private SingleRewardPanel singleRewardPanelPrefab; 
         [SerializeField] private List<RewardPanelSetup> rewards;
-        [SerializeField] private RewardsPanel rewardsPanel;
+        [SerializeField] private RewardsMenu rewardsMenu;
 
         private void Start()
         {
@@ -26,9 +25,7 @@ namespace FroguesFramework
             foreach (var reward in currentRewards)
             {
                 reward.isGivenAlready = true;
-                var newRewardPanel = Instantiate(singleRewardPanelPrefab);
-                newRewardPanel.Init(reward.isPassiveAbilitiesPool, reward.countOfPossibleRewards);
-                rewardsPanel.AddSingleReward(newRewardPanel);
+                rewardsMenu.GenerateSetOfRewards(reward.isPassiveAbilitiesPool, reward.countOfPossibleRewards);
             }
         }
 
@@ -36,8 +33,8 @@ namespace FroguesFramework
         public class RewardPanelSetup
         {
             [field: SerializeField] public bool isGivenAlready { get; set; }
-            [field: SerializeField] public bool isPassiveAbilitiesPool { get; set; }
             [field: SerializeField] public int scoreRequirement { get; set; }
+            [field: SerializeField] public bool isPassiveAbilitiesPool { get; set; }
             [field: SerializeField] public int countOfPossibleRewards { get; set; }
         } 
     }

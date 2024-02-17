@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6652950633820807986}
   - component: {fileID: 5480597074574496855}
   m_Layer: 5
-  m_Name: Rewards Panel
+  m_Name: Rewards Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,10 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20801c1928437f49a126aefeee16977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parentForRewards: {fileID: 1163968343468420865}
+  parentForSetsOfRewards: {fileID: 1163968343468420865}
   background: {fileID: 548421810082972041}
-  singleRewardPanels: []
-  OnRewardChoosed:
+  setOfRewardsPanelPrefab: {fileID: 7570822555327973723, guid: d2def8a7ba1c29b49886a136d5d69b2c, type: 3}
+  setOfRewardsPanels: []
+  OnRewardChosen:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &4973342729311929850
@@ -144,7 +145,7 @@ GameObject:
   - component: {fileID: 1163968343468420865}
   - component: {fileID: 8443661673891884745}
   m_Layer: 5
-  m_Name: Parent For Single Reward Panels
+  m_Name: Parent For Sets Of Rewards Panels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

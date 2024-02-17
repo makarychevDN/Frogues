@@ -1,22 +1,18 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FroguesFramework
+public class SingleRewardPanel : MonoBehaviour
 {
-    public class SingleRewardPanel : MonoBehaviour
+    // Start is called before the first frame update
+    void Start()
     {
-        [SerializeField] private List<BaseAbility> ableToBeChosenAbilities;
+        
+    }
 
-        public void Init(bool isPassiveAbilitiesPool, int numberOfAbilitesAbleToChoose)
-        {
-            var abilityList = isPassiveAbilitiesPool ? EntryPoint.Instance.PoolOfPassiveAbilitiesPerRun : EntryPoint.Instance.PoolOfActiveAbilitiesPerRun;
-
-            for(int i = 0; i < numberOfAbilitesAbleToChoose; i++)
-            {
-                var abilty = abilityList.GetRandomElement();
-                ableToBeChosenAbilities.Add(abilty);
-                abilityList.Remove(abilty);
-            }
-        }
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
