@@ -1,8 +1,10 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using static FroguesFramework.RewardsGenerator;
 
 namespace FroguesFramework
 {
@@ -30,8 +32,8 @@ namespace FroguesFramework
         [SerializeField] private AnimationCurve defaultMovementCurve;
         [SerializeField] private int countOfRats = 0;
         [Header("Abilities Setup")]
-        [SerializeField] private List<BaseAbility> poolOfActiveAbilitiesPerRun;
-        [SerializeField] private List<BaseAbility> poolOfPassiveAbilitiesPerRun;
+        [SerializedDictionary("Type Of Abilities List", "Abilities List")]
+        [SerializeField] private SerializedDictionary<RewardType, List<BaseAbility>> possibleRewards;
 
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
@@ -44,8 +46,7 @@ namespace FroguesFramework
         public UnityEvent<int> OnCountOfRatsUpdated;
 
         public bool CurrentRoomIsHub => _currentRoom == hub;
-        public List<BaseAbility> PoolOfActiveAbilitiesPerRun => poolOfActiveAbilitiesPerRun;
-        public List<BaseAbility> PoolOfPassiveAbilitiesPerRun => poolOfPassiveAbilitiesPerRun;
+        public SerializedDictionary<RewardType, List<BaseAbility>> PossibleRewards => possibleRewards;
         public CameraController CameraController => _currentRoom.CameraController;
         public PathFinder PathFinder => _currentRoom.PathFinder;
         public Map Map => _currentRoom.Map;

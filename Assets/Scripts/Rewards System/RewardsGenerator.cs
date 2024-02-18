@@ -25,7 +25,7 @@ namespace FroguesFramework
             foreach (var reward in currentRewards)
             {
                 reward.isGivenAlready = true;
-                rewardsMenu.GenerateSetOfRewards(reward.isPassiveAbilitiesPool, reward.countOfPossibleRewards);
+                rewardsMenu.GenerateSetOfRewards(reward.rewardType, reward.countOfPossibleRewards);
             }
         }
 
@@ -34,8 +34,13 @@ namespace FroguesFramework
         {
             [field: SerializeField] public bool isGivenAlready { get; set; }
             [field: SerializeField] public int scoreRequirement { get; set; }
-            [field: SerializeField] public bool isPassiveAbilitiesPool { get; set; }
+            [field: SerializeField] public RewardType rewardType { get; set; }
             [field: SerializeField] public int countOfPossibleRewards { get; set; }
         } 
+
+        public enum RewardType
+        {
+            activeAbilities = 10, passiveAbilities = 20, stances = 30
+        }
     }
 }

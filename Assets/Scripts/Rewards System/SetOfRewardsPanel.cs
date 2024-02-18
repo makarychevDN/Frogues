@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static FroguesFramework.RewardsGenerator;
 
 namespace FroguesFramework
 {
@@ -13,11 +14,11 @@ namespace FroguesFramework
         [SerializeField] private List<BaseAbility> ableToBeChosenAbilities;
         public UnityEvent OnRewardFromSetPicked;
 
-        public void Init(bool isPassiveAbilitiesPool, int numberOfAbilitesAbleToChoose)
+        public void Init(RewardType rewardType, int numberOfAbilitesAbleToChoose)
         {
             cancelButton.onClick.AddListener(InvokeRewardPickedEvent);
 
-            var abilityList = isPassiveAbilitiesPool ? EntryPoint.Instance.PoolOfPassiveAbilitiesPerRun : EntryPoint.Instance.PoolOfActiveAbilitiesPerRun;
+            var abilityList = EntryPoint.Instance.PossibleRewards[rewardType];
 
             for(int i = 0; i < numberOfAbilitesAbleToChoose; i++)
             {

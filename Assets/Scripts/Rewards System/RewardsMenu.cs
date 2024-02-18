@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static FroguesFramework.RewardsGenerator;
 
 namespace FroguesFramework
 {
@@ -12,10 +13,10 @@ namespace FroguesFramework
         [SerializeField] private List<SetOfRewardsPanel> setOfRewardsPanels;
         public UnityEvent<SetOfRewardsPanel> OnRewardChosen;
 
-        public void GenerateSetOfRewards(bool isPassiveAbilitiesPool, int countOfPossibleRewards)
+        public void GenerateSetOfRewards(RewardType rewardType, int countOfPossibleRewards)
         {
             var newSetOfRewardsPanel = Instantiate(setOfRewardsPanelPrefab, parentForSetsOfRewards);
-            newSetOfRewardsPanel.Init(isPassiveAbilitiesPool, countOfPossibleRewards);
+            newSetOfRewardsPanel.Init(rewardType, countOfPossibleRewards);
             setOfRewardsPanels.Add(newSetOfRewardsPanel);
             background.SetActive(true);
             newSetOfRewardsPanel.OnRewardFromSetPicked.AddListener(() => RemoveSetOfRewardsFromPanel(newSetOfRewardsPanel));
