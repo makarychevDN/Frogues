@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
@@ -8,6 +9,7 @@ namespace FroguesFramework
         [SerializeField] private List<BaseAbility> ableToBeChosenAbilities;
         [SerializeField] private SingleRewardPanel singleRewardPanelPrefab;
         [SerializeField] private Transform parentForSignleRewardPanels;
+        public UnityEvent OnRewardFromSetPicked;
 
         public void Init(bool isPassiveAbilitiesPool, int numberOfAbilitesAbleToChoose)
         {
@@ -23,6 +25,7 @@ namespace FroguesFramework
                 singleRewardPanel.transform.parent = parentForSignleRewardPanels;
                 singleRewardPanel.transform.SetSiblingIndex(1);
                 singleRewardPanel.Init(abilty, EntryPoint.Instance.MetaPlayer);
+                singleRewardPanel.OnRewardPicked.AddListener(() => OnRewardFromSetPicked.Invoke());
             }
         }
     }

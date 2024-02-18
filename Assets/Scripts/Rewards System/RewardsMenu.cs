@@ -16,11 +16,16 @@ namespace FroguesFramework
         {
             var newSetOfRewardsPanel = Instantiate(setOfRewardsPanelPrefab, parentForSetsOfRewards);
             newSetOfRewardsPanel.Init(isPassiveAbilitiesPool, countOfPossibleRewards);
+            setOfRewardsPanels.Add(newSetOfRewardsPanel);
+            background.SetActive(true);
+            newSetOfRewardsPanel.OnRewardFromSetPicked.AddListener(() => RemoveSetOfRewardsFromPanel(newSetOfRewardsPanel));
         }
 
-        public void RemoveSetOfRewardsFromPanel(SetOfRewardsPanel singleReward)
+        public void RemoveSetOfRewardsFromPanel(SetOfRewardsPanel setOfRewards)
         {
-            setOfRewardsPanels.Remove(singleReward);
+            setOfRewardsPanels.Remove(setOfRewards);
+            Destroy(setOfRewards.gameObject);
+            background.SetActive(setOfRewardsPanels.Count > 0);
         }
     }
 }
