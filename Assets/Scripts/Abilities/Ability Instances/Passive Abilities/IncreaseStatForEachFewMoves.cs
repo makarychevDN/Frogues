@@ -25,7 +25,7 @@ namespace FroguesFramework
 
         public void TickAfterEnemiesTurn()
         {
-            if (_owner.IsEnemy)
+            if (_owner == null || _owner.IsEnemy)
             {
                 ResetEffects();
             }
@@ -33,7 +33,7 @@ namespace FroguesFramework
 
         public void TickAfterPlayerTurn()
         {
-            if (!_owner.IsEnemy)
+            if (_owner == null || !_owner.IsEnemy)
             {
                 ResetEffects();
             }

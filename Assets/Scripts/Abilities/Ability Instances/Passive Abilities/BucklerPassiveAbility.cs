@@ -31,13 +31,13 @@ namespace FroguesFramework
 
         public void TickAfterEnemiesTurn()
         {
-            if (!_owner.IsEnemy)
+            if (_owner == null || !_owner.AbilitiesManager.Abilities.Contains(this) || !_owner.IsEnemy)
                 _deffenceDecreasedOnThisTurnAlready = false;
         }
 
         public void TickAfterPlayerTurn()
         {
-            if (_owner.IsEnemy)
+            if (_owner == null || !_owner.AbilitiesManager.Abilities.Contains(this) || _owner.IsEnemy)
                 _deffenceDecreasedOnThisTurnAlready = false;
         }
 
