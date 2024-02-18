@@ -11,7 +11,7 @@ namespace FroguesFramework
 
         public void Init(BaseAbility ability, Unit unit)
         {
-            ability.Init(unit, false);
+            ability.SetOwner(unit);
             var abilityButton = Instantiate(abilityButtonPrefab);;
             abilityButton.Init(ability, abilitySlot, false, new Vector2(0.5f, 1), Vector2.down * 40 * 2);
         }

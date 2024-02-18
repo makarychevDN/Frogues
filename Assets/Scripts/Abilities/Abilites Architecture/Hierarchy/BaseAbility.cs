@@ -12,23 +12,27 @@ namespace FroguesFramework
         public bool IsPartOfWeapon => isPartOfWeapon;
         public AbilityDataForButton GetAbilityDataForButton() => abilityDataForButton;
 
-        public virtual void Init(Unit unit, bool unitBecomesAnOwner = true) 
-        { 
-            _owner = unit;
-
-            if(unitBecomesAnOwner)
-                _owner.AbilitiesManager.AddAbility(this);
+        public virtual void Init(Unit unit) 
+        {
+            SetOwner(unit);
+            _owner.AbilitiesManager.AddAbility(this);
         }
 
-        public virtual void Init(Unit unit) => Init(unit, true);
-
-        public virtual void UnInit() => _owner = null;
+        public virtual void UnInit()
+        {
+            _owner.AbilitiesManager.RemoveAbility(this);
+        }
 
         public virtual bool IsIgnoringDrawingFunctionality() => false;
 
         private void Reset()
         {
             abilityDataForButton = GetComponent<AbilityDataForButton>();
+        }
+
+        public void SetOwner(Unit unit)
+        {
+            _owner = unit;
         }
     }
 }
