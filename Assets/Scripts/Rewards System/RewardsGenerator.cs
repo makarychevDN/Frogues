@@ -13,6 +13,7 @@ namespace FroguesFramework
         private void Start()
         {
             EntryPoint.Instance.OnScoreIncreased.AddListener(TryToGiveReward);
+            TryToGiveReward();
         }
 
         private void TryToGiveReward()
