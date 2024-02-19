@@ -31,7 +31,7 @@ namespace FroguesFramework
                 }
             }
 
-            _owner.AbleToDie.Die();
+            _owner.AbleToDie.Die(true);
         }
 
         [Serializable]

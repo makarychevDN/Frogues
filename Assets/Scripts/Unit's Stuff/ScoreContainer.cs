@@ -8,7 +8,7 @@ namespace FroguesFramework
 
         public void Init(Unit unit)
         {
-            unit.AbleToDie.OnDeath.AddListener(IncreaseScore);
+            unit.AbleToDie.OnOwnerWasKilled.AddListener(IncreaseScore);
         }
 
         private void IncreaseScore() => EntryPoint.Instance.IncreaseScore(score);

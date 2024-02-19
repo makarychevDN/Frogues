@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,22 +7,24 @@ namespace FroguesFramework
     public class AbleToDie : MonoBehaviour
     {
         public UnityEvent OnDeath;
+        public UnityEvent OnOwnerWasKilled;
+        public UnityEvent OnOwnerKilledHimself; 
         private Unit _unit;
         public void Init(Unit unit)
         {
             _unit = unit;
         }
         
-        public void Die()
+        public void Die(bool ownerKilledItSelf = false)
         {
             CurrentlyActiveObjects.Add(this);
             _unit.Animator.SetTrigger(CharacterAnimatorParameters.Death);
-            Invoke(nameof(RemoveUnitFromTheGame), 0.75f);
+            StartCoroutine(nameof(DelayBeforeDeath), ownerKilledItSelf);
         }
 
         public void DieWithoutAnimation() => RemoveUnitFromTheGame();
 
-        private void RemoveUnitFromTheGame()
+        private void RemoveUnitFromTheGame(bool ownerKilledItSelf = false)
         {
             if (_unit.CurrentCell != null)
             {
@@ -36,6 +39,21 @@ namespace FroguesFramework
             EntryPoint.Instance.UnitsQueue.Remove(_unit);
             Destroy(_unit.gameObject);
             OnDeath.Invoke();
+
+            if (ownerKilledItSelf)
+            {
+                OnOwnerKilledHimself.Invoke();
+            }
+            else
+            {
+                OnOwnerWasKilled.Invoke();
+            }
+        }
+
+        private IEnumerator DelayBeforeDeath(bool ownerKilledItSelf)
+        {
+            yield return new WaitForSeconds(0.75f);
+            RemoveUnitFromTheGame(ownerKilledItSelf);
         }
     }
 }
