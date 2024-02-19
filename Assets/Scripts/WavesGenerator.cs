@@ -59,7 +59,7 @@ namespace FroguesFramework
         public void GenerateAndAddPackOfEnemiesInThePool()
         {
             if(CalculateCurrentEnemyGeneratorSetup() != null)
-                _currentDifficultySetupShuffeledValues = CalculateCurrentEnemyGeneratorSetup().DifficultyOfEnemies;
+                _currentDifficultySetupShuffeledValues = new List<int>(CalculateCurrentEnemyGeneratorSetup().DifficultyOfEnemies);
 
             _currentDifficultySetupShuffeledValues.Shuffle();
 
