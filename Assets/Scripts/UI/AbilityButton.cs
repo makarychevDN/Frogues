@@ -25,6 +25,7 @@ namespace FroguesFramework
         private bool _myAbilityIsAbleToCost;
         private int _hashedCooldown;
         private bool _isInteractable;
+        private bool _isbuttonIsAbleToDisplayStatesOfAbility;
 
         private Vector2 _positionOfHintRelativeToButton;
         private Vector2 _pivotOfHintRectTransformWhenHover;
@@ -40,7 +41,7 @@ namespace FroguesFramework
             set => _currentButtonSlot = value;
         }
 
-        public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot, bool isInteractable, Vector2 pivotOfHintRectTransformWhenHover, Vector2 positionOfHintRelativeToButton, Transform parentToDragAndDropProcess = null)
+        public void Init(BaseAbility ability, AbilityButtonSlot abilityButtonSlot, bool isInteractable, bool buttonIsAbleToDisplayStatesOfAbility, Vector2 pivotOfHintRectTransformWhenHover, Vector2 positionOfHintRelativeToButton, Transform parentToDragAndDropProcess = null)
         {
             _isInteractable = isInteractable;
             _parentToDragAndDropProcess = parentToDragAndDropProcess;
@@ -48,6 +49,7 @@ namespace FroguesFramework
             _currentButtonSlot = abilityButtonSlot;
             _pivotOfHintRectTransformWhenHover = pivotOfHintRectTransformWhenHover;
             _positionOfHintRelativeToButton = positionOfHintRelativeToButton;
+            _isbuttonIsAbleToDisplayStatesOfAbility = buttonIsAbleToDisplayStatesOfAbility;
             image.material = new Material(ability.GetAbilityDataForButton().Material);
 
             _currentButtonSlot.AddButton(this);
@@ -124,7 +126,7 @@ namespace FroguesFramework
 
         private void Update()
         {
-            if (!_ability.HasOwner)
+            if (!_ability.HasOwner || !_isbuttonIsAbleToDisplayStatesOfAbility)
                 return;
 
             bool myAbilityIsCooldowned = true;            

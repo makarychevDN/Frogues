@@ -188,7 +188,7 @@ namespace FroguesFramework
             }
 
             var abilityButton = Instantiate(abilityButtonPrefab, transform, true);
-            abilityButton.Init(ability, slot, itsButtonsAreInteractive, pivot, relatiovePosition, parentToDragAndDrop);
+            abilityButton.Init(ability, slot, itsButtonsAreInteractive, true, pivot, relatiovePosition, parentToDragAndDrop);
             abilityButton.OnAbilityPicked.AddListener(setCurrentAbility);
             abilityButton.OnDropButton.AddListener(PlaceButtonInTheClosetstClot);
         }
