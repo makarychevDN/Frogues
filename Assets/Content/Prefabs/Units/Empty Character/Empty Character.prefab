@@ -1833,6 +1833,12 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  OnOwnerWasKilled:
+    m_PersistentCalls:
+      m_Calls: []
+  OnOwnerKilledHimself:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &4921423366821286691
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,8 +2493,12 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 0
+  costOfEachUsingInCharges: 0
+  currentCharges: 1
   abilityAnimatorTrigger: 0
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0
   fullAnimationTime: 0
   delayBeforeImpactSound: 0

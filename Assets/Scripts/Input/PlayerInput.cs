@@ -117,7 +117,7 @@ namespace FroguesFramework
                 if (currentAbility == null)
                     return;
 
-                if(!currentAbility.IsResoursePointsEnough() || currentAbility.GetCooldownCounter() > 0)
+                if(!currentAbility.IsResoursePointsEnough() || currentAbility.GetCurrentCharges() < 1)
                     ClearCurrentAbility();
             }
         }
