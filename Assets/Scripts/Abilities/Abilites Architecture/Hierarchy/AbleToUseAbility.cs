@@ -19,6 +19,7 @@ namespace FroguesFramework
         [SerializeField] protected int chargesCountAfterStart = 0;
         [SerializeField] protected int costOfEachUsingInCharges = 1;
         [SerializeField] protected int currentCharges = 1;
+        [SerializeField] protected int chargesRegenPerCooldown = 1;
 
         [Header("Animation Setup")]
         [SerializeField] protected AbilityAnimatorTriggers abilityAnimatorTrigger;
@@ -81,7 +82,8 @@ namespace FroguesFramework
 
                 if(currentCharges < maxChargesCount)
                 {
-                    currentCharges++;
+                    currentCharges += chargesRegenPerCooldown;
+                    currentCharges = Mathf.Clamp(currentCharges, 0, maxChargesCount);
                     cooldownCounter = cooldownAfterUse;
 
                     if (currentCharges == maxChargesCount)
