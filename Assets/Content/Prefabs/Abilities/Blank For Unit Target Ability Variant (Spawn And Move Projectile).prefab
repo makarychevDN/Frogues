@@ -426,8 +426,12 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 0
+  costOfEachUsingInCharges: 0
+  currentCharges: 1
   abilityAnimatorTrigger: 1
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0.15
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
@@ -448,6 +452,10 @@ MonoBehaviour:
       m_Calls: []
   projectilePrefab: {fileID: 4126032325568882792, guid: 645a8491e62378745a76b5f611dfa643, type: 3}
   onProjectileContactWithTargetSound: {fileID: 201791893924510268}
+  additionalBlockToTarget: 0
+  additionalArmorToTarget: 0
+  additionalTemporaryActionPointsToTarget: 0
+  countsAsAttack: 1
 --- !u!114 &5457397350455094724 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
