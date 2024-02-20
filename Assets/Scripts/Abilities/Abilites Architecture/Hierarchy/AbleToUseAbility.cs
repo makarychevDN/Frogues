@@ -7,10 +7,18 @@ namespace FroguesFramework
         [SerializeField] protected int actionPointsCost;
         [SerializeField] protected int bloodPointsCost;
         [SerializeField] protected int healthCost;
+
+        [Header("Cooldowns setup")]
         [SerializeField] protected int cooldownAfterUse;
         [SerializeField] protected int cooldownAfterStart;
         [SerializeField] protected int cooldownCounter;
         [SerializeField] protected bool isCooldownedAfterStart;
+
+        [Header("Charges setup")]
+        [SerializeField] protected int maxChargesCount = 1;
+        [SerializeField] protected int chargesCountAfterStart = 0;
+        [SerializeField] protected int costOfEachUsingInCharges = 1;
+        [SerializeField] protected int currentCharges = 1;
 
         [Header("Animation Setup")]
         [SerializeField] protected AbilityAnimatorTriggers abilityAnimatorTrigger;
@@ -35,6 +43,8 @@ namespace FroguesFramework
                 _owner.BloodPoints.SpendPoints(CalculateBloodPointsCost);
 
             _owner.Health.TakeDamage(healthCost, true, null);
+
+            currentCharges -= costOfEachUsingInCharges;
         }
 
         public virtual bool IsResoursePointsEnough()
@@ -54,24 +64,46 @@ namespace FroguesFramework
 
         #region cooldownsStuff
 
+        public void SpendCharges()
+        {
+            currentCharges -= costOfEachUsingInCharges;
+        }
+
+
         public void DecreaseCooldown(int value = 1)
         {
             cooldownCounter--;
             cooldownCounter = Mathf.Clamp(cooldownCounter, 0, 99);
 
             if(cooldownCounter == 0)
+            {
                 isCooldownedAfterStart = true;
+
+                if(currentCharges < maxChargesCount)
+                {
+                    currentCharges++;
+                    cooldownCounter = cooldownAfterUse;
+
+                    if (currentCharges == maxChargesCount)
+                        cooldownCounter = 0;
+                }
+            }
+
         }
 
         public void SetCooldownAsAfterStart()
         {
             cooldownCounter = cooldownAfterStart;
             isCooldownedAfterStart = false;
-        }   
+        }
 
-        public void SetCooldownAsAfterUse() => cooldownCounter = cooldownAfterUse;
+        public void SetCooldownAsAfterUse() 
+        { 
+            if (cooldownCounter == 0) 
+                cooldownCounter = cooldownAfterUse; 
+        }
 
-        public bool IsCooldowned() => cooldownCounter == 0;
+        public bool IsEnoughCharges() => currentCharges >= costOfEachUsingInCharges;
 
         public virtual void TickAfterEnemiesTurn()
         {
@@ -100,6 +132,8 @@ namespace FroguesFramework
         public bool GetCooldownAfterStartIsDone() => isCooldownedAfterStart;
 
         public int GetCurrentCooldown() => GetCooldownAfterStartIsDone() ? GetCooldownAfterUse() : GetCooldownAfterStart();
+
+        public int GetCurrentCharges() => currentCharges;
 
         #endregion
     }

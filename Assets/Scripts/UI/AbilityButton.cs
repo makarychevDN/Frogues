@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,8 +11,10 @@ namespace FroguesFramework
     {
         [SerializeField] private Image image;
         [SerializeField] private Image cooldownEffect;
-        [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private TMP_Text cooldownCounterField;
+        [SerializeField] private IntSpriteFontSegment chargesCounter;
+        [SerializeField] private List<TMP_Text> chargesCounterElements;
+        [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private AudioSource putInTheSlotSound;
         [SerializeField] private AudioSource putOutOfTheSlotSound;
 
@@ -79,7 +82,7 @@ namespace FroguesFramework
                 return;
 
             var cooldownAbility = _ability as IAbleToHaveCooldown;
-            if (cooldownAbility != null && !cooldownAbility.IsCooldowned())
+            if (cooldownAbility != null && !cooldownAbility.IsEnoughCharges())
                 return;
 
             var ableToCostAbility = _ability as IAbleToCost;
@@ -133,13 +136,23 @@ namespace FroguesFramework
             if (_myAbilityIsAbleToHaveCooldown)
             {
                 var abilityWithCooldown = _ability as IAbleToHaveCooldown;
-                myAbilityIsCooldowned = abilityWithCooldown.IsCooldowned();
+                myAbilityIsCooldowned = abilityWithCooldown.IsEnoughCharges();
+
+                //chargesCounter.gameObject.SetActive(abilityWithCooldown.GetCurrentCharges() > 1);
+                //chargesCounter.SetValue(abilityWithCooldown.GetCurrentCharges());
+
+                foreach(var textElement in chargesCounterElements)
+                {
+                    textElement.gameObject.SetActive(abilityWithCooldown.GetCurrentCharges() > 1);
+                    textElement.SetText(abilityWithCooldown.GetCurrentCharges().ToString());
+                }
 
                 if (abilityWithCooldown.GetCooldownCounter() != _hashedCooldown)
                 {
                     if (abilityWithCooldown.GetCooldownCounter() != 0)
                     {
                         cooldownEffect.gameObject.SetActive(true);
+                        cooldownCounterField.gameObject.SetActive(abilityWithCooldown.GetCurrentCharges() == 0);
                         cooldownCounterField.text = abilityWithCooldown.GetCooldownCounter().ToString();
                         cooldownCounterField.enabled = abilityWithCooldown.GetCooldownCounter() != 0;
                         cooldownEffect.fillAmount = (float)abilityWithCooldown.GetCooldownCounter() / abilityWithCooldown.GetCurrentCooldown();

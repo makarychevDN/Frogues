@@ -80,7 +80,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: b64de534de5b4744fbcab003d7a3ecce, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -183,7 +183,7 @@ MonoBehaviour:
   cooldownCounter: 0
   isCooldownedAfterStart: 0
   abilityAnimatorTrigger: 2
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0.15
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0.15
@@ -199,9 +199,9 @@ MonoBehaviour:
   shouldSetMyDamageAndCostAsWeaponCharacteristics: 0
   addtionalDebufs:
   - type: 30
-    value: -3
+    value: -1
     deltaValueForEachTurn: 0
-    timeToTheEndOfEffect: 3
+    timeToTheEndOfEffect: 1
     effectIsConstantly: 0
     OnEffectValueChanged:
       m_PersistentCalls:
