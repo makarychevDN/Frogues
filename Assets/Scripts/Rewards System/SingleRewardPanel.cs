@@ -22,6 +22,7 @@ namespace FroguesFramework
         private void PickReward(BaseAbility ability, Unit unit)
         {
             ability.Init(unit);
+            ability.transform.position = unit.transform.position;
             OnRewardPicked.Invoke();
         }
     }
