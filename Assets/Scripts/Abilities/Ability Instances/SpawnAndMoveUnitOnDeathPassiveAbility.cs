@@ -26,7 +26,8 @@ namespace FroguesFramework
             if (cells.Count == 0)
                 return;
 
-            EntryPoint.Instance.SpawnUnit(unitPrefab, _owner, cells.GetRandomElement());
+            var spawnedBug = EntryPoint.Instance.SpawnUnit(unitPrefab, _owner, cells.GetRandomElement());
+            spawnedBug.IsSummoned = true;
         }
 
         public int ReturnRange() => radius;

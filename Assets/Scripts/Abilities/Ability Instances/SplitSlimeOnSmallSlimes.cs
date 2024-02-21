@@ -28,6 +28,7 @@ namespace FroguesFramework
                         break;
 
                     EntryPoint.Instance.SpawnUnit(unitAndCount.unit, _owner, emptyCells.GetRandomElement());
+                    unitAndCount.unit.IsSummoned = true;
                 }
             }
 

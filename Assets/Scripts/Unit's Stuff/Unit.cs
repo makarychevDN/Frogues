@@ -15,6 +15,7 @@ namespace FroguesFramework
         
         [field : Header("Input Setup")]
         [field : SerializeField] public bool IsEnemy { get; private set; }
+        [field : SerializeField] public bool IsSummoned { get; set; }
         [field : SerializeField] public AbilitiesManager AbilitiesManager { get; private set; }
         [field : SerializeField] public AbilityResourcePoints ActionPoints { get; private set; }
         [field : SerializeField] public AbilityResourcePoints BloodPoints { get; private set; }

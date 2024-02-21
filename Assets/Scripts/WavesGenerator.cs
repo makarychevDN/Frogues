@@ -20,7 +20,7 @@ namespace FroguesFramework
 
         public void SpawnEnemies()
         {
-            int needToSpawnEnemies = expectedMinimumOfEnemiesOnTheMap - CellsTaker.TakeAllUnits().Where(unit => unit.IsEnemy).Count();
+            int needToSpawnEnemies = expectedMinimumOfEnemiesOnTheMap - CellsTaker.TakeAllUnits().Where(unit => unit.IsEnemy && !unit.IsSummoned).Count();
             if (needToSpawnEnemies < 1) 
                 needToSpawnEnemies = 1;
 

@@ -32,7 +32,8 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time, Cell cell)
         {
             yield return new WaitForSeconds(time);
-            EntryPoint.Instance.SpawnUnit(unitPrefab, _owner, cell);
+            var spawnedUnit = EntryPoint.Instance.SpawnUnit(unitPrefab, _owner, cell);
+            spawnedUnit.IsSummoned = true;
         }
 
         public override bool PossibleToUse()
