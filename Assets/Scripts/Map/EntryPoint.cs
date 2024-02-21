@@ -114,11 +114,16 @@ namespace FroguesFramework
 
         public void IncreaseBonfireHealingValue(int value) => bonfireHealingValue += value;
 
-        public void IncreaseScore(int score)
+        public void IncreaseScore(int score, bool updateHashedValueOfExit = false)
         {
             this.score += score;
             scoreText.text = this.score.ToString();
             OnScoreIncreased.Invoke();
+
+            if (updateHashedValueOfExit)
+            {
+                _hashedScoreThenExitActivated = score;
+            }
 
             if (this.score - _hashedScoreThenExitActivated < deltaOfScoreToOpenExit)
                 return;
