@@ -197,7 +197,7 @@ namespace FroguesFramework
             OnDamageApplyed.Invoke();
             OnDamageFromUnitApplyed.Invoke(damageSource);
 
-            if (preventingSystemValue != 0)
+            if (preventingSystemValue >= 0)
             {
                 OnDamagePrevented.Invoke();
                 OnDamageFromUnitPrevented.Invoke(damageSource);
