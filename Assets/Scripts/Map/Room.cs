@@ -88,6 +88,7 @@ namespace FroguesFramework
         {
             cameraController.Deactivate();
             gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }
