@@ -17,6 +17,7 @@ namespace FroguesFramework
         [SerializeField] private Unit _metaPlayer;
         [SerializeField] private AbilitiesPanel _abilitiesPanel;
         [SerializeField] private GameObject pausePanel;
+        [SerializeField] private BonfirePanel bonfirePanel;
         [SerializeField] private GameObject loseScreen;
         [SerializeField] private GameObject exitButton;
         [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
@@ -25,7 +26,7 @@ namespace FroguesFramework
         [SerializeField] private int deltaOfScoreToOpenExit = 200;
         [SerializeField] private WavesGenerator wavesGenerator;
         [SerializeField] private TMP_Text scoreText;
-        [SerializeField] private int bonfireHealingValue;
+        [SerializeField] private float bonfireHealingValueMultiplier = 1;
         [SerializeField] private int turnCounter;
         [SerializeField] private ResourcePointsUI playersActionPointsUI;
         [SerializeField] private ResourcePointsUI playersBloodPointsUI;
@@ -55,7 +56,7 @@ namespace FroguesFramework
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
         public AbilityHint AbilityHint => abilityHint;
         public int Score => score;
-        public int BonfireHealingValue => bonfireHealingValue;
+        public float BonfireHealingMultiplierValue => bonfireHealingValueMultiplier;
         public bool ExitActivated => exitButton.activeSelf;
         public AnimationCurve DefaultMovementCurve => defaultMovementCurve;
         public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer)
@@ -87,23 +88,25 @@ namespace FroguesFramework
             playersActionPointsUI.Init(_metaPlayer.ActionPoints);
             playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
             turnCounter = 1;
+            bonfirePanel.Init();
         }
 
         public void StartNextRoom()
         {
             countOfRats = 0;
             turnCounter = 1;
-            var newRoom = Instantiate(roomsPrefabs.GetRandomElement());
+            var newRoom = Instantiate(roomsPrefabs[_roomsCount]);
             _roomsCount++;
+
+            if(_roomsCount >= roomsPrefabs.Count)
+                _roomsCount = 0;
+
             _currentRoom.Deactivate();
             _currentRoom = newRoom;
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.ActionPoints.SetCurrentPoints(4);
-            //_metaPlayer.Health.TakeHealing(33);
             _metaPlayer.Stats.RemoveAllNonConstantlyEffects();
             _metaPlayer.Health.RemoveAllBlockEffects();
-            //waveSpawner.ResetRoundsTimer();
-            //waveSpawner.SpawnPreWave();
             wavesGenerator.ResetRoundsTimer();
             exitButton.SetActive(false);
             FindObjectsOfType<MonoBehaviour>().OfType<IAbleToHaveCooldown>().ToList().ForEach(x => x.SetCooldownAsAfterStart());
@@ -112,7 +115,7 @@ namespace FroguesFramework
             OnBloodSurfacesCountOnTheMapUpdated.Invoke();
         }
 
-        public void IncreaseBonfireHealingValue(int value) => bonfireHealingValue += value;
+        public void IncreaseBonfireHealingValue(float value) => bonfireHealingValueMultiplier += value;
 
         public void IncreaseScore(int score, bool updateHashedValueOfExit = false)
         {
@@ -181,6 +184,11 @@ namespace FroguesFramework
         {
             _bloodSurfacesInCurrentRoom.Remove(bloodSurface);
             OnBloodSurfacesCountOnTheMapUpdated.Invoke();
+        }
+
+        public void EnableBonfireRestPanel(bool value)
+        {
+            bonfirePanel.gameObject.SetActive(value);
         }
 
         public int BloodSurfacesCount => _bloodSurfacesInCurrentRoom.Count;

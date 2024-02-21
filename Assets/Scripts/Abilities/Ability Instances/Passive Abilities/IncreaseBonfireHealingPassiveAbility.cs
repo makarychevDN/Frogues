@@ -4,7 +4,7 @@ namespace FroguesFramework
 {
     public class IncreaseBonfireHealingPassiveAbility : PassiveAbility, IAbleToReturnSingleValue
     {
-        [SerializeField] private int additionalValue;
+        [SerializeField] private float additionalValue = 0.33f;
 
         public override void Init(Unit unit)
         {
@@ -18,7 +18,7 @@ namespace FroguesFramework
             base.UnInit();
         }
 
-        public int GetValue() => additionalValue;
+        public int GetValue() => (additionalValue * 100).RoundWithGameRules();
 
     }
 }
