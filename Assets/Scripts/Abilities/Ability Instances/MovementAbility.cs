@@ -38,7 +38,7 @@ namespace FroguesFramework
         public override List<Cell> CalculateUsingArea()
         {
             _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
-            _owner.ActionPoints.CurrentPoints,
+            _owner.ActionPoints.AvailablePoints,
                 actionPointsCost, false, true, true);
             return _usingArea;
         }
