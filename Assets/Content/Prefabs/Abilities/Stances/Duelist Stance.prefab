@@ -127,8 +127,13 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 0
+  costOfEachUsingInCharges: 1
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 3
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0.15
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
@@ -141,7 +146,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   startEffectsAndDeltas:
-  - deltaForOneEnemyNearby: 2
+  - deltaForOneEnemyNearby: 1
     startValue:
       type: 0
       value: -1

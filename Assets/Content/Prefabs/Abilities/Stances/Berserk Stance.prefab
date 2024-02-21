@@ -52,7 +52,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 41e7dee7692f75443b1f6b3de04f473e, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -143,8 +143,13 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 0
+  costOfEachUsingInCharges: 1
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 3
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0.15
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
@@ -158,7 +163,7 @@ MonoBehaviour:
       m_Calls: []
   effects:
   - type: 0
-    value: 3
+    value: 1
     deltaValueForEachTurn: 0
     timeToTheEndOfEffect: 1
     effectIsConstantly: 1
@@ -166,7 +171,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   - type: 30
-    value: -2
+    value: -1
     deltaValueForEachTurn: 0
     timeToTheEndOfEffect: 1
     effectIsConstantly: 1

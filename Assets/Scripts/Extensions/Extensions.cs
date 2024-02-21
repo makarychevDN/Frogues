@@ -157,7 +157,8 @@ namespace FroguesFramework
 
         public static int RoundWithGameRules(this float value)
         {
-            return (int)Math.Round(value, MidpointRounding.AwayFromZero);
+            int roundedValue = (int)Math.Round(value, MidpointRounding.AwayFromZero);
+            return Mathf.Clamp(roundedValue, 0, 999);
         }
 
         public static int CalculateOutgoingDamageWithGameRules(int damageValue, DamageType damageType, Stats stats)

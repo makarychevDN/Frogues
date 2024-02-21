@@ -4,7 +4,8 @@ namespace FroguesFramework
 {
     public class IncreaseBloodPointsOnStepOnSurface : PassiveAbility
     {
-        [SerializeField] private int increaseValue;
+        //[SerializeField] private int increaseValue;
+        [SerializeField] private int additionalTemporaryActionPointsQuantity;
 
         public override void Init(Unit unit)
         {
@@ -15,13 +16,17 @@ namespace FroguesFramework
 
         private void TryToIncreaseBloodPoints(Unit unit)
         {
-            if (unit.BloodPoints == null)
+            /*if (unit.BloodPoints == null)
                 return;
 
             if (unit.BloodPoints.Full)
+                return;*/
+
+            //unit.BloodPoints.PickupPoints(increaseValue);
+            if (unit != EntryPoint.Instance.MetaPlayer)
                 return;
 
-            unit.BloodPoints.PickupPoints(increaseValue);
+            unit.ActionPoints.IncreaseTemporaryPoints(additionalTemporaryActionPointsQuantity);
             _owner.AbleToDie.DieWithoutAnimation();
             EntryPoint.Instance.RemoveBloodSurface(_owner);
         }
