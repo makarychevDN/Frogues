@@ -41,7 +41,6 @@ namespace FroguesFramework
             {
                 OnAnyPointsIncreased.Invoke();
                 OnDefaultPointsIncreased.Invoke();
-
             }
         }
 
@@ -55,6 +54,11 @@ namespace FroguesFramework
         public int CurrentPoints
         {
             get => currentPoints;
+        }
+
+        public int AvailablePoints
+        {
+            get => currentPoints + tempraryPoints;
         }
 
         public int TemporaryPoints
