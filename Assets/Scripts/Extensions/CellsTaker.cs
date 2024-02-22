@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace FroguesFramework
 {
@@ -46,6 +48,47 @@ namespace FroguesFramework
             }
 
             return cells;
+        }
+
+        public static List<Cell> GetBestCellsToRetreatFromTarget(Unit retreater, Unit target)
+        {
+            var theBestCellsToRetreat = new List<Cell>() { retreater.CurrentCell };
+            var neighborCells = CellsTaker.TakeCellsAreaByRange(retreater.CurrentCell, 1).EmptyCellsOnly();
+            var farestDistance = target.CurrentCell.DistanceToCell(retreater.CurrentCell);
+
+            foreach (var cell in neighborCells)
+            {
+                if (target.CurrentCell.DistanceToCell(cell) > farestDistance)
+                {
+                    theBestCellsToRetreat.Clear();
+                    farestDistance = target.CurrentCell.DistanceToCell(cell);
+                }
+
+                if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
+                    theBestCellsToRetreat.Add(cell);
+            }
+
+            if (theBestCellsToRetreat.Contains(retreater.CurrentCell) && neighborCells.Where(cell => cell.Content == target).Count() > 0)
+            {
+                int leastBarriersQuantity = 6;
+
+                foreach (var cell in neighborCells)
+                {
+                    int barriersQuantity = cell.CellNeighbours.GetAllNeighbors().Where(cell => cell.Content is Barrier).Count();
+
+                    if (barriersQuantity < leastBarriersQuantity)
+                    {
+                        leastBarriersQuantity = barriersQuantity;
+                        theBestCellsToRetreat.Clear();
+                        farestDistance = target.CurrentCell.DistanceToCell(cell);
+                    }
+
+                    if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
+                        theBestCellsToRetreat.Add(cell);
+                }
+            }
+
+            return theBestCellsToRetreat;
         }
 
         private static bool IsCellContainsObstacle(Cell cell, ObstacleMode obstacleMode)

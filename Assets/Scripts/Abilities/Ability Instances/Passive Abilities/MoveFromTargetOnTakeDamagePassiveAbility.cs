@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace FroguesFramework
 {
@@ -27,27 +28,13 @@ namespace FroguesFramework
             if (_owner.Health.CurrentHp <= 0)
                 return;
 
-            var mostFarCells = new List<Cell>() { _owner.CurrentCell };
-            var neighborCells = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, 1).EmptyCellsOnly();
-            var farestDistance = target.CurrentCell.DistanceToCell(_owner.CurrentCell);
+            var theBestCellsToRetreat = CellsTaker.GetBestCellsToRetreatFromTarget(_owner, target);           
 
-            foreach (var cell in neighborCells)
-            {
-                if (target.CurrentCell.DistanceToCell(cell) > farestDistance)
-                {
-                    mostFarCells.Clear();
-                    farestDistance = target.CurrentCell.DistanceToCell(cell);
-                }
-
-                if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
-                    mostFarCells.Add(cell);
-            }
-
-            if (mostFarCells.Contains(_owner.CurrentCell))
+            if (theBestCellsToRetreat.Contains(_owner.CurrentCell))
                 return;
 
             EntryPoint.Instance.MetaPlayer.MovementAbility.ResetPath();
-            _mostFarFromTargetNeighborCells = mostFarCells.GetRandomElement();
+            _mostFarFromTargetNeighborCells = theBestCellsToRetreat.GetRandomElement();
             _movedOnTakeDamageAlready = true;
             Invoke(nameof(MoveAfterDelay), 0.24f);
         }

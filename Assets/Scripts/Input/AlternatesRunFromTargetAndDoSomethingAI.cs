@@ -32,50 +32,16 @@ namespace FroguesFramework
                 return;
             }
 
-            var theBestToRunCells = new List<Cell>() { _unit.CurrentCell };
-            var neighborCells = CellsTaker.TakeCellsAreaByRange(_unit.CurrentCell, 1).EmptyCellsOnly();
-            var farestDistance = target.CurrentCell.DistanceToCell(_unit.CurrentCell);
+            var theBestCellsToRetreat = CellsTaker.GetBestCellsToRetreatFromTarget(_unit, target);
 
-            foreach (var cell in neighborCells)
+            if (theBestCellsToRetreat.Contains(_unit.CurrentCell))
             {
-                if (target.CurrentCell.DistanceToCell(cell) > farestDistance)
-                {
-                    theBestToRunCells.Clear();
-                    farestDistance = target.CurrentCell.DistanceToCell(cell);
-                }
-
-                if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
-                    theBestToRunCells.Add(cell);
-            }
-
-            if (theBestToRunCells.Contains(_unit.CurrentCell))
-            {
-                int leastBarriersQuantity = 6;
-
-                foreach(var cell in neighborCells)
-                {
-                    int barriersQuantity = cell.CellNeighbours.GetAllNeighbors().Where(cell => cell.Content is Barrier).Count();
-
-                    if (barriersQuantity < leastBarriersQuantity)
-                    {
-                        leastBarriersQuantity = barriersQuantity;
-                        theBestToRunCells.Clear();
-                        farestDistance = target.CurrentCell.DistanceToCell(cell);
-                    }
-
-                    if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
-                        theBestToRunCells.Add(cell);
-                }
-
-                if (theBestToRunCells.Contains(_unit.CurrentCell))
-                {
-                    EndTurn();
-                    return;
-                }
+                EndTurn();
+                return;
             }
 
             _unit.MovementAbility.CalculateUsingArea();
-            _unit.MovementAbility.UseOnCells(new List<Cell> { theBestToRunCells.GetRandomElement() });
+            _unit.MovementAbility.UseOnCells(new List<Cell> { theBestCellsToRetreat.GetRandomElement() });
         }
 
         protected void EndTurn()
