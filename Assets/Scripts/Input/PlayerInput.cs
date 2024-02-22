@@ -117,6 +117,9 @@ namespace FroguesFramework
                 if (currentAbility == null)
                     return;
 
+                if (currentAbility == movementAbility)
+                    return;
+
                 if(!currentAbility.IsResoursePointsEnough() || currentAbility.GetCurrentCharges() < 1)
                     ClearCurrentAbility();
             }
@@ -292,7 +295,6 @@ namespace FroguesFramework
 
         private bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
         
-        //public void ClearCurrentAbility() => currentAbility = null;
         public void ClearCurrentAbility()
         {
             if (currentAbility == movementAbility)
