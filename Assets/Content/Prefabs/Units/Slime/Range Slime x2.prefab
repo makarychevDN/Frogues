@@ -98,11 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: maxHP
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 2933351513047553064, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: currentHP
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3070569767751367734, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_SizeDelta.x
@@ -293,6 +293,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5865725468090559233, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6615608788321791048, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -371,7 +375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6868939007280593354, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 18.5
       objectReference: {fileID: 0}
     - target: {fileID: 6868939007280593354, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -447,7 +451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8107766868255751938, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 12.5
       objectReference: {fileID: 0}
     - target: {fileID: 8107766868255751938, guid: 289ad79ae5007544f97f4bdd481c159b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -749,6 +753,11 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 0
+  costOfEachUsingInCharges: 1
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 0
   animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0
