@@ -53,7 +53,7 @@ namespace FroguesFramework
         public static List<Cell> GetBestCellsToRetreatFromTarget(Unit retreater, Unit target)
         {
             var theBestCellsToRetreat = new List<Cell>() { retreater.CurrentCell };
-            var neighborCells = CellsTaker.TakeCellsAreaByRange(retreater.CurrentCell, 1).EmptyCellsOnly();
+            var neighborCells = TakeCellsAreaByRange(retreater.CurrentCell, 1).EmptyCellsOnly();
             var farestDistance = target.CurrentCell.DistanceToCell(retreater.CurrentCell);
 
             foreach (var cell in neighborCells)
@@ -68,7 +68,7 @@ namespace FroguesFramework
                     theBestCellsToRetreat.Add(cell);
             }
 
-            if (theBestCellsToRetreat.Contains(retreater.CurrentCell) && neighborCells.Where(cell => cell.Content == target).Count() > 0)
+            if (theBestCellsToRetreat.Contains(retreater.CurrentCell) && TakeCellsAreaByRange(retreater.CurrentCell, 1).Contains(target.CurrentCell))
             {
                 int leastBarriersQuantity = 6;
 
