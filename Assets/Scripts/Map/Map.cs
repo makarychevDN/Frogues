@@ -46,18 +46,6 @@ namespace FroguesFramework
 
             allCells.ForEach(cell => cell.CellNeighbours.Init());
         }
-
-        #region CheckIsItLegacy
-        
-        
-        /*public void InitUnitsPositionsOnMap()
-        {
-            foreach (var unitPos in unitsStartPositions)
-            {
-                layers[unitPos.unit.unitType][unitPos.position.x, unitPos.position.y].Content = unitPos.unit;
-                unitPos.unit.transform.position = unitPos.unit.CurrentCell.transform.position;
-            }
-        }*/
         
         public virtual Cell FindNeighborhoodForCell(Cell startCell, Vector2Int direction)
         {
@@ -79,10 +67,6 @@ namespace FroguesFramework
         {
             return layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y];
         }
-
-        //public virtual List<Cell> GetCellsColumn(Cell cell) => GetCellsColumn(cell.coordinates);
-        
-        #endregion
 
         public virtual List<Cell> GetCellsColumn(Vector2Int coordinates)
         {

@@ -86,8 +86,10 @@ namespace FroguesFramework
 
         public void Deactivate()
         {
+            //map.allCells.ForEach(cell => cell.RemoveMySelfFromEntryPoint());
+            FindObjectsOfType<Cell>().ToList().ForEach(cell => cell.RemoveMySelfFromEntryPoint());
             cameraController.Deactivate();
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }
