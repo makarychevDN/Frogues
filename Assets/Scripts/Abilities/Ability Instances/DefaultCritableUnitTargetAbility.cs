@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public abstract class DefaultCritableUnitTargetAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton, IAbleToDealAlternativeDamage, IAbleToReturnSingleValue
+    public abstract class DefaultCritableUnitTargetAbility : DefaultUnitTargetAbility, IAbleToHighlightAbilityButton, IAbleToDealAlternativeDamage, IAbleToReturnCurrentDamage
     {
         [SerializeField] private int criticalDamage;
         private bool nextAttackIsCritical;
@@ -27,10 +27,10 @@ namespace FroguesFramework
 
         public DamageType GetAlternativeDamageType() => damageType;
 
-        public int GetValue() => Extensions.CalculateIncomingDamageWithGameRules(damage, _owner.Stats);
+        public int CalculateAlternativeDamage() => Extensions.CalculateOutgoingDamageWithGameRules(criticalDamage, damageType, _owner.Stats);
 
-        public int CalculateAlternativeDamage() => Extensions.CalculateIncomingDamageWithGameRules(criticalDamage, _owner.Stats);
+        public int GetCalculatedCurrentDamage() => Extensions.CalculateOutgoingDamageWithGameRules(GetDefaultCurrentDamage(), damageType, _owner.Stats);
 
-        public override int CalculateDamage() => Extensions.CalculateIncomingDamageWithGameRules(nextAttackIsCritical ? criticalDamage : damage, _owner.Stats);
+        public int GetDefaultCurrentDamage() => nextAttackIsCritical ? criticalDamage : damage;
     }
 }

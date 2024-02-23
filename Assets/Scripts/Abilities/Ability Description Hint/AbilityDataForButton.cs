@@ -41,15 +41,15 @@ namespace FroguesFramework
             dataByKeyWords.Add("{health points cost}", () => (ability as IAbleToCost).GetHealthCost().ToString());
 
             dataByKeyWords.Add("{default damage value}", () => (ability as IAbleToDealDamage).GetDefaultDamage().ToString());
-            dataByKeyWords.Add("{calculated damage value}", () => (ability as IAbleToDealDamage).CalculateDamage().ToString());
+            dataByKeyWords.Add("{calculated damage value}", () => IntToStringByCompareValues((ability as IAbleToDealDamage).CalculateDamage(), (ability as IAbleToDealDamage).GetDefaultDamage()));
             dataByKeyWords.Add("{damage type}", () => (ability as IAbleToDealDamage).GetDamageType().ToString());
 
             dataByKeyWords.Add("{alternative default damage value}", () => (ability as IAbleToDealAlternativeDamage).GetDefaultAlternativeDamage().ToString());
-            dataByKeyWords.Add("{calculated alternative damage value}", () => (ability as IAbleToDealAlternativeDamage).CalculateAlternativeDamage().ToString());
+            dataByKeyWords.Add("{calculated alternative damage value}", () => IntToStringByCompareValues((ability as IAbleToDealAlternativeDamage).CalculateAlternativeDamage(), (ability as IAbleToDealAlternativeDamage).GetDefaultAlternativeDamage()));
             dataByKeyWords.Add("{alternative damage type}", () => (ability as IAbleToDealAlternativeDamage).GetAlternativeDamageType().ToString());
 
             dataByKeyWords.Add("{current default damage value}", () => (ability as IAbleToReturnCurrentDamage).GetDefaultCurrentDamage().ToString());
-            dataByKeyWords.Add("{calculated current damage value}", () => (ability as IAbleToReturnCurrentDamage).GetCalculatedCurrentDamage().ToString());
+            dataByKeyWords.Add("{calculated current damage value}", () => IntToStringByCompareValues((ability as IAbleToReturnCurrentDamage).GetCalculatedCurrentDamage(), (ability as IAbleToReturnCurrentDamage).GetDefaultCurrentDamage()));
 
             dataByKeyWords.Add("{effect value}", () => (ability as IAbleToApplyAnyModificator).GetModificatorValue().ToString());
             dataByKeyWords.Add("{effect delta}", () => (ability as IAbleToApplyAnyModificator).GetDeltaValueForEachTurn().ToString());
@@ -84,10 +84,10 @@ namespace FroguesFramework
             dataByKeyWords.Add("{immobilized effect time}", () => (ability as IAbleToApplyImmobilizedModificator).GetTimeToEndOfImmpobilizedEffect().ToString());
 
             dataByKeyWords.Add("{default block value}", () => (ability as IAbleToApplyBlock).GetDefaultBlockValue().ToString());
-            dataByKeyWords.Add("{calculated block value}", () => (ability as IAbleToApplyBlock).CalculateBlock().ToString());
+            dataByKeyWords.Add("{calculated block value}", () => IntToStringByCompareValues((ability as IAbleToApplyBlock).CalculateBlock(), (ability as IAbleToApplyBlock).GetDefaultBlockValue()));
 
             dataByKeyWords.Add("{default armor value}", () => (ability as IAbleToApplyArmor).GetDefaultArmorValue().ToString());
-            dataByKeyWords.Add("{calculated armor value}", () => (ability as IAbleToApplyArmor).CalculateArmor().ToString());
+            dataByKeyWords.Add("{calculated armor value}", () => IntToStringByCompareValues((ability as IAbleToApplyArmor).CalculateArmor(), (ability as IAbleToApplyArmor).GetDefaultArmorValue()));
 
             dataByKeyWords.Add("{delta value}", () => (ability as IAbleToHaveDelta).GetDeltaValue().ToString());
             dataByKeyWords.Add("{step value}", () => (ability as IAbleToHaveDelta).GetStepValue().ToString());
@@ -147,6 +147,15 @@ namespace FroguesFramework
             }
 
             return stringBuilder.ToString();
+        }
+
+        private string IntToStringByCompareValues(int comparableValue, int targetValueToCompare)
+        {
+            if(comparableValue == targetValueToCompare)
+                return comparableValue.ToString();
+
+            string color = comparableValue > targetValueToCompare ? "#96c620" : "#e05454";
+            return $"<color={color}>{comparableValue}</color>";
         }
     }
 }
