@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class CornderedStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator
+    public class CornderedStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator, IAbleToApplySpikesModificator
     {
         [SerializeField] private bool addBonusForEachWallNearby;
         [SerializeField] private List<StatEffectAndDelaForEachWallNearby> startEffectsAndDeltas;
@@ -83,6 +83,30 @@ namespace FroguesFramework
         public int GetTimeToEndOfDexterityEffect() => int.MaxValue;
 
         public bool GetDexterityEffectIsConstantly() => true;
+
+        public int GetDefenceModificatorValue()
+        {
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.defence).additionalValueForWallsNearby;
+            return delta;
+        }
+
+        public int GetdeltaOfDefenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(_effects, StatEffectTypes.defence);
+
+        public int GetTimeToEndOfDefenceEffect() => Extensions.GetTimeToEndOfEffect(_effects, StatEffectTypes.defence);
+
+        public bool GetDefenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(_effects, StatEffectTypes.defence);
+
+        public int GetSpikesModificatorValue() 
+        {
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.spikes).additionalValueForWallsNearby;
+            return delta;
+        }
+
+        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(_effects, StatEffectTypes.spikes);
+
+        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(_effects, StatEffectTypes.spikes);
+
+        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(_effects, StatEffectTypes.spikes);
     }
 
     [Serializable]
