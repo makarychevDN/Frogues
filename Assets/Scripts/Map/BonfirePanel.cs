@@ -29,7 +29,7 @@ namespace FroguesFramework
         {
             for (int i = 0; i < bonfireButtons.Count; i++)
             {
-                bonfireButtons[i].factHealingValue = (bonfireButtons[i].defaultHealingValue * EntryPoint.Instance.BonfireHealingMultiplierValue).RoundWithGameRules();
+                bonfireButtons[i].factHealingValue = (bonfireButtons[i].defaultHealingValue * EntryPoint.Instance.BonfireHealingMultiplierValue).RoundWithGameRules(true);
             }
         }
 
@@ -49,7 +49,12 @@ namespace FroguesFramework
 
         public void ApplyHealingAndScore()
         {
-            EntryPoint.Instance.MetaPlayer.Health.TakeHealing(factHealingValue);
+            if(factHealingValue > 0)
+                EntryPoint.Instance.MetaPlayer.Health.TakeHealing(factHealingValue);
+
+            if (factHealingValue < 0)
+                EntryPoint.Instance.MetaPlayer.Health.TakeDamage(-factHealingValue, null);
+
             EntryPoint.Instance.IncreaseScore(additionalScoreValue);
             EntryPoint.Instance.EnableBonfireRestPanel(false);
         }

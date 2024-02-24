@@ -2,11 +2,13 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class MoveForHealthInsteadOfActionPointsAbility : NonTargetAbility
+    public class MoveForHealthInsteadOfActionPointsAbility : NonTargetAbility, IAbleToReturnSingleValue
     {
         [SerializeField] private int healthCostDelta;
         [SerializeField] private int actionPointsCostDelta;
         private bool _isActive;
+
+        public int GetValue() => healthCostDelta;
 
         public override void Init(Unit unit)
         {
