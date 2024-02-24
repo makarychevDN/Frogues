@@ -138,8 +138,8 @@ MonoBehaviour:
   cooldownCounter: 0
   isCooldownedAfterStart: 0
   maxChargesCount: 1
-  chargesCountAfterStart: 0
-  costOfEachUsingInCharges: 1
+  chargesCountAfterStart: 1
+  costOfEachUsingInCharges: 0
   currentCharges: 1
   chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 3
@@ -167,7 +167,17 @@ MonoBehaviour:
       OnEffectValueChanged:
         m_PersistentCalls:
           m_Calls: []
-  - additionalValueForWallsNearby: 4
+  - additionalValueForWallsNearby: 1
+    startValue:
+      type: 20
+      value: -1
+      deltaValueForEachTurn: 0
+      timeToTheEndOfEffect: 1
+      effectIsConstantly: 1
+      OnEffectValueChanged:
+        m_PersistentCalls:
+          m_Calls: []
+  - additionalValueForWallsNearby: 3
     startValue:
       type: 40
       value: 0
