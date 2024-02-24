@@ -87,6 +87,7 @@ namespace FroguesFramework
         public void Deactivate()
         {
             cameraController.Deactivate();
+            GetComponentsInChildren<Cell>().ToList().ForEach(cell => EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(cell));
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
