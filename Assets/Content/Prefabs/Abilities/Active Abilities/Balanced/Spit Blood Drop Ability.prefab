@@ -108,6 +108,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: shortDataTags.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 8487eb9d594b3324d972bb1e6268aa3c, type: 2}
@@ -123,6 +127,10 @@ PrefabInstance:
       propertyPath: shortDataTags.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: da947f555b4326a4984c78ddc7c198a4, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b9d460e6eeead3a4faec0baeb98a42fc, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -209,9 +217,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 1043112537073259190}
   isPartOfWeapon: 0
-  actionPointsCost: 0
+  actionPointsCost: 1
   bloodPointsCost: 0
-  healthCost: 3
+  healthCost: 1
   cooldownAfterUse: 4
   cooldownAfterStart: 4
   cooldownCounter: 0
@@ -221,7 +229,7 @@ MonoBehaviour:
   costOfEachUsingInCharges: 1
   currentCharges: 1
   chargesRegenPerCooldown: 1
-  abilityAnimatorTrigger: 1
+  abilityAnimatorTrigger: 2
   animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0.05
   fullAnimationTime: 0.1
@@ -230,6 +238,15 @@ MonoBehaviour:
   needToRotateOwnersSprite: 1
   usingRadius: 3
   projectilePrefab: {fileID: 4126032325568882792, guid: 3034d7bf0fcfee04fa4e5432c9886cd6, type: 3}
+  addtionalDebufs:
+  - type: 0
+    value: -1
+    deltaValueForEachTurn: 0
+    timeToTheEndOfEffect: 2
+    effectIsConstantly: 0
+    OnEffectValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
   lineFromOwnerToTarget: {fileID: 8771202706152259354}
   parabolaAnimationCurve:
     serializedVersion: 2

@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange
+    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange,
+        IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator
     {
         [SerializeField] private int usingRadius;
         [SerializeField] private Unit projectilePrefab;
+        [SerializeField] private List<StatEffect> addtionalDebufs;
 
         [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
@@ -55,8 +57,11 @@ namespace FroguesFramework
             SpendResourcePoints();
             SetCooldownAsAfterUse();
 
-            if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(cells[0]);
-            _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
+            if (needToRotateOwnersSprite) 
+                _owner.SpriteRotator.TurnAroundByTarget(cells[0]);
+
+            if(healthCost == 0)
+                _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
             CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, cells[0]));
@@ -71,7 +76,14 @@ namespace FroguesFramework
         protected IEnumerator ApplyEffect(float time, Cell target)
         {
             yield return new WaitForSeconds(time);
-            EntryPoint.Instance.SpawnUnit(projectilePrefab, _owner, target);
+            var spawnedUnit = EntryPoint.Instance.SpawnUnit(projectilePrefab, _owner, target);
+            spawnedUnit.AbleToDie.OnDeath.AddListener(() => ApplyWeaknessEffectToUnitOnCell(target));
+        }
+
+        private void ApplyWeaknessEffectToUnitOnCell(Cell cell)
+        {
+            if(cell.Content != null)
+                addtionalDebufs.ForEach(statEffect => cell.Content.Stats.AddStatEffect(statEffect));
         }
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
@@ -104,5 +116,45 @@ namespace FroguesFramework
         }
 
         public int ReturnRange() => usingRadius;
+
+        #region IAbleToApplyDefenceModificator
+        public int GetDefenceModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.defence);
+
+        public int GetdeltaOfDefenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.defence);
+
+        public int GetTimeToEndOfDefenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.defence);
+
+        public bool GetDefenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.defence);
+        #endregion
+
+        #region IAbleToApplyStrenghtModificator
+        public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.strenght);
+
+        public int GetDeltaOfStrenghtValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.strenght);
+
+        public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.strenght);
+
+        public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.strenght);
+        #endregion
+
+        #region IAbleToApplyIntelligenceModificator
+        public int GetIntelligenceModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.intelegence);
+
+        public int GetDeltaOfIntelligenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.intelegence);
+
+        public int GetTimeToEndOfIntelligenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.intelegence);
+
+        public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.intelegence);
+        #endregion
+
+        #region IAbleToApplyDexterityModificator
+        public int GetDexterityModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.dexterity);
+
+        public int GetDeltaOfDexterityValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.dexterity);
+
+        public int GetTimeToEndOfDexterityEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.dexterity);
+
+        public bool GetDexterityEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.dexterity);
+        #endregion
     }
 }
