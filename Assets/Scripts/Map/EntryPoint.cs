@@ -39,8 +39,7 @@ namespace FroguesFramework
         private int _roomsCount;
         private int _hashedScoreThenExitActivated;
         private List<Unit> _bloodSurfacesInCurrentRoom = new();
-        private List<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
-        [SerializeField] private List<GameObject> debugPrevizualisation = new();
+        private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
         public UnityEvent OnNextRoomStarted;
         public UnityEvent OnSomeoneMoved;
         public UnityEvent OnScoreIncreased;
@@ -96,13 +95,13 @@ namespace FroguesFramework
         {
             countOfRats = 0;
             turnCounter = 1;
-            _currentRoom.Deactivate();
             var newRoom = Instantiate(roomsPrefabs[_roomsCount]);
             _roomsCount++;
 
             if(_roomsCount >= roomsPrefabs.Count)
                 _roomsCount = 0;
-            
+
+            _currentRoom.Deactivate();
             _currentRoom = newRoom;
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.ActionPoints.SetCurrentPoints(4);

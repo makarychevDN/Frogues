@@ -29,7 +29,6 @@ namespace FroguesFramework
         [SerializeField] private SpriteRenderer pathDot;
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
         [SerializeField] private Vector3 _hashedPosition;
-        [SerializeField] private bool ignorePrevisualizationFunctionality;
 
         [ReadOnly] public bool chosenToMovement;
 
@@ -128,6 +127,7 @@ namespace FroguesFramework
         private void OnDestroy()
         {
             transform.GetComponentInParent<Map>()?.RemoveCell(this);
+            //RemoveMySelfFromEntryPoint();
         }
 
         private void ClampPosition()
@@ -165,7 +165,7 @@ namespace FroguesFramework
 
         private void Start()
         {
-            if (Application.isPlaying && !ignorePrevisualizationFunctionality)
+            if (Application.isPlaying)
                 AddMySelfToEntryPoint();
         }
     }
