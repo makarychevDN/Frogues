@@ -56,7 +56,8 @@ namespace FroguesFramework
             SpendResourcePoints();
             SetCooldownAsAfterUse();
 
-            _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
+            if(healthCost == 0)
+                _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
             CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, SelectCells(cursorPosition)));

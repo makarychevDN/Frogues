@@ -24,7 +24,10 @@ namespace FroguesFramework
             SetCooldownAsAfterUse();
 
             CurrentlyActiveObjects.Add(this);
-            _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
+
+            if(healthCost == 0)
+                _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
+
             StartCoroutine(ApplyEffect(timeBeforeImpact));
             Invoke(nameof(RemoveCurrentlyActive), fullAnimationTime);
         }
