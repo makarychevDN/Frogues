@@ -46,7 +46,7 @@ namespace FroguesFramework
         public UnityEvent OnBloodSurfacesCountOnTheMapUpdated;
         public UnityEvent<int> OnCountOfRatsUpdated;
 
-        public bool CurrentRoomIsHub => _currentRoom == hub;
+        public bool CurrentRoomIsPeaceful => _currentRoom.IsPeaceful;
         public SerializedDictionary<RewardType, List<BaseAbility>> PossibleRewards => possibleRewards;
         public CameraController CameraController => _currentRoom.CameraController;
         public PathFinder PathFinder => _currentRoom.PathFinder;
@@ -113,6 +113,9 @@ namespace FroguesFramework
             OnNextRoomStarted.Invoke();
             _bloodSurfacesInCurrentRoom.Clear();
             OnBloodSurfacesCountOnTheMapUpdated.Invoke();
+
+            if(!CurrentRoomIsPeaceful)
+                wavesGenerator.SpawnEnemies();
         }
 
         public void IncreaseBonfireHealingValue(float value) => bonfireHealingValueMultiplier += value;

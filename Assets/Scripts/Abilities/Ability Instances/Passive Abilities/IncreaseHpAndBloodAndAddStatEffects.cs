@@ -15,7 +15,7 @@ namespace FroguesFramework
             base.Init(unit);
             _owner.Health.IncreaseMaxHp(additionalHp);
 
-            if(additionalMaxBlood > 0)
+            if(additionalHp > 0)
                 _owner.Health.TakeHealing(additionalHp);
 
             _owner.BloodPoints.IncreaseLimit(additionalMaxBlood);

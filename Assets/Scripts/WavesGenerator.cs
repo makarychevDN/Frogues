@@ -76,7 +76,7 @@ namespace FroguesFramework
 
         public void TickAfterEnemiesTurn()
         {
-            if (EntryPoint.Instance.CurrentRoomIsHub || EntryPoint.Instance.ExitActivated)
+            if (EntryPoint.Instance.CurrentRoomIsPeaceful || EntryPoint.Instance.ExitActivated)
                 return;
 
             roundsCounter++;

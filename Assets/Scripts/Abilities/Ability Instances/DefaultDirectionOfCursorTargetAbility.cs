@@ -78,6 +78,8 @@ namespace FroguesFramework
         public override void VisualizePreUseInDirection(Vector3 cursorPosition)
         {
             _isPrevisualizedNow = true;
+            _owner.ActionPoints.PreSpendPoints(actionPointsCost);
+            _owner.BloodPoints.PreSpendPoints(bloodPointsCost);
             _usingArea.ForEach(cell => cell.EnableValidForAbilityCellHighlight(_usingArea));
             var cells = SelectCells(cursorPosition);
 

@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class Room : MonoBehaviour
     {
         [SerializeField] private Map map;
+        [SerializeField] private bool isPeaceful;
         [SerializeField] private Cell exit;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
@@ -18,6 +19,7 @@ namespace FroguesFramework
         public Map Map => map;
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
+        public bool IsPeaceful => isPeaceful;
         
         public Vector3 CenterOfRoom => cameraController.transform.position;
 
