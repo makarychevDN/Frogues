@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class FarDistanceStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator
+    public class FarDistanceStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator
     {
         [SerializeField] private List<StatEffectAndDeltaWhenOnlyNoEnemieNearby> startEffectsAndDeltas;
         private List<StatEffect> _effects;
@@ -50,12 +50,14 @@ namespace FroguesFramework
         private void RecalculateValue()
         {
             int nearbyEnemiesQuantity = _owner.CurrentCell.CellNeighbours.GetAllNeighbors().Where(cell => cell.Content != null && cell.Content is not Barrier).Count();
-            int onlyOneEnemieNearbyModificator = nearbyEnemiesQuantity == 0 ? 1 : 0;
+            int noOneEnemyNearbyModificator = nearbyEnemiesQuantity == 0 ? 1 : 0;
 
             for (int i = 0; i < _effects.Count; i++)
             {
-                _effects[i].Value = startEffectsAndDeltas[i].startValue.Value + onlyOneEnemieNearbyModificator * startEffectsAndDeltas[i].deltaForNoEnemyNearby;
+                _effects[i].Value = startEffectsAndDeltas[i].startValue.Value + noOneEnemyNearbyModificator * startEffectsAndDeltas[i].deltaForNoEnemyNearby;
             }
+
+
         }
 
         #region IAbleToApplyStrenghtModificator
@@ -99,6 +101,19 @@ namespace FroguesFramework
 
         public bool GetIntelligenceEffectIsConstantly() => true;
         #endregion
+
+
+        public int GetDefenceModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.defence).startValue.Value;
+
+        public int GetdeltaOfDefenceValueForEachTurn()
+        {
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.defence).deltaForNoEnemyNearby;
+            return delta - Mathf.Abs(GetDefenceModificatorValue());
+        }
+
+        public int GetTimeToEndOfDefenceEffect() => int.MaxValue;
+
+        public bool GetDefenceEffectIsConstantly() => true;
     }
 
     [Serializable]
