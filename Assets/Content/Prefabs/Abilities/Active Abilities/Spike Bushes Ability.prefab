@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: shortDataTags.Array.data[0]
@@ -43,22 +43,26 @@ PrefabInstance:
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 76f06f9786d3d66478800f0a5442ddab, type: 2}
+      objectReference: {fileID: 11400000, guid: eee6ff61df4a56946bca67e86f44be2a, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.data[1]
       value: 
-      objectReference: {fileID: 11400000, guid: bf67d11ffd4bc864da9287ea5f01684c, type: 2}
+      objectReference: {fileID: 11400000, guid: c4cf281f26a92904aa47e79658439bab, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: c4cf281f26a92904aa47e79658439bab, type: 2}
+      objectReference: {fileID: 11400000, guid: 76f06f9786d3d66478800f0a5442ddab, type: 2}
     - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: descriptionTags.Array.data[3]
       value: 
-      objectReference: {fileID: 11400000, guid: eee6ff61df4a56946bca67e86f44be2a, type: 2}
+      objectReference: {fileID: 11400000, guid: bf67d11ffd4bc864da9287ea5f01684c, type: 2}
+    - target: {fileID: 5863459408028885802, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
+      propertyPath: descriptionTags.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 56a55633c59bee94eb56e284ce6c15a7, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -142,26 +146,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 8592677024977933672}
   isPartOfWeapon: 0
-  actionPointsCost: 0
+  actionPointsCost: 2
   bloodPointsCost: 0
   healthCost: 0
-  cooldownAfterUse: 0
+  cooldownAfterUse: 5
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 0
+  costOfEachUsingInCharges: 1
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 0
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0.15
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
   impactSoundSource: {fileID: 0}
-  temporaryBlockValue: 1
-  permanentBlockValue: 1
+  temporaryBlockValue: 6
+  permanentBlockValue: 2
   effects:
   - type: 40
-    value: 1
-    deltaValueForEachTurn: 0
-    timeToTheEndOfEffect: 1
+    value: 4
+    deltaValueForEachTurn: -2
+    timeToTheEndOfEffect: 2
     effectIsConstantly: 0
     OnEffectValueChanged:
       m_PersistentCalls:
