@@ -6,22 +6,26 @@ namespace FroguesFramework
 {
     public class MoveFromTargetOnTakeDamagePassiveAbility : PassiveAbility, IRoundTickable
     {
-        [SerializeField] private Unit _target;
         private Cell _mostFarFromTargetNeighborCells;
         private bool _movedOnTakeDamageAlready;
 
         public override void Init(Unit unit)
         {
             base.Init(unit);
+            unit.Health.OnDamageFromUnitAppliedByHealth.AddListener(TryToMoveFromTarget);
+        }
 
-            if (_target == null)
-                _target = EntryPoint.Instance.MetaPlayer;
-
-            unit.Health.OnDamageAppledByHealth.AddListener(() => TryToMoveFromTarget(_target));
+        public override void UnInit()
+        {
+            _owner.Health.OnDamageFromUnitAppliedByHealth.RemoveListener(TryToMoveFromTarget);
+            base.UnInit();
         }
 
         private void TryToMoveFromTarget(Unit target)
         {
+            if (target == null)
+                return;
+
             if(_movedOnTakeDamageAlready) 
                 return;
 
