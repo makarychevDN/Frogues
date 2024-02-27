@@ -13,12 +13,14 @@ namespace FroguesFramework
         private int _preTakenTemporaryPoints;
         private bool _isEnemy;
 
-        public UnityEvent OnPointsEnded;
-        public UnityEvent OnPointsRegenerated;
         public UnityEvent OnAnyPointsIncreased;
         public UnityEvent OnDefaultPointsIncreased;
         public UnityEvent OnTemporaryPointsIncreased;
+        public UnityEvent OnPointsRegenerated;
         public UnityEvent OnPickUpPoints;
+        public UnityEvent OnPointsSpended;
+        public UnityEvent OnPointsEnded;
+        public UnityEvent<int> OnTemporaryPointsReseted;
 
         public void Init(Unit unit)
         {
@@ -33,6 +35,7 @@ namespace FroguesFramework
             currentPoints += pointsRegeneration;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
+            OnTemporaryPointsReseted.Invoke(tempraryPoints);
             tempraryPoints = 0;
             _preTakenTemporaryPoints = tempraryPoints;
             OnPointsRegenerated.Invoke();
@@ -140,6 +143,7 @@ namespace FroguesFramework
         public void SpendPoints(int cost)
         {
             CalculateCost(ref currentPoints, ref tempraryPoints, cost);
+            OnPointsSpended.Invoke();
 
             if (currentPoints <= 0)
                 OnPointsEnded.Invoke();
