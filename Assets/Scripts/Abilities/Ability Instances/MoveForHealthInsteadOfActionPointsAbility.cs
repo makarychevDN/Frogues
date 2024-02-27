@@ -14,6 +14,15 @@ namespace FroguesFramework
         {
             base.Init(unit);
             unit.AbleToSkipTurn.OnSkipTurn.AddListener(UnUse);
+            EntryPoint.Instance.OnNextRoomStarted.AddListener(UnUse);
+        }
+
+        public override void UnInit()
+        {
+            UnUse();
+            _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(UnUse);
+            EntryPoint.Instance.OnNextRoomStarted.RemoveListener(UnUse);
+            base.UnInit();
         }
 
         public override void Use()
