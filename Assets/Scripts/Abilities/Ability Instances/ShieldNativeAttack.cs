@@ -6,11 +6,13 @@ namespace FroguesFramework
         {
             base.Init(unit);
             OnEffectApplied.AddListener(TurnOffCriticalMode);
+            _owner.AbleToSkipTurn.OnSkipTurn.AddListener(TurnOffCriticalMode);
         }
 
         public override void UnInit()
         {
             OnEffectApplied.RemoveListener(TurnOffCriticalMode);
+            _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(TurnOffCriticalMode);
             base.UnInit();
         }
 
@@ -51,13 +53,15 @@ namespace FroguesFramework
         private void WaitAttackOwnerModeOn()
         {
             _owner.Health.OnDamagePreventedByBlock.AddListener(TurnOnCriticalMode);
-            _owner.Health.OnBlockDestroyed.AddListener(TurnOffCriticalMode);
+            _owner.Health.OnDamageAppliedByArmor.AddListener(TurnOffCriticalMode);
+            _owner.Health.OnDamageAppledByHealth.AddListener(TurnOffCriticalMode);
         }
 
         private void WaitAttackOwnerModeOff()
         {
             _owner.Health.OnDamagePreventedByBlock.RemoveListener(TurnOnCriticalMode);
-            _owner.Health.OnBlockDestroyed.RemoveListener(TurnOffCriticalMode);
+            _owner.Health.OnDamageAppliedByArmor.RemoveListener(TurnOffCriticalMode);
+            _owner.Health.OnDamageAppledByHealth.RemoveListener(TurnOffCriticalMode);
         }
     }
 }
