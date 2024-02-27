@@ -52,7 +52,7 @@ namespace FroguesFramework
                 if (_owner.Stats.Immobilized == 0)
                 {
                     var movementCells = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
-                        _owner.ActionPoints.CurrentPoints,
+                        _owner.ActionPoints.AvailablePoints,
                         _owner.MovementAbility.GetActionPointsCost(), false, true, true);
                     movementCells.ForEach(cell => cell.EnableValidForMovementCellHighlight(movementCells));
                 }
