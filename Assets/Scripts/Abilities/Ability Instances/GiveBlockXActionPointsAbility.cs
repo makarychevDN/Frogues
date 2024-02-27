@@ -52,7 +52,7 @@ namespace FroguesFramework
 
         public int GetAlternativeStepValue() => 1;
 
-        protected override int CalculateActionPointsCost => _owner.ActionPoints.CurrentPoints;
+        protected override int CalculateActionPointsCost => _owner.ActionPoints.AvailablePoints;
 
         public override int GetActionPointsCost() => CalculateActionPointsCost;
     }
