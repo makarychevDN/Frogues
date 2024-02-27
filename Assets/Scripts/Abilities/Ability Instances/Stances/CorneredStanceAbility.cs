@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class CornderedStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator, IAbleToApplySpikesModificator
+    public class CorneredStanceAbility : BattleStanceAbility, IAbleToApplyStrenghtModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator, IAbleToApplySpikesModificator
     {
         [SerializeField] private bool addBonusForEachWallNearby;
         [SerializeField] private List<StatEffectAndDelaForEachWallNearby> startEffectsAndDeltas;
