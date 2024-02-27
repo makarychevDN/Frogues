@@ -76,7 +76,7 @@ namespace FroguesFramework
 
         public void IncreaseBlock(int value)
         {
-            block += (int)(value * _unit.Stats.DefenceModificator);
+            block += value;
             _hashedBlock = block;
             OnBlockIncreased.Invoke();
             OnArmorOrBlockIncreased.Invoke();
