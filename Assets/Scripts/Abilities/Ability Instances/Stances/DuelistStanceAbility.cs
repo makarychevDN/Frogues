@@ -30,6 +30,7 @@ namespace FroguesFramework
             {
                 RecalculateValue();
                 EntryPoint.Instance.OnSomeoneMoved.AddListener(RecalculateValue);
+                EntryPoint.Instance.OnSomeoneDied.AddListener(RecalculateValue);
 
                 foreach (var effect in _effects)
                 {
@@ -39,6 +40,7 @@ namespace FroguesFramework
             else
             {
                 EntryPoint.Instance.OnSomeoneMoved.RemoveListener(RecalculateValue);
+                EntryPoint.Instance.OnSomeoneDied.RemoveListener(RecalculateValue);
 
                 foreach (var effect in _effects)
                 {

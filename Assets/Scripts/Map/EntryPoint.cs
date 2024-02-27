@@ -42,6 +42,7 @@ namespace FroguesFramework
         private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
         public UnityEvent OnNextRoomStarted;
         public UnityEvent OnSomeoneMoved;
+        public UnityEvent OnSomeoneDied;
         public UnityEvent OnScoreIncreased;
         public UnityEvent OnBloodSurfacesCountOnTheMapUpdated;
         public UnityEvent<int> OnCountOfRatsUpdated;
@@ -217,6 +218,11 @@ namespace FroguesFramework
         public void InvokeSomeoneMoved()
         {
             OnSomeoneMoved.Invoke();
+        }
+
+        public void InvokeSomeoneDied()
+        {
+            OnSomeoneDied.Invoke();
         }
 
         public void TickAfterEnemiesTurn() => turnCounter++;
