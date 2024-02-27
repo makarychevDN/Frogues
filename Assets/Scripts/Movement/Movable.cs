@@ -86,13 +86,20 @@ namespace FroguesFramework
                 {
                     OnBumpInto.Invoke();
                     OnBumpIntoUnit.Invoke(targetCell.Content);
+                    InvokeOnMovementEndEvents(targetCell);
+                    return;
                 }
             }
 
             _unit.CurrentCell = targetCell;
             targetCell.Content = _unit;
+            InvokeOnMovementEndEvents(_unit.CurrentCell);
+        }
+
+        private void InvokeOnMovementEndEvents(Cell cell)
+        {
             OnMovementEnd.Invoke();
-            OnMovementEndOnCell.Invoke(_unit.CurrentCell);
+            OnMovementEndOnCell.Invoke(cell);
         }
 
         private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true)
