@@ -44,6 +44,9 @@ namespace FroguesFramework
 
         private void TryToExecute()
         {
+            if (EntryPoint.Instance.CurrentRoomIsPeaceful || EntryPoint.Instance.ExitActivated)
+                return;
+
             if (IsResoursePointsEnough() && !_owner.Health.Full)
             {
                 SpendResourcePoints();
