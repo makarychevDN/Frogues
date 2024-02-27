@@ -26,7 +26,7 @@ namespace FroguesFramework
                 {
                     try
                     {
-                        if(surface.AbilitiesManager.Abilities.Any(ability => ability is IncreaseBloodPointsOnStepOnSurface))
+                        if(surface.AbilitiesManager.Abilities.Any(ability => ability is PickUpTemporaryActionPointsOnStepOnSurface))
                         {
                             surfaces.Add(surface);
                         }
@@ -36,7 +36,7 @@ namespace FroguesFramework
                         print(surface);
                         print(surface.AbilitiesManager);
                         print(surface.AbilitiesManager.Abilities);
-                        print(surface.AbilitiesManager.Abilities.Any(ability => ability is IncreaseBloodPointsOnStepOnSurface));
+                        print(surface.AbilitiesManager.Abilities.Any(ability => ability is PickUpTemporaryActionPointsOnStepOnSurface));
                     }
                 }
                 surfaces.ForEach(surface => surface.OnStepOnThisUnitByUnit.Invoke(_owner));
