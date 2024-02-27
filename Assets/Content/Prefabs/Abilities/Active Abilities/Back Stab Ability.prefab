@@ -54,8 +54,13 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 0
+  costOfEachUsingInCharges: 1
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 0
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0
   fullAnimationTime: 0
   delayBeforeImpactSound: 0
@@ -253,7 +258,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 2c7063e6cb170254c9cc5736bed80a72, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -351,12 +356,17 @@ MonoBehaviour:
   actionPointsCost: 1
   bloodPointsCost: 1
   healthCost: 0
-  cooldownAfterUse: 0
+  cooldownAfterUse: 5
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 1
+  costOfEachUsingInCharges: 1
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 0
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0
   fullAnimationTime: 0
   delayBeforeImpactSound: 0

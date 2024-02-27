@@ -208,7 +208,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 61099845bf15b124cb1a5ec74e25706a, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -306,8 +306,13 @@ MonoBehaviour:
   cooldownAfterStart: 0
   cooldownCounter: 0
   isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 1
+  costOfEachUsingInCharges: 1
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 2
-  weaponIndex: -1
+  animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0.15
   fullAnimationTime: 0.8
   delayBeforeImpactSound: 0
@@ -328,6 +333,10 @@ MonoBehaviour:
       m_Calls: []
   projectilePrefab: {fileID: 4126032325568882792, guid: 645a8491e62378745a76b5f611dfa643, type: 3}
   onProjectileContactWithTargetSound: {fileID: 1038819414}
+  additionalBlockToTarget: 0
+  additionalArmorToTarget: 0
+  additionalTemporaryActionPointsToTarget: 0
+  countsAsAttack: 1
   cooldownForLightWeapon: 3
   cooldownForHeavyWeapon: 6
 --- !u!82 &1038819414
