@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseBloodPointsOnStepOnSurface : PassiveAbility
+    public class PickUpTemporaryActionPointsOnStepOnSurface : PassiveAbility
     {
         //[SerializeField] private int increaseValue;
         [SerializeField] private int additionalTemporaryActionPointsQuantity;
@@ -10,11 +10,11 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            unit.OnStepOnThisUnitByUnit.AddListener(TryToIncreaseBloodPoints);
+            unit.OnStepOnThisUnitByUnit.AddListener(TryToIncreaseTemporaryActionPoints);
             EntryPoint.Instance.AddBloodSurface(_owner);
         }
 
-        private void TryToIncreaseBloodPoints(Unit unit)
+        private void TryToIncreaseTemporaryActionPoints(Unit unit)
         {
             /*if (unit.BloodPoints == null)
                 return;
@@ -26,7 +26,7 @@ namespace FroguesFramework
             if (unit != EntryPoint.Instance.MetaPlayer)
                 return;
 
-            unit.ActionPoints.IncreaseTemporaryPoints(additionalTemporaryActionPointsQuantity);
+            unit.ActionPoints.PickupTemporaryPoints(additionalTemporaryActionPointsQuantity);
             _owner.AbleToDie.DieWithoutAnimation();
             EntryPoint.Instance.RemoveBloodSurface(_owner);
         }

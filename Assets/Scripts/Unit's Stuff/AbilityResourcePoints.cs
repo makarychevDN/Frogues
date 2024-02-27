@@ -123,6 +123,12 @@ namespace FroguesFramework
             IncreasePoints(value);
         }
 
+        public void PickupTemporaryPoints(int value)
+        {
+            OnPickUpPoints.Invoke();
+            IncreaseTemporaryPoints(value);
+        }
+
         public void IncreaseTemporaryPoints(int value)
         {
             tempraryPoints += value;
