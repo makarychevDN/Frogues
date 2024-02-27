@@ -160,7 +160,7 @@ namespace FroguesFramework
 
         public int ReturnRange() => radius;
 
-        public int GetDefaultDamage() => damage;
+        public int GetDefaultDamage() => DamageValue;
 
         public DamageType GetDamageType() => damageType;
 
