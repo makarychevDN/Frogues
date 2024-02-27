@@ -79,30 +79,21 @@ namespace FroguesFramework
             {
                 if (!_unit.Small && targetCell.Content.Small)
                 {
-                    var unitToStepOnIt = targetCell.Content;
-                    targetCell.Content = _unit;
-                    unitToStepOnIt.CurrentCell = null;
-                    _unit.CurrentCell = targetCell;
-
-                    if (unitToStepOnIt != null)
-                    {
-                        unitToStepOnIt.OnStepOnThisUnit.Invoke();
-                        unitToStepOnIt.OnStepOnThisUnitByUnit.Invoke(_unit);
-                    }
-
-                    return;
+                    targetCell.Content.OnStepOnThisUnit.Invoke();
+                    targetCell.Content.OnStepOnThisUnitByUnit.Invoke(_unit);
                 }
-
-                _unit.CurrentCell = targetCell;
-                OnBumpInto.Invoke();
-                OnBumpIntoUnit.Invoke(targetCell.Content);
-                return;
+                else
+                {
+                    OnBumpInto.Invoke();
+                    OnBumpIntoUnit.Invoke(targetCell.Content);
+                }
             }
 
+            _unit.CurrentCell = targetCell;
             targetCell.Content = _unit;
             OnMovementEnd.Invoke();
             OnMovementEndOnCell.Invoke(_unit.CurrentCell);
-        }        
+        }
 
         private void Play(Cell startCell, Cell targetCell, float speed, float jumpHeight, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true)
         {
