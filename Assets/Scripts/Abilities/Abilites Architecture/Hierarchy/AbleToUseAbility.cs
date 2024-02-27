@@ -137,6 +137,8 @@ namespace FroguesFramework
 
         public int GetCurrentCharges() => currentCharges;
 
+        public int GetMaxCharges() => maxChargesCount;
+
         #endregion
     }
 }

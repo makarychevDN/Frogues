@@ -35,6 +35,7 @@ namespace FroguesFramework
 
             dataByKeyWords.Add("{cooldown after use}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterUse().ToString());
             dataByKeyWords.Add("{cooldown after start}", () => (ability as IAbleToHaveCooldown).GetCooldownAfterStart().ToString());
+            dataByKeyWords.Add("{max charges}", () => (ability as IAbleToHaveCooldown).GetMaxCharges().ToString());
 
             dataByKeyWords.Add("{action points cost}", () => (ability as IAbleToCost).GetActionPointsCost().ToString());
             dataByKeyWords.Add("{blood points cost}", () => (ability as IAbleToCost).GetBloodPointsCost().ToString());

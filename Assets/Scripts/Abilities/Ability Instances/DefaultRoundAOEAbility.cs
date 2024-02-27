@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DefaultRoundAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToDealDamage
+    public class DefaultRoundAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToDealDamage, IAbleToReturnRange
     {
         [SerializeField] private DamageType damageType;
         [SerializeField] private int damage;
@@ -134,5 +134,7 @@ namespace FroguesFramework
         public int GetDefaultDamage() => damage;
 
         public DamageType GetDamageType() => damageType;
+
+        public int ReturnRange() => usingRadius;
     }
 }

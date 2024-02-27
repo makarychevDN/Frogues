@@ -12,6 +12,7 @@ namespace FroguesFramework
         public int GetCurrentCooldown();
         public bool IsEnoughCharges();
         public int GetCurrentCharges();
+        public int GetMaxCharges();
         public void SpendCharges();
     }
 }
