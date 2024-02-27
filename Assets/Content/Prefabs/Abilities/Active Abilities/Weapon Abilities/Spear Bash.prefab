@@ -74,9 +74,37 @@ PrefabInstance:
       value: "\u041D\u0430\u043D\u043E\u0441\u0438\u0442 10 \u0443\u0440\u043E\u043D\u0430
         \u0432\u044B\u0431\u0440\u0430\u043D\u043D\u043E\u043C\u0443 \u044E\u043D\u0438\u0442\u0443"
       objectReference: {fileID: 0}
+    - target: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      propertyPath: shortDataTags.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      propertyPath: shortDataTags.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d83f12c64aea6043a94a50f0774bbb6, type: 2}
+    - target: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      propertyPath: shortDataTags.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: e1becf05c3278334c83002ea96b47a9c, type: 2}
+    - target: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      propertyPath: shortDataTags.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f9e38295d2ec2b458fb82bead9abc4d, type: 2}
+    - target: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      propertyPath: shortDataTags.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: da947f555b4326a4984c78ddc7c198a4, type: 2}
+    - target: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      propertyPath: shortDataTags.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: f8367aa920f49bf4d9b33614b2e45075, type: 2}
+    - target: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      propertyPath: descriptionTags.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: d839169ff6f13254db3a1d93fd5e7467, type: 2}
     - target: {fileID: 7463823397672331429, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
       propertyPath: damage
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7463823397672331429, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
       propertyPath: radius
@@ -98,8 +126,85 @@ PrefabInstance:
       propertyPath: costOfEachUsingInCharges
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7463823397672331429, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5457397350455094723, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 4686794257199061944}
   m_SourcePrefab: {fileID: 100100000, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+--- !u!120 &3084208518263613454 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 2394903952390997213, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+  m_PrefabInstance: {fileID: 860512137106681043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &4616955955556401343 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5468390020005473388, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+  m_PrefabInstance: {fileID: 860512137106681043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4633560540423078160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5457397350455094723, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+  m_PrefabInstance: {fileID: 860512137106681043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4686794257199061944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4633560540423078160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce5a939f3f741eb40ac5529dc0a584cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 4633560540423078167}
+  isPartOfWeapon: 1
+  actionPointsCost: 2
+  bloodPointsCost: 0
+  healthCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 1
+  costOfEachUsingInCharges: 0
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
+  abilityAnimatorTrigger: 1
+  animatorControllerForAbility: {fileID: 22100000, guid: 68ac651a2693f8f4095ef856749267bd, type: 2}
+  timeBeforeImpact: 0.15
+  fullAnimationTime: 0.8
+  delayBeforeImpactSound: 0
+  impactSoundSource: {fileID: 4616955955556401343}
+  needToRotateOwnersSprite: 1
+  damageType: 10
+  damage: 12
+  radius: 2
+  isNativeAttack: 1
+  ignoreArmor: 0
+  shouldUseWeapondamageInstead: 1
+  shouldUseWeaponActionPointsCostInstead: 1
+  shouldSetMyDamageAndCostAsWeaponCharacteristics: 1
+  addtionalDebufs: []
+  lineFromOwnerToTarget: {fileID: 3084208518263613454}
+  OnEffectApplied:
+    m_PersistentCalls:
+      m_Calls: []
+  damageForTooCloseToTargetAttack: 7
+--- !u!114 &4633560540423078167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5457397350455094724, guid: af9347ddbe98f574c976fabd91ce96fa, type: 3}
+  m_PrefabInstance: {fileID: 860512137106681043}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4633560540423078160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
