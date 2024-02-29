@@ -13,7 +13,12 @@ namespace FroguesFramework
         [SerializeField] private List<Unit> unitsPool;
         [SerializeField] private List<PossibleToSpawnEnemyProviderDueDifficultyLevel> commonSchemeOfPool;
         [SerializeField] private List<PoolOfEnemiesDifficultySetup> difficultyOfEnemiesInThePoolSetup;
-        private PoolOfEnemiesDifficultySetup _currentDifficultySetup;
+
+        [Header("Rookashka Setup")]
+        [SerializeField] private int enemiesSpawnRequariedToSpawnRookashka;
+        [SerializeField] private List<Unit> rookashkaPrefabs;
+        private int _rookashkaCounter;
+
         private List<int> _currentDifficultySetupShuffeledValues;
 
         public PoolOfEnemiesDifficultySetup CalculateCurrentEnemyGeneratorSetup() => difficultyOfEnemiesInThePoolSetup.Last(waveSetup => EntryPoint.Instance.Score >= waveSetup.ScoreRequirements);
@@ -45,6 +50,20 @@ namespace FroguesFramework
             var unitToSpawn = unitsPool.GetRandomElement();
             unitsPool.Remove(unitToSpawn);
             SpawnAndMoveToCell(cellToSpawn, unitToSpawn);
+
+            _rookashkaCounter++;
+            if (_rookashkaCounter < enemiesSpawnRequariedToSpawnRookashka || CellsTaker.TakeAllEmptyCells().Count == 0)
+                return;
+
+            _rookashkaCounter = 0;
+            var cellToSpawnRookashka = CellsTaker.TakeAllEmptyCells().GetRandomElement();
+            var rookashkaToSpawn = rookashkaPrefabs.GetRandomElement();
+            SpawnAndMoveToCell(cellToSpawnRookashka, rookashkaToSpawn);
+        }
+
+        public void SpawnRookashka()
+        {
+
         }
 
         public void SpawnAndMoveToCell(Cell targetCell, Unit prefabToSpawn)
