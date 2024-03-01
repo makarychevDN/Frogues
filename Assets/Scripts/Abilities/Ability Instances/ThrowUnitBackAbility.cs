@@ -106,7 +106,10 @@ namespace FroguesFramework
 
         public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost, int damage)
         {
-            throw new System.NotImplementedException();
+            _hashedTarget = target;
+            this.actionPointsCost = actionPointsCost;
+            this.bloodPointsCost = bloodPointsCost;
+            this.damage = damage;
         }
 
         private int CalculateDamage => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
