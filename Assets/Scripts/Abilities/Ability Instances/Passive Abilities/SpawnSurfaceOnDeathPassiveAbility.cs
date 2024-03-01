@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -20,6 +21,11 @@ namespace FroguesFramework
 
         private void SpawnSurfaceUnderOwner()
         {
+            if (_owner.CurrentCell.Surfaces
+                .Any(surface => surface.AbilitiesManager.Abilities
+                .Any(ability => ability is PickUpTemporaryActionPointsOnStepOnSurface)))
+                return;
+
             EntryPoint.Instance.SpawnUnit(surfacePrefab, _owner.CurrentCell);
         }
     }

@@ -84,6 +84,7 @@ namespace FroguesFramework
                 }
                 else
                 {
+                    _unit.CurrentCell = targetCell;
                     OnBumpInto.Invoke();
                     OnBumpIntoUnit.Invoke(targetCell.Content);
                     InvokeOnMovementEndEvents(targetCell);
@@ -91,7 +92,6 @@ namespace FroguesFramework
                 }
             }
 
-            _unit.CurrentCell = targetCell;
             targetCell.Content = _unit;
             InvokeOnMovementEndEvents(_unit.CurrentCell);
         }
