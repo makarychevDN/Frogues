@@ -77,13 +77,12 @@ namespace FroguesFramework
         {
             yield return new WaitForSeconds(time);
             var spawnedUnit = EntryPoint.Instance.SpawnUnit(projectilePrefab, _owner, target);
-            spawnedUnit.AbleToDie.OnDeath.AddListener(() => ApplyWeaknessEffectToUnitOnCell(target));
+            spawnedUnit.Movable.OnMovementEndOnCell.AddListener(ApplyWeaknessEffectToUnitOnCell);
         }
 
         private void ApplyWeaknessEffectToUnitOnCell(Cell cell)
         {
-            if(cell.Content != null)
-                addtionalDebufs.ForEach(statEffect => cell.Content.Stats.AddStatEffect(statEffect));
+            addtionalDebufs.ForEach(statEffect => cell.Content.Stats.AddStatEffect(new StatEffect(statEffect)));
         }
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
