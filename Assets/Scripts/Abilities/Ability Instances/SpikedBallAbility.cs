@@ -11,6 +11,7 @@ namespace FroguesFramework
         [SerializeField] private float jumpHeight;
         [SerializeField] private LineRenderer lineFromOwnerToTargetCell;
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private float damageMultiplier = 1.5f;
         private Unit hashedTarget;
         private bool _isPrevisualizedNow;
         private List<Cell> _hashedSelectedArea;
@@ -127,6 +128,6 @@ namespace FroguesFramework
 
         public DamageType GetDamageType() => damageType;
 
-        public int CalculateDamage() => (_owner.Stats.Spikes + _owner.Health.Block + _owner.Health.Armor) * 2;
+        public int CalculateDamage() => ((_owner.Stats.Spikes + _owner.Health.Block + _owner.Health.Armor) * damageMultiplier).RoundWithGameRules();
     }
 }

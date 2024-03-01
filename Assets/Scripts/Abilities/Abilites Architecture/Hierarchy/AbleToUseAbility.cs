@@ -96,6 +96,7 @@ namespace FroguesFramework
         public void SetCooldownAsAfterStart()
         {
             cooldownCounter = cooldownAfterStart;
+            currentCharges = chargesCountAfterStart;
             isCooldownedAfterStart = false;
         }
 

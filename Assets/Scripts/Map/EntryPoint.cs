@@ -37,7 +37,7 @@ namespace FroguesFramework
         [SerializeField] private SerializedDictionary<RewardType, List<BaseAbility>> possibleRewards;
 
         private int _roomsCount;
-        private int _hashedScoreThenExitActivated;
+        private int _scoreDeltaCounter;
         private List<Unit> _bloodSurfacesInCurrentRoom = new();
         private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
         public UnityEvent OnNextRoomStarted;
@@ -102,6 +102,7 @@ namespace FroguesFramework
             if(_roomsCount >= roomsPrefabs.Count)
                 _roomsCount = 0;
 
+            _scoreDeltaCounter = 0;
             _currentRoom.Deactivate();
             _currentRoom = newRoom;
             _currentRoom.Init(_metaPlayer);
@@ -121,22 +122,22 @@ namespace FroguesFramework
 
         public void IncreaseBonfireHealingValue(float value) => bonfireHealingValueMultiplier += value;
 
-        public void IncreaseScore(int score, bool updateHashedValueOfExit = false)
+        public void IncreaseScore(int score, bool resetDeltaValue = false)
         {
             this.score += score;
+            _scoreDeltaCounter += score;
             scoreText.text = this.score.ToString();
             OnScoreIncreased.Invoke();
 
-            if (updateHashedValueOfExit)
+            if (resetDeltaValue)
             {
-                _hashedScoreThenExitActivated = score;
+                _scoreDeltaCounter = 0;
             }
 
-            if (this.score - _hashedScoreThenExitActivated < deltaOfScoreToOpenExit)
+            if (_scoreDeltaCounter < deltaOfScoreToOpenExit)
                 return;
 
             exitButton.SetActive(true);
-            _hashedScoreThenExitActivated += deltaOfScoreToOpenExit;
         }
 
         public Unit SpawnUnit(Unit prefab, Unit spawner, Cell targetCell)
