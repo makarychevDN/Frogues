@@ -127,6 +127,6 @@ namespace FroguesFramework
 
         public DamageType GetDamageType() => damageType;
 
-        public int CalculateDamage() => _owner.Stats.Spikes + _owner.Health.Block;
+        public int CalculateDamage() => (_owner.Stats.Spikes + _owner.Health.Block + _owner.Health.Armor) * 2;
     }
 }

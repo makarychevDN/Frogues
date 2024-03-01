@@ -5,6 +5,8 @@ namespace FroguesFramework
 {
     public class TheBestDefenceAbility : NonTargetAbility, IAbleToApplySpikesModificator
     {
+        [SerializeField] private int spikesValue;
+        
         public override void Use()
         {
             if (!PossibleToUse())
@@ -31,7 +33,7 @@ namespace FroguesFramework
 
         public bool GetSpikesEffectIsConstantly() => false;
 
-        public int GetSpikesModificatorValue() => _owner.AbilitiesManager.WeaponDamage;
+        public int GetSpikesModificatorValue() => spikesValue;
 
         public int GetTimeToEndOfSpikesEffect() => 1;
     }
