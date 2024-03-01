@@ -6,14 +6,6 @@ namespace FroguesFramework
     {
         [SerializeField] protected int additionalCostForHeavyWeapon = 1;
 
-        public override void VisualizePreUseOnUnit(Unit target)
-        {
-            base.VisualizePreUseOnUnit(target);
-
-            if(target != null)
-                target.Health.PreTakeDamage(_owner.AbilitiesManager.WeaponDamage);
-        }
-
         public override int GetDefaultDamage() => _owner.AbilitiesManager.WeaponDamage;
 
         public override DamageType GetDamageType() => damageType;
@@ -29,7 +21,7 @@ namespace FroguesFramework
 
         protected override void HashUnitToAreaTargetAbility(Unit unit)
         {
-            ((IAbleToHashUnitTarget)areaTargetAbility).HashUnitTargetAndCosts(unit, CurrentAdditionalCost, CalculateBloodPointsCost);
+            ((IAbleToHashUnitTarget)areaTargetAbility).HashUnitTargetAndCosts(unit, CurrentAdditionalCost, CalculateBloodPointsCost, CalculateDamage());
         }
 
         public int GetValue() => 1;

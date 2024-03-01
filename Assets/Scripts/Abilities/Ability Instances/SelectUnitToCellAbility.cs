@@ -31,7 +31,7 @@ namespace FroguesFramework
 
         protected virtual void HashUnitToAreaTargetAbility(Unit unit)
         {
-            ((IAbleToHashUnitTarget)areaTargetAbility).HashUnitTargetAndCosts(unit, CalculateActionPointsCost, CalculateBloodPointsCost);
+            ((IAbleToHashUnitTarget)areaTargetAbility).HashUnitTargetAndCosts(unit, CalculateActionPointsCost, CalculateBloodPointsCost, damage);
         }
 
         public override int CalculateHashFunctionOfPrevisualisation()

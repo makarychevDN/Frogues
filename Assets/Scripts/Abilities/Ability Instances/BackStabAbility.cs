@@ -5,12 +5,14 @@ namespace FroguesFramework
     public class BackStabAbility : JumpOnCellAbility, IAbleToHashUnitTarget
     {
         private Unit _hashedTarget;
+        private int _damage;
 
-        public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost)
+        public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost, int damage)
         {
             _hashedTarget = target;
             this.actionPointsCost = actionPointsCost;
             this.bloodPointsCost = bloodPointsCost;
+            _damage = damage;
         }
 
         public override List<Cell> CalculateUsingArea()
@@ -45,7 +47,7 @@ namespace FroguesFramework
                 movementHeight * _owner.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
             cells[0].EnableSelectedByAbilityCellHighlight(new List<Cell> { cells[0] });
 
-            _hashedTarget.Health.PreTakeDamage(_owner.AbilitiesManager.WeaponDamage);
+            _hashedTarget.Health.PreTakeDamage(_damage);
         }
 
         public override void UseOnCells(List<Cell> cells)

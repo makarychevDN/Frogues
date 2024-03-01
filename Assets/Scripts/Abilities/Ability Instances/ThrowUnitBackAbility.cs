@@ -104,7 +104,7 @@ namespace FroguesFramework
             _hashedTarget.Movable.OnMovementEnd.RemoveListener(DealDamage);
         }
 
-        public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost)
+        public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost, int damage)
         {
             throw new System.NotImplementedException();
         }
