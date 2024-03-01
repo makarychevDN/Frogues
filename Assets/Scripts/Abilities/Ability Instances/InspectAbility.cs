@@ -67,7 +67,7 @@ namespace FroguesFramework
 
         public override bool IsIgnoringDrawingFunctionality() => true;
 
-        public override bool CheckItUsableOnBloodSurfaceUnit() => true;
+        public override bool CheckItUsableOnBloodSurfaceUnit() => false;
 
         public override bool CheckItUsableOnDefaultUnit() => true;
     }
