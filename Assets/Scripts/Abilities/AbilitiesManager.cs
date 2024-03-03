@@ -8,6 +8,7 @@ namespace FroguesFramework
     public class AbilitiesManager : MonoBehaviour
     {
         [SerializeField] private int weaponDamage;
+        [SerializeField] private DamageType damageType;
         [SerializeField] private int weaponActionPointsCost;
         [SerializeField] private List<BaseAbility> _abilities = new();
         public UnityEvent<BaseAbility> AbilityHasBeenAdded;
@@ -20,6 +21,7 @@ namespace FroguesFramework
         public IAbleToHaveCurrentAbility AbleToHaveCurrentAbility => _ableToHaveCurrentAbility;
         public List<BaseAbility> Abilities => _abilities;
         public int WeaponDamage => weaponDamage;
+        public DamageType DamageType => damageType;
         public int WeaponActionPointsCost => weaponActionPointsCost;
 
         public void Init(Unit unit)
@@ -93,6 +95,11 @@ namespace FroguesFramework
         public void SetWeaponDamage(int value)
         {
             weaponDamage = value;
+        }
+
+        public void SetWeaponDamageType(DamageType damageType)
+        {
+            this.damageType = damageType;
         }
 
         public void SetWeaponActionPointsCost(int value)

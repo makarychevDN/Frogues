@@ -10,22 +10,23 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            RecalculateCooldown();
-            _owner.AbilitiesManager.OnWeaponChanged.AddListener(RecalculateCooldown);
+            SetupNewDataDueSelectedWeapon();
+            _owner.AbilitiesManager.OnWeaponChanged.AddListener(SetupNewDataDueSelectedWeapon);
         }
 
         public override void UnInit()
         {
-            _owner.AbilitiesManager.OnWeaponChanged.RemoveListener(RecalculateCooldown);
+            _owner.AbilitiesManager.OnWeaponChanged.RemoveListener(SetupNewDataDueSelectedWeapon);
             base.UnInit();
         }
 
-        public void RecalculateCooldown()
+        public void SetupNewDataDueSelectedWeapon()
         {
             cooldownAfterUse = _owner.AbilitiesManager.WeaponActionPointsCost == 2 ? cooldownForHeavyWeapon : cooldownForLightWeapon;
+            damageType = _owner.AbilitiesManager.DamageType;
         }
 
-        public int GetValue() => cooldownForLightWeapon;
+        public new int GetValue() => cooldownForLightWeapon;
 
         public int GetSecondValue() => cooldownForHeavyWeapon;
     }

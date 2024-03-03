@@ -117,6 +117,7 @@ namespace FroguesFramework
             if (shouldSetMyDamageAndCostAsWeaponCharacteristics)
             {
                 _owner.AbilitiesManager.SetWeaponActionPointsCost(actionPointsCost);
+                _owner.AbilitiesManager.SetWeaponDamageType(damageType);
                 _owner.AbilitiesManager.SetWeaponDamage(damage);
                 _owner.AbilitiesManager.OnWeaponsDamageUpdated.Invoke();
             }
