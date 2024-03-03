@@ -14,13 +14,14 @@ namespace FroguesFramework
             return EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, ignoreBusyCell, false);
         }
 
-        public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
+        public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle, int range = int.MaxValue)
         {
             List<Cell> cells = new List<Cell>();
             Cell currentCell = startCell;
             bool isTheFirstObstacleInARow = true;
 
-            while (true)
+            int count = 0;
+            while (count < range)
             {
                 currentCell = currentCell.CellNeighbours.GetNeighborByHexDir(direction);
 
@@ -45,6 +46,7 @@ namespace FroguesFramework
 
                 cells.Add(currentCell);
                 isTheFirstObstacleInARow = true;
+                count++;
             }
 
             return cells;
@@ -110,13 +112,13 @@ namespace FroguesFramework
             noObstacles = 10, onlyBigUnitsAreObstacles = 20, everyUnitIsObstacle = 30
         }
 
-        public static List<Cell> TakeCellsLinesInAllDirections(Cell startCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
+        public static List<Cell> TakeCellsLinesInAllDirections(Cell startCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle, int range = int.MaxValue)
         {
             List<Cell> cells = new List<Cell>();
 
             foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
             {
-                cells.AddRange(TakeCellsLineInDirection(startCell, hexDir, obstacleMode, includeFirstCellWithObstacle, lineStopsWithObstacle));   
+                cells.AddRange(TakeCellsLineInDirection(startCell, hexDir, obstacleMode, includeFirstCellWithObstacle, lineStopsWithObstacle, range));   
             }
 
             return cells;
@@ -157,11 +159,11 @@ namespace FroguesFramework
             return units;
         }
 
-        public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle)
+        public static List<Cell> TakeCellsLineWhichContainCell(Cell startCell, Cell targetCell, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle, int range = int.MaxValue)
         {
             foreach (var hexDir in Enum.GetValues(typeof(HexDir)).Cast<HexDir>())
             {
-                var line = TakeCellsLineInDirection(startCell, hexDir, obstacleMode, includeFirstCellWithObstacle, lineStopsWithObstacle);
+                var line = TakeCellsLineInDirection(startCell, hexDir, obstacleMode, includeFirstCellWithObstacle, lineStopsWithObstacle, range);
                 if (line.Contains(targetCell))
                     return line;
             }
