@@ -16,7 +16,6 @@ namespace FroguesFramework
 
             if (!_unit.MovementAbility.IsResoursePointsEnough() || units == null || units.Count == 0)
             {
-                print("1");
                 SkipTurn();
                 return;
             }
@@ -25,7 +24,6 @@ namespace FroguesFramework
 
             if (closestDistnace <= 0)
             {
-                print("2");
                 SkipTurn();
                 return;
             }
@@ -35,7 +33,6 @@ namespace FroguesFramework
 
             if (path == null || path.Count == 0)
             {
-                print("3");
                 SkipTurn();
                 return;
             }
