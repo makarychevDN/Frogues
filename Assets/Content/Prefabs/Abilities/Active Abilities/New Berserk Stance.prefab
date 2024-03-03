@@ -60,7 +60,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 41e7dee7692f75443b1f6b3de04f473e, type: 2}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_RootOrder
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5863459408028885804, guid: 42a4728cc87fcae4793ebb6eeaaf76be, type: 3}
       propertyPath: m_LocalPosition.x
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityDataForButton: {fileID: 5347758190951671489}
   isPartOfWeapon: 0
-  actionPointsCost: 1
+  actionPointsCost: 0
   bloodPointsCost: 0
   healthCost: 4
   cooldownAfterUse: 4
@@ -164,10 +164,11 @@ MonoBehaviour:
   impactSoundSource: {fileID: 0}
   temporaryBlockValue: 0
   permanentBlockValue: 0
+  actionPointsRegenerationPenalty: 0
   effects:
   - type: 0
     value: 1
-    deltaValueForEachTurn: 1
+    deltaValueForEachTurn: 2
     timeToTheEndOfEffect: 0
     effectIsConstantly: 0
     OnEffectValueChanged:
