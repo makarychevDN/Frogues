@@ -97,6 +97,8 @@ namespace FroguesFramework
             dataByKeyWords.Add("{alternative step value}", () => (ability as IAbleToHaveAlternativeDelta).GetAlternativeStepValue().ToString());
 
             dataByKeyWords.Add("{count}", () => (ability as IAbleToHaveCount).GetCount().ToString());
+
+            dataByKeyWords.Add("{action point regeneration penalty}", () => (ability as IAbleToApplyActionPointsRegenerationPenalty).GetActionPointsRegenerationPenaltyValue().ToString());
         }
 
         private string GetShortData()

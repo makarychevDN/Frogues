@@ -6,13 +6,13 @@ namespace FroguesFramework
 {
     public class GenericSelfBuffAbility : NonTargetAbility, IAbleToApplyStrenghtModificator,
         IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator,
-        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor
+        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
 
     {
-        [Space, Header("Ability Settings")] [SerializeField]
-        private int temporaryBlockValue;
-
+        [Space, Header("Ability Settings")] 
+        [SerializeField] private int temporaryBlockValue;
         [SerializeField] private int permanentBlockValue;
+        [SerializeField] private int actionPointsRegenerationPenalty;
         [SerializeField] private List<StatEffect> effects;
 
         public override void Use()
@@ -28,6 +28,8 @@ namespace FroguesFramework
             if(healthCost == 0)
                 _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
+            _owner.ActionPoints.IncreasePenaltyToRegeneration(actionPointsRegenerationPenalty);
+
             StartCoroutine(ApplyEffect(timeBeforeImpact));
             Invoke(nameof(RemoveCurrentlyActive), fullAnimationTime);
         }
@@ -42,7 +44,7 @@ namespace FroguesFramework
                 _owner.Health.IncreaseArmor(permanentBlockValue);
 
             foreach (StatEffect buff in effects)
-                _owner.Stats.AddStatEffect(buff);
+                _owner.Stats.AddStatEffect(new StatEffect(buff));
         }
 
         private void RemoveCurrentlyActive() => CurrentlyActiveObjects.Remove(this);
@@ -112,5 +114,7 @@ namespace FroguesFramework
 
         public int CalculateArmor() => permanentBlockValue;
         #endregion
+
+        public int GetActionPointsRegenerationPenaltyValue() => actionPointsRegenerationPenalty;
     }
 }

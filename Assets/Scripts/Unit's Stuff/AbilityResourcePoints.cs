@@ -9,9 +9,9 @@ namespace FroguesFramework
         [SerializeField] private int tempraryPoints;
         [SerializeField] private int maxPointsCount;
         [SerializeField] private int pointsRegeneration;
+        [SerializeField] private int penaltyForRegeneration;
         private int _preTakenCurrentPoints;
         private int _preTakenTemporaryPoints;
-        private bool _isEnemy;
 
         public UnityEvent OnAnyPointsIncreased;
         public UnityEvent OnDefaultPointsIncreased;
@@ -24,7 +24,6 @@ namespace FroguesFramework
 
         public void Init(Unit unit)
         {
-            _isEnemy = unit.IsEnemy;
             AddMySelfToEntryPoint();
             unit.AbleToSkipTurn.OnSkipTurn.AddListener(RegeneratePoints);
         }
@@ -32,7 +31,8 @@ namespace FroguesFramework
         private void RegeneratePoints()
         {
             var hashedPoints = currentPoints;
-            currentPoints += pointsRegeneration;
+            currentPoints += pointsRegeneration - penaltyForRegeneration;
+            penaltyForRegeneration = 0;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
             OnTemporaryPointsReseted.Invoke(tempraryPoints);
@@ -53,7 +53,7 @@ namespace FroguesFramework
         {
             get => maxPointsCount;
         }
-        
+
         public int CurrentPoints
         {
             get => currentPoints;
@@ -84,6 +84,11 @@ namespace FroguesFramework
         public int PointsRegeneration
         {
             get => pointsRegeneration;
+        }
+
+        public void IncreasePenaltyToRegeneration(int value)
+        {
+            penaltyForRegeneration += value;
         }
 
         public bool IsPointsEnough(int cost)
