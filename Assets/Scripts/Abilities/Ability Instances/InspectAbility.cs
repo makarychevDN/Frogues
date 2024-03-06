@@ -43,6 +43,7 @@ namespace FroguesFramework
         public override void UseOnUnit(Unit target)
         {
             EntryPoint.Instance.UnitDescriptionPanel.Activate(target);
+            target.OnInspectIt.Invoke();
         }
 
         public override void VisualizePreUseOnUnit(Unit target)

@@ -116,7 +116,7 @@ namespace FroguesFramework
             _bloodSurfacesInCurrentRoom.Clear();
             OnBloodSurfacesCountOnTheMapUpdated.Invoke();
 
-            if(!CurrentRoomIsPeaceful)
+            if (!CurrentRoomIsPeaceful)
                 wavesGenerator.SpawnEnemies();
         }
 

@@ -45,6 +45,7 @@ namespace FroguesFramework
 
         public UnityEvent OnStepOnThisUnit = new UnityEvent();
         public UnityEvent<Unit> OnStepOnThisUnitByUnit = new UnityEvent<Unit>();
+        public UnityEvent OnInspectIt = new UnityEvent();
         
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();
