@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
@@ -11,6 +12,8 @@ namespace FroguesFramework
         [SerializeField] private float zoomingSpeed = 5f;
         private Transform _camera;
         private float maxXPosition, minXPosition, maxZPosition, minZPosition;
+        public UnityEvent OnCameraReseted;
+        public UnityEvent OnCameraRotated;
 
         public void Init()
         {
@@ -37,6 +40,7 @@ namespace FroguesFramework
         public void Rotate(float value)
         {
             cameraRotationPoint.Rotate(cameraRotationPoint.up, value);
+            OnCameraRotated.Invoke();
         }
 
         public void Zoom(float value)
@@ -53,6 +57,7 @@ namespace FroguesFramework
             _camera.localPosition = Vector3.zero;
             _camera.localRotation = Quaternion.Euler(30f, 0, 0);
             _camera.localPosition -= Camera.main.transform.forward * distanceFromCameraToCenter;
+            OnCameraReseted.Invoke();
         }
     }
 }

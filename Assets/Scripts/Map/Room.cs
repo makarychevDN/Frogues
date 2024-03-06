@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
@@ -15,6 +16,8 @@ namespace FroguesFramework
         [SerializeField] private Unit player;
         [SerializeField] private Unit metaPlayer;
 
+        [SerializeField] private BaseTrainingModificator trainingModificator;
+
         public PathFinder PathFinder => pathFinder;
         public Map Map => map;
         public UnitsQueue UnitsQueue => unitsQueue;
@@ -22,6 +25,7 @@ namespace FroguesFramework
         public bool IsPeaceful => isPeaceful;
         
         public Vector3 CenterOfRoom => cameraController.transform.position;
+        public UnityEvent onRoomInited;
 
         public void Init()
         {
@@ -45,6 +49,11 @@ namespace FroguesFramework
             }
             
             unitsQueue.Init();
+
+            if(trainingModificator != null)
+                trainingModificator.Init();
+
+            onRoomInited.Invoke();
         }
         
         public void Init(Unit metaPlayer)
