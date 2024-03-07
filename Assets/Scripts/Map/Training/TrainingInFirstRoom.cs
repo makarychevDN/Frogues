@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -14,6 +15,8 @@ namespace FroguesFramework
             Camera.main.transform.position = cameraStartPosition;
             EntryPoint.Instance.CameraController.OnCameraReseted.AddListener(EnableInput);
             EntryPoint.Instance.CameraController.OnCameraRotated.AddListener(EnableMovement);
+            EntryPoint.Instance.MetaPlayer.GetComponentsInChildren<Collider>().ToList().ForEach(collider => collider.enabled = false);
+            EntryPoint.Instance.EndTurnButton.SetActive(false);
         }
 
         private void EnableInput()

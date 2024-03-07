@@ -136,6 +136,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 254660727}
     m_Modifications:
+    - target: {fileID: 6021442390230181531, guid: a0ea82e21a5975d488bc07208e1fd665, type: 3}
+      propertyPath: endTurnButton
+      value: 
+      objectReference: {fileID: 1728197455}
+    - target: {fileID: 6021442390230181531, guid: a0ea82e21a5975d488bc07208e1fd665, type: 3}
+      propertyPath: abilitiesPanel
+      value: 
+      objectReference: {fileID: 1875881088}
     - target: {fileID: 6437802645864807176, guid: a0ea82e21a5975d488bc07208e1fd665, type: 3}
       propertyPath: m_Name
       value: Training 1 (Learn to control camera and to move)
@@ -208,6 +216,11 @@ Transform:
 --- !u!4 &1707788226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6768543664351937128, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
+  m_PrefabInstance: {fileID: 6768543663406096421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1728197455 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4860996230846628598, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
   m_PrefabInstance: {fileID: 6768543663406096421}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1752017609
@@ -287,6 +300,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2233b1706dd9a54bb1a13e658a87ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1875881088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4860996231008917036, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
+  m_PrefabInstance: {fileID: 6768543663406096421}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6768543663406096421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -865,24 +883,24 @@ PrefabInstance:
       objectReference: {fileID: 1587623987}
     - target: {fileID: 6768543663282080227, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: roomsPrefabs.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6768543663282080227, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: roomsPrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 1492897429943685509, guid: 982aaa482dd96f44393d07cd20843fd4, type: 3}
+      objectReference: {fileID: 8899815174039906138, guid: f68b3f7ea4c1817428b1283f63e57a23, type: 3}
     - target: {fileID: 6768543663282080227, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: roomsPrefabs.Array.data[1]
       value: 
-      objectReference: {fileID: 8899815174039906138, guid: f68b3f7ea4c1817428b1283f63e57a23, type: 3}
+      objectReference: {fileID: 8599273442426278044, guid: fd6a92d831adeb34589199a3529cc0ec, type: 3}
     - target: {fileID: 6768543663282080227, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: roomsPrefabs.Array.data[2]
       value: 
-      objectReference: {fileID: 8599273442426278044, guid: fd6a92d831adeb34589199a3529cc0ec, type: 3}
+      objectReference: {fileID: 2179804764329966468, guid: 48b00521ca3d98e4ca787a1fed3054a1, type: 3}
     - target: {fileID: 6768543663282080227, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: roomsPrefabs.Array.data[3]
       value: 
-      objectReference: {fileID: 2179804764329966468, guid: 48b00521ca3d98e4ca787a1fed3054a1, type: 3}
+      objectReference: {fileID: 1534053144238579314, guid: af5db4211d8d7034e8de1a6fe6e16045, type: 3}
     - target: {fileID: 6768543663282080227, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: roomsPrefabs.Array.data[4]
       value: 
@@ -961,7 +979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6768543663593249017, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: rewards.Array.data[0].<scoreRequirement>k__BackingField
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6768543663593249017, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
       propertyPath: rewards.Array.data[0].<countOfPossibleRewards>k__BackingField

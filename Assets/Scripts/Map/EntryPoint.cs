@@ -20,6 +20,7 @@ namespace FroguesFramework
         [SerializeField] private BonfirePanel bonfirePanel;
         [SerializeField] private GameObject loseScreen;
         [SerializeField] private GameObject exitButton;
+        [SerializeField] private GameObject endTurnButton;
         [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
         [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private int score;
@@ -59,6 +60,7 @@ namespace FroguesFramework
         public int Score => score;
         public float BonfireHealingMultiplierValue => bonfireHealingValueMultiplier;
         public bool ExitActivated => exitButton.activeSelf;
+        public GameObject EndTurnButton => endTurnButton;
         public AnimationCurve DefaultMovementCurve => defaultMovementCurve;
         public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer)
                                          && !_metaPlayer.MovementAbility.PathToMoveIsSelected
