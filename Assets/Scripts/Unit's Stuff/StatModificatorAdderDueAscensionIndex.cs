@@ -9,7 +9,7 @@ public class StatModificatorAdderDueAscensionIndex : MonoBehaviour
 
     void Start()
     {
-        if(CurrentAscention.ascensionSetup.index == expectedAscension)
+        if(EntryPoint.Instance.AscensionSetup.index == expectedAscension)
         {
             stats.AddStatEffect(statEffect);
         }
