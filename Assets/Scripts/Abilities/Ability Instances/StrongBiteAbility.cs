@@ -12,8 +12,8 @@ namespace FroguesFramework
             return _owner.Health.MaxHp / healthDeltaStep * damageValueForEachStep;
         }
 
-        public int GetDeltaValue() => healthDeltaStep;
+        public int GetDeltaValue() => damageValueForEachStep;
 
-        public int GetStepValue() => damageValueForEachStep;
+        public int GetStepValue() => healthDeltaStep;
     }
 }
