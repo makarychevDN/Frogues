@@ -13,7 +13,8 @@ namespace FroguesFramework
         [field: SerializeField] public int WavesOfEnemiesRequariedToSpawnRookashka { get; private set; }
         [field: SerializeField] public List<PoolOfEnemiesDifficultySetup> DifficultyOfEnemiesInThePoolSetup { get; private set; }
         [field: SerializeField] public List<RewardPanelSetup> Rewards { get; private set; }
-        [field: SerializeField] public bool someEnemiesGetAdditionalMaxOfActionPoints { get; private set; }
-        [field: SerializeField] public bool someRangeEnemiesAreAbleToRetreat { get; private set; }
+        [field: SerializeField] public bool SomeEnemiesGetAdditionalMaxOfActionPoints { get; private set; }
+        [field: SerializeField] public bool SomeRangeEnemiesAreAbleToRetreat { get; private set; }
+        [field: SerializeField, TextArea] public string Description { get; private set; }
     }
 }
