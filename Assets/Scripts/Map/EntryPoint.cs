@@ -85,6 +85,10 @@ namespace FroguesFramework
         private void Awake()
         {
             Instance = this;
+
+            if(CurrentAscention.ascensionSetup != null)
+                ascensionSetup = CurrentAscention.ascensionSetup;
+
             _abilitiesPanel.Init(_metaPlayer);
             _currentRoom = hub;
             _currentRoom.Init(_metaPlayer);
