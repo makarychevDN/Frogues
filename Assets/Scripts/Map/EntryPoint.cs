@@ -25,6 +25,9 @@ namespace FroguesFramework
         [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
         [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private int score;
+        [SerializeField] private int scoreRequiredToStartFinalPart = 1500;
+        [SerializeField] private int campfiresAfterFinalScoreCountRequiredToWin = 2;
+        [SerializeField] private int campfiresAfterFinalScoreCount;
         [SerializeField] private WavesGenerator wavesGenerator;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private float bonfireHealingValueMultiplier = 1;
@@ -47,6 +50,8 @@ namespace FroguesFramework
         public UnityEvent OnScoreIncreased;
         public UnityEvent OnBloodSurfacesCountOnTheMapUpdated;
         public UnityEvent<int> OnCountOfRatsUpdated;
+        public UnityEvent OnFinalPartStarted;
+        public UnityEvent OnWin;
 
         public bool CurrentRoomIsPeaceful => _currentRoom.IsPeaceful;
         public SerializedDictionary<RewardType, List<BaseAbility>> PossibleRewards => possibleRewards;
@@ -130,6 +135,20 @@ namespace FroguesFramework
 
             if (!CurrentRoomIsPeaceful)
                 wavesGenerator.SpawnEnemies();
+        }
+
+        public void TryToCountCampfireAfterFinalPartStarted()
+        {
+            if (score < scoreRequiredToStartFinalPart)
+                return;
+
+            campfiresAfterFinalScoreCount++;
+
+            if(campfiresAfterFinalScoreCount == 1)
+                OnFinalPartStarted.Invoke();
+
+            if (campfiresAfterFinalScoreCount >= campfiresAfterFinalScoreCountRequiredToWin)
+                OnWin.Invoke();
         }
 
         public void IncreaseBonfireHealingValue(float value) => bonfireHealingValueMultiplier += value;
