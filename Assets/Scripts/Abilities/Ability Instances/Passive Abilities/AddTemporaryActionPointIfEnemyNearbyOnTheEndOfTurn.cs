@@ -15,6 +15,7 @@ namespace FroguesFramework
             base.Init(unit);
             _owner.AbleToSkipTurn.OnSkipTurn.AddListener(HashValue);
             EntryPoint.Instance.OnSomeoneMoved.AddListener(TryToHighlightButton);
+            EntryPoint.Instance.OnSomeoneDied.AddListener(TryToHighlightButton);
         }
 
         private void HashValue()
@@ -28,9 +29,10 @@ namespace FroguesFramework
 
         public override void UnInit()
         {
-            base.UnInit();
             _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(HashValue);
             EntryPoint.Instance.OnSomeoneMoved.RemoveListener(TryToHighlightButton);
+            EntryPoint.Instance.OnSomeoneDied.RemoveListener(TryToHighlightButton);
+            base.UnInit();
         }
 
         public int GetValue() => temporaryActionPointsValue;
