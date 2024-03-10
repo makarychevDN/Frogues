@@ -5343,6 +5343,9 @@ MonoBehaviour:
   unitDescriptionPanel: {fileID: 5838841428885627938}
   abilityHint: {fileID: 1065619597517712918}
   score: 0
+  scoreRequiredToStartFinalPart: 1500
+  campfiresAfterFinalScoreCountRequiredToWin: 2
+  campfiresAfterFinalScoreCount: 0
   wavesGenerator: {fileID: 6768543663527595158}
   scoreText: {fileID: 6768543663714355853}
   bonfireHealingValueMultiplier: 1
@@ -5481,6 +5484,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnCountOfRatsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnFinalPartStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnWin:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &6768543663366333605
@@ -10431,17 +10440,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4d84bc264689174fae572fcfa2e37be, type: 2}
   - {fileID: 11400000, guid: f4d84bc264689174fae572fcfa2e37be, type: 2}
   - {fileID: 11400000, guid: ad5c334e243ce6b4187c9a779d9fb1f3, type: 2}
-  difficultyOfEnemiesInThePoolSetup:
-  - {fileID: 11400000, guid: edfa7ebca7eb8eb4db26bb8a4e1cadbf, type: 2}
-  - {fileID: 11400000, guid: 232c0d4096b41fe4298065871e69cc06, type: 2}
-  - {fileID: 11400000, guid: 8e8719dd6b05c224987436d5726408b6, type: 2}
-  - {fileID: 11400000, guid: de5ec519fb96705499f942dcd3f0ec12, type: 2}
-  - {fileID: 11400000, guid: 8bddd8777c94a414f9319efdff054f7e, type: 2}
-  - {fileID: 11400000, guid: 3f4960e00988d8d4a9968798d0e31aea, type: 2}
-  - {fileID: 11400000, guid: 4e75b52f98063f74490c6461753ec843, type: 2}
-  - {fileID: 11400000, guid: 4b1c8bb01ace4c248897e8465dba1734, type: 2}
-  - {fileID: 11400000, guid: ea1eecd2d09bdf946b61385bfb5e2f35, type: 2}
-  - {fileID: 11400000, guid: ae9d20fe0e487954a9545a43f829344a, type: 2}
   rookashkaPrefabs:
   - {fileID: 2443780385872664949, guid: 38ee6a5f00e8a864da6822ffc8916d9c, type: 3}
   - {fileID: 550004254658000082, guid: aef56b16a24480742ab3330cefffc3db, type: 3}
@@ -16569,14 +16567,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1334518475714486499, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 1334518475714486499, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 1337259495317912717, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -19453,14 +19443,6 @@ PrefabInstance:
       propertyPath: m_text
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7732932570528940578, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-    - target: {fileID: 7732932570528940578, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 7732932570528940589, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
       propertyPath: intContainer
       value: 
@@ -20785,7 +20767,13 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7732932570115229400, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2081352907002000739, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8282734719927878143}
+    - targetCorrespondingSourceObject: {fileID: 2081352907002000739, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6480630054130175660}
   m_SourcePrefab: {fileID: 100100000, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
 --- !u!114 &1065619597517712918 stripped
 MonoBehaviour:
@@ -20809,6 +20797,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c20801c1928437f49a126aefeee16977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3052355172246486476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2081352907002000739, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
+  m_PrefabInstance: {fileID: 3944686713024497839}
+  m_PrefabAsset: {fileID: 0}
+--- !u!222 &8282734719927878143
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052355172246486476}
+  m_CullTransparentMesh: 1
+--- !u!114 &6480630054130175660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052355172246486476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4860996230474648333 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8488139586276623266, guid: dda431fcc5ba61a409ee61337be765bf, type: 3}
