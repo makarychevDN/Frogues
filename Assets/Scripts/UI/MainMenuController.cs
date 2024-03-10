@@ -34,7 +34,7 @@ namespace FroguesFramework
         {
             currentAscensionIndex += value;
             currentAscensionIndex = Mathf.Clamp(currentAscensionIndex, 0, availableAscensionsForExpirensedToadMode.Count - 1);
-            ascensionCountLabel.text = currentAscensionIndex.ToString();
+            ascensionCountLabel.text = currentAscensionIndex.ToString() + " / 7";
             runWithAscenstionContainer.AscensionSetup = availableAscensionsForExpirensedToadMode[currentAscensionIndex];
             ShowDescriptionOfAscentionByAscensionContainer(runWithAscenstionContainer);
         }
