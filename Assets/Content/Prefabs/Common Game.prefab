@@ -5328,6 +5328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hub: {fileID: 7976878445892023566}
+  ascensionSetup: {fileID: 11400000, guid: f4ff2772e8fd03a4dbf9c708a0594f99, type: 2}
   roomsPrefabs:
   - {fileID: 2638133752701027621, guid: fb294092750cf0545963bae84734545c, type: 3}
   - {fileID: 1135634730495387201, guid: 89530bf8b86f63c4f94a3be2f7e8f9bd, type: 3}
@@ -5342,7 +5343,6 @@ MonoBehaviour:
   unitDescriptionPanel: {fileID: 5838841428885627938}
   abilityHint: {fileID: 1065619597517712918}
   score: 0
-  deltaOfScoreToOpenExit: 200
   wavesGenerator: {fileID: 6768543663527595158}
   scoreText: {fileID: 6768543663714355853}
   bonfireHealingValueMultiplier: 1
@@ -10421,7 +10421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15a653a82e0d84641b5ff4a2461e28b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expectedMinimumOfEnemiesOnTheMap: 4
   roundsToSpawn: 2
   roundsCounter: 0
   unitsPool: []
@@ -10443,7 +10442,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4b1c8bb01ace4c248897e8465dba1734, type: 2}
   - {fileID: 11400000, guid: ea1eecd2d09bdf946b61385bfb5e2f35, type: 2}
   - {fileID: 11400000, guid: ae9d20fe0e487954a9545a43f829344a, type: 2}
-  enemiesSpawnRequariedToSpawnRookashka: 8
   rookashkaPrefabs:
   - {fileID: 2443780385872664949, guid: 38ee6a5f00e8a864da6822ffc8916d9c, type: 3}
   - {fileID: 550004254658000082, guid: aef56b16a24480742ab3330cefffc3db, type: 3}
@@ -10534,55 +10532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0af8a7863cf2084eb5e149abe4d94b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewards:
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 0
-    <rewardType>k__BackingField: 10
-    <countOfPossibleRewards>k__BackingField: 3
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 150
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 300
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 450
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 600
-    <rewardType>k__BackingField: 10
-    <countOfPossibleRewards>k__BackingField: 3
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 750
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 900
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 900
-    <rewardType>k__BackingField: 10
-    <countOfPossibleRewards>k__BackingField: 3
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 1050
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 1200
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 1200
-    <rewardType>k__BackingField: 10
-    <countOfPossibleRewards>k__BackingField: 3
-  - <isGivenAlready>k__BackingField: 0
-    <scoreRequirement>k__BackingField: 1350
-    <rewardType>k__BackingField: 20
-    <countOfPossibleRewards>k__BackingField: 2
+  rewards: []
   rewardsMenu: {fileID: 1990884439393466383}
 --- !u!1 &6768543663925434457
 GameObject:

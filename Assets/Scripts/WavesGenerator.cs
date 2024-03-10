@@ -7,25 +7,23 @@ namespace FroguesFramework
 {
     public class WavesGenerator : MonoBehaviour, IRoundTickable
     {
-        [SerializeField] private int expectedMinimumOfEnemiesOnTheMap = 3;
         [SerializeField] private int roundsToSpawn = 2;
         [SerializeField] private int roundsCounter;
         [SerializeField] private List<Unit> unitsPool;
         [SerializeField] private List<PossibleToSpawnEnemyProviderDueDifficultyLevel> commonSchemeOfPool;
-        [SerializeField] private List<PoolOfEnemiesDifficultySetup> difficultyOfEnemiesInThePoolSetup;
+
 
         [Header("Rookashka Setup")]
-        [SerializeField] private int enemiesSpawnRequariedToSpawnRookashka;
         [SerializeField] private List<Unit> rookashkaPrefabs;
         private int _rookashkaCounter;
 
         private List<int> _currentDifficultySetupShuffeledValues;
 
-        public PoolOfEnemiesDifficultySetup CalculateCurrentEnemyGeneratorSetup() => difficultyOfEnemiesInThePoolSetup.Last(waveSetup => EntryPoint.Instance.Score >= waveSetup.ScoreRequirements);
+        public PoolOfEnemiesDifficultySetup CalculateCurrentEnemyGeneratorSetup() => EntryPoint.Instance.AscensionSetup.DifficultyOfEnemiesInThePoolSetup.Last(waveSetup => EntryPoint.Instance.Score >= waveSetup.ScoreRequirements);
 
         public void SpawnEnemies()
         {
-            int needToSpawnEnemies = expectedMinimumOfEnemiesOnTheMap - CellsTaker.TakeAllUnits().Where(unit => unit.IsEnemy && !unit.IsSummoned).Count();
+            int needToSpawnEnemies = EntryPoint.Instance.AscensionSetup.ExpectedMinimumOfEnemiesOnMap - CellsTaker.TakeAllUnits().Where(unit => unit.IsEnemy && !unit.IsSummoned).Count();
             if (needToSpawnEnemies < 1) 
                 needToSpawnEnemies = 1;
 
@@ -52,18 +50,13 @@ namespace FroguesFramework
             SpawnAndMoveToCell(cellToSpawn, unitToSpawn);
 
             _rookashkaCounter++;
-            if (_rookashkaCounter < enemiesSpawnRequariedToSpawnRookashka || CellsTaker.TakeAllEmptyCells().Count == 0)
+            if (_rookashkaCounter < EntryPoint.Instance.AscensionSetup.WavesOfEnemiesRequariedToSpawnRookashka || CellsTaker.TakeAllEmptyCells().Count == 0)
                 return;
 
             _rookashkaCounter = 0;
             var cellToSpawnRookashka = CellsTaker.TakeAllEmptyCells().GetRandomElement();
             var rookashkaToSpawn = rookashkaPrefabs.GetRandomElement();
             SpawnAndMoveToCell(cellToSpawnRookashka, rookashkaToSpawn);
-        }
-
-        public void SpawnRookashka()
-        {
-
         }
 
         public void SpawnAndMoveToCell(Cell targetCell, Unit prefabToSpawn)

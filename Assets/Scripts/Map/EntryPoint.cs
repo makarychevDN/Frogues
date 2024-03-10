@@ -12,6 +12,7 @@ namespace FroguesFramework
     {
         public static EntryPoint Instance;
         [SerializeField] private Room hub;
+        [SerializeField] private AscensionSetup ascensionSetup;
         [SerializeField] private List<Room> roomsPrefabs;
         [SerializeField] private Room _currentRoom;
         [SerializeField] private Unit _metaPlayer;
@@ -24,7 +25,6 @@ namespace FroguesFramework
         [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
         [SerializeField] private AbilityHint abilityHint;
         [SerializeField] private int score;
-        [SerializeField] private int deltaOfScoreToOpenExit = 200;
         [SerializeField] private WavesGenerator wavesGenerator;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private float bonfireHealingValueMultiplier = 1;
@@ -61,6 +61,7 @@ namespace FroguesFramework
         public float BonfireHealingMultiplierValue => bonfireHealingValueMultiplier;
         public bool ExitActivated => exitButton.activeSelf;
         public GameObject EndTurnButton => endTurnButton;
+        public AscensionSetup AscensionSetup => ascensionSetup;
         public AnimationCurve DefaultMovementCurve => defaultMovementCurve;
         public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer)
                                          && !_metaPlayer.MovementAbility.PathToMoveIsSelected
@@ -92,6 +93,11 @@ namespace FroguesFramework
             playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
             turnCounter = 1;
             bonfirePanel.Init();
+        }
+
+        public void SetAscensionSetup(AscensionSetup setup)
+        {
+            ascensionSetup = setup;
         }
 
         public void StartNextRoom()
@@ -136,7 +142,7 @@ namespace FroguesFramework
                 _scoreDeltaCounter = 0;
             }
 
-            if (_scoreDeltaCounter < deltaOfScoreToOpenExit)
+            if (_scoreDeltaCounter < ascensionSetup.RequaredDeltaOfScoreToOpenExitToCampfire)
                 return;
 
             exitButton.SetActive(true);
