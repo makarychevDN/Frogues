@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 26420908}
   - component: {fileID: 26420907}
   - component: {fileID: 26420906}
+  - component: {fileID: 26420910}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -253,6 +254,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &26420910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26420905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349985dfcb959e74c8777cb3f625ddb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &159657125
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 419, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 266, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &505144228
@@ -1831,7 +1844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 133, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 266, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1366493684
@@ -1874,6 +1887,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!1 &1428415107
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1428415108}
+  - component: {fileID: 1428415109}
+  m_Layer: 0
+  m_Name: Ascension Data Saver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1428415108
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428415107}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1917559936}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1428415109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428415107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 349985dfcb959e74c8777cb3f625ddb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1782619099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2368,6 +2430,7 @@ RectTransform:
   m_Children:
   - {fileID: 1366493683}
   - {fileID: 505144227}
+  - {fileID: 1428415108}
   m_Father: {fileID: 1934682625}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2417,10 +2480,19 @@ MonoBehaviour:
   description: {fileID: 855361768}
   ascensionCountLabel: {fileID: 1048172042}
   currentAscensionIndex: 0
-  ascensionsForExpirensedToadModeascensionsForExpirensedToadMode:
+  availableAscensionsForExpirensedToadMode: []
+  ascensionsForExpirensedToadMode:
   - {fileID: 11400000, guid: f4ff2772e8fd03a4dbf9c708a0594f99, type: 2}
-  - {fileID: 11400000, guid: 3cd90fbf84e33f14ea8d2e102d677a02, type: 2}
+  - {fileID: 11400000, guid: 9644bab9c0e186548a2e251bc0e38cdb, type: 2}
+  - {fileID: 11400000, guid: 695144629f7368c42b1fbaa96835e934, type: 2}
+  - {fileID: 11400000, guid: 2366bccb91fd36b4ca9110db2b955695, type: 2}
+  - {fileID: 11400000, guid: afdf4c9ab317955439a5de5b5c8c2ac5, type: 2}
+  - {fileID: 11400000, guid: ee18e898061b56a48933a46751a66d0b, type: 2}
+  - {fileID: 11400000, guid: 6912b04f8b6b6c44aa09ba71297c9870, type: 2}
+  - {fileID: 11400000, guid: 4f235f6c8b698d545a9ee2511dda0076, type: 2}
+  - {fileID: 11400000, guid: bb00374b6314d7743af1e5a2c1499e69, type: 2}
   runWithAscenstionContainer: {fileID: 1874235736}
+  maxAvailableAscensionSaveManager: {fileID: 1428415109}
 --- !u!1 &1934682624
 GameObject:
   m_ObjectHideFlags: 0

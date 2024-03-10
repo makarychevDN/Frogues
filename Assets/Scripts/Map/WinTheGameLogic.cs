@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private TMP_Text textOfExit;
         [SerializeField] private Cell exitCell;
         [SerializeField] private List<GameObject> warningAboutWinningObjects;
+        [SerializeField] private MaxAvailableAscensionSaveManager maxAvailableAscensionSaveManager;
 
         private void Awake()
         {
@@ -29,6 +33,7 @@ namespace FroguesFramework
             warningAboutWinningObjects.ForEach(go => go.SetActive(true));
             exitCell.OnBecameFull.RemoveAllListeners();
             exitCell.OnBecameFull.AddListener(() => SceneManager.LoadScene("main menu"));
+            maxAvailableAscensionSaveManager.TryToSaveInfo();
         }
     }
 }

@@ -10,8 +10,20 @@ namespace FroguesFramework
         [SerializeField] private TMP_Text description;
         [SerializeField] private TMP_Text ascensionCountLabel;
         [SerializeField] private int currentAscensionIndex;
-        [SerializeField] private List<AscensionSetup> ascensionsForExpirensedToadModeascensionsForExpirensedToadMode;
+        [SerializeField] private List<AscensionSetup> availableAscensionsForExpirensedToadMode;
+        [SerializeField] private List<AscensionSetup> ascensionsForExpirensedToadMode;
         [SerializeField] private AscensionSetupContainer runWithAscenstionContainer;
+        [SerializeField] private MaxAvailableAscensionSaveManager maxAvailableAscensionSaveManager;
+
+        private void Awake()
+        {
+            maxAvailableAscensionSaveManager.TryToLoadInfo();
+
+            for(int i = 0; i < MaxAvailavleAscension.indexOfMaxAbailableAscension + 1; i++)
+            {
+                availableAscensionsForExpirensedToadMode.Add(ascensionsForExpirensedToadMode[i]);
+            }
+        }
 
         public void ShowDescriptionOfAscentionByAscensionContainer(AscensionSetupContainer ascensionSetupContainer)
         {
@@ -21,9 +33,9 @@ namespace FroguesFramework
         public void IncreaseCurrentAscentionIndex(int value)
         {
             currentAscensionIndex += value;
-            currentAscensionIndex = Mathf.Clamp(currentAscensionIndex, 0, ascensionsForExpirensedToadModeascensionsForExpirensedToadMode.Count - 1);
+            currentAscensionIndex = Mathf.Clamp(currentAscensionIndex, 0, availableAscensionsForExpirensedToadMode.Count - 1);
             ascensionCountLabel.text = currentAscensionIndex.ToString();
-            runWithAscenstionContainer.AscensionSetup = ascensionsForExpirensedToadModeascensionsForExpirensedToadMode[currentAscensionIndex];
+            runWithAscenstionContainer.AscensionSetup = availableAscensionsForExpirensedToadMode[currentAscensionIndex];
             ShowDescriptionOfAscentionByAscensionContainer(runWithAscenstionContainer);
         }
 
