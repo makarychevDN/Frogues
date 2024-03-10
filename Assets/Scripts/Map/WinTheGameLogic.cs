@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

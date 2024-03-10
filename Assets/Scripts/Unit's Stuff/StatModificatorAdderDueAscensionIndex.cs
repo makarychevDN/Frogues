@@ -1,4 +1,3 @@
-using FroguesFramework;
 using UnityEngine;
 
 namespace FroguesFramework
