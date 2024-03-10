@@ -1,17 +1,20 @@
 using FroguesFramework;
 using UnityEngine;
 
-public class StatModificatorAdderDueAscensionIndex : MonoBehaviour
+namespace FroguesFramework
 {
-    [SerializeField] private int expectedAscension = -1;
-    [SerializeField] private Stats stats;
-    [SerializeField] private StatEffect statEffect;
-
-    void Start()
+    public class StatModificatorAdderDueAscensionIndex : MonoBehaviour
     {
-        if(EntryPoint.Instance.AscensionSetup.index == expectedAscension)
+        [SerializeField] private int expectedAscension = -1;
+        [SerializeField] private Stats stats;
+        [SerializeField] private StatEffect statEffect;
+
+        void Start()
         {
-            stats.AddStatEffect(statEffect);
+            if (EntryPoint.Instance.AscensionSetup.index == expectedAscension)
+            {
+                stats.AddStatEffect(statEffect);
+            }
         }
     }
 }

@@ -18,14 +18,14 @@ namespace FroguesFramework
             if(additionalHp > 0)
                 _owner.Health.TakeHealing(additionalHp);
 
-            _owner.BloodPoints.IncreaseLimit(additionalMaxBlood);
+            _owner.BloodPoints.IncreaseMaxPoints(additionalMaxBlood);
             effects.ForEach(effect => _owner.Stats.AddStatEffect(effect));
         }
 
         public override void UnInit()
         {
             _owner.Health.IncreaseMaxHp(-additionalHp);
-            _owner.BloodPoints.IncreaseLimit(-additionalMaxBlood);
+            _owner.BloodPoints.IncreaseMaxPoints(-additionalMaxBlood);
             effects.ForEach(effect => _owner.Stats.RemoveStatEffect(effect));
             base.UnInit();
         }

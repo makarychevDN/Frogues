@@ -106,11 +106,6 @@ namespace FroguesFramework
             currentPoints = value;
         }
 
-        public void IncreaseLimit(int value)
-        {
-            maxPointsCount += value;
-        }
-
         public void IncreasePoints(int value)
         {
             var hashedPoints = currentPoints;
@@ -123,6 +118,12 @@ namespace FroguesFramework
                 OnAnyPointsIncreased.Invoke();
                 OnDefaultPointsIncreased.Invoke();
             }
+        }
+
+        public void IncreaseMaxPoints(int value)
+        {
+            maxPointsCount += value;
+            currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
         }
 
         public void PickupPoints(int value)
