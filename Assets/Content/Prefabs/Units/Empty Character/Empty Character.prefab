@@ -557,7 +557,7 @@ AudioSource:
   m_GameObject: {fileID: 1713025741106806974}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5060257764223778085, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
   m_audioClip: {fileID: 8300000, guid: fe4b35eaed0f03946b4349877a0bf307, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1223,7 +1223,7 @@ AudioSource:
   m_GameObject: {fileID: 3535486892787262113}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5060257764223778085, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7d0d83900db694b499adfc7e2643cfbb, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1699,7 +1699,7 @@ AudioSource:
   m_GameObject: {fileID: 4448991292021641522}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5060257764223778085, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
   m_audioClip: {fileID: 8300000, guid: fe4b35eaed0f03946b4349877a0bf307, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -1887,12 +1887,7 @@ MonoBehaviour:
   tempraryPoints: 0
   maxPointsCount: 1
   pointsRegeneration: 1
-  OnPointsEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointsRegenerated:
-    m_PersistentCalls:
-      m_Calls: []
+  penaltyForRegeneration: 0
   OnAnyPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
@@ -1902,7 +1897,19 @@ MonoBehaviour:
   OnTemporaryPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
+  OnPointsRegenerated:
+    m_PersistentCalls:
+      m_Calls: []
   OnPickUpPoints:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointsSpended:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointsEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTemporaryPointsReseted:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &5128396487294630355
@@ -2052,7 +2059,7 @@ AudioSource:
   m_GameObject: {fileID: 5583972159105616307}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -5060257764223778085, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7d0d83900db694b499adfc7e2643cfbb, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2175,7 +2182,7 @@ Transform:
   - {fileID: 9186810796872100348}
   - {fileID: 5882040592624337998}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &707049996601828594
 MonoBehaviour:
@@ -2195,6 +2202,7 @@ MonoBehaviour:
   <SurfaceUnitExtension>k__BackingField: {fileID: 0}
   <ScoreContainer>k__BackingField: {fileID: 3510354526871623767}
   <IsEnemy>k__BackingField: 0
+  <IsSummoned>k__BackingField: 0
   <AbilitiesManager>k__BackingField: {fileID: 3059790062465419283}
   <ActionPoints>k__BackingField: {fileID: 1540128683254219491}
   <BloodPoints>k__BackingField: {fileID: 2863145593081677906}
@@ -2215,6 +2223,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStepOnThisUnitByUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInspectIt:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4470639621562112939
@@ -2422,12 +2433,7 @@ MonoBehaviour:
   tempraryPoints: 0
   maxPointsCount: 0
   pointsRegeneration: 0
-  OnPointsEnded:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointsRegenerated:
-    m_PersistentCalls:
-      m_Calls: []
+  penaltyForRegeneration: 0
   OnAnyPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
@@ -2437,7 +2443,19 @@ MonoBehaviour:
   OnTemporaryPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
+  OnPointsRegenerated:
+    m_PersistentCalls:
+      m_Calls: []
   OnPickUpPoints:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointsSpended:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPointsEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTemporaryPointsReseted:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &7442025326768858339
@@ -2497,6 +2515,7 @@ MonoBehaviour:
   chargesCountAfterStart: 0
   costOfEachUsingInCharges: 0
   currentCharges: 1
+  chargesRegenPerCooldown: 1
   abilityAnimatorTrigger: 0
   animatorControllerForAbility: {fileID: 0}
   timeBeforeImpact: 0
@@ -2551,6 +2570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponDamage: 0
+  damageType: 0
   weaponActionPointsCost: 0
   _abilities: []
   AbilityHasBeenAdded:
