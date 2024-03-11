@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
@@ -6,6 +7,7 @@ namespace FroguesFramework
     {
         private Unit _hashedTarget;
         private int _damage;
+        public UnityEvent OnUse;
 
         public void HashUnitTargetAndCosts(Unit target, int actionPointsCost, int bloodPointsCost, int damage)
         {
@@ -55,6 +57,7 @@ namespace FroguesFramework
             _owner.Movable.OnMovementEnd.AddListener(UseNativeAttack);
             base.UseOnCells(cells);
             _owner.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+            OnUse.Invoke();
         }
 
         private void UseNativeAttack()
@@ -73,5 +76,7 @@ namespace FroguesFramework
         }
 
         public override bool IsIgnoringDrawingFunctionality() => true;
+
+        public UnityEvent GetOnUseEvent() => OnUse;
     }
 }

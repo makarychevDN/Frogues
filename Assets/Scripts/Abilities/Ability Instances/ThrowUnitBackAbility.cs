@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FroguesFramework
 {
@@ -18,6 +19,8 @@ namespace FroguesFramework
         private Cell _hashedCell;
         private bool _isPrevisualizedNow;
         private Unit _hashedTarget;
+
+        public UnityEvent OnUse;
 
         public override int CalculateHashFunctionOfPrevisualisation()
         {
@@ -74,6 +77,8 @@ namespace FroguesFramework
             _hashedTarget.Movable.OnMovementEnd.AddListener(DealDamage);
             _hashedTarget.Movable.Move(cells[0], movementSpeed, movementHeight);
             _owner.AbilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
+
+            OnUse.Invoke();
         }
 
         public override void VisualizePreUseOnCells(List<Cell> cells)
@@ -111,6 +116,8 @@ namespace FroguesFramework
             this.bloodPointsCost = bloodPointsCost;
             this.damage = damage;
         }
+
+        public UnityEvent GetOnUseEvent() => OnUse;
 
         private int CalculateDamage => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
     }

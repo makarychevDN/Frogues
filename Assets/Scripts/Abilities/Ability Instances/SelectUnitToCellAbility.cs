@@ -27,6 +27,8 @@ namespace FroguesFramework
             base.Init(unit);
             areaTargetAbility.Init(unit);
             OnUnitSelected.AddListener(HashUnitToAreaTargetAbility);
+            ((IAbleToHashUnitTarget)areaTargetAbility).GetOnUseEvent().AddListener(SetCooldownAsAfterUse);
+            ((IAbleToHashUnitTarget)areaTargetAbility).GetOnUseEvent().AddListener(SpendCharges);
         }
 
         protected virtual void HashUnitToAreaTargetAbility(Unit unit)
