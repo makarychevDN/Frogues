@@ -32,7 +32,7 @@ namespace FroguesFramework
 
         public int GetCalculatedCurrentDamage() => Extensions.CalculateOutgoingDamageWithGameRules(GetDefaultCurrentDamage(), damageType, _owner.Stats);
 
-        public int GetDefaultCurrentDamage() => nextAttackIsCritical ? criticalDamage : damage;
+        public int GetDefaultCurrentDamage() => nextAttackIsCritical ? criticalDamage : shouldUseWeapondamageInstead ? _owner.AbilitiesManager.WeaponDamage : damage;
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
