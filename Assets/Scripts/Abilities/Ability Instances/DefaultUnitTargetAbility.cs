@@ -38,7 +38,7 @@ namespace FroguesFramework
             if(target == null) 
                 return false;
 
-            return IsResoursePointsEnough() && _usingArea.Contains(target.CurrentCell);
+            return IsResoursePointsEnough() && IsEnoughCharges() && _usingArea.Contains(target.CurrentCell);
         }
 
         public override void PrepareToUsing(Unit target)
