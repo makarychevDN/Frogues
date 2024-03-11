@@ -11,9 +11,10 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            _statEffect = new StatEffect(type, CalculateValue(), 1, 0, true);
+            _statEffect = new StatEffect(type, 0, 0, 0, true);
             _owner.Stats.AddStatEffect(_statEffect);
             EntryPoint.Instance.OnBloodSurfacesCountOnTheMapUpdated.AddListener(UpdateStatEffect);
+            UpdateStatEffect();
         }
 
         public override void UnInit()
