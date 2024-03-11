@@ -23,9 +23,9 @@ namespace FroguesFramework
                 .ForEach(cell =>
                 {
                     if (cell.DistanceToCell(_owner.CurrentCell) == certainRange)
-                        cell.Content.Health.TakeDamage(CalculateAlternativeDamage(), null);
+                        cell.Content.Health.TakeDamage(CalculateAlternativeDamage(), _owner);
                     else
-                        cell.Content.Health.TakeDamage(CalculateDamage(), null);
+                        cell.Content.Health.TakeDamage(CalculateDamage(), _owner);
 
                     foreach (StatEffect effect in additionalDebuffs)
                     {

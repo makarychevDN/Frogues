@@ -38,7 +38,8 @@ namespace FroguesFramework
                 .Where(cell => cell.Content != null).ToList()
                 .ForEach(cell => 
                 { 
-                    cell.Content.Health.TakeDamage(CalculateDamage(), null);
+                    if(CalculateDamage() != 0)
+                        cell.Content.Health.TakeDamage(CalculateDamage(), null);
                     
                     foreach(StatEffect effect in additionalDebuffs)
                     {
