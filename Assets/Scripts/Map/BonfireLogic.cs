@@ -19,6 +19,7 @@ namespace FroguesFramework
         {
             EntryPoint.Instance.EnableBonfireRestPanel(true);
             restCell.OnBecameFull.RemoveListener(EnableBonfire);
+            visualizationGameObjects.ForEach(go => go.SetActive(false));
         }
     }
 }
