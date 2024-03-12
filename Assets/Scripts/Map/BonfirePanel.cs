@@ -53,7 +53,7 @@ namespace FroguesFramework
                 EntryPoint.Instance.MetaPlayer.Health.TakeHealing(factHealingValue);
 
             if (factHealingValue < 0)
-                EntryPoint.Instance.MetaPlayer.Health.TakeDamage(-factHealingValue, null);
+                EntryPoint.Instance.MetaPlayer.Health.TakeDamage(-factHealingValue, true, null);
 
             EntryPoint.Instance.IncreaseScore(additionalScoreValue, true);
             EntryPoint.Instance.EnableBonfireRestPanel(false);
