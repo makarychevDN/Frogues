@@ -60,11 +60,11 @@ namespace FroguesFramework
             }
         }
 
-        public int GetStrenghtModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).startValue.Value;
+        public int GetStrenghtModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strength).startValue.Value;
 
         public int GetDeltaOfStrenghtValueForEachTurn()
         {
-            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).additionalValueForWallsNearby;
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strength).additionalValueForWallsNearby;
             return delta - Mathf.Abs(GetStrenghtModificatorValue());
         }
 

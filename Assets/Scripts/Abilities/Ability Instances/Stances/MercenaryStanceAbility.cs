@@ -11,8 +11,8 @@ namespace FroguesFramework
         [SerializeField] private int strenghtDebuff;
         [SerializeField] private int intelegenceBuff;
 
-        private StatEffect _strenghtEffect = new (StatEffectTypes.strenght, 0, 1, effectIsConstantly: true);
-        private StatEffect _intelegenceEffect = new (StatEffectTypes.intelegence, 0, 1, effectIsConstantly: true);
+        private StatEffect _strenghtEffect = new (StatEffectTypes.strength, 0, 1, effectIsConstantly: true);
+        private StatEffect _intelegenceEffect = new (StatEffectTypes.intelligence, 0, 1, effectIsConstantly: true);
         
         private bool _isOddTurn = true;
         

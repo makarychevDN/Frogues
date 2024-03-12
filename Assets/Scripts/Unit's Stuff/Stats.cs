@@ -120,8 +120,8 @@ namespace FroguesFramework
             _owner = unit;
             _statsDictionary = new Dictionary<StatEffectTypes, List<StatEffect>>
             {
-                { StatEffectTypes.strenght, strenght },
-                { StatEffectTypes.intelegence, intelegence },
+                { StatEffectTypes.strength, strenght },
+                { StatEffectTypes.intelligence, intelegence },
                 { StatEffectTypes.dexterity, dexterity },
                 { StatEffectTypes.defence, defence },
                 { StatEffectTypes.spikes, spikes },
@@ -130,8 +130,8 @@ namespace FroguesFramework
 
             _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes,int>>
             {
-                { StatEffectTypes.strenght, OnStrenghtUpdated },
-                { StatEffectTypes.intelegence, OnIntelegenceUpdated },
+                { StatEffectTypes.strength, OnStrenghtUpdated },
+                { StatEffectTypes.intelligence, OnIntelegenceUpdated },
                 { StatEffectTypes.dexterity, OnDexterityUpdated },
                 { StatEffectTypes.defence, OnDefenceUpdated },
                 { StatEffectTypes.spikes, OnSpikesUpdated },
@@ -146,8 +146,8 @@ namespace FroguesFramework
 
     public enum StatEffectTypes
     {
-        strenght = 0,
-        intelegence = 10,
+        strength = 0,
+        intelligence = 10,
         dexterity = 20,
         defence = 30,
         spikes = 40,

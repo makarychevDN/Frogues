@@ -178,23 +178,23 @@ namespace FroguesFramework
         #endregion
 
         #region IAbleToApplyStrenghtModificator
-        public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.strenght);
+        public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.strength);
 
-        public int GetDeltaOfStrenghtValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.strenght);
+        public int GetDeltaOfStrenghtValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.strength);
 
-        public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.strenght);
+        public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.strength);
 
-        public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.strenght);
+        public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.strength);
         #endregion
 
         #region IAbleToApplyIntelligenceModificator
-        public int GetIntelligenceModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.intelegence);
+        public int GetIntelligenceModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.intelligence);
 
-        public int GetDeltaOfIntelligenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.intelegence);
+        public int GetDeltaOfIntelligenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.intelligence);
 
-        public int GetTimeToEndOfIntelligenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.intelegence);
+        public int GetTimeToEndOfIntelligenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.intelligence);
 
-        public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.intelegence);
+        public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.intelligence);
         #endregion
 
         #region IAbleToApplyDexterityModificator

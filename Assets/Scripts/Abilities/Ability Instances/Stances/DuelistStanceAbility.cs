@@ -61,11 +61,11 @@ namespace FroguesFramework
         }
 
         #region IAbleToApplyStrenghtModificator
-        public int GetStrenghtModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).startValue.Value;
+        public int GetStrenghtModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strength).startValue.Value;
 
         public int GetDeltaOfStrenghtValueForEachTurn()
         {
-            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strenght).deltaForOneEnemyNearby;
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.strength).deltaForOneEnemyNearby;
             return delta - Mathf.Abs(GetStrenghtModificatorValue());
         }
 
@@ -89,11 +89,11 @@ namespace FroguesFramework
         #endregion
 
         #region #IAbleToApplyIntelligenceModificator
-        public int GetIntelligenceModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.intelegence).startValue.Value;
+        public int GetIntelligenceModificatorValue() => startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.intelligence).startValue.Value;
 
         public int GetDeltaOfIntelligenceValueForEachTurn()
         {
-            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.intelegence).deltaForOneEnemyNearby;
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.intelligence).deltaForOneEnemyNearby;
             return delta - Mathf.Abs(GetIntelligenceModificatorValue());
         }
 
