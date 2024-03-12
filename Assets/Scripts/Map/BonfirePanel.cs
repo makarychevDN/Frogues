@@ -17,6 +17,8 @@ namespace FroguesFramework
             {
                 bonfireButtons[i].button.onClick.AddListener(bonfireButtons[i].ApplyHealingAndScore);                
             }
+
+            EntryPoint.Instance.MetaPlayer.Health.OnHpHealed.AddListener(RecalculateFactHealingValues);
         }
 
         private void OnEnable()
@@ -29,7 +31,8 @@ namespace FroguesFramework
         {
             for (int i = 0; i < bonfireButtons.Count; i++)
             {
-                bonfireButtons[i].factHealingValue = (bonfireButtons[i].defaultHealingValue * EntryPoint.Instance.BonfireHealingMultiplierValue).RoundWithGameRules(true);
+                int bonfireHealingValue = (bonfireButtons[i].defaultPersentagesHealingValue * EntryPoint.Instance.MetaPlayer.Health.MaxHp * 0.01f).RoundWithGameRules(true);
+                bonfireButtons[i].factHealingValue = bonfireHealingValue > 0 ? bonfireHealingValue + EntryPoint.Instance.AdditionalHealingValue : bonfireHealingValue;
             }
         }
 
@@ -43,7 +46,7 @@ namespace FroguesFramework
     public class BonfireButtonSetup
     {
         public Button button;
-        public int defaultHealingValue;
+        public float defaultPersentagesHealingValue;
         public int factHealingValue;
         public int additionalScoreValue;
 

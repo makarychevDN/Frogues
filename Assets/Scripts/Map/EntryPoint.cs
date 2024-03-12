@@ -30,7 +30,7 @@ namespace FroguesFramework
         [SerializeField] private int campfiresAfterFinalScoreCount;
         [SerializeField] private WavesGenerator wavesGenerator;
         [SerializeField] private TMP_Text scoreText;
-        [SerializeField] private float bonfireHealingValueMultiplier = 1;
+        [SerializeField] private int additionalHealingValue = 1;
         [SerializeField] private int turnCounter;
         [SerializeField] private ResourcePointsUI playersActionPointsUI;
         [SerializeField] private ResourcePointsUI playersBloodPointsUI;
@@ -63,7 +63,7 @@ namespace FroguesFramework
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
         public AbilityHint AbilityHint => abilityHint;
         public int Score => score;
-        public float BonfireHealingMultiplierValue => bonfireHealingValueMultiplier;
+        public int AdditionalHealingValue => additionalHealingValue;
         public bool ExitActivated => exitButton.activeSelf;
         public GameObject EndTurnButton => endTurnButton;
         public AscensionSetup AscensionSetup => ascensionSetup;
@@ -152,7 +152,7 @@ namespace FroguesFramework
                 OnWin.Invoke();
         }
 
-        public void IncreaseBonfireHealingValue(float value) => bonfireHealingValueMultiplier += value;
+        public void IncreaseBonfireHealingValue(int value) => additionalHealingValue += value;
 
         public void IncreaseScore(int score, bool resetDeltaValue = false)
         {
