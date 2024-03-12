@@ -98,6 +98,7 @@ namespace FroguesFramework
             _currentRoom = hub;
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
+            _metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
             playersActionPointsUI.Init(_metaPlayer.ActionPoints);
             playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
             turnCounter = 1;
