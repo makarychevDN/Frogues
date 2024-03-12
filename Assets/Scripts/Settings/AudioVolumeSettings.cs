@@ -12,6 +12,6 @@ namespace FroguesFramework
         public void SetSoundsVolume(float value) => SetVolume("SoundsVolume", value);
         public void SetUIVolume(float value) => SetVolume("UIVolume", value);
 
-        private void SetVolume(string exposedParameterName, float value) => audioMixer.SetFloat(exposedParameterName, Mathf.Log(value) * 20);
+        private void SetVolume(string exposedParameterName, float value) => audioMixer.SetFloat(exposedParameterName, Mathf.Log10(value) * 20);
     }
 }
