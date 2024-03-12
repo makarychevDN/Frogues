@@ -74,6 +74,7 @@ namespace FroguesFramework
         {
             targetCell.chosenToMovement = false;
             _unit.transform.position = targetCell.transform.position;
+            _unit.CurrentCell = targetCell;
 
             if (!targetCell.IsEmpty)
             {
@@ -84,7 +85,6 @@ namespace FroguesFramework
                 }
                 else
                 {
-                    _unit.CurrentCell = targetCell;
                     OnBumpInto.Invoke();
                     OnBumpIntoUnit.Invoke(targetCell.Content);
                     InvokeOnMovementEndEvents(targetCell);
