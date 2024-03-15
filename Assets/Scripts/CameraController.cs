@@ -11,7 +11,7 @@ namespace FroguesFramework
         [SerializeField] private float movementSpeed = 5f;
         [SerializeField] private float zoomingSpeed = 5f;
         private Transform _camera;
-        private float maxXPosition, minXPosition, maxZPosition, minZPosition;
+        private float _maxAllowedDistanceToMoveCamera;
         public UnityEvent OnCameraReseted;
         public UnityEvent OnCameraRotated;
 
@@ -20,21 +20,16 @@ namespace FroguesFramework
             _camera = Camera.main.transform;
             _camera.parent = cameraRotationPoint;
             ResetCamera();
-
-            maxXPosition = EntryPoint.Instance.Map.allCells.Max(cell => cell.transform.position.x);
-            minXPosition = EntryPoint.Instance.Map.allCells.Min(cell => cell.transform.position.x);
-            maxZPosition = EntryPoint.Instance.Map.allCells.Max(cell => cell.transform.position.z);
-            minZPosition = EntryPoint.Instance.Map.allCells.Min(cell => cell.transform.position.z);
+            _maxAllowedDistanceToMoveCamera = EntryPoint.Instance.Map.allCells.Max(cell => (cell.transform.position - transform.position).magnitude) * 1.25f;
         }
 
         public void Deactivate() => Camera.main.transform.parent = null;
 
         public void Move(Vector2 movement)
         {
-            cameraRotationPoint.transform.localPosition += cameraRotationPoint.TransformDirection(new Vector3(movement.x, 0, movement.y)) * Time.deltaTime * movementSpeed;
-            var clampedXPosition = Mathf.Clamp(cameraRotationPoint.transform.position.x, minXPosition, maxXPosition);
-            var clampedZPosition = Mathf.Clamp(cameraRotationPoint.transform.position.z, minZPosition, maxZPosition);
-            cameraRotationPoint.transform.position = new Vector3(clampedXPosition, 0, clampedZPosition);
+            Vector3 newPos = cameraRotationPoint.transform.position + cameraRotationPoint.TransformDirection(new Vector3(movement.x, 0, movement.y)) * Time.deltaTime * movementSpeed;
+            Vector3 offset = newPos - transform.position;
+            cameraRotationPoint.transform.position = transform.position + Vector3.ClampMagnitude(offset, _maxAllowedDistanceToMoveCamera);
         }
 
         public void Rotate(float value)
