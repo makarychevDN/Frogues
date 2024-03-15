@@ -84,7 +84,7 @@ namespace FroguesFramework
             if (temporaryCurrentAbility == movementAbility)
                 Cursor.SetCursor(defaultCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
 
-            if (temporaryCurrentAbility == inspectAbility)
+            if (temporaryCurrentAbility is InspectAbility)
                 Cursor.SetCursor(inspectAbilityCursorTexture, Vector2.zero, CursorMode.ForceSoftware);
         }
 
@@ -248,11 +248,6 @@ namespace FroguesFramework
                 return;
 
             EntryPoint.Instance.CameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
-
-            if (Input.GetKey(KeyCode.Space))
-            {
-                EntryPoint.Instance.CameraController.ResetCamera();
-            }
 
             if (Input.GetKey(KeyCode.Mouse1) && currentAbility == movementAbility)
             {

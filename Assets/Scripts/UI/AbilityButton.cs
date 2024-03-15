@@ -138,9 +138,6 @@ namespace FroguesFramework
                 var abilityWithCooldown = _ability as IAbleToHaveCooldown;
                 myAbilityIsCooldowned = abilityWithCooldown.IsEnoughCharges();
 
-                //chargesCounter.gameObject.SetActive(abilityWithCooldown.GetCurrentCharges() > 1);
-                //chargesCounter.SetValue(abilityWithCooldown.GetCurrentCharges());
-
                 foreach(var textElement in chargesCounterElements)
                 {
                     textElement.gameObject.SetActive(abilityWithCooldown.GetCurrentCharges() > 1);

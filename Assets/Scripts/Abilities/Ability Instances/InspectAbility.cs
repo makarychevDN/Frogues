@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class InspectAbility : UnitTargetAbility
+    public class InspectAbility : UnitTargetAbility, IAbleToReturnIsPrevisualized
     {
         [SerializeField] private bool showMovementHighlighting;
         private Unit _hashedTarget;
+        private bool _isPrevisualizedNow;
 
         public bool ShowMovementHighlighting
         {
@@ -28,7 +29,7 @@ namespace FroguesFramework
             return _usingArea = CellsTaker.TakeAllCells();
         }
 
-        public override void DisablePreVisualization(){}
+        public override void DisablePreVisualization() => _isPrevisualizedNow = false;
 
         public override bool PossibleToUseOnUnit(Unit target)
         {
@@ -42,12 +43,17 @@ namespace FroguesFramework
 
         public override void UseOnUnit(Unit target)
         {
+            if(target == null) 
+                return;
+
             EntryPoint.Instance.UnitDescriptionPanel.Activate(target);
             target.OnInspectIt.Invoke();
         }
 
         public override void VisualizePreUseOnUnit(Unit target)
         {
+            _isPrevisualizedNow = true;
+
             if (showMovementHighlighting)
             {
                 if (_owner.Stats.Immobilized == 0)
@@ -66,10 +72,12 @@ namespace FroguesFramework
             target.MaterialInstanceContainer.EnableOutline(true);
         }
 
-        public override bool IsIgnoringDrawingFunctionality() => true;
+        public override bool IsIgnoringDrawingFunctionality() => false;
 
         public override bool CheckItUsableOnBloodSurfaceUnit() => false;
 
         public override bool CheckItUsableOnDefaultUnit() => true;
+
+        public bool IsPrevisualizedNow() => _isPrevisualizedNow;
     }
 }

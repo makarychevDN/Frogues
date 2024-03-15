@@ -17,6 +17,7 @@ namespace FroguesFramework
         [SerializeField] private List<AbilityButtonSlot> topPanelAbilitySlots;
         [SerializeField] private bool enableHotKeys;
         [SerializeField] private bool itsButtonsAreInteractive;
+        [SerializeField] private bool ableToGiveLastEmptySlot;
         [SerializeField] private Vector2 positionOfHintRelativeToButtonInBottomPanel;
         [SerializeField] private Vector2 pivotOfHintRectTransformWhenHoverInBottomPanel;
         [SerializeField] private Vector2 positionOfHintRelativeToButtonInTopPanel;
@@ -182,7 +183,7 @@ namespace FroguesFramework
             }
             else
             {
-                slot = FirstEmptySlotInBottonPanel();
+                slot = ableToGiveLastEmptySlot && ability is InspectAbility ? GetLastEmptyEnabledSlotInBottomPanel() : GetFirstEmptySlotInBottonPanel();
                 pivot = pivotOfHintRectTransformWhenHoverInBottomPanel;
                 relatiovePosition = positionOfHintRelativeToButtonInBottomPanel;
             }
@@ -284,7 +285,7 @@ namespace FroguesFramework
             UpdateEnabledSlots();
         }
 
-        private AbilityButtonSlot FirstEmptySlotInBottonPanel()
+        private AbilityButtonSlot GetFirstEmptySlotInBottonPanel()
         {
             if (bottomPanelAbilitySlots.None(slot => slot.Empty) || (slotsInTheRowQuantity * currentRowsQuantity < (fullSlotsCount + 1)))
             {
@@ -293,6 +294,11 @@ namespace FroguesFramework
             }
 
             return bottomPanelAbilitySlots.First(slot => slot.Empty);
+        }
+
+        private AbilityButtonSlot GetLastEmptyEnabledSlotInBottomPanel()
+        {
+            return bottomPanelAbilitySlots.LastOrDefault(slot => slot.gameObject.activeInHierarchy && slot.Empty);
         }
 
         private AbilityButtonSlot AddTopAbilitySlot()

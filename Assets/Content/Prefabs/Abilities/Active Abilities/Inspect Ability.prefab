@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &669948087671890256
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3437602592264679878}
+  - component: {fileID: 3814572492681460465}
+  - component: {fileID: 7793111143790640695}
+  - component: {fileID: 6656444752729565601}
+  m_Layer: 0
+  m_Name: Inspect Ability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3437602592264679878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669948087671890256}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3814572492681460465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669948087671890256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24227f3f16c241841b3d3c1db54c65c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityDataForButton: {fileID: 7793111143790640695}
+  isPartOfWeapon: 0
+  actionPointsCost: 0
+  bloodPointsCost: 0
+  healthCost: 0
+  cooldownAfterUse: 0
+  cooldownAfterStart: 0
+  cooldownCounter: 0
+  isCooldownedAfterStart: 0
+  maxChargesCount: 1
+  chargesCountAfterStart: 1
+  costOfEachUsingInCharges: 0
+  currentCharges: 1
+  chargesRegenPerCooldown: 1
+  abilityAnimatorTrigger: 0
+  animatorControllerForAbility: {fileID: 0}
+  timeBeforeImpact: 0
+  fullAnimationTime: 0
+  delayBeforeImpactSound: 0
+  impactSoundSource: {fileID: 0}
+  needToRotateOwnersSprite: 1
+  showMovementHighlighting: 0
+--- !u!114 &7793111143790640695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669948087671890256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7ea4eec26f743418e5d94da30690b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 3a72f9877edb7ad40bfa8e71fb806882, type: 2}
+  abilityName: "\u041E\u0441\u043C\u043E\u0442\u0440"
+  shortDataTags: []
+  descriptionTags:
+  - {fileID: 11400000, guid: 82ccc6f07d087444c8aee37fa084f48d, type: 2}
+--- !u!114 &6656444752729565601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669948087671890256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 492d048615ee8b04b9e28a15da13c257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
