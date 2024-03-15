@@ -10,7 +10,7 @@ namespace FroguesFramework
         [SerializeField] private CameraController cameraController;
         [SerializeField] private List<Pillar> pillars;
         [SerializeField] private List<AnimatedWall> walls;
-        [SerializeField] private float angleDelta = 55f;
+        private float _angleDelta = 90;
 
         private void Update()
         {
@@ -22,7 +22,7 @@ namespace FroguesFramework
         {
             foreach (var wall in walls)
             {
-                wall.Showed = Vector3.Angle(Camera.main.transform.forward, wall.transform.forward) > angleDelta;
+                wall.Showed = Vector3.Angle(Camera.main.transform.position - wall.ThikcnessPointsOnTheFrontSide.position, wall.transform.forward) < _angleDelta;
             }
         }
 
