@@ -9,7 +9,8 @@ namespace FroguesFramework
         [SerializeField] private float distanceFromCameraToCenter = 5f;
         [SerializeField] private Transform cameraRotationPoint;
         [SerializeField] private float movementSpeed = 5f;
-        [SerializeField] private float zoomingSpeed = 5f;
+        private float _zoomingSpeed = 600f;
+        private float _rotationSpeed = 500f;
         private Transform _camera;
         private float _maxAllowedDistanceToMoveCamera;
         public UnityEvent OnCameraReseted;
@@ -34,13 +35,13 @@ namespace FroguesFramework
 
         public void Rotate(float value)
         {
-            cameraRotationPoint.Rotate(cameraRotationPoint.up, value);
+            cameraRotationPoint.Rotate(cameraRotationPoint.up, value * _rotationSpeed * Time.deltaTime);
             OnCameraRotated.Invoke();
         }
 
         public void Zoom(float value)
         {
-            Vector3 updatedPosition = _camera.transform.position + _camera.forward * value * zoomingSpeed;
+            Vector3 updatedPosition = _camera.transform.position + _camera.forward * value * _zoomingSpeed * Time.deltaTime;
             Vector3 clampedPosition = Extensions.ClampMagnitude(_camera.forward * (cameraRotationPoint.position - updatedPosition).magnitude, 10, 3);
             _camera.transform.position = cameraRotationPoint.position - clampedPosition;
         }
