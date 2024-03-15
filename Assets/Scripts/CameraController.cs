@@ -43,8 +43,8 @@ namespace FroguesFramework
 
         public void RotateCameraAroundXAxis(float value)
         {
-            cameraRotationAroundXAxisPoint.Rotate(cameraRotationAroundXAxisPoint.right, value * _rotationAroundXAxisSpeed * Time.deltaTime);
             var currentXAngle = cameraRotationAroundXAxisPoint.localEulerAngles.x;
+            currentXAngle -= value * _rotationAroundXAxisSpeed * Time.deltaTime;
             currentXAngle = Mathf.Clamp(currentXAngle, 20, 45);
             cameraRotationAroundXAxisPoint.localEulerAngles = new Vector3(currentXAngle, 0, 0);
             OnCameraRotated.Invoke();
