@@ -256,7 +256,8 @@ namespace FroguesFramework
 
             if (Input.GetKey(KeyCode.Mouse2))
             {
-                EntryPoint.Instance.CameraController.Rotate(Input.GetAxis("Mouse X"));
+                EntryPoint.Instance.CameraController.RotateCameraAroundYAxis(Input.GetAxis("Mouse X"));
+                EntryPoint.Instance.CameraController.RotateCameraAroundXAxis(Input.GetAxis("Mouse Y"));
             }
 
             Vector2 movementInput = Vector2.zero;

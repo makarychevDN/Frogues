@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &739642859842896635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1634511875914821207}
+  m_Layer: 0
+  m_Name: Camera Rotation Around X Axis Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1634511875914821207
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739642859842896635}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6283436015558385217}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!1 &880166362849641625
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,9 +77,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanceFromCameraToCenter: 5
-  cameraRotationPoint: {fileID: 6283436015558385217}
+  cameraRotationAroundYAxisPoint: {fileID: 6283436015558385217}
+  cameraRotationAroundXAxisPoint: {fileID: 1634511875914821207}
   movementSpeed: 5
-  zoomingSpeed: 5
+  OnCameraReseted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCameraRotated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1259561790687572982
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +127,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6283436015558385217}
   m_Layer: 0
-  m_Name: Camera Rotation Point
+  m_Name: Camera Rotation Around Y Axis Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,7 +144,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1634511875914821207}
   m_Father: {fileID: 6496629021054320829}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -178,7 +216,7 @@ Transform:
   - {fileID: 7624160055721405588}
   - {fileID: 6496629021054320829}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9177637780325136850
 MonoBehaviour:
@@ -193,12 +231,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   map: {fileID: 9177637781549069253}
+  isPeaceful: 0
   exit: {fileID: 0}
   pathFinder: {fileID: 9177637781200634505}
   unitsQueue: {fileID: 9177637780620101240}
   cameraController: {fileID: 2287702687257470259}
   player: {fileID: 2567269901771806335}
   metaPlayer: {fileID: 0}
+  trainingModificator: {fileID: 0}
+  onRoomInited:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9177637780566372362
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +421,7 @@ MonoBehaviour:
   <SurfaceUnitExtension>k__BackingField: {fileID: 0}
   <ScoreContainer>k__BackingField: {fileID: 0}
   <IsEnemy>k__BackingField: 0
+  <IsSummoned>k__BackingField: 0
   <AbilitiesManager>k__BackingField: {fileID: 0}
   <ActionPoints>k__BackingField: {fileID: 0}
   <BloodPoints>k__BackingField: {fileID: 0}
@@ -398,6 +442,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStepOnThisUnitByUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInspectIt:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &9177637780903308333
@@ -453,6 +500,7 @@ MonoBehaviour:
   <SurfaceUnitExtension>k__BackingField: {fileID: 0}
   <ScoreContainer>k__BackingField: {fileID: 0}
   <IsEnemy>k__BackingField: 0
+  <IsSummoned>k__BackingField: 0
   <AbilitiesManager>k__BackingField: {fileID: 0}
   <ActionPoints>k__BackingField: {fileID: 0}
   <BloodPoints>k__BackingField: {fileID: 0}
@@ -473,6 +521,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnStepOnThisUnitByUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInspectIt:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &9177637781065542190
