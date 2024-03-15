@@ -254,14 +254,14 @@ namespace FroguesFramework
                 EntryPoint.Instance.CameraController.ResetCamera();
             }
 
-            if (Input.GetKey(KeyCode.Mouse2))
+            if (Input.GetKey(KeyCode.Mouse1) && currentAbility == movementAbility)
             {
                 EntryPoint.Instance.CameraController.RotateCameraAroundYAxis(Input.GetAxis("Mouse X"));
                 EntryPoint.Instance.CameraController.RotateCameraAroundXAxis(Input.GetAxis("Mouse Y"));
             }
 
             Vector2 movementInput = Vector2.zero;
-            if (!Input.GetKey(KeyCode.Mouse2))
+            if (!Input.GetKey(KeyCode.Mouse1))
                 movementInput = CheckMouseOnBordrers();
             Vector2 keyBoardInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (keyBoardInput != Vector2.zero)
@@ -299,7 +299,8 @@ namespace FroguesFramework
         public void ClearCurrentAbility()
         {
             if (currentAbility == movementAbility)
-            {
+                return;
+            /*{
                 if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateNativeAttack)
                 {
                     currentAbility = inspectAbility;
@@ -309,7 +310,7 @@ namespace FroguesFramework
                 {
                     currentAbility = nativeAttackAbility;
                 }
-            }
+            }*/
 
             else
                 currentAbility = null;
