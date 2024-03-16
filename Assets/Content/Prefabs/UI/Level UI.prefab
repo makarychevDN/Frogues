@@ -9034,14 +9034,67 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 882299382979724598, guid: db408066e598a16409a881c6d7d84d92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5083002759672581959}
+    - targetCorrespondingSourceObject: {fileID: 882299382979724598, guid: db408066e598a16409a881c6d7d84d92, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 130483063534238154}
   m_SourcePrefab: {fileID: 100100000, guid: db408066e598a16409a881c6d7d84d92, type: 3}
+--- !u!1 &3281896182080991345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 882299382979724598, guid: db408066e598a16409a881c6d7d84d92, type: 3}
+  m_PrefabInstance: {fileID: 2428897796274287943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5083002759672581959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3281896182080991345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20b41e964872424e964798ce0eade49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expectedKey: 32
+  OnKeyDown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 130483063534238154}
+        m_TargetAssemblyTypeName: FroguesFramework.ClickButtonByScript, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &130483063534238154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3281896182080991345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195dcb70d1170bc46b91d6c97fd80f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 4453635306615799088}
+  ignoreButtonUnInteractive: 0
 --- !u!114 &4453635306615799088 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2052322129127442551, guid: db408066e598a16409a881c6d7d84d92, type: 3}
   m_PrefabInstance: {fileID: 2428897796274287943}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3281896182080991345}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
