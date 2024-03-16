@@ -10,7 +10,7 @@ namespace FroguesFramework
         [SerializeField] private List<RewardPanelSetup> rewards;
         [SerializeField] private RewardsMenu rewardsMenu;
 
-        private void Start()
+        public void Init()
         {
             EntryPoint.Instance.OnScoreIncreased.AddListener(TryToGiveReward);
             InitRewardsSetups();
@@ -39,6 +39,16 @@ namespace FroguesFramework
                 reward.isGivenAlready = true;
                 rewardsMenu.GenerateSetOfRewards(reward.rewardType, reward.countOfPossibleRewards);
             }
+        }
+
+        public RewardPanelSetup GetNextRewardSetup()
+        {
+            return rewards.FirstOrDefault(rewardSetup => !rewardSetup.isGivenAlready);
+        }
+
+        public RewardPanelSetup GetLastRewardSetup()
+        {
+            return rewards.LastOrDefault(rewardSetup => rewardSetup.isGivenAlready);
         }
 
         [Serializable]

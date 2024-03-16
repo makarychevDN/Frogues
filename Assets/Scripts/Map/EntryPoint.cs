@@ -29,6 +29,7 @@ namespace FroguesFramework
         [SerializeField] private int campfiresAfterFinalScoreCountRequiredToWin = 2;
         [SerializeField] private int campfiresAfterFinalScoreCount;
         [SerializeField] private WavesGenerator wavesGenerator;
+        [SerializeField] private RewardsGenerator rewardsGenerator;
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private int additionalHealingValue = 1;
         [SerializeField] private int turnCounter;
@@ -63,10 +64,12 @@ namespace FroguesFramework
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
         public AbilityHint AbilityHint => abilityHint;
         public int Score => score;
+        public int ScoreDeltaCounterForBonfire => _scoreDeltaCounter;
         public int AdditionalHealingValue => additionalHealingValue;
         public bool ExitActivated => exitButton.activeSelf;
         public GameObject EndTurnButton => endTurnButton;
         public AscensionSetup AscensionSetup => ascensionSetup;
+        public RewardsGenerator RewardsGenerator => rewardsGenerator;
         public AnimationCurve DefaultMovementCurve => defaultMovementCurve;
         public bool NeedToShowUnitsUI => UnitsQueue.IsUnitCurrent(_metaPlayer)
                                          && !_metaPlayer.MovementAbility.PathToMoveIsSelected
@@ -99,6 +102,7 @@ namespace FroguesFramework
             _currentRoom.Init(_metaPlayer);
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
+            rewardsGenerator.Init();
             playersActionPointsUI.Init(_metaPlayer.ActionPoints);
             playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
             turnCounter = 1;
