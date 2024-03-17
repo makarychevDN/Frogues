@@ -91,6 +91,11 @@ namespace FroguesFramework
             penaltyForRegeneration += value;
         }
 
+        public void IncreaseoRegeneration(int value)
+        {
+            pointsRegeneration += value;
+        }
+
         public bool IsPointsEnough(int cost)
         {
             return currentPoints + tempraryPoints >= cost;
