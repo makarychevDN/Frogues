@@ -13,9 +13,11 @@ namespace FroguesFramework
             if (!PossibleToUse())
                 return;
 
+            SpendResourcePoints();
+            SetCooldownAsAfterUse();
+
             _owner.Health.IncreaseBlock(CalculateBlock());
             _owner.Health.IncreaseArmor(CalculateArmor());
-            SpendResourcePoints();
 
             CurrentlyActiveObjects.Add(this);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
