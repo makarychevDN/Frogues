@@ -16,7 +16,7 @@ namespace FroguesFramework
             }
 
             var enemies = CellsTaker.TakeAllUnits();
-            enemies = enemies.Where(unit => unit.IsEnemy).ToList();
+            enemies = enemies.Where(unit => unit.IsEnemy && !unit.Small && !unit.AbilitiesManager.Abilities.Any(ability => ability is MushroomPassiveProperty)).ToList();
             enemies.Remove(_unit);
 
             if (enemies.Count == 0)
