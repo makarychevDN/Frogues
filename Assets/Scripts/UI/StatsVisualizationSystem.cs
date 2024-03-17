@@ -15,10 +15,18 @@ namespace FroguesFramework
         [SerializeField] private StatVisualizationSegment immobilizedSegment;
 
         [Header("description tags")]
-        [SerializeField] private AbilityDescriptionTag strenghtMechanicDescription;
-        [SerializeField] private AbilityDescriptionTag intelligenceMehanicDescription;
-        [SerializeField] private AbilityDescriptionTag dexterityMechanicDescription;
-        [SerializeField] private AbilityDescriptionTag defenceMechanicDescription;
+        [SerializeField] private AbilityDescriptionTag strenghtMechanicDescriptionPositive;
+        [SerializeField] private AbilityDescriptionTag strenghtMechanicDescriptionNegative;
+
+        [SerializeField] private AbilityDescriptionTag intelligenceMehanicDescriptionPositive;
+        [SerializeField] private AbilityDescriptionTag intelligenceMehanicDescriptionNegative;
+
+        [SerializeField] private AbilityDescriptionTag dexterityMechanicDescriptionPositive;
+        [SerializeField] private AbilityDescriptionTag dexterityMechanicDescriptionNegative;
+
+        [SerializeField] private AbilityDescriptionTag defenceMechanicDescriptionPositive;
+        [SerializeField] private AbilityDescriptionTag defenceMechanicDescriptionNegative;
+
         [SerializeField] private AbilityDescriptionTag immobilizedMechanicDescription;
 
         private int lastStatsHash;
@@ -58,16 +66,21 @@ namespace FroguesFramework
             resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
         }
 
-        public void ShowStrenghtHint() => ShowHint("Сила", strenghtMechanicDescription.DescriptionText, strenghtSegment.transform, (int)stats.StrenghtModificatorPersentages);
-        public void ShowIntelligenceHint() => ShowHint("Интеллект", intelligenceMehanicDescription.DescriptionText, intelligenceSegment.transform, (int)stats.IntelegenceModificatorPersentages);
-        public void ShowDexterityHint() => ShowHint("Ловкость", dexterityMechanicDescription.DescriptionText, dexteritySegment.transform, (int)stats.DexterityeModificatorPersentages);
-        public void ShowDefenceHint() => ShowHint("Защита", defenceMechanicDescription.DescriptionText, defenceSegment.transform, (int)stats.DefenceModificatorPersentages);
-        public void ShowImmobolizedHint() => ShowHint("Обездвиженность", immobilizedMechanicDescription.DescriptionText, immobilizedSegment.transform, stats.Immobilized);
+        public void ShowStrenghtHint() => ShowHint("Сила", strenghtMechanicDescriptionPositive.DescriptionText, strenghtMechanicDescriptionNegative.DescriptionText, strenghtSegment.transform, (int)stats.StrenghtModificatorPersentages, stats.Strenght);
+        public void ShowIntelligenceHint() => ShowHint("Интеллект", intelligenceMehanicDescriptionPositive.DescriptionText, intelligenceMehanicDescriptionNegative.DescriptionText, intelligenceSegment.transform, (int)stats.IntelegenceModificatorPersentages, stats.Intelegence);
+        public void ShowDexterityHint() => ShowHint("Ловкость", dexterityMechanicDescriptionPositive.DescriptionText, dexterityMechanicDescriptionNegative.DescriptionText, dexteritySegment.transform, (int)stats.DexterityeModificatorPersentages, stats.Dexterity);
+        public void ShowDefenceHint() => ShowHint("Защита", defenceMechanicDescriptionPositive.DescriptionText, defenceMechanicDescriptionNegative.DescriptionText, defenceSegment.transform, (int)stats.DefenceModificatorPersentages, stats.Defence);
+        public void ShowImmobolizedHint() => ShowHint("Обездвиженность", immobilizedMechanicDescription.DescriptionText, immobilizedMechanicDescription.DescriptionText, immobilizedSegment.transform, stats.Immobilized, 0);
 
-        private void ShowHint(string header, string descriptionTag, Transform transformOfIcon, int value)
+        private void ShowHint(string header, string positiveDescriptionTag, string negativeDescriptionTag, Transform transformOfIcon, int modificatorStepValue, int statValue)
         {
-            descriptionTag = descriptionTag.Replace("{value}", value.ToString());            
-            EntryPoint.Instance.AbilityHint.Init(header, descriptionTag, "", transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
+            var text = statValue > 0 ? positiveDescriptionTag : negativeDescriptionTag;
+
+            text = text.Replace("{step value}", modificatorStepValue.ToString());
+            text = text.Replace("{value}", statValue.ToString());
+            text = text.Replace("{sum value}", Mathf.Abs(statValue * modificatorStepValue).ToString());            
+
+            EntryPoint.Instance.AbilityHint.Init(header, text, "", transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
             EntryPoint.Instance.AbilityHint.EnableContent(true, true);
         }
 
