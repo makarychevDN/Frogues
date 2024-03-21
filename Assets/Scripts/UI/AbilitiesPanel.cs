@@ -199,11 +199,7 @@ namespace FroguesFramework
             if (abilitiesManager.AbleToHaveCurrentAbility == null)
                 return;
 
-            if (abilitiesManager.AbleToHaveCurrentAbility.GetCurrentAbility() == ability)
-                abilitiesManager.AbleToHaveCurrentAbility.ClearCurrentAbility();
-
-            else
-                abilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(ability);
+            abilitiesManager.AbleToHaveCurrentAbility.SetCurrentAbility(ability);
         }
 
         private void PlaceButtonInTheClosetstClot(AbilityButton abilityButton)
