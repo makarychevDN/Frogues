@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,8 +15,9 @@ namespace FroguesFramework
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
 
-        [SerializeField] private Unit player;
         [SerializeField] private Unit metaPlayer;
+        [SerializeField] private UnitAndStartPosition player;
+        [SerializeField] private List<UnitAndStartPosition> unitsAndStartPositions;
 
         [SerializeField] private BaseTrainingModificator trainingModificator;
 
@@ -29,11 +32,12 @@ namespace FroguesFramework
 
         public void Init()
         {
-            cameraController.Init();
             map.Init();
+            PutUnitsOnCells();
+            cameraController.Init();
             pathFinder.Init();
             InitPlayer();
-            unitsQueue.Player = player;
+            unitsQueue.Player = player.unit;
 
             if(exit != null)
                 exit.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
@@ -55,6 +59,23 @@ namespace FroguesFramework
 
             onRoomInited.Invoke();
         }
+
+        public void PutUnitsOnCells()
+        {
+            PutUnitOnCell(player.unit, map.GetCell(player.startPosition));
+
+            foreach(var unitAndStartPosition in unitsAndStartPositions)
+            {
+                PutUnitOnCell(unitAndStartPosition.unit, map.GetCell(unitAndStartPosition.startPosition));
+            }
+        }
+
+        private void PutUnitOnCell(Unit unit, Cell cell)
+        {
+            cell.Content = unit;
+            unit.CurrentCell = cell;
+            unit.transform.position = cell.transform.position;
+        }
         
         public void Init(Unit metaPlayer)
         {
@@ -66,15 +87,15 @@ namespace FroguesFramework
         {
             if (metaPlayer == null)
             {
-                metaPlayer = player;
+                metaPlayer = player.unit;
             }
             
             var playerInstance = metaPlayer;
-            player.CurrentCell.Content = playerInstance;
-            playerInstance.CurrentCell = player.CurrentCell;
-            playerInstance.transform.position = player.transform.position;
-            player.gameObject.SetActive(false);
-            player = playerInstance;
+            player.unit.CurrentCell.Content = playerInstance;
+            playerInstance.CurrentCell = player.unit.CurrentCell;
+            playerInstance.transform.position = player.unit.transform.position;
+            player.unit.gameObject.SetActive(false);
+            player.unit = playerInstance;
         }
 
         public void ActivateExit()
@@ -101,6 +122,13 @@ namespace FroguesFramework
             GetComponentsInChildren<Cell>().ToList().ForEach(cell => EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(cell));
             gameObject.SetActive(false);
             Destroy(gameObject);
+        }
+
+        [Serializable]
+        public struct UnitAndStartPosition
+        {
+            public Unit unit;
+            public Vector2Int startPosition;
         }
     }
 }
