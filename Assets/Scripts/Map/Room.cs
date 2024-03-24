@@ -10,7 +10,7 @@ namespace FroguesFramework
     {
         [SerializeField] private Map map;
         [SerializeField] private bool isPeaceful;
-        [SerializeField] private Cell exit;
+        [SerializeField] private Vector2Int exitPosition;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
@@ -20,6 +20,7 @@ namespace FroguesFramework
         [SerializeField] private List<UnitAndStartPosition> unitsAndStartPositions;
 
         [SerializeField] private BaseTrainingModificator trainingModificator;
+        private Cell _exitCell;
 
         public PathFinder PathFinder => pathFinder;
         public Map Map => map;
@@ -39,8 +40,9 @@ namespace FroguesFramework
             InitPlayer();
             unitsQueue.Player = player.unit;
 
-            if(exit != null)
-                exit.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
+            _exitCell = map.GetCell(exitPosition);
+            if(_exitCell != null)
+                _exitCell.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
 
             foreach (var ableToAct in FindObjectsOfType<MonoBehaviour>().OfType<IAbleToAct>())
             {
@@ -100,12 +102,12 @@ namespace FroguesFramework
 
         public void ActivateExit()
         {
-            if (exit.gameObject.activeSelf)
+            if (_exitCell.gameObject.activeSelf)
                 return;
 
-            exit.gameObject.SetActive(true);
-            exit.Content = null;
-            exit.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
+            _exitCell.gameObject.SetActive(true);
+            _exitCell.Content = null;
+            _exitCell.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
         }
 
         private void TryToActivateNextRoom(Unit unit)
