@@ -43,24 +43,14 @@ namespace FroguesFramework
             int evenModificator = myCell.coordinates.y.Even().ToInt();
             int oddModificator = myCell.coordinates.y.Odd().ToInt();
 
-            _topLeftCell =
-                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y + 1),
-                    myCell.mapLayer);
+            _topLeftCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y + 1));            
+            _topRightCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y + 1));
             
-            _topRightCell =
-                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y + 1),
-                    myCell.mapLayer);
-            
-            _downLeftCell =
-                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y - 1),
-                    myCell.mapLayer);
-            
-            _downRightCell =
-                EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y - 1),
-                    myCell.mapLayer);
+            _downLeftCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y - 1));            
+            _downRightCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y - 1));
 
-            _leftCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.left, myCell.mapLayer);
-            _rightCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right, myCell.mapLayer);
+            _leftCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.left);
+            _rightCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right);
 
             _neighbors = new List<Cell>
             {

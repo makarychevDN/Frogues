@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 namespace FroguesFramework
@@ -21,7 +22,6 @@ namespace FroguesFramework
 
         [SerializeField] private Unit content;
         [SerializeField] private List<Unit> surfaces = new();
-        [SerializeField] private Transform hexagonModel;
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
         [SerializeField] private CellHighlighter selectedByAbilityTileHighlighter;
@@ -29,8 +29,8 @@ namespace FroguesFramework
         [SerializeField] private SpriteRenderer pathDot;
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
         [SerializeField] private Vector3 _hashedPosition;
-
         [ReadOnly] public bool chosenToMovement;
+        //private TileChangeData tileChangeData;
 
         public List<Unit> Surfaces => surfaces;
 
@@ -64,9 +64,9 @@ namespace FroguesFramework
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if (!ignoreDefaultUnits && !EntryPoint.Instance.Map.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].IsEmpty)
+            if (!ignoreDefaultUnits && !EntryPoint.Instance.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
             {
-                if (ignoreSmallUnits && EntryPoint.Instance.Map.layers[MapLayer.DefaultUnit][coordinates.x, coordinates.y].Content
+                if (ignoreSmallUnits && EntryPoint.Instance.Map.CellsArray[coordinates.x, coordinates.y].Content
                     .Small)
                     return true;
 
@@ -109,19 +109,21 @@ namespace FroguesFramework
             
             if (_hashedPosition == transform.localPosition)
                 return;
-            
-            GetComponentInParent<Map>()?.SetCell(this);
-            ClampPosition();
-            coordinates = GetComponentInParent<Map>().GetGridPosition(this);
-            _hashedPosition = transform.localPosition;
-            hexagonModel.localRotation = Quaternion.Euler(-90, Random.Range(0, 6) * 60, 0);
 
-            if (Content != null)
-            {
-                Content.transform.position = transform.position;
-            }
+            //tileChangeData = new TileChangeData(TileChangeData)
 
-            surfaces.ForEach(surface => surface.transform.position = transform.position);
+            //GetComponentInParent<Map>()?.SetCell(this);
+            //ClampPosition();
+            //coordinates = GetComponentInParent<Map>().GetGridPosition(this);
+            //_hashedPosition = transform.localPosition;
+            //hexagonModel.localRotation = Quaternion.Euler(-90, Random.Range(0, 6) * 60, 0);
+
+            //if (Content != null)
+            //{
+                //Content.transform.position = transform.position;
+            //}
+
+            //surfaces.ForEach(surface => surface.transform.position = transform.position);
         }
 
         private void OnDestroy()

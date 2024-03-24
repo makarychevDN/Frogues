@@ -7,7 +7,7 @@ namespace FroguesFramework
     public class WeaponsInitializer : MonoBehaviour
     {
         [SerializeField] private List<WeaponAbilitiesSetter> weaponSetterPrefabs;
-        [SerializeField] private List<Cell> targetCells;
+        [SerializeField] private List<Vector2Int> coordinatesOfCells;
 
         void Start()
         {
@@ -19,15 +19,15 @@ namespace FroguesFramework
 
             if(weaponSetterWithCurrentWeapon != null)
             {
-                SpawnAndInitWeaponSetterPrefab(weaponSetterWithCurrentWeapon, targetCells[count]);
+                SpawnAndInitWeaponSetterPrefab(weaponSetterWithCurrentWeapon, EntryPoint.Instance.Map.GetCell(coordinatesOfCells[count]));
                 weaponSetterPrefabs.Remove(weaponSetterWithCurrentWeapon);
                 count++;
             }
 
-            while(count < targetCells.Count)
+            while(count < coordinatesOfCells.Count)
             {
                 var prefab = weaponSetterPrefabs.GetRandomElement();
-                SpawnAndInitWeaponSetterPrefab(prefab, targetCells[count]);
+                SpawnAndInitWeaponSetterPrefab(prefab, EntryPoint.Instance.Map.GetCell(coordinatesOfCells[count]));
                 weaponSetterPrefabs.Remove(prefab);
                 count++;
             }

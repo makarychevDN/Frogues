@@ -5,20 +5,20 @@ namespace FroguesFramework
 {
     public class BonfireLogic : MonoBehaviour
     {
-        [SerializeField] private Cell restCell;
-        [SerializeField] private Cell exitCell;
+        [SerializeField] private Vector2Int restCelCoordinates;
         [SerializeField] private List<GameObject> visualizationGameObjects;
+        private Cell _restCell;
 
         private void Start()
         {
-            restCell.OnBecameFull.AddListener(EnableBonfire);
-            exitCell.OnBecameFull.AddListener(EntryPoint.Instance.StartNextRoom);
+            _restCell = EntryPoint.Instance.Map.GetCell(restCelCoordinates);
+            _restCell.OnBecameFull.AddListener(EnableBonfire);
         }
 
         private void EnableBonfire()
         {
             EntryPoint.Instance.EnableBonfireRestPanel(true);
-            restCell.OnBecameFull.RemoveListener(EnableBonfire);
+            _restCell.OnBecameFull.RemoveListener(EnableBonfire);
             visualizationGameObjects.ForEach(go => go.SetActive(false));
         }
     }

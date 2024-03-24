@@ -29,8 +29,14 @@ namespace FroguesFramework
         {
             foreach (var node in _nodesGrid)
             {
+                if (node == null)
+                    continue;
+
                 foreach (var neighbor in node.neighbors)
                 {
+                    if (neighbor == null)
+                        continue;
+
                     var line = Instantiate(lineRendererPrefab, linesParent);
                     line.SetPosition(0, node.cell.transform.position);
                     line.SetPosition(1, neighbor.cell.transform.position);
@@ -42,6 +48,9 @@ namespace FroguesFramework
         {
             foreach (var item in _nodesGrid)
             {
+                if (item == null)
+                    continue;
+
                 item.usedToPathFinding = false;
                 item.weight = 0;
             }
@@ -119,7 +128,7 @@ namespace FroguesFramework
                         item.previous = smallestWeightNode;
                         List<Cell> path = new List<Cell>();
                         var tempBackTrackNode = item;
-                        Cell[,] currentLayer = EntryPoint.Instance.Map.layers[userCell.mapLayer];
+                        Cell[,] currentLayer = EntryPoint.Instance.Map.CellsArray;
 
                         while (tempBackTrackNode.coordinates !=
                                new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
@@ -282,7 +291,10 @@ namespace FroguesFramework
             {
                 for (int j = 0; j < map.sizeZ; j++)
                 {
-                    _nodesGrid[i, j] = new PathFinderNode(map.layers[MapLayer.DefaultUnit][i, j]);
+                    if (map.CellsArray[i, j] == null)
+                        continue;
+
+                    _nodesGrid[i, j] = new PathFinderNode(map.CellsArray[i, j]);
                 }
             }
 
@@ -292,11 +304,12 @@ namespace FroguesFramework
         {
             foreach (var node in _nodesGrid)
             {
+                if(node == null) continue;
+
                 foreach (var dir in _dirVectors)
                 {
                     if (AddNeighborIsPossible(node, dir))
-                        node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);
-                    
+                        node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);                    
                 }
                 
                 if(!isMapHexagon)
@@ -316,6 +329,8 @@ namespace FroguesFramework
 
         private bool AddNeighborIsPossible(PathFinderNode node, Vector2Int dir)
         {
+            if (node == null) return false;
+
             return node.cell.coordinates.x + dir.x > 0
                    && node.cell.coordinates.x + dir.x < _nodesGrid.GetLength(0)
                    && node.cell.coordinates.y + dir.y > 0
