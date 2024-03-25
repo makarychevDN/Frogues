@@ -39,7 +39,7 @@ namespace FroguesFramework
             yield return new WaitForSeconds(time);
 
             if (temporaryBlockValue != 0)
-                _owner.Health.IncreaseBlock(temporaryBlockValue);
+                _owner.Health.IncreaseBlock(Extensions.CalculateBlockWithGameRules(temporaryBlockValue, _owner.Stats));
             if (permanentBlockValue != 0)
                 _owner.Health.IncreaseArmor(permanentBlockValue);
 
