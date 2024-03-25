@@ -6,18 +6,20 @@ namespace FroguesFramework
     public class TrainingInFourthRoom : BaseTrainingModificator
     {
         [SerializeField] private List<GameObject> enableAfterStepInTargetCell;
-        [SerializeField] private Cell targetToStepCell;
+        [SerializeField] private Vector2Int targetToStepCellCoordinates;
+        private Cell _targetToStepCell;
 
         public override void Init()
         {
+            _targetToStepCell = EntryPoint.Instance.Map.GetCell(targetToStepCellCoordinates);
             enableAfterStepInTargetCell.ForEach(go => go.SetActive(false));
-            targetToStepCell.OnBecameFull.AddListener(EnableObjects);
+            _targetToStepCell.OnBecameFull.AddListener(EnableObjects);
         }
 
         private void EnableObjects()
         {
             enableAfterStepInTargetCell.ForEach(go => go.SetActive(true));
-            targetToStepCell.OnBecameFull.RemoveListener(EnableObjects);
+            _targetToStepCell.OnBecameFull.RemoveListener(EnableObjects);
         }
     }
 }

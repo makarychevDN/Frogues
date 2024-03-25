@@ -5,11 +5,13 @@ namespace FroguesFramework
 {
     public class TrainingInLastRoom : BaseTrainingModificator
     {
-        [SerializeField] private Cell TargetCell;
+        [SerializeField] private Vector2Int targetToStepCellCoordinates;
+        private Cell _targetCell;
 
         public override void Init()
         {
-            TargetCell.OnBecameFull.AddListener(GoToMainMenu);
+            _targetCell = EntryPoint.Instance.Map.GetCell(targetToStepCellCoordinates);
+            _targetCell.OnBecameFull.AddListener(GoToMainMenu);
         }
 
         private void GoToMainMenu()

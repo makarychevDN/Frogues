@@ -16,7 +16,6 @@ namespace FroguesFramework
         
         [SerializeField] protected Cell wallPrefab;
         [SerializeField] protected List<Cell> cellsPrefabs;
-        [SerializeField] protected List<UnitPosition> unitsStartPositions;
         protected List<UnityEngine.Transform> _cellsParents;
         private Cell[,] _cellsArray;
 
@@ -109,13 +108,5 @@ namespace FroguesFramework
             if(allCells.Contains(hexCell3D))
                 allCells.Remove(hexCell3D);
         }
-    }
-    
-    [Serializable]
-    public struct UnitPosition
-    {
-        public Unit unit;
-        public Vector2Int position;
-
     }
 }

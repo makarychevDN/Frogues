@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public class TrainingInFirstRoom : BaseTrainingModificator
     {
-        [SerializeField] private Vector3 cameraStartPosition = new Vector3(9f, 0.9f, 6.0f);
+        [SerializeField] private Vector3 cameraStartPosition = new Vector3(7.64f, 1.13f, 4.0f);
         private int _tooBigPriceForMovement = 999;
 
         public override void Init()
