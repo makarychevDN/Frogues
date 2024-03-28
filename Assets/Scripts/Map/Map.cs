@@ -7,13 +7,13 @@ namespace FroguesFramework
     public class Map : MonoBehaviour
     {
         public int sizeX, sizeZ;
-        public UnityEngine.Transform unitsCellsParent, surfacesCellsParent, wallsParent;
+        public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
         [SerializeField] public List<Cell> allCells;
         [SerializeField] public Tilemap tilemap;
         
         [SerializeField] protected Cell wallPrefab;
         [SerializeField] protected List<Cell> cellsPrefabs;
-        protected List<UnityEngine.Transform> _cellsParents;
+        protected List<Transform> _cellsParents;
         private Cell[,] _cellsArray;
 
         public Cell[,] CellsArray => _cellsArray;
