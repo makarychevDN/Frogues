@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
@@ -10,12 +10,22 @@ namespace FroguesFramework
         [SerializeField] private Texture2D voronoiGraphTexture;
         [SerializeField] private LineRenderer trailPrefab;
         [SerializeField] private GameObject nodePrefab;
+        [SerializeField] private Transform parentForNodesVisualization;
+        [SerializeField] private Tile tilePrefab;
+        [SerializeField] private Tilemap tilemap;
+        [SerializeField] private float distanceMultiplier = 1f;
+        [SerializeField] private List<Room> roomsPrefabs;
         private Color _colorOfNodeOnTexture = Color.red;
-        private float _distanceMultiplier = 1f;
-        private List<MapGeneratorNode> _nodes = new();
         private List<Color> _backgroundColors = new() { Color.white, Color.black };
+        private List<MapGeneratorNode> _nodes = new();
 
         private void Start()
+        {
+            GenerateNodes();
+            GenerateGameObjectAndFindNeighbors();
+        }
+
+        private void GenerateNodes()
         {
             for (int i = 0; i < voronoiGraphTexture.width; i++)
             {
@@ -29,12 +39,16 @@ namespace FroguesFramework
                     }
                 }
             }
+        }
 
+        private void GenerateGameObjectAndFindNeighbors()
+        {
             foreach (MapGeneratorNode node in _nodes)
             {
                 var nodeGameObject = Instantiate(nodePrefab);
-                nodeGameObject.transform.position = new Vector3(node.Coordinates.x, 0, node.Coordinates.y);
-                nodeGameObject.transform.parent = transform;
+                nodeGameObject.transform.position = new Vector3(node.Coordinates.x, 0, node.Coordinates.y) * distanceMultiplier;
+                nodeGameObject.transform.localScale *= distanceMultiplier;
+                nodeGameObject.transform.parent = parentForNodesVisualization;
 
                 Dictionary<Color, MapGeneratorNode> copyOfCollection = new Dictionary<Color, MapGeneratorNode>(node.Neighbors);
                 foreach (Color key in copyOfCollection.Keys)
@@ -43,19 +57,24 @@ namespace FroguesFramework
                         continue;
 
                     var pairOfNode = _nodes.FirstOrDefault(otherNode => otherNode != node && otherNode.Neighbors.ContainsKey(key));
-                    if (pairOfNode == null)
-                    {
-                        nodeGameObject.transform.localScale = new Vector3(10, 10, 10);
-                        continue;
-                    }
-
                     node.Neighbors[key] = pairOfNode;
                     pairOfNode.Neighbors[key] = node;
 
-                    var line = Instantiate(trailPrefab, transform);
-                    line.SetPosition(0, new Vector3(node.Coordinates.x, 0, node.Coordinates.y));
-                    line.SetPosition(1, new Vector3(pairOfNode.Coordinates.x, 0, pairOfNode.Coordinates.y));
+                    var line = Instantiate(trailPrefab, parentForNodesVisualization);
+                    line.SetPosition(0, new Vector3(node.Coordinates.x, 0, node.Coordinates.y) * distanceMultiplier);
+                    line.SetPosition(1, new Vector3(pairOfNode.Coordinates.x, 0, pairOfNode.Coordinates.y) * distanceMultiplier);
+
+                    tilemap.SetTile(tilemap.WorldToCell(nodeGameObject.transform.position), tilePrefab);
                 }
+
+                if (roomsPrefabs.Count == 0)
+                    continue;
+                
+                var room = Instantiate(roomsPrefabs.GetRandomElement());
+                Vector3 worldRoomPosition = nodeGameObject.transform.position - room.GetDeltaOfCenterPosition();
+                Vector3Int tilemapRoomPosition = tilemap.WorldToCell(worldRoomPosition);
+                worldRoomPosition = tilemap.CellToWorld(tilemapRoomPosition);
+                room.transform.position = worldRoomPosition;
             }
         }
     }

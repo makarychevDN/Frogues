@@ -11,6 +11,7 @@ namespace FroguesFramework
         [SerializeField] private Map map;
         [SerializeField] private bool isPeaceful;
         [SerializeField] private Vector2Int exitPosition;
+        [SerializeField] private Vector2Int PositionOfCenterTile;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
@@ -18,7 +19,6 @@ namespace FroguesFramework
         [SerializeField] private Unit metaPlayer;
         [SerializeField] private UnitAndStartPosition player;
         [SerializeField] private List<UnitAndStartPosition> unitsAndStartPositions;
-
         [SerializeField] private BaseTrainingModificator trainingModificator;
         private Cell _exitCell;
 
@@ -30,6 +30,11 @@ namespace FroguesFramework
         
         public Vector3 CenterOfRoom => cameraController.transform.position;
         public UnityEvent onRoomInited;
+
+        public Vector3 GetDeltaOfCenterPosition()
+        {
+            return map.tilemap.CellToWorld(new Vector3Int(PositionOfCenterTile.x, PositionOfCenterTile.y)) - transform.position;
+        }
 
         public void Init()
         {
