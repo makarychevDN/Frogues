@@ -1,6 +1,5 @@
 using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +11,7 @@ namespace FroguesFramework
     {
         public static EntryPoint Instance;
         [SerializeField] private Room hub;
+        [SerializeField] private Floor floor;
         [SerializeField] private AscensionSetup ascensionSetup;
         [SerializeField] private List<Room> roomsPrefabs;
         [SerializeField] private Room _currentRoom;
@@ -97,16 +97,20 @@ namespace FroguesFramework
             if(CurrentAscention.ascensionSetup != null)
                 ascensionSetup = CurrentAscention.ascensionSetup;
 
-            _abilitiesPanel.Init(_metaPlayer);
-            _currentRoom = hub;
-            _currentRoom.Init(_metaPlayer);
-            _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
-            _metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
-            rewardsGenerator.Init();
-            playersActionPointsUI.Init(_metaPlayer.ActionPoints);
-            playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
-            turnCounter = 1;
-            bonfirePanel.Init();
+            floor.Init();
+            //_currentRoom = floor.GetTheFirstRoomOnTheFloor();
+
+            //_abilitiesPanel.Init(_metaPlayer);
+            ///playersActionPointsUI.Init(_metaPlayer.ActionPoints);
+            //playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
+            //_metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
+            //_metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
+            //_currentRoom = hub;
+            //_currentRoom.Init(_metaPlayer);
+            //rewardsGenerator.Init();
+            //bonfirePanel.Init();
+
+            //turnCounter = 1;
         }
 
         public void SetAscensionSetup(AscensionSetup setup)
@@ -116,7 +120,7 @@ namespace FroguesFramework
 
         public void StartNextRoom()
         {
-            countOfRats = 0;
+            /*countOfRats = 0;
             turnCounter = 1;
             var newRoom = Instantiate(roomsPrefabs[_roomsCount]);
             _roomsCount++;
@@ -139,12 +143,12 @@ namespace FroguesFramework
             OnBloodSurfacesCountOnTheMapUpdated.Invoke();
 
             if (!CurrentRoomIsPeaceful)
-                wavesGenerator.SpawnEnemies();
+                wavesGenerator.SpawnEnemies();*/
         }
 
         public void TryToCountCampfireAfterFinalPartStarted()
         {
-            if (score < scoreRequiredToStartFinalPart)
+            /*if (score < scoreRequiredToStartFinalPart)
                 return;
 
             campfiresAfterFinalScoreCount++;
@@ -153,14 +157,14 @@ namespace FroguesFramework
                 OnFinalPartStarted.Invoke();
 
             if (campfiresAfterFinalScoreCount >= campfiresAfterFinalScoreCountRequiredToWin)
-                OnWin.Invoke();
+                OnWin.Invoke();*/
         }
 
         public void IncreaseBonfireHealingValue(int value) => additionalHealingValue += value;
 
         public void IncreaseScore(int score, bool resetDeltaValue = false)
         {
-            this.score += score;
+            /*this.score += score;
             _scoreDeltaCounter += score;
             scoreText.text = this.score.ToString();
             OnScoreIncreased.Invoke();
@@ -173,12 +177,12 @@ namespace FroguesFramework
             if (_scoreDeltaCounter < ascensionSetup.RequaredDeltaOfScoreToOpenExitToCampfire)
                 return;
 
-            exitButton.SetActive(true);
+            exitButton.SetActive(true);*/
         }
 
         public Unit SpawnUnit(Unit prefab, Unit spawner, Cell targetCell)
         {
-            var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
+            /*var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
             spawnedUnit.CurrentCell = spawner.CurrentCell;
             spawnedUnit.Init();
             spawnedUnit.Movable.Move(targetCell, false);
@@ -187,12 +191,14 @@ namespace FroguesFramework
             if (spawnedUnit.ActionsInput != null)
                 UnitsQueue.AddObjectInQueue(spawnedUnit);
 
-            return spawnedUnit;
+            return spawnedUnit;*/
+
+            return null;
         }
 
         public void SpawnUnit(Unit prefab, Cell targetCell)
         {
-            var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
+            /*var spawnedUnit = Instantiate(prefab, prefab.transform.position, Quaternion.identity);
             spawnedUnit.CurrentCell = targetCell;
             spawnedUnit.Init();
             spawnedUnit.transform.position = targetCell.transform.position;
@@ -204,7 +210,7 @@ namespace FroguesFramework
                 targetCell.Surfaces.Add(spawnedUnit);
 
             if (spawnedUnit.ActionsInput != null)
-                UnitsQueue.AddObjectInQueue(spawnedUnit);
+                UnitsQueue.AddObjectInQueue(spawnedUnit);*/
         }
 
         private void Update()
@@ -212,7 +218,7 @@ namespace FroguesFramework
             if (PauseIsActive)
                 return;
 
-            _currentRoom.UnitsQueue.ActForCurrentUnit();
+            //_currentRoom.UnitsQueue.ActForCurrentUnit();
         }
 
         public void AddBloodSurface(Unit bloodSurface)

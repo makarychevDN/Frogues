@@ -7,7 +7,7 @@ namespace FroguesFramework
     public class Map : MonoBehaviour
     {
         public int sizeX, sizeZ;
-        public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
+        public Transform wallsParent;
         [SerializeField] public List<Cell> allCells;
         [SerializeField] public Tilemap tilemap;
         

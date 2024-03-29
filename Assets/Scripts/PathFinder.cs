@@ -22,7 +22,7 @@ namespace FroguesFramework
             InitializeDirVectors();
             InitializeNodesGrid();
             FindAllNodesNeighbors();
-            DrawLinesBetweenNeighbors();
+            //DrawLinesBetweenNeighbors();
         }
 
         private void DrawLinesBetweenNeighbors()

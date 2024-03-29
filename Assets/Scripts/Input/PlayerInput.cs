@@ -243,7 +243,7 @@ namespace FroguesFramework
 
         private void CameraMovementInput()
         {
-            SetMouseLockMode();
+            /*SetMouseLockMode();
             if (EntryPoint.Instance.PauseIsActive)
                 return;
 
@@ -261,7 +261,7 @@ namespace FroguesFramework
             Vector2 keyBoardInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (keyBoardInput != Vector2.zero)
                 movementInput = keyBoardInput;
-            EntryPoint.Instance.CameraController.Move(movementInput);
+            EntryPoint.Instance.CameraController.Move(movementInput);*/
         }
 
         private Vector2Int CheckMouseOnBordrers()

@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
-    public class MapGenerator : MonoBehaviour
+    public class FloorGenerator : MonoBehaviour
     {
         [SerializeField] private Texture2D voronoiGraphTexture;
         [SerializeField] private LineRenderer trailPrefab;
@@ -19,7 +19,7 @@ namespace FroguesFramework
         private List<Color> _backgroundColors = new() { Color.white, Color.black };
         private List<MapGeneratorNode> _nodes = new();
 
-        private void Start()
+        public void GenerateFloor()
         {
             GenerateNodes();
             GenerateGameObjectAndFindNeighbors();
@@ -43,6 +43,7 @@ namespace FroguesFramework
 
         private void GenerateGameObjectAndFindNeighbors()
         {
+            print(_nodes.Count);
             foreach (MapGeneratorNode node in _nodes)
             {
                 var nodeGameObject = Instantiate(nodePrefab);

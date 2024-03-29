@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
     public class Room : MonoBehaviour
     {
         [SerializeField] private Map map;
+        [SerializeField] public Tilemap tilemap;
         [SerializeField] private bool isPeaceful;
         [SerializeField] private Vector2Int exitPosition;
         [SerializeField] private Vector2Int PositionOfCenterTile;
