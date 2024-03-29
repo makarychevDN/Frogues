@@ -9,23 +9,26 @@ namespace FroguesFramework
 {
     public class Room : MonoBehaviour
     {
-        [SerializeField] private Map map;
-        [SerializeField] public Tilemap tilemap;
         [SerializeField] private bool isPeaceful;
-        [SerializeField] private Vector2Int exitPosition;
         [SerializeField] private Vector2Int PositionOfCenterTile;
-        [SerializeField] private PathFinder pathFinder;
+
+        [SerializeField] private Tile wallTile;
+        [SerializeField] private List<Cell> cellsPrefabs;
+        [SerializeField] private List<Cell> wallsPrefabs;
+        [SerializeField] private Transform cellsParent;
+        [SerializeField] private Transform wallsParent;
+        [SerializeField] private List<Cell> allCells;
+        [SerializeField] private List<Cell> walls;
+
+        [Header("Links")]
+        [SerializeField] private Tilemap localTilemap;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
-
         [SerializeField] private Unit metaPlayer;
         [SerializeField] private UnitAndStartPosition player;
-        [SerializeField] private List<UnitAndStartPosition> unitsAndStartPositions;
         [SerializeField] private BaseTrainingModificator trainingModificator;
         private Cell _exitCell;
 
-        public PathFinder PathFinder => pathFinder;
-        public Map Map => map;
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
         public bool IsPeaceful => isPeaceful;
@@ -35,19 +38,15 @@ namespace FroguesFramework
 
         public Vector3 GetDeltaOfCenterPosition()
         {
-            return map.tilemap.CellToWorld(new Vector3Int(PositionOfCenterTile.x, PositionOfCenterTile.y)) - transform.position;
+            return localTilemap.CellToWorld(new Vector3Int(PositionOfCenterTile.x, PositionOfCenterTile.y)) - transform.position;
         }
 
         public void Init()
         {
-            map.Init();
-            PutUnitsOnCells();
-            cameraController.Init();
-            pathFinder.Init();
+            /*cameraController.Init();
             InitPlayer();
             unitsQueue.Player = player.unit;
 
-            _exitCell = map.GetCell(exitPosition);
             if(_exitCell != null)
                 _exitCell.OnBecameFullByUnit.AddListener(TryToActivateNextRoom);
 
@@ -66,24 +65,7 @@ namespace FroguesFramework
             if(trainingModificator != null)
                 trainingModificator.Init();
 
-            onRoomInited.Invoke();
-        }
-
-        public void PutUnitsOnCells()
-        {
-            PutUnitOnCell(player.unit, map.GetCell(player.startPosition));
-
-            foreach(var unitAndStartPosition in unitsAndStartPositions)
-            {
-                PutUnitOnCell(unitAndStartPosition.unit, map.GetCell(unitAndStartPosition.startPosition));
-            }
-        }
-
-        private void PutUnitOnCell(Unit unit, Cell cell)
-        {
-            cell.Content = unit;
-            unit.CurrentCell = cell;
-            unit.transform.position = cell.transform.position;
+            onRoomInited.Invoke();*/
         }
         
         public void Init(Unit metaPlayer)
@@ -133,6 +115,28 @@ namespace FroguesFramework
             Destroy(gameObject);
         }
 
+        [ContextMenu("Switch Tilemap Renderer Enabled")]
+        public void SwitchTilemapRendererEnabled()
+        {
+            localTilemap.GetComponent<TilemapRenderer>().enabled = localTilemap.GetComponent<TilemapRenderer>().enabled!;
+        }
+
+        [ContextMenu("Destroy All Cells")]
+        public void DestroyAllCells()
+        {
+            for (int i = 0; i < allCells.Count; i++)
+            {
+                DestroyImmediate(allCells[i].gameObject);
+            }
+            allCells.Clear();
+
+            for (int i = 0; i < walls.Count; i++)
+            {
+                DestroyImmediate(walls[i].gameObject);
+            }
+            walls.Clear();
+        }
+
         [ContextMenu("Clamp Position To Global Tile Map")]
         public void ClampToGlobalTileMap()
         {
@@ -151,6 +155,44 @@ namespace FroguesFramework
             }
 
             transform.position = globalTilemap.CellToWorld(globalTilemap.WorldToCell(transform.position));
+        }
+
+        [ContextMenu("Generate Cells By Local Tilemap")]
+        public void GenerateCellsByLocalTilemap()
+        {
+            DestroyAllCells();
+            localTilemap.CompressBounds();
+            BoundsInt bounds = localTilemap.cellBounds;
+            TileBase[] allTiles = localTilemap.GetTilesBlock(bounds);
+            var localCellsArray = new Cell[bounds.size.x, bounds.size.y];
+
+            for (int x = 0; x < bounds.size.x; x++)
+            {
+                for (int y = 0; y < bounds.size.y; y++)
+                {
+                    TileBase tile = Extensions.GetTileFromListByCoordinates(allTiles, bounds, x, y);
+
+                    if (tile != null)
+                    {
+                        Cell spawnedCell;
+
+                        if (tile == wallTile)
+                        {
+                            spawnedCell = Instantiate(wallsPrefabs.GetRandomElement(), wallsParent);
+                            walls.Add(spawnedCell);
+                        }
+                        else
+                        {
+                            spawnedCell = Instantiate(cellsPrefabs.GetRandomElement(), cellsParent);
+                            allCells.Add(spawnedCell);
+                        }
+
+                        localCellsArray[x, y] = spawnedCell;
+                        spawnedCell.coordinates = new Vector2Int(x, y);
+                        spawnedCell.transform.position = localTilemap.CellToWorld(new Vector3Int(x, y));
+                    }
+                }
+            }
         }
 
         [Serializable]

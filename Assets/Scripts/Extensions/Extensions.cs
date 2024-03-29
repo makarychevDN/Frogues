@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
@@ -264,6 +265,36 @@ namespace FroguesFramework
                 T value = list[k];
                 list[k] = list[n];
                 list[n] = value;
+            }
+        }
+
+        public static TileBase GetTileFromListByCoordinates(TileBase[] allTiles, BoundsInt bounds, int x, int y)
+        {
+            return allTiles[x + y * bounds.size.x];
+        }
+
+        public static bool IsNullTileNearby(TileBase[] allTiles, BoundsInt bounds, int x, int y)
+        {
+            try
+            {
+                int evenModificator = y.Even().ToInt();
+                int oddModificator = y.Odd().ToInt();
+
+                var topLeftTile = GetTileFromListByCoordinates(allTiles, bounds, x - evenModificator, y + 1);
+                var topRightTile = GetTileFromListByCoordinates(allTiles, bounds, x + oddModificator, y + 1);
+
+                var bottomLeftTile = GetTileFromListByCoordinates(allTiles, bounds, x - evenModificator, y - 1);
+                var bottomRightTile = GetTileFromListByCoordinates(allTiles, bounds, x + oddModificator, y - 1);
+
+                var leftTile = GetTileFromListByCoordinates(allTiles, bounds, x - 1, y);
+                var rightTile = GetTileFromListByCoordinates(allTiles, bounds, x + 1, y);
+
+                return topLeftTile == null || topRightTile == null || bottomLeftTile == null || bottomRightTile == null || leftTile == null || rightTile == null;
+            }
+
+            catch
+            {
+                return true;
             }
         }
     }

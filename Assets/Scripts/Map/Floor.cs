@@ -32,4 +32,6 @@ public class Floor : MonoBehaviour
     }
 
     public Tilemap GlobalTilemap => globalTilemap;
+    public Map Map => map;
+    public PathFinder PathFinder => pathFinder;
 }

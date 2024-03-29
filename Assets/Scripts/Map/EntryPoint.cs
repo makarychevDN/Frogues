@@ -57,8 +57,8 @@ namespace FroguesFramework
         public bool CurrentRoomIsPeaceful => _currentRoom.IsPeaceful;
         public SerializedDictionary<RewardType, List<BaseAbility>> PossibleRewards => possibleRewards;
         public CameraController CameraController => _currentRoom.CameraController;
-        public PathFinder PathFinder => _currentRoom.PathFinder;
-        public Map Map => _currentRoom.Map;
+        public PathFinder PathFinder => floor.PathFinder;
+        public Map Map => floor.Map;
         public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;
         public bool PauseIsActive => pausePanel.activeSelf || unitDescriptionPanel.IsActive;
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
