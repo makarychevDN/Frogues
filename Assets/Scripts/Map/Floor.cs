@@ -30,4 +30,6 @@ public class Floor : MonoBehaviour
     {
         return rooms[0];
     }
+
+    public Tilemap GlobalTilemap => globalTilemap;
 }

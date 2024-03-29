@@ -133,6 +133,26 @@ namespace FroguesFramework
             Destroy(gameObject);
         }
 
+        [ContextMenu("Clamp Position To Global Tile Map")]
+        public void ClampToGlobalTileMap()
+        {
+            Floor floor = GetComponentInParent<Floor>();
+            if (floor == null)
+            {
+                Debug.LogError("There is no Floor component in parents");
+                return;
+            }
+
+            Tilemap globalTilemap = floor.GlobalTilemap;
+            if (globalTilemap == null)
+            {
+                Debug.LogError("There is no Global Tilemap in the floor");
+                return;
+            }
+
+            transform.position = globalTilemap.CellToWorld(globalTilemap.WorldToCell(transform.position));
+        }
+
         [Serializable]
         public struct UnitAndStartPosition
         {
