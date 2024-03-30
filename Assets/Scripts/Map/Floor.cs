@@ -11,6 +11,9 @@ public class Floor : MonoBehaviour
     [SerializeField] private PathFinder pathFinder;
     [SerializeField] private bool needToGenerateMap = true;
     [SerializeField] private List<Room> rooms;
+    [SerializeField] private Room startRoom;
+
+    [SerializeField] private Unit player;
 
     public void Init()
     {
@@ -22,6 +25,12 @@ public class Floor : MonoBehaviour
 
         map.Init(rooms);
         pathFinder.Init();
+
+        startRoom.CenterCell.Content = player;
+        player.CurrentCell = startRoom.CenterCell;
+        player.transform.position = startRoom.transform.position;
+        player.Init();
+
     }
 
     public Room GetTheFirstRoomOnTheFloor()

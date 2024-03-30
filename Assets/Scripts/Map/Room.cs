@@ -10,7 +10,7 @@ namespace FroguesFramework
     public class Room : MonoBehaviour
     {
         [SerializeField] private bool isPeaceful;
-        [SerializeField] private Vector2Int PositionOfCenterTile;
+        [SerializeField] private Cell centerCell;
 
         [SerializeField] private Tile wallTile;
         [SerializeField] private List<Cell> cellsPrefabs;
@@ -37,11 +37,12 @@ namespace FroguesFramework
         public List<Cell> Walls => walls;
         
         public Vector3 CenterOfRoom => cameraController.transform.position;
+        public Cell CenterCell => centerCell;
         public UnityEvent onRoomInited;
 
         public Vector3 GetDeltaOfCenterPosition()
         {
-            return localTilemap.CellToWorld(new Vector3Int(PositionOfCenterTile.x, PositionOfCenterTile.y)) - transform.position;
+            return localTilemap.CellToWorld(new Vector3Int(centerCell.Coordinates.x, centerCell.Coordinates.y)) - transform.position;
         }
 
         public void Init()
