@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -47,7 +48,7 @@ namespace FroguesFramework
         public UnityEvent<Unit> OnStepOnThisUnitByUnit = new UnityEvent<Unit>();
         public UnityEvent OnInspectIt = new UnityEvent();
         
-        public Vector2Int Coordinates => CurrentCell.coordinates;
+        public Vector2Int Coordinates => CurrentCell.Coordinates;
         public Grid Grid => FindObjectOfType<Grid>();
         private bool _initAlready;
 
@@ -78,6 +79,28 @@ namespace FroguesFramework
 
             if (CurrentCell != null)
                 transform.position = CurrentCell.transform.position;
+        }
+
+        [ContextMenu("Clamp It To Cell")]
+        public void ClampItToCell()
+        {
+            if (Application.isPlaying)
+                return;
+
+            Room room = GetComponentInParent<Room>();
+            if(room == null)
+            {
+                Debug.LogError("there is no room component in parents");
+            }
+
+            Vector2Int coordinates = room.LocalTilemap.WorldToCell(transform.position).ToVector2Int();
+            Cell targetCell = room.AllCells.FirstOrDefault(cell => cell.Coordinates == coordinates);
+            if(targetCell == null || !targetCell.IsEmpty)
+            {
+                Debug.LogError("there is no free cell in closest grid coordinates");
+            }
+
+            targetCell.ClampUnitToCell(this);
         }
     }
 }

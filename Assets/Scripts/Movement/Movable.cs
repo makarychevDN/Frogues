@@ -59,7 +59,7 @@ namespace FroguesFramework
             if (!IsPossibleToMoveOnCell(targetCell))
                 return;
 
-            targetCell.chosenToMovement = true;
+            targetCell.ChosenToMovement = true;
 
             if (startCellBecomeEmptyOnMove)
                 _unit.CurrentCell.Content = null;
@@ -72,7 +72,7 @@ namespace FroguesFramework
 
         private void StopMovement(Cell targetCell)
         {
-            targetCell.chosenToMovement = false;
+            targetCell.ChosenToMovement = false;
             _unit.transform.position = targetCell.transform.position;
             _unit.CurrentCell = targetCell;
 

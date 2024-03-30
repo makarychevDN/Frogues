@@ -40,17 +40,17 @@ namespace FroguesFramework
         
         private void InitNeighborCells()
         {
-            int evenModificator = myCell.coordinates.y.Even().ToInt();
-            int oddModificator = myCell.coordinates.y.Odd().ToInt();
+            int evenModificator = myCell.Coordinates.y.Even().ToInt();
+            int oddModificator = myCell.Coordinates.y.Odd().ToInt();
 
-            _topLeftCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y + 1));            
-            _topRightCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y + 1));
+            _topLeftCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.Coordinates.x - evenModificator, myCell.Coordinates.y + 1));            
+            _topRightCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.Coordinates.x + oddModificator, myCell.Coordinates.y + 1));
             
-            _downLeftCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x - evenModificator, myCell.coordinates.y - 1));            
-            _downRightCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.coordinates.x + oddModificator, myCell.coordinates.y - 1));
+            _downLeftCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.Coordinates.x - evenModificator, myCell.Coordinates.y - 1));            
+            _downRightCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(myCell.Coordinates.x + oddModificator, myCell.Coordinates.y - 1));
 
-            _leftCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.left);
-            _rightCell = EntryPoint.Instance.Map.GetCell(myCell.coordinates + Vector2Int.right);
+            _leftCell = EntryPoint.Instance.Map.GetCell(myCell.Coordinates + Vector2Int.left);
+            _rightCell = EntryPoint.Instance.Map.GetCell(myCell.Coordinates + Vector2Int.right);
 
             _neighbors = new List<Cell>
             {

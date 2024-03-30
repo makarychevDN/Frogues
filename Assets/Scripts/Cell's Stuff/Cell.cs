@@ -1,35 +1,33 @@
-using System;
 using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Tilemaps;
-using Random = UnityEngine.Random;
 
 namespace FroguesFramework
 {
-    [ExecuteInEditMode]
+    [ExecuteAlways]
     public class Cell : MonoBehaviour, IAbleToDisablePreVisualization
     {
-        public MapLayer mapLayer;
-        [field : SerializeField] public Vector2Int coordinates { get; set; }
-
-        public UnityEvent OnBecameFull = new();
-        public UnityEvent OnBecameEmpty = new();
-
-        public UnityEvent<Unit> OnBecameFullByUnit = new();
-        public UnityEvent<Unit> OnBecameEmptyByUnit = new();
+        [field: SerializeField] public bool ChosenToMovement { get; set; }
+        [field : SerializeField] public Vector2Int Coordinates { get; set; }
 
         [SerializeField] private Unit content;
         [SerializeField] private List<Unit> surfaces = new();
+
+        [Header("Previsualization Setup")]
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
         [SerializeField] private CellHighlighter validForAbilityTileHighlighter;
         [SerializeField] private CellHighlighter selectedByAbilityTileHighlighter;
         [SerializeField] private TrailsEnabler trailsEnabler;
         [SerializeField] private SpriteRenderer pathDot;
+
+        [Header("Links")]
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
-        [SerializeField] private Vector3 _hashedPosition;
-        [ReadOnly] public bool chosenToMovement;
+
+        public UnityEvent OnBecameFull = new();
+        public UnityEvent<Unit> OnBecameFullByUnit = new();
+        public UnityEvent OnBecameEmpty = new();
+        public UnityEvent<Unit> OnBecameEmptyByUnit = new();
 
         public List<Unit> Surfaces => surfaces;
 
@@ -55,17 +53,27 @@ namespace FroguesFramework
             }
         }
 
-        public bool IsEmpty => Content == null && !chosenToMovement;
+        public void ClampUnitToCell(Unit unit)
+        {
+            if (Application.isPlaying)
+                return;
+
+            content = unit;
+            unit.transform.position = transform.position;
+            unit.CurrentCell = this;
+        }
+
+        public bool IsEmpty => Content == null && !ChosenToMovement;
         
-        public bool AbleToStepOnIt => (Content == null || Content.Small) && !chosenToMovement;
+        public bool AbleToStepOnIt => (Content == null || Content.Small) && !ChosenToMovement;
 
         public HexagonCellNeighbours CellNeighbours => hexagonCellNeighbours;
 
-        public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
+        public bool CheckCellIsEmptyExtended(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if (!ignoreDefaultUnits && !EntryPoint.Instance.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
+            if (!ignoreDefaultUnits && !EntryPoint.Instance.Map.CellsArray[Coordinates.x, Coordinates.y].IsEmpty)
             {
-                if (ignoreSmallUnits && EntryPoint.Instance.Map.CellsArray[coordinates.x, coordinates.y].Content
+                if (ignoreSmallUnits && EntryPoint.Instance.Map.CellsArray[Coordinates.x, Coordinates.y].Content
                     .Small)
                     return true;
 
@@ -114,7 +122,12 @@ namespace FroguesFramework
                 return;
 
             transform.position = tilemap.CellToWorld(tilemap.WorldToCell(transform.position));
-            coordinates = new Vector2Int(tilemap.WorldToCell(transform.position).x, tilemap.WorldToCell(transform.position).y);
+            Coordinates = new Vector2Int(tilemap.WorldToCell(transform.position).x, tilemap.WorldToCell(transform.position).y);
+
+            if (content == null)
+                return;
+
+            ClampUnitToCell(content);
         }
 
         private void OnDestroy()

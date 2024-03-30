@@ -31,7 +31,9 @@ namespace FroguesFramework
 
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
+        public Tilemap LocalTilemap => localTilemap;
         public bool IsPeaceful => isPeaceful;
+        public List<Cell> AllCells => allCells;
         
         public Vector3 CenterOfRoom => cameraController.transform.position;
         public UnityEvent onRoomInited;
@@ -188,7 +190,7 @@ namespace FroguesFramework
                         }
 
                         localCellsArray[x, y] = spawnedCell;
-                        spawnedCell.coordinates = new Vector2Int(x, y);
+                        spawnedCell.Coordinates = new Vector2Int(x, y);
                         spawnedCell.transform.position = localTilemap.CellToWorld(new Vector3Int(x, y));
                     }
                 }

@@ -105,8 +105,8 @@ namespace FroguesFramework
             bool ignoreSurfaces)
         {
             _currentNodes = new List<PathFinderNode>();
-            _currentNodes.Add(_nodesGrid[userCell.coordinates.x, userCell.coordinates.y]);
-            _nodesGrid[userCell.coordinates.x, userCell.coordinates.y].usedToPathFinding = true;
+            _currentNodes.Add(_nodesGrid[userCell.Coordinates.x, userCell.Coordinates.y]);
+            _nodesGrid[userCell.Coordinates.x, userCell.Coordinates.y].usedToPathFinding = true;
             PathFinderNode smallestWeightNode;
 
             while (_currentNodes.Count != 0)
@@ -123,7 +123,7 @@ namespace FroguesFramework
                 foreach (var item in smallestWeightNode.neighbors)
                 {
 
-                    if (item.coordinates == new Vector2Int(targetCell.coordinates.x, targetCell.coordinates.y))
+                    if (item.coordinates == new Vector2Int(targetCell.Coordinates.x, targetCell.Coordinates.y))
                     {
                         item.previous = smallestWeightNode;
                         List<Cell> path = new List<Cell>();
@@ -131,7 +131,7 @@ namespace FroguesFramework
                         Cell[,] currentLayer = EntryPoint.Instance.Map.CellsArray;
 
                         while (tempBackTrackNode.coordinates !=
-                               new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
+                               new Vector2Int(userCell.Coordinates.x, userCell.Coordinates.y))
                         {
                             path.Insert(0,
                                 currentLayer[tempBackTrackNode.coordinates.x, tempBackTrackNode.coordinates.y]);
@@ -164,8 +164,8 @@ namespace FroguesFramework
         {
             _childNodes = new List<PathFinderNode>();
             _currentNodes = new List<PathFinderNode>();
-            _currentNodes.Add(_nodesGrid[userCell.coordinates.x, userCell.coordinates.y]);
-            _nodesGrid[userCell.coordinates.x, userCell.coordinates.y].usedToPathFinding = true;
+            _currentNodes.Add(_nodesGrid[userCell.Coordinates.x, userCell.Coordinates.y]);
+            _nodesGrid[userCell.Coordinates.x, userCell.Coordinates.y].usedToPathFinding = true;
             int stepCounter = 0;
             List<Cell> resultCells = new List<Cell>();
 
@@ -198,8 +198,8 @@ namespace FroguesFramework
         {
             _childNodes = new List<PathFinderNode>();
             _currentNodes = new List<PathFinderNode>();
-            _currentNodes.Add(_nodesGrid[userCell.coordinates.x, userCell.coordinates.y]);
-            _nodesGrid[userCell.coordinates.x, userCell.coordinates.y].usedToPathFinding = true;
+            _currentNodes.Add(_nodesGrid[userCell.Coordinates.x, userCell.Coordinates.y]);
+            _nodesGrid[userCell.Coordinates.x, userCell.Coordinates.y].usedToPathFinding = true;
             int stepCounter = 0;
             List<Cell> resultCells = new List<Cell>();
 
@@ -309,20 +309,20 @@ namespace FroguesFramework
                 foreach (var dir in _dirVectors)
                 {
                     if (AddNeighborIsPossible(node, dir))
-                        node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);                    
+                        node.AddNeighbor(_nodesGrid[node.cell.Coordinates.x + dir.x, node.cell.Coordinates.y + dir.y]);                    
                 }
                 
                 if(!isMapHexagon)
                     continue;
 
-                _tempListForAdditionDirVectors = node.cell.coordinates.y.Even()
+                _tempListForAdditionDirVectors = node.cell.Coordinates.y.Even()
                     ? _additionalEvenDirVectorsForHexMap
                     : _additionalOddDirVectorsForHexMap;
 
                 foreach (var dir in _tempListForAdditionDirVectors)
                 {
                     if (AddNeighborIsPossible(node, dir))
-                        node.AddNeighbor(_nodesGrid[node.cell.coordinates.x + dir.x, node.cell.coordinates.y + dir.y]);
+                        node.AddNeighbor(_nodesGrid[node.cell.Coordinates.x + dir.x, node.cell.Coordinates.y + dir.y]);
                 }
             }
         }
@@ -331,10 +331,10 @@ namespace FroguesFramework
         {
             if (node == null) return false;
 
-            return node.cell.coordinates.x + dir.x > 0
-                   && node.cell.coordinates.x + dir.x < _nodesGrid.GetLength(0)
-                   && node.cell.coordinates.y + dir.y > 0
-                   && node.cell.coordinates.y + dir.y < _nodesGrid.GetLength(1);
+            return node.cell.Coordinates.x + dir.x > 0
+                   && node.cell.Coordinates.x + dir.x < _nodesGrid.GetLength(0)
+                   && node.cell.Coordinates.y + dir.y > 0
+                   && node.cell.Coordinates.y + dir.y < _nodesGrid.GetLength(1);
         }
 
         #endregion
@@ -350,7 +350,7 @@ namespace FroguesFramework
         public float weight;
 
         public bool CheckIsBusy(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
-            => !cell.CheckColumnIsEmpty(ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces) /* && !IsWall*/;
+            => !cell.CheckCellIsEmptyExtended(ignoreDefaultUnits, ignoreSmallUnits, ignoreSurfaces) /* && !IsWall*/;
 
         public bool Busy => !cell.AbleToStepOnIt;
 
@@ -360,7 +360,7 @@ namespace FroguesFramework
         {
             this.cell = cell;
             neighbors = new List<PathFinderNode>();
-            coordinates = this.cell.coordinates;
+            coordinates = this.cell.Coordinates;
         }
 
         public void AddNeighbor(PathFinderNode neighbor)
