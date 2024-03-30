@@ -34,6 +34,7 @@ namespace FroguesFramework
         public Tilemap LocalTilemap => localTilemap;
         public bool IsPeaceful => isPeaceful;
         public List<Cell> AllCells => allCells;
+        public List<Cell> Walls => walls;
         
         public Vector3 CenterOfRoom => cameraController.transform.position;
         public UnityEvent onRoomInited;
@@ -117,10 +118,16 @@ namespace FroguesFramework
             Destroy(gameObject);
         }
 
+        public void TurnOffTileMapRenderer()
+        {
+            localTilemap.GetComponent<TilemapRenderer>().enabled = false;
+        }
+
         [ContextMenu("Switch Tilemap Renderer Enabled")]
         public void SwitchTilemapRendererEnabled()
         {
-            localTilemap.GetComponent<TilemapRenderer>().enabled = localTilemap.GetComponent<TilemapRenderer>().enabled!;
+            var tilemapRenderer = localTilemap.GetComponent<TilemapRenderer>();
+            tilemapRenderer.enabled = !tilemapRenderer.enabled;
         }
 
         [ContextMenu("Destroy All Cells")]

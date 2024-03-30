@@ -19,11 +19,9 @@ public class Floor : MonoBehaviour
             globalTilemap.ClearAllTiles();
             floorGenerator.GenerateFloor();
         }
-    }
 
-    public void Generate()
-    {
-
+        map.Init(rooms);
+        pathFinder.Init();
     }
 
     public Room GetTheFirstRoomOnTheFloor()

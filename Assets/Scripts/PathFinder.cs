@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -22,7 +23,7 @@ namespace FroguesFramework
             InitializeDirVectors();
             InitializeNodesGrid();
             FindAllNodesNeighbors();
-            //DrawLinesBetweenNeighbors();
+            DrawLinesBetweenNeighbors();
         }
 
         private void DrawLinesBetweenNeighbors()
