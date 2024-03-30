@@ -10,6 +10,7 @@ namespace FroguesFramework
     {
         [field: SerializeField] public bool ChosenToMovement { get; set; }
         [field : SerializeField] public Vector2Int Coordinates { get; set; }
+        [field : SerializeField] public Room ParentRoom { get; set; }
 
         [SerializeField] private Unit content;
         [SerializeField] private List<Unit> surfaces = new();
@@ -28,6 +29,7 @@ namespace FroguesFramework
         public UnityEvent<Unit> OnBecameFullByUnit = new();
         public UnityEvent OnBecameEmpty = new();
         public UnityEvent<Unit> OnBecameEmptyByUnit = new();
+        public UnityEvent<Unit, Room> OnSomeoneSteppedInMyRoom = new();
 
         public List<Unit> Surfaces => surfaces;
 
@@ -42,6 +44,7 @@ namespace FroguesFramework
                     value.CurrentCell = this;
                     OnBecameFull.Invoke();
                     OnBecameFullByUnit.Invoke(content);
+                    OnSomeoneSteppedInMyRoom.Invoke(content, ParentRoom);
                     EntryPoint.Instance.InvokeSomeoneMoved();
                 }
                 else

@@ -100,11 +100,11 @@ namespace FroguesFramework
             floor.Init();
             //_currentRoom = floor.GetTheFirstRoomOnTheFloor();
 
-            //_abilitiesPanel.Init(_metaPlayer);
-            ///playersActionPointsUI.Init(_metaPlayer.ActionPoints);
-            //playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
-            //_metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
-            //_metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
+            _abilitiesPanel.Init(_metaPlayer);
+            playersActionPointsUI.Init(_metaPlayer.ActionPoints);
+            playersBloodPointsUI.Init(_metaPlayer.BloodPoints);
+            _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
+            _metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
             //_currentRoom = hub;
             //_currentRoom.Init(_metaPlayer);
             //rewardsGenerator.Init();

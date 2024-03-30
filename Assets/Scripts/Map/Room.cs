@@ -19,6 +19,7 @@ namespace FroguesFramework
         [SerializeField] private Transform wallsParent;
         [SerializeField] private List<Cell> allCells;
         [SerializeField] private List<Cell> walls;
+        [SerializeField] private GameObject decorationsParent;
 
         [Header("Links")]
         [SerializeField] private Tilemap localTilemap;
@@ -111,13 +112,18 @@ namespace FroguesFramework
             }
         }
 
-        public void Deactivate()
+        public void Enable(bool value)
         {
-            cameraController.Deactivate();
-            GetComponentsInChildren<Cell>().ToList().ForEach(cell => EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(cell));
-            gameObject.SetActive(false);
-            Destroy(gameObject);
+            //cameraController.Deactivate();
+            //GetComponentsInChildren<Cell>().ToList().ForEach(cell => EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(cell));
+            //gameObject.SetActive(false);
+            //Destroy(gameObject);
+
+            decorationsParent.SetActive(value);
+            allCells.ForEach(cell => cell.gameObject.SetActive(value));
+            walls.ForEach(cell => cell.gameObject.SetActive(value));
         }
+
 
         public void TurnOffTileMapRenderer()
         {
@@ -197,6 +203,7 @@ namespace FroguesFramework
                             allCells.Add(spawnedCell);
                         }
 
+                        spawnedCell.ParentRoom = this;
                         localCellsArray[x, y] = spawnedCell;
                         spawnedCell.Coordinates = new Vector2Int(x, y);
                         spawnedCell.transform.position = localTilemap.CellToWorld(new Vector3Int(x, y));
