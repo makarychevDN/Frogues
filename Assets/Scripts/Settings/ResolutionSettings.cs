@@ -86,6 +86,7 @@ namespace FroguesFramework
         {
             Resolution resolution = _resolutions[resolutionIndex];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+
             PlayerPrefs.SetInt("ScreenResolutionX", resolution.width);
             PlayerPrefs.SetInt("ScreenResolutionY", resolution.height);
         }

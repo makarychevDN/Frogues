@@ -632,7 +632,7 @@ AudioSource:
   m_GameObject: {fileID: 54434279}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8717509200872203464, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
   m_audioClip: {fileID: 8300000, guid: a31570bce83586242981fcfa98668556, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -2365,6 +2365,7 @@ GameObject:
   - component: {fileID: 431512262}
   - component: {fileID: 431512264}
   - component: {fileID: 431512263}
+  - component: {fileID: 431512265}
   m_Layer: 0
   m_Name: Sound Settings Panel
   m_TagString: Untagged
@@ -2440,6 +2441,29 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &431512265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431512261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f205a87a2dc07064c9e8821b6881c468, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
+  slidersAndMixerValues:
+    _serializedList:
+    - Key: {fileID: 1246229155}
+      Value: MasterVolume
+    - Key: {fileID: 1124228451}
+      Value: MusicVolume
+    - Key: {fileID: 851562816}
+      Value: SoundsVolume
+    - Key: {fileID: 1494269031}
+      Value: UIVolume
 --- !u!1 &469450512
 GameObject:
   m_ObjectHideFlags: 0
@@ -4986,7 +5010,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 496234434}
   m_HandleRect: {fileID: 899473857}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.31
@@ -5786,7 +5810,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1399906590}
   m_HandleRect: {fileID: 2041932388}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.31
@@ -6272,7 +6296,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1446672510}
   m_HandleRect: {fileID: 1642777832}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.31
@@ -7472,7 +7496,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1501940992}
   m_HandleRect: {fileID: 815429260}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.31
@@ -7866,7 +7890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1590952213}
   m_Layer: 0
-  m_Name: GameObject (4)
+  m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8561,6 +8585,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1722288284}
   m_CullTransparentMesh: 1
+--- !u!1 &1761765473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1761765474}
+  - component: {fileID: 1761765475}
+  m_Layer: 0
+  m_Name: Sounds Volume Settings Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1761765474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761765473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1761765475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761765473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329c7b1d678ebf044b2f96a278054bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
+  volumeParameters:
+  - MasterVolume
+  - MusicVolume
+  - SoundsVolume
+  - UIVolume
 --- !u!1 &1766971001
 GameObject:
   m_ObjectHideFlags: 0
@@ -9024,7 +9098,7 @@ AudioSource:
   m_GameObject: {fileID: 1802956678}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8717509200872203464, guid: c84dfc745e0d8fa498946387f386022e, type: 2}
   m_audioClip: {fileID: 8300000, guid: a31570bce83586242981fcfa98668556, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
