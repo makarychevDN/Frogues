@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace FroguesFramework
 {
@@ -265,6 +267,13 @@ namespace FroguesFramework
                 list[k] = list[n];
                 list[n] = value;
             }
+        }
+
+        public static IEnumerator SetLocale(int localeID)
+        {
+            yield return LocalizationSettings.InitializationOperation;
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
+            PlayerPrefs.SetInt("LastSelectedLocale", localeID);
         }
     }
 }
