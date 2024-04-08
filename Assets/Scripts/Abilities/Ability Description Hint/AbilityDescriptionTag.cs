@@ -8,14 +8,14 @@ namespace FroguesFramework
     public class AbilityDescriptionTag : ScriptableObject
     {
         [SerializeField, TextArea] private string descriptionText;
-        [SerializeField] private LocalizedString test;
+        [SerializeField] private LocalizedString localizedText;
 
         [Header("Black List Setup")]
         [SerializeField] private List<string> blackListTags;
         [SerializeField] private List<string> blackListValues;
 
-        public string DescriptionText => descriptionText;
-        //public string DescriptionText => test.GetLocalizedString();
+        //public string DescriptionText => descriptionText;
+        public string DescriptionText => localizedText.GetLocalizedString();
         public List<string> BlackListTags => blackListTags;
         public List<string> BlackListValues => blackListValues;
     }
