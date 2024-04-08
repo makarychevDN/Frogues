@@ -42,7 +42,7 @@ namespace FroguesFramework
         {
             currentAscensionIndex += value;
             currentAscensionIndex = Mathf.Clamp(currentAscensionIndex, 0, availableAscensionsForExpirensedToadMode.Count - 1);
-            ascensionCountLabel.text = "Возвышение " + currentAscensionIndex.ToString() + " / 7";
+            ascensionCountLabel.text = $"{currentAscensionIndex} / 7";
             runWithAscenstionContainer.AscensionSetup = availableAscensionsForExpirensedToadMode[currentAscensionIndex];
             ShowDescriptionOfAscentionByAscensionContainer(runWithAscenstionContainer);
         }
