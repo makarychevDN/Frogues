@@ -16,5 +16,7 @@ namespace FroguesFramework
         {
             return CellsTaker.TakeCellsLineWhichContainCell(_owner.CurrentCell, cells[0], CellsTaker.ObstacleMode.noObstacles, false, true, range);
         }
+
+        public override int ReturnRange() => range;
     }
 }

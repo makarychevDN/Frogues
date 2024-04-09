@@ -62,10 +62,10 @@ namespace FroguesFramework
             dataByKeyWords.Add("{defence_effect_time}", () => (ability as IAbleToApplyDefenceModificator).GetTimeToEndOfDefenceEffect().ToString());
             dataByKeyWords.Add("{defence_ffect_constantly}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceEffectIsConstantly().ToString());
 
-            dataByKeyWords.Add("{strenght_effect_value}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtModificatorValue().ToString());
-            dataByKeyWords.Add("{strenght_effect_delta}", () => (ability as IAbleToApplyStrenghtModificator).GetDeltaOfStrenghtValueForEachTurn().ToString());
-            dataByKeyWords.Add("{strenght_effect_time}", () => (ability as IAbleToApplyStrenghtModificator).GetTimeToEndOfStrenghtEffect().ToString());
-            dataByKeyWords.Add("{strenght_effect_constantly}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtEffectIsConstantly().ToString());
+            dataByKeyWords.Add("{strength_effect_value}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtModificatorValue().ToString());
+            dataByKeyWords.Add("{strength_effect_delta}", () => (ability as IAbleToApplyStrenghtModificator).GetDeltaOfStrenghtValueForEachTurn().ToString());
+            dataByKeyWords.Add("{strength_effect_time}", () => (ability as IAbleToApplyStrenghtModificator).GetTimeToEndOfStrenghtEffect().ToString());
+            dataByKeyWords.Add("{strength_effect_constantly}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtEffectIsConstantly().ToString());
 
             dataByKeyWords.Add("{intelligence_effect_value}", () => (ability as IAbleToApplyIntelligenceModificator).GetIntelligenceModificatorValue().ToString());
             dataByKeyWords.Add("{intelligence_effect_delta}", () => (ability as IAbleToApplyIntelligenceModificator).GetDeltaOfIntelligenceValueForEachTurn().ToString());
@@ -77,10 +77,10 @@ namespace FroguesFramework
             dataByKeyWords.Add("{dexterity_effect_time}", () => (ability as IAbleToApplyDexterityModificator).GetTimeToEndOfDexterityEffect().ToString());
             dataByKeyWords.Add("{dexterity_effect_constantly}", () => (ability as IAbleToApplyDexterityModificator).GetDexterityEffectIsConstantly().ToString());
 
-            dataByKeyWords.Add("{spikes_effect_value}", () => (ability as IAbleToApplySpikesModificator).GetSpikesModificatorValue().ToString());
-            dataByKeyWords.Add("{spikes_effect_delta}", () => (ability as IAbleToApplySpikesModificator).GetdeltaOfSpikesValueForEachTurn().ToString());
-            dataByKeyWords.Add("{spikes_effect_time}", () => (ability as IAbleToApplySpikesModificator).GetTimeToEndOfSpikesEffect().ToString());
-            dataByKeyWords.Add("{spikes_effect_constantly}", () => (ability as IAbleToApplySpikesModificator).GetSpikesEffectIsConstantly().ToString());
+            dataByKeyWords.Add("{thorns_effect_value}", () => (ability as IAbleToApplySpikesModificator).GetSpikesModificatorValue().ToString());
+            dataByKeyWords.Add("{thorns_effect_delta}", () => (ability as IAbleToApplySpikesModificator).GetdeltaOfSpikesValueForEachTurn().ToString());
+            dataByKeyWords.Add("{thorns_effect_time}", () => (ability as IAbleToApplySpikesModificator).GetTimeToEndOfSpikesEffect().ToString());
+            dataByKeyWords.Add("{thorns_effect_constantly}", () => (ability as IAbleToApplySpikesModificator).GetSpikesEffectIsConstantly().ToString());
 
             dataByKeyWords.Add("{immobilized_effect_time}", () => (ability as IAbleToApplyImmobilizedModificator).GetTimeToEndOfImmpobilizedEffect().ToString());
 
