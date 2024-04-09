@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class CannonBallAbility : JumpOnCellAbility, IAbleToDealDamage
+    public class CannonBallAbility : JumpOnCellAbility, IAbleToDealDamage, IAbleToHaveAlternativeRange
     {
         [SerializeField] private int damage;
         [SerializeField] private int radiusOfDamageArea = 1;
@@ -42,5 +42,7 @@ namespace FroguesFramework
         public int GetDefaultDamage() => damage;
 
         public DamageType GetDamageType() => damageType;
+
+        public int GetAlternativeRange() => radiusOfDamageArea;
     }
 }
