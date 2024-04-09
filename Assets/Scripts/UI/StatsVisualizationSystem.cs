@@ -76,9 +76,9 @@ namespace FroguesFramework
         {
             var text = statValue > 0 ? positiveDescriptionTag : negativeDescriptionTag;
 
-            text = text.Replace("{step value}", modificatorStepValue.ToString());
+            text = text.Replace("{step_value}", modificatorStepValue.ToString());
             text = text.Replace("{value}", statValue.ToString());
-            text = text.Replace("{sum value}", Mathf.Abs(statValue * modificatorStepValue).ToString());            
+            text = text.Replace("{sum_value}", Mathf.Abs(statValue * modificatorStepValue).ToString());            
 
             EntryPoint.Instance.AbilityHint.Init(header, text, "", transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
             EntryPoint.Instance.AbilityHint.EnableContent(true, true);
