@@ -2,12 +2,21 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class PackOfRatsPassiveAbility : PassiveAbility, IAbleToReturnSingleValue, IAbleToHaveCount
+    public class PackOfRatsPassiveAbility : PassiveAbility, IAbleToReturnSingleValue, IAbleToHaveCount, IAbleToApplyStrenghtModificator
     {
         [SerializeField] private int additionalStrenghtForEachRat;
-        [SerializeField] private StatEffect _effect;
+        [SerializeField] private StatEffect effectSetup;
+        private StatEffect _effect;
 
         public int GetCount() => additionalStrenghtForEachRat * (EntryPoint.Instance.CountOfRats - 1);
+
+        public int GetDeltaOfStrenghtValueForEachTurn() => effectSetup.deltaValueForEachTurn;
+
+        public bool GetStrenghtEffectIsConstantly() => effectSetup.effectIsConstantly;
+
+        public int GetStrenghtModificatorValue() => effectSetup.Value;
+
+        public int GetTimeToEndOfStrenghtEffect() => effectSetup.timeToTheEndOfEffect;
 
         public int GetValue() => additionalStrenghtForEachRat;
 
@@ -15,6 +24,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
 
+            _effect = new StatEffect(effectSetup);
             _owner.Stats.AddStatEffect(_effect);
             EntryPoint.Instance.OnCountOfRatsUpdated.AddListener(UpdateEffectValue);
             EntryPoint.Instance.CountOfRats++;
@@ -38,7 +48,7 @@ namespace FroguesFramework
 
         private void UpdateEffectValue(int newValue)
         {
-            _effect.Value = (newValue - 1);
+            _effect.Value = (newValue - 2);
         }
     }
 }
