@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace FroguesFramework
 {
@@ -9,14 +10,14 @@ namespace FroguesFramework
     public class AbilityDataForButton : MonoBehaviour
     {
         [SerializeField] private Material material;
-        [SerializeField] private string abilityName;
+        [SerializeField] private LocalizedString abilityName;
         [SerializeField] private List<AbilityDescriptionTag> shortDataTags;
         [SerializeField] private List<AbilityDescriptionTag> descriptionTags;
         private BaseAbility ability;
         private Dictionary<string, Func<string>> dataByKeyWords = new Dictionary<string, Func<string>>();
 
         public Material Material => material;
-        public string AbilityName => abilityName;
+        public string AbilityName => abilityName.GetLocalizedString();
         public string ShortData => GetShortData();
         public string Description => GetDescription();
 
