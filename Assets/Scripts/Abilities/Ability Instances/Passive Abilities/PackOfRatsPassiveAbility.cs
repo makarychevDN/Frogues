@@ -48,7 +48,7 @@ namespace FroguesFramework
 
         private void UpdateEffectValue(int newValue)
         {
-            _effect.Value = (newValue - 2);
+            _effect.Value = (newValue - 2) * additionalStrenghtForEachRat;
         }
     }
 }
