@@ -20,5 +20,11 @@ namespace FroguesFramework
             target.Movable.Move(certainCell, 20, 1);
 
         }
+
+        public override void Init(Unit unit)
+        {
+            base.Init(unit);
+            certainCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(1, 1));
+        }
     }
 }
