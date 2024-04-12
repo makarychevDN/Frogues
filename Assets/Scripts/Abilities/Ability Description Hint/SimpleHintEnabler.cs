@@ -1,18 +1,19 @@
 using UnityEngine;
+using UnityEngine.Localization;
 
 namespace FroguesFramework
 {
     public class SimpleHintEnabler : MonoBehaviour
     {
-        [SerializeField] private string header;
-        [SerializeField, TextArea] private string description;
+        [SerializeField] private LocalizedString header;
+        [SerializeField] private LocalizedString description;
         [SerializeField] private Vector2 pivot;
         [SerializeField] private Vector2 offcet;
 
 
         public void ShowHint()
         {
-            EntryPoint.Instance.AbilityHint.Init(header, description, "", transform, pivot, offcet);
+            EntryPoint.Instance.AbilityHint.Init(header.GetLocalizedString(), description.GetLocalizedString(), "", transform, pivot, offcet);
             EntryPoint.Instance.AbilityHint.EnableContent(true, true);
         }
 
