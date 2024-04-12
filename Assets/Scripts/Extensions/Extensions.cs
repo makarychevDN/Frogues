@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 
@@ -274,6 +275,47 @@ namespace FroguesFramework
             yield return LocalizationSettings.InitializationOperation;
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
             PlayerPrefs.SetInt("LastSelectedLocale", localeID);
+        }
+
+        public static string GenerateDescription(List<AbilityDescriptionTag> tags, Dictionary<string, Func<string>> dataByKeyWords, bool thereAreNewLinesBetweenTags)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (var tag in tags)
+            {
+                string tagText = tag.DescriptionText;
+                bool ignoreTag = false;
+
+                foreach (var dataByKeyWord in dataByKeyWords)
+                {
+                    if (tagText.Contains(dataByKeyWord.Key))
+                    {
+                        string textToReplaceTag = dataByKeyWord.Value.Invoke();
+
+                        for (int i = 0; i < tag.BlackListTags.Count; i++)
+                        {
+                            if (tag.BlackListTags[i] == dataByKeyWord.Key && tag.BlackListValues[i] == textToReplaceTag)
+                            {
+                                ignoreTag = true;
+                            }
+                        }
+
+                        tagText = tagText.Replace(dataByKeyWord.Key, textToReplaceTag);
+                    }
+                }
+
+                if (ignoreTag)
+                    continue;
+
+                stringBuilder.Append(tagText);
+
+                if (thereAreNewLinesBetweenTags)
+                    stringBuilder.Append("\n");
+                else
+                    stringBuilder.Append(" ");
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

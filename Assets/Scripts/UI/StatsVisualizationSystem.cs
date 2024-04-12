@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 namespace FroguesFramework
@@ -13,6 +14,13 @@ namespace FroguesFramework
         [SerializeField] private StatVisualizationSegment dexteritySegment;
         [SerializeField] private StatVisualizationSegment defenceSegment;
         [SerializeField] private StatVisualizationSegment immobilizedSegment;
+
+        [Header("Localized mechanic names")]
+        [SerializeField] private LocalizedString strengthMechanicName;
+        [SerializeField] private LocalizedString intelligenceMechanicName;
+        [SerializeField] private LocalizedString dexterityMechanicName;
+        [SerializeField] private LocalizedString defenceMechanicName;
+        [SerializeField] private LocalizedString immobolizedMechanicName;
 
         [Header("description tags")]
         [SerializeField] private AbilityDescriptionTag strenghtMechanicDescriptionPositive;
@@ -66,11 +74,11 @@ namespace FroguesFramework
             resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
         }
 
-        public void ShowStrenghtHint() => ShowHint("Сила", strenghtMechanicDescriptionPositive.DescriptionText, strenghtMechanicDescriptionNegative.DescriptionText, strenghtSegment.transform, (int)stats.StrenghtModificatorPersentages, stats.Strenght);
-        public void ShowIntelligenceHint() => ShowHint("Интеллект", intelligenceMehanicDescriptionPositive.DescriptionText, intelligenceMehanicDescriptionNegative.DescriptionText, intelligenceSegment.transform, (int)stats.IntelegenceModificatorPersentages, stats.Intelegence);
-        public void ShowDexterityHint() => ShowHint("Ловкость", dexterityMechanicDescriptionPositive.DescriptionText, dexterityMechanicDescriptionNegative.DescriptionText, dexteritySegment.transform, (int)stats.DexterityeModificatorPersentages, stats.Dexterity);
-        public void ShowDefenceHint() => ShowHint("Защита", defenceMechanicDescriptionPositive.DescriptionText, defenceMechanicDescriptionNegative.DescriptionText, defenceSegment.transform, (int)stats.DefenceModificatorPersentages, stats.Defence);
-        public void ShowImmobolizedHint() => ShowHint("Обездвиженность", immobilizedMechanicDescription.DescriptionText, immobilizedMechanicDescription.DescriptionText, immobilizedSegment.transform, stats.Immobilized, 0);
+        public void ShowStrenghtHint() => ShowHint(strengthMechanicName.GetLocalizedString(), strenghtMechanicDescriptionPositive.DescriptionText, strenghtMechanicDescriptionNegative.DescriptionText, strenghtSegment.transform, (int)stats.StrenghtModificatorPersentages, stats.Strenght);
+        public void ShowIntelligenceHint() => ShowHint(intelligenceMechanicName.GetLocalizedString(), intelligenceMehanicDescriptionPositive.DescriptionText, intelligenceMehanicDescriptionNegative.DescriptionText, intelligenceSegment.transform, (int)stats.IntelegenceModificatorPersentages, stats.Intelegence);
+        public void ShowDexterityHint() => ShowHint(dexterityMechanicName.GetLocalizedString(), dexterityMechanicDescriptionPositive.DescriptionText, dexterityMechanicDescriptionNegative.DescriptionText, dexteritySegment.transform, (int)stats.DexterityeModificatorPersentages, stats.Dexterity);
+        public void ShowDefenceHint() => ShowHint(defenceMechanicName.GetLocalizedString(), defenceMechanicDescriptionPositive.DescriptionText, defenceMechanicDescriptionNegative.DescriptionText, defenceSegment.transform, (int)stats.DefenceModificatorPersentages, stats.Defence);
+        public void ShowImmobolizedHint() => ShowHint(immobolizedMechanicName.GetLocalizedString(), immobilizedMechanicDescription.DescriptionText, immobilizedMechanicDescription.DescriptionText, immobilizedSegment.transform, stats.Immobilized, 0);
 
         private void ShowHint(string header, string positiveDescriptionTag, string negativeDescriptionTag, Transform transformOfIcon, int modificatorStepValue, int statValue)
         {

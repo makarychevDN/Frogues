@@ -1100,9 +1100,49 @@ MonoBehaviour:
   blockTextField: {fileID: 6831971646895669042}
   armorTextField: {fileID: 5364192010920824440}
   spikesTextField: {fileID: 2886359808257623386}
+  healthMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1507685737586688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  blockMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1507862456197120
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  armorMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1508507208802304
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  thornsMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1508556680617984
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  healthMechanicDescription: {fileID: 11400000, guid: f3c69d6f88e28144497706ddbc48b673, type: 2}
   blockMechanicDescription: {fileID: 11400000, guid: a81c654dddd09c94398c2bbd7ac0f8d9, type: 2}
   armorMechanicDescription: {fileID: 11400000, guid: 103d29ee167819743be36043060eea6f, type: 2}
-  spikesMechanicDescription: {fileID: 11400000, guid: 1733d4b41debb194f84dff613571909d, type: 2}
+  thornsMechanicDescription: {fileID: 11400000, guid: 1733d4b41debb194f84dff613571909d, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &4618043813848248480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2622,7 +2662,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 69.65, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6088515222854075225
@@ -2930,7 +2970,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 69.65, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6088515222976966691
@@ -3473,7 +3513,19 @@ MonoBehaviour:
   temporaryResourcePointIcons: []
   generateIconsOnStart: 1
   resizableParent: {fileID: 0}
-  header: "\u041E\u0447\u043A\u0438 \u043A\u0440\u043E\u0432\u0438 (\u041E\u041A)"
+  header:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  descriptionTag: {fileID: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &6088515223235368702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3747,7 +3799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 280, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 468, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &6088515223341951821
@@ -4021,7 +4073,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 69.65, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6088515223572167249
@@ -4090,6 +4142,51 @@ MonoBehaviour:
   dexteritySegment: {fileID: 154284295533932558}
   defenceSegment: {fileID: 7073632073849449657}
   immobilizedSegment: {fileID: 2975843279284217768}
+  strengthMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1488803337494528
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  intelligenceMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1488855153926144
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  dexterityMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1488916537565184
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  defenceMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1488978533572608
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  immobolizedMechanicName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1489074654437376
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   strenghtMechanicDescriptionPositive: {fileID: 11400000, guid: 0b1f1daa37d9a7542ae5fa51d0a7226c, type: 2}
   strenghtMechanicDescriptionNegative: {fileID: 11400000, guid: 547d6218020da664bbc8fb61475b173b, type: 2}
   intelligenceMehanicDescriptionPositive: {fileID: 11400000, guid: 78dc6686bbdceed478ead9ad8e13f558, type: 2}
@@ -4099,6 +4196,9 @@ MonoBehaviour:
   defenceMechanicDescriptionPositive: {fileID: 11400000, guid: e663fdda7521c40449b48b82eb7cc99c, type: 2}
   defenceMechanicDescriptionNegative: {fileID: 11400000, guid: c3ca814fff84b724eb7363f25d6aab77, type: 2}
   immobilizedMechanicDescription: {fileID: 11400000, guid: 57f8bd10740892445a2bab26f6b118c8, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &6088515223621267373
 GameObject:
   m_ObjectHideFlags: 0
@@ -4160,8 +4260,19 @@ MonoBehaviour:
   temporaryResourcePointIcons: []
   generateIconsOnStart: 1
   resizableParent: {fileID: 0}
-  header: "\u041E\u0447\u043A\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0439
-    (\u041E\u0414)"
+  header:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1506791730077696
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  descriptionTag: {fileID: 11400000, guid: 9ca58a48aad5dfc47a774dfa6e247e69, type: 2}
+  references:
+    version: 2
+    RefIds: []
 --- !u!114 &6088515223621267369
 MonoBehaviour:
   m_ObjectHideFlags: 0
