@@ -13,11 +13,11 @@ namespace FroguesFramework
 
         public override void Init(string header, List<string> textBlocks, Transform button, Vector2 pivot, Vector2 positionRelativeToButton)
         {
-            InitSubHint(GetSubHintsData(textBlocks), additionalHints);
+            InitSubHint(GetSubHintsData(ref textBlocks), additionalHints);
             base.Init(header, textBlocks, button, pivot, positionRelativeToButton);
         }
 
-        private List<SubHintsData> GetSubHintsData(List<string> textBlocks)
+        private List<SubHintsData> GetSubHintsData(ref List<string> textBlocks)
         {
             List<SubHintsData> subHintsData = new List<SubHintsData>();
 
@@ -28,6 +28,7 @@ namespace FroguesFramework
                     if (textBlocks[i].Contains(mechanicDescription.Key) && !subHintsData.Contains(mechanicDescription.Value))
                     {
                         subHintsData.Add(mechanicDescription.Value);
+                        textBlocks[i] = textBlocks[i].Replace(mechanicDescription.Key, "");
                     }
                 }
             }
