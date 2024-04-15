@@ -88,13 +88,13 @@ namespace FroguesFramework
             text = text.Replace("{value}", statValue.ToString());
             text = text.Replace("{sum_value}", Mathf.Abs(statValue * modificatorStepValue).ToString());            
 
-            EntryPoint.Instance.AbilityHint.Init(header, text, transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
-            EntryPoint.Instance.AbilityHint.EnableContent(true);
+            EntryPoint.Instance.CommonSmallHint.Init(header, text, transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
+            EntryPoint.Instance.CommonSmallHint.EnableContent(true);
         }
 
         public void HideHint()
         {
-            EntryPoint.Instance.AbilityHint.EnableContent(false);
+            EntryPoint.Instance.CommonSmallHint.EnableContent(false);
         }
     }
 }

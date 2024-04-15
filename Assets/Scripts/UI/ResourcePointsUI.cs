@@ -132,13 +132,13 @@ namespace FroguesFramework
 
         public void ShowHint()
         {
-            EntryPoint.Instance.AbilityHint.Init(header.GetLocalizedString(), GenerateStatsString(), transform, new Vector2(0.5f, 0), Vector2.up * 32);
-            EntryPoint.Instance.AbilityHint.EnableContent(true);
+            EntryPoint.Instance.CommonSmallHint.Init(header.GetLocalizedString(), GenerateStatsString(), transform, new Vector2(0.5f, 0), Vector2.up * 32);
+            EntryPoint.Instance.CommonSmallHint.EnableContent(true);
         }
 
         public void HideHint()
         {
-            EntryPoint.Instance.AbilityHint.EnableContent(false);
+            EntryPoint.Instance.CommonSmallHint.EnableContent(false);
         }
 
         private string GenerateStatsString()
