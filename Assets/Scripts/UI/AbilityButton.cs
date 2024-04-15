@@ -14,7 +14,7 @@ namespace FroguesFramework
         [SerializeField] private TMP_Text cooldownCounterField;
         [SerializeField] private IntSpriteFontSegment chargesCounter;
         [SerializeField] private List<TMP_Text> chargesCounterElements;
-        [SerializeField] private AbilityHint abilityHint;
+        [SerializeField] private Hint abilityHint;
         [SerializeField] private AudioSource putInTheSlotSound;
         [SerializeField] private AudioSource putOutOfTheSlotSound;
 
@@ -191,13 +191,19 @@ namespace FroguesFramework
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (_draggingNow)
+                return;
+
             var data = _ability.GetAbilityDataForButton();
-            EntryPoint.Instance.AbilityHint.Init(data.AbilityName, data.ShortData, data.Description, transform, _pivotOfHintRectTransformWhenHover, _positionOfHintRelativeToButton);
+            EntryPoint.Instance.AbilityHint.Init(data.AbilityName, new List<string> { data.ShortData, data.Description }, transform, _pivotOfHintRectTransformWhenHover, _positionOfHintRelativeToButton);
             EntryPoint.Instance.AbilityHint.EnableContent(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (_draggingNow)
+                return;
+
             EntryPoint.Instance.AbilityHint.EnableContent(false);
         }
     }

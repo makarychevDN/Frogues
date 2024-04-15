@@ -23,7 +23,7 @@ namespace FroguesFramework
         [SerializeField] private GameObject exitButton;
         [SerializeField] private GameObject endTurnButton;
         [SerializeField] private UnitDescriptionPanel unitDescriptionPanel;
-        [SerializeField] private AbilityHint abilityHint;
+        [SerializeField] private Hint abilityHint;
         [SerializeField] private int score;
         [SerializeField] private int scoreRequiredToStartFinalPart = 1500;
         [SerializeField] private int campfiresAfterFinalScoreCountRequiredToWin = 2;
@@ -62,7 +62,7 @@ namespace FroguesFramework
         public UnitsQueue UnitsQueue => _currentRoom.UnitsQueue;
         public bool PauseIsActive => pausePanel.activeSelf || unitDescriptionPanel.IsActive;
         public UnitDescriptionPanel UnitDescriptionPanel => unitDescriptionPanel;
-        public AbilityHint AbilityHint => abilityHint;
+        public Hint AbilityHint => abilityHint;
         public int Score => score;
         public int ScoreDeltaCounterForBonfire => _scoreDeltaCounter;
         public int AdditionalHealingValue => additionalHealingValue;

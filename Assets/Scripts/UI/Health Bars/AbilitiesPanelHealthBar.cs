@@ -65,8 +65,8 @@ namespace FroguesFramework
 
         private void ShowHint(string header, string descriptionTag, Transform transformOfIcon)
         {
-            EntryPoint.Instance.AbilityHint.Init(header, descriptionTag, "", transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
-            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
+            EntryPoint.Instance.AbilityHint.Init(header, descriptionTag, transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
+            EntryPoint.Instance.AbilityHint.EnableContent(true);
         }
 
         public void HideHint()
