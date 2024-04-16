@@ -172,6 +172,74 @@ MonoBehaviour:
   lvlUpScrollbar: {fileID: 5169803324239123649}
   iconOfLvlUp: {fileID: 8882287139065845249}
   iconOfMaxLvl: {fileID: 8858875819979336822}
+  finalTestName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 2926526246051840
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  finalTestDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 2926622576631808
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  campName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 2914863996362752
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  campDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 2915066992287744
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  levelName:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 2923622437117952
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  levelDescription:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 2923653076508672
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  levelDescriptionOnMaxLvl:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 2923687335583744
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  pivot: {x: 1, y: 1}
+  offset: {x: -70, y: 0}
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1916877452583744331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2896,19 +2964,72 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1267585096665226071, guid: 027031a5483e64941bf488cf7e867989, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7691473331289065993}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4170073291947537220, guid: 027031a5483e64941bf488cf7e867989, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3493742845076532785}
   m_SourcePrefab: {fileID: 100100000, guid: 027031a5483e64941bf488cf7e867989, type: 3}
 --- !u!224 &206662870346976201 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1267585096665226071, guid: 027031a5483e64941bf488cf7e867989, type: 3}
   m_PrefabInstance: {fileID: 1389759766376747166}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3068772911862277082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4170073291947537220, guid: 027031a5483e64941bf488cf7e867989, type: 3}
+  m_PrefabInstance: {fileID: 1389759766376747166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3493742845076532785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3068772911862277082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4019744181866482734}
+          m_TargetAssemblyTypeName: FroguesFramework.XPSlidersPanel, Assembly-CSharp
+          m_MethodName: ShowHintAboutLvlUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4019744181866482734}
+          m_TargetAssemblyTypeName: FroguesFramework.XPSlidersPanel, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!114 &5169803324239123649 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6122572909764150367, guid: 027031a5483e64941bf488cf7e867989, type: 3}
   m_PrefabInstance: {fileID: 1389759766376747166}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3068772911862277082}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -3182,19 +3303,72 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1267585096665226071, guid: 027031a5483e64941bf488cf7e867989, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5017815806028740309}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4170073291947537220, guid: 027031a5483e64941bf488cf7e867989, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3824714768321168022}
   m_SourcePrefab: {fileID: 100100000, guid: 027031a5483e64941bf488cf7e867989, type: 3}
 --- !u!224 &491295628136230238 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1267585096665226071, guid: 027031a5483e64941bf488cf7e867989, type: 3}
   m_PrefabInstance: {fileID: 1677084160877688329}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3357750971935229261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4170073291947537220, guid: 027031a5483e64941bf488cf7e867989, type: 3}
+  m_PrefabInstance: {fileID: 1677084160877688329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3824714768321168022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357750971935229261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4019744181866482734}
+          m_TargetAssemblyTypeName: FroguesFramework.XPSlidersPanel, Assembly-CSharp
+          m_MethodName: ShowHintAboutFinalTest
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4019744181866482734}
+          m_TargetAssemblyTypeName: FroguesFramework.XPSlidersPanel, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!114 &4877834592354071126 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6122572909764150367, guid: 027031a5483e64941bf488cf7e867989, type: 3}
   m_PrefabInstance: {fileID: 1677084160877688329}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3357750971935229261}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -8093,19 +8267,72 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1267585096665226071, guid: 027031a5483e64941bf488cf7e867989, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3761029960043723518}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4170073291947537220, guid: 027031a5483e64941bf488cf7e867989, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 365609296865395814}
   m_SourcePrefab: {fileID: 100100000, guid: 027031a5483e64941bf488cf7e867989, type: 3}
 --- !u!114 &2871703938103795105 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6122572909764150367, guid: 027031a5483e64941bf488cf7e867989, type: 3}
   m_PrefabInstance: {fileID: 8299544891766626814}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5400655479918045882}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5400655479918045882 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4170073291947537220, guid: 027031a5483e64941bf488cf7e867989, type: 3}
+  m_PrefabInstance: {fileID: 8299544891766626814}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &365609296865395814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5400655479918045882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4019744181866482734}
+          m_TargetAssemblyTypeName: FroguesFramework.XPSlidersPanel, Assembly-CSharp
+          m_MethodName: ShowHintAboutCampfire
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4019744181866482734}
+          m_TargetAssemblyTypeName: FroguesFramework.XPSlidersPanel, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!224 &7114198633282994857 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1267585096665226071, guid: 027031a5483e64941bf488cf7e867989, type: 3}
