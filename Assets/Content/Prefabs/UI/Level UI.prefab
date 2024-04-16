@@ -323,8 +323,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3092007659073118130}
-  - component: {fileID: 3461467563726543702}
-  - component: {fileID: 1579639811676787927}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -355,86 +353,6 @@ RectTransform:
   m_AnchoredPosition: {x: -20, y: -40}
   m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &3461467563726543702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081352907002000739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1579639811676787927}
-          m_TargetAssemblyTypeName: FroguesFramework.SimpleHintEnabler, Assembly-CSharp
-          m_MethodName: ShowHint
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 1
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1579639811676787927}
-          m_TargetAssemblyTypeName: FroguesFramework.SimpleHintEnabler, Assembly-CSharp
-          m_MethodName: HideHint
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 1
---- !u!114 &1579639811676787927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2081352907002000739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68c97beddb1988944a8e57d63bdac1b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header:
-    m_TableReference:
-      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
-    m_TableEntryReference:
-      m_KeyId: 1479204916060160
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  description:
-    m_TableReference:
-      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
-    m_TableEntryReference:
-      m_KeyId: 1476625737867264
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  pivot: {x: 1, y: 1}
-  offcet: {x: -192, y: -88}
-  references:
-    version: 2
-    RefIds: []
 --- !u!1 &2674532246235029399
 GameObject:
   m_ObjectHideFlags: 0
@@ -1787,7 +1705,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1981,6 +1899,8 @@ GameObject:
   - component: {fileID: 1125852012478102843}
   - component: {fileID: 1334518475714486499}
   - component: {fileID: 1093682702575163646}
+  - component: {fileID: 3013660907574461399}
+  - component: {fileID: 6221774477690315083}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -2005,8 +1925,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -128, y: -20}
-  m_SizeDelta: {x: 91.748, y: 28}
+  m_AnchoredPosition: {x: -112.09766, y: -20}
+  m_SizeDelta: {x: 123.5526, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1125852012478102843
 CanvasRenderer:
@@ -2071,7 +1991,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2145,6 +2065,87 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &3013660907574461399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399401084738429891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c97beddb1988944a8e57d63bdac1b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1479204916060160
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: GUID:4a69c100aba7cee498f6751bbf8b772a
+    m_TableEntryReference:
+      m_KeyId: 1476625737867264
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  pivot: {x: 1, y: 1}
+  offset: {x: -70, y: 0}
+  useSmallHint: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &6221774477690315083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399401084738429891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3013660907574461399}
+          m_TargetAssemblyTypeName: FroguesFramework.SimpleHintEnabler, Assembly-CSharp
+          m_MethodName: ShowHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3013660907574461399}
+          m_TargetAssemblyTypeName: FroguesFramework.SimpleHintEnabler, Assembly-CSharp
+          m_MethodName: HideHint
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1 &8650852234125562285
 GameObject:
   m_ObjectHideFlags: 0
