@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,7 @@ namespace FroguesFramework
         [SerializeField] private LocalizedString abilityName;
         [SerializeField] private List<AbilityDescriptionTag> shortDataTags;
         [SerializeField] private List<AbilityDescriptionTag> descriptionTags;
+        [SerializeField] private SerializedDictionary<DamageType, LocalizedString> localizedDamageTypes;
         private BaseAbility ability;
         private Dictionary<string, Func<string>> _dataByKeyWords = new Dictionary<string, Func<string>>();
 
@@ -44,7 +46,7 @@ namespace FroguesFramework
 
             _dataByKeyWords.Add("{default_damage_value}", () => (ability as IAbleToDealDamage).GetDefaultDamage().ToString());
             _dataByKeyWords.Add("{calculated_damage_value}", () => IntToStringByCompareValues((ability as IAbleToDealDamage).CalculateDamage(), (ability as IAbleToDealDamage).GetDefaultDamage()));
-            _dataByKeyWords.Add("{damage_type}", () => (ability as IAbleToDealDamage).GetDamageType().ToString());
+            _dataByKeyWords.Add("{damage_type}", () => LocalizeDamageType((ability as IAbleToDealDamage).GetDamageType()).GetLocalizedString());
 
             _dataByKeyWords.Add("{alternative_default_damage_value}", () => (ability as IAbleToDealAlternativeDamage).GetDefaultAlternativeDamage().ToString());
             _dataByKeyWords.Add("{calculated_alternative_damage_value}", () => IntToStringByCompareValues((ability as IAbleToDealAlternativeDamage).CalculateAlternativeDamage(), (ability as IAbleToDealAlternativeDamage).GetDefaultAlternativeDamage()));
@@ -124,6 +126,11 @@ namespace FroguesFramework
 
             string color = comparableValue > targetValueToCompare ? "#96c620" : "#e05454";
             return $"<color={color}>{comparableValue}</color>";
+        }
+
+        public LocalizedString LocalizeDamageType(DamageType damageType)
+        {
+            return localizedDamageTypes[damageType];
         }
     }
 }
