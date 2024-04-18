@@ -7,7 +7,7 @@ namespace FroguesFramework
 {
     public class MainMenuController : MonoBehaviour
     {
-        [SerializeField] private TMP_Text description;
+        [SerializeField] private TMP_Text descriptionOfExpiriencedToadButton;
         [SerializeField] private TMP_Text ascensionCountLabel;
         [SerializeField] private int currentAscensionIndex;
         [SerializeField] private List<AscensionSetup> availableAscensionsForExpirensedToadMode;
@@ -33,9 +33,9 @@ namespace FroguesFramework
             }
         }
 
-        public void ShowDescriptionOfAscentionByAscensionContainer(AscensionSetupContainer ascensionSetupContainer)
+        public void UpdateDescriptionOfAscentionByAscensionContainer(AscensionSetupContainer ascensionSetupContainer)
         {
-            description.text = ascensionSetupContainer.AscensionSetup.Description;
+            descriptionOfExpiriencedToadButton.text = ascensionSetupContainer.AscensionSetup.Description.GetLocalizedString();
         }
 
         public void IncreaseCurrentAscentionIndex(int value)
@@ -44,7 +44,7 @@ namespace FroguesFramework
             currentAscensionIndex = Mathf.Clamp(currentAscensionIndex, 0, availableAscensionsForExpirensedToadMode.Count - 1);
             ascensionCountLabel.text = $"{currentAscensionIndex} / 7";
             runWithAscenstionContainer.AscensionSetup = availableAscensionsForExpirensedToadMode[currentAscensionIndex];
-            ShowDescriptionOfAscentionByAscensionContainer(runWithAscenstionContainer);
+            UpdateDescriptionOfAscentionByAscensionContainer(runWithAscenstionContainer);
         }
 
         public void SetCurrentAscension(AscensionSetupContainer ascensionSetupContainer)
