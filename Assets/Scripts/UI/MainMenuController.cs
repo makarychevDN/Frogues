@@ -17,6 +17,7 @@ namespace FroguesFramework
         [SerializeField] private GameObject globalMask;
         [SerializeField] private GameObject columnOfMainMenu;
         [SerializeField] private GameObject pressAnyKeyLabel;
+        [SerializeField] private GameObject ascensionSelectionPanel;
         private bool _anyKeyPressed;
 
         private void Awake()
@@ -26,8 +27,9 @@ namespace FroguesFramework
             globalMask.SetActive(true);
 
             maxAvailableAscensionSaveManager.TryToLoadInfo();
+            ascensionSelectionPanel.SetActive(MaxAvailavleAscension.indexOfMaxAbailableAscension > 0);
 
-            for(int i = 0; i < MaxAvailavleAscension.indexOfMaxAbailableAscension + 1; i++)
+            for (int i = 0; i < MaxAvailavleAscension.indexOfMaxAbailableAscension + 1; i++)
             {
                 availableAscensionsForExpirensedToadMode.Add(ascensionsForExpirensedToadMode[i]);
             }
