@@ -16,6 +16,7 @@ namespace FroguesFramework
         [SerializeField] private MaxAvailableAscensionSaveManager maxAvailableAscensionSaveManager;
         [SerializeField] private GameObject globalMask;
         [SerializeField] private GameObject columnOfMainMenu;
+        [SerializeField] private GameObject logo;
         [SerializeField] private GameObject pressAnyKeyLabel;
         [SerializeField] private GameObject ascensionSelectionPanel;
         private bool _anyKeyPressed;
@@ -23,6 +24,7 @@ namespace FroguesFramework
         private void Awake()
         {
             columnOfMainMenu.SetActive(false);
+            logo.SetActive(false);
             pressAnyKeyLabel.SetActive(true);
             globalMask.SetActive(true);
 
@@ -69,6 +71,7 @@ namespace FroguesFramework
                 _anyKeyPressed = true;
                 pressAnyKeyLabel.SetActive(false);
                 columnOfMainMenu.SetActive(true);
+                logo.SetActive(true);
             }
         }
     }
