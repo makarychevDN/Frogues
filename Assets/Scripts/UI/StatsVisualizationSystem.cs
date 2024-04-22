@@ -41,7 +41,9 @@ namespace FroguesFramework
 
         public void SetStats(Stats stats)
         {
+            this.stats.OnSomethingUpdated.RemoveAllListeners();
             this.stats = stats;
+            stats.OnSomethingUpdated.AddListener(RedrawIcons);
         }
 
         void Update()
@@ -52,6 +54,11 @@ namespace FroguesFramework
             }
 
             lastStatsHash = stats.CalculateHashFunctionOfPrevisualisation();
+        }
+
+        private void OnEnable()
+        {
+            RedrawIcons();
         }
 
         private void RedrawIcons()

@@ -18,6 +18,7 @@ namespace FroguesFramework
         [SerializeField] private float dexterityModificatorStep;
         [SerializeField] private float defenceModificatorStep;
         public UnityEvent<StatEffectTypes, int> OnStrenghtUpdated, OnIntelegenceUpdated, OnDexterityUpdated, OnDefenceUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
+        public UnityEvent OnSomethingUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
@@ -47,6 +48,7 @@ namespace FroguesFramework
             StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect, deltaValueForEachTurn, effectIsConstantly);
             _statsDictionary[type].Add(statEffect);
             _statsUpdatedEventsDictionary[type].Invoke(type, value);
+            OnSomethingUpdated.Invoke();
             statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
             return statEffect;
         }
@@ -54,12 +56,14 @@ namespace FroguesFramework
         private void InvokeEventByKey(StatEffectTypes key, int value)
         {
             _statsUpdatedEventsDictionary[key].Invoke(key, value);
+            OnSomethingUpdated.Invoke();
         }
 
         public void AddStatEffect(StatEffect statEffect)
         {
             _statsDictionary[statEffect.type].Add(statEffect);
             _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.type, statEffect.Value);
+            OnSomethingUpdated.Invoke();
             statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
         }
 
@@ -68,6 +72,7 @@ namespace FroguesFramework
             statEffect.OnEffectValueChanged.RemoveListener(InvokeEventByKey);
             _statsDictionary[statEffect.type].Remove(statEffect);
             _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.type, - statEffect.Value);
+            OnSomethingUpdated.Invoke();
         }
 
         public void RemoveAllNonConstantlyEffects()
