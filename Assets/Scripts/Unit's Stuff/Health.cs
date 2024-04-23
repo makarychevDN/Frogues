@@ -153,9 +153,9 @@ namespace FroguesFramework
                 }
             }
 
-            if(damageSource != null && _unit.Stats.Spikes > 0)
+            if(damageSource != null && _unit.Stats.Thorns > 0)
             {
-                damageSource.Health.TakeDamage(_unit.Stats.Spikes, null);
+                damageSource.Health.TakeDamage(_unit.Stats.Thorns, null);
             }
 
             if (currentHP < _hashedHp)

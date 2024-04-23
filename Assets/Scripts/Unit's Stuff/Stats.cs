@@ -11,7 +11,7 @@ namespace FroguesFramework
         [SerializeField] private List<StatEffect> intelegence;
         [SerializeField] private List<StatEffect> dexterity;
         [SerializeField] private List<StatEffect> defence;
-        [SerializeField] private List<StatEffect> spikes;
+        [SerializeField] private List<StatEffect> thorns;
         [SerializeField] private List<StatEffect> immobilized;
         [SerializeField] private float strengtModificatorStep;
         [SerializeField] private float intelegenceModificatorStep;
@@ -27,7 +27,7 @@ namespace FroguesFramework
         public int Intelegence => intelegence.GetStatValue();
         public int Dexterity => dexterity.GetStatValue();
         public int Defence => defence.GetStatValue();
-        public int Spikes => spikes.GetStatValue();
+        public int Thorns => thorns.GetStatValue();
         public int Immobilized => immobilized.GetTimeToTheEndOfEffect();
 
         public float StrenghtModificator => (1 + strenght.GetStatValue() * strengtModificatorStep);
@@ -41,7 +41,7 @@ namespace FroguesFramework
         public float DexterityeModificatorPersentages => dexterityModificatorStep * 100;
         public float DefenceModificatorPersentages => defenceModificatorStep * 100;
 
-        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 4 + intelegence.GetStatValue() * 40 + dexterity.GetStatValue() * 400 + defence.GetStatValue() * 4000 + spikes.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
+        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 4 + intelegence.GetStatValue() * 40 + dexterity.GetStatValue() * 400 + defence.GetStatValue() * 4000 + thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
@@ -129,7 +129,7 @@ namespace FroguesFramework
                 { StatEffectTypes.intelligence, intelegence },
                 { StatEffectTypes.dexterity, dexterity },
                 { StatEffectTypes.defence, defence },
-                { StatEffectTypes.spikes, spikes },
+                { StatEffectTypes.thorns, thorns },
                 { StatEffectTypes.immobilized, immobilized }
             };
 
@@ -139,7 +139,7 @@ namespace FroguesFramework
                 { StatEffectTypes.intelligence, OnIntelegenceUpdated },
                 { StatEffectTypes.dexterity, OnDexterityUpdated },
                 { StatEffectTypes.defence, OnDefenceUpdated },
-                { StatEffectTypes.spikes, OnSpikesUpdated },
+                { StatEffectTypes.thorns, OnSpikesUpdated },
                 { StatEffectTypes.immobilized, OnImmobilizedUpdated }
             };
         }
@@ -155,7 +155,7 @@ namespace FroguesFramework
         intelligence = 10,
         dexterity = 20,
         defence = 30,
-        spikes = 40,
+        thorns = 40,
         immobilized = 50
     }
 

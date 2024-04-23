@@ -24,7 +24,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time)
         {
             yield return new WaitForSeconds(time);
-            _owner.Stats.AddStatEffect(new StatEffect(StatEffectTypes.spikes, _owner.AbilitiesManager.WeaponDamage, 1));
+            _owner.Stats.AddStatEffect(new StatEffect(StatEffectTypes.thorns, _owner.AbilitiesManager.WeaponDamage, 1));
         }
 
         private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);

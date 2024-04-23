@@ -9,7 +9,7 @@ namespace FroguesFramework
     {
         [SerializeField] private Stats stats;
         [SerializeField] protected List<RectTransform> resizableParents;
-        [SerializeField] private StatVisualizationSegment strenghtSegment;
+        [SerializeField] private StatVisualizationSegment strengthSegment;
         [SerializeField] private StatVisualizationSegment intelligenceSegment;
         [SerializeField] private StatVisualizationSegment dexteritySegment;
         [SerializeField] private StatVisualizationSegment defenceSegment;
@@ -23,8 +23,8 @@ namespace FroguesFramework
         [SerializeField] private LocalizedString immobolizedMechanicName;
 
         [Header("description tags")]
-        [SerializeField] private AbilityDescriptionTag strenghtMechanicDescriptionPositive;
-        [SerializeField] private AbilityDescriptionTag strenghtMechanicDescriptionNegative;
+        [SerializeField] private AbilityDescriptionTag strengthMechanicDescriptionPositive;
+        [SerializeField] private AbilityDescriptionTag strengthMechanicDescriptionNegative;
 
         [SerializeField] private AbilityDescriptionTag intelligenceMehanicDescriptionPositive;
         [SerializeField] private AbilityDescriptionTag intelligenceMehanicDescriptionNegative;
@@ -41,9 +41,11 @@ namespace FroguesFramework
 
         public void SetStats(Stats stats)
         {
-            this.stats.OnSomethingUpdated.RemoveAllListeners();
+            if(this.stats != null)
+                this.stats.OnSomethingUpdated.RemoveListener(RedrawIcons);
+
             this.stats = stats;
-            stats.OnSomethingUpdated.AddListener(RedrawIcons);
+            this.stats.OnSomethingUpdated.AddListener(RedrawIcons);
         }
 
         void Update()
@@ -63,8 +65,11 @@ namespace FroguesFramework
 
         private void RedrawIcons()
         {
-            strenghtSegment.gameObject.SetActive(stats.Strenght != 0);
-            strenghtSegment.SetValue(stats.Strenght);
+            if (stats == null)
+                return;
+
+            strengthSegment.gameObject.SetActive(stats.Strenght != 0);
+            strengthSegment.SetValue(stats.Strenght);
 
             intelligenceSegment.gameObject.SetActive(stats.Intelegence != 0);
             intelligenceSegment.SetValue(stats.Intelegence);
@@ -81,7 +86,7 @@ namespace FroguesFramework
             resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
         }
 
-        public void ShowStrenghtHint() => ShowHint(strengthMechanicName.GetLocalizedString(), strenghtMechanicDescriptionPositive.DescriptionText, strenghtMechanicDescriptionNegative.DescriptionText, strenghtSegment.transform, (int)stats.StrenghtModificatorPersentages, stats.Strenght);
+        public void ShowStrenghtHint() => ShowHint(strengthMechanicName.GetLocalizedString(), strengthMechanicDescriptionPositive.DescriptionText, strengthMechanicDescriptionNegative.DescriptionText, strengthSegment.transform, (int)stats.StrenghtModificatorPersentages, stats.Strenght);
         public void ShowIntelligenceHint() => ShowHint(intelligenceMechanicName.GetLocalizedString(), intelligenceMehanicDescriptionPositive.DescriptionText, intelligenceMehanicDescriptionNegative.DescriptionText, intelligenceSegment.transform, (int)stats.IntelegenceModificatorPersentages, stats.Intelegence);
         public void ShowDexterityHint() => ShowHint(dexterityMechanicName.GetLocalizedString(), dexterityMechanicDescriptionPositive.DescriptionText, dexterityMechanicDescriptionNegative.DescriptionText, dexteritySegment.transform, (int)stats.DexterityeModificatorPersentages, stats.Dexterity);
         public void ShowDefenceHint() => ShowHint(defenceMechanicName.GetLocalizedString(), defenceMechanicDescriptionPositive.DescriptionText, defenceMechanicDescriptionNegative.DescriptionText, defenceSegment.transform, (int)stats.DefenceModificatorPersentages, stats.Defence);
