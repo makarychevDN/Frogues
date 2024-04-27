@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -5,7 +6,7 @@ namespace FroguesFramework
     public class AnimatedWall : MonoBehaviour
     {
         [SerializeField] private bool showed = true;
-        [SerializeField] private Animator animator;
+        [SerializeField] private List<Animator> animators;
         [SerializeField] Transform thikcnessPointsOnTheFrontSide;
 
         public Transform ThikcnessPointsOnTheFrontSide => thikcnessPointsOnTheFrontSide;
@@ -19,7 +20,7 @@ namespace FroguesFramework
                     return;
 
                 showed = value;
-                animator.SetBool("IsShowing", value);
+                animators.ForEach(animator => animator.SetBool("IsShowing", value));
             }
         }
     }
