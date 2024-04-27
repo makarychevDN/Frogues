@@ -30,7 +30,7 @@ namespace FroguesFramework
         {
             foreach (var pillar in pillars)
             {
-                pillar.itSelf.Showed = pillar.neighborWalls.Any(wall => wall.Showed);
+                pillar.itSelf.Showed = pillar.NeedToShow;
             }
         }
     }
@@ -38,7 +38,10 @@ namespace FroguesFramework
     [Serializable]
     public struct Pillar
     {
+        public bool requiresAllActiveNeighbors;
         public AnimatedWall itSelf;
         public List<AnimatedWall> neighborWalls;
+
+        public bool NeedToShow => requiresAllActiveNeighbors ? neighborWalls.All(wall => wall.Showed) : neighborWalls.Any(wall => wall.Showed);
     }
 }
