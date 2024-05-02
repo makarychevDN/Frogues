@@ -49,6 +49,12 @@ namespace FroguesFramework
             currentResourcePoints.OnTemporaryPointsIncreased.AddListener(RedrawTemporaryActionPointsIcons);
         }
 
+        private void OnEnable()
+        {
+            RedrawIcons(currentResourcePoints.CurrentPoints, currentResourcePoints.MaxPointsCount, currentResourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount);
+            RedrawIcons(currentResourcePoints.TemporaryPoints, currentResourcePoints.TemporaryPoints, currentResourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount);
+        }
+
         private void RedrawCurrentActionPointsIcons() =>
             RedrawIcons(currentResourcePoints.CurrentPoints,
             currentResourcePoints.MaxPointsCount,
