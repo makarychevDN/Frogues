@@ -15,7 +15,7 @@ namespace FroguesFramework
         [SerializeField] private ResourcePointUI temporaryResourcePointIconPrefab;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
         [SerializeField] private List<ResourcePointUI> temporaryResourcePointIcons = new();
-        [SerializeField] private bool generateIconsOnStart;
+        [SerializeField] private bool updateIconsOnEnable;
         [SerializeField] private RectTransform resizableParent;
 
         [Header("hint")]
@@ -51,6 +51,9 @@ namespace FroguesFramework
 
         private void OnEnable()
         {
+            if (!updateIconsOnEnable)
+                return;
+
             RedrawIcons(currentResourcePoints.CurrentPoints, currentResourcePoints.MaxPointsCount, currentResourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount);
             RedrawIcons(currentResourcePoints.TemporaryPoints, currentResourcePoints.TemporaryPoints, currentResourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount);
         }
