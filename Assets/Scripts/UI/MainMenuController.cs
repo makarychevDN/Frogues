@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
 namespace FroguesFramework
@@ -20,12 +22,13 @@ namespace FroguesFramework
         [SerializeField] private GameObject pressAnyKeyLabel;
         [SerializeField] private GameObject ascensionSelectionPanel;
         private bool _anyKeyPressed;
+        private bool _canPressAnyKey;
 
         private void Awake()
         {
             columnOfMainMenu.SetActive(false);
             logo.SetActive(false);
-            pressAnyKeyLabel.SetActive(true);
+            pressAnyKeyLabel.SetActive(false);
             globalMask.SetActive(true);
 
             maxAvailableAscensionSaveManager.TryToLoadInfo();
@@ -35,6 +38,14 @@ namespace FroguesFramework
             {
                 availableAscensionsForExpirensedToadMode.Add(ascensionsForExpirensedToadMode[i]);
             }
+
+            Invoke(nameof(TurnOnPressAnyKeyLabel), 1f);
+        }
+
+        private void TurnOnPressAnyKeyLabel()
+        {
+            _canPressAnyKey = true;
+            pressAnyKeyLabel.SetActive(true);
         }
 
         public void UpdateDescriptionOfAscentionByAscensionContainer(AscensionSetupContainer ascensionSetupContainer)
@@ -63,6 +74,9 @@ namespace FroguesFramework
 
         private void Update()
         {
+            if (!_canPressAnyKey)
+                return;
+
             if (_anyKeyPressed)
                 return;
 
