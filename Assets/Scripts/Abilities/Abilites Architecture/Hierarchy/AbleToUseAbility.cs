@@ -113,17 +113,17 @@ namespace FroguesFramework
             if (_owner == null)
                 return;
 
-            if (!_owner.IsEnemy)
-                DecreaseCooldown();
+            //if (!_owner.IsEnemy)
+            DecreaseCooldown();
         }
 
         public virtual void TickAfterPlayerTurn()
         {
-            if (_owner == null)
-                return;
+            //if (_owner == null)
+                //return;
 
-            if (_owner.IsEnemy)
-                DecreaseCooldown();
+            //if (_owner.IsEnemy)
+                //DecreaseCooldown();
         }
 
         public int GetCooldownCounter() => cooldownCounter;

@@ -67,7 +67,7 @@ namespace FroguesFramework
             _myAbilityIsAbleToCost = _ability is IAbleToCost;
 
             if (_myAbilityIsAbleToHaveCooldown)
-                _hashedCooldown = (_ability as IAbleToHaveCooldown).GetCooldownCounter();
+                _hashedCooldown = -1;
 
             OnDragButton.AddListener(_ => putOutOfTheSlotSound.Play());
             OnDropButton.AddListener(_ => putInTheSlotSound.Play());
@@ -152,7 +152,7 @@ namespace FroguesFramework
                         cooldownCounterField.gameObject.SetActive(abilityWithCooldown.GetCurrentCharges() == 0);
                         cooldownCounterField.text = abilityWithCooldown.GetCooldownCounter().ToString();
                         cooldownCounterField.enabled = abilityWithCooldown.GetCooldownCounter() != 0;
-                        cooldownEffect.fillAmount = (float)abilityWithCooldown.GetCooldownCounter() / abilityWithCooldown.GetCurrentCooldown();
+                        cooldownEffect.fillAmount = (float)abilityWithCooldown.GetCooldownCounter() / abilityWithCooldown.GetCooldownAfterUse();
                     }
                     else
                     {
