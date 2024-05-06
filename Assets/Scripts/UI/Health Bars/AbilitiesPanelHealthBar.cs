@@ -13,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private GameObject blockIcon;
         [SerializeField] private GameObject armorIcon;
         [SerializeField] private GameObject spikesIcon;
+        [SerializeField] private GameObject escapeFromDeathIcon;
 
         [SerializeField] private TextMeshProUGUI healthTextField;
         [SerializeField] private TextMeshProUGUI blockTextField;
@@ -23,11 +24,13 @@ namespace FroguesFramework
         [SerializeField] private LocalizedString blockMechanicName;
         [SerializeField] private LocalizedString armorMechanicName;
         [SerializeField] private LocalizedString thornsMechanicName;
+        [SerializeField] private LocalizedString escapeFromDeathMechanicName;
 
         [SerializeField] private AbilityDescriptionTag healthMechanicDescription;
         [SerializeField] private AbilityDescriptionTag blockMechanicDescription;
         [SerializeField] private AbilityDescriptionTag armorMechanicDescription;
         [SerializeField] private AbilityDescriptionTag thornsMechanicDescription;
+        [SerializeField] private AbilityDescriptionTag escapeFromDeathMechanicDescription;
 
         private Dictionary<string, Func<string>> _dataByKeyWords = new Dictionary<string, Func<string>>();
 
@@ -44,6 +47,7 @@ namespace FroguesFramework
             blockIcon.SetActive(health.Block != 0);
             armorIcon.SetActive(health.Armor != 0);
             spikesIcon.SetActive(stats.Thorns != 0);
+            escapeFromDeathIcon.SetActive(health.EscapesFromDeath != 0);
 
             healthTextField.text = (health.CurrentHp).ToString();
             blockTextField.text = (health.Block).ToString();
@@ -55,8 +59,9 @@ namespace FroguesFramework
 
         public void ShowHealthHint() => ShowHint(healthMechanicName.GetLocalizedString(), GenerateHealthStatsString(healthMechanicDescription), transform);
         public void ShowBlockHint() => ShowHint(blockMechanicName.GetLocalizedString(), blockMechanicDescription.DescriptionText, blockIcon.transform);
-        public void ShowArmorHint() => ShowHint(armorMechanicName.GetLocalizedString(), armorMechanicDescription.DescriptionText, spikesIcon.transform);
+        public void ShowArmorHint() => ShowHint(armorMechanicName.GetLocalizedString(), armorMechanicDescription.DescriptionText, armorIcon.transform);
         public void ShowSpikesHint() => ShowHint(thornsMechanicName.GetLocalizedString(), thornsMechanicDescription.DescriptionText, spikesIcon.transform);
+        public void ShowEscapeFromDeathHint() => ShowHint(escapeFromDeathMechanicName.GetLocalizedString(), escapeFromDeathMechanicDescription.DescriptionText, escapeFromDeathIcon.transform);
 
         private string GenerateHealthStatsString(AbilityDescriptionTag healthMechanicDescription)
         {
