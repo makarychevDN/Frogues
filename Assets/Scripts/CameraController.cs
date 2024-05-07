@@ -45,7 +45,7 @@ namespace FroguesFramework
         {
             var currentXAngle = cameraRotationAroundXAxisPoint.localEulerAngles.x;
             currentXAngle -= value * _rotationAroundXAxisSpeed * Time.deltaTime;
-            currentXAngle = Mathf.Clamp(currentXAngle, 20, 45);
+            currentXAngle = Mathf.Clamp(currentXAngle, 20, 60);
             cameraRotationAroundXAxisPoint.localEulerAngles = new Vector3(currentXAngle, 0, 0);
             OnCameraRotated.Invoke();
         }
@@ -61,7 +61,7 @@ namespace FroguesFramework
         {
             cameraRotationAroundYAxisPoint.transform.position = transform.position;
             cameraRotationAroundYAxisPoint.transform.rotation = transform.rotation;
-            cameraRotationAroundXAxisPoint.transform.localEulerAngles = new Vector3(30, 0, 0);
+            cameraRotationAroundXAxisPoint.transform.localEulerAngles = new Vector3(45, 0, 0);
             _camera.localPosition = Vector3.zero;
             _camera.localEulerAngles = Vector3.zero;
             _camera.localPosition -= Vector3.forward * distanceFromCameraToCenter;
