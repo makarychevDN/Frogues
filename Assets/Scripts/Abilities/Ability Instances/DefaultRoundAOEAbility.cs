@@ -135,6 +135,6 @@ namespace FroguesFramework
 
         public DamageType GetDamageType() => damageType;
 
-        public int ReturnRange() => usingRadius;
+        public virtual int ReturnRange() => usingRadius;
     }
 }

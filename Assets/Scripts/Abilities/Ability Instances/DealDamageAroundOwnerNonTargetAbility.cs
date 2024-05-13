@@ -54,7 +54,7 @@ namespace FroguesFramework
 
         public DamageType GetDamageType() => damageType;
 
-        public int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
+        public virtual int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
 
         public int ReturnRange() => radius;
         
@@ -99,17 +99,17 @@ namespace FroguesFramework
         #endregion
 
         #region IAbleToApplySpikesModificator
-        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(additionalDebuffs, StatEffectTypes.spikes);
+        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(additionalDebuffs, StatEffectTypes.thorns);
 
-        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(additionalDebuffs, StatEffectTypes.spikes);
+        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(additionalDebuffs, StatEffectTypes.thorns);
 
-        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.spikes);
+        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.thorns);
 
-        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.spikes);
+        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.thorns);
         #endregion
 
         #region IAbleToApplyImmobilizedModificator
-        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.spikes);
+        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.thorns);
         #endregion
     }
 }

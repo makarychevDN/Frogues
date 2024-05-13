@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using UnityEngine.Localization.Settings;
 
 namespace FroguesFramework
 {
@@ -166,11 +168,11 @@ namespace FroguesFramework
         {
             switch (damageType)
             {
-                case DamageType.physics:
+                case DamageType.physical:
                     return (damageValue * stats.StrenghtModificator).RoundWithGameRules();
                 case DamageType.elemental:
                     return (damageValue * stats.IntelegenceModificator).RoundWithGameRules();
-                case DamageType.blood:
+                case DamageType.bloody:
                     return (damageValue * stats.StrenghtAndIntelligenceSumModificator).RoundWithGameRules();
                 case DamageType.powder:
                     return damageValue;
@@ -268,34 +270,72 @@ namespace FroguesFramework
             }
         }
 
-        public static TileBase GetTileFromListByCoordinates(TileBase[] allTiles, BoundsInt bounds, int x, int y)
+        public static IEnumerator SetLocale(int localeID)
         {
-            return allTiles[x + y * bounds.size.x];
+            yield return LocalizationSettings.InitializationOperation;
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeID];
+            PlayerPrefs.SetInt("LastSelectedLocale", localeID);
         }
 
-        public static bool IsNullTileNearby(TileBase[] allTiles, BoundsInt bounds, int x, int y)
+        public static string GenerateDescription(List<AbilityDescriptionTag> tags, Dictionary<string, Func<string>> dataByKeyWords, bool thereAreNewLinesBetweenTags)
         {
-            try
+            StringBuilder stringBuilder = new StringBuilder();
+
+            foreach (var tag in tags)
             {
-                int evenModificator = y.Even().ToInt();
-                int oddModificator = y.Odd().ToInt();
+                string tagText = tag.DescriptionText;
+                bool ignoreTag = false;
 
-                var topLeftTile = GetTileFromListByCoordinates(allTiles, bounds, x - evenModificator, y + 1);
-                var topRightTile = GetTileFromListByCoordinates(allTiles, bounds, x + oddModificator, y + 1);
+                foreach (var dataByKeyWord in dataByKeyWords)
+                {
+                    if (tagText.Contains(dataByKeyWord.Key))
+                    {
+                        string textToReplaceTag = dataByKeyWord.Value.Invoke();
 
-                var bottomLeftTile = GetTileFromListByCoordinates(allTiles, bounds, x - evenModificator, y - 1);
-                var bottomRightTile = GetTileFromListByCoordinates(allTiles, bounds, x + oddModificator, y - 1);
+                        for (int i = 0; i < tag.BlackListTags.Count; i++)
+                        {
+                            if (tag.BlackListTags[i] == dataByKeyWord.Key && tag.BlackListValues[i] == textToReplaceTag)
+                            {
+                                ignoreTag = true;
+                            }
+                        }
 
-                var leftTile = GetTileFromListByCoordinates(allTiles, bounds, x - 1, y);
-                var rightTile = GetTileFromListByCoordinates(allTiles, bounds, x + 1, y);
+                        tagText = tagText.Replace(dataByKeyWord.Key, textToReplaceTag);
+                    }
+                }
 
-                return topLeftTile == null || topRightTile == null || bottomLeftTile == null || bottomRightTile == null || leftTile == null || rightTile == null;
+                if (ignoreTag)
+                    continue;
+
+                stringBuilder.Append(tagText);
+
+                if (thereAreNewLinesBetweenTags)
+                    stringBuilder.Append("\n");
+                else
+                    stringBuilder.Append(" ");
             }
 
-            catch
+            return stringBuilder.ToString();
+        }
+
+        public static float GetTrailLength(this TrailRenderer trailRenderer)
+        {
+            var points = new Vector3[trailRenderer.positionCount]; 
+            var count = trailRenderer.GetPositions(points);
+
+            if (count < 2) return 0f;
+
+            var length = 0f;
+            var start = points[0];
+
+            for (var i = 1; i < count; i++)
             {
-                return true;
+                var end = points[i];
+                length += Vector3.Distance(start, end);
+                start = end;
             }
+
+            return length;
         }
     }
 }

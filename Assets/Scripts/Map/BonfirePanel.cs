@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 namespace FroguesFramework
@@ -10,6 +11,9 @@ namespace FroguesFramework
     {
         [SerializeField] private List<BonfireButtonSetup> bonfireButtons;
         [SerializeField] private TMP_Text descriptionLabel;
+        [SerializeField] private LocalizedString defaultEffectLabelValue;
+        [SerializeField] private LocalizedString localizedScorePointsString;
+        [SerializeField] private LocalizedString localizedHealthPointsString;
 
         public void Init()
         {
@@ -24,7 +28,7 @@ namespace FroguesFramework
         private void OnEnable()
         {
             RecalculateFactHealingValues();
-            descriptionLabel.text = "Здесь будет описан эффект вашего выбора";
+            descriptionLabel.text = defaultEffectLabelValue.GetLocalizedString();
         }
 
         public void RecalculateFactHealingValues()
@@ -38,7 +42,7 @@ namespace FroguesFramework
 
         public void SetTextOfDescroptionLabelByIndex(int index)
         {
-            descriptionLabel.text = bonfireButtons[index].GetDescription();
+            descriptionLabel.text = bonfireButtons[index].GetDescription(localizedScorePointsString, localizedHealthPointsString);
         }
     }
 
@@ -62,19 +66,19 @@ namespace FroguesFramework
             EntryPoint.Instance.EnableBonfireRestPanel(false);
         }
 
-        public string GetDescription()
+        public string GetDescription(LocalizedString localizedScorePointsString, LocalizedString localizedHealthPointsString)
         {
             string description = "";
 
             if(factHealingValue != 0)
             {
                 string signModificator = factHealingValue > 0 ? "+" : "";
-                description += $"{signModificator}{factHealingValue} хп ";
+                description += $"{signModificator}{factHealingValue} {localizedHealthPointsString.GetLocalizedString()} ";
             }
 
             if(additionalScoreValue != 0)
-            {
-                description += $"{additionalScoreValue} очков ";
+            {                
+                description += $"+{additionalScoreValue} {localizedScorePointsString.GetLocalizedString()} ";
             }
 
             return description;

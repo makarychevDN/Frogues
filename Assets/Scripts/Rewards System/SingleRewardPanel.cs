@@ -15,7 +15,7 @@ namespace FroguesFramework
         {
             ability.SetOwner(unit);
             var abilityButton = Instantiate(abilityButtonPrefab);;
-            abilityButton.Init(ability, abilitySlot, false, false, new Vector2(0.5f, 1), Vector2.down * 40 * 2);
+            abilityButton.Init(ability, abilitySlot, false, false, new Vector2(0, 0.5f), Vector2.right * 40);
             selectThisRewardButton.onClick.AddListener(() => PickReward(ability, unit));
         }
 

@@ -98,15 +98,15 @@ namespace FroguesFramework
 
         public int GetSpikesModificatorValue() 
         {
-            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.spikes).additionalValueForWallsNearby;
+            int delta = startEffectsAndDeltas.FirstOrDefault(statEffectAndDelta => statEffectAndDelta.startValue.type == StatEffectTypes.thorns).additionalValueForWallsNearby;
             return delta;
         }
 
-        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(_effects, StatEffectTypes.spikes);
+        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(_effects, StatEffectTypes.thorns);
 
-        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(_effects, StatEffectTypes.spikes);
+        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(_effects, StatEffectTypes.thorns);
 
-        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(_effects, StatEffectTypes.spikes);
+        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(_effects, StatEffectTypes.thorns);
     }
 
     [Serializable]

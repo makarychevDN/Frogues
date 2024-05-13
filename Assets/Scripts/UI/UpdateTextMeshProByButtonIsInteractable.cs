@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 namespace FroguesFramework
@@ -8,14 +9,14 @@ namespace FroguesFramework
     {
         [SerializeField] private TMP_Text tmpText;
         [SerializeField] private Button button;
-        [SerializeField] private string textOnButtonIsInteractable;
-        [SerializeField] private string textOnButtonIsUninteractable;
+        [SerializeField] private LocalizedString textOnButtonIsInteractable;
+        [SerializeField] private LocalizedString textOnButtonIsUninteractable;
         private bool _hashedState;
 
         void Update()
         {
             if(_hashedState == button.interactable)
-                SetTextToTmpText(button.interactable ?  textOnButtonIsInteractable : textOnButtonIsUninteractable);
+                SetTextToTmpText(button.interactable ?  textOnButtonIsInteractable.GetLocalizedString() : textOnButtonIsUninteractable.GetLocalizedString());
 
             _hashedState = button.interactable;
         }

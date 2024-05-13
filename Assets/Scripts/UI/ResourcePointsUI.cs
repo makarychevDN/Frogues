@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 namespace FroguesFramework
@@ -14,20 +15,27 @@ namespace FroguesFramework
         [SerializeField] private ResourcePointUI temporaryResourcePointIconPrefab;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons = new();
         [SerializeField] private List<ResourcePointUI> temporaryResourcePointIcons = new();
-        [SerializeField] private bool generateIconsOnStart;
+        [SerializeField] private bool updateIconsOnEnable;
         [SerializeField] private RectTransform resizableParent;
 
         [Header("hint")]
-        [SerializeField] private string header;
+        [SerializeField] private LocalizedString header;
+        [SerializeField] private AbilityDescriptionTag descriptionTag;
 
         private int _hashedResourcePointsCount;
         private int _hashedTemporaryResourcePointsCount;
-        private int hashedPrevisualization;
+        private int _hashedPrevisualization;
+        private Dictionary<string, Func<string>> _dataByKeyWords = new Dictionary<string, Func<string>>();
 
         private void Start()
         {
             if (currentResourcePoints != null)
                 Init(currentResourcePoints);
+
+            _dataByKeyWords.Add("{current_action_points}", () => currentResourcePoints.CurrentPoints.ToString());
+            _dataByKeyWords.Add("{max_action_points}", () => currentResourcePoints.MaxPointsCount.ToString());
+            _dataByKeyWords.Add("{action_points_regeneration}", () => currentResourcePoints.PointsRegeneration.ToString());
+            _dataByKeyWords.Add("{temporary_action_points}", () => currentResourcePoints.TemporaryPoints.ToString());
         }
 
         public void Init(AbilityResourcePoints resourcePoints)
@@ -39,6 +47,15 @@ namespace FroguesFramework
 
             currentResourcePoints.OnDefaultPointsIncreased.AddListener(RedrawCurrentActionPointsIcons);
             currentResourcePoints.OnTemporaryPointsIncreased.AddListener(RedrawTemporaryActionPointsIcons);
+        }
+
+        private void OnEnable()
+        {
+            if (!updateIconsOnEnable)
+                return;
+
+            RedrawIcons(currentResourcePoints.CurrentPoints, currentResourcePoints.MaxPointsCount, currentResourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount);
+            RedrawIcons(currentResourcePoints.TemporaryPoints, currentResourcePoints.TemporaryPoints, currentResourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount);
         }
 
         private void RedrawCurrentActionPointsIcons() =>
@@ -59,13 +76,13 @@ namespace FroguesFramework
 
         private void Update()
         {
-            if (hashedPrevisualization != currentResourcePoints.CalculateHashFunctionOfPrevisualisation())
+            if (_hashedPrevisualization != currentResourcePoints.CalculateHashFunctionOfPrevisualisation())
             {
                 RedrawIcons(currentResourcePoints.CurrentPoints, currentResourcePoints.MaxPointsCount, currentResourcePoints.PreTakenCurrentPoints, resourcePointIcons, resourcePointIconPrefab, ref _hashedResourcePointsCount);
                 RedrawIcons(currentResourcePoints.TemporaryPoints, currentResourcePoints.TemporaryPoints, currentResourcePoints.PreTakenTemporaryPoints, temporaryResourcePointIcons, temporaryResourcePointIconPrefab, ref _hashedTemporaryResourcePointsCount);
             }
 
-            hashedPrevisualization = currentResourcePoints.CalculateHashFunctionOfPrevisualisation();
+            _hashedPrevisualization = currentResourcePoints.CalculateHashFunctionOfPrevisualisation();
         }
 
         private void RedrawIcons(int currentValue, int maxValue, int pretakenValue, List<ResourcePointUI> iconsList, ResourcePointUI iconPrefab, ref int hashedValue)
@@ -124,25 +141,18 @@ namespace FroguesFramework
 
         public void ShowHint()
         {
-            EntryPoint.Instance.AbilityHint.Init(header, GenerateStatsString(), "", transform, new Vector2(0.5f, 0), Vector2.up * 32);
-            EntryPoint.Instance.AbilityHint.EnableContent(true, true);
+            EntryPoint.Instance.CommonSmallHint.Init(header.GetLocalizedString(), GenerateStatsString(), transform, new Vector2(0.5f, 0), Vector2.up * 32);
+            EntryPoint.Instance.CommonSmallHint.EnableContent(true);
         }
 
         public void HideHint()
         {
-            EntryPoint.Instance.AbilityHint.EnableContent(false);
+            EntryPoint.Instance.CommonSmallHint.EnableContent(false);
         }
 
         private string GenerateStatsString()
         {
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"Текущий запас: {currentResourcePoints.CurrentPoints}")
-                .AppendLine($"Максимальный запас: {currentResourcePoints.MaxPointsCount}")
-                .AppendLine($"Регенерация: {currentResourcePoints.PointsRegeneration}")
-                .AppendLine($"Временные очки: {currentResourcePoints.TemporaryPoints}");
-
-            return sb.ToString();
+            return Extensions.GenerateDescription(new List<AbilityDescriptionTag> { descriptionTag }, _dataByKeyWords, false);
         }
     }
 }

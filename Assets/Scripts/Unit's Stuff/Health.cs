@@ -9,7 +9,7 @@ namespace FroguesFramework
         [SerializeField] private int currentHP;
         [SerializeField] private int armor;
         [SerializeField] private int block;
-        [SerializeField] private int escapesFromDeathCount;
+        [SerializeField] private int escapesFromDeath;
         [SerializeField] private bool dieImmedeatlyAfterStepOnItByUnit;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
 
@@ -42,9 +42,9 @@ namespace FroguesFramework
         [Header("Death Events")]
         public UnityEvent OnHpEnded;
         public UnityEvent OnEscapedFromDeath;
-        
-        private int _healthWithPreTakenDamage, _armorWithPreTakenDamage, _blockWithPreTakenDamage;
-        private int _hashedHp, _hashedBlock, _hashedArmor;
+
+        private int _healthWithPreTakenDamage, _armorWithPreTakenDamage, _blockWithPreTakenDamage, _escapesFromDeathWithPretakenDamage;
+        private int _hashedHp, _hashedBlock, _hashedArmor, _hashedEscapesFromDeath;
         private Unit _unit;
 
         public int MaxHp => maxHP;
@@ -54,6 +54,8 @@ namespace FroguesFramework
         public int Block => block;
         public int BlockWithPreTakenDamage => _blockWithPreTakenDamage;
         public int ArmorWithPreTakenDamage => _armorWithPreTakenDamage;
+        public int EscapesFromDeath => escapesFromDeath;
+        public int EscapesFromDeathCountWithPretakenDamage => _escapesFromDeathWithPretakenDamage;
 
         public bool Full => currentHP == maxHP;
 
@@ -98,7 +100,8 @@ namespace FroguesFramework
 
         public void IncreaseEscapesFromDeathCount(int value)
         {
-            escapesFromDeathCount += value;
+            escapesFromDeath += value;
+            _hashedEscapesFromDeath = escapesFromDeath;
         }
 
         private void Update()
@@ -106,6 +109,7 @@ namespace FroguesFramework
             _hashedHp = currentHP;
             _hashedArmor = armor;
             _hashedBlock = block;
+            _hashedEscapesFromDeath = escapesFromDeath;
         }
 
         private void TriggerTakeDamageAnimation()
@@ -132,7 +136,7 @@ namespace FroguesFramework
 
         public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource)
         {
-            CalculateDamage(ref currentHP, ref armor, ref block, damageValue, ignoreBlock);
+            CalculateDamage(ref currentHP, ref armor, ref block, ref escapesFromDeath, damageValue, ignoreBlock);
 
             if (!ignoreBlock)
             {
@@ -153,9 +157,9 @@ namespace FroguesFramework
                 }
             }
 
-            if(damageSource != null && _unit.Stats.Spikes > 0)
+            if(damageSource != null && _unit.Stats.Thorns > 0)
             {
-                damageSource.Health.TakeDamage(_unit.Stats.Spikes, null);
+                damageSource.Health.TakeDamage(_unit.Stats.Thorns, null);
             }
 
             if (currentHP < _hashedHp)
@@ -169,7 +173,7 @@ namespace FroguesFramework
             {
                 OnHpEnded.Invoke();
 
-                if (escapesFromDeathCount <= 0)
+                if (_hashedEscapesFromDeath <= 0)
                 {
                     Invoke(nameof(DieProcess), 0.25f);
                 }
@@ -177,13 +181,13 @@ namespace FroguesFramework
                 {
                     OnEscapedFromDeath.Invoke();
                     currentHP = maxHP / 2;
-                    escapesFromDeathCount--;
                 }
             }
             
             _hashedHp = currentHP;
             _hashedArmor = armor;
             _hashedBlock = block;
+            _hashedEscapesFromDeath = escapesFromDeath;
         }
 
         private void OnDamageApplyedByAnyPreventingSystem(int preventingSystemValue, int hashedPreventingSystemValue, Unit damageSource,
@@ -210,14 +214,14 @@ namespace FroguesFramework
         }
 
         public void PreTakeDamage(int damageValue) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage,
-                ref _blockWithPreTakenDamage, damageValue, false);
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage, ref _blockWithPreTakenDamage, ref _escapesFromDeathWithPretakenDamage,
+                damageValue, false);
 
         public void PreTakeDamage(int damageValue, bool ignoreBlock) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage,
-                ref _blockWithPreTakenDamage, damageValue, ignoreBlock);
+            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage, ref _blockWithPreTakenDamage, ref _escapesFromDeathWithPretakenDamage,
+                damageValue, ignoreBlock);
 
-        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, int damageValue, bool ignoreBlock)
+        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, ref int calculatingEscapeFromDeathCharges, int damageValue, bool ignoreBlock)
         {
             damageValue = Extensions.CalculateIncomingDamageWithGameRules(damageValue, _unit.Stats);
 
@@ -235,6 +239,9 @@ namespace FroguesFramework
             }
 
             calculatingHp -= damageValue;
+
+            if (calculatingHp <= 0)
+                calculatingEscapeFromDeathCharges--;
         }
 
         public void DieFromStepOnUnit()
@@ -285,6 +292,7 @@ namespace FroguesFramework
             _healthWithPreTakenDamage = currentHP;
             _armorWithPreTakenDamage = armor;
             _blockWithPreTakenDamage = block;
+            _escapesFromDeathWithPretakenDamage = escapesFromDeath;
         }
 
         private void OnDestroy()

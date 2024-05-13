@@ -208,13 +208,13 @@ namespace FroguesFramework
         #endregion
 
         #region IAbleToApplySpikesModificator
-        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.spikes);
+        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.thorns);
 
-        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.spikes);
+        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.thorns);
 
-        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.spikes);
+        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.thorns);
 
-        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.spikes);
+        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.thorns);
         #endregion
 
         #region IAbleToApplyImmobilizedModificator

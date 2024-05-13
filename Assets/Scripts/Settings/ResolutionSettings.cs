@@ -52,7 +52,7 @@ namespace FroguesFramework
             
             for (int i = 0; i < _resolutions.Count; i++)
             {
-                string option = _resolutions[i].width + " x " + _resolutions[i].height;
+                string option = _resolutions[i].width + "x" + _resolutions[i].height;
                 options.Add(option);
 
                 if (_resolutions[i].width == _currentResolution.x &&
@@ -86,6 +86,7 @@ namespace FroguesFramework
         {
             Resolution resolution = _resolutions[resolutionIndex];
             Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+
             PlayerPrefs.SetInt("ScreenResolutionX", resolution.width);
             PlayerPrefs.SetInt("ScreenResolutionY", resolution.height);
         }
