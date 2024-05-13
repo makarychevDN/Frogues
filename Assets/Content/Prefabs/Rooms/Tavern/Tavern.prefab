@@ -2794,6 +2794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7007138475474567691}
+  - component: {fileID: 7930940497543299412}
   m_Layer: 7
   m_Name: Black Toad (1)
   m_TagString: Untagged
@@ -2810,13 +2811,33 @@ Transform:
   m_GameObject: {fileID: 3650286198115158012}
   m_LocalRotation: {x: -0, y: -0.86602545, z: -0, w: 0.49999994}
   m_LocalPosition: {x: 4.21, y: 0.67, z: 4.12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6706972656783673259}
   m_Father: {fileID: 2638133752701027620}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -120, z: 0}
+--- !u!95 &7930940497543299412
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3650286198115158012}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6abcf6d637f21994e87a0d7e452503fa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &3700871413182536408
 GameObject:
   m_ObjectHideFlags: 0
@@ -5369,8 +5390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb51bb0657c138b468f00b67ebf22075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraStartPosition: {x: 7.64, y: 1.13, z: 4}
   movementTrailObject: {fileID: 322882772330775623}
+  enemiesSprite: {fileID: 1955823830402648662}
 --- !u!1 &7973414636331796824
 GameObject:
   m_ObjectHideFlags: 0

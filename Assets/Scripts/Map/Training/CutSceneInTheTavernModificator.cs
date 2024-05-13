@@ -5,11 +5,13 @@ namespace FroguesFramework
 {
     public class CutSceneInTheTavernModificator : BaseTrainingModificator
     {
-        [SerializeField] private Vector3 cameraStartPosition = new Vector3(7.64f, 1.13f, 4.0f);
         [SerializeField] private Transform movementTrailObject;
+        [SerializeField] private GameObject enemiesSprite;
 
         public override void Init()
         {
+            Cursor.visible = false;
+            enemiesSprite.SetActive(false);
             CurrentlyActiveObjects.Add(this);
             Camera.main.transform.parent = movementTrailObject;
             Camera.main.transform.localPosition = Vector3.zero;
@@ -17,6 +19,12 @@ namespace FroguesFramework
             FindObjectOfType<PlayerInput>().enabled = false;
             FindObjectsOfType<Unit>().ToList().ForEach(unit => unit.gameObject.SetActive(false));
             FindObjectsOfType<Canvas>().ToList().ForEach(canvas => canvas.gameObject.SetActive(false));
+            Invoke(nameof(TurnOnEnemies), 1.5f);
+        }
+
+        private void TurnOnEnemies()
+        {
+            enemiesSprite.SetActive(true);
         }
     }
 }
