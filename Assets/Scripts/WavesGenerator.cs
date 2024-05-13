@@ -22,6 +22,8 @@ namespace FroguesFramework
 
         public void SpawnEnemies()
         {
+            return;
+
             int needToSpawnEnemies = EntryPoint.Instance.AscensionSetup.ExpectedMinimumOfEnemiesOnMap - CellsTaker.TakeAllUnits().Where(unit => unit.IsEnemy && !unit.IsSummoned).Count();
             if (needToSpawnEnemies < 1) 
                 needToSpawnEnemies = 1;
