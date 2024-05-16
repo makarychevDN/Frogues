@@ -53,14 +53,14 @@ namespace FroguesFramework
         private void WaitAttackOwnerModeOn()
         {
             _owner.Health.OnDamagePreventedByBlock.AddListener(TurnOnCriticalMode);
-            _owner.Health.OnDamageAppliedByArmor.AddListener(TurnOffCriticalMode);
+            //_owner.Health.OnDamageAppliedByArmor.AddListener(TurnOffCriticalMode);
             _owner.Health.OnDamageAppledByHealth.AddListener(TurnOffCriticalMode);
         }
 
         private void WaitAttackOwnerModeOff()
         {
             _owner.Health.OnDamagePreventedByBlock.RemoveListener(TurnOnCriticalMode);
-            _owner.Health.OnDamageAppliedByArmor.RemoveListener(TurnOffCriticalMode);
+            //_owner.Health.OnDamageAppliedByArmor.RemoveListener(TurnOffCriticalMode);
             _owner.Health.OnDamageAppledByHealth.RemoveListener(TurnOffCriticalMode);
         }
     }
