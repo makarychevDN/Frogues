@@ -16,14 +16,15 @@ namespace FroguesFramework
                 return;
 
             _restCell = EntryPoint.Instance.Map.GetCell(restCelCoordinates);
-            _restCell.OnBecameFull.AddListener(EnableBonfire);
+            _restCell.OnBecameFullByUnit.AddListener(EnableBonfire);
             bonfireIcon.SetActive(true);
         }
 
-        private void EnableBonfire()
+        private void EnableBonfire(Unit unit)
         {
             EntryPoint.Instance.EnableBonfireRestPanel(true);
-            _restCell.OnBecameFull.RemoveListener(EnableBonfire);
+            unit.MovementAbility.ResetPath();
+            _restCell.OnBecameFullByUnit.RemoveListener(EnableBonfire);
             visualizationGameObjects.ForEach(go => go.SetActive(false));
         }
     }

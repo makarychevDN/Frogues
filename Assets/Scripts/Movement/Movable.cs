@@ -128,12 +128,10 @@ namespace FroguesFramework
                 PositionOnCurveCalculator.Calculate(_startCellPosition, _targetCellPosition, jumpCurve, _currentTime, _jumpHeight);
             _spriteParent.position += Vector3.up * _spriteAlignment;
 
-            
-            float scaledShadowSize = 0;
             _shadow.position =
                 PositionOnCurveCalculator.Calculate(_startCellPosition, _targetCellPosition, jumpCurve, _currentTime, 0);
             _shadow.position += Vector3.up * _shadowAlignment;
-            scaledShadowSize = Mathf.Clamp(1 - jumpCurve.Evaluate(_currentTime) * _jumpHeight, 0, 1);
+            float scaledShadowSize = Mathf.Clamp(1 - jumpCurve.Evaluate(_currentTime) * _jumpHeight, 0, 1);
             _shadow.localScale = new Vector3(scaledShadowSize, scaledShadowSize, 0);
             
             TimerStep();
