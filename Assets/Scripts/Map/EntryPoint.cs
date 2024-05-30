@@ -55,7 +55,6 @@ namespace FroguesFramework
         public UnityEvent OnFinalPartStarted;
         public UnityEvent OnWin;
 
-        public bool CurrentRoomIsPeaceful => _currentRoom.IsPeaceful;
         public SerializedDictionary<RewardType, List<BaseAbility>> PossibleRewards => possibleRewards;
         public CameraController CameraController => _currentRoom.CameraController;
         public PathFinder PathFinder => _currentRoom.PathFinder;
@@ -77,8 +76,6 @@ namespace FroguesFramework
                                          && !_metaPlayer.MovementAbility.PathToMoveIsSelected
                                          && !CurrentlyActiveObjects.SomethingIsActNow;
 
-        public Vector3 CenterOfRoom => _currentRoom.CenterOfRoom;
-        public void ActivateExit() => _currentRoom.ActivateExit();
         public Unit MetaPlayer => _metaPlayer;
         public int TurnCounter => turnCounter;
         public int CountOfRats 
@@ -101,7 +98,7 @@ namespace FroguesFramework
 
             _abilitiesPanel.Init(_metaPlayer);
             _currentRoom = hub;
-            _currentRoom.Init(_metaPlayer);
+            _currentRoom.Init();
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
             rewardsGenerator.Init();
@@ -129,7 +126,7 @@ namespace FroguesFramework
             _scoreDeltaCounter = 0;
             _currentRoom.Deactivate();
             _currentRoom = newRoom;
-            _currentRoom.Init(_metaPlayer);
+            _currentRoom.Init();
             _metaPlayer.ActionPoints.SetCurrentPoints(4);
             _metaPlayer.Stats.RemoveAllNonConstantlyEffects();
             _metaPlayer.Health.RemoveAllBlockEffects();
@@ -139,9 +136,6 @@ namespace FroguesFramework
             OnNextRoomStarted.Invoke();
             _bloodSurfacesInCurrentRoom.Clear();
             OnBloodSurfacesCountOnTheMapUpdated.Invoke();
-
-            if (!CurrentRoomIsPeaceful)
-                wavesGenerator.SpawnEnemies();
         }
 
         public void TryToCountCampfireAfterFinalPartStarted()

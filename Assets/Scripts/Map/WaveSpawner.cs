@@ -14,7 +14,7 @@ namespace FroguesFramework
 
         public void TickAfterEnemiesTurn()
         {
-            if (EntryPoint.Instance.CurrentRoomIsPeaceful || EntryPoint.Instance.ExitActivated)
+            //if (EntryPoint.Instance.CurrentRoomIsPeaceful || EntryPoint.Instance.ExitActivated)
                 return;
 
             _roundsCounter++;
@@ -67,11 +67,11 @@ namespace FroguesFramework
         
         public void SpawnAndMoveToCell(Cell targetCell, Unit prefabToSpawn)
         {
-            var spawnedObject = Instantiate(prefabToSpawn, EntryPoint.Instance.CenterOfRoom + Vector3.up * 7, Quaternion.identity);
+            /*var spawnedObject = Instantiate(prefabToSpawn, EntryPoint.Instance.CenterOfRoom + Vector3.up * 7, Quaternion.identity);
             spawnedObject.Init();
             spawnedObject.Movable.Move(targetCell, 20, 1, false, true, false);
-            EntryPoint.Instance.UnitsQueue.AddObjectInQueue(spawnedObject);
-            spawnedObject.transform.parent = EntryPoint.Instance.Map.transform;
+            EntryPoint.Instance.UnitsQueue.AddObjectInQueue(spawnedObject);*
+            spawnedObject.transform.parent = EntryPoint.Instance.Map.transform;*/
         }
     }
 }

@@ -27,7 +27,7 @@ namespace FroguesFramework
         }
 
 
-        public void Init()
+        public void Init( )
         {
             InitQueue();
             ActivateNext();
