@@ -21,7 +21,7 @@ namespace FroguesFramework
 
         public void Init()
         {
-            map.Init();
+            //map.Init();
             cameraController.Init();
             pathFinder.Init();
             //unitsQueue.Player;

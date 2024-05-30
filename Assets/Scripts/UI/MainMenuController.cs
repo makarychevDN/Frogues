@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
 
 namespace FroguesFramework
@@ -15,7 +13,7 @@ namespace FroguesFramework
         [SerializeField] private List<AscensionSetup> availableAscensionsForExpirensedToadMode;
         [SerializeField] private List<AscensionSetup> ascensionsForExpirensedToadMode;
         [SerializeField] private AscensionSetupContainer runWithAscenstionContainer;
-        [SerializeField] private MaxAvailableAscensionSaveManager maxAvailableAscensionSaveManager;
+        //[SerializeField] private MaxAvailableAscensionSaveManager maxAvailableAscensionSaveManager;
         [SerializeField] private GameObject globalMask;
         [SerializeField] private GameObject columnOfMainMenu;
         [SerializeField] private GameObject logo;
@@ -31,7 +29,7 @@ namespace FroguesFramework
             pressAnyKeyLabel.SetActive(false);
             globalMask.SetActive(true);
 
-            maxAvailableAscensionSaveManager.TryToLoadInfo();
+            //maxAvailableAscensionSaveManager.TryToLoadInfo();
             ascensionSelectionPanel.SetActive(MaxAvailavleAscension.indexOfMaxAbailableAscension > 0);
 
             for (int i = 0; i < MaxAvailavleAscension.indexOfMaxAbailableAscension + 1; i++)

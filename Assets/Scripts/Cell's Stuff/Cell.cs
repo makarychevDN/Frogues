@@ -30,7 +30,6 @@ namespace FroguesFramework
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
         [SerializeField] private Vector3 _hashedPosition;
         [ReadOnly] public bool chosenToMovement;
-        //private TileChangeData tileChangeData;
 
         public List<Unit> Surfaces => surfaces;
 
@@ -101,54 +100,6 @@ namespace FroguesFramework
         }
 
         public void DisableTrails() => trailsEnabler.DisableTrails();
-
-        private void Update()
-        {
-            if (Application.isPlaying) 
-                return;
-            
-            if (_hashedPosition == transform.localPosition)
-                return;
-
-            //tileChangeData = new TileChangeData(TileChangeData)
-
-            //GetComponentInParent<Map>()?.SetCell(this);
-            //ClampPosition();
-            //coordinates = GetComponentInParent<Map>().GetGridPosition(this);
-            //_hashedPosition = transform.localPosition;
-            //hexagonModel.localRotation = Quaternion.Euler(-90, Random.Range(0, 6) * 60, 0);
-
-            //if (Content != null)
-            //{
-                //Content.transform.position = transform.position;
-            //}
-
-            //surfaces.ForEach(surface => surface.transform.position = transform.position);
-        }
-
-        private void OnDestroy()
-        {
-            transform.GetComponentInParent<Map>()?.RemoveCell(this);
-            //RemoveMySelfFromEntryPoint();
-        }
-
-        private void ClampPosition()
-        {
-            var zPos = transform.localPosition.z;
-            zPos = (float)Math.Round(zPos / GridStep.Z) * GridStep.Z;
-            
-            var xPos = transform.localPosition.x - GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
-            xPos = (float)Math.Round(xPos / GridStep.X) * GridStep.X + GridStep.X * 0.5f * (zPos / GridStep.Z % 2);
-
-            if (xPos <= 0 + GridStep.X * 0.5f * (zPos / GridStep.Z % 2) || zPos <= 0)
-            {
-                Debug.LogError("Cell need to be inside the grid (local x > 0 and local z > 0)");
-                transform.GetComponentInParent<Map>()?.RemoveCell(this);
-                return;
-            }
-            
-            transform.localPosition = new Vector3(xPos, transform.localPosition.y, zPos);
-        }
 
         public void DisablePreVisualization()
         {

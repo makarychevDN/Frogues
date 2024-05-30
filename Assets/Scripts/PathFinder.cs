@@ -266,30 +266,36 @@ namespace FroguesFramework
 
         private void InitializeDirVectors()
         {
-            _dirVectors = new List<Vector2Int>();
-            _dirVectors.Add(Vector2Int.up);
-            _dirVectors.Add(Vector2Int.right);
-            _dirVectors.Add(Vector2Int.down);
-            _dirVectors.Add(Vector2Int.left);
-            
-            if(!isMapHexagon)
+            _dirVectors = new List<Vector2Int>
+            {
+                Vector2Int.up,
+                Vector2Int.right,
+                Vector2Int.down,
+                Vector2Int.left
+            };
+
+            if (!isMapHexagon)
                 return;
 
-            _additionalOddDirVectorsForHexMap = new List<Vector2Int>();
-            _additionalOddDirVectorsForHexMap.Add(new Vector2Int(1, 1));
-            _additionalOddDirVectorsForHexMap.Add(new Vector2Int(1, -1));
-            _additionalEvenDirVectorsForHexMap = new List<Vector2Int>();
-            _additionalEvenDirVectorsForHexMap.Add(new Vector2Int(-1, 1));
-            _additionalEvenDirVectorsForHexMap.Add(new Vector2Int(-1, -1));
+            _additionalOddDirVectorsForHexMap = new List<Vector2Int>
+            {
+                new Vector2Int(1, 1),
+                new Vector2Int(1, -1)
+            };
+            _additionalEvenDirVectorsForHexMap = new List<Vector2Int>
+            {
+                new Vector2Int(-1, 1),
+                new Vector2Int(-1, -1)
+            };
         }
 
         private void InitializeNodesGrid()
         {
-            _nodesGrid = new PathFinderNode[map.sizeX, map.sizeZ];
+            _nodesGrid = new PathFinderNode[map.SizeX, map.SizeZ];
 
-            for (int i = 0; i < map.sizeX; i++)
+            for (int i = 0; i < map.SizeX; i++)
             {
-                for (int j = 0; j < map.sizeZ; j++)
+                for (int j = 0; j < map.SizeZ; j++)
                 {
                     if (map.CellsArray[i, j] == null)
                         continue;

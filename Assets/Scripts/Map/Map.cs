@@ -6,47 +6,52 @@ namespace FroguesFramework
 {
     public class Map : MonoBehaviour
     {
-        public int sizeX, sizeZ;
-        public Transform unitsCellsParent, surfacesCellsParent, wallsParent;
-        [SerializeField] public List<Cell> allCells;
+        [Header("Setup")]
+        [SerializeField] private Transform cellsParent;
         [SerializeField] public Tilemap tilemap;
-        
+        [SerializeField] public Tile cellTile;
+        [SerializeField] public Tile wallTile;
+
+        [Header("Cells Prefabs")]
         [SerializeField] protected Cell wallPrefab;
         [SerializeField] protected List<Cell> cellsPrefabs;
-        protected List<Transform> _cellsParents;
+
+        [Header("Debug Info (do not touch)")]
+        [SerializeField] private int sizeX;
+        [SerializeField] private int sizeZ;
+        [SerializeField] public List<Cell> allCells;
+
         private Cell[,] _cellsArray;
 
         public Cell[,] CellsArray => _cellsArray;
+        public int SizeX => sizeX;
+        public int SizeZ => sizeZ;
 
         private TileBase GetTileFromListByCoordinates(TileBase[] allTiles, BoundsInt bounds, int x, int y) => allTiles[x + y * bounds.size.x];
 
-        private bool IsNullTileNearby(TileBase[] allTiles, BoundsInt bounds, int x, int y)
+        public virtual Cell GetCell(Vector2Int coordinates)
         {
-            try
-            {
-                int evenModificator = y.Even().ToInt();
-                int oddModificator = y.Odd().ToInt();
-
-                var topLeftTile = GetTileFromListByCoordinates(allTiles, bounds, x - evenModificator, y + 1);
-                var topRightTile = GetTileFromListByCoordinates(allTiles, bounds, x + oddModificator, y + 1);
-
-                var bottomLeftTile = GetTileFromListByCoordinates(allTiles, bounds, x - evenModificator, y - 1);
-                var bottomRightTile = GetTileFromListByCoordinates(allTiles, bounds, x + oddModificator, y - 1);
-
-                var leftTile = GetTileFromListByCoordinates(allTiles, bounds, x - 1, y);
-                var rightTile = GetTileFromListByCoordinates(allTiles, bounds, x + 1, y);
-
-                return topLeftTile == null || topRightTile == null || bottomLeftTile == null || bottomRightTile == null || leftTile == null || rightTile == null;
-            }
-
-            catch
-            {
-                return true;
-            }
+            return _cellsArray[coordinates.x, coordinates.y];
         }
 
-        public void Init()
-        { 
+        public virtual Cell GetCell(int x, int y)
+        {
+            return _cellsArray[x, y];
+        }
+
+        [ContextMenu("Switch Tilemap Renderer")]
+        public void SwitchTilemapRenderer()
+        {
+            var tilemapRenderer = tilemap.GetComponent<TilemapRenderer>();
+            tilemapRenderer.enabled = !tilemapRenderer.enabled;
+        }
+
+
+        [ContextMenu("Generate Cells")]
+        public void GenerateCells()
+        {
+            RemoveAllCells();
+
             tilemap.CompressBounds();
             BoundsInt bounds = tilemap.cellBounds;
             TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
@@ -64,13 +69,13 @@ namespace FroguesFramework
                     {
                         Cell spawnedCell;
 
-                        if (IsNullTileNearby(allTiles, bounds, x, y))
+                        if (tile == wallTile)
                         {
-                            spawnedCell = Instantiate(wallPrefab, wallsParent);
+                            spawnedCell = Instantiate(wallPrefab, cellsParent);
                         }
                         else
                         {
-                            spawnedCell = Instantiate(cellsPrefabs.GetRandomElement(), transform);
+                            spawnedCell = Instantiate(cellsPrefabs.GetRandomElement(), cellsParent);
                             allCells.Add(spawnedCell);
                         }
 
@@ -81,29 +86,18 @@ namespace FroguesFramework
                 }
             }
 
-            allCells.ForEach(cell => cell.CellNeighbours.Init());
+            allCells.ForEach(cell => cell.CellNeighbours.Init(this));
             tilemap.GetComponent<TilemapRenderer>().enabled = false;
         }
 
-        public virtual Cell GetCell(Vector2Int coordinates)
+        private void RemoveAllCells()
         {
-            return _cellsArray[coordinates.x, coordinates.y];
-        }
-        
-        public void SetCell(Cell hexCell3D)
-        {
-            allCells.RemoveAll(cell => cell == null);
-            
-            if(!allCells.Contains(hexCell3D))
-                allCells.Add(hexCell3D);
-        }
-        
-        public void RemoveCell(Cell hexCell3D)
-        {
-            allCells.RemoveAll(cell => cell == null);
-            
-            if(allCells.Contains(hexCell3D))
-                allCells.Remove(hexCell3D);
+            allCells.Clear();
+            var cellsGameObjects = cellsParent.GetComponentsInChildren<Cell>();
+            for(int i = 0;  i < cellsGameObjects.Length; i++)
+            {
+                DestroyImmediate(cellsGameObjects[i].gameObject);
+            }            
         }
     }
 }
