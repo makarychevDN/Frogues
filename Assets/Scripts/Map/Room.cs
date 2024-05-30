@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
@@ -21,10 +17,9 @@ namespace FroguesFramework
 
         public void Init()
         {
-            //map.Init();
             cameraController.Init();
+            map.Init();
             pathFinder.Init();
-            //unitsQueue.Player;
 
             foreach (var unit in GetComponentsInChildren<Unit>())
             {
@@ -37,7 +32,6 @@ namespace FroguesFramework
                 ableToAct.Init();
             }
 
-            // todo unitsQueue.Init(ableToActObjects);
             unitsQueue.Init();
         }
 

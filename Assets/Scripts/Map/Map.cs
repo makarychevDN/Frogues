@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -40,9 +41,15 @@ namespace FroguesFramework
 
         public void Init()
         {
-            BoundsInt bounds = tilemap.cellBounds;
-            TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-            cellsArray = new Cell[bounds.size.x, bounds.size.y];
+            var cells = cellsParent.GetComponentsInChildren<Cell>();
+            int x = cellsParent.GetComponentsInChildren<Cell>().Max(cell => cell.coordinates.x) + 1;
+            int y = cellsParent.GetComponentsInChildren<Cell>().Max(cell => cell.coordinates.y) + 1;
+            cellsArray = new Cell[x, y];
+
+            foreach (Cell cell in cells)
+            {
+                cellsArray[cell.coordinates.x, cell.coordinates.y] = cell;
+            }
         }
 
         [ContextMenu("Switch Tilemap Renderer")]
@@ -52,13 +59,6 @@ namespace FroguesFramework
             tilemapRenderer.enabled = !tilemapRenderer.enabled;
         }
 
-        [ContextMenu("Print CellsArray Is Null")]
-        public void PrintCellsArrayIsNull()
-        {
-            print(CellsArray == null);
-        }
-
-
         [ContextMenu("Generate Cells")]
         public void GenerateCells()
         {
@@ -67,7 +67,6 @@ namespace FroguesFramework
             tilemap.CompressBounds();
             BoundsInt bounds = tilemap.cellBounds;
             TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-            //cellsArray = new Cell[bounds.size.x, bounds.size.y];
             sizeX = bounds.size.x;
             sizeZ = bounds.size.y;
 
@@ -91,7 +90,6 @@ namespace FroguesFramework
                             allCells.Add(spawnedCell);
                         }
 
-                        //cellsArray[x, y] = spawnedCell;
                         spawnedCell.coordinates = new Vector2Int(x, y);
                         spawnedCell.transform.position = tilemap.CellToWorld(new Vector3Int(x, y));
                     }

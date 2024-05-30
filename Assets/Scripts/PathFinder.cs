@@ -297,9 +297,6 @@ namespace FroguesFramework
             {
                 for (int j = 0; j < map.SizeZ; j++)
                 {
-                    print(map == null);
-                    print(map.CellsArray == null);
-
                     if (map.CellsArray[i, j] == null)
                         continue;
 
