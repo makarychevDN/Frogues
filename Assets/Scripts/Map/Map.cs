@@ -20,10 +20,9 @@ namespace FroguesFramework
         [SerializeField] private int sizeX;
         [SerializeField] private int sizeZ;
         [SerializeField] public List<Cell> allCells;
+        [SerializeField] private Cell[,] cellsArray;
 
-        private Cell[,] _cellsArray;
-
-        public Cell[,] CellsArray => _cellsArray;
+        public Cell[,] CellsArray => cellsArray;
         public int SizeX => sizeX;
         public int SizeZ => sizeZ;
 
@@ -31,12 +30,19 @@ namespace FroguesFramework
 
         public virtual Cell GetCell(Vector2Int coordinates)
         {
-            return _cellsArray[coordinates.x, coordinates.y];
+            return cellsArray[coordinates.x, coordinates.y];
         }
 
         public virtual Cell GetCell(int x, int y)
         {
-            return _cellsArray[x, y];
+            return cellsArray[x, y];
+        }
+
+        public void Init()
+        {
+            BoundsInt bounds = tilemap.cellBounds;
+            TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
+            cellsArray = new Cell[bounds.size.x, bounds.size.y];
         }
 
         [ContextMenu("Switch Tilemap Renderer")]
@@ -44,6 +50,12 @@ namespace FroguesFramework
         {
             var tilemapRenderer = tilemap.GetComponent<TilemapRenderer>();
             tilemapRenderer.enabled = !tilemapRenderer.enabled;
+        }
+
+        [ContextMenu("Print CellsArray Is Null")]
+        public void PrintCellsArrayIsNull()
+        {
+            print(CellsArray == null);
         }
 
 
@@ -55,7 +67,7 @@ namespace FroguesFramework
             tilemap.CompressBounds();
             BoundsInt bounds = tilemap.cellBounds;
             TileBase[] allTiles = tilemap.GetTilesBlock(bounds);
-            _cellsArray = new Cell[bounds.size.x, bounds.size.y];
+            //cellsArray = new Cell[bounds.size.x, bounds.size.y];
             sizeX = bounds.size.x;
             sizeZ = bounds.size.y;
 
@@ -79,7 +91,7 @@ namespace FroguesFramework
                             allCells.Add(spawnedCell);
                         }
 
-                        _cellsArray[x, y] = spawnedCell;
+                        //cellsArray[x, y] = spawnedCell;
                         spawnedCell.coordinates = new Vector2Int(x, y);
                         spawnedCell.transform.position = tilemap.CellToWorld(new Vector3Int(x, y));
                     }
