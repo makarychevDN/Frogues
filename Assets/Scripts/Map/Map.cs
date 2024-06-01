@@ -50,6 +50,8 @@ namespace FroguesFramework
             {
                 cellsArray[cell.coordinates.x, cell.coordinates.y] = cell;
             }
+
+            allCells.ForEach(cell => cell.CellNeighbours.Init(this));
         }
 
         [ContextMenu("Switch Tilemap Renderer")]
@@ -96,7 +98,6 @@ namespace FroguesFramework
                 }
             }
 
-            allCells.ForEach(cell => cell.CellNeighbours.Init(this));
             tilemap.GetComponent<TilemapRenderer>().enabled = false;
         }
 

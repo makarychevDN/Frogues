@@ -51,7 +51,7 @@ namespace FroguesFramework
 
         public void Move(Cell targetCell, bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true) =>
             Move(targetCell, defaultSpeed, defaultJumpHeight, startCellBecomeEmptyOnMove,
-                needToRotateSprite);
+                needToRotateSprite, needToModificateJumpHeightByDistance);
 
         public void Move(Cell targetCell, float speed, float jumpHeight,
             bool startCellBecomeEmptyOnMove = true, bool needToRotateSprite = true, bool needToModificateJumpHeightByDistance = true)

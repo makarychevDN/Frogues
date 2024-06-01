@@ -27,9 +27,9 @@ namespace FroguesFramework
         }
 
 
-        public void Init( )
+        public void Init(List<Unit> playableCharacters)
         {
-            InitQueue();
+            InitQueue(playableCharacters);
             ActivateNext();
         }
 
@@ -39,30 +39,24 @@ namespace FroguesFramework
             return _currentNode.Unit == unit;
         }
 
-        private void InitQueue()
+        private void InitQueue(List<Unit> playableCharacters)
         {
             _unitsList = new CycledLinkedList();
+            var roomUnitsAbleToAct = GetComponentsInChildren<Unit>().Where(x => x.ActionsInput != null).ToList();
+            roomUnitsAbleToAct.Remove(roundCounterBeforePlayer);
+            roomUnitsAbleToAct.Remove(roundCounterBeforeEnemies);
+            _unitsList.Add(roundCounterBeforePlayer);
+            _unitsList.Add(roundCounterBeforeEnemies);
 
-            var actUnits = FindObjectsOfType<Unit>().Where(x => x.ActionsInput != null).ToList();
-
-            foreach (var unit in actUnits)
+            foreach (var unit in playableCharacters)
             {
-                if (unit == player || unit == roundCounterBeforePlayer || unit == roundCounterBeforeEnemies)
-                    continue;
-
-                if (unit.unitType == MapLayer.Surface)
-                {
-                    _unitsList.AddFirst(unit);
-                }
-                else
-                {
-                    _unitsList.Add(unit);
-                }
+                _unitsList.AddAfterTargetObject(roundCounterBeforePlayer, unit);
             }
-            
-            _unitsList.AddFirst(roundCounterBeforePlayer);
-            _unitsList.AddAfterTargetObject(roundCounterBeforePlayer, player);
-            _unitsList.AddAfterTargetObject(player, roundCounterBeforeEnemies);
+
+            foreach (var unit in roomUnitsAbleToAct)
+            {
+                _unitsList.AddAfterTargetObject(roundCounterBeforeEnemies, unit);
+            }
 
             _debugUnits = _unitsList.ToList();
             _currentNode = _unitsList.HeadNode;

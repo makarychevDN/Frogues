@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace FroguesFramework
     public class Room : MonoBehaviour
     {
         [SerializeField] private Map map;
+        [SerializeField] private Cell startPlayerPosition;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
@@ -15,8 +17,16 @@ namespace FroguesFramework
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
 
-        public void Init()
+        public void Init(List<Unit> playableCharacters)
         {
+            playableCharacters.ForEach(unit => unit.Init());
+
+            foreach(var unit in playableCharacters)
+            {
+                unit.Init();
+                unit.Movable.Move(map.allCells.GetRandomElement(), startCellBecomeEmptyOnMove: false, needToModificateJumpHeightByDistance: false);
+            }
+            GetComponentsInChildren<Unit>().ToList().ForEach(unit => unit.Init());
             cameraController.Init();
             map.Init();
             pathFinder.Init();
@@ -32,7 +42,7 @@ namespace FroguesFramework
                 ableToAct.Init();
             }
 
-            unitsQueue.Init();
+            unitsQueue.Init(playableCharacters);
         }
 
         public void Deactivate()

@@ -98,7 +98,7 @@ namespace FroguesFramework
 
             _abilitiesPanel.Init(_metaPlayer);
             _currentRoom = hub;
-            _currentRoom.Init();
+            //_currentRoom.Init();
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => loseScreen.SetActive(true));
             _metaPlayer.AbleToDie.OnDeath.AddListener(() => CurrentlyActiveObjects.Clear());
             rewardsGenerator.Init();
@@ -126,7 +126,7 @@ namespace FroguesFramework
             _scoreDeltaCounter = 0;
             _currentRoom.Deactivate();
             _currentRoom = newRoom;
-            _currentRoom.Init();
+            //_currentRoom.Init();
             _metaPlayer.ActionPoints.SetCurrentPoints(4);
             _metaPlayer.Stats.RemoveAllNonConstantlyEffects();
             _metaPlayer.Health.RemoveAllBlockEffects();

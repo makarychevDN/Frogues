@@ -20,7 +20,20 @@ namespace FroguesFramework
         private Cell _leftCell;
         private Cell _rightCell;
 
-        public Cell GetNeighborByHexDir(HexDir hexDir) => _neighbours[hexDir];
+        public Cell GetNeighborByHexDir(HexDir hexDir)
+        {
+            try
+            {
+                return _neighbours[hexDir];
+            }
+            catch
+            {
+                print(_neighbors == null);
+                print(_neighbours[hexDir] == null);
+                return null;
+
+            }
+        }
         public Cell GetOppositeNeighborByHexDir(HexDir hexDir) => _oppositeNeighbours[hexDir];
         public HexDir GetHexDirByNeighbor(Cell neighbor) => _hexDirsByCell[neighbor];
         public List<Cell> GetAllNeighbors() => _neighbors;

@@ -49,11 +49,11 @@ namespace FroguesFramework
         
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();
-        private bool _initAlready;
+        private bool _initedAlready;
 
         public void Init()
         {
-            if(_initAlready)
+            if(_initedAlready)
                 return;
             
             ActionPoints?.Init(this);
@@ -74,7 +74,7 @@ namespace FroguesFramework
             ScoreContainer?.Init(this);
             SurfaceUnitExtension?.Init(this);
 
-            _initAlready = true;
+            _initedAlready = true;
 
             if (CurrentCell != null)
                 transform.position = CurrentCell.transform.position;
