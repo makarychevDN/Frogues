@@ -12,7 +12,7 @@ namespace FroguesFramework
 
             for(int i = 0; i < radius + 1; i++)
             {
-                cells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(unit.CurrentCell, i, true, false);
+                cells = unit.CurrentRoom.PathFinder.GetCellsAreaForAOE(unit.CurrentCell, i, true, false);
 
                 if (cells.Where(cell => !cell.IsEmpty && !blackList.Contains(cell.Content)).Count() != 0)
                     break;

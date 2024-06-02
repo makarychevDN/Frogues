@@ -20,7 +20,7 @@ namespace FroguesFramework
         public override List<Cell> CalculateUsingArea()
         {
             return _usingArea = CellsTaker.TakeCellsLinesInAllDirections(_owner.CurrentCell, CellsTaker.ObstacleMode.onlyBigUnitsAreObstacles, false, true).ToList()
-                .Where(cell => cell.DistanceToCell(_owner.CurrentCell) == range).ToList();
+                .Where(cell => cell.DistanceToCell(_owner.CurrentCell, _owner.CurrentRoom) == range).ToList();
         }
 
         private void IncreaseTemporaryBlock()

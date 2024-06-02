@@ -11,7 +11,7 @@ namespace FroguesFramework
         {
             _unit.MovementAbility.CalculateUsingArea();
 
-            var possibleToMovementCells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_unit.CurrentCell, 1, false, false);
+            var possibleToMovementCells = _unit.CurrentRoom.PathFinder.GetCellsAreaForAOE(_unit.CurrentCell, 1, false, false).EmptyCellsOnly();
             if (possibleToMovementCells == null || possibleToMovementCells.Count == 0 || !_unit.MovementAbility.IsResoursePointsEnough())
             {
                 _unit.AbleToSkipTurn.AutoSkip();

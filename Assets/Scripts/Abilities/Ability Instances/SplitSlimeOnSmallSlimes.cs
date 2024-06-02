@@ -22,12 +22,12 @@ namespace FroguesFramework
             {
                 for (int i = 0; i < unitAndCount.count; i++)
                 {
-                    var emptyCells = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius).EmptyCellsOnly();
+                    var emptyCells = _owner.CurrentRoom.TakeCellsAreaByRange(_owner.CurrentCell, radius).EmptyCellsOnly();
 
                     if (emptyCells == null || emptyCells.Count == 0)
                         break;
 
-                    EntryPoint.Instance.SpawnUnit(unitAndCount.unit, _owner, emptyCells.GetRandomElement());
+                    Extensions.SpawnUnit(unitAndCount.unit, _owner, emptyCells.GetRandomElement(), _owner.CurrentRoom);
                     unitAndCount.unit.IsSummoned = true;
                 }
             }

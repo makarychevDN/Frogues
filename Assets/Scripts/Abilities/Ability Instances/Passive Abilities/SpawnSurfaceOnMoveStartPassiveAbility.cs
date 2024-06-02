@@ -23,6 +23,8 @@ public class SpawnSurfaceOnMoveStartPassiveAbility : PassiveAbility, IAbleToRetu
     private void SpawnSurfaceUnderOwner(Cell cell)
     {
         if (cell != null)
-            EntryPoint.Instance.SpawnUnit(surfacePrefab, cell);
+        {
+            Extensions.SpawnUnit(surfacePrefab, cell, _owner.CurrentRoom);
+        }
     }
 }

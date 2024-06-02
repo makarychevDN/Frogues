@@ -31,7 +31,7 @@ namespace FroguesFramework
 
         protected override int CalculateActionPointsCost => shouldUseWeaponActionPointsCostInstead ? _owner.AbilitiesManager.WeaponActionPointsCost : actionPointsCost;
 
-        public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
+        public override List<Cell> CalculateUsingArea() => _usingArea = _owner.CurrentRoom.TakeCellsAreaByRange(_owner.CurrentCell, radius);
 
         public override bool PossibleToUseOnUnit(Unit target)
         {

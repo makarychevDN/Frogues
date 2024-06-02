@@ -23,7 +23,7 @@ namespace FroguesFramework
             _hashedSelectedArea = cells;
         }
 
-        public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
+        public override List<Cell> CalculateUsingArea() => _usingArea = _owner.CurrentRoom.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
 
         public override bool PossibleToUseOnCells(List<Cell> cells)
         {
@@ -70,7 +70,7 @@ namespace FroguesFramework
             if (!PossibleToUseOnCells(cells))
                 return null;
 
-            List<Cell> selectedCells = CellsTaker.TakeCellsAreaByRange(cells[0], effectRadius);
+            List<Cell> selectedCells = _owner.CurrentRoom.TakeCellsAreaByRange(cells[0], effectRadius);
             selectedCells.Insert(0, cells[0]);
 
             if (!includeCellsOutOfUsingArea)

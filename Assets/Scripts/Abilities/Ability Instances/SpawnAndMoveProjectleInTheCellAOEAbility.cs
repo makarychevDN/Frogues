@@ -25,7 +25,7 @@ namespace FroguesFramework
             _hashedTargetCell = cells[0];
         }
 
-        public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
+        public override List<Cell> CalculateUsingArea() => _usingArea = _owner.CurrentRoom.TakeCellsAreaByRange(_owner.CurrentCell, usingRadius);
 
         public override void DisablePreVisualization()
         {
@@ -76,7 +76,7 @@ namespace FroguesFramework
         protected IEnumerator ApplyEffect(float time, Cell target)
         {
             yield return new WaitForSeconds(time);
-            var spawnedUnit = EntryPoint.Instance.SpawnUnit(projectilePrefab, _owner, target);
+            var spawnedUnit = Extensions.SpawnUnit(projectilePrefab, _owner, target, _owner.CurrentRoom);
             spawnedUnit.Movable.OnMovementEndOnCell.AddListener(ApplyWeaknessEffectToUnitOnCell);
         }
 
@@ -98,7 +98,7 @@ namespace FroguesFramework
 
             lineFromOwnerToTarget.gameObject.SetActive(true);
             lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, cells[0].transform.position, 
-                parabolaHeight * _owner.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
+                parabolaHeight * _owner.CurrentCell.DistanceToCell(cells[0], _owner.CurrentRoom), parabolaAnimationCurve);
             cells[0].EnableSelectedByAbilityCellHighlight(new List<Cell> { cells[0] });
         }
 

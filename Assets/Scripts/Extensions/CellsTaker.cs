@@ -7,9 +7,9 @@ namespace FroguesFramework
 {
     public static class CellsTaker
     {
-        public static List<Cell> TakeCellsAreaByRange(Cell startCell, int radius, bool ignoreBusyCell = true)
+        public static List<Cell> TakeCellsAreaByRange(this Room room, Cell startCell, int radius, bool ignoreBusyCell = true)
         {
-            return EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(startCell, radius, ignoreBusyCell, false);
+            return room.PathFinder.GetCellsAreaForAOE(startCell, radius, ignoreBusyCell, false);
         }
 
         public static List<Cell> TakeCellsLineInDirection(Cell startCell, HexDir direction, ObstacleMode obstacleMode, bool includeFirstCellWithObstacle, bool lineStopsWithObstacle, int range = int.MaxValue)
@@ -50,25 +50,25 @@ namespace FroguesFramework
             return cells;
         }
 
-        public static List<Cell> GetBestCellsToRetreatFromTarget(Unit retreater, Unit target)
+        public static List<Cell> GetBestCellsToRetreatFromTarget(Unit retreater, Unit target, Room room)
         {
             var theBestCellsToRetreat = new List<Cell>() { retreater.CurrentCell };
-            var neighborCells = TakeCellsAreaByRange(retreater.CurrentCell, 1).EmptyCellsOnly();
-            var farestDistance = target.CurrentCell.DistanceToCell(retreater.CurrentCell);
+            var neighborCells = retreater.CurrentRoom.TakeCellsAreaByRange(retreater.CurrentCell, 1).EmptyCellsOnly();
+            var farestDistance = target.CurrentCell.DistanceToCell(retreater.CurrentCell, room);
 
             foreach (var cell in neighborCells)
             {
-                if (target.CurrentCell.DistanceToCell(cell) > farestDistance)
+                if (target.CurrentCell.DistanceToCell(cell, room) > farestDistance)
                 {
                     theBestCellsToRetreat.Clear();
-                    farestDistance = target.CurrentCell.DistanceToCell(cell);
+                    farestDistance = target.CurrentCell.DistanceToCell(cell, room);
                 }
 
-                if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
+                if (target.CurrentCell.DistanceToCell(cell, room) == farestDistance)
                     theBestCellsToRetreat.Add(cell);
             }
 
-            if (theBestCellsToRetreat.Contains(retreater.CurrentCell) && TakeCellsAreaByRange(retreater.CurrentCell, 1).Contains(target.CurrentCell))
+            if (theBestCellsToRetreat.Contains(retreater.CurrentCell) && retreater.CurrentRoom.TakeCellsAreaByRange(retreater.CurrentCell, 1).Contains(target.CurrentCell))
             {
                 int leastBarriersQuantity = 6;
 
@@ -80,10 +80,10 @@ namespace FroguesFramework
                     {
                         leastBarriersQuantity = barriersQuantity;
                         theBestCellsToRetreat.Clear();
-                        farestDistance = target.CurrentCell.DistanceToCell(cell);
+                        farestDistance = target.CurrentCell.DistanceToCell(cell, room);
                     }
 
-                    if (target.CurrentCell.DistanceToCell(cell) == farestDistance)
+                    if (target.CurrentCell.DistanceToCell(cell, room) == farestDistance)
                         theBestCellsToRetreat.Add(cell);
                 }
             }
@@ -139,19 +139,19 @@ namespace FroguesFramework
             return (Enum.Parse<HexDir>("exception"));
         }
         
-        public static List<Cell> TakeAllCells()
+        public static List<Cell> TakeAllCells(this Room room)
         {
-            return EntryPoint.Instance.Map.allCells;
+            return room.Map.allCells;
         }
 
-        public static List<Cell> TakeAllEmptyCells()
+        public static List<Cell> TakeAllEmptyCells(this Room room)
         {
-            return EntryPoint.Instance.Map.allCells.Where(cell => cell.IsEmpty).ToList();
+            return room.Map.allCells.Where(cell => cell.IsEmpty).ToList();
         }
 
-        public static List<Unit> TakeAllUnits()
+        public static List<Unit> TakeAllUnits(this Map map)
         {
-            var cellsWithContent = EntryPoint.Instance.Map.allCells.Where(cell => !cell.IsEmpty).ToList();
+            var cellsWithContent = map.allCells.Where(cell => !cell.IsEmpty).ToList();
             List<Unit> units = new List<Unit>();
             cellsWithContent.ForEach(cell => units.Add(cell.Content));
             return units;

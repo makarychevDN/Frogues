@@ -18,11 +18,11 @@ namespace FroguesFramework
         protected override IEnumerator ApplyEffect(float time)
         {
             yield return new WaitForSeconds(time);
-            EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radius, true, false)
+            _owner.CurrentRoom.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radius, true, false)
                 .Where(cell => cell.Content != null).ToList()
                 .ForEach(cell =>
                 {
-                    if (cell.DistanceToCell(_owner.CurrentCell) == certainRange)
+                    if (cell.DistanceToCell(_owner.CurrentCell, _owner.CurrentRoom) == certainRange)
                         cell.Content.Health.TakeDamage(CalculateDamage(), _owner);
                     else
                         cell.Content.Health.TakeDamage(CalculateAlternativeDamage(), _owner);

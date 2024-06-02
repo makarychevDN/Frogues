@@ -15,7 +15,7 @@ namespace FroguesFramework
 
         private int CalculateDamageForTargetDueDistance(Unit target)
         {
-            return target.CurrentCell.DistanceToCell(_owner.CurrentCell) == 1 ? CalculateAlternativeDamage() : CalculateDamage();
+            return target.CurrentCell.DistanceToCell(_owner.CurrentCell, _owner.CurrentRoom) == 1 ? CalculateAlternativeDamage() : CalculateDamage();
         }
 
         public override void VisualizePreUseOnUnit(Unit target)

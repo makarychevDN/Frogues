@@ -27,12 +27,12 @@ namespace FroguesFramework
             Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);
         }
 
-        private List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
+        private List<Cell> CalculateUsingArea() => _usingArea = _owner.CurrentRoom.TakeCellsAreaByRange(_owner.CurrentCell, radius);
 
         protected virtual IEnumerator ApplyEffect(float time, Cell cell)
         {
             yield return new WaitForSeconds(time);
-            var spawnedUnit = EntryPoint.Instance.SpawnUnit(unitPrefab, _owner, cell);
+            var spawnedUnit = Extensions.SpawnUnit(unitPrefab, _owner, cell, _owner.CurrentRoom);
             spawnedUnit.IsSummoned = true;
         }
 

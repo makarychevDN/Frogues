@@ -46,7 +46,7 @@ namespace FroguesFramework
             return value ^ GetHashCode();
         }
 
-        public override List<Cell> CalculateUsingArea() => _usingArea = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius);
+        public override List<Cell> CalculateUsingArea() => _usingArea = _owner.CurrentRoom.TakeCellsAreaByRange(_owner.CurrentCell, radius);
 
         public override void DisablePreVisualization()
         {

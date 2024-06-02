@@ -128,13 +128,12 @@ namespace FroguesFramework
                         item.previous = smallestWeightNode;
                         List<Cell> path = new List<Cell>();
                         var tempBackTrackNode = item;
-                        Cell[,] currentLayer = EntryPoint.Instance.Map.CellsArray;
 
                         while (tempBackTrackNode.coordinates !=
                                new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
                         {
                             path.Insert(0,
-                                currentLayer[tempBackTrackNode.coordinates.x, tempBackTrackNode.coordinates.y]);
+                                map.CellsArray[tempBackTrackNode.coordinates.x, tempBackTrackNode.coordinates.y]);
                             tempBackTrackNode = tempBackTrackNode.previous;
                         }
 

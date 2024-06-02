@@ -66,7 +66,7 @@ namespace FroguesFramework
         private List<Unit> TakeUnitsAroundSurfaceTarget(Unit surfaceTarget)
         {
             List<Cell> targetCells = new List<Cell> { surfaceTarget.CurrentCell };
-            targetCells.AddRange(CellsTaker.TakeCellsAreaByRange(surfaceTarget.CurrentCell, radiusOfExplosion));
+            targetCells.AddRange(_owner.CurrentRoom.TakeCellsAreaByRange(surfaceTarget.CurrentCell, radiusOfExplosion));
             return targetCells.ContentFromEachCellWioutNulls();
         }
 

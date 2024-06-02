@@ -27,7 +27,7 @@ namespace FroguesFramework
 
         private void MakeShockWave()
         {
-            List<Cell> targetsCells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radius, true, false);
+            List<Cell> targetsCells = _owner.CurrentRoom.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radius, true, false);
             targetsCells.Where(cell => cell.Content != null).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage(), null));
             visualizationEffect.SetActive(true);
             Invoke(nameof(TurnOffVisualizationEffect), 0.1f);

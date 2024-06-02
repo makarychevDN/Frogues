@@ -18,9 +18,9 @@ namespace FroguesFramework
         public UnityEvent OnCameraReseted;
         public UnityEvent OnCameraRotated;
 
-        public void Init()
+        public void Init(Room room)
         {
-            _maxAllowedDistanceToMoveCamera = EntryPoint.Instance.Map.allCells.Max(cell => (cell.transform.position - transform.position).magnitude) * 1.25f;
+            _maxAllowedDistanceToMoveCamera = room.Map.allCells.Max(cell => (cell.transform.position - transform.position).magnitude) * 1.25f;
             _camera = Camera.main.transform;
             _camera.parent = cameraRotationAroundXAxisPoint;
             ResetCamera();

@@ -97,9 +97,9 @@ namespace FroguesFramework
         public static bool CloseEnoughTo(this Vector2 comparableVector, Vector2 vectorToCompare) =>
             (CloseEnoughTo(comparableVector, vectorToCompare, defaultCompareVectorTolerance));
 
-        public static int DistanceToCell(this Cell from, Cell to)
+        public static int DistanceToCell(this Cell from, Cell to, Room room)
         {
-            return EntryPoint.Instance.PathFinder.FindWay(from, to, true, true, true).Count;
+            return room.PathFinder.FindWay(from, to, true, true, true).Count;
         }
 
         public static int ModificateWithStat(this int value, int statValue, float modificatorStep)

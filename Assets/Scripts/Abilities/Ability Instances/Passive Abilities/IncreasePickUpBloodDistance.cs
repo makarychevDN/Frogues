@@ -18,7 +18,7 @@ namespace FroguesFramework
 
         private void TryToStepOnBloodOnTheDistance(Cell unitsCell)
         {
-            List<Cell> neighborCells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(unitsCell, distance, true, false);
+            List<Cell> neighborCells = _owner.CurrentRoom.PathFinder.GetCellsAreaForAOE(unitsCell, distance, true, false);
             foreach (Cell neighborCell in neighborCells)
             {
                 List<Unit> surfaces = new();

@@ -16,7 +16,7 @@ namespace FroguesFramework
 
         private void MoveToRandomCell()
         {
-            var targetCell = CellsTaker.TakeAllEmptyCells().GetRandomElement();
+            var targetCell = CellsTaker.TakeAllEmptyCells(_owner.CurrentRoom).GetRandomElement();
 
             if (targetCell == null)
                 return;

@@ -34,7 +34,7 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time)
         {
             yield return new WaitForSeconds(time);
-            EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radius, true, false)
+            _owner.CurrentRoom.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radius, true, false)
                 .Where(cell => cell.Content != null).ToList()
                 .ForEach(cell => 
                 { 

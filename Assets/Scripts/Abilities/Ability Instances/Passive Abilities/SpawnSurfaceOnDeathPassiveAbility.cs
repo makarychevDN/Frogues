@@ -26,7 +26,7 @@ namespace FroguesFramework
                 .Any(ability => ability is PickUpTemporaryActionPointsOnStepOnSurface)))
                 return;
 
-            EntryPoint.Instance.SpawnUnit(surfacePrefab, _owner.CurrentCell);
+            Extensions.SpawnUnit(surfacePrefab, _owner.CurrentCell, _owner.CurrentRoom);
         }
     }
 }

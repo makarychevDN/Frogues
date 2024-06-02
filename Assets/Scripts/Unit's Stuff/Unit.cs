@@ -9,9 +9,9 @@ namespace FroguesFramework
         [field : Header("Map Setup")]
         [field : SerializeField] public  MapLayer unitType { get; private set; }
         [field : SerializeField] public Cell CurrentCell { get; set; }
+        [field : SerializeField] public Room CurrentRoom { get; set; }
         [field : SerializeField] public bool Small { get; private set; }
         [field : SerializeField] public SurfaceUnitExtension SurfaceUnitExtension { get; private set; }
-        [field : SerializeField] public ScoreContainer ScoreContainer { get; private set; }
         
         [field : Header("Input Setup")]
         [field : SerializeField] public bool IsEnemy { get; private set; }
@@ -71,7 +71,6 @@ namespace FroguesFramework
             EffectsVisualiser?.Init(this);
             Stats?.Init(this);
             AbilitiesManager?.Init(this);
-            ScoreContainer?.Init(this);
             SurfaceUnitExtension?.Init(this);
 
             _initedAlready = true;

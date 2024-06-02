@@ -21,12 +21,12 @@ namespace FroguesFramework
 
         private void TryToSpawnAndMoveUnit()
         {
-            var cells = CellsTaker.TakeCellsAreaByRange(_owner.CurrentCell, radius).EmptyCellsOnly();
+            var cells = _owner.CurrentRoom.TakeCellsAreaByRange(_owner.CurrentCell, radius).EmptyCellsOnly();
 
             if (cells.Count == 0)
                 return;
 
-            var spawnedBug = EntryPoint.Instance.SpawnUnit(unitPrefab, _owner, cells.GetRandomElement());
+            var spawnedBug = Extensions.SpawnUnit(unitPrefab, _owner, cells.GetRandomElement(), _owner.CurrentRoom);
             spawnedBug.IsSummoned = true;
         }
 

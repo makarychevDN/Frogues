@@ -26,13 +26,13 @@ namespace FroguesFramework
             if (!PossibleToUseOnCells(cells))
                 return;
 
-            List<Cell> targetsCells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(cells[0], radiusOfDamageArea, true, false);
+            List<Cell> targetsCells = _owner.CurrentRoom.PathFinder.GetCellsAreaForAOE(cells[0], radiusOfDamageArea, true, false);
             targetsCells.Where(cell => cell.Content != null).ToList().ForEach(cell => cell.Content.Health.PreTakeDamage(CalculateDamage()));
         }
 
         private void DealDamage()
         {
-            List<Cell> targetsCells = EntryPoint.Instance.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radiusOfDamageArea, true, false);
+            List<Cell> targetsCells = _owner.CurrentRoom.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, radiusOfDamageArea, true, false);
             targetsCells.Where(cell => cell.Content != null).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage(), _owner));
             _owner.Movable.OnMovementEnd.RemoveListener(DealDamage);
         }

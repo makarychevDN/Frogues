@@ -76,7 +76,7 @@ namespace FroguesFramework
 
             cells.ForEach(cell => cell.EnableSelectedByAbilityCellHighlight(cells));
             lineFromOwnerToTargetCell.gameObject.SetActive(true);
-            lineFromOwnerToTargetCell.SetAnimationCurveShape(_owner.transform.position, cells.GetLast().transform.position, jumpHeight, EntryPoint.Instance.DefaultMovementCurve);
+            //lineFromOwnerToTargetCell.SetAnimationCurveShape(_owner.transform.position, cells.GetLast().transform.position, jumpHeight, EntryPoint.Instance.DefaultMovementCurve); todo move to the animation curve asset
 
             var obstacle = GetObstacle(_owner, cells);
             if(obstacle != null && obstacle is not Barrier)

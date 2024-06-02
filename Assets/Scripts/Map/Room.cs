@@ -28,7 +28,7 @@ namespace FroguesFramework
                 unit.Movable.Move(map.allCells.EmptyCellsOnly().GetRandomElement(), startCellBecomeEmptyOnMove: false, needToModificateJumpHeightByDistance: false);
             }
 
-            cameraController.Init();
+            cameraController.Init(this);
             map.Init();
             pathFinder.Init();
             unitsQueue.Init(playableCharacters, otherAbleToACtCharacters);

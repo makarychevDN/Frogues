@@ -14,14 +14,14 @@ namespace FroguesFramework
         {
             base.Init(unit);
             unit.AbleToSkipTurn.OnSkipTurn.AddListener(UnUse);
-            EntryPoint.Instance.OnNextRoomStarted.AddListener(UnUse);
+            //EntryPoint.Instance.OnNextRoomStarted.AddListener(UnUse); todo make it work again
         }
 
         public override void UnInit()
         {
             UnUse();
             _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(UnUse);
-            EntryPoint.Instance.OnNextRoomStarted.RemoveListener(UnUse);
+            //EntryPoint.Instance.OnNextRoomStarted.RemoveListener(UnUse); todo make it work again
             base.UnInit();
         }
 

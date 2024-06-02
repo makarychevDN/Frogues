@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class ThrowUnitOnCertainCellAbility : DefaultUnitTargetAbility
     {
         [SerializeField] private Cell certainCell;
+        [SerializeField] private Map map;
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
@@ -24,7 +25,7 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            certainCell = EntryPoint.Instance.Map.GetCell(new Vector2Int(1, 1));
+            certainCell = map.GetCell(new Vector2Int(1, 1));
         }
     }
 }

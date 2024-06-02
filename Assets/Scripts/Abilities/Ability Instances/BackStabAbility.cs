@@ -19,7 +19,7 @@ namespace FroguesFramework
 
         public override List<Cell> CalculateUsingArea()
         {
-            return _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByRange(_hashedTarget.CurrentCell, range, false, false, true);
+            return _usingArea = _owner.CurrentRoom.PathFinder.GetCellsAreaByRange(_hashedTarget.CurrentCell, range, false, false, true);
         }
 
         public override bool IsResoursePointsEnough()
@@ -46,7 +46,7 @@ namespace FroguesFramework
 
             lineFromOwnerToTarget.gameObject.SetActive(true);
             lineFromOwnerToTarget.SetAnimationCurveShape(_owner.SpriteParent.position, cells[0].transform.position,
-                movementHeight * _owner.CurrentCell.DistanceToCell(cells[0]), parabolaAnimationCurve);
+                movementHeight * _owner.CurrentCell.DistanceToCell(cells[0], _owner.CurrentRoom), parabolaAnimationCurve);
             cells[0].EnableSelectedByAbilityCellHighlight(new List<Cell> { cells[0] });
 
             _hashedTarget.Health.PreTakeDamage(_damage);

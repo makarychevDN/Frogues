@@ -107,7 +107,7 @@ namespace FroguesFramework
             _speed = speed;
             _jumpHeight = jumpHeight;
             if(needToModificateJumpHeightByDistance)
-                _jumpHeight *= startCell.DistanceToCell(targetCell);
+                _jumpHeight *= startCell.DistanceToCell(targetCell, _unit.CurrentRoom);
             _isPlaying = true;
             _targetCell = targetCell;
             _startCellPosition = startCell == null ? transform.position : startCell.transform.position;

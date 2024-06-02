@@ -15,7 +15,7 @@ namespace FroguesFramework
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {
             yield return new WaitForSeconds(time);
-            var projectile = EntryPoint.Instance.SpawnUnit(projectilePrefab, _owner, target.CurrentCell);
+            var projectile = Extensions.SpawnUnit(projectilePrefab, _owner, target.CurrentCell, _owner.CurrentRoom);
             projectile.Movable.OnBumpIntoUnit.AddListener(DealDamage);
         }
 

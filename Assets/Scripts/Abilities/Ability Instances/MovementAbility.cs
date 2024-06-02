@@ -27,7 +27,7 @@ namespace FroguesFramework
             if(_hashedFinishCell != null)
                 value ^= _hashedFinishCell.GetHashCode() ^ _hashedFinishCell.IsEmpty.ToInt();
 
-            return EntryPoint.Instance.TurnCounter ^ value ^ GetHashCode();
+            return /*EntryPoint.Instance.TurnCounter ^ */ value ^ GetHashCode(); //todo hmmm
         }
 
         public void ResetPath()
@@ -37,7 +37,7 @@ namespace FroguesFramework
 
         public override List<Cell> CalculateUsingArea()
         {
-            _usingArea = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
+            _usingArea = _owner.CurrentRoom.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
             _owner.ActionPoints.AvailablePoints,
                 actionPointsCost, false, true, true);
             return _usingArea;
@@ -67,7 +67,7 @@ namespace FroguesFramework
             if (cells == null || cells.Count == 0)
                 return null;
 
-            return EntryPoint.Instance.PathFinder.FindWay(_owner.CurrentCell, cells.GetLast(), false, ignoreSmallUnits, ignoreSurfaces);
+            return _owner.CurrentRoom.PathFinder.FindWay(_owner.CurrentCell, cells.GetLast(), false, ignoreSmallUnits, ignoreSurfaces);
         }
 
         public override void UseOnCells(List<Cell> cells)

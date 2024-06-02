@@ -26,7 +26,7 @@ namespace FroguesFramework
 
         public override List<Cell> CalculateUsingArea()
         {
-            return _usingArea = CellsTaker.TakeAllCells();
+            return _usingArea = _owner.CurrentRoom.TakeAllCells();
         }
 
         public override void DisablePreVisualization() => _isPrevisualizedNow = false;
@@ -46,7 +46,7 @@ namespace FroguesFramework
             if(target == null) 
                 return;
 
-            EntryPoint.Instance.UnitDescriptionPanel.Activate(target);
+            //EntryPoint.Instance.UnitDescriptionPanel.Activate(target); todo hints manager
             target.OnInspectIt.Invoke();
         }
 
@@ -58,7 +58,7 @@ namespace FroguesFramework
             {
                 if (_owner.Stats.Immobilized == 0)
                 {
-                    var movementCells = EntryPoint.Instance.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
+                    var movementCells = _owner.CurrentRoom.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
                         _owner.ActionPoints.AvailablePoints,
                         _owner.MovementAbility.GetActionPointsCost(), false, true, true);
                     movementCells.ForEach(cell => cell.EnableValidForMovementCellHighlight(movementCells));
