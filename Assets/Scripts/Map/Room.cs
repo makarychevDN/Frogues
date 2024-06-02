@@ -11,6 +11,7 @@ namespace FroguesFramework
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
+        private HashSet<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
 
         public Map Map => map;
         public PathFinder PathFinder => pathFinder;
@@ -19,38 +20,26 @@ namespace FroguesFramework
 
         public void Init(List<Unit> playableCharacters)
         {
-            playableCharacters.ForEach(unit => unit.Init());
-
-            foreach(var unit in playableCharacters)
+            List<Unit> otherAbleToACtCharacters = GetComponentsInChildren<Unit>().ToList();
+            GetComponentsInChildren<Unit>().ToList().ForEach(unit => unit.Init());
+            foreach (var unit in playableCharacters)
             {
                 unit.Init();
-                unit.Movable.Move(map.allCells.GetRandomElement(), startCellBecomeEmptyOnMove: false, needToModificateJumpHeightByDistance: false);
+                unit.Movable.Move(map.allCells.EmptyCellsOnly().GetRandomElement(), startCellBecomeEmptyOnMove: false, needToModificateJumpHeightByDistance: false);
             }
-            GetComponentsInChildren<Unit>().ToList().ForEach(unit => unit.Init());
+
             cameraController.Init();
             map.Init();
             pathFinder.Init();
-
-            foreach (var unit in GetComponentsInChildren<Unit>())
-            {
-                unit.Init();
-            }
-
-            var ableToActObjects = GetComponentsInChildren<MonoBehaviour>().OfType<IAbleToAct>();
-            foreach (var ableToAct in ableToActObjects)
-            {
-                ableToAct.Init();
-            }
-
-            unitsQueue.Init(playableCharacters);
+            unitsQueue.Init(playableCharacters, otherAbleToACtCharacters);
         }
 
         public void Deactivate()
         {
             cameraController.Deactivate();
-            GetComponentsInChildren<Cell>().ToList().ForEach(cell => EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(cell));
+            ableToDisablePreVisualizationObjects.Clear();
             gameObject.SetActive(false);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

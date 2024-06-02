@@ -27,6 +27,7 @@ namespace FroguesFramework
         [SerializeField] private Texture2D moveCameraBottomCursorTexture;
         [SerializeField] private Texture2D moveCameraRightBottomCursorTexture;
         private Dictionary<Vector2Int, Texture2D> moveCameraCursorsByVectorsDictionary;
+        private bool _wasInitedAlready;
 
         private Unit _unit;
         private int _lastHashOfAbility;
@@ -315,6 +316,10 @@ namespace FroguesFramework
 
         public void Init()
         {
+            if (_wasInitedAlready)
+                return;
+
+            _wasInitedAlready = true;
             _unit = GetComponentInParent<Unit>();
             _unit.AbleToSkipTurn.OnSkipTurn.AddListener(() => _isPlayersTurn = false);
             movementAbility.Init(_unit);

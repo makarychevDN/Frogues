@@ -27,9 +27,9 @@ namespace FroguesFramework
         }
 
 
-        public void Init(List<Unit> playableCharacters)
+        public void Init(List<Unit> playableCharacters, List<Unit> otherAbleToActCharacters)
         {
-            InitQueue(playableCharacters);
+            InitQueue(playableCharacters, otherAbleToActCharacters);
             ActivateNext();
         }
 
@@ -39,21 +39,20 @@ namespace FroguesFramework
             return _currentNode.Unit == unit;
         }
 
-        private void InitQueue(List<Unit> playableCharacters)
+        private void InitQueue(List<Unit> playableCharacters, List<Unit> otherAbleToActCharacters)
         {
-            _unitsList = new CycledLinkedList();
-            var roomUnitsAbleToAct = GetComponentsInChildren<Unit>().Where(x => x.ActionsInput != null).ToList();
-            roomUnitsAbleToAct.Remove(roundCounterBeforePlayer);
-            roomUnitsAbleToAct.Remove(roundCounterBeforeEnemies);
-            _unitsList.Add(roundCounterBeforePlayer);
-            _unitsList.Add(roundCounterBeforeEnemies);
+            _unitsList = new CycledLinkedList
+            {
+                roundCounterBeforePlayer,
+                roundCounterBeforeEnemies
+            };
 
             foreach (var unit in playableCharacters)
             {
                 _unitsList.AddAfterTargetObject(roundCounterBeforePlayer, unit);
             }
 
-            foreach (var unit in roomUnitsAbleToAct)
+            foreach (var unit in otherAbleToActCharacters)
             {
                 _unitsList.AddAfterTargetObject(roundCounterBeforeEnemies, unit);
             }
