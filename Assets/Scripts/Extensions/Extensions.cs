@@ -117,6 +117,35 @@ namespace FroguesFramework
             }
         }
 
+        public static Unit SpawnUnit(Unit spawnedUnit, Unit spawner, Cell targetCell, Room room)
+        {
+            spawnedUnit.CurrentCell = spawner.CurrentCell;
+            spawnedUnit.Init();
+            spawnedUnit.Movable.Move(targetCell, false);
+            spawnedUnit.transform.parent = room.transform;
+
+            if (spawnedUnit.ActionsInput != null)
+                room.UnitsQueue.AddObjectInQueue(spawnedUnit);
+
+            return spawnedUnit;
+        }
+
+        public static void SpawnUnit(Unit spawnedUnit, Cell targetCell, Room room)
+        {
+            spawnedUnit.CurrentCell = targetCell;
+            spawnedUnit.Init();
+            spawnedUnit.transform.position = targetCell.transform.position;
+            spawnedUnit.transform.parent = room.transform;
+
+            if (spawnedUnit.SurfaceUnitExtension == null)
+                targetCell.Content = spawnedUnit;
+            else
+                targetCell.Surfaces.Add(spawnedUnit);
+
+            if (spawnedUnit.ActionsInput != null)
+                room.UnitsQueue.AddObjectInQueue(spawnedUnit);
+        }
+
         public static Vector3 PositionRelativeToMainCamera(this Vector3 vector)
         {
             return Camera.main.transform.InverseTransformDirection(vector - Camera.main.transform.position);
