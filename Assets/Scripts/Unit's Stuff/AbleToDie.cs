@@ -36,8 +36,8 @@ namespace FroguesFramework
             }
             
             CurrentlyActiveObjects.Remove(this);
-            EntryPoint.Instance.UnitsQueue.Remove(_unit);
-            EntryPoint.Instance.InvokeSomeoneDied();
+            _unit.CurrentRoom.UnitsQueue.Remove(_unit);
+            _unit.CurrentRoom.InvokeOnSomeoneDied();
             Destroy(_unit.gameObject);
             OnDeath.Invoke();
 

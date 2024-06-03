@@ -11,21 +11,18 @@ namespace FroguesFramework
         public abstract List<Cell> CalculateUsingArea();
         public abstract void DisablePreVisualization();
 
-        public void AddMySelfToEntryPoint() => 
-            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
-
-        public void RemoveMySelfFromEntryPoint() => 
-            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+        public void AddSelfToTheList() => _owner.CurrentRoom.AddAbleToDisablePrevisualizationObject(this);
+        public void RemoveSelfFromTheList() => _owner.CurrentRoom.RemoveAbleToDisablePrevisualizationObject(this);
 
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            AddMySelfToEntryPoint();
+            AddSelfToTheList();
         }
 
         private void OnDestroy()
         {
-            RemoveMySelfFromEntryPoint();
+            RemoveSelfFromTheList();
         }
 
         public abstract int CalculateHashFunctionOfPrevisualisation();

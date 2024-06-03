@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -51,11 +53,13 @@ namespace FroguesFramework
         public Grid Grid => FindObjectOfType<Grid>();
         private bool _initedAlready;
 
-        public void Init()
+        public void Init(Room room)
         {
+            CurrentRoom = room;
+
             if(_initedAlready)
                 return;
-            
+
             ActionPoints?.Init(this);
             BloodPoints?.Init(this);
             AbleToDie?.Init(this);
@@ -63,7 +67,8 @@ namespace FroguesFramework
             SpriteRotator?.Init(this);
             Movable?.Init(this);
             MovementAbility?.Init(this);
-            
+            MaterialInstanceContainer?.Init(this);
+
             ActionsInput = GetComponentInChildren<IAbleToAct>();
             ActionsInput?.Init();
             

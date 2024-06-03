@@ -11,7 +11,7 @@ namespace FroguesFramework
         public void Act()
         {
             _unit.MovementAbility.CalculateUsingArea();
-            List<Unit> units = CellsTaker.TakeAllUnits();
+            List<Unit> units = _unit.CurrentRoom.TakeAllUnits();
             units.Remove( _unit );
 
             if (!_unit.MovementAbility.IsResoursePointsEnough() || units == null || units.Count == 0)
@@ -20,7 +20,7 @@ namespace FroguesFramework
                 return;
             }
 
-            int closestDistnace = units.Min(unit => unit.CurrentCell.DistanceToCell(_unit.CurrentCell));
+            int closestDistnace = units.Min(unit => unit.CurrentCell.DistanceToCell(_unit.CurrentCell, _unit.CurrentRoom));
 
             if (closestDistnace <= 0)
             {
@@ -28,8 +28,8 @@ namespace FroguesFramework
                 return;
             }
 
-            List<Unit> closestUnits = units.Where(unit => unit.CurrentCell.DistanceToCell(_unit.CurrentCell) <= closestDistnace).ToList();
-            List<Cell> path = EntryPoint.Instance.PathFinder.FindWayExcludeLastCell(_unit.CurrentCell, closestUnits.GetRandomElement().CurrentCell, false, false, true);
+            List<Unit> closestUnits = units.Where(unit => unit.CurrentCell.DistanceToCell(_unit.CurrentCell, _unit.CurrentRoom) <= closestDistnace).ToList();
+            List<Cell> path = _unit.CurrentRoom.PathFinder.FindWayExcludeLastCell(_unit.CurrentCell, closestUnits.GetRandomElement().CurrentCell, false, false, true);
 
             if (path == null || path.Count == 0)
             {

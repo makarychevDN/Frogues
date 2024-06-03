@@ -10,47 +10,6 @@ namespace FroguesFramework
         [SerializeField] private List<RewardPanelSetup> rewards;
         [SerializeField] private RewardsMenu rewardsMenu;
 
-        public void Init()
-        {
-            EntryPoint.Instance.OnScoreIncreased.AddListener(TryToGiveReward);
-            InitRewardsSetups();
-            TryToGiveReward();
-        }
-
-        private void InitRewardsSetups()
-        {
-            rewards.Clear();
-
-            foreach(RewardPanelSetup reward in EntryPoint.Instance.AscensionSetup.Rewards)
-            {
-                rewards.Add(new RewardPanelSetup(reward));
-            }
-        }
-
-        private void TryToGiveReward()
-        {
-            List<RewardPanelSetup> currentRewards = rewards.Where(rewardSetup => !rewardSetup.isGivenAlready && rewardSetup.scoreRequirement <= EntryPoint.Instance.Score).ToList();
-
-            if (currentRewards == null || currentRewards.Count == 0)
-                return;
-
-            foreach (var reward in currentRewards)
-            {
-                reward.isGivenAlready = true;
-                rewardsMenu.GenerateSetOfRewards(reward.rewardType, reward.countOfPossibleRewards);
-            }
-        }
-
-        public RewardPanelSetup GetNextRewardSetup()
-        {
-            return rewards.FirstOrDefault(rewardSetup => !rewardSetup.isGivenAlready);
-        }
-
-        public RewardPanelSetup GetLastRewardSetup()
-        {
-            return rewards.LastOrDefault(rewardSetup => rewardSetup.isGivenAlready);
-        }
-
         [Serializable]
         public class RewardPanelSetup
         {

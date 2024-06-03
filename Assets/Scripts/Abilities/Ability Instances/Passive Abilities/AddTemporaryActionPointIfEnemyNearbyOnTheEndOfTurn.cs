@@ -14,8 +14,8 @@ namespace FroguesFramework
         {
             base.Init(unit);
             _owner.AbleToSkipTurn.OnSkipTurn.AddListener(HashValue);
-            EntryPoint.Instance.OnSomeoneMoved.AddListener(TryToHighlightButton);
-            EntryPoint.Instance.OnSomeoneDied.AddListener(TryToHighlightButton);
+            _owner.CurrentRoom.OnSomeoneMoved.AddListener(TryToHighlightButton);
+            _owner.CurrentRoom.OnSomeoneDied.AddListener(TryToHighlightButton);
         }
 
         private void HashValue()
@@ -23,15 +23,15 @@ namespace FroguesFramework
             lastTurnEndedNearbyEnemy = AnyEnemyNearby;
         }
 
-        private void TryToHighlightButton() => highlightEvent.Invoke(AnyEnemyNearby && EntryPoint.Instance.UnitsQueue.IsUnitCurrent(_owner));
+        private void TryToHighlightButton() => highlightEvent.Invoke(AnyEnemyNearby && _owner.CurrentRoom.UnitsQueue.IsUnitCurrent(_owner));
 
         private bool AnyEnemyNearby => _owner.CurrentCell.CellNeighbours.GetAllNeighbors().Any(cell => (!cell.IsEmpty && cell.Content.IsEnemy));
 
         public override void UnInit()
         {
             _owner.AbleToSkipTurn.OnSkipTurn.RemoveListener(HashValue);
-            EntryPoint.Instance.OnSomeoneMoved.RemoveListener(TryToHighlightButton);
-            EntryPoint.Instance.OnSomeoneDied.RemoveListener(TryToHighlightButton);
+            _owner.CurrentRoom.OnSomeoneMoved.RemoveListener(TryToHighlightButton);
+            _owner.CurrentRoom.OnSomeoneDied.RemoveListener(TryToHighlightButton);
             base.UnInit();
         }
 

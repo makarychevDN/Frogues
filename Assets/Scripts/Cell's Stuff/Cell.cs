@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Tilemaps;
-using Random = UnityEngine.Random;
 
 namespace FroguesFramework
 {
@@ -30,6 +27,7 @@ namespace FroguesFramework
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
         [SerializeField] private Vector3 _hashedPosition;
         [ReadOnly] public bool chosenToMovement;
+        private Room _room;
 
         public List<Unit> Surfaces => surfaces;
 
@@ -44,7 +42,7 @@ namespace FroguesFramework
                     value.CurrentCell = this;
                     OnBecameFull.Invoke();
                     OnBecameFullByUnit.Invoke(content);
-                    EntryPoint.Instance.InvokeSomeoneMoved();
+                    _room.InvokeOnSomeoneMoved();
                 }
                 else
                 {
@@ -63,9 +61,9 @@ namespace FroguesFramework
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if (!ignoreDefaultUnits && !EntryPoint.Instance.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
+            if (!ignoreDefaultUnits && !_room.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
             {
-                if (ignoreSmallUnits && EntryPoint.Instance.Map.CellsArray[coordinates.x, coordinates.y].Content
+                if (ignoreSmallUnits && _room.Map.CellsArray[coordinates.x, coordinates.y].Content
                     .Small)
                     return true;
 
@@ -110,16 +108,14 @@ namespace FroguesFramework
             EnableValidForMovementCellHighlight(false);
         }
 
-        public void AddMySelfToEntryPoint() =>
-            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
+        public void AddSelfToTheList() => _room.AddAbleToDisablePrevisualizationObject(this);
 
-        public void RemoveMySelfFromEntryPoint() =>
-            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+        public void RemoveSelfFromTheList() => _room.RemoveAbleToDisablePrevisualizationObject(this);
 
-        private void Start()
+        public void Init(Room room)
         {
-            if (Application.isPlaying)
-                AddMySelfToEntryPoint();
+            _room = room;
+            AddSelfToTheList();
         }
     }
 }

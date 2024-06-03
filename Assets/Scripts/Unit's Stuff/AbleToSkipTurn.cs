@@ -15,12 +15,12 @@ namespace FroguesFramework
         
         public void AutoSkip()
         {
-            if (!EntryPoint.Instance.UnitsQueue.IsUnitCurrent(_unit))
+            if (!_unit.CurrentRoom.UnitsQueue.IsUnitCurrent(_unit))
                 return;
 
             OnSkipTurn.Invoke();
-            EntryPoint.Instance.UnitsQueue.ActivateNext();
-            EntryPoint.Instance.DisableAllPrevisualization();
+            _unit.CurrentRoom.UnitsQueue.ActivateNext();
+            _unit.CurrentRoom.DisableAllPrevisualization();
         }
     }
 }

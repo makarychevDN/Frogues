@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] private int penaltyForRegeneration;
         private int _preTakenCurrentPoints;
         private int _preTakenTemporaryPoints;
+        private Unit _unit;
 
         public UnityEvent OnAnyPointsIncreased;
         public UnityEvent OnDefaultPointsIncreased;
@@ -24,7 +25,8 @@ namespace FroguesFramework
 
         public void Init(Unit unit)
         {
-            AddMySelfToEntryPoint();
+            _unit = unit;
+            AddSelfToTheList();
             unit.AbleToSkipTurn.OnSkipTurn.AddListener(RegeneratePoints);
         }
 
@@ -193,15 +195,15 @@ namespace FroguesFramework
             _preTakenTemporaryPoints = tempraryPoints;
         }
 
-        public void AddMySelfToEntryPoint() =>
-            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
+        public void AddSelfToTheList() =>
+            _unit.CurrentRoom.AddAbleToDisablePrevisualizationObject(this);
 
-        public void RemoveMySelfFromEntryPoint() =>
-            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+        public void RemoveSelfFromTheList() =>
+            _unit.CurrentRoom.RemoveAbleToDisablePrevisualizationObject(this);
 
         private void OnDestroy()
         {
-            RemoveMySelfFromEntryPoint();
+            RemoveSelfFromTheList();
         }
 
         public int CalculateHashFunctionOfPrevisualisation()

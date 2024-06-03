@@ -120,7 +120,7 @@ namespace FroguesFramework
         public static Unit SpawnUnit(Unit spawnedUnit, Unit spawner, Cell targetCell, Room room)
         {
             spawnedUnit.CurrentCell = spawner.CurrentCell;
-            spawnedUnit.Init();
+            spawnedUnit.Init(room);
             spawnedUnit.Movable.Move(targetCell, false);
             spawnedUnit.transform.parent = room.transform;
 
@@ -133,7 +133,7 @@ namespace FroguesFramework
         public static void SpawnUnit(Unit spawnedUnit, Cell targetCell, Room room)
         {
             spawnedUnit.CurrentCell = targetCell;
-            spawnedUnit.Init();
+            spawnedUnit.Init(room);
             spawnedUnit.transform.position = targetCell.transform.position;
             spawnedUnit.transform.parent = room.transform;
 

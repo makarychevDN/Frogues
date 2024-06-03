@@ -1,16 +1,19 @@
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 namespace FroguesFramework
 {
     public class MaterialInstanceContainer : MonoBehaviour, IAbleToDisablePreVisualization
     {
+        private Unit _unit;
         private Material _materialInstance;
         public Material MaterialInstance => _materialInstance;
 
-        private void Start()
+        public void Init(Unit unit)
         {
+            _unit = unit;
             _materialInstance = GetComponent<Renderer>().material;
-            AddMySelfToEntryPoint();
+            AddSelfToTheList();
         }
 
         public void EnableOutline(bool value)
@@ -25,13 +28,11 @@ namespace FroguesFramework
 
         private void OnDestroy()
         {
-            RemoveMySelfFromEntryPoint();
+            RemoveSelfFromTheList();
         }
 
-        public void AddMySelfToEntryPoint() =>
-            EntryPoint.Instance.AddAbleToDisablePreVisualizationToCollection(this);
+        public void AddSelfToTheList() => _unit.CurrentRoom.AddAbleToDisablePrevisualizationObject(this);
 
-        public void RemoveMySelfFromEntryPoint() =>
-            EntryPoint.Instance.RemoveAbleToDisablePreVisualizationToCollection(this);
+        public void RemoveSelfFromTheList() => _unit.CurrentRoom.RemoveAbleToDisablePrevisualizationObject(this);
     }
 }
