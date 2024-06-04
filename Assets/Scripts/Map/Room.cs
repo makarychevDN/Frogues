@@ -34,8 +34,8 @@ namespace FroguesFramework
 
         public void Init(List<Unit> playableCharacters)
         {
-            List<Unit> otherAbleToACtCharacters = GetComponentsInChildren<Unit>().ToList();
             GetComponentsInChildren<Unit>().ToList().ForEach(unit => unit.Init(this));
+            List<Unit> otherAbleToACtCharacters = GetComponentsInChildren<Unit>().Where(unit => unit.ActionsInput != null).ToList();
             foreach (var unit in playableCharacters)
             {
                 unit.Init(this);
@@ -79,6 +79,11 @@ namespace FroguesFramework
         public void InvokeOnSomeoneDied()
         {
             OnSomeoneDied.Invoke();
+        }
+
+        private void Update()
+        {
+            unitsQueue.ActForCurrentUnit();
         }
     }
 }

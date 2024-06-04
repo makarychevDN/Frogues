@@ -51,7 +51,11 @@ namespace FroguesFramework
                 cellsArray[cell.coordinates.x, cell.coordinates.y] = cell;
             }
 
-            allCells.ForEach(cell => cell.CellNeighbours.Init(this));
+            foreach(Cell cell in allCells)
+            {
+                cell.AddSelfToTheList();
+                cell.CellNeighbours.Init(this);
+            }    
         }
 
         [ContextMenu("Switch Tilemap Renderer")]
@@ -94,7 +98,7 @@ namespace FroguesFramework
 
                         spawnedCell.coordinates = new Vector2Int(x, y);
                         spawnedCell.transform.position = tilemap.CellToWorld(new Vector3Int(x, y));
-                        spawnedCell.Room = GetComponentInParent<Room>();
+                        spawnedCell.ParentRoom = GetComponentInParent<Room>();
                     }
                 }
             }

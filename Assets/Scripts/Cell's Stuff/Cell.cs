@@ -17,7 +17,7 @@ namespace FroguesFramework
         public UnityEvent<Unit> OnBecameFullByUnit = new();
         public UnityEvent<Unit> OnBecameEmptyByUnit = new();
 
-        [field: SerializeField] public Room Room { get; set; }
+        [field: SerializeField] public Room ParentRoom { get; set; }
         [SerializeField] private Unit content;
         [SerializeField] private List<Unit> surfaces = new();
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
@@ -42,7 +42,7 @@ namespace FroguesFramework
                     value.CurrentCell = this;
                     OnBecameFull.Invoke();
                     OnBecameFullByUnit.Invoke(content);
-                    Room.InvokeOnSomeoneMoved();
+                    ParentRoom.InvokeOnSomeoneMoved();
                 }
                 else
                 {
@@ -61,9 +61,9 @@ namespace FroguesFramework
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if (!ignoreDefaultUnits && !Room.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
+            if (!ignoreDefaultUnits && !ParentRoom.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
             {
-                if (ignoreSmallUnits && Room.Map.CellsArray[coordinates.x, coordinates.y].Content
+                if (ignoreSmallUnits && ParentRoom.Map.CellsArray[coordinates.x, coordinates.y].Content
                     .Small)
                     return true;
 
@@ -108,13 +108,13 @@ namespace FroguesFramework
             EnableValidForMovementCellHighlight(false);
         }
 
-        public void AddSelfToTheList() => Room.AddAbleToDisablePrevisualizationObject(this);
+        public void AddSelfToTheList() => ParentRoom.AddAbleToDisablePrevisualizationObject(this);
 
-        public void RemoveSelfFromTheList() => Room.RemoveAbleToDisablePrevisualizationObject(this);
+        public void RemoveSelfFromTheList() => ParentRoom.RemoveAbleToDisablePrevisualizationObject(this);
 
         public void Init(Room room)
         {
-            this.Room = room;
+            ParentRoom = room;
             AddSelfToTheList();
         }
     }
