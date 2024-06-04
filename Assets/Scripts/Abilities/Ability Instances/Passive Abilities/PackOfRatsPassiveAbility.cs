@@ -8,16 +8,11 @@ namespace FroguesFramework
         [SerializeField] private StatEffect effectSetup;
         private StatEffect _effect;
 
-        public int GetCount() => additionalStrenghtForEachRat * (EntryPoint.Instance.CountOfRats - 1);
-
+        public int GetCount() => additionalStrenghtForEachRat * (_owner.CurrentRoom.RatsInTheRoomCount - 1);
         public int GetDeltaOfStrenghtValueForEachTurn() => effectSetup.deltaValueForEachTurn;
-
         public bool GetStrenghtEffectIsConstantly() => effectSetup.effectIsConstantly;
-
         public int GetStrenghtModificatorValue() => effectSetup.Value;
-
         public int GetTimeToEndOfStrenghtEffect() => effectSetup.timeToTheEndOfEffect;
-
         public int GetValue() => additionalStrenghtForEachRat;
 
         public override void Init(Unit unit)
@@ -26,8 +21,7 @@ namespace FroguesFramework
 
             _effect = new StatEffect(effectSetup);
             _owner.Stats.AddStatEffect(_effect);
-            EntryPoint.Instance.OnCountOfRatsUpdated.AddListener(UpdateEffectValue);
-            EntryPoint.Instance.CountOfRats++;
+            _owner.CurrentRoom.OnCountOfRatsUpdated.AddListener(UpdateEffectValue);
             _owner.AbleToDie.OnDeath.AddListener(DecreaseCountOfRats);
         }
 
@@ -35,7 +29,7 @@ namespace FroguesFramework
         {
             _owner.Stats.RemoveStatEffect(_effect);
             DecreaseCountOfRats();
-            EntryPoint.Instance.OnCountOfRatsUpdated.RemoveListener(UpdateEffectValue);
+            _owner.CurrentRoom.OnCountOfRatsUpdated.RemoveListener(UpdateEffectValue);
             _owner.AbleToDie.OnDeath.RemoveListener(DecreaseCountOfRats);
 
             base.UnInit();
@@ -43,7 +37,7 @@ namespace FroguesFramework
 
         private void DecreaseCountOfRats()
         {
-            EntryPoint.Instance.CountOfRats--;
+            _owner.CurrentRoom.RatsInTheRoomCount--;
         }
 
         private void UpdateEffectValue(int newValue)

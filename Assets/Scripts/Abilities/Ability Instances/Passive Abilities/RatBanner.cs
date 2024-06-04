@@ -6,7 +6,7 @@ namespace FroguesFramework
         {
             base.Init(unit);
 
-            EntryPoint.Instance.CountOfRats++;
+            _owner.CurrentRoom.RatsInTheRoomCount++;
             _owner.AbleToDie.OnDeath.AddListener(DecreaseCountOfRats);
         }
 
@@ -20,7 +20,7 @@ namespace FroguesFramework
 
         private void DecreaseCountOfRats()
         {
-            EntryPoint.Instance.CountOfRats--;
+            _owner.CurrentRoom.RatsInTheRoomCount++;
         }
     }
 }

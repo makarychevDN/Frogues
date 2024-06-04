@@ -7,11 +7,16 @@ namespace FroguesFramework
 {
     public class Room : MonoBehaviour
     {
+        [Header("Setup")]
         [SerializeField] private Map map;
         [SerializeField] private Cell startPlayerPosition;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
+
+        [Header("Mechanics")]
+        [field: SerializeField] public int CurrentlyRatsCount;
+
         private List<IAbleToDisablePreVisualization> _ableToDisablePreVisualizationObjects = new();
 
         public Map Map => map;
