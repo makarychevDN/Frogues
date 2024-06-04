@@ -14,14 +14,14 @@ namespace FroguesFramework
         {
             base.Init(unit);
             _owner.ActionPoints.OnPickUpPoints.AddListener(TryToIncreaseStat);
-            EntryPoint.Instance.OnNextRoomStarted.AddListener(ResetCounter);
+            _owner.OnCurrentRoomUpdated.AddListener(ResetCounter);
             ResetCounter();
         }
 
         public override void UnInit()
         {
             _owner.ActionPoints.OnPickUpPoints.RemoveListener(TryToIncreaseStat);
-            EntryPoint.Instance.OnNextRoomStarted.RemoveListener(ResetCounter);
+            _owner.OnCurrentRoomUpdated.RemoveListener(ResetCounter);
             base.UnInit();
         }
 
