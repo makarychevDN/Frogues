@@ -49,7 +49,7 @@ MonoBehaviour:
   currentHP: 100
   armor: 0
   block: 0
-  escapesFromDeathCount: 0
+  escapesFromDeath: 0
   dieImmedeatlyAfterStepOnItByUnit: 0
   deathFromStepOnThisUnitAudioSource: {fileID: 5268333603411451123}
   OnBlockIncreased:
@@ -256,7 +256,7 @@ MonoBehaviour:
   intelegence: []
   dexterity: []
   defence: []
-  spikes: []
+  thorns: []
   immobilized: []
   strengtModificatorStep: 0.25
   intelegenceModificatorStep: 0.25
@@ -278,6 +278,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnImmobilizedUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSomethingUpdated:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1092774737546061406
@@ -2159,7 +2162,6 @@ GameObject:
   - component: {fileID: 2812955802091130958}
   - component: {fileID: 707049996601828594}
   - component: {fileID: 4470639621562112939}
-  - component: {fileID: 3510354526871623767}
   m_Layer: 7
   m_Name: Empty Character
   m_TagString: Untagged
@@ -2184,7 +2186,7 @@ Transform:
   - {fileID: 9186810796872100348}
   - {fileID: 5882040592624337998}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &707049996601828594
 MonoBehaviour:
@@ -2200,9 +2202,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <unitType>k__BackingField: 0
   <CurrentCell>k__BackingField: {fileID: 0}
+  <CurrentRoom>k__BackingField: {fileID: 0}
   <Small>k__BackingField: 0
   <SurfaceUnitExtension>k__BackingField: {fileID: 0}
-  <ScoreContainer>k__BackingField: {fileID: 3510354526871623767}
   <IsEnemy>k__BackingField: 0
   <IsSummoned>k__BackingField: 0
   <AbilitiesManager>k__BackingField: {fileID: 3059790062465419283}
@@ -2263,19 +2265,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &3510354526871623767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5694739744037664986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1929792a2e6a5024397d9bd32f94ff41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
 --- !u!1 &5699687913477327339
 GameObject:
   m_ObjectHideFlags: 0
