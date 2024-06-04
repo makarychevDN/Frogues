@@ -13,25 +13,20 @@ namespace FroguesFramework
             base.Init(unit);
             _statEffect = new StatEffect(type, 0, 1, 0, true);
             _owner.Stats.AddStatEffect(_statEffect);
-            EntryPoint.Instance.OnBloodSurfacesCountOnTheMapUpdated.AddListener(UpdateStatEffect);
-            UpdateStatEffect();
+            _owner.CurrentRoom.OnCountOfBloodPuddlesUpdated.AddListener(UpdateStatEffect);
+            UpdateStatEffect(_owner.CurrentRoom.BloodPuddlesInTheRoomCount);
         }
 
         public override void UnInit()
         {
-            EntryPoint.Instance.OnBloodSurfacesCountOnTheMapUpdated.RemoveListener(UpdateStatEffect);
+            _owner.CurrentRoom.OnCountOfBloodPuddlesUpdated.RemoveListener(UpdateStatEffect);
             _owner.Stats.RemoveStatEffect(_statEffect);
             base.UnInit();
         }
 
-        private void UpdateStatEffect()
+        private void UpdateStatEffect(int countOfBloodPuddles)
         {
-            _statEffect.Value = CalculateValue() / requredCountOfBloodToIncreaseStat;
-        }
-
-        private int CalculateValue()
-        {
-            return EntryPoint.Instance.BloodSurfacesCount;
+            _statEffect.Value = countOfBloodPuddles / requredCountOfBloodToIncreaseStat;
         }
 
         public int GetModificatorValue() => 1;

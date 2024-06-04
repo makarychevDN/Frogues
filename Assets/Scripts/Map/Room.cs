@@ -15,7 +15,8 @@ namespace FroguesFramework
         [SerializeField] private CameraController cameraController;
 
         [Header("Mechanics")]
-        [field: SerializeField] public int CurrentlyRatsCount;
+        [SerializeField] private int ratsInTheRoomCount;
+        [SerializeField] private int bloodPuddlesInTheRoomCount;
 
         private List<IAbleToDisablePreVisualization> _ableToDisablePreVisualizationObjects = new();
 
@@ -23,9 +24,13 @@ namespace FroguesFramework
         public PathFinder PathFinder => pathFinder;
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
+        public int RatsInTheRoomCount { get => ratsInTheRoomCount; set { ratsInTheRoomCount = value; OnCountOfRatsUpdated.Invoke(ratsInTheRoomCount); } }
+        public int BloodPuddlesInTheRoomCount { get => bloodPuddlesInTheRoomCount; set { bloodPuddlesInTheRoomCount = value; OnCountOfBloodPuddlesUpdated.Invoke(ratsInTheRoomCount); } }
 
         public UnityEvent OnSomeoneMoved;
         public UnityEvent OnSomeoneDied;
+        public UnityEvent<int> OnCountOfRatsUpdated;
+        public UnityEvent<int> OnCountOfBloodPuddlesUpdated;
 
         public void Init(List<Unit> playableCharacters)
         {
