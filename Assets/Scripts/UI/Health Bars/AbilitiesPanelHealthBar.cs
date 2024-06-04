@@ -70,13 +70,13 @@ namespace FroguesFramework
 
         private void ShowHint(string header, string descriptionTag, Transform transformOfIcon)
         {
-            EntryPoint.Instance.CommonSmallHint.Init(header, descriptionTag, transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
-            EntryPoint.Instance.CommonSmallHint.EnableContent(true);
+            HintManager.Instance.CommonSmallHint.Init(header, descriptionTag, transformOfIcon, new Vector2(0.5f, 0), Vector2.up * 36);
+            HintManager.Instance.CommonSmallHint.EnableContent(true);
         }
 
         public void HideHint()
         {
-            EntryPoint.Instance.CommonSmallHint.EnableContent(false);
+            HintManager.Instance.CommonSmallHint.EnableContent(false);
         }
     }
 }

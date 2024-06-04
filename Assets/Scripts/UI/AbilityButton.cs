@@ -97,7 +97,7 @@ namespace FroguesFramework
             if (!_isInteractable)
                 return;
 
-            EntryPoint.Instance.AbilityHint.EnableContent(false);
+            //EntryPoint.Instance.AbilityHint.EnableContent(false); todo hint manager
             OnDragButton.Invoke(this);
             transform.parent = _parentToDragAndDropProcess;
             _draggingNow = true;
@@ -195,8 +195,8 @@ namespace FroguesFramework
                 return;
 
             var data = _ability.GetAbilityDataForButton();
-            EntryPoint.Instance.AbilityHint.Init(data.AbilityName, new List<string> { data.ShortData, data.Description }, transform, _pivotOfHintRectTransformWhenHover, _positionOfHintRelativeToButton);
-            EntryPoint.Instance.AbilityHint.EnableContent(true);
+            HintManager.Instance.AbilityHint.Init(data.AbilityName, new List<string> { data.ShortData, data.Description }, transform, _pivotOfHintRectTransformWhenHover, _positionOfHintRelativeToButton);
+            HintManager.Instance.AbilityHint.EnableContent(true);
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -204,7 +204,7 @@ namespace FroguesFramework
             if (_draggingNow)
                 return;
 
-            EntryPoint.Instance.AbilityHint.EnableContent(false);
+            HintManager.Instance.AbilityHint.EnableContent(false);
         }
     }
 }

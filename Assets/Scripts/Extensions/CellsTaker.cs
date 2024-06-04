@@ -149,9 +149,9 @@ namespace FroguesFramework
             return room.Map.allCells.Where(cell => cell.IsEmpty).ToList();
         }
 
-        public static List<Unit> TakeAllUnits(this Map map)
+        public static List<Unit> TakeAllUnits(this Room room)
         {
-            var cellsWithContent = map.allCells.Where(cell => !cell.IsEmpty).ToList();
+            var cellsWithContent = room.Map.allCells.Where(cell => !cell.IsEmpty).ToList();
             List<Unit> units = new List<Unit>();
             cellsWithContent.ForEach(cell => units.Add(cell.Content));
             return units;

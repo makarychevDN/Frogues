@@ -15,7 +15,7 @@ namespace FroguesFramework
 
         public void ShowHint()
         {
-            _hashedHint = useSmallHint ? EntryPoint.Instance.CommonSmallHint : EntryPoint.Instance.AbilityHint;
+            _hashedHint = useSmallHint ? HintManager.Instance.CommonSmallHint : HintManager.Instance.AbilityHint;
 
             _hashedHint.Init(header.GetLocalizedString(), description.GetLocalizedString(), transform, pivot, offset);
             _hashedHint.EnableContent(true);
