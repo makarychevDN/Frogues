@@ -11,7 +11,7 @@ namespace FroguesFramework
 
         void Start()
         {
-            EntryPoint.Instance.MetaPlayer.GetComponentInChildren<SelectedWeaponIndexContainer>();
+            /*EntryPoint.Instance.MetaPlayer.GetComponentInChildren<SelectedWeaponIndexContainer>();
             int count = 0;
 
             var weaponSetterWithCurrentWeapon = weaponSetterPrefabs
@@ -30,7 +30,7 @@ namespace FroguesFramework
                 SpawnAndInitWeaponSetterPrefab(prefab, EntryPoint.Instance.Map.GetCell(coordinatesOfCells[count]));
                 weaponSetterPrefabs.Remove(prefab);
                 count++;
-            }
+            }*/
         }
 
         private void SpawnAndInitWeaponSetterPrefab(WeaponAbilitiesSetter weaponSetterPrefab, Cell cell)
