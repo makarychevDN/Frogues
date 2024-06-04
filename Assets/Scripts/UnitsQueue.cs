@@ -41,6 +41,8 @@ namespace FroguesFramework
 
         private void InitQueue(List<Unit> playableCharacters, List<Unit> otherAbleToActCharacters)
         {
+            otherAbleToActCharacters.Remove(roundCounterBeforePlayer);
+            otherAbleToActCharacters.Remove(roundCounterBeforeEnemies);
             _unitsList = new CycledLinkedList
             {
                 roundCounterBeforePlayer,
