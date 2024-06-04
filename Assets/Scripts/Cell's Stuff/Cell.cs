@@ -17,6 +17,7 @@ namespace FroguesFramework
         public UnityEvent<Unit> OnBecameFullByUnit = new();
         public UnityEvent<Unit> OnBecameEmptyByUnit = new();
 
+        [field: SerializeField] public Room Room { get; set; }
         [SerializeField] private Unit content;
         [SerializeField] private List<Unit> surfaces = new();
         [SerializeField] private CellHighlighter validForMovementTileHighlighter;
@@ -27,7 +28,6 @@ namespace FroguesFramework
         [SerializeField] private HexagonCellNeighbours hexagonCellNeighbours;
         [SerializeField] private Vector3 _hashedPosition;
         [ReadOnly] public bool chosenToMovement;
-        private Room _room;
 
         public List<Unit> Surfaces => surfaces;
 
@@ -42,7 +42,7 @@ namespace FroguesFramework
                     value.CurrentCell = this;
                     OnBecameFull.Invoke();
                     OnBecameFullByUnit.Invoke(content);
-                    _room.InvokeOnSomeoneMoved();
+                    Room.InvokeOnSomeoneMoved();
                 }
                 else
                 {
@@ -61,9 +61,9 @@ namespace FroguesFramework
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if (!ignoreDefaultUnits && !_room.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
+            if (!ignoreDefaultUnits && !Room.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
             {
-                if (ignoreSmallUnits && _room.Map.CellsArray[coordinates.x, coordinates.y].Content
+                if (ignoreSmallUnits && Room.Map.CellsArray[coordinates.x, coordinates.y].Content
                     .Small)
                     return true;
 
@@ -108,13 +108,13 @@ namespace FroguesFramework
             EnableValidForMovementCellHighlight(false);
         }
 
-        public void AddSelfToTheList() => _room.AddAbleToDisablePrevisualizationObject(this);
+        public void AddSelfToTheList() => Room.AddAbleToDisablePrevisualizationObject(this);
 
-        public void RemoveSelfFromTheList() => _room.RemoveAbleToDisablePrevisualizationObject(this);
+        public void RemoveSelfFromTheList() => Room.RemoveAbleToDisablePrevisualizationObject(this);
 
         public void Init(Room room)
         {
-            _room = room;
+            this.Room = room;
             AddSelfToTheList();
         }
     }

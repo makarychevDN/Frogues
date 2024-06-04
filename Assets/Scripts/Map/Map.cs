@@ -94,6 +94,7 @@ namespace FroguesFramework
 
                         spawnedCell.coordinates = new Vector2Int(x, y);
                         spawnedCell.transform.position = tilemap.CellToWorld(new Vector3Int(x, y));
+                        spawnedCell.Room = GetComponentInParent<Room>();
                     }
                 }
             }

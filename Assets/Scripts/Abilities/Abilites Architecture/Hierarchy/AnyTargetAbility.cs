@@ -22,7 +22,8 @@ namespace FroguesFramework
 
         private void OnDestroy()
         {
-            RemoveSelfFromTheList();
+            if(_owner != null)
+                RemoveSelfFromTheList();
         }
 
         public abstract int CalculateHashFunctionOfPrevisualisation();
