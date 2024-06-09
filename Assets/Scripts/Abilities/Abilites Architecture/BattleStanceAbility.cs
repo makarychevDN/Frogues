@@ -19,7 +19,7 @@ namespace FroguesFramework
 
             var updatedValue = !stanceActiveNow;
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffectWithDelay(timeBeforeImpact, updatedValue));   
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
         }
@@ -41,7 +41,7 @@ namespace FroguesFramework
             }
         }
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         public UnityEvent<bool> GetHighlightEvent() => HighlightButtonEvent;
 

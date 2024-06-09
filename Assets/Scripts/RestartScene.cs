@@ -6,7 +6,6 @@ namespace FroguesFramework
     {
         public void Restart()
         {
-            CurrentlyActiveObjects.Clear();
             Application.LoadLevel(Application.loadedLevel);
         }
     }

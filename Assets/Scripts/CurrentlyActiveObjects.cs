@@ -3,27 +3,27 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public static class CurrentlyActiveObjects
+    public class CurrentlyActiveObjects : MonoBehaviour
     {
-        public static HashSet<MonoBehaviour> activeObjects = new HashSet<MonoBehaviour>();
-        public static HashSet<string> AllActivatedForSessionObjects = new HashSet<string>();
+        private HashSet<MonoBehaviour> _activeObjects = new HashSet<MonoBehaviour>();
+        private HashSet<string> _allActivatedForSessionObjects = new HashSet<string>();
 
-        public static void Add(MonoBehaviour something)
+        public void Add(MonoBehaviour something)
         {
-            activeObjects.Add(something);
+            _activeObjects.Add(something);
 
-            if (!AllActivatedForSessionObjects.Contains(something.ToString() + something.transform.root.name))
-                AllActivatedForSessionObjects.Add(something.ToString() + something.transform.root.name);
+            if (!_allActivatedForSessionObjects.Contains(something.ToString() + something.transform.root.name))
+                _allActivatedForSessionObjects.Add(something.ToString() + something.transform.root.name);
 
         }
 
-        public static void Remove(MonoBehaviour something)
+        public void Remove(MonoBehaviour something)
         {
-            activeObjects.Remove(something);
+            _activeObjects.Remove(something);
         }
 
-        public static void Clear() => activeObjects.Clear();
+        public void Clear() => _activeObjects.Clear();
 
-        public static bool SomethingIsActNow => activeObjects.Count != 0;
+        public bool SomethingIsActNow => _activeObjects.Count != 0;
     }
 }

@@ -23,7 +23,7 @@ namespace FroguesFramework
             SpendResourcePoints();
             SetCooldownAsAfterUse();
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
 
             if(healthCost == 0)
                 _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
@@ -47,7 +47,7 @@ namespace FroguesFramework
                 _owner.Stats.AddStatEffect(new StatEffect(buff));
         }
 
-        private void RemoveCurrentlyActive() => CurrentlyActiveObjects.Remove(this);
+        private void RemoveCurrentlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         #region IAbleToApplyDefenceModificator
         public int GetDefenceModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.defence);

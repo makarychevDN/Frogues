@@ -114,14 +114,14 @@ namespace FroguesFramework
 
         private void TriggerTakeDamageAnimation()
         {
-            CurrentlyActiveObjects.Add(this);
+            _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
             _unit.Animator.SetTrigger(CharacterAnimatorParameters.TakeDamage);
             Invoke("RemoveFromCurrentlyActiveObjects", 0.25f); //todo улучшить эту штуку
         }
 
         private void RemoveFromCurrentlyActiveObjects()
         {
-            CurrentlyActiveObjects.Remove(this);
+            _unit.CurrentRoom.CurrentlyActiveObjects.Remove(this);
         }
 
         public void TakeHealing(int value)
@@ -164,7 +164,7 @@ namespace FroguesFramework
 
             if (currentHP < _hashedHp)
             {
-                CurrentlyActiveObjects.Add(this);
+                _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
                 OnDamageAppledByHealth.Invoke();
                 OnDamageFromUnitAppliedByHealth.Invoke(damageSource);
             }

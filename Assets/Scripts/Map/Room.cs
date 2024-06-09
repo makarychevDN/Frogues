@@ -13,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
+        [SerializeField] private CurrentlyActiveObjects currentlyActiveObjects;
 
         [Header("Mechanics")]
         [SerializeField] private int ratsInTheRoomCount;
@@ -25,6 +26,7 @@ namespace FroguesFramework
         public PathFinder PathFinder => pathFinder;
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
+        public CurrentlyActiveObjects CurrentlyActiveObjects => currentlyActiveObjects;
         public int RatsInTheRoomCount { get => ratsInTheRoomCount; set { ratsInTheRoomCount = value; OnCountOfRatsUpdated.Invoke(ratsInTheRoomCount); } }
         public int BloodPuddlesInTheRoomCount { get => bloodPuddlesInTheRoomCount; set { bloodPuddlesInTheRoomCount = value; OnCountOfBloodPuddlesUpdated.Invoke(ratsInTheRoomCount); } }
 
@@ -46,7 +48,7 @@ namespace FroguesFramework
             cameraController.Init(this);
             map.Init();
             pathFinder.Init();
-            unitsQueue.Init(playableCharacters, otherAbleToACtCharacters);
+            unitsQueue.Init(this, playableCharacters, otherAbleToACtCharacters);
         }
 
         public void Deactivate()

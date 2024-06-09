@@ -63,13 +63,13 @@ namespace FroguesFramework
             if(healthCost == 0)
                 _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, cells[0]));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
             Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);
         }
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         private void PlayImpactSound() => impactSoundSource.Play();
 

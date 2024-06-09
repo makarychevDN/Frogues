@@ -25,7 +25,7 @@ namespace FroguesFramework
             if(impactSoundSource != null)
                 impactSoundSource.Play();
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
             StartCoroutine(ApplyEffect(timeBeforeImpact));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
@@ -48,7 +48,7 @@ namespace FroguesFramework
                 });
         }
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         public int GetDefaultDamage() => damage;
 

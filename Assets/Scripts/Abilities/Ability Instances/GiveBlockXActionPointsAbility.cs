@@ -19,7 +19,7 @@ namespace FroguesFramework
             SpendResourcePoints();
             SetCooldownAsAfterUse();
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
             StartCoroutine(ApplyEffect(timeBeforeImpact));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
@@ -36,7 +36,7 @@ namespace FroguesFramework
             return _owner.ActionPoints.CurrentPoints > 0;
         }
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         public int GetDefaultBlockValue() => blockValue * CalculateActionPointsCost;
 

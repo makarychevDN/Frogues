@@ -49,7 +49,7 @@ namespace FroguesFramework
             var hexDir = _owner.CurrentCell.CellNeighbours.GetHexDirByNeighbor(target.CurrentCell);
             var targetCell = target.CurrentCell.CellNeighbours.GetNeighborByHexDir(hexDir);
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, target, targetCell));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
             Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);

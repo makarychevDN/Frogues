@@ -19,7 +19,7 @@ namespace FroguesFramework
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(target);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, target));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
             Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);

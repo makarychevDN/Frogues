@@ -16,6 +16,7 @@ namespace FroguesFramework
 
         private CycledLinkedList _unitsList;
         private QueueNode _currentNode;
+        private Room _room;
         [SerializeField, ReadOnly] private Unit _debugCurrentUnit;
         [SerializeField, ReadOnly] private List<Unit> _debugUnits;
 
@@ -27,8 +28,9 @@ namespace FroguesFramework
         }
 
 
-        public void Init(List<Unit> playableCharacters, List<Unit> otherAbleToActCharacters)
+        public void Init(Room room, List<Unit> playableCharacters, List<Unit> otherAbleToActCharacters)
         {
+            _room = room;
             InitQueue(playableCharacters, otherAbleToActCharacters);
             ActivateNext();
         }
@@ -65,7 +67,7 @@ namespace FroguesFramework
 
         public void ActForCurrentUnit()
         {
-            if (CurrentlyActiveObjects.SomethingIsActNow || playerDied)
+            if (_room.CurrentlyActiveObjects.SomethingIsActNow || playerDied)
                 return;
 
             _currentNode.Unit.ActionsInput.Act();

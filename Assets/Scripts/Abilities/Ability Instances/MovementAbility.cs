@@ -105,7 +105,7 @@ namespace FroguesFramework
 
         private void Update()
         {
-            if (!CurrentlyActiveObjects.SomethingIsActNow && PathToMoveIsSelected)
+            if (!_owner.CurrentRoom.CurrentlyActiveObjects.SomethingIsActNow && PathToMoveIsSelected)
             {
                 if (!_owner.Movable.IsPossibleToMoveOnCell(_currentPath[0]))
                 {

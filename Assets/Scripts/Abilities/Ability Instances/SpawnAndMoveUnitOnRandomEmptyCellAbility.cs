@@ -20,7 +20,7 @@ namespace FroguesFramework
 
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             var cell = _usingArea.GetRandomElement();
             StartCoroutine(ApplyEffect(timeBeforeImpact, cell));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
@@ -43,7 +43,7 @@ namespace FroguesFramework
 
         private void PlayImpactSound() => impactSoundSource.Play();
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         public int ReturnRange() => radius;
     }

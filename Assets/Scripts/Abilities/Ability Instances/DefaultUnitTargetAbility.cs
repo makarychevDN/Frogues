@@ -58,7 +58,7 @@ namespace FroguesFramework
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(target);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, target));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
             Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);
@@ -77,7 +77,7 @@ namespace FroguesFramework
             OnEffectApplied.Invoke();
         }
 
-        protected void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        protected void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         protected void PlayImpactSound()
         {

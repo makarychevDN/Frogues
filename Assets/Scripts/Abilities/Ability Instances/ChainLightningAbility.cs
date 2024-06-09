@@ -33,7 +33,7 @@ namespace FroguesFramework
             ShowLighting(_targets);
 
             OnEffectApplied.Invoke();
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             Invoke(nameof(HideLighting), lightingApearTime);
         }
 
@@ -52,7 +52,7 @@ namespace FroguesFramework
         private void HideLighting()
         {
             lightingVisualizatuion.gameObject.SetActive(false);
-            CurrentlyActiveObjects.Remove(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
         }
 
         public int GetAlternativeRange() => rangeOfRicochet;

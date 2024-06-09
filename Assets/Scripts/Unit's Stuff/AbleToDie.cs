@@ -17,7 +17,7 @@ namespace FroguesFramework
         
         public void Die(bool ownerKilledItSelf = false)
         {
-            CurrentlyActiveObjects.Add(this);
+            _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
             _unit.Animator.SetTrigger(CharacterAnimatorParameters.Death);
             StartCoroutine(nameof(DelayBeforeDeath), ownerKilledItSelf);
         }
@@ -34,8 +34,8 @@ namespace FroguesFramework
                 if (_unit.CurrentCell.Surfaces.Contains(_unit))
                     _unit.CurrentCell.Surfaces.Remove(_unit);
             }
-            
-            CurrentlyActiveObjects.Remove(this);
+
+            _unit.CurrentRoom.CurrentlyActiveObjects.Remove(this);
             _unit.CurrentRoom.UnitsQueue.Remove(_unit);
             _unit.CurrentRoom.InvokeOnSomeoneDied();
             Destroy(_unit.gameObject);

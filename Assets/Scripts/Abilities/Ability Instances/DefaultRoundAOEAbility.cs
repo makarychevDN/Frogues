@@ -44,7 +44,7 @@ namespace FroguesFramework
             if (needToRotateOwnersSprite) _owner.SpriteRotator.TurnAroundByTarget(cells[0]);
             _owner.Animator.SetTrigger(abilityAnimatorTrigger.ToString());
 
-            CurrentlyActiveObjects.Add(this);
+            _owner.CurrentRoom.CurrentlyActiveObjects.Add(this);
             StartCoroutine(ApplyEffect(timeBeforeImpact, cells));
             Invoke(nameof(RemoveCurremtlyActive), fullAnimationTime);
             Invoke(nameof(PlayImpactSound), delayBeforeImpactSound);
@@ -56,7 +56,7 @@ namespace FroguesFramework
             cells.Where(cell => !cell.IsEmpty).ToList().ForEach(cell => cell.Content.Health.TakeDamage(CalculateDamage(), _owner));
         }
 
-        private void RemoveCurremtlyActive() => CurrentlyActiveObjects.Remove(this);
+        private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
         private void PlayImpactSound() => impactSoundSource.Play();
 

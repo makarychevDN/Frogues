@@ -112,7 +112,7 @@ namespace FroguesFramework
             _targetCell = targetCell;
             _startCellPosition = startCell == null ? transform.position : startCell.transform.position;
             _targetCellPosition = targetCell.transform.position;
-            CurrentlyActiveObjects.Add(this);
+            _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
             _distance = Vector3.Distance(_startCellPosition, _targetCellPosition);
             
             if(needToRotateSprite)
@@ -144,7 +144,7 @@ namespace FroguesFramework
             {
                 _currentTime = 0;
                 _isPlaying = false;
-                CurrentlyActiveObjects.Remove(this);
+                _unit.CurrentRoom.CurrentlyActiveObjects.Remove(this);
                 _spriteParent.localPosition = Vector3.zero;
                 _shadow.localPosition = Vector3.zero;
                 StopMovement(_targetCell);
