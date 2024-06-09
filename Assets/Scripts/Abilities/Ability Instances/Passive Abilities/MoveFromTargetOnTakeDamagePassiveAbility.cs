@@ -30,12 +30,11 @@ namespace FroguesFramework
             if (_owner.Health.CurrentHp <= 0)
                 return;
 
-            var theBestCellsToRetreat = CellsTaker.GetBestCellsToRetreatFromTarget(_owner, target);           
+            var theBestCellsToRetreat = CellsTaker.GetBestCellsToRetreatFromTarget(_owner, target, _owner.CurrentRoom);           
 
             if (theBestCellsToRetreat.Contains(_owner.CurrentCell))
                 return;
 
-            EntryPoint.Instance.MetaPlayer.MovementAbility.ResetPath();
             _mostFarFromTargetNeighborCells = theBestCellsToRetreat.GetRandomElement();
             _movedOnTakeDamageAlready = true;
             Invoke(nameof(MoveAfterDelay), 0.24f);
