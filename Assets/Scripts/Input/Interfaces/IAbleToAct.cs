@@ -4,6 +4,6 @@
     {
         public void Act();
 
-        public void Init();
+        public void Init(Unit owner);
     }
 }

@@ -5,8 +5,8 @@ namespace FroguesFramework
 {
     public abstract class AlternatesRunFromTargetAndDoSomethingAI : MonoBehaviour, IAbleToAct
     {
-        [SerializeField] protected Unit target;
-        protected Unit _unit;
+        protected Unit _target;
+        protected Unit _owner;
         protected bool _moveFromTargetMode;
 
         public void Act()
@@ -25,36 +25,35 @@ namespace FroguesFramework
 
         protected virtual void TryToRunFromTarget()
         {
-            if (_unit.MovementAbility == null || !_unit.MovementAbility.IsResoursePointsEnough())
+            _target = _owner.CurrentRoom.PlayableCharacters[0];
+
+            if (_owner.MovementAbility == null || !_owner.MovementAbility.IsResoursePointsEnough())
             {
                 EndTurn();
                 return;
             }
 
-            var theBestCellsToRetreat = CellsTaker.GetBestCellsToRetreatFromTarget(_unit, target);
+            var theBestCellsToRetreat = CellsTaker.GetBestCellsToRetreatFromTarget(_owner, _target, _owner.CurrentRoom);
 
-            if (theBestCellsToRetreat.Contains(_unit.CurrentCell))
+            if (theBestCellsToRetreat.Contains(_owner.CurrentCell))
             {
                 EndTurn();
                 return;
             }
 
-            _unit.MovementAbility.CalculateUsingArea();
-            _unit.MovementAbility.UseOnCells(new List<Cell> { theBestCellsToRetreat.GetRandomElement() });
+            _owner.MovementAbility.CalculateUsingArea();
+            _owner.MovementAbility.UseOnCells(new List<Cell> { theBestCellsToRetreat.GetRandomElement() });
         }
 
         protected void EndTurn()
         {
-            _unit.AbleToSkipTurn.AutoSkip();
+            _owner.AbleToSkipTurn.AutoSkip();
             _moveFromTargetMode = !_moveFromTargetMode;
         }
 
-        public void Init()
+        public void Init(Unit owner)
         {
-            _unit = GetComponentInParent<Unit>();
-
-            if (target == null)
-                target = EntryPoint.Instance.MetaPlayer;
+            _owner = owner;
         }
     }
 }

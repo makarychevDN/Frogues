@@ -6,10 +6,11 @@ namespace FroguesFramework
     {
         [SerializeField] private Unit target;
         [SerializeField] private UnitTargetAbility unitTargetAbilty;
-        private Unit _unit;
+        private Unit _owner;
 
         public void Act()
         {
+            target = _owner.CurrentRoom.PlayableCharacters[0];
             unitTargetAbilty.PrepareToUsing(target);
             if (unitTargetAbilty.PossibleToUseOnUnit(target))
             {
@@ -17,15 +18,12 @@ namespace FroguesFramework
                 return;
             }
 
-            _unit.AbleToSkipTurn.AutoSkip();
+            _owner.AbleToSkipTurn.AutoSkip();
         }
 
-        public void Init()
+        public void Init(Unit owner)
         {
-            _unit = GetComponentInParent<Unit>();
-
-            if (target == null)
-                target = EntryPoint.Instance.MetaPlayer;
+            _owner = owner;
         }
     }
 }

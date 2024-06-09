@@ -14,6 +14,7 @@ namespace FroguesFramework
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private CurrentlyActiveObjects currentlyActiveObjects;
+        [SerializeField] private List<Unit> playableCharacters;
 
         [Header("Mechanics")]
         [SerializeField] private int ratsInTheRoomCount;
@@ -27,6 +28,7 @@ namespace FroguesFramework
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
         public CurrentlyActiveObjects CurrentlyActiveObjects => currentlyActiveObjects;
+        public List<Unit> PlayableCharacters => playableCharacters;
         public int RatsInTheRoomCount { get => ratsInTheRoomCount; set { ratsInTheRoomCount = value; OnCountOfRatsUpdated.Invoke(ratsInTheRoomCount); } }
         public int BloodPuddlesInTheRoomCount { get => bloodPuddlesInTheRoomCount; set { bloodPuddlesInTheRoomCount = value; OnCountOfBloodPuddlesUpdated.Invoke(ratsInTheRoomCount); } }
 
@@ -37,6 +39,7 @@ namespace FroguesFramework
 
         public void Init(List<Unit> playableCharacters)
         {
+            this.playableCharacters = playableCharacters;
             GetComponentsInChildren<Unit>().ToList().ForEach(unit => unit.Init(this));
             List<Unit> otherAbleToACtCharacters = GetComponentsInChildren<Unit>().Where(unit => unit.ActionsInput != null).ToList();
             foreach (var unit in playableCharacters)

@@ -6,11 +6,12 @@ namespace FroguesFramework
     public class UseAreaTargetAbilityOrSkipTurnAI : MonoBehaviour, IAbleToAct
     {
         [SerializeField] private AreaTargetAbility areaTargetAbility;
-        private Unit _unit;
+        private Unit _owner;
         private Unit _target;
 
         public void Act()
         {
+            _target = _owner.CurrentRoom.PlayableCharacters[0];
             areaTargetAbility.CalculateUsingArea();
             var targetCellToList = new List<Cell> { _target.CurrentCell };
             areaTargetAbility.PrepareToUsing(targetCellToList);
@@ -23,13 +24,12 @@ namespace FroguesFramework
                 return;
             }
 
-            _unit.AbleToSkipTurn.AutoSkip();
+            _owner.AbleToSkipTurn.AutoSkip();
         }
 
-        public void Init()
+        public void Init(Unit owner)
         {
-            _unit = GetComponentInParent<Unit>();
-            _target = EntryPoint.Instance.MetaPlayer;
+            _owner = owner;
         }
     }
 }

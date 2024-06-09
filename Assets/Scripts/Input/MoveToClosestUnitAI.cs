@@ -6,21 +6,21 @@ namespace FroguesFramework
 {
     public class MoveToClosestUnitAI : MonoBehaviour, IAbleToAct
     {
-        private Unit _unit;
+        private Unit _owner;
 
         public void Act()
         {
-            _unit.MovementAbility.CalculateUsingArea();
-            List<Unit> units = _unit.CurrentRoom.TakeAllUnits();
-            units.Remove( _unit );
+            _owner.MovementAbility.CalculateUsingArea();
+            List<Unit> units = _owner.CurrentRoom.TakeAllUnits();
+            units.Remove( _owner );
 
-            if (!_unit.MovementAbility.IsResoursePointsEnough() || units == null || units.Count == 0)
+            if (!_owner.MovementAbility.IsResoursePointsEnough() || units == null || units.Count == 0)
             {
                 SkipTurn();
                 return;
             }
 
-            int closestDistnace = units.Min(unit => unit.CurrentCell.DistanceToCell(_unit.CurrentCell, _unit.CurrentRoom));
+            int closestDistnace = units.Min(unit => unit.CurrentCell.DistanceToCell(_owner.CurrentCell, _owner.CurrentRoom));
 
             if (closestDistnace <= 0)
             {
@@ -28,8 +28,8 @@ namespace FroguesFramework
                 return;
             }
 
-            List<Unit> closestUnits = units.Where(unit => unit.CurrentCell.DistanceToCell(_unit.CurrentCell, _unit.CurrentRoom) <= closestDistnace).ToList();
-            List<Cell> path = _unit.CurrentRoom.PathFinder.FindWayExcludeLastCell(_unit.CurrentCell, closestUnits.GetRandomElement().CurrentCell, false, false, true);
+            List<Unit> closestUnits = units.Where(unit => unit.CurrentCell.DistanceToCell(_owner.CurrentCell, _owner.CurrentRoom) <= closestDistnace).ToList();
+            List<Cell> path = _owner.CurrentRoom.PathFinder.FindWayExcludeLastCell(_owner.CurrentCell, closestUnits.GetRandomElement().CurrentCell, false, false, true);
 
             if (path == null || path.Count == 0)
             {
@@ -37,14 +37,14 @@ namespace FroguesFramework
                 return;
             }
 
-            _unit.MovementAbility.UseOnCells(new List<Cell> { path[0] });
+            _owner.MovementAbility.UseOnCells(new List<Cell> { path[0] });
         }
 
-        private void SkipTurn() => _unit.AbleToSkipTurn.AutoSkip();
+        private void SkipTurn() => _owner.AbleToSkipTurn.AutoSkip();
 
-        public void Init()
+        public void Init(Unit owner)
         {
-            _unit = GetComponentInParent<Unit>();
+            _owner = owner;
         }
     }
 }

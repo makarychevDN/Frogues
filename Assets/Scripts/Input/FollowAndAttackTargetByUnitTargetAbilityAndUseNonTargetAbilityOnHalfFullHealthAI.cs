@@ -8,7 +8,7 @@ namespace FroguesFramework
 
         public override void Act()
         {
-            if (_unit.Health.CurrentHp < _unit.Health.MaxHp * 0.5f)
+            if (_owner.Health.CurrentHp < _owner.Health.MaxHp * 0.5f)
             {
                 nonTargetAbility.Use();
                 return;

@@ -12,7 +12,7 @@ namespace FroguesFramework
             OnInput.Invoke();
         }
 
-        public void Init()
+        public void Init(Unit owner)
         {
             
         }

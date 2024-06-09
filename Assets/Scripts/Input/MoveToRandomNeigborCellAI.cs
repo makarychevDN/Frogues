@@ -5,25 +5,25 @@ namespace FroguesFramework
 {
     public class MoveToRandomNeigborCellAI : MonoBehaviour, IAbleToAct
     {
-        private Unit _unit;
+        private Unit _owner;
 
         public void Act()
         {
-            _unit.MovementAbility.CalculateUsingArea();
+            _owner.MovementAbility.CalculateUsingArea();
 
-            var possibleToMovementCells = _unit.CurrentRoom.PathFinder.GetCellsAreaForAOE(_unit.CurrentCell, 1, false, false).EmptyCellsOnly();
-            if (possibleToMovementCells == null || possibleToMovementCells.Count == 0 || !_unit.MovementAbility.IsResoursePointsEnough())
+            var possibleToMovementCells = _owner.CurrentRoom.PathFinder.GetCellsAreaForAOE(_owner.CurrentCell, 1, false, false).EmptyCellsOnly();
+            if (possibleToMovementCells == null || possibleToMovementCells.Count == 0 || !_owner.MovementAbility.IsResoursePointsEnough())
             {
-                _unit.AbleToSkipTurn.AutoSkip();
+                _owner.AbleToSkipTurn.AutoSkip();
                 return;
             }
 
-            _unit.MovementAbility.UseOnCells(new List<Cell> { possibleToMovementCells.GetRandomElement() });
+            _owner.MovementAbility.UseOnCells(new List<Cell> { possibleToMovementCells.GetRandomElement() });
         }
 
-        public void Init()
+        public void Init(Unit owner)
         {
-            _unit = GetComponentInParent<Unit>();
+            _owner = owner;
         }
     }
 }

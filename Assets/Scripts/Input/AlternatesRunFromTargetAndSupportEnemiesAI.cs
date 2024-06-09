@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,9 +16,9 @@ namespace FroguesFramework
                 return;
             }
 
-            var enemies = CellsTaker.TakeAllUnits();
+            var enemies = _owner.CurrentRoom.TakeAllUnits();
             enemies = enemies.Where(unit => unit.IsEnemy && !unit.Small && !unit.AbilitiesManager.Abilities.Any(ability => ability is MushroomPassiveProperty)).ToList();
-            enemies.Remove(_unit);
+            enemies.Remove(_owner);
 
             if (enemies.Count == 0)
             {

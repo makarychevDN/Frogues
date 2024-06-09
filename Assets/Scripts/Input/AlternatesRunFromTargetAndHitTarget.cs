@@ -14,14 +14,14 @@ namespace FroguesFramework
                 return;
             }
 
-            hitTargetAbilty.PrepareToUsing(target);
-            if (!hitTargetAbilty.PossibleToUseOnUnit(target))
+            hitTargetAbilty.PrepareToUsing(_target);
+            if (!hitTargetAbilty.PossibleToUseOnUnit(_target))
             {
                 EndTurn();
                 return;
             }
 
-            hitTargetAbilty.UseOnUnit(target);
+            hitTargetAbilty.UseOnUnit(_target);
         }
 
         protected override void TryToDoSomething() => TryToHitEnemy();

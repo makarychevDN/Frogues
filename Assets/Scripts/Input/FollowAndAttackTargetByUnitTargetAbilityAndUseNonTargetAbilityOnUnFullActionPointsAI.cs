@@ -9,10 +9,10 @@ namespace FroguesFramework
 
         public override void Act()
         {
-            if (!_unit.ActionPoints.Full && !_needToActAsBase)
+            if (!_owner.ActionPoints.Full && !_needToActAsBase)
             {
                 nonTargetAbility.Use();
-                _unit.AbleToSkipTurn.AutoSkip();
+                _owner.AbleToSkipTurn.AutoSkip();
                 return;
             }
 
@@ -20,11 +20,11 @@ namespace FroguesFramework
             base.Act();
         }
 
-        public override void Init()
+        public override void Init(Unit owner)
         {
-            base.Init();
+            base.Init(owner);
 
-            _unit.AbleToSkipTurn.OnSkipTurn.AddListener(() => _needToActAsBase = false);
+            _owner.AbleToSkipTurn.OnSkipTurn.AddListener(() => _needToActAsBase = false);
         }
     }
 }

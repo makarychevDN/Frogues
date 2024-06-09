@@ -72,7 +72,7 @@ namespace FroguesFramework
             MaterialInstanceContainer?.Init(this);
 
             ActionsInput = GetComponentInChildren<IAbleToAct>();
-            ActionsInput?.Init();
+            ActionsInput?.Init(this);
             
             AbleToSkipTurn?.Init(this);
             EffectsVisualiser?.Init(this);

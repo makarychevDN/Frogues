@@ -7,10 +7,12 @@ namespace FroguesFramework
     {
         [SerializeField] private Unit target;
         [SerializeField] private UnitTargetAbility unitTargetAbilty;
-        protected Unit _unit;
+        protected Unit _owner;
 
         public virtual void Act()
         {
+            target = _owner.CurrentRoom.PlayableCharacters[0];
+
             unitTargetAbilty.PrepareToUsing(target);
             if (unitTargetAbilty.PossibleToUseOnUnit(target))
             {
@@ -18,25 +20,22 @@ namespace FroguesFramework
                 return;
             }
 
-            _unit.MovementAbility.CalculateUsingArea();
+            _owner.MovementAbility.CalculateUsingArea();
             var theFirstCellOfPathAsList = new List<Cell> { 
-                _unit.MovementAbility.SelectCells(new List<Cell> { target.CurrentCell })?.GetFirst() };
+                _owner.MovementAbility.SelectCells(new List<Cell> { target.CurrentCell })?.GetFirst() };
 
-            if (!_unit.MovementAbility.PossibleToUseOnCells(theFirstCellOfPathAsList))
+            if (!_owner.MovementAbility.PossibleToUseOnCells(theFirstCellOfPathAsList))
             {
-                _unit.AbleToSkipTurn.AutoSkip();
+                _owner.AbleToSkipTurn.AutoSkip();
                 return;
             }
 
-            _unit.MovementAbility.UseOnCells(theFirstCellOfPathAsList);
+            _owner.MovementAbility.UseOnCells(theFirstCellOfPathAsList);
         }
 
-        public virtual void Init()
+        public virtual void Init(Unit owner)
         {
-            _unit = GetComponentInParent<Unit>();
-
-            if (target == null)
-                target = EntryPoint.Instance.MetaPlayer;
+            _owner = owner;
         }
     }
 }
