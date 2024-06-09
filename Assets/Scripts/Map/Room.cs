@@ -21,6 +21,7 @@ namespace FroguesFramework
         private List<IAbleToDisablePreVisualization> _ableToDisablePreVisualizationObjects = new();
 
         public Map Map => map;
+        public bool NeedToShowUnitsUI => true;
         public PathFinder PathFinder => pathFinder;
         public UnitsQueue UnitsQueue => unitsQueue;
         public CameraController CameraController => cameraController;
