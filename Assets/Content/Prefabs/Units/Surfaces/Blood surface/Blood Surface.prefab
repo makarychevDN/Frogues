@@ -1,52 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3360262001298774552
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4327926304944452497}
-  - component: {fileID: 8842631538183306012}
-  m_Layer: 8
-  m_Name: Increas Blood Points
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4327926304944452497
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3360262001298774552}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4759472497071880604}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8842631538183306012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3360262001298774552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd594c0ee2658b7458d33885d33effc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityDataForButton: {fileID: 0}
-  isPartOfWeapon: 0
-  additionalTemporaryActionPointsQuantity: 2
 --- !u!1 &4073265479992555229
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,16 +147,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2149085756810207331, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2149085756810207330, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1405672770214154960}
-    - targetCorrespondingSourceObject: {fileID: 2149085757659523605, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4327926304944452497}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2149085756810207324, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 4809875695350956238}
     - targetCorrespondingSourceObject: {fileID: 2149085756810207324, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8881028149748010079}
@@ -233,11 +187,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd333e9faa254b64baa77ef98f9e5edb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4759472495705185063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2149085758507419822, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
+  m_PrefabInstance: {fileID: 6907990870756184969}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcb33c110a3b97e459aac1278301da1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4759472496457446357 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2149085756810207324, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
   m_PrefabInstance: {fileID: 6907990870756184969}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4809875695350956238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759472496457446357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b2237d7fff98b4fa2447e836f713e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <unitType>k__BackingField: 1
+  <CurrentCell>k__BackingField: {fileID: 0}
+  <CurrentRoom>k__BackingField: {fileID: 0}
+  <Small>k__BackingField: 0
+  <SurfaceUnitExtension>k__BackingField: {fileID: 4759472496457446376}
+  <IsEnemy>k__BackingField: 0
+  <IsSummoned>k__BackingField: 0
+  <AbilitiesManager>k__BackingField: {fileID: 4759472497071880605}
+  <ActionPoints>k__BackingField: {fileID: 0}
+  <BloodPoints>k__BackingField: {fileID: 0}
+  <AbleToSkipTurn>k__BackingField: {fileID: 0}
+  <Movable>k__BackingField: {fileID: 0}
+  <MovementAbility>k__BackingField: {fileID: 0}
+  <Animator>k__BackingField: {fileID: 0}
+  <SpriteParent>k__BackingField: {fileID: 4759472495408484001}
+  <Shadow>k__BackingField: {fileID: 0}
+  <SpriteRotator>k__BackingField: {fileID: 0}
+  <MaterialInstanceContainer>k__BackingField: {fileID: 6846871990917944524}
+  <Health>k__BackingField: {fileID: 0}
+  <AbleToDie>k__BackingField: {fileID: 4759472495705185063}
+  <EffectsVisualiser>k__BackingField: {fileID: 0}
+  <Stats>k__BackingField: {fileID: 0}
+  <UnitDescription>k__BackingField: {fileID: 8881028149748010079}
+  OnStepOnThisUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnStepOnThisUnitByUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInspectIt:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCurrentRoomUpdated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8881028149748010079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,17 +262,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e7fe1c0aec5f74d810f0a2225f9d59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: 
-  description: "\u041A\u0440\u043E\u0432\u044C\n\n\u0412\u043E\u0441\u043F\u043E\u043B\u043D\u044F\u0435\u0442
-    \u0437\u0430\u043F\u0430\u0441 \u043A\u0440\u043E\u0432\u0438 \u0442\u0435\u043C,
-    \u043A\u0442\u043E \u0443\u043C\u0435\u0435\u0442 \u0435\u0439 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u044C\u0441\u044F"
+  unitName:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  description:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &4759472496457446376 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2149085756810207329, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
+  m_PrefabInstance: {fileID: 6907990870756184969}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759472496457446357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115c3dfcfc6855c4fa09f6e4f639fcab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4759472496457446379 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2149085756810207330, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
   m_PrefabInstance: {fileID: 6907990870756184969}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4759472497071880604 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2149085757659523605, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
+--- !u!114 &4759472497071880605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2149085757659523604, guid: 9ea3f1d4f328fc643b74bf91e2b316f9, type: 3}
   m_PrefabInstance: {fileID: 6907990870756184969}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87f94f611abb0c84c93ac90b78641b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

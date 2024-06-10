@@ -15,10 +15,10 @@ namespace FroguesFramework
         [SerializeField] private CameraController cameraController;
         [SerializeField] private CurrentlyActiveObjects currentlyActiveObjects;
         [SerializeField] private List<Unit> playableCharacters;
+        [SerializeField] private List<Unit> bloodPuddles;
 
         [Header("Mechanics")]
         [SerializeField] private int ratsInTheRoomCount;
-        [SerializeField] private int bloodPuddlesInTheRoomCount;
 
         private List<IAbleToDisablePreVisualization> _ableToDisablePreVisualizationObjects = new();
 
@@ -30,7 +30,7 @@ namespace FroguesFramework
         public CurrentlyActiveObjects CurrentlyActiveObjects => currentlyActiveObjects;
         public List<Unit> PlayableCharacters => playableCharacters;
         public int RatsInTheRoomCount { get => ratsInTheRoomCount; set { ratsInTheRoomCount = value; OnCountOfRatsUpdated.Invoke(ratsInTheRoomCount); } }
-        public int BloodPuddlesInTheRoomCount { get => bloodPuddlesInTheRoomCount; set { bloodPuddlesInTheRoomCount = value; OnCountOfBloodPuddlesUpdated.Invoke(ratsInTheRoomCount); } }
+        public int BloodPuddlesInTheRoomCount => bloodPuddles.Count;
 
         public UnityEvent OnSomeoneMoved;
         public UnityEvent OnSomeoneDied;
@@ -90,6 +90,18 @@ namespace FroguesFramework
         private void Update()
         {
             unitsQueue.ActForCurrentUnit();
+        }
+
+        public void AddBloodPuddle(Unit bloodPuddle)
+        {
+            bloodPuddles.Add(bloodPuddle);
+            OnCountOfBloodPuddlesUpdated.Invoke(bloodPuddles.Count);
+        }
+
+        public void RemoveBloodPuddle(Unit bloodPuddle)
+        {
+            bloodPuddles.Remove(bloodPuddle);
+            OnCountOfBloodPuddlesUpdated.Invoke(bloodPuddles.Count);
         }
     }
 }

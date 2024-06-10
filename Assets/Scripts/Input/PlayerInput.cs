@@ -126,7 +126,7 @@ namespace FroguesFramework
             }
         }
 
-        private System.Object UniversalPrepareAbilityToUse(BaseAbility baseAbility)
+        private object UniversalPrepareAbilityToUse(BaseAbility baseAbility)
         {
             if (baseAbility is IAbleToUseOnCells)
             {
@@ -172,9 +172,9 @@ namespace FroguesFramework
             }
         }
 
-        private void UniversalPrevisualization(BaseAbility baseAbility, System.Object target)
+        private void UniversalPrevisualization(BaseAbility baseAbility, object target)
         {
-            EntryPoint.Instance.DisableAllPrevisualization();
+            _unit.CurrentRoom.DisableAllPrevisualization();
 
             if (baseAbility is IAbleToUseOnCells)
             {
@@ -195,7 +195,7 @@ namespace FroguesFramework
             }
         }
 
-        private bool UniversalIsPossibleToUse(BaseAbility baseAbility, System.Object target)
+        private bool UniversalIsPossibleToUse(BaseAbility baseAbility, object target)
         {
             if (baseAbility is IAbleToUseOnCells)
             {
@@ -215,9 +215,9 @@ namespace FroguesFramework
             return false;
         }
 
-        private void UniversalUseAbility(BaseAbility baseAbility, System.Object target)
+        private void UniversalUseAbility(BaseAbility baseAbility, object target)
         {
-            EntryPoint.Instance.DisableAllPrevisualization();
+            _unit.CurrentRoom.DisableAllPrevisualization();
 
             if (baseAbility is IAbleToUseOnCells)
             {
@@ -245,15 +245,15 @@ namespace FroguesFramework
         private void CameraMovementInput()
         {
             SetMouseLockMode();
-            if (EntryPoint.Instance.PauseIsActive)
-                return;
+            //if (EntryPoint.Instance.PauseIsActive) todo pause manager
+                //return;
 
-            EntryPoint.Instance.CameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
+            _unit.CurrentRoom.CameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
 
             if (Input.GetKey(KeyCode.Mouse1) && currentAbility == movementAbility)
             {
-                EntryPoint.Instance.CameraController.RotateCameraAroundYAxis(Input.GetAxis("Mouse X"));
-                EntryPoint.Instance.CameraController.RotateCameraAroundXAxis(Input.GetAxis("Mouse Y"));
+                _unit.CurrentRoom.CameraController.RotateCameraAroundYAxis(Input.GetAxis("Mouse X"));
+                _unit.CurrentRoom.CameraController.RotateCameraAroundXAxis(Input.GetAxis("Mouse Y"));
             }
 
             Vector2 movementInput = Vector2.zero;
@@ -262,7 +262,7 @@ namespace FroguesFramework
             Vector2 keyBoardInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (keyBoardInput != Vector2.zero)
                 movementInput = keyBoardInput;
-            EntryPoint.Instance.CameraController.Move(movementInput);
+            _unit.CurrentRoom.CameraController.Move(movementInput);
         }
 
         private Vector2Int CheckMouseOnBordrers()
@@ -287,7 +287,7 @@ namespace FroguesFramework
 
         private void SetMouseLockMode()
         {
-            Cursor.lockState = EntryPoint.Instance.PauseIsActive ? CursorLockMode.None : CursorLockMode.Confined;
+            //Cursor.lockState = EntryPoint.Instance.PauseIsActive ? CursorLockMode.None : CursorLockMode.Confined; todo pause manager
         }
 
         private bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
@@ -314,13 +314,13 @@ namespace FroguesFramework
 
         public BaseAbility GetCurrentAbility() => currentAbility;
 
-        public void Init()
+        public void Init(Unit owner)
         {
             if (_wasInitedAlready)
                 return;
 
             _wasInitedAlready = true;
-            _unit = GetComponentInParent<Unit>();
+            _unit = owner;
             _unit.AbleToSkipTurn.OnSkipTurn.AddListener(() => _isPlayersTurn = false);
             movementAbility.Init(_unit);
             currentAbility = movementAbility;
@@ -345,7 +345,7 @@ namespace FroguesFramework
             if (ability is IAbleToUseWithNoTarget)
             {
                 _lastHashOfAbility = 0;
-                EntryPoint.Instance.DisableAllPrevisualization();
+                _unit.CurrentRoom.DisableAllPrevisualization();
                 (ability as IAbleToUseWithNoTarget).Use();
                 return;
             }

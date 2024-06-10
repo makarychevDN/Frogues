@@ -21,9 +21,7 @@ namespace FroguesFramework
 
         private void SpawnSurfaceUnderOwner()
         {
-            if (_owner.CurrentCell.Surfaces
-                .Any(surface => surface.AbilitiesManager.Abilities
-                .Any(ability => ability is PickUpTemporaryActionPointsOnStepOnSurface)))
+            if (_owner.CurrentCell.Surfaces.Any(surface => surface is BloodPuddle))
                 return;
 
             Extensions.SpawnUnit(surfacePrefab, _owner.CurrentCell, _owner.CurrentRoom);

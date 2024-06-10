@@ -63,13 +63,13 @@ namespace FroguesFramework
 
         public void Init(Unit unit)
         {
-            abilitiesManager?.AbilityHasBeenAdded.RemoveListener(AddAbilityButton);
-            abilitiesManager?.AbilityHasBeenRemoved.RemoveListener(RemoveAbilityButton);
+            abilitiesManager?.OnAbilityHasBeenAdded.RemoveListener(AddAbilityButton);
+            abilitiesManager?.OnAbilityHasBeenRemoved.RemoveListener(RemoveAbilityButton);
 
             abilitiesManager = unit.AbilitiesManager;
 
-            abilitiesManager.AbilityHasBeenAdded.AddListener(AddAbilityButton);
-            abilitiesManager.AbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
+            abilitiesManager.OnAbilityHasBeenAdded.AddListener(AddAbilityButton);
+            abilitiesManager.OnAbilityHasBeenRemoved.AddListener(RemoveAbilityButton);
 
             currentRowsQuantity = minRowsQuantity;
             UpdateEnabledSlots();

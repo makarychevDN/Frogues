@@ -54,7 +54,7 @@ namespace FroguesFramework
         public Grid Grid => FindObjectOfType<Grid>();
         private bool _initedAlready;
 
-        public void Init(Room room)
+        public virtual void Init(Room room)
         {
             CurrentRoom = room;
             OnCurrentRoomUpdated.Invoke();
@@ -85,5 +85,8 @@ namespace FroguesFramework
             if (CurrentCell != null)
                 transform.position = CurrentCell.transform.position;
         }
+
+        [ContextMenu("Init")]
+        public void Init() => Init(GetComponentInParent<Room>());
     }
 }
