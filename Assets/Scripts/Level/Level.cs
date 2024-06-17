@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private Room room;
         [SerializeField] private List<Room> roomsOnTheLevel;
         [SerializeField] private bool needToGenerateRooms;
+        [SerializeField] private FloorGenerator floorGenerator;
 
         void Start()
         {
@@ -29,7 +30,7 @@ namespace FroguesFramework
 
         public void GenerateRooms()
         {
-
+            floorGenerator.GenerateFloor();
         }
 
         public void OpenTheRoom(Room room)
