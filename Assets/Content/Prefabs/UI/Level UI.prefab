@@ -719,6 +719,7 @@ GameObject:
   - component: {fileID: 1197206178615969073}
   - component: {fileID: 8086666526129205865}
   - component: {fileID: 3475441527714284508}
+  - component: {fileID: 9052789474785429790}
   m_Layer: 5
   m_Name: Reset Camera
   m_TagString: Untagged
@@ -828,8 +829,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CameraReseter, Assembly-CSharp
+      - m_Target: {fileID: 9052789474785429790}
+        m_TargetAssemblyTypeName: FroguesFramework.CameraReseter, Assembly-CSharp
         m_MethodName: ResetCamera
         m_Mode: 1
         m_Arguments:
@@ -852,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b20b41e964872424e964798ce0eade49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  expectedKey: 32
+  expectedKey: 306
   OnKeyDown:
     m_PersistentCalls:
       m_Calls:
@@ -882,6 +883,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 1197206178615969073}
   ignoreButtonUnInteractive: 0
+--- !u!114 &9052789474785429790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5193560091428135444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6d3339e8622f8245b946e20347e5b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5379407422154543131
 GameObject:
   m_ObjectHideFlags: 0
