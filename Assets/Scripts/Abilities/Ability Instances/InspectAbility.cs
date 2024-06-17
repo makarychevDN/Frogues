@@ -46,7 +46,7 @@ namespace FroguesFramework
             if(target == null) 
                 return;
 
-            //EntryPoint.Instance.UnitDescriptionPanel.Activate(target); todo hints manager
+            InspectUnitManager.Instance.UnitDescriptionPanel.Activate(target);
             target.OnInspectIt.Invoke();
         }
 

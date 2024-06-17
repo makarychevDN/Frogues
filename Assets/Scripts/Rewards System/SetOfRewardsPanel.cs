@@ -18,7 +18,8 @@ namespace FroguesFramework
         {
             cancelButton.onClick.AddListener(InvokeRewardPickedEvent);
 
-            var abilityList = EntryPoint.Instance.PossibleRewards[rewardType];
+            //var abilityList = EntryPoint.Instance.PossibleRewards[rewardType]; todo rewards mechanism
+            List<BaseAbility> abilityList = null;
 
             for(int i = 0; i < numberOfAbilitesAbleToChoose; i++)
             {
@@ -29,7 +30,7 @@ namespace FroguesFramework
                 var singleRewardPanel = Instantiate(singleRewardPanelPrefab);
                 singleRewardPanel.transform.parent = parentForSignleRewardPanels;
                 singleRewardPanel.transform.SetSiblingIndex(1);
-                singleRewardPanel.Init(abilty, EntryPoint.Instance.MetaPlayer);
+                //singleRewardPanel.Init(abilty, EntryPoint.Instance.MetaPlayer);
                 singleRewardPanel.OnRewardPicked.AddListener(InvokeRewardPickedEvent);
             }
         }

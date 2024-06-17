@@ -45,7 +45,10 @@ namespace FroguesFramework
             foreach (var unit in playableCharacters)
             {
                 unit.Init(this);
-                unit.Movable.Move(map.allCells.EmptyCellsOnly().GetRandomElement(), startCellBecomeEmptyOnMove: false, needToModificateJumpHeightByDistance: false);
+                var targetCell = map.allCells.EmptyCellsOnly().GetRandomElement();
+                unit.CurrentCell = targetCell;
+                targetCell.Content = unit;
+                unit.transform.position = targetCell.transform.position;
             }
 
             cameraController.Init(this);

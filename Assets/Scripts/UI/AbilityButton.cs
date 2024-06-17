@@ -97,7 +97,7 @@ namespace FroguesFramework
             if (!_isInteractable)
                 return;
 
-            //EntryPoint.Instance.AbilityHint.EnableContent(false); todo hint manager
+            HintManager.Instance.AbilityHint.EnableContent(false);
             OnDragButton.Invoke(this);
             transform.parent = _parentToDragAndDropProcess;
             _draggingNow = true;

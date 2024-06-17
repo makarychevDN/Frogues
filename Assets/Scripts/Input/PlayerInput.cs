@@ -11,6 +11,7 @@ namespace FroguesFramework
         [SerializeField] private AbleToUseAbility currentAbility;
         [SerializeField] private UnitTargetAbility nativeAttackAbility;
         [SerializeField] private HowerOnUnitWhileMovementMode howerOnUnitWhileMovementMode;
+        [SerializeField] private PlayerInputPanelUI abilitiesPanelPrefab;
 
         [Header("Cursors")]
         [SerializeField] private Texture2D defaultCursorTexture;
@@ -27,13 +28,42 @@ namespace FroguesFramework
         [SerializeField] private Texture2D moveCameraBottomCursorTexture;
         [SerializeField] private Texture2D moveCameraRightBottomCursorTexture;
         private Dictionary<Vector2Int, Texture2D> moveCameraCursorsByVectorsDictionary;
-        private bool _wasInitedAlready;
+        private PlayerInputPanelUI _myAbilitiesPanel;
 
-        private Unit _unit;
+        private Unit _owner;
         private int _lastHashOfAbility;
 
         public bool InputIsPossible => _isPlayersTurn;
         private bool _isPlayersTurn;
+
+        public void Init(Unit owner)
+        {
+            _owner = owner;
+            _owner.AbleToSkipTurn.OnSkipTurn.AddListener(() => _isPlayersTurn = false);
+            movementAbility.Init(_owner);
+            currentAbility = movementAbility;
+
+            _myAbilitiesPanel = Instantiate(abilitiesPanelPrefab);
+            _myAbilitiesPanel.Init(owner);
+            _myAbilitiesPanel.transform.parent = FindObjectOfType<LevelUI>().transform;
+            _myAbilitiesPanel.transform.localPosition = Vector3.zero;
+            (_myAbilitiesPanel.transform as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, Screen.height);
+            (_myAbilitiesPanel.transform as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, Screen.width);
+
+            moveCameraCursorsByVectorsDictionary = new Dictionary<Vector2Int, Texture2D>
+            {
+                { new Vector2Int(-1, 1), moveCameraLeftTopCursorTexture },
+                { new Vector2Int(0, 1), moveCameraTopCursorTexture },
+                { new Vector2Int(1, 1), moveCameraRightTopCursorTexture },
+
+                { new Vector2Int(-1, 0), moveCameraLeftCursorTexture },
+                { new Vector2Int(1, 0), moveCameraRightCursorTexture },
+
+                { new Vector2Int(-1, -1), moveCameraLeftBottomCursorTexture },
+                { new Vector2Int(0, -1), moveCameraBottomCursorTexture },
+                { new Vector2Int(1, -1), moveCameraRightBottomCursorTexture }
+            };
+        }
 
         public void Act() 
         {
@@ -68,7 +98,7 @@ namespace FroguesFramework
 
                     if (howerOnUnitWhileMovementMode == HowerOnUnitWhileMovementMode.activateNativeAttack && nativeAttackAbility != null)
                     {
-                        if (target is Unit && target != _unit)
+                        if (target is Unit && target != _owner)
                             temporaryCurrentAbility = nativeAttackAbility;
                     }
 
@@ -174,7 +204,7 @@ namespace FroguesFramework
 
         private void UniversalPrevisualization(BaseAbility baseAbility, object target)
         {
-            _unit.CurrentRoom.DisableAllPrevisualization();
+            _owner.CurrentRoom.DisableAllPrevisualization();
 
             if (baseAbility is IAbleToUseOnCells)
             {
@@ -217,7 +247,7 @@ namespace FroguesFramework
 
         private void UniversalUseAbility(BaseAbility baseAbility, object target)
         {
-            _unit.CurrentRoom.DisableAllPrevisualization();
+            _owner.CurrentRoom.DisableAllPrevisualization();
 
             if (baseAbility is IAbleToUseOnCells)
             {
@@ -248,12 +278,12 @@ namespace FroguesFramework
             //if (EntryPoint.Instance.PauseIsActive) todo pause manager
                 //return;
 
-            _unit.CurrentRoom.CameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
+            _owner.CurrentRoom.CameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
 
             if (Input.GetKey(KeyCode.Mouse1) && currentAbility == movementAbility)
             {
-                _unit.CurrentRoom.CameraController.RotateCameraAroundYAxis(Input.GetAxis("Mouse X"));
-                _unit.CurrentRoom.CameraController.RotateCameraAroundXAxis(Input.GetAxis("Mouse Y"));
+                _owner.CurrentRoom.CameraController.RotateCameraAroundYAxis(Input.GetAxis("Mouse X"));
+                _owner.CurrentRoom.CameraController.RotateCameraAroundXAxis(Input.GetAxis("Mouse Y"));
             }
 
             Vector2 movementInput = Vector2.zero;
@@ -262,7 +292,7 @@ namespace FroguesFramework
             Vector2 keyBoardInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             if (keyBoardInput != Vector2.zero)
                 movementInput = keyBoardInput;
-            _unit.CurrentRoom.CameraController.Move(movementInput);
+            _owner.CurrentRoom.CameraController.Move(movementInput);
         }
 
         private Vector2Int CheckMouseOnBordrers()
@@ -314,38 +344,12 @@ namespace FroguesFramework
 
         public BaseAbility GetCurrentAbility() => currentAbility;
 
-        public void Init(Unit owner)
-        {
-            if (_wasInitedAlready)
-                return;
-
-            _wasInitedAlready = true;
-            _unit = owner;
-            _unit.AbleToSkipTurn.OnSkipTurn.AddListener(() => _isPlayersTurn = false);
-            movementAbility.Init(_unit);
-            currentAbility = movementAbility;
-
-            moveCameraCursorsByVectorsDictionary = new Dictionary<Vector2Int, Texture2D>
-            {
-                { new Vector2Int(-1, 1), moveCameraLeftTopCursorTexture },
-                { new Vector2Int(0, 1), moveCameraTopCursorTexture },
-                { new Vector2Int(1, 1), moveCameraRightTopCursorTexture },
-
-                { new Vector2Int(-1, 0), moveCameraLeftCursorTexture },
-                { new Vector2Int(1, 0), moveCameraRightCursorTexture },
-
-                { new Vector2Int(-1, -1), moveCameraLeftBottomCursorTexture },
-                { new Vector2Int(0, -1), moveCameraBottomCursorTexture },
-                { new Vector2Int(1, -1), moveCameraRightBottomCursorTexture }
-            };
-        }
-
         public void SetCurrentAbility(BaseAbility ability)
         {
             if (ability is IAbleToUseWithNoTarget)
             {
                 _lastHashOfAbility = 0;
-                _unit.CurrentRoom.DisableAllPrevisualization();
+                _owner.CurrentRoom.DisableAllPrevisualization();
                 (ability as IAbleToUseWithNoTarget).Use();
                 return;
             }

@@ -73,11 +73,11 @@ namespace FroguesFramework
 
             ActionsInput = GetComponentInChildren<IAbleToAct>();
             ActionsInput?.Init(this);
-            
+
+            AbilitiesManager?.Init(this);
             AbleToSkipTurn?.Init(this);
             EffectsVisualiser?.Init(this);
             Stats?.Init(this);
-            AbilitiesManager?.Init(this);
             SurfaceUnitExtension?.Init(this);
 
             _initedAlready = true;
