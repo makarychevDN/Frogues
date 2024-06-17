@@ -15,7 +15,7 @@ namespace FroguesFramework
 
         private void Update()
         {
-            button.interactable = playerInput.InputIsPossible;
+            button.interactable = playerInput.InputIsPossible && !PauseManager.Instance.PauseIsActive;
         }
     }
 }

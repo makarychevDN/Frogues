@@ -275,8 +275,8 @@ namespace FroguesFramework
         private void CameraMovementInput()
         {
             SetMouseLockMode();
-            //if (EntryPoint.Instance.PauseIsActive) todo pause manager
-                //return;
+            if (PauseManager.Instance.PauseIsActive)
+                return;
 
             _owner.CurrentRoom.CameraController.Zoom(Input.GetAxis("Mouse ScrollWheel"));
 
@@ -317,7 +317,7 @@ namespace FroguesFramework
 
         private void SetMouseLockMode()
         {
-            //Cursor.lockState = EntryPoint.Instance.PauseIsActive ? CursorLockMode.None : CursorLockMode.Confined; todo pause manager
+            Cursor.lockState = PauseManager.Instance.PauseIsActive ? CursorLockMode.None : CursorLockMode.Confined;
         }
 
         private bool IsMouseOverUI => EventSystem.current.IsPointerOverGameObject();
