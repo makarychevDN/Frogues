@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class AdaptationPassiveAbility : PassiveAbility
+    public class AdaptationPassiveAbility : PassiveAbility, IAbleToReturnSingleValue
     {
         [SerializeField] private int additionalTemporaryPoints;
         [SerializeField] private int additionalDistance;
 
         public int AdditionalDistance { get => additionalDistance; set => additionalDistance = value; }
+
+        public int GetValue() => additionalTemporaryPoints;
 
         public override void Init(Unit unit)
         {
