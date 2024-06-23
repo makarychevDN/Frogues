@@ -73,6 +73,9 @@ namespace FroguesFramework
 
         private void LateUpdate()
         {
+            if (_owner == null)
+                return;
+
             CameraMovementInput();
         }
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class Floor : MonoBehaviour
+    public class BaseFloor : MonoBehaviour
     {
         [SerializeField] private Unit player;
         [SerializeField] private Room currentRoom;
@@ -18,7 +18,6 @@ namespace FroguesFramework
         void Start()
         {
             Init();
-            OpenTheRoom(room, new List<Unit> { player });
         }
 
         public void Init()
