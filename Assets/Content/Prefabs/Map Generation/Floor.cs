@@ -13,6 +13,7 @@ namespace FroguesFramework
         [SerializeField] private FloorGenerator floorGenerator;
         [SerializeField] private Transform map;
         [SerializeField] protected List<RoomButton> roomButtons;
+        [SerializeField] private bool roomsAreAbleToBeRevisited;
 
         void Start()
         {
