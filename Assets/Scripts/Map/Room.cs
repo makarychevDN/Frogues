@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -66,18 +65,12 @@ namespace FroguesFramework
 
         public void UnInit(List<Unit> playableCharacters)
         {
+            cameraController.Deactivate();
+
             foreach (var unit in playableCharacters)
             {
                 unit.CurrentCell.Content = null;
             }
-        }
-
-        public void Deactivate()
-        {
-            cameraController.Deactivate();
-            _ableToDisablePreVisualizationObjects.Clear();
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
         }
 
         public void DisableAllPrevisualization()

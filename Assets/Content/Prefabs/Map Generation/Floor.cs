@@ -40,15 +40,14 @@ namespace FroguesFramework
 
         public void OpenTheRoom(Room room, List<Unit> playableCharacters)
         {
-            room.gameObject.SetActive(true);
-            room.Init(playableCharacters);
-
             if (currentRoom != null)
             {
                 currentRoom.UnInit(playableCharacters);
                 currentRoom.gameObject.SetActive(false);
             }
 
+            room.gameObject.SetActive(true);
+            room.Init(playableCharacters);
             currentRoom = room;
         }
 
