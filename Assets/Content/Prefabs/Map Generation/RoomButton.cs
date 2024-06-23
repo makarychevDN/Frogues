@@ -18,6 +18,7 @@ namespace FroguesFramework
         {
             _room = Instantiate(roomPrefab);
             _room.gameObject.SetActive(false);
+            _room.OnRoomWasEnabled.AddListener(SetButtonIsInteractable);
         }
 
         public Room GetRoom()
@@ -34,5 +35,7 @@ namespace FroguesFramework
         {
             roomPrefab = room;
         }
+
+        public void SetButtonIsInteractable(bool value) => button.interactable = !value;
     }
 }
