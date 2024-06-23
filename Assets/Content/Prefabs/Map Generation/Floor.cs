@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class Floor : MonoBehaviour
     {
         [SerializeField] private Unit player;
+        [SerializeField] private Room currentRoom;
         [SerializeField] private Room room;
         [SerializeField] private List<Room> roomsOnTheLevel;
         [SerializeField] private bool needToGenerateRooms;
@@ -16,17 +17,20 @@ namespace FroguesFramework
         void Start()
         {
             Init();
-            OpenTheRoom(room);
+            OpenTheRoom(room, new List<Unit> { player });
         }
 
         public void Init()
         {
+            foreach (RoomButton roomButton in roomButtons)
+            {
+                roomButton.Button.onClick.AddListener(() => OpenTheRoom(roomButton.GetRoom(), new List<Unit> { player }));
+            }
+
             if(needToGenerateRooms)
             {
                 GenerateRooms();
             }
-
-
         }
 
         public void GenerateRooms()
@@ -34,10 +38,18 @@ namespace FroguesFramework
             floorGenerator.GenerateFloor();
         }
 
-        public void OpenTheRoom(Room room)
+        public void OpenTheRoom(Room room, List<Unit> playableCharacters)
         {
             room.gameObject.SetActive(true);
-            room.Init(new List<Unit> { player });
+            room.Init(playableCharacters);
+
+            if (currentRoom != null)
+            {
+                currentRoom.UnInit(playableCharacters);
+                currentRoom.gameObject.SetActive(false);
+            }
+
+            currentRoom = room;
         }
 
         [ContextMenu("create trails between room buttons")]

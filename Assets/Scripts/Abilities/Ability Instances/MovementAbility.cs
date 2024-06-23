@@ -27,7 +27,7 @@ namespace FroguesFramework
             if(_hashedFinishCell != null)
                 value ^= _hashedFinishCell.GetHashCode() ^ _hashedFinishCell.IsEmpty.ToInt();
 
-            return /*EntryPoint.Instance.TurnCounter ^ */ value ^ GetHashCode(); //todo hmmm
+            return value ^ GetHashCode(); //todo hmmm
         }
 
         public void ResetPath()

@@ -196,10 +196,10 @@ namespace FroguesFramework
         }
 
         public void AddSelfToTheList() =>
-            _unit.CurrentRoom.AddAbleToDisablePrevisualizationObject(this);
+            _unit.AddAbleToDisablePrevisualizationObject(this);
 
         public void RemoveSelfFromTheList() =>
-            _unit.CurrentRoom.RemoveAbleToDisablePrevisualizationObject(this);
+            _unit.RemoveAbleToDisablePrevisualizationObject(this);
 
         private void OnDestroy()
         {

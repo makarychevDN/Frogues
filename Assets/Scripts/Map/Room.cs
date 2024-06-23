@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,6 +22,7 @@ namespace FroguesFramework
         [SerializeField] private int ratsInTheRoomCount;
 
         private List<IAbleToDisablePreVisualization> _ableToDisablePreVisualizationObjects = new();
+        private bool _wasInitedAlready;
 
         public Map Map => map;
         public bool NeedToShowUnitsUI => true;
@@ -52,9 +54,22 @@ namespace FroguesFramework
             }
 
             cameraController.Init(this);
+
+            if (_wasInitedAlready)
+                return; 
+            
+            _wasInitedAlready = true;
             map.Init();
             pathFinder.Init();
             unitsQueue.Init(this, playableCharacters, otherAbleToACtCharacters);
+        }
+
+        public void UnInit(List<Unit> playableCharacters)
+        {
+            foreach (var unit in playableCharacters)
+            {
+                unit.CurrentCell.Content = null;
+            }
         }
 
         public void Deactivate()
@@ -78,6 +93,16 @@ namespace FroguesFramework
         public void RemoveAbleToDisablePrevisualizationObject(IAbleToDisablePreVisualization ableToDisablePreVisualization)
         {
             _ableToDisablePreVisualizationObjects.Remove(ableToDisablePreVisualization);
+        }
+
+        public void AddAbleToDisablePrevisualizationObjects(List<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects)
+        {
+            _ableToDisablePreVisualizationObjects.AddRange(ableToDisablePreVisualizationObjects);
+        }
+
+        public void RemoveAbleToDisablePrevisualizationObjects(List<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects)
+        {
+            _ableToDisablePreVisualizationObjects = _ableToDisablePreVisualizationObjects.Except(ableToDisablePreVisualizationObjects).ToList();
         }
 
         public void InvokeOnSomeoneMoved()

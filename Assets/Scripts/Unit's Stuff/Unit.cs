@@ -53,10 +53,20 @@ namespace FroguesFramework
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();
         private bool _initedAlready;
+        private List<IAbleToDisablePreVisualization> ableToDisablePreVisualizationObjects = new();
 
         public virtual void Init(Room room)
         {
+            if(CurrentRoom != null)
+            {
+                CurrentRoom.RemoveAbleToDisablePrevisualizationObjects(ableToDisablePreVisualizationObjects);
+
+                //if(CurrentCell != null)
+                    //CurrentCell.Content = null;
+            }
+
             CurrentRoom = room;
+            CurrentRoom.AddAbleToDisablePrevisualizationObjects(ableToDisablePreVisualizationObjects);
             OnCurrentRoomUpdated.Invoke();
 
             if (_initedAlready)
@@ -75,6 +85,8 @@ namespace FroguesFramework
             ActionsInput?.Init(this);
 
             AbilitiesManager?.Init(this);
+            CurrentRoom.AddAbleToDisablePrevisualizationObjects(ableToDisablePreVisualizationObjects);
+
             AbleToSkipTurn?.Init(this);
             EffectsVisualiser?.Init(this);
             Stats?.Init(this);
@@ -84,6 +96,16 @@ namespace FroguesFramework
 
             if (CurrentCell != null)
                 transform.position = CurrentCell.transform.position;
+        }
+
+        public void AddAbleToDisablePrevisualizationObject(IAbleToDisablePreVisualization preVisualizationObject)
+        {
+            ableToDisablePreVisualizationObjects.Add(preVisualizationObject);
+        }
+
+        public void RemoveAbleToDisablePrevisualizationObject(IAbleToDisablePreVisualization preVisualizationObject)
+        {
+            ableToDisablePreVisualizationObjects.Remove(preVisualizationObject);
         }
 
         [ContextMenu("Init")]
