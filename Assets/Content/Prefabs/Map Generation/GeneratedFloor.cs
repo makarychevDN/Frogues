@@ -16,8 +16,39 @@ namespace FroguesFramework
         public override void Init()
         {
             floorGreedGenerator.GenerateFloorGrid();
-            GenerateRoomButtons();
+
+            do
+            {
+                ResetFloorGrid();
+                RemoveExistingButtonsAndTrails();
+                GenerateRoomButtons();
+            }
+            while (!GeneratedRoomIsOk());
+
             base.Init();
+        }
+
+        private bool GeneratedRoomIsOk()
+        {
+            return roomButtons.Max(roomButton => roomButton.transform.position.x) - roomButtons.Min(roomButton => roomButton.transform.position.x) < 600
+                && roomButtons.Max(roomButton => roomButton.transform.position.y) - roomButtons.Min(roomButton => roomButton.transform.position.y) < 600;
+        }
+
+        private void ResetFloorGrid()
+        {
+            floorGreedGenerator.Nodes.ForEach(node => node.AlreadyUsedToSpawnRoom = false);
+        }
+
+        private void RemoveExistingButtonsAndTrails()
+        {
+            var allChildren = map.GetComponentsInChildren<Transform>().ToList();
+            allChildren.Remove(map);
+            for (var i = 0; i < allChildren.Count(); i++)
+            { 
+                Destroy(allChildren[i].gameObject);
+            }
+
+            roomButtons.Clear();
         }
 
         public void GenerateRoomButtons()
