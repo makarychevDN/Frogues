@@ -14,6 +14,8 @@ namespace FroguesFramework
         private List<Color> _backgroundColors = new() { Color.white, Color.black };
         private List<FloorGeneratorNode> _nodes = new();
 
+        public List<FloorGeneratorNode> Nodes { get {  return _nodes; } }
+
         public void GenerateFloorGrid()
         {
             GenerateNodes();
@@ -59,6 +61,9 @@ namespace FroguesFramework
     {
         private Vector2Int _coordinates;
         private Dictionary<Color, FloorGeneratorNode> _neighbors;
+        private bool alreadyUsedToSpawnRoom;
+
+        public bool AlreadyUsedToSpawnRoom { get => alreadyUsedToSpawnRoom; set => alreadyUsedToSpawnRoom = value; }
 
         public FloorGeneratorNode(Vector2Int coordinates)
         {
@@ -85,6 +90,11 @@ namespace FroguesFramework
                     _neighbors.Add(currentColor, null);
                 }
             }
+        }
+
+        public float DistanceToOtherNode(FloorGeneratorNode otherNode)
+        {
+            return Vector2.Distance(otherNode._coordinates, _coordinates);
         }
     }
 }

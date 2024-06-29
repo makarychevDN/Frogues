@@ -4,16 +4,12 @@ namespace FroguesFramework
 {
     public class HubFloor : BaseFloor
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] private Room theFirstRoom;
+
+        public override void Init()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            OpenTheRoom(theFirstRoom, playableCharacters);
+            base.Init();
         }
     }
 }

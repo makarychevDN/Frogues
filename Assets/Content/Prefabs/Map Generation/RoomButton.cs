@@ -16,9 +16,9 @@ namespace FroguesFramework
 
         private void Awake()
         {
-            _room = Instantiate(roomPrefab);
-            _room.gameObject.SetActive(false);
-            _room.OnRoomWasEnabled.AddListener(SetButtonIsInteractable);
+            //_room = Instantiate(roomPrefab);
+            //_room.gameObject.SetActive(false);
+            //_room.OnRoomWasEnabled.AddListener(SetButtonIsInteractable);
         }
 
         public Room GetRoom()

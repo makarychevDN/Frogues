@@ -5,13 +5,8 @@ namespace FroguesFramework
 {
     public class BaseFloor : MonoBehaviour
     {
-        [SerializeField] private Unit player;
-        [SerializeField] private Room currentRoom;
-        [SerializeField] private Room room;
-        [SerializeField] private List<Room> roomsOnTheLevel;
-        [SerializeField] private bool needToGenerateRooms;
-        [SerializeField] private FloorGenerator floorGenerator;
-        [SerializeField] private Transform map;
+        [SerializeField] protected List<Unit> playableCharacters;
+        [SerializeField] protected Room currentRoom;
         [SerializeField] protected List<RoomButton> roomButtons;
         [SerializeField] private bool roomsAreAbleToBeRevisited;
 
@@ -20,22 +15,12 @@ namespace FroguesFramework
             Init();
         }
 
-        public void Init()
+        public virtual void Init()
         {
             foreach (RoomButton roomButton in roomButtons)
             {
-                roomButton.Button.onClick.AddListener(() => OpenTheRoom(roomButton.GetRoom(), new List<Unit> { player }));
+                roomButton.Button.onClick.AddListener(() => OpenTheRoom(roomButton.GetRoom(), playableCharacters));
             }
-
-            if(needToGenerateRooms)
-            {
-                GenerateRooms();
-            }
-        }
-
-        public void GenerateRooms()
-        {
-            floorGenerator.GenerateFloor();
         }
 
         public void OpenTheRoom(Room room, List<Unit> playableCharacters)
