@@ -7,6 +7,7 @@ namespace FroguesFramework
     [RequireComponent(typeof(Button))]
     public class RoomButton : MonoBehaviour
     {
+        public FloorGeneratorNode FloorGeneratorNode { get; set; }
         [SerializeField] private Room roomPrefab;
         [SerializeField] private Button button;
         [SerializeField] private List<RoomButton> neighbors;

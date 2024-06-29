@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace FroguesFramework
@@ -19,8 +20,19 @@ namespace FroguesFramework
         {
             Vector3 trailVector = secondRoomButton.transform.localPosition - firstRoomButton.transform.localPosition;
             transform.localPosition = trailVector * 0.5f + firstRoomButton.transform.localPosition;
-            (transform as RectTransform).sizeDelta = new Vector2(trailVector.magnitude - 35, 4);
+            (transform as RectTransform).sizeDelta = new Vector2(((int)trailVector.magnitude - 30) / 8 * 8 , 4);
             transform.right = secondRoomButton.transform.position - transform.position;
+        }
+
+        public bool EqualToOtherLine(TrailBetweenRoomButtons otherLine)
+        {
+            return otherLine.firstRoomButton == firstRoomButton && otherLine.secondRoomButton == secondRoomButton ||
+                otherLine.firstRoomButton == secondRoomButton && otherLine.secondRoomButton == firstRoomButton;
+        }
+
+        public bool EqualToOtherLineInTheList(List<TrailBetweenRoomButtons> otherLines)
+        {
+            return otherLines.Where(otherLine => otherLine != this).Any(otherLine => EqualToOtherLine(otherLine));
         }
     }
 }
