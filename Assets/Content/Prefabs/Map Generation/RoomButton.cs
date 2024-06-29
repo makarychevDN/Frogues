@@ -10,10 +10,22 @@ namespace FroguesFramework
         public FloorGeneratorNode FloorGeneratorNode { get; set; }
         [SerializeField] private Room roomPrefab;
         [SerializeField] private Button button;
+        [SerializeField] private GameObject roomIsCompletedIndicator;
         [SerializeField] private List<RoomButton> neighbors;
+        [SerializeField] private bool ableToClick;
         private Room _room;
 
         public Button Button => button;
+
+        public bool AbleToClick
+        {
+            get => ableToClick;
+            set 
+            { 
+                ableToClick = value;
+                button.interactable = value;
+            }
+        }
 
         private void Awake()
         {

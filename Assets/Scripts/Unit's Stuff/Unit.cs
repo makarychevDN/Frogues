@@ -60,9 +60,6 @@ namespace FroguesFramework
             if(CurrentRoom != null)
             {
                 CurrentRoom.RemoveAbleToDisablePrevisualizationObjects(ableToDisablePreVisualizationObjects);
-
-                //if(CurrentCell != null)
-                    //CurrentCell.Content = null;
             }
 
             CurrentRoom = room;

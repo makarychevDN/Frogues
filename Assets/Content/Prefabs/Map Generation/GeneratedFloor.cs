@@ -16,11 +16,11 @@ namespace FroguesFramework
         public override void Init()
         {
             floorGreedGenerator.GenerateFloorGrid();
-            GenerateRooms();
+            GenerateRoomButtons();
             base.Init();
         }
 
-        public void GenerateRooms()
+        public void GenerateRoomButtons()
         {
             var startNode = floorGreedGenerator.Nodes.GetRandomElement();
             startNode.AlreadyUsedToSpawnRoom = true;
@@ -45,7 +45,9 @@ namespace FroguesFramework
             foreach (var spawnedButton in roomButtons)
             {
                 spawnedButton.transform.localPosition -= centerPosition;
+                spawnedButton.AbleToClick = false;
             }
+            roomButtons[0].AbleToClick = true;
 
             GenerateTrailsBetweenButtons(nodesToSpawn);
         }
@@ -71,6 +73,7 @@ namespace FroguesFramework
 
             for (int i = 0; i < spawnedTrails.Count; i++)
             {
+
                 if (spawnedTrails[i].EqualToOtherLineInTheList(spawnedTrails))
                 {
                     var spawnedTrail = spawnedTrails[i];
