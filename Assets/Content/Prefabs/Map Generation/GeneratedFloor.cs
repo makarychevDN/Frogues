@@ -72,10 +72,10 @@ namespace FroguesFramework
                 childNodes.AddRange(newNodes);
             }
 
-            Vector3 centerPosition = CalculateCenterPositionOfAllSpawnedButtons() - Vector2.zero;
+            Vector3 deltaVector = CalculateDeltaToPlaceGraphInTheMiddleOfMap() - Vector2.zero;
             foreach (var spawnedButton in roomButtons)
             {
-                spawnedButton.transform.localPosition -= centerPosition;
+                spawnedButton.transform.localPosition -= deltaVector;
                 spawnedButton.AbleToClick = false;
             }
             roomButtons[0].AbleToClick = true;
@@ -104,7 +104,6 @@ namespace FroguesFramework
 
             for (int i = 0; i < spawnedTrails.Count; i++)
             {
-
                 if (spawnedTrails[i].EqualToOtherLineInTheList(spawnedTrails))
                 {
                     var spawnedTrail = spawnedTrails[i];
@@ -115,17 +114,14 @@ namespace FroguesFramework
             }
         }
 
-        private Vector2 CalculateCenterPositionOfAllSpawnedButtons()
+        private Vector2 CalculateDeltaToPlaceGraphInTheMiddleOfMap()
         {
-            var totalX = 0f;
-            var totalY = 0f;
-            foreach (var roomButton in roomButtons)
-            {
-                totalX += roomButton.transform.localPosition.x;
-                totalY += roomButton.transform.localPosition.y;
-            }
-            var centerX = totalX / roomButtons.Count;
-            var centerY = totalY / roomButtons.Count;
+            float centerX = (roomButtons.Max(roomButton => roomButton.transform.localPosition.x) +
+                roomButtons.Min(roomButton => roomButton.transform.localPosition.x)) * 0.5f;
+
+            float centerY = (roomButtons.Max(roomButton => roomButton.transform.localPosition.y) +
+                roomButtons.Min(roomButton => roomButton.transform.localPosition.y)) * 0.5f;
+
             return new Vector2 (centerX, centerY);
         }
 
