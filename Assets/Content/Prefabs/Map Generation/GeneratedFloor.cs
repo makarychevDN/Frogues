@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] private int expectedCountOfRooms = 16;
         [SerializeField] private TrailBetweenRoomButtons trailBetweenRoomButtonsPrefab;
         [SerializeField] private float distanceBetweenButtonsMultiplier = 3;
+        [SerializeField] private List<Room> roomPrefabs;
 
         public override void Init()
         {
@@ -77,6 +78,11 @@ namespace FroguesFramework
             {
                 spawnedButton.transform.localPosition -= deltaVector;
                 spawnedButton.AbleToClick = false;
+
+                var spawnedRoom = Instantiate(roomPrefabs.GetRandomElement());
+                spawnedRoom.gameObject.SetActive(false);
+                spawnedRoom.OnRoomWasEnabled.AddListener(spawnedButton.SetButtonIsInteractable);
+                spawnedButton.Init(spawnedRoom);
             }
             roomButtons[0].AbleToClick = true;
 
