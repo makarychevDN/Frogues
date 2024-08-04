@@ -9,6 +9,9 @@ namespace FroguesFramework
         [SerializeField] private RoomButton firstRoomButton;
         [SerializeField] private RoomButton secondRoomButton;
 
+        public RoomButton FirstRoomButton => firstRoomButton;
+        public RoomButton SecondRoomButton => secondRoomButton;
+
         public void Init(RoomButton firstRoomButton, RoomButton secondRoomButton)
         {
             this.firstRoomButton = firstRoomButton;

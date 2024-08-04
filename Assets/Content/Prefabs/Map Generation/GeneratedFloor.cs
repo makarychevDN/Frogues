@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,31 +14,34 @@ namespace FroguesFramework
         [SerializeField] private TrailBetweenRoomButtons trailBetweenRoomButtonsPrefab;
         [SerializeField] private float distanceBetweenButtonsMultiplier = 3;
         [SerializeField] private List<Room> roomPrefabs;
+        private int _xSizeOfSpriteMap = 300;
+        private int _ySizeOfSpriteMap = 300;
+        [SerializeField] private SerializedDictionary<RoomButton, List<RoomButton>> buttonsAndTheirNeighborButtons = new();
 
         public override void Init()
         {
             floorGreedGenerator.GenerateFloorGrid();
 
+            List<FloorGeneratorNode> nodesToSpawn;
             do
             {
-                ResetFloorGrid();
+                ResetGeneratorSetup();
                 RemoveExistingButtonsAndTrails();
-                GenerateRoomButtons();
-            }
-            while (!GeneratedRoomIsOk());
+                nodesToSpawn = GetNodesToSpawn(floorGreedGenerator.Nodes.GetRandomElement());
+            } 
+            while (!GeneratedRoomIsOk(_xSizeOfSpriteMap, _ySizeOfSpriteMap, nodesToSpawn, distanceBetweenButtonsMultiplier));
+
+            GenerateRoomButtons(nodesToSpawn);
+            UpdatePositionOfButtons(roomButtons, CalculateDeltaToPlaceGraphInTheMiddleOfMap());
+            SpawnTrails(buttonsAndTheirNeighborButtons.ToDictionary(x => x.Key, x => x.Value));
 
             base.Init();
         }
 
-        private bool GeneratedRoomIsOk()
-        {
-            return roomButtons.Max(roomButton => roomButton.transform.position.x) - roomButtons.Min(roomButton => roomButton.transform.position.x) < 600
-                && roomButtons.Max(roomButton => roomButton.transform.position.y) - roomButtons.Min(roomButton => roomButton.transform.position.y) < 600;
-        }
-
-        private void ResetFloorGrid()
+        private void ResetGeneratorSetup()
         {
             floorGreedGenerator.Nodes.ForEach(node => node.AlreadyUsedToSpawnRoom = false);
+            buttonsAndTheirNeighborButtons.Clear();
         }
 
         private void RemoveExistingButtonsAndTrails()
@@ -45,78 +49,67 @@ namespace FroguesFramework
             var allChildren = map.GetComponentsInChildren<Transform>().ToList();
             allChildren.Remove(map);
             for (var i = 0; i < allChildren.Count(); i++)
-            { 
+            {
                 Destroy(allChildren[i].gameObject);
             }
 
             roomButtons.Clear();
         }
 
-        public void GenerateRoomButtons()
+        private void GenerateRoomButtons(List<FloorGeneratorNode> nodesToSpawn)
         {
-            var startNode = floorGreedGenerator.Nodes.GetRandomElement();
-            startNode.AlreadyUsedToSpawnRoom = true;
-            List<FloorGeneratorNode> childNodes = new List<FloorGeneratorNode>() { startNode };
-            Dictionary<FloorGeneratorNode, RoomButton> nodesToSpawn = new() { { startNode, SpawnRoomButton(startNode, distanceBetweenButtonsMultiplier) } };
+            Dictionary<FloorGeneratorNode, RoomButton> nodesAndButtons = new Dictionary<FloorGeneratorNode, RoomButton>();
 
-            while (nodesToSpawn.Count < expectedCountOfRooms - 1)
+            foreach (var node in nodesToSpawn)
             {
-                var selectedNode = childNodes.GetRandomElement();
-                List<FloorGeneratorNode> newNodes = SelectNeigbors(selectedNode, Random.Range(1, 3));
-
-                foreach (var newNode in newNodes)
-                {
-                    nodesToSpawn.Add(newNode, SpawnRoomButton(newNode, distanceBetweenButtonsMultiplier));
-                }
-
-                childNodes.Remove(selectedNode);
-                childNodes.AddRange(newNodes);
-            }
-
-            Vector3 deltaVector = CalculateDeltaToPlaceGraphInTheMiddleOfMap() - Vector2.zero;
-            foreach (var spawnedButton in roomButtons)
-            {
-                spawnedButton.transform.localPosition -= deltaVector;
+                var spawnedButton = SpawnButton(roomButtonPrefab, map, node, distanceBetweenButtonsMultiplier);
+                roomButtons.Add(spawnedButton);
                 spawnedButton.AbleToClick = false;
-
-                var spawnedRoom = Instantiate(roomPrefabs.GetRandomElement());
-                spawnedRoom.gameObject.SetActive(false);
-                spawnedRoom.OnRoomWasEnabled.AddListener(spawnedButton.SetButtonIsInteractable);
-                spawnedButton.Init(spawnedRoom);
+                nodesAndButtons.Add(node, spawnedButton);
             }
-            roomButtons[0].AbleToClick = true;
 
-            GenerateTrailsBetweenButtons(nodesToSpawn);
+            FindNeigborButtons(nodesAndButtons);
+            roomButtons.GetRandomElement().AbleToClick = true;
         }
 
-        public void GenerateTrailsBetweenButtons(Dictionary<FloorGeneratorNode, RoomButton> nodesAndButtons)
+        private void FindNeigborButtons(Dictionary<FloorGeneratorNode, RoomButton> nodesAndButtons)
         {
-            List<TrailBetweenRoomButtons> spawnedTrails = new();
-
-            foreach (var nodeAndButton in nodesAndButtons)
+            foreach(var nodeAndButton in nodesAndButtons)
             {
-                foreach (var neighbor in nodeAndButton.Key.Neighbors.Values)
+                var neighborButtons = new List<RoomButton>();
+                buttonsAndTheirNeighborButtons.Add(nodeAndButton.Value, neighborButtons);
+
+                foreach(var nodeNeighbor in nodeAndButton.Key.Neighbors.Values.Where(node => nodesAndButtons.Keys.Contains(node)))
                 {
-                    if (nodesAndButtons.ContainsKey(neighbor))
-                    {
-                        var spawnedTrail = Instantiate(trailBetweenRoomButtonsPrefab, map);
-                        var targetRoomButton = nodesAndButtons.First(nodeAndButton => nodeAndButton.Key == neighbor).Value;
-                        spawnedTrail.Init(nodeAndButton.Value, targetRoomButton);
-                        spawnedTrail.UpdateTransform();
-                        spawnedTrails.Add(spawnedTrail);
-                    }
+                    neighborButtons.Add(nodesAndButtons[nodeNeighbor]);
                 }
             }
+        }
 
-            for (int i = 0; i < spawnedTrails.Count; i++)
+        private void SpawnTrails(Dictionary<RoomButton, List<RoomButton>> buttonsAndTheirNeighborButtons)
+        {
+            List<TrailBetweenRoomButtons> trailBetweenRoomButtons = new List<TrailBetweenRoomButtons>();
+
+            foreach(var buttonAndNeighbors in buttonsAndTheirNeighborButtons)
             {
-                if (spawnedTrails[i].EqualToOtherLineInTheList(spawnedTrails))
+                foreach (var neighbor in buttonAndNeighbors.Value)
                 {
-                    var spawnedTrail = spawnedTrails[i];
-                    spawnedTrails.Remove(spawnedTrails[i]);
-                    Destroy(spawnedTrail.gameObject);
-                    i--;
+                    if (trailBetweenRoomButtons.ContainsTheSameTrail(buttonAndNeighbors.Key, neighbor))
+                        continue;
+
+                    var spawnedTrail = Instantiate(trailBetweenRoomButtonsPrefab, map);
+                    spawnedTrail.Init(buttonAndNeighbors.Key, neighbor);
+                    spawnedTrail.UpdateTransform();
+                    trailBetweenRoomButtons.Add(spawnedTrail);
                 }
+            }
+        }
+
+        private void UpdatePositionOfButtons(List<RoomButton> roomButtons, Vector2 offset)
+        {
+            foreach (var roomButton in roomButtons)
+            {
+                roomButton.transform.localPosition -= offset.ToVector3();
             }
         }
 
@@ -128,17 +121,39 @@ namespace FroguesFramework
             float centerY = (roomButtons.Max(roomButton => roomButton.transform.localPosition.y) +
                 roomButtons.Min(roomButton => roomButton.transform.localPosition.y)) * 0.5f;
 
-            return new Vector2 (centerX, centerY);
+            return new Vector2(centerX, centerY);
         }
 
-        private RoomButton SpawnRoomButton(FloorGeneratorNode selectedNode, float distanceBetweenButtonsMultiplier)
+        private RoomButton SpawnButton(RoomButton roomButtonPrefab, Transform parent, FloorGeneratorNode node, float distanceMultiplier)
         {
-            selectedNode.AlreadyUsedToSpawnRoom = true;
-            var spawnedRoomButton = Instantiate(roomButtonPrefab, map);
-            spawnedRoomButton.transform.localPosition = new Vector3(selectedNode.Coordinates.x, selectedNode.Coordinates.y) * distanceBetweenButtonsMultiplier;
-            spawnedRoomButton.FloorGeneratorNode = selectedNode;
-            roomButtons.Add(spawnedRoomButton);
-            return spawnedRoomButton;
+            var spawnedButton = Instantiate(roomButtonPrefab, parent);
+            spawnedButton.transform.localPosition -= node.Coordinates.ToVector3() * distanceMultiplier;
+            spawnedButton.Init(roomPrefabs.GetRandomElement());
+            //spawnedRoom.OnRoomWasEnabled.AddListener(spawnedButton.SetButtonIsInteractable);
+            return spawnedButton;
+        }
+
+        private List<FloorGeneratorNode> GetNodesToSpawn(FloorGeneratorNode startNode)
+        {
+            List<FloorGeneratorNode> childNodes = new List<FloorGeneratorNode>() { startNode };
+            List<FloorGeneratorNode> selectedNodes = new List<FloorGeneratorNode>() { startNode };
+            startNode.AlreadyUsedToSpawnRoom = true;
+
+            while (selectedNodes.Count < expectedCountOfRooms - 1)
+            {
+                var selectedNode = childNodes.GetRandomElement();
+                List<FloorGeneratorNode> newNodes = SelectNeigbors(selectedNode, Random.Range(1, 3));
+
+                foreach (var newNode in newNodes)
+                {
+                    selectedNodes.Add(newNode);
+                }
+
+                childNodes.Remove(selectedNode);
+                childNodes.AddRange(newNodes);
+            }
+
+            return selectedNodes;
         }
 
         private List<FloorGeneratorNode> SelectNeigbors(FloorGeneratorNode selectedNode, int neigborQuantity)
@@ -157,6 +172,25 @@ namespace FroguesFramework
             }
 
             return neighborsToSpawn;
+        }
+
+        private bool GeneratedRoomIsOk(int maxXPosition, int maxYPosition, List<FloorGeneratorNode> nodesToSpawn, float distanceMultiplier)
+        {
+            return (nodesToSpawn.Max(node => node.Coordinates.x) - nodesToSpawn.Min(node => node.Coordinates.x)) * distanceMultiplier < maxXPosition
+                && (nodesToSpawn.Max(node => node.Coordinates.y) - nodesToSpawn.Min(node => node.Coordinates.y)) * distanceMultiplier < maxYPosition;
+        }
+
+        private void AddListenersToRoomButtons()
+        {
+            foreach(var buttonAndNeighbors in buttonsAndTheirNeighborButtons)
+            {
+                buttonAndNeighbors.Key.OnRoomButtonSelected.AddListener(() => MakeButtonsAbleToClick(buttonAndNeighbors.Value));
+            }
+        }
+
+        private void MakeButtonsAbleToClick(List<RoomButton> roomButtons)
+        {
+            roomButtons.ForEach(roomButton => roomButton.AbleToClick = true);
         }
     }
 }

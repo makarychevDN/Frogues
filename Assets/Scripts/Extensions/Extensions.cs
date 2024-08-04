@@ -31,6 +31,11 @@ namespace FroguesFramework
             return new Vector2(vector3.x, vector3.y);
         }
 
+        public static Vector3 ToVector3(this Vector2 vector2)
+        {
+            return new Vector3(vector2.x, vector2.y);
+        }
+
         public static Vector2Int ToVector2Int(this Vector3Int vector3)
         {
             return new Vector2Int(vector3.x, vector3.y);
@@ -365,6 +370,13 @@ namespace FroguesFramework
             }
 
             return length;
+        }
+
+        public static bool ContainsTheSameTrail(this List<TrailBetweenRoomButtons> list, RoomButton firstRoomButton , RoomButton secondRoomButton)
+        {
+            return list.Any(
+                trail => (trail.FirstRoomButton == firstRoomButton && trail.SecondRoomButton == secondRoomButton)
+                        || trail.FirstRoomButton == secondRoomButton && trail.SecondRoomButton == firstRoomButton);
         }
     }
 }

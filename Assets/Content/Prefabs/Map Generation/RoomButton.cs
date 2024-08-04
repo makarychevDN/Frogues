@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace FroguesFramework
@@ -11,27 +12,19 @@ namespace FroguesFramework
         [SerializeField] private Room roomPrefab;
         [SerializeField] private Button button;
         [SerializeField] private GameObject roomIsCompletedIndicator;
-        [SerializeField] private List<RoomButton> neighbors;
         [SerializeField] private bool ableToClick;
         private Room _room;
-
         public Button Button => button;
+        public UnityEvent OnRoomButtonSelected;
 
         public bool AbleToClick
         {
             get => ableToClick;
-            set 
-            { 
+            set
+            {
                 ableToClick = value;
                 button.interactable = value;
             }
-        }
-
-        private void Awake()
-        {
-            //_room = Instantiate(roomPrefab);
-            //_room.gameObject.SetActive(false);
-            //_room.OnRoomWasEnabled.AddListener(SetButtonIsInteractable);
         }
 
         public Room GetRoom()
@@ -41,6 +34,7 @@ namespace FroguesFramework
                 _room = Instantiate(roomPrefab);
             }
 
+            OnRoomButtonSelected.Invoke();
             return _room;
         }
 
