@@ -23,7 +23,7 @@ namespace FroguesFramework
         {
             Vector3 trailVector = secondRoomButton.transform.localPosition - firstRoomButton.transform.localPosition;
             transform.localPosition = trailVector * 0.5f + firstRoomButton.transform.localPosition;
-            (transform as RectTransform).sizeDelta = new Vector2(((int)trailVector.magnitude - 30) / 8 * 8 , 4);
+            (transform as RectTransform).sizeDelta = new Vector2(((int)trailVector.magnitude - 28) / 8 * 8 , 4);
             transform.right = secondRoomButton.transform.position - transform.position;
         }
 

@@ -19,7 +19,7 @@ namespace FroguesFramework
         [SerializeField] private List<Room> roomPrefabs;
         [SerializeField] private SerializedDictionary<RoomButton, List<RoomButton>> buttonsAndTheirNeighborButtons = new();
 
-        private int _xSizeOfSpriteMap = 300;
+        private int _xSizeOfSpriteMap = 600;
         private int _ySizeOfSpriteMap = 300;
 
         public override void Init()
