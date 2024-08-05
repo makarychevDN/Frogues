@@ -147,8 +147,13 @@ namespace FroguesFramework
             var spawnedButton = Instantiate(roomButtonPrefab, parent);
             spawnedButton.transform.localPosition -= node.Coordinates.ToVector3() * distanceMultiplier;
             spawnedButton.Init(roomPrefabs.GetRandomElement());
-            //spawnedRoom.OnRoomWasEnabled.AddListener(spawnedButton.SetButtonIsInteractable);
+            spawnedButton.Button.onClick.AddListener(() => EnableNeighbors(spawnedButton));
             return spawnedButton;
+        }
+
+        private void EnableNeighbors(RoomButton roomButton)
+        {
+            buttonsAndTheirNeighborButtons[roomButton].ForEach(button => button.AbleToClick = true);
         }
 
         private List<FloorGeneratorNode> GetNodesToSpawn(FloorGeneratorNode startNode)
@@ -238,14 +243,6 @@ namespace FroguesFramework
             }
 
             return reachableNodes.Count == nodesToSpawn.Count;
-        }
-
-        private void AddListenersToRoomButtons()
-        {
-            foreach(var buttonAndNeighbors in buttonsAndTheirNeighborButtons)
-            {
-                buttonAndNeighbors.Key.OnRoomButtonSelected.AddListener(() => MakeButtonsAbleToClick(buttonAndNeighbors.Value));
-            }
         }
 
         private void MakeButtonsAbleToClick(List<RoomButton> roomButtons)
