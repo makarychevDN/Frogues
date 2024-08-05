@@ -7,16 +7,20 @@ namespace FroguesFramework
 {
     public class GeneratedFloor : BaseFloor
     {
+        [Header("Setup")]
+        [SerializeField] private int expectedCountOfRooms = 16;
+        [SerializeField] private int maximumOfNeigborsForEachButton = 4;
+        [SerializeField] private float distanceBetweenButtonsMultiplier = 3;
+        [Header("Links")]
         [SerializeField] private FloorGridGenerator floorGreedGenerator;
         [SerializeField] private Transform map;
         [SerializeField] private RoomButton roomButtonPrefab;
-        [SerializeField] private int expectedCountOfRooms = 16;
         [SerializeField] private TrailBetweenRoomButtons trailBetweenRoomButtonsPrefab;
-        [SerializeField] private float distanceBetweenButtonsMultiplier = 3;
         [SerializeField] private List<Room> roomPrefabs;
+        [SerializeField] private SerializedDictionary<RoomButton, List<RoomButton>> buttonsAndTheirNeighborButtons = new();
+
         private int _xSizeOfSpriteMap = 300;
         private int _ySizeOfSpriteMap = 300;
-        [SerializeField] private SerializedDictionary<RoomButton, List<RoomButton>> buttonsAndTheirNeighborButtons = new();
 
         public override void Init()
         {
@@ -26,10 +30,11 @@ namespace FroguesFramework
             do
             {
                 ResetGeneratorSetup();
-                RemoveExistingButtonsAndTrails();
-                nodesToSpawn = GetNodesToSpawn(floorGreedGenerator.Nodes.GetRandomElement());
-            } 
-            while (!GeneratedRoomIsOk(_xSizeOfSpriteMap, _ySizeOfSpriteMap, nodesToSpawn, distanceBetweenButtonsMultiplier));
+                nodesToSpawn = GetNodesToSpawn(floorGreedGenerator.Nodes.GetFirst());
+                RemoveExtraNeighborLinks(nodesToSpawn, maximumOfNeigborsForEachButton);
+            }
+            while
+            (!GeneratedMapIsOk(_xSizeOfSpriteMap, _ySizeOfSpriteMap, nodesToSpawn, distanceBetweenButtonsMultiplier));
 
             GenerateRoomButtons(nodesToSpawn);
             UpdatePositionOfButtons(roomButtons, CalculateDeltaToPlaceGraphInTheMiddleOfMap());
@@ -38,22 +43,35 @@ namespace FroguesFramework
             base.Init();
         }
 
+        private void RemoveExtraNeighborLinks(List<FloorGeneratorNode> nodesToSpawn, int maximumOfNeighborLinks)
+        {
+            var extraNeighborsNode = GetNodeWithExtraNeighbors(nodesToSpawn, maximumOfNeighborLinks);
+
+            while(extraNeighborsNode != null)
+            {
+                FloorGeneratorNode mostLinkedNeighbor = 
+                    extraNeighborsNode.Neighbors.Values
+                    .OrderByDescending(node => node.Neighbors.Count).FirstOrDefault();
+
+                Color keyOfMostLinkedNeighbor = extraNeighborsNode.Neighbors.FirstOrDefault(x => x.Value == mostLinkedNeighbor).Key;
+                Color keyOfextraNeighborsNode = mostLinkedNeighbor.Neighbors.FirstOrDefault(x => x.Value == extraNeighborsNode).Key;
+
+                extraNeighborsNode.Neighbors.Remove(keyOfMostLinkedNeighbor);
+                mostLinkedNeighbor.Neighbors.Remove(keyOfextraNeighborsNode);
+
+                extraNeighborsNode = GetNodeWithExtraNeighbors(nodesToSpawn, maximumOfNeighborLinks);
+            }
+        }
+
+        private FloorGeneratorNode GetNodeWithExtraNeighbors(List<FloorGeneratorNode> nodesToSpawn, int maximumOfNeighborLinks) 
+            => nodesToSpawn.FirstOrDefault(node => node.Neighbors.Values
+                .Where(neighbor => nodesToSpawn.Contains(neighbor)).Count() > maximumOfNeighborLinks);
+
+
         private void ResetGeneratorSetup()
         {
             floorGreedGenerator.Nodes.ForEach(node => node.AlreadyUsedToSpawnRoom = false);
             buttonsAndTheirNeighborButtons.Clear();
-        }
-
-        private void RemoveExistingButtonsAndTrails()
-        {
-            var allChildren = map.GetComponentsInChildren<Transform>().ToList();
-            allChildren.Remove(map);
-            for (var i = 0; i < allChildren.Count(); i++)
-            {
-                Destroy(allChildren[i].gameObject);
-            }
-
-            roomButtons.Clear();
         }
 
         private void GenerateRoomButtons(List<FloorGeneratorNode> nodesToSpawn)
@@ -139,10 +157,10 @@ namespace FroguesFramework
             List<FloorGeneratorNode> selectedNodes = new List<FloorGeneratorNode>() { startNode };
             startNode.AlreadyUsedToSpawnRoom = true;
 
-            while (selectedNodes.Count < expectedCountOfRooms - 1)
+            while (selectedNodes.Count < expectedCountOfRooms)
             {
                 var selectedNode = childNodes.GetRandomElement();
-                List<FloorGeneratorNode> newNodes = SelectNeigbors(selectedNode, Random.Range(1, 3));
+                List<FloorGeneratorNode> newNodes = SelectNeigbors(selectedNode, Random.Range(2, 3));
 
                 foreach (var newNode in newNodes)
                 {
@@ -158,10 +176,18 @@ namespace FroguesFramework
 
         private List<FloorGeneratorNode> SelectNeigbors(FloorGeneratorNode selectedNode, int neigborQuantity)
         {
-            List<FloorGeneratorNode> neighbors = selectedNode.Neighbors.Values.ToList();
-            var theMainNeigbor = neighbors.GetRandomElement();
-            neighbors = neighbors.OrderBy(neigbor => neigbor.DistanceToOtherNode(theMainNeigbor))
+            List<FloorGeneratorNode> neighbors = selectedNode.Neighbors.Values
                 .Where(neigbor => !neigbor.AlreadyUsedToSpawnRoom).ToList();
+
+            if(Random.Range(0, 2) == 0)
+            {
+                var theMainNeigbor = neighbors.GetRandomElement();
+                neighbors = neighbors.OrderBy(neigbor => neigbor.DistanceToOtherNode(theMainNeigbor)).ToList();
+            }
+            else
+            {
+                neighbors.Shuffle();
+            }
 
             List<FloorGeneratorNode> neighborsToSpawn = new();
             neigborQuantity = Mathf.Clamp(neigborQuantity, 0, neighbors.Count);
@@ -174,10 +200,44 @@ namespace FroguesFramework
             return neighborsToSpawn;
         }
 
-        private bool GeneratedRoomIsOk(int maxXPosition, int maxYPosition, List<FloorGeneratorNode> nodesToSpawn, float distanceMultiplier)
+        private bool GeneratedMapIsOk(int maxXPosition, int maxYPosition, List<FloorGeneratorNode> nodesToSpawn, float distanceMultiplier)
+        {
+            return SizeOfMapFitsToMapSprite(maxXPosition, maxYPosition, nodesToSpawn, distanceMultiplier)
+                && EveryNodeIsReachable(nodesToSpawn);
+        }
+
+        private bool SizeOfMapFitsToMapSprite(int maxXPosition, int maxYPosition, List<FloorGeneratorNode> nodesToSpawn, float distanceMultiplier)
         {
             return (nodesToSpawn.Max(node => node.Coordinates.x) - nodesToSpawn.Min(node => node.Coordinates.x)) * distanceMultiplier < maxXPosition
                 && (nodesToSpawn.Max(node => node.Coordinates.y) - nodesToSpawn.Min(node => node.Coordinates.y)) * distanceMultiplier < maxYPosition;
+        }
+
+        private bool EveryNodeIsReachable(List<FloorGeneratorNode> nodesToSpawn)
+        {
+            var startNode = nodesToSpawn.GetFirst();
+            List<FloorGeneratorNode> reachableNodes = new List<FloorGeneratorNode>() { startNode };
+            List<FloorGeneratorNode> parentNodes = new List<FloorGeneratorNode>() { startNode };
+            List<FloorGeneratorNode> childrenNodes = new List<FloorGeneratorNode>();
+            List<FloorGeneratorNode> packOfReachableNodes;
+
+            while (parentNodes.Count != 0)
+            {
+                foreach(var parentNode in parentNodes)
+                {
+                    packOfReachableNodes = 
+                        parentNode.Neighbors.Values
+                        .Where(node => nodesToSpawn.Contains(node) 
+                        && !reachableNodes.Contains(node)).ToList();
+
+                    childrenNodes.AddRange(packOfReachableNodes);
+                    reachableNodes.AddRange(packOfReachableNodes);
+                }
+
+                parentNodes = childrenNodes;
+                childrenNodes = new List<FloorGeneratorNode>();
+            }
+
+            return reachableNodes.Count == nodesToSpawn.Count;
         }
 
         private void AddListenersToRoomButtons()
