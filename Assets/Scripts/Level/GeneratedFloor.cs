@@ -148,6 +148,7 @@ namespace FroguesFramework
             spawnedButton.transform.localPosition -= node.Coordinates.ToVector3() * distanceMultiplier;
             spawnedButton.Init(roomPrefabs.GetRandomElement());
             spawnedButton.Button.onClick.AddListener(() => EnableNeighbors(spawnedButton));
+            spawnedButton.Button.onClick.AddListener(spawnedButton.TurnOnVisitedAlreadyMode);
             return spawnedButton;
         }
 

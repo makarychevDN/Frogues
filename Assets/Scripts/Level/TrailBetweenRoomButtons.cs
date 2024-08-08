@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FroguesFramework
 {
@@ -8,6 +9,8 @@ namespace FroguesFramework
     {
         [SerializeField] private RoomButton firstRoomButton;
         [SerializeField] private RoomButton secondRoomButton;
+        [SerializeField] private Image image;
+        [SerializeField] private Sprite updatedSprite;
 
         public RoomButton FirstRoomButton => firstRoomButton;
         public RoomButton SecondRoomButton => secondRoomButton;
@@ -16,6 +19,9 @@ namespace FroguesFramework
         {
             this.firstRoomButton = firstRoomButton;
             this.secondRoomButton = secondRoomButton;
+
+            firstRoomButton.Button.onClick.AddListener(() => UpdateSprite(updatedSprite));
+            secondRoomButton.Button.onClick.AddListener(() => UpdateSprite(updatedSprite));
         }
 
         [ContextMenu("Update Transform")]
@@ -36,6 +42,11 @@ namespace FroguesFramework
         public bool EqualToOtherLineInTheList(List<TrailBetweenRoomButtons> otherLines)
         {
             return otherLines.Where(otherLine => otherLine != this).Any(otherLine => EqualToOtherLine(otherLine));
+        }
+
+        public void UpdateSprite(Sprite sprite)
+        {
+            image.sprite = sprite;
         }
     }
 }

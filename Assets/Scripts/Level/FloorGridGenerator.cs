@@ -8,7 +8,6 @@ namespace FroguesFramework
     {
         [SerializeField] private Texture2D voronoiGraphTexture;
         [SerializeField] private LineRenderer trailPrefab;
-        [SerializeField] private GameObject nodePrefab;
 
         private Color _colorOfNodeOnTexture = Color.red;
         private List<Color> _backgroundColors = new() { Color.white, Color.black };
@@ -52,6 +51,7 @@ namespace FroguesFramework
                     var pairOfNode = _nodes.FirstOrDefault(otherNode => otherNode != node && otherNode.Neighbors.ContainsKey(key));
                     node.Neighbors[key] = pairOfNode;
                     pairOfNode.Neighbors[key] = node;
+
                 }
             }
         }

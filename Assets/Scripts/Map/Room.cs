@@ -2,11 +2,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace FroguesFramework
 {
     public class Room : MonoBehaviour
     {
+        [field: Header("Images")]
+        [field: SerializeField] public Sprite AvailableSprite { get; set; }
+        [field: SerializeField] public Sprite UnavailableSprite { get; set; }
+
         [Header("Setup")]
         [SerializeField] private Map map;
         [SerializeField] private Cell startPlayerPosition;
