@@ -44,6 +44,8 @@ namespace FroguesFramework
         public UnityEvent<int> OnCountOfBloodPuddlesUpdated;
         public UnityEvent<bool> OnRoomWasEnabled;
 
+        public UnityEvent<bool> OnMainQuestWasCompleted;
+
         public void Init(List<Unit> playableCharacters)
         {
             this.playableCharacters = playableCharacters;
@@ -82,6 +84,7 @@ namespace FroguesFramework
             OnRoomWasEnabled.Invoke(false);
         }
 
+        #region previsualizationStuff
         public void DisableAllPrevisualization()
         {
             _ableToDisablePreVisualizationObjects.ForEach(previsualization => previsualization.DisablePreVisualization());
@@ -106,6 +109,7 @@ namespace FroguesFramework
         {
             _ableToDisablePreVisualizationObjects = _ableToDisablePreVisualizationObjects.Except(ableToDisablePreVisualizationObjects).ToList();
         }
+        #endregion
 
         public void InvokeOnSomeoneMoved()
         {

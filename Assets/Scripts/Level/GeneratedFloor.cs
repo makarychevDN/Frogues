@@ -18,6 +18,8 @@ namespace FroguesFramework
         [SerializeField] private TrailBetweenRoomButtons trailBetweenRoomButtonsPrefab;
         [SerializeField] private List<Room> roomPrefabs;
         [SerializeField] private SerializedDictionary<RoomButton, List<RoomButton>> buttonsAndTheirNeighborButtons = new();
+        [SerializeField] private Sprite visitedRoomSprite;
+        private List<RoomButton> _visitedRooms = new();
 
         private int _xSizeOfSpriteMap = 600;
         private int _ySizeOfSpriteMap = 300;
@@ -81,13 +83,14 @@ namespace FroguesFramework
             foreach (var node in nodesToSpawn)
             {
                 var spawnedButton = SpawnButton(roomButtonPrefab, map, node, distanceBetweenButtonsMultiplier);
+                spawnedButton.SetSpriteAsRoomIsUnavailable();
                 roomButtons.Add(spawnedButton);
                 spawnedButton.AbleToClick = false;
                 nodesAndButtons.Add(node, spawnedButton);
             }
 
             FindNeigborButtons(nodesAndButtons);
-            roomButtons.GetRandomElement().AbleToClick = true;
+            MakeRoomButtonAvailable(roomButtons.GetRandomElement());
         }
 
         private void FindNeigborButtons(Dictionary<FloorGeneratorNode, RoomButton> nodesAndButtons)
@@ -147,14 +150,24 @@ namespace FroguesFramework
             var spawnedButton = Instantiate(roomButtonPrefab, parent);
             spawnedButton.transform.localPosition -= node.Coordinates.ToVector3() * distanceMultiplier;
             spawnedButton.Init(roomPrefabs.GetRandomElement());
-            spawnedButton.Button.onClick.AddListener(() => EnableNeighbors(spawnedButton));
-            spawnedButton.Button.onClick.AddListener(spawnedButton.TurnOnVisitedAlreadyMode);
+            spawnedButton.Button.onClick.AddListener(() => VisitRoom(spawnedButton));
             return spawnedButton;
         }
 
-        private void EnableNeighbors(RoomButton roomButton)
+        private void VisitRoom(RoomButton roomButton)
         {
-            buttonsAndTheirNeighborButtons[roomButton].ForEach(button => button.AbleToClick = true);
+            roomButton.AbleToClick = false;
+            roomButton.SetSprite(visitedRoomSprite);
+            _visitedRooms.Add(roomButton);
+            buttonsAndTheirNeighborButtons[roomButton]
+                .Where(roomButton => !_visitedRooms.Contains(roomButton)).ToList()
+                .ForEach(button => MakeRoomButtonAvailable(button));
+        }
+
+        private void MakeRoomButtonAvailable(RoomButton roomButton)
+        {
+            roomButton.AbleToClick = true;
+            roomButton.SetSpriteAsRoomIsAvailable();
         }
 
         private List<FloorGeneratorNode> GetNodesToSpawn(FloorGeneratorNode startNode)
@@ -244,11 +257,6 @@ namespace FroguesFramework
             }
 
             return reachableNodes.Count == nodesToSpawn.Count;
-        }
-
-        private void MakeButtonsAbleToClick(List<RoomButton> roomButtons)
-        {
-            roomButtons.ForEach(roomButton => roomButton.AbleToClick = true);
         }
     }
 }

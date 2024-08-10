@@ -198,13 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f619d86ef9905a4499b2e200d7bd31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playableCharacters: []
-  currentRoom: {fileID: 0}
-  roomButtons:
-  - {fileID: 1737609966}
-  - {fileID: 1550419928}
-  - {fileID: 1260478996}
-  roomsAreAbleToBeRevisited: 0
 --- !u!4 &144719039
 Transform:
   m_ObjectHideFlags: 0
@@ -797,6 +790,7 @@ MonoBehaviour:
   - {fileID: 1135634730495387201, guid: 89530bf8b86f63c4f94a3be2f7e8f9bd, type: 3}
   buttonsAndTheirNeighborButtons:
     _serializedList: []
+  visitedRoomSprite: {fileID: 21300000, guid: ce8930482abadf14886ee009d9e9b89c, type: 3}
 --- !u!4 &1050813782
 Transform:
   m_ObjectHideFlags: 0
@@ -1114,7 +1108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 1135634730495387201, guid: 89530bf8b86f63c4f94a3be2f7e8f9bd, type: 3}
   button: {fileID: 1260478997}
-  roomIsCompletedIndicator: {fileID: 0}
   image: {fileID: 0}
   ableToClick: 0
   RoomVisitedSprite: {fileID: 0}
@@ -1362,7 +1355,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 1135634730495387201, guid: 89530bf8b86f63c4f94a3be2f7e8f9bd, type: 3}
   button: {fileID: 1550419929}
-  roomIsCompletedIndicator: {fileID: 0}
   image: {fileID: 0}
   ableToClick: 0
   RoomVisitedSprite: {fileID: 0}
@@ -1644,7 +1636,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 2638133752701027621, guid: fb294092750cf0545963bae84734545c, type: 3}
   button: {fileID: 1737609963}
-  roomIsCompletedIndicator: {fileID: 0}
   image: {fileID: 0}
   ableToClick: 0
   RoomVisitedSprite: {fileID: 0}
