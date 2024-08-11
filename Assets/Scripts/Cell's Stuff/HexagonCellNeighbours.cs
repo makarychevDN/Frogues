@@ -40,7 +40,7 @@ namespace FroguesFramework
 
         #region Init
 
-        public void Init(Map map)
+        public void Init(RoomCellsManager map)
         {
             _oppositeDirsByCell = new Dictionary<Cell, HexDir>();
 
@@ -51,7 +51,7 @@ namespace FroguesFramework
             InitOppositeHexDirsByCell();
         }
         
-        private void InitNeighborCells(Map map)
+        private void InitNeighborCells(RoomCellsManager map)
         {
             int evenModificator = myCell.coordinates.y.Even().ToInt();
             int oddModificator = myCell.coordinates.y.Odd().ToInt();

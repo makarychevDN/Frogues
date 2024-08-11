@@ -20,7 +20,7 @@ namespace FroguesFramework
 
         public void Init(Room room)
         {
-            _maxAllowedDistanceToMoveCamera = room.Map.allCells.Max(cell => (cell.transform.position - transform.position).magnitude) * 1.25f;
+            _maxAllowedDistanceToMoveCamera = room.CellsManager.allCells.Max(cell => (cell.transform.position - transform.position).magnitude) * 1.25f;
             _camera = Camera.main.transform;
             _camera.parent = cameraRotationAroundXAxisPoint;
             ResetCamera();

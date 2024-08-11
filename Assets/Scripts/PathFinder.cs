@@ -5,7 +5,7 @@ namespace FroguesFramework
 {
     public class PathFinder : MonoBehaviour
     {
-        public Map map;
+        public RoomCellsManager cellsManager;
         [SerializeField] private bool isMapHexagon;
         [SerializeField] private LineRenderer lineRendererPrefab;
         [SerializeField] private Transform linesParent;
@@ -133,7 +133,7 @@ namespace FroguesFramework
                                new Vector2Int(userCell.coordinates.x, userCell.coordinates.y))
                         {
                             path.Insert(0,
-                                map.CellsArray[tempBackTrackNode.coordinates.x, tempBackTrackNode.coordinates.y]);
+                                cellsManager.CellsArray[tempBackTrackNode.coordinates.x, tempBackTrackNode.coordinates.y]);
                             tempBackTrackNode = tempBackTrackNode.previous;
                         }
 
@@ -290,16 +290,16 @@ namespace FroguesFramework
 
         private void InitializeNodesGrid()
         {
-            _nodesGrid = new PathFinderNode[map.SizeX, map.SizeZ];
+            _nodesGrid = new PathFinderNode[cellsManager.SizeX, cellsManager.SizeZ];
 
-            for (int i = 0; i < map.SizeX; i++)
+            for (int i = 0; i < cellsManager.SizeX; i++)
             {
-                for (int j = 0; j < map.SizeZ; j++)
+                for (int j = 0; j < cellsManager.SizeZ; j++)
                 {
-                    if (map.CellsArray[i, j] == null)
+                    if (cellsManager.CellsArray[i, j] == null)
                         continue;
 
-                    _nodesGrid[i, j] = new PathFinderNode(map.CellsArray[i, j]);
+                    _nodesGrid[i, j] = new PathFinderNode(cellsManager.CellsArray[i, j]);
                 }
             }
 

@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace FroguesFramework
 {
-    public class Map : MonoBehaviour
+    public class RoomCellsManager : MonoBehaviour
     {
         [Header("Setup")]
         [SerializeField] private Transform cellsParent;

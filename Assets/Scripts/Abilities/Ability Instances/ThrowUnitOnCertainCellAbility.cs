@@ -6,7 +6,7 @@ namespace FroguesFramework
     public class ThrowUnitOnCertainCellAbility : DefaultUnitTargetAbility
     {
         [SerializeField] private Cell certainCell;
-        [SerializeField] private Map map;
+        [SerializeField] private RoomCellsManager map;
 
         protected override IEnumerator ApplyEffect(float time, Unit target)
         {

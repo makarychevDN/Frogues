@@ -141,17 +141,17 @@ namespace FroguesFramework
         
         public static List<Cell> TakeAllCells(this Room room)
         {
-            return room.Map.allCells;
+            return room.CellsManager.allCells;
         }
 
         public static List<Cell> TakeAllEmptyCells(this Room room)
         {
-            return room.Map.allCells.Where(cell => cell.IsEmpty).ToList();
+            return room.CellsManager.allCells.Where(cell => cell.IsEmpty).ToList();
         }
 
         public static List<Unit> TakeAllUnits(this Room room)
         {
-            var cellsWithContent = room.Map.allCells.Where(cell => !cell.IsEmpty).ToList();
+            var cellsWithContent = room.CellsManager.allCells.Where(cell => !cell.IsEmpty).ToList();
             List<Unit> units = new List<Unit>();
             cellsWithContent.ForEach(cell => units.Add(cell.Content));
             return units;

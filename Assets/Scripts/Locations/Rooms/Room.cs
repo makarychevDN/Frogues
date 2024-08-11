@@ -13,7 +13,7 @@ namespace FroguesFramework
         [field: SerializeField] public Sprite UnavailableSprite { get; set; }
 
         [Header("Setup")]
-        [SerializeField] private Map map;
+        [SerializeField] private RoomCellsManager cellsManager;
         [SerializeField] private Cell startPlayerPosition;
         [SerializeField] private PathFinder pathFinder;
         [SerializeField] private UnitsQueue unitsQueue;
@@ -28,7 +28,7 @@ namespace FroguesFramework
         private List<IAbleToDisablePreVisualization> _ableToDisablePreVisualizationObjects = new();
         private bool _wasInitedAlready;
 
-        public Map Map => map;
+        public RoomCellsManager CellsManager => cellsManager;
         public bool NeedToShowUnitsUI => true;
         public PathFinder PathFinder => pathFinder;
         public UnitsQueue UnitsQueue => unitsQueue;
@@ -54,7 +54,7 @@ namespace FroguesFramework
             foreach (var unit in playableCharacters)
             {
                 unit.Init(this);
-                var targetCell = map.allCells.EmptyCellsOnly().GetRandomElement();
+                var targetCell = cellsManager.allCells.EmptyCellsOnly().GetRandomElement();
                 unit.CurrentCell = targetCell;
                 targetCell.Content = unit;
                 unit.transform.position = targetCell.transform.position;
@@ -67,7 +67,7 @@ namespace FroguesFramework
                 return; 
             
             _wasInitedAlready = true;
-            map.Init();
+            cellsManager.Init();
             pathFinder.Init();
             unitsQueue.Init(this, playableCharacters, otherAbleToACtCharacters);
         }

@@ -494,6 +494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 965621913353822915}
   - {fileID: 9177637781549069252}
   - {fileID: 9177637781200634518}
   - {fileID: 9177637780620101241}
@@ -501,7 +502,7 @@ Transform:
   - {fileID: 6496629021054320829}
   - {fileID: 7292113295341997215}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9177637780325136850
 MonoBehaviour:
@@ -515,14 +516,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11108ad950553f4b8c7205cdcfde1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 9177637781549069253}
+  <AvailableSprite>k__BackingField: {fileID: 0}
+  <UnavailableSprite>k__BackingField: {fileID: 0}
+  cellsManager: {fileID: 9177637781549069253}
   startPlayerPosition: {fileID: 0}
   pathFinder: {fileID: 9177637781200634505}
   unitsQueue: {fileID: 9177637780620101240}
   cameraController: {fileID: 2287702687257470259}
   currentlyActiveObjects: {fileID: 1473668149875931239}
+  playableCharacters: []
+  bloodPuddles: []
   ratsInTheRoomCount: 0
-  bloodPuddlesInTheRoomCount: 0
   OnSomeoneMoved:
     m_PersistentCalls:
       m_Calls: []
@@ -533,6 +537,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnCountOfBloodPuddlesUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRoomWasEnabled:
+    m_PersistentCalls:
+      m_Calls: []
+  OnMainQuestWasCompleted:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &9177637780566372362
@@ -948,7 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ad22ab61e43b804286f010ff6f3fc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 9177637781549069253}
+  cellsManager: {fileID: 9177637781549069253}
   isMapHexagon: 1
   lineRendererPrefab: {fileID: 7813407528636564602, guid: 8a5d741051a63954385c5910a3cead87, type: 3}
   linesParent: {fileID: 9177637781534915245}
@@ -1157,7 +1167,7 @@ GameObject:
   - component: {fileID: 9177637781549069252}
   - component: {fileID: 9177637781549069253}
   m_Layer: 0
-  m_Name: Map
+  m_Name: Cells Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1175,7 +1185,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 965621913353822915}
   - {fileID: 3891059248955077833}
   - {fileID: 9177637780176317619}
   - {fileID: 9177637781192323224}
@@ -1254,7 +1263,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 9177637781549069252}
+    m_TransformParent: {fileID: 9177637780325136851}
     m_Modifications:
     - target: {fileID: 1888546640074105812, guid: 5b1507d277d092b429900c3b63ccc554, type: 3}
       propertyPath: m_Name

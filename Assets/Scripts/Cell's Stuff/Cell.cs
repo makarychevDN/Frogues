@@ -61,9 +61,9 @@ namespace FroguesFramework
 
         public bool CheckColumnIsEmpty(bool ignoreDefaultUnits, bool ignoreSmallUnits, bool ignoreSurfaces)
         {
-            if (!ignoreDefaultUnits && !ParentRoom.Map.CellsArray[coordinates.x, coordinates.y].IsEmpty)
+            if (!ignoreDefaultUnits && !ParentRoom.CellsManager.CellsArray[coordinates.x, coordinates.y].IsEmpty)
             {
-                if (ignoreSmallUnits && ParentRoom.Map.CellsArray[coordinates.x, coordinates.y].Content
+                if (ignoreSmallUnits && ParentRoom.CellsManager.CellsArray[coordinates.x, coordinates.y].Content
                     .Small)
                     return true;
 
