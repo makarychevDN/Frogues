@@ -113,7 +113,7 @@ namespace FroguesFramework
             for(int i = 0;  i < cellsGameObjects.Length; i++)
             {
                 DestroyImmediate(cellsGameObjects[i].gameObject);
-            }            
+            }
         }
     }
 }

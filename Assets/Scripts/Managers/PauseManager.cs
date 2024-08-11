@@ -4,7 +4,7 @@ namespace FroguesFramework
 {
     public class PauseManager : MonoBehaviour
     {
-        public static PauseManager Instance;
+        public static PauseManager Instance; 
         [SerializeField] private GameObject pauseMenu;
 
         public bool PauseIsActive => pauseMenu.activeSelf;
