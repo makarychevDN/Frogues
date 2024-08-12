@@ -1,30 +1,31 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class RoomReachTheCellQuest : Room, IAbleToHaveTheMainQuest
+    public class RoomModificator : MonoBehaviour, IAbleToHaveTheMainQuest
     {
         [Header("Reach The Cell Quest")]
         [SerializeField] private Cell questTargetCell;
         public UnityEvent OnPlayerReachedTheCell;
 
+        private Room _myRoom;
+
         public UnityEvent GetMainQuestCompletedEvent() => OnPlayerReachedTheCell;
 
-        public override void Init(List<Unit> playableCharacters)
+        public void Init(Room room)
         {
-            base.Init(playableCharacters);
+            _myRoom = room;
 
             questTargetCell.OnBecameFullByUnit.AddListener(ComleteQuestIfUnitIsPlayer);
         }
 
         public void ComleteQuestIfUnitIsPlayer(Unit unit)
         {
-            if (!playableCharacters.Contains(unit))
+            if (!_myRoom.PlayableCharacters.Contains(unit))
                 return;
 
             OnPlayerReachedTheCell.Invoke();
-        } 
+        }
     }
 }

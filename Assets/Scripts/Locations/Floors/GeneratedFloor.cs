@@ -167,11 +167,11 @@ namespace FroguesFramework
                 .Where(roomButton => !_visitedRooms.Contains(roomButton) && !_availableToVisitiongRooms.Contains(roomButton)).ToList()
                 .ForEach(button => _availableToVisitiongRooms.Add(button));
 
-            var roomWithTheMainQuest = roomButton.GetRoom() as IAbleToHaveTheMainQuest;
-            if(roomWithTheMainQuest != null)
+            var roomModificatorWithTheMainQuest = roomButton.GetRoom().RoomModificator as IAbleToHaveTheMainQuest;
+            if(roomModificatorWithTheMainQuest != null)
             {
                 DisableAbailableButtons(_availableToVisitiongRooms);
-                roomWithTheMainQuest.GetMainQuestCompletedEvent().AddListener(() => EnableAbailableButtons(_availableToVisitiongRooms));
+                roomModificatorWithTheMainQuest.GetMainQuestCompletedEvent().AddListener(() => EnableAbailableButtons(_availableToVisitiongRooms));
             }
             else
             {

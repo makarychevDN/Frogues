@@ -21,6 +21,7 @@ namespace FroguesFramework
         [SerializeField] private CurrentlyActiveObjects currentlyActiveObjects;
         [SerializeField] protected List<Unit> playableCharacters;
         [SerializeField] private List<Unit> bloodPuddles;
+        [SerializeField] private RoomModificator roomModificator;
 
         [Header("Mechanics")]
         [SerializeField] private int ratsInTheRoomCount;
@@ -37,6 +38,7 @@ namespace FroguesFramework
         public List<Unit> PlayableCharacters => playableCharacters;
         public int RatsInTheRoomCount { get => ratsInTheRoomCount; set { ratsInTheRoomCount = value; OnCountOfRatsUpdated.Invoke(ratsInTheRoomCount); } }
         public int BloodPuddlesInTheRoomCount => bloodPuddles.Count;
+        public RoomModificator RoomModificator => roomModificator;
 
         public UnityEvent OnSomeoneMoved;
         public UnityEvent OnSomeoneDied;
@@ -70,6 +72,9 @@ namespace FroguesFramework
             cellsManager.Init();
             pathFinder.Init();
             unitsQueue.Init(this, playableCharacters, otherAbleToACtCharacters);
+
+            if(roomModificator != null)
+                roomModificator.Init(this);
         }
 
         public void UnInit(List<Unit> playableCharacters)

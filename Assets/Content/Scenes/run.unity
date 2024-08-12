@@ -152,7 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf0369d2c3a90fd4c903062500afa85a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitDescriptionPanel: {fileID: 6768543663406096423}
 --- !u!4 &127779288
 Transform:
   m_ObjectHideFlags: 0
@@ -198,6 +197,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f619d86ef9905a4499b2e200d7bd31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playableCharacters: []
+  currentRoom: {fileID: 0}
+  roomButtons: []
+  roomsAreAbleToBeRevisited: 0
 --- !u!4 &144719039
 Transform:
   m_ObjectHideFlags: 0
@@ -788,6 +791,7 @@ MonoBehaviour:
   trailBetweenRoomButtonsPrefab: {fileID: 4306181559817297299, guid: 852fcb48429920b45a583f98e1d95544, type: 3}
   roomPrefabs:
   - {fileID: 1135634730495387201, guid: 89530bf8b86f63c4f94a3be2f7e8f9bd, type: 3}
+  - {fileID: 2924962826746816136, guid: 5c116f5709999394d9bf94d6fa6f8d40, type: 3}
   buttonsAndTheirNeighborButtons:
     _serializedList: []
   visitedRoomSprite: {fileID: 21300000, guid: ce8930482abadf14886ee009d9e9b89c, type: 3}
@@ -824,7 +828,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1069260809
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1443,17 +1447,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550419926}
   m_CullTransparentMesh: 1
---- !u!114 &1580566592 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3672541564233165981, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
-  m_PrefabInstance: {fileID: 6768543663406096421}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dba93b87d5151e04aac686c2834a64aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1638763651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,8 +1476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a235c610f47c69b4687d31e5efe092ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityHint: {fileID: 1820408336}
-  commonSmallHint: {fileID: 1580566592}
 --- !u!4 &1638763653
 Transform:
   m_ObjectHideFlags: 0
@@ -1642,17 +1633,6 @@ MonoBehaviour:
   OnRoomButtonSelected:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1820408336 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2640499947148762299, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
-  m_PrefabInstance: {fileID: 6768543663406096421}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9586e3c37ec17814a82b8a7a1716fa16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2028734087 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4258175010883219321, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
@@ -3104,14 +3084,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6768543663566734974, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
   m_PrefabInstance: {fileID: 6768543663406096421}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6768543663406096423 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5838841428885627938, guid: 7721dba4df738c2488bd2750c68010a5, type: 3}
-  m_PrefabInstance: {fileID: 6768543663406096421}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08ae892d0572f8349a0bbe408bb50b49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
