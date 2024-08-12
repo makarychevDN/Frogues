@@ -19,7 +19,7 @@ namespace FroguesFramework
         [SerializeField] private UnitsQueue unitsQueue;
         [SerializeField] private CameraController cameraController;
         [SerializeField] private CurrentlyActiveObjects currentlyActiveObjects;
-        [SerializeField] private List<Unit> playableCharacters;
+        [SerializeField] protected List<Unit> playableCharacters;
         [SerializeField] private List<Unit> bloodPuddles;
 
         [Header("Mechanics")]
@@ -46,7 +46,7 @@ namespace FroguesFramework
 
         public UnityEvent<bool> OnMainQuestWasCompleted;
 
-        public void Init(List<Unit> playableCharacters)
+        public virtual void Init(List<Unit> playableCharacters)
         {
             this.playableCharacters = playableCharacters;
             GetComponentsInChildren<Unit>().ToList().ForEach(unit => unit.Init(this));

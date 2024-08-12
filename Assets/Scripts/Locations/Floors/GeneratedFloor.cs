@@ -20,6 +20,7 @@ namespace FroguesFramework
         [SerializeField] private SerializedDictionary<RoomButton, List<RoomButton>> buttonsAndTheirNeighborButtons = new();
         [SerializeField] private Sprite visitedRoomSprite;
         private List<RoomButton> _visitedRooms = new();
+        private List<RoomButton> _availableToVisitiongRooms = new();
 
         private int _xSizeOfSpriteMap = 600;
         private int _ySizeOfSpriteMap = 300;
@@ -90,7 +91,9 @@ namespace FroguesFramework
             }
 
             FindNeigborButtons(nodesAndButtons);
-            MakeRoomButtonAvailable(roomButtons.GetRandomElement());
+            var randomRoomButton = roomButtons.GetRandomElement();
+            MakeRoomButtonAvailable(randomRoomButton);
+            _availableToVisitiongRooms.Add(randomRoomButton);
         }
 
         private void FindNeigborButtons(Dictionary<FloorGeneratorNode, RoomButton> nodesAndButtons)
@@ -159,9 +162,31 @@ namespace FroguesFramework
             roomButton.AbleToClick = false;
             roomButton.SetSprite(visitedRoomSprite);
             _visitedRooms.Add(roomButton);
+            _availableToVisitiongRooms.Remove(roomButton);
             buttonsAndTheirNeighborButtons[roomButton]
-                .Where(roomButton => !_visitedRooms.Contains(roomButton)).ToList()
-                .ForEach(button => MakeRoomButtonAvailable(button));
+                .Where(roomButton => !_visitedRooms.Contains(roomButton) && !_availableToVisitiongRooms.Contains(roomButton)).ToList()
+                .ForEach(button => _availableToVisitiongRooms.Add(button));
+
+            var roomWithTheMainQuest = roomButton.GetRoom() as IAbleToHaveTheMainQuest;
+            if(roomWithTheMainQuest != null)
+            {
+                DisableAbailableButtons(_availableToVisitiongRooms);
+                roomWithTheMainQuest.GetMainQuestCompletedEvent().AddListener(() => EnableAbailableButtons(_availableToVisitiongRooms));
+            }
+            else
+            {
+                EnableAbailableButtons(_availableToVisitiongRooms);
+            }
+        }
+
+        private void DisableAbailableButtons(List<RoomButton> roomButtons)
+        {
+            roomButtons.ForEach(roomButton => roomButton.AbleToClick = false);
+        }
+
+        private void EnableAbailableButtons(List<RoomButton> roomButtons)
+        {
+            roomButtons.ForEach(roomButton => MakeRoomButtonAvailable(roomButton));
         }
 
         private void MakeRoomButtonAvailable(RoomButton roomButton)
