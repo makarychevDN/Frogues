@@ -3,22 +3,21 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class RoomModificator : MonoBehaviour, IAbleToHaveTheMainQuest
+    public class ReachTheTargetCellRoomModificator : RoomModificator, IAbleToHaveTheMainQuest
     {
-        [Header("Reach The Cell Quest")]
         [SerializeField] private Cell questTargetCell;
-        public UnityEvent OnPlayerReachedTheCell;
-
         private Room _myRoom;
 
-        public UnityEvent GetMainQuestCompletedEvent() => OnPlayerReachedTheCell;
+        public UnityEvent OnPlayerReachedTheCell;
 
-        public void Init(Room room)
+        public override void Init(Room room)
         {
             _myRoom = room;
 
             questTargetCell.OnBecameFullByUnit.AddListener(ComleteQuestIfUnitIsPlayer);
         }
+
+        public UnityEvent GetMainQuestCompletedEvent() => OnPlayerReachedTheCell;
 
         public void ComleteQuestIfUnitIsPlayer(Unit unit)
         {
