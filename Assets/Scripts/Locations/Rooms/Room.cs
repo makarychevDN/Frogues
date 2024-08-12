@@ -44,9 +44,6 @@ namespace FroguesFramework
         public UnityEvent OnSomeoneDied;
         public UnityEvent<int> OnCountOfRatsUpdated;
         public UnityEvent<int> OnCountOfBloodPuddlesUpdated;
-        public UnityEvent<bool> OnRoomWasEnabled;
-
-        public UnityEvent<bool> OnMainQuestWasCompleted;
 
         public virtual void Init(List<Unit> playableCharacters)
         {
@@ -63,7 +60,6 @@ namespace FroguesFramework
             }
 
             cameraController.Init(this);
-            OnRoomWasEnabled.Invoke(true);
 
             if (_wasInitedAlready)
                 return; 
@@ -85,8 +81,6 @@ namespace FroguesFramework
             {
                 unit.CurrentCell.Content = null;
             }
-
-            OnRoomWasEnabled.Invoke(false);
         }
 
         #region previsualizationStuff
