@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseStatOnPickupActionPointsPassiveAbility : PassiveAbility, IAbleToApplyIntelligenceModificator, IAbleToHaveCount
+    public class IncreaseStatOnPickupActionPointsPassiveAbility : PassiveAbility, IAbleToHaveCount
     {
         [SerializeField] private int valueOfEffect = 1;
         [SerializeField] private int timerOfEffect = 1;
@@ -37,14 +37,6 @@ namespace FroguesFramework
         }
 
         private void ResetCounter() => _counter = 0;
-
-        public int GetDeltaOfIntelligenceValueForEachTurn() => 0;
-
-        public bool GetIntelligenceEffectIsConstantly() => false;
-
-        public int GetIntelligenceModificatorValue() => valueOfEffect;
-
-        public int GetTimeToEndOfIntelligenceEffect() => timerOfEffect;
 
         public int GetCount() => requiredPickupPointsInstancesToBuff;
     }

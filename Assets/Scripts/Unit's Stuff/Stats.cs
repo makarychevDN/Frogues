@@ -8,30 +8,24 @@ namespace FroguesFramework
     public class Stats : MonoBehaviour, IAbleToCalculateHashFunctionOfPrevisualisation, IRoundTickable
     {
         [SerializeField] private List<StatEffect> strenght;
-        [SerializeField] private List<StatEffect> intelegence;
         [SerializeField] private List<StatEffect> thorns;
         [SerializeField] private List<StatEffect> immobilized;
         [SerializeField] private float strengtModificatorStep;
-        [SerializeField] private float intelegenceModificatorStep;
-        public UnityEvent<StatEffectTypes, int> OnStrenghtUpdated, OnIntelegenceUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
+        public UnityEvent<StatEffectTypes, int> OnStrenghtUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
         public UnityEvent OnSomethingUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
 
         public int Strenght => strenght.GetStatValue();
-        public int Intelegence => intelegence.GetStatValue();
         public int Thorns => thorns.GetStatValue();
         public int Immobilized => immobilized.GetTimeToTheEndOfEffect();
 
         public float StrenghtModificator => (1 + strenght.GetStatValue() * strengtModificatorStep);
-        public float IntelegenceModificator => (1 + intelegence.GetStatValue() * intelegenceModificatorStep);
-        public float StrenghtAndIntelligenceSumModificator => (1 + strenght.GetStatValue() * strengtModificatorStep + intelegence.GetStatValue() * intelegenceModificatorStep);
 
         public float StrenghtModificatorPersentages => strengtModificatorStep * 100;
-        public float IntelegenceModificatorPersentages => intelegenceModificatorStep * 100;
 
-        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 4 + intelegence.GetStatValue() * 40 + thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
+        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 40 + thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
@@ -116,7 +110,6 @@ namespace FroguesFramework
             _statsDictionary = new Dictionary<StatEffectTypes, List<StatEffect>>
             {
                 { StatEffectTypes.strength, strenght },
-                { StatEffectTypes.intelligence, intelegence },
                 { StatEffectTypes.thorns, thorns },
                 { StatEffectTypes.immobilized, immobilized }
             };
@@ -124,7 +117,6 @@ namespace FroguesFramework
             _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>>
             {
                 { StatEffectTypes.strength, OnStrenghtUpdated },
-                { StatEffectTypes.intelligence, OnIntelegenceUpdated },
                 { StatEffectTypes.thorns, OnSpikesUpdated },
                 { StatEffectTypes.immobilized, OnImmobilizedUpdated }
             };
@@ -138,7 +130,6 @@ namespace FroguesFramework
     public enum StatEffectTypes
     {
         strength = 0,
-        intelligence = 10,
         thorns = 40,
         immobilized = 50
     }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
     public class DealDamageAroundOwnerNonTargetAbility : NonTargetAbility, IAbleToDealDamage, IAbleToReturnRange, IAbleToApplyStrenghtModificator,
-        IAbleToApplyIntelligenceModificator, IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
+        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
     {
         [SerializeField] protected int radius;
         [SerializeField] protected int damage;
@@ -65,16 +65,6 @@ namespace FroguesFramework
         public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.strength);
 
         public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.strength);
-        #endregion
-
-        #region IAbleToApplyIntelligenceModificator
-        public int GetIntelligenceModificatorValue() => Extensions.GetModificatorValue(additionalDebuffs, StatEffectTypes.intelligence);
-
-        public int GetDeltaOfIntelligenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(additionalDebuffs, StatEffectTypes.intelligence);
-
-        public int GetTimeToEndOfIntelligenceEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.intelligence);
-
-        public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.intelligence);
         #endregion
 
         #region IAbleToApplySpikesModificator

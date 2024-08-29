@@ -204,10 +204,6 @@ namespace FroguesFramework
             {
                 case DamageType.physical:
                     return (damageValue * stats.StrenghtModificator).RoundWithGameRules();
-                case DamageType.elemental:
-                    return (damageValue * stats.IntelegenceModificator).RoundWithGameRules();
-                case DamageType.bloody:
-                    return (damageValue * stats.StrenghtAndIntelligenceSumModificator).RoundWithGameRules();
                 case DamageType.powder:
                     return damageValue;
             }
