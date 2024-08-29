@@ -215,11 +215,6 @@ namespace FroguesFramework
             return 0;
         }
 
-        public static int CalculateBlockWithGameRules(int blockValue, Stats stats)
-        {
-            return (blockValue * stats.DexterityeModificator).RoundWithGameRules();
-        }
-
         public static int GetStatValue(this List<StatEffect> listOfStatEffects)
         {
             return listOfStatEffects.Sum(effectInstance => effectInstance.Value);

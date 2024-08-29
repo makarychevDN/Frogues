@@ -40,7 +40,7 @@ namespace FroguesFramework
 
         public int GetDefaultBlockValue() => blockValue * CalculateActionPointsCost;
 
-        public int CalculateBlock() => Extensions.CalculateBlockWithGameRules(blockValue * CalculateActionPointsCost, _owner.Stats);
+        public int CalculateBlock() => blockValue;
 
         public int GetDefaultArmorValue() => CalculateActionPointsCost * armorValue;
 

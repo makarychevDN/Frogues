@@ -29,7 +29,7 @@ namespace FroguesFramework
             _owner.Movable.OnMovementEnd.RemoveListener(IncreaseTemporaryBlock);
         }
 
-        private int CalculateBlock() => Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats);
+        private int CalculateBlock() => blockValue;
 
         public int GetDefaultBlockValue() => blockValue;
 

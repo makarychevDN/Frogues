@@ -87,7 +87,7 @@ namespace FroguesFramework
 
         public void IncreaseArmor(int value)
         {
-            armor += (int)(value * _unit.Stats.DexterityeModificator);
+            armor += value;
             _hashedArmor = armor;
             OnArmorIncreased.Invoke();
             OnArmorOrBlockIncreased.Invoke();

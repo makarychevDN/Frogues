@@ -28,7 +28,7 @@ namespace FroguesFramework
         }
 
         private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-        public int CalculateBlock() => Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats);
+        public int CalculateBlock() => blockValue;
         public int GetDefaultBlockValue() => blockValue;
     }
 }

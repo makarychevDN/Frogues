@@ -70,11 +70,6 @@ namespace FroguesFramework
             _dataByKeyWords.Add("{intelligence_effect_time}", () => (ability as IAbleToApplyIntelligenceModificator).GetTimeToEndOfIntelligenceEffect().ToString());
             _dataByKeyWords.Add("{intelligence_effect_constantly}", () => (ability as IAbleToApplyIntelligenceModificator).GetIntelligenceEffectIsConstantly().ToString());
 
-            _dataByKeyWords.Add("{dexterity_effect_value}", () => (ability as IAbleToApplyDexterityModificator).GetDexterityModificatorValue().ToString());
-            _dataByKeyWords.Add("{dexterity_effect_delta}", () => (ability as IAbleToApplyDexterityModificator).GetDeltaOfDexterityValueForEachTurn().ToString());
-            _dataByKeyWords.Add("{dexterity_effect_time}", () => (ability as IAbleToApplyDexterityModificator).GetTimeToEndOfDexterityEffect().ToString());
-            _dataByKeyWords.Add("{dexterity_effect_constantly}", () => (ability as IAbleToApplyDexterityModificator).GetDexterityEffectIsConstantly().ToString());
-
             _dataByKeyWords.Add("{thorns_effect_value}", () => (ability as IAbleToApplySpikesModificator).GetSpikesModificatorValue().ToString());
             _dataByKeyWords.Add("{thorns_effect_delta}", () => (ability as IAbleToApplySpikesModificator).GetdeltaOfSpikesValueForEachTurn().ToString());
             _dataByKeyWords.Add("{thorns_effect_time}", () => (ability as IAbleToApplySpikesModificator).GetTimeToEndOfSpikesEffect().ToString());

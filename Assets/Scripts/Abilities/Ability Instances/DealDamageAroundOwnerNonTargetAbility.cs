@@ -6,8 +6,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
     public class DealDamageAroundOwnerNonTargetAbility : NonTargetAbility, IAbleToDealDamage, IAbleToReturnRange, IAbleToApplyStrenghtModificator,
-        IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator,
-        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
+        IAbleToApplyIntelligenceModificator, IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
     {
         [SerializeField] protected int radius;
         [SerializeField] protected int damage;
@@ -76,16 +75,6 @@ namespace FroguesFramework
         public int GetTimeToEndOfIntelligenceEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.intelligence);
 
         public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.intelligence);
-        #endregion
-
-        #region IAbleToApplyDexterityModificator
-        public int GetDexterityModificatorValue() => Extensions.GetModificatorValue(additionalDebuffs, StatEffectTypes.dexterity);
-
-        public int GetDeltaOfDexterityValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(additionalDebuffs, StatEffectTypes.dexterity);
-
-        public int GetTimeToEndOfDexterityEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.dexterity);
-
-        public bool GetDexterityEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.dexterity);
         #endregion
 
         #region IAbleToApplySpikesModificator

@@ -9,7 +9,7 @@ namespace FroguesFramework
 
         public int CalculateArmor() => armorValue;
 
-        public int CalculateBlock() => Extensions.CalculateBlockWithGameRules(blockValue, _owner.Stats);
+        public int CalculateBlock() => blockValue;
 
         public int GetDefaultArmorValue() => armorValue;
 

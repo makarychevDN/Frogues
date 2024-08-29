@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveProjectileInTheTargetAbility : DefaultUnitTargetAbility, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToReturnSingleValue
+    public class SpawnAndMoveProjectileInTheTargetAbility : DefaultUnitTargetAbility, IAbleToApplyArmor, IAbleToReturnSingleValue
     {
         [SerializeField] private Unit projectilePrefab;
         [SerializeField] private AudioSource onProjectileContactWithTargetSound;
@@ -22,7 +22,6 @@ namespace FroguesFramework
         private void DealDamage(Unit target)
         {
             target.Health.TakeDamage(CalculateDamage(), ignoreArmor, countsAsAttack ? _owner : null);
-            if (CalculateBlock() != 0) target.Health.IncreaseBlock(CalculateBlock());
             if (CalculateArmor() != 0) target.Health.IncreaseArmor(CalculateArmor());
             if (additionalTemporaryActionPointsToTarget != 0) target.ActionPoints.IncreaseTemporaryPoints(additionalTemporaryActionPointsToTarget);
 
@@ -36,8 +35,6 @@ namespace FroguesFramework
         }
 
         public int GetDefaultBlockValue() => additionalBlockToTarget;
-
-        public int CalculateBlock() => Extensions.CalculateBlockWithGameRules(additionalBlockToTarget, _owner.Stats);
 
         public int GetDefaultArmorValue() => additionalArmorToTarget;
 

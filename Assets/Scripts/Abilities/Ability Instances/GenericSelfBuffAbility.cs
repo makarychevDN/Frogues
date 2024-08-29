@@ -5,8 +5,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
     public class GenericSelfBuffAbility : NonTargetAbility, IAbleToApplyStrenghtModificator,
-        IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator,
-        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
+        IAbleToApplyIntelligenceModificator, IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
 
     {
         [Space, Header("Ability Settings")] 
@@ -39,7 +38,7 @@ namespace FroguesFramework
             yield return new WaitForSeconds(time);
 
             if (temporaryBlockValue != 0)
-                _owner.Health.IncreaseBlock(Extensions.CalculateBlockWithGameRules(temporaryBlockValue, _owner.Stats));
+                _owner.Health.IncreaseBlock(temporaryBlockValue);
             if (permanentBlockValue != 0)
                 _owner.Health.IncreaseArmor(permanentBlockValue);
 
@@ -69,16 +68,6 @@ namespace FroguesFramework
         public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.intelligence);
         #endregion
 
-        #region IAbleToApplyDexterityModificator
-        public int GetDexterityModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.dexterity);
-
-        public int GetDeltaOfDexterityValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(effects, StatEffectTypes.dexterity);
-
-        public int GetTimeToEndOfDexterityEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.dexterity);
-
-        public bool GetDexterityEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.dexterity);
-        #endregion
-
         #region IAbleToApplySpikesModificator
         public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.thorns);
 
@@ -96,7 +85,7 @@ namespace FroguesFramework
         #region IAbleToApplyBlock
         public int GetDefaultBlockValue() => temporaryBlockValue;
 
-        public int CalculateBlock() => Extensions.CalculateBlockWithGameRules(temporaryBlockValue, _owner.Stats);
+        public int CalculateBlock() => temporaryBlockValue;
         #endregion
 
         #region IAbleToApplyArmor

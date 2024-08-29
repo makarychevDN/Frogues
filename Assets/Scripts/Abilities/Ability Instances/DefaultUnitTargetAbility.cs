@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace FroguesFramework
 {
     public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects, 
-        IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
+        IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -185,16 +185,6 @@ namespace FroguesFramework
         public int GetTimeToEndOfIntelligenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.intelligence);
 
         public bool GetIntelligenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.intelligence);
-        #endregion
-
-        #region IAbleToApplyDexterityModificator
-        public int GetDexterityModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.dexterity);
-
-        public int GetDeltaOfDexterityValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.dexterity);
-
-        public int GetTimeToEndOfDexterityEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.dexterity);
-
-        public bool GetDexterityEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.dexterity);
         #endregion
 
         #region IAbleToApplySpikesModificator
