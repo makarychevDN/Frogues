@@ -15,7 +15,6 @@ namespace FroguesFramework
         [SerializeField] private float strengtModificatorStep;
         [SerializeField] private float intelegenceModificatorStep;
         [SerializeField] private float dexterityModificatorStep;
-        [SerializeField] private float defenceModificatorStep;
         public UnityEvent<StatEffectTypes, int> OnStrenghtUpdated, OnIntelegenceUpdated, OnDexterityUpdated, OnDefenceUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
         public UnityEvent OnSomethingUpdated;
         private Unit _owner;
@@ -36,7 +35,6 @@ namespace FroguesFramework
         public float StrenghtModificatorPersentages => strengtModificatorStep * 100;
         public float IntelegenceModificatorPersentages => intelegenceModificatorStep * 100;
         public float DexterityeModificatorPersentages => dexterityModificatorStep * 100;
-        public float DefenceModificatorPersentages => defenceModificatorStep * 100;
 
         public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 4 + intelegence.GetStatValue() * 40 + dexterity.GetStatValue() * 4000 + thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
 
