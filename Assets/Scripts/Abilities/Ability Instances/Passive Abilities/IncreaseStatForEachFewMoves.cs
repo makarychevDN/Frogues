@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseStatForEachFewMoves : PassiveAbility, IRoundTickable, IAbleToHaveCount, IAbleToApplyStrenghtModificator
+    public class IncreaseStatForEachFewMoves : PassiveAbility, IRoundTickable, IAbleToHaveCount
     {
         [SerializeField] private StatEffect statEffect;
         [SerializeField] private int stepsRequredToIncreaseStat;
@@ -59,13 +59,5 @@ namespace FroguesFramework
         private int ResetCounter() => counter = 0;
 
         public int GetCount() => stepsRequredToIncreaseStat;
-
-        public int GetStrenghtModificatorValue() => additionalStrenght;
-
-        public int GetDeltaOfStrenghtValueForEachTurn() => 0;
-
-        public int GetTimeToEndOfStrenghtEffect() => 1;
-
-        public bool GetStrenghtEffectIsConstantly() => true;
     }
 }

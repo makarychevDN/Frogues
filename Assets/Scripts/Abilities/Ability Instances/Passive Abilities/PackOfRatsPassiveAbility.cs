@@ -2,17 +2,13 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class PackOfRatsPassiveAbility : PassiveAbility, IAbleToReturnSingleValue, IAbleToHaveCount, IAbleToApplyStrenghtModificator
+    public class PackOfRatsPassiveAbility : PassiveAbility, IAbleToReturnSingleValue, IAbleToHaveCount
     {
         [SerializeField] private int additionalStrenghtForEachRat;
         [SerializeField] private StatEffect effectSetup;
         private StatEffect _effect;
 
         public int GetCount() => additionalStrenghtForEachRat * (_owner.CurrentRoom.RatsInTheRoomCount - 1);
-        public int GetDeltaOfStrenghtValueForEachTurn() => effectSetup.deltaValueForEachTurn;
-        public bool GetStrenghtEffectIsConstantly() => effectSetup.effectIsConstantly;
-        public int GetStrenghtModificatorValue() => effectSetup.Value;
-        public int GetTimeToEndOfStrenghtEffect() => effectSetup.timeToTheEndOfEffect;
         public int GetValue() => additionalStrenghtForEachRat;
 
         public override void Init(Unit unit)

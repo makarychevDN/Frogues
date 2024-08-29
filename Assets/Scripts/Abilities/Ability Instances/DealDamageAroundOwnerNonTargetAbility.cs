@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DealDamageAroundOwnerNonTargetAbility : NonTargetAbility, IAbleToDealDamage, IAbleToReturnRange, IAbleToApplyStrenghtModificator,
+    public class DealDamageAroundOwnerNonTargetAbility : NonTargetAbility, IAbleToDealDamage, IAbleToReturnRange,
         IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
     {
         [SerializeField] protected int radius;
@@ -56,16 +56,6 @@ namespace FroguesFramework
         public virtual int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
 
         public int ReturnRange() => radius;        
-
-        #region IAbleToApplyStrenghtModificator
-        public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(additionalDebuffs, StatEffectTypes.strength);
-
-        public int GetDeltaOfStrenghtValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(additionalDebuffs, StatEffectTypes.strength);
-
-        public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.strength);
-
-        public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.strength);
-        #endregion
 
         #region IAbleToApplySpikesModificator
         public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(additionalDebuffs, StatEffectTypes.thorns);

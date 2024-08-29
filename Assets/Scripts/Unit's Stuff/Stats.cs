@@ -7,7 +7,6 @@ namespace FroguesFramework
 {
     public class Stats : MonoBehaviour, IAbleToCalculateHashFunctionOfPrevisualisation, IRoundTickable
     {
-        [SerializeField] private List<StatEffect> strenght;
         [SerializeField] private List<StatEffect> thorns;
         [SerializeField] private List<StatEffect> immobilized;
         [SerializeField] private float strengtModificatorStep;
@@ -17,15 +16,10 @@ namespace FroguesFramework
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
 
-        public int Strenght => strenght.GetStatValue();
         public int Thorns => thorns.GetStatValue();
         public int Immobilized => immobilized.GetTimeToTheEndOfEffect();
 
-        public float StrenghtModificator => (1 + strenght.GetStatValue() * strengtModificatorStep);
-
-        public float StrenghtModificatorPersentages => strengtModificatorStep * 100;
-
-        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 40 + thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
+        public int CalculateHashFunctionOfPrevisualisation() => thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
@@ -109,14 +103,12 @@ namespace FroguesFramework
             _owner = unit;
             _statsDictionary = new Dictionary<StatEffectTypes, List<StatEffect>>
             {
-                { StatEffectTypes.strength, strenght },
                 { StatEffectTypes.thorns, thorns },
                 { StatEffectTypes.immobilized, immobilized }
             };
 
             _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>>
             {
-                { StatEffectTypes.strength, OnStrenghtUpdated },
                 { StatEffectTypes.thorns, OnSpikesUpdated },
                 { StatEffectTypes.immobilized, OnImmobilizedUpdated }
             };
@@ -129,7 +121,6 @@ namespace FroguesFramework
 
     public enum StatEffectTypes
     {
-        strength = 0,
         thorns = 40,
         immobilized = 50
     }

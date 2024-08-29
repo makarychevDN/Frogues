@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class GenericSelfBuffAbility : NonTargetAbility, IAbleToApplyStrenghtModificator,
+    public class GenericSelfBuffAbility : NonTargetAbility,
         IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
 
     {
@@ -47,16 +47,6 @@ namespace FroguesFramework
         }
 
         private void RemoveCurrentlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-
-        #region IAbleToApplyStrenghtModificator
-        public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.strength);
-
-        public int GetDeltaOfStrenghtValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(effects, StatEffectTypes.strength);
-
-        public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.strength);
-
-        public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.strength);
-        #endregion
 
         #region IAbleToApplySpikesModificator
         public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.thorns);

@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange,
-        IAbleToApplyStrenghtModificator
+    public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange        
     {
         [SerializeField] private int usingRadius;
         [SerializeField] private Unit projectilePrefab;
@@ -115,15 +114,5 @@ namespace FroguesFramework
         }
 
         public int ReturnRange() => usingRadius;
-
-        #region IAbleToApplyStrenghtModificator
-        public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.strength);
-
-        public int GetDeltaOfStrenghtValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.strength);
-
-        public int GetTimeToEndOfStrenghtEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.strength);
-
-        public bool GetStrenghtEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.strength);
-        #endregion
     }
 }

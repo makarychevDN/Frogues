@@ -9,17 +9,12 @@ namespace FroguesFramework
     {
         [SerializeField] private Stats stats;
         [SerializeField] protected List<RectTransform> resizableParents;
-        [SerializeField] private StatVisualizationSegment strengthSegment;
         [SerializeField] private StatVisualizationSegment immobilizedSegment;
 
         [Header("Localized mechanic names")]
-        [SerializeField] private LocalizedString strengthMechanicName;
         [SerializeField] private LocalizedString immobolizedMechanicName;
 
         [Header("description tags")]
-        [SerializeField] private AbilityDescriptionTag strengthMechanicDescriptionPositive;
-        [SerializeField] private AbilityDescriptionTag strengthMechanicDescriptionNegative;
-
         [SerializeField] private AbilityDescriptionTag immobilizedMechanicDescription;
 
         private int lastStatsHash;
@@ -53,8 +48,6 @@ namespace FroguesFramework
             if (stats == null)
                 return;
 
-            strengthSegment.gameObject.SetActive(stats.Strenght != 0);
-            strengthSegment.SetValue(stats.Strenght);
 
             immobilizedSegment.gameObject.SetActive(stats.Immobilized != 0);
             immobilizedSegment.SetValue(stats.Immobilized);
@@ -62,7 +55,6 @@ namespace FroguesFramework
             resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
         }
 
-        public void ShowStrenghtHint() => ShowHint(strengthMechanicName.GetLocalizedString(), strengthMechanicDescriptionPositive.DescriptionText, strengthMechanicDescriptionNegative.DescriptionText, strengthSegment.transform, (int)stats.StrenghtModificatorPersentages, stats.Strenght);
         public void ShowImmobolizedHint() => ShowHint(immobolizedMechanicName.GetLocalizedString(), immobilizedMechanicDescription.DescriptionText, immobilizedMechanicDescription.DescriptionText, immobilizedSegment.transform, stats.Immobilized, 0);
 
         private void ShowHint(string header, string positiveDescriptionTag, string negativeDescriptionTag, Transform transformOfIcon, int modificatorStepValue, int statValue)

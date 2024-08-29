@@ -202,8 +202,6 @@ namespace FroguesFramework
         {
             switch (damageType)
             {
-                case DamageType.physical:
-                    return (damageValue * stats.StrenghtModificator).RoundWithGameRules();
                 case DamageType.powder:
                     return damageValue;
             }

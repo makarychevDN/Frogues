@@ -60,11 +60,6 @@ namespace FroguesFramework
             _dataByKeyWords.Add("{effect_time}", () => (ability as IAbleToApplyAnyModificator).GetTimeToEndOfEffect().ToString());
             _dataByKeyWords.Add("{effect_constantly}", () => (ability as IAbleToApplyAnyModificator).GetEffectIsConstantly().ToString());
 
-            _dataByKeyWords.Add("{strength_effect_value}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtModificatorValue().ToString());
-            _dataByKeyWords.Add("{strength_effect_delta}", () => (ability as IAbleToApplyStrenghtModificator).GetDeltaOfStrenghtValueForEachTurn().ToString());
-            _dataByKeyWords.Add("{strength_effect_time}", () => (ability as IAbleToApplyStrenghtModificator).GetTimeToEndOfStrenghtEffect().ToString());
-            _dataByKeyWords.Add("{strength_effect_constantly}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtEffectIsConstantly().ToString());
-
             _dataByKeyWords.Add("{thorns_effect_value}", () => (ability as IAbleToApplySpikesModificator).GetSpikesModificatorValue().ToString());
             _dataByKeyWords.Add("{thorns_effect_delta}", () => (ability as IAbleToApplySpikesModificator).GetdeltaOfSpikesValueForEachTurn().ToString());
             _dataByKeyWords.Add("{thorns_effect_time}", () => (ability as IAbleToApplySpikesModificator).GetTimeToEndOfSpikesEffect().ToString());
