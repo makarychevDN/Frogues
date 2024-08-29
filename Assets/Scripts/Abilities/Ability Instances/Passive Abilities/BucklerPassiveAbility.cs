@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class BucklerPassiveAbility : PassiveAbility, IRoundTickable, IAbleToApplyDefenceModificator
+    public class BucklerPassiveAbility : PassiveAbility, IRoundTickable
     {
         [SerializeField] private int decreaseDeffenceToDamageSourceValue;
         [SerializeField] private int timeToEndEffect = 1;
@@ -25,7 +25,6 @@ namespace FroguesFramework
             if (_deffenceDecreasedOnThisTurnAlready || damageSource == null)
                 return;
 
-            damageSource.Stats.AddStatEffect(StatEffectTypes.defence, -decreaseDeffenceToDamageSourceValue, timeToEndEffect);
             _deffenceDecreasedOnThisTurnAlready = true;
         }
 

@@ -60,11 +60,6 @@ namespace FroguesFramework
             _dataByKeyWords.Add("{effect_time}", () => (ability as IAbleToApplyAnyModificator).GetTimeToEndOfEffect().ToString());
             _dataByKeyWords.Add("{effect_constantly}", () => (ability as IAbleToApplyAnyModificator).GetEffectIsConstantly().ToString());
 
-            _dataByKeyWords.Add("{defence_effect_value}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceModificatorValue().ToString());
-            _dataByKeyWords.Add("{defence_effect_delta}", () => (ability as IAbleToApplyDefenceModificator).GetdeltaOfDefenceValueForEachTurn().ToString());
-            _dataByKeyWords.Add("{defence_effect_time}", () => (ability as IAbleToApplyDefenceModificator).GetTimeToEndOfDefenceEffect().ToString());
-            _dataByKeyWords.Add("{defence_ffect_constantly}", () => (ability as IAbleToApplyDefenceModificator).GetDefenceEffectIsConstantly().ToString());
-
             _dataByKeyWords.Add("{strength_effect_value}", () => (ability as IAbleToApplyStrenghtModificator).GetStrenghtModificatorValue().ToString());
             _dataByKeyWords.Add("{strength_effect_delta}", () => (ability as IAbleToApplyStrenghtModificator).GetDeltaOfStrenghtValueForEachTurn().ToString());
             _dataByKeyWords.Add("{strength_effect_time}", () => (ability as IAbleToApplyStrenghtModificator).GetTimeToEndOfStrenghtEffect().ToString());

@@ -7,6 +7,7 @@ namespace FroguesFramework
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
+
         [SerializeField] private int armor;
         [SerializeField] private int block;
         [SerializeField] private int escapesFromDeath;
@@ -86,7 +87,7 @@ namespace FroguesFramework
 
         public void IncreaseArmor(int value)
         {
-            armor += (int)(value * _unit.Stats.DefenceModificator);
+            armor += (int)(value * _unit.Stats.DexterityeModificator);
             _hashedArmor = armor;
             OnArmorIncreased.Invoke();
             OnArmorOrBlockIncreased.Invoke();
@@ -223,8 +224,6 @@ namespace FroguesFramework
 
         private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, ref int calculatingEscapeFromDeathCharges, int damageValue, bool ignoreBlock)
         {
-            damageValue = Extensions.CalculateIncomingDamageWithGameRules(damageValue, _unit.Stats);
-
             if (!ignoreBlock)
             {
                 int damageToTemporaryBlock = Mathf.Clamp(damageValue, 0, calculatingTemporaryBlock);

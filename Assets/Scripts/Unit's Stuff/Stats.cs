@@ -10,7 +10,6 @@ namespace FroguesFramework
         [SerializeField] private List<StatEffect> strenght;
         [SerializeField] private List<StatEffect> intelegence;
         [SerializeField] private List<StatEffect> dexterity;
-        [SerializeField] private List<StatEffect> defence;
         [SerializeField] private List<StatEffect> thorns;
         [SerializeField] private List<StatEffect> immobilized;
         [SerializeField] private float strengtModificatorStep;
@@ -26,7 +25,6 @@ namespace FroguesFramework
         public int Strenght => strenght.GetStatValue();
         public int Intelegence => intelegence.GetStatValue();
         public int Dexterity => dexterity.GetStatValue();
-        public int Defence => defence.GetStatValue();
         public int Thorns => thorns.GetStatValue();
         public int Immobilized => immobilized.GetTimeToTheEndOfEffect();
 
@@ -34,14 +32,13 @@ namespace FroguesFramework
         public float IntelegenceModificator => (1 + intelegence.GetStatValue() * intelegenceModificatorStep);
         public float StrenghtAndIntelligenceSumModificator => (1 + strenght.GetStatValue() * strengtModificatorStep + intelegence.GetStatValue() * intelegenceModificatorStep);
         public float DexterityeModificator => (1 + dexterity.GetStatValue() * dexterityModificatorStep);
-        public float DefenceModificator => (1 - defence.GetStatValue() * defenceModificatorStep);
 
         public float StrenghtModificatorPersentages => strengtModificatorStep * 100;
         public float IntelegenceModificatorPersentages => intelegenceModificatorStep * 100;
         public float DexterityeModificatorPersentages => dexterityModificatorStep * 100;
         public float DefenceModificatorPersentages => defenceModificatorStep * 100;
 
-        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 4 + intelegence.GetStatValue() * 40 + dexterity.GetStatValue() * 400 + defence.GetStatValue() * 4000 + thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
+        public int CalculateHashFunctionOfPrevisualisation() => strenght.GetStatValue() * 4 + intelegence.GetStatValue() * 40 + dexterity.GetStatValue() * 4000 + thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
@@ -128,7 +125,6 @@ namespace FroguesFramework
                 { StatEffectTypes.strength, strenght },
                 { StatEffectTypes.intelligence, intelegence },
                 { StatEffectTypes.dexterity, dexterity },
-                { StatEffectTypes.defence, defence },
                 { StatEffectTypes.thorns, thorns },
                 { StatEffectTypes.immobilized, immobilized }
             };
@@ -138,7 +134,6 @@ namespace FroguesFramework
                 { StatEffectTypes.strength, OnStrenghtUpdated },
                 { StatEffectTypes.intelligence, OnIntelegenceUpdated },
                 { StatEffectTypes.dexterity, OnDexterityUpdated },
-                { StatEffectTypes.defence, OnDefenceUpdated },
                 { StatEffectTypes.thorns, OnSpikesUpdated },
                 { StatEffectTypes.immobilized, OnImmobilizedUpdated }
             };
@@ -154,7 +149,6 @@ namespace FroguesFramework
         strength = 0,
         intelligence = 10,
         dexterity = 20,
-        defence = 30,
         thorns = 40,
         immobilized = 50
     }

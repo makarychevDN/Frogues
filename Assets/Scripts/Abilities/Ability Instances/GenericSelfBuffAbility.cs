@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
     public class GenericSelfBuffAbility : NonTargetAbility, IAbleToApplyStrenghtModificator,
-        IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator,
+        IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator,
         IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
 
     {
@@ -48,16 +48,6 @@ namespace FroguesFramework
         }
 
         private void RemoveCurrentlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-
-        #region IAbleToApplyDefenceModificator
-        public int GetDefenceModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.defence);
-
-        public int GetdeltaOfDefenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(effects, StatEffectTypes.defence);
-
-        public int GetTimeToEndOfDefenceEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.defence);
-
-        public bool GetDefenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.defence);
-        #endregion
 
         #region IAbleToApplyStrenghtModificator
         public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.strength);

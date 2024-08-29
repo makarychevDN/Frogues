@@ -5,7 +5,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
     public class SpawnAndMoveProjectleInTheCellAOEAbility : AreaTargetAbility, IAbleToReturnIsPrevisualized, IAbleToReturnRange,
-        IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator, IAbleToApplyDefenceModificator
+        IAbleToApplyStrenghtModificator, IAbleToApplyIntelligenceModificator, IAbleToApplyDexterityModificator
     {
         [SerializeField] private int usingRadius;
         [SerializeField] private Unit projectilePrefab;
@@ -115,16 +115,6 @@ namespace FroguesFramework
         }
 
         public int ReturnRange() => usingRadius;
-
-        #region IAbleToApplyDefenceModificator
-        public int GetDefenceModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.defence);
-
-        public int GetdeltaOfDefenceValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.defence);
-
-        public int GetTimeToEndOfDefenceEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.defence);
-
-        public bool GetDefenceEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.defence);
-        #endregion
 
         #region IAbleToApplyStrenghtModificator
         public int GetStrenghtModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.strength);
