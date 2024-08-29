@@ -209,18 +209,6 @@ namespace FroguesFramework
             return 0;
         }
 
-        public static int GetStatValue(this List<StatEffect> listOfStatEffects)
-        {
-            return listOfStatEffects.Sum(effectInstance => effectInstance.Value);
-        }
-
-        public static int GetTimeToTheEndOfEffect(this List<StatEffect> listOfStatEffects)
-        {
-            if(listOfStatEffects.Count == 0)
-                return 0;
-            return listOfStatEffects.Max(statInstance => statInstance.timeToTheEndOfEffect);
-        }
-
         public static bool None<TSource>(this IEnumerable<TSource> source)
         {
             return !source.Any();
@@ -229,46 +217,6 @@ namespace FroguesFramework
         public static bool None<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate)
         {
             return !source.Any(predicate);
-        }
-
-        public static int GetModificatorValue(List<StatEffect> statEffects, StatEffectTypes effectType)
-        {
-            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
-
-            if (effect == null)
-                return 0;
-
-            return effect.Value;
-        }
-
-        public static int GetDeltaValueOfModificatorForEachTurn(List<StatEffect> statEffects, StatEffectTypes effectType)
-        {
-            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
-
-            if (effect == null)
-                return 0;
-
-            return effect.deltaValueForEachTurn;
-        }
-
-        public static int GetTimeToEndOfEffect(List<StatEffect> statEffects, StatEffectTypes effectType)
-        {
-            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
-
-            if (effect == null)
-                return 0;
-
-            return effect.timeToTheEndOfEffect;
-        }
-
-        public static bool GetEffectIsConstantly(List<StatEffect> statEffects, StatEffectTypes effectType)
-        {
-            StatEffect effect = statEffects.FirstOrDefault(statEffect => statEffect.type == effectType);
-
-            if (effect == null)
-                return false;
-
-            return effect.effectIsConstantly;
         }
 
         public static void Shuffle<T>(this IList<T> list)

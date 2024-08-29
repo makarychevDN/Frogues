@@ -26,12 +26,7 @@ namespace FroguesFramework
             if (additionalTemporaryActionPointsToTarget != 0) target.ActionPoints.IncreaseTemporaryPoints(additionalTemporaryActionPointsToTarget);
 
             if(onProjectileContactWithTargetSound != null)
-                onProjectileContactWithTargetSound.Play();
-            
-            foreach (var effect in addtionalDebufs)
-            {
-                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect,effect.deltaValueForEachTurn, effect.effectIsConstantly));
-            }
+                onProjectileContactWithTargetSound.Play();           
         }
 
         public int GetDefaultBlockValue() => additionalBlockToTarget;

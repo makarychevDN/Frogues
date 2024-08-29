@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,49 +8,12 @@ namespace FroguesFramework
     {
         public UnityEvent OnSomethingUpdated;
         private Unit _owner;
-        private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
-        private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
 
         public int CalculateHashFunctionOfPrevisualisation() => 1;
 
-        public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
-        {
-            StatEffect statEffect = new StatEffect(type, value, timeToTheEndOfEffect, deltaValueForEachTurn, effectIsConstantly);
-            _statsDictionary[type].Add(statEffect);
-            _statsUpdatedEventsDictionary[type].Invoke(type, value);
-            OnSomethingUpdated.Invoke();
-            statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
-            return statEffect;
-        }
-
-        private void InvokeEventByKey(StatEffectTypes key, int value)
-        {
-            _statsUpdatedEventsDictionary[key].Invoke(key, value);
-            OnSomethingUpdated.Invoke();
-        }
-
-        public void AddStatEffect(StatEffect statEffect)
-        {
-            _statsDictionary[statEffect.type].Add(statEffect);
-            _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.type, statEffect.Value);
-            OnSomethingUpdated.Invoke();
-            statEffect.OnEffectValueChanged.AddListener(InvokeEventByKey);
-        }
-
-        public void RemoveStatEffect(StatEffect statEffect)
-        {
-            statEffect.OnEffectValueChanged.RemoveListener(InvokeEventByKey);
-            _statsDictionary[statEffect.type].Remove(statEffect);
-            _statsUpdatedEventsDictionary[statEffect.type].Invoke(statEffect.type, -statEffect.Value);
-            OnSomethingUpdated.Invoke();
-        }
-
         public void RemoveAllNonConstantlyEffects()
         {
-            foreach (var statEffectsList in _statsDictionary.Values)
-            {
-                statEffectsList.RemoveAll(statEffect => !statEffect.effectIsConstantly);
-            }
+
         }
 
         #region timerStuff
@@ -73,19 +35,6 @@ namespace FroguesFramework
 
         private void TickAllEffects()
         {
-            foreach (var key in _statsDictionary.Keys)
-            {
-                for (int i = 0; i < _statsDictionary[key].Count; i++)
-                {
-                    _statsDictionary[key][i].Tick();
-
-                    if (_statsDictionary[key][i].timeToTheEndOfEffect <= 0)
-                    {
-                        RemoveStatEffect(_statsDictionary[key][i]);
-                        i--;
-                    }
-                }
-            }
         }
 
         #endregion
@@ -94,66 +43,10 @@ namespace FroguesFramework
         public void Init(Unit unit)
         {
             _owner = unit;
-            _statsDictionary = new Dictionary<StatEffectTypes, List<StatEffect>>
-            {
-            };
-
-            _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>>
-            {
-            };
         }
 
         public void UnInit() { }
         #endregion
 
-    }
-
-    public enum StatEffectTypes
-    {
-    }
-
-    [Serializable]
-    public class StatEffect
-    {
-        public StatEffectTypes type;
-        [SerializeField] private int value;
-        public int deltaValueForEachTurn;
-        public int timeToTheEndOfEffect;
-        public bool effectIsConstantly;
-        public UnityEvent<StatEffectTypes, int> OnEffectValueChanged;
-
-        public StatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaForEachTurn = 0, bool effectIsConstantly = false)
-        {
-            this.type = type;
-            this.value = value;
-            this.timeToTheEndOfEffect = timeToTheEndOfEffect;
-            this.effectIsConstantly = effectIsConstantly;
-            this.deltaValueForEachTurn = deltaForEachTurn;
-            OnEffectValueChanged = new UnityEvent<StatEffectTypes, int>();
-        }
-
-        public StatEffect(StatEffect statEffect) : this(statEffect.type, statEffect.value, statEffect.timeToTheEndOfEffect, statEffect.deltaValueForEachTurn, statEffect.effectIsConstantly) { }
-
-        public void Tick(int ticksValue = 1)
-        {
-            if (!effectIsConstantly)
-                timeToTheEndOfEffect -= ticksValue;
-
-            Value += deltaValueForEachTurn;
-        }
-
-        public int Value
-        {
-            get { return value; }
-
-            set
-            {
-                int delta = value - this.value;
-                this.value = value;
-
-                if (delta != 0)
-                    OnEffectValueChanged.Invoke(type, delta);
-            }
-        }
     }
 }

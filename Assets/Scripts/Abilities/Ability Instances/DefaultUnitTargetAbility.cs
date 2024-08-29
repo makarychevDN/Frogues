@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -15,7 +15,6 @@ namespace FroguesFramework
         [SerializeField] protected bool shouldUseWeapondamageInstead;
         [SerializeField] protected bool shouldUseWeaponActionPointsCostInstead;
         [SerializeField] protected bool shouldSetMyDamageAndCostAsWeaponCharacteristics;
-        [SerializeField] protected List<StatEffect> addtionalDebufs;
 
         [Header("Previsualization Setup")]
         [SerializeField] protected LineRenderer lineFromOwnerToTarget;
@@ -68,10 +67,6 @@ namespace FroguesFramework
             yield return new WaitForSeconds(time);
 
             target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
-            foreach (var effect in addtionalDebufs)
-            {
-                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.deltaValueForEachTurn, effect.effectIsConstantly));
-            }
 
             OnEffectApplied.Invoke();
         }
@@ -163,7 +158,5 @@ namespace FroguesFramework
         public int GetDefaultDamage() => DamageValue;
 
         public DamageType GetDamageType() => damageType;
-
-        public List<StatEffect> GetStatEffects() => addtionalDebufs;
     }
 }

@@ -26,11 +26,6 @@ namespace FroguesFramework
                         cell.Content.Health.TakeDamage(CalculateDamage(), _owner);
                     else
                         cell.Content.Health.TakeDamage(CalculateAlternativeDamage(), _owner);
-
-                    foreach (StatEffect effect in additionalDebuffs)
-                    {
-                        cell.Content.Stats.AddStatEffect(new StatEffect(effect));
-                    }
                 });
         }
     }

@@ -10,7 +10,6 @@ namespace FroguesFramework
         [SerializeField] protected int radius;
         [SerializeField] protected int damage;
         [SerializeField] protected DamageType damageType;
-        [SerializeField] protected List<StatEffect> additionalDebuffs;
 
         public override void Use()
         {
@@ -37,12 +36,7 @@ namespace FroguesFramework
                 .ForEach(cell => 
                 { 
                     if(CalculateDamage() != 0)
-                        cell.Content.Health.TakeDamage(CalculateDamage(), null);
-                    
-                    foreach(StatEffect effect in additionalDebuffs)
-                    {
-                        cell.Content.Stats.AddStatEffect(new StatEffect(effect));
-                    }
+                        cell.Content.Health.TakeDamage(CalculateDamage(), null);                   
                 });
         }
 

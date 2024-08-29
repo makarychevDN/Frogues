@@ -8,7 +8,6 @@ namespace FroguesFramework
     {
         [SerializeField] private int usingRadius;
         [SerializeField] private Unit projectilePrefab;
-        [SerializeField] private List<StatEffect> addtionalDebufs;
 
         [Header("Previsualization Setup")]
         [SerializeField] private LineRenderer lineFromOwnerToTarget;
@@ -81,7 +80,6 @@ namespace FroguesFramework
 
         private void ApplyWeaknessEffectToUnitOnCell(Cell cell)
         {
-            addtionalDebufs.ForEach(statEffect => cell.Content.Stats.AddStatEffect(new StatEffect(statEffect)));
         }
 
         public override void VisualizePreUseOnCells(List<Cell> cells)

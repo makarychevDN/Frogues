@@ -10,7 +10,6 @@ namespace FroguesFramework
         [SerializeField] private int temporaryBlockValue;
         [SerializeField] private int permanentBlockValue;
         [SerializeField] private int actionPointsRegenerationPenalty;
-        [SerializeField] private List<StatEffect> effects;
 
         public override void Use()
         {
@@ -39,9 +38,6 @@ namespace FroguesFramework
                 _owner.Health.IncreaseBlock(temporaryBlockValue);
             if (permanentBlockValue != 0)
                 _owner.Health.IncreaseArmor(permanentBlockValue);
-
-            foreach (StatEffect buff in effects)
-                _owner.Stats.AddStatEffect(new StatEffect(buff));
         }
 
         private void RemoveCurrentlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);

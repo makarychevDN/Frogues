@@ -31,7 +31,7 @@ namespace FroguesFramework
             unit.Health.OnArmorIncreased.AddListener(ShowArmorImpactEffect);
         }
 
-        private void OnStatUpdated(StatEffectTypes type, int delta)
+        private void OnStatUpdated(string type, int delta)
         {
             var currentTextEffect = statEffectTextFields.FirstOrDefault(textField => !textField.gameObject.activeSelf);
 

@@ -36,11 +36,6 @@ namespace FroguesFramework
         private void ApplyEffectOnTargetInTheArea(Unit target)
         {
             target.Health.TakeDamage(CalculateDamage(), ignoreArmor, _owner);
-
-            foreach (var effect in addtionalDebufs)
-            {
-                target.Stats.AddStatEffect(new StatEffect(effect.type, effect.Value, effect.timeToTheEndOfEffect, effect.deltaValueForEachTurn, effect.effectIsConstantly));
-            }
         }
 
         public override void VisualizePreUseOnUnit(Unit target)

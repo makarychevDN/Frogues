@@ -7,7 +7,6 @@ namespace FroguesFramework
         [SerializeField] private int valueOfEffect = 1;
         [SerializeField] private int timerOfEffect = 1;
         [SerializeField] private int requiredPickupPointsInstancesToBuff = 2;
-        [SerializeField] private StatEffectTypes type;
         private int _counter;
 
         public override void Init(Unit unit)
@@ -31,7 +30,6 @@ namespace FroguesFramework
 
             if(_counter >= requiredPickupPointsInstancesToBuff)
             {
-                _owner.Stats.AddStatEffect(new StatEffect(type, valueOfEffect, timerOfEffect));
                 ResetCounter();
             }
         }

@@ -4,7 +4,6 @@ namespace FroguesFramework
 {
     public class IncreaseStatForEachFewMoves : PassiveAbility, IRoundTickable, IAbleToHaveCount
     {
-        [SerializeField] private StatEffect statEffect;
         [SerializeField] private int stepsRequredToIncreaseStat;
         [SerializeField] private int additionalStrenght = 1;
         private int counter;
@@ -13,13 +12,11 @@ namespace FroguesFramework
         {
             base.Init(unit);
             _owner.Movable.OnMovementEnd.AddListener(TryToIncreaseStats);
-            _owner.Stats.AddStatEffect(statEffect);
         }
 
         public override void UnInit()
         {
             _owner.Movable.OnMovementEnd.RemoveListener(TryToIncreaseStats);
-            _owner.Stats.RemoveStatEffect(statEffect);
             base.UnInit();
         }
 
@@ -42,7 +39,6 @@ namespace FroguesFramework
         public void ResetEffects()
         {
             ResetCounter();
-            statEffect.Value = 0;
         }
 
         private void TryToIncreaseStats()
@@ -51,7 +47,6 @@ namespace FroguesFramework
 
             if(counter >= stepsRequredToIncreaseStat)
             {
-                statEffect.Value += additionalStrenght;
                 ResetCounter();
             }
         }

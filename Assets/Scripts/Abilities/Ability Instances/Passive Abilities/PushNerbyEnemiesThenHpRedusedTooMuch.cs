@@ -5,7 +5,6 @@ namespace FroguesFramework
 {
     public class PushNerbyEnemiesThenHpRedusedTooMuch : PassiveAbility, IAbleToReturnSingleValue
     {
-        [SerializeField] private List<StatEffect> effects;
         [SerializeField] private int requredPercentageOfHPToExecute = 40;
         private int _hashedHp;
 
@@ -41,7 +40,6 @@ namespace FroguesFramework
 
             foreach (Unit target in targets)
             {
-                effects.ForEach(effect => target.Stats.AddStatEffect(effect));
                 var hexDir = _owner.CurrentCell.CellNeighbours.GetHexDirByNeighbor(target.CurrentCell);
                 var targetCell = target.CurrentCell.CellNeighbours.GetNeighborByHexDir(hexDir);
                 target.Movable.Move(targetCell, 10, 0.4f, true, false);

@@ -8,7 +8,6 @@ namespace FroguesFramework
     {
         [SerializeField] private int additionalHp;
         [SerializeField] private int additionalMaxBlood;
-        [SerializeField] private List<StatEffect> effects;
 
         public override void Init(Unit unit)
         {
@@ -19,14 +18,12 @@ namespace FroguesFramework
                 _owner.Health.TakeHealing(additionalHp);
 
             _owner.BloodPoints.IncreaseMaxPoints(additionalMaxBlood);
-            effects.ForEach(effect => _owner.Stats.AddStatEffect(effect));
         }
 
         public override void UnInit()
         {
             _owner.Health.IncreaseMaxHp(-additionalHp);
             _owner.BloodPoints.IncreaseMaxPoints(-additionalMaxBlood);
-            effects.ForEach(effect => _owner.Stats.RemoveStatEffect(effect));
             base.UnInit();
         }
 

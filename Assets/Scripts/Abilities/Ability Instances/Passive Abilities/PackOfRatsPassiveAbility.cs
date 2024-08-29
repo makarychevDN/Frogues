@@ -5,8 +5,6 @@ namespace FroguesFramework
     public class PackOfRatsPassiveAbility : PassiveAbility, IAbleToReturnSingleValue, IAbleToHaveCount
     {
         [SerializeField] private int additionalStrenghtForEachRat;
-        [SerializeField] private StatEffect effectSetup;
-        private StatEffect _effect;
 
         public int GetCount() => additionalStrenghtForEachRat * (_owner.CurrentRoom.RatsInTheRoomCount - 1);
         public int GetValue() => additionalStrenghtForEachRat;
@@ -15,15 +13,12 @@ namespace FroguesFramework
         {
             base.Init(unit);
 
-            _effect = new StatEffect(effectSetup);
-            _owner.Stats.AddStatEffect(_effect);
             _owner.CurrentRoom.OnCountOfRatsUpdated.AddListener(UpdateEffectValue);
             _owner.AbleToDie.OnDeath.AddListener(DecreaseCountOfRats);
         }
 
         public override void UnInit()
         {
-            _owner.Stats.RemoveStatEffect(_effect);
             DecreaseCountOfRats();
             _owner.CurrentRoom.OnCountOfRatsUpdated.RemoveListener(UpdateEffectValue);
             _owner.AbleToDie.OnDeath.RemoveListener(DecreaseCountOfRats);
@@ -38,7 +33,6 @@ namespace FroguesFramework
 
         private void UpdateEffectValue(int newValue)
         {
-            _effect.Value = (newValue - 2) * additionalStrenghtForEachRat;
         }
     }
 }
