@@ -5,8 +5,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
     public class GenericSelfBuffAbility : NonTargetAbility,
-        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
-
+         IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
     {
         [Space, Header("Ability Settings")] 
         [SerializeField] private int temporaryBlockValue;
@@ -48,18 +47,8 @@ namespace FroguesFramework
 
         private void RemoveCurrentlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
 
-        #region IAbleToApplySpikesModificator
-        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.thorns);
-
-        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(effects, StatEffectTypes.thorns);
-
-        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.thorns);
-
-        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.thorns);
-        #endregion
-
         #region IAbleToApplyImmobilizedModificator
-        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.thorns);
+        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.immobilized);
         #endregion
 
         #region IAbleToApplyBlock

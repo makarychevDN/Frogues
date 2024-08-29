@@ -30,7 +30,6 @@ namespace FroguesFramework
             unit.Health.OnDamageAppliedByArmor.AddListener(ShowArmorImpactEffect);
             unit.Health.OnArmorIncreased.AddListener(ShowArmorImpactEffect);
 
-            unit.Stats.OnSpikesUpdated.AddListener(OnStatUpdated);
             unit.Stats.OnImmobilizedUpdated.AddListener(OnStatUpdated);
         }
 

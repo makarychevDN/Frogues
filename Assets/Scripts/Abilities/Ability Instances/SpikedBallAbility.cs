@@ -128,6 +128,6 @@ namespace FroguesFramework
 
         public DamageType GetDamageType() => damageType;
 
-        public int CalculateDamage() => ((_owner.Stats.Thorns + _owner.Health.Block + _owner.Health.Armor) * damageMultiplier).RoundWithGameRules();
+        public int CalculateDamage() => ((1 + _owner.Health.Block + _owner.Health.Armor) * damageMultiplier).RoundWithGameRules(); //todo return thorns
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class IncreaseHpAndBloodAndAddStatEffects : PassiveAbility, IAbleToApplySpikesModificator
+    public class IncreaseHpAndBloodAndAddStatEffects : PassiveAbility
         , IAbleToModifyMaxHP, IAbleToModifyMaxBloodPoints
     {
         [SerializeField] private int additionalHp;
@@ -33,15 +33,5 @@ namespace FroguesFramework
         public int GetModificatorForMaxHP() => additionalHp;
 
         public int GetModificatorForMaxBloodPoints() => additionalMaxBlood;
-
-        #region IAbleToApplySpikesModificator
-        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(effects, StatEffectTypes.thorns);
-
-        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(effects, StatEffectTypes.thorns);
-
-        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.thorns);
-
-        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(effects, StatEffectTypes.thorns);
-        #endregion
     }
 }   

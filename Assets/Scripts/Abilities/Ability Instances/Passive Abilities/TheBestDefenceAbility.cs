@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class TheBestDefenceAbility : NonTargetAbility, IAbleToApplySpikesModificator
+    public class TheBestDefenceAbility : NonTargetAbility
     {
         [SerializeField] private int spikesValue;
         
@@ -24,17 +24,8 @@ namespace FroguesFramework
         protected virtual IEnumerator ApplyEffect(float time)
         {
             yield return new WaitForSeconds(time);
-            _owner.Stats.AddStatEffect(new StatEffect(StatEffectTypes.thorns, _owner.AbilitiesManager.WeaponDamage, 1));
         }
 
         private void RemoveCurremtlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-
-        public int GetdeltaOfSpikesValueForEachTurn() => 0;
-
-        public bool GetSpikesEffectIsConstantly() => false;
-
-        public int GetSpikesModificatorValue() => spikesValue;
-
-        public int GetTimeToEndOfSpikesEffect() => 1;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace FroguesFramework
 {
     public class DealDamageAroundOwnerNonTargetAbility : NonTargetAbility, IAbleToDealDamage, IAbleToReturnRange,
-        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
+        IAbleToApplyImmobilizedModificator
     {
         [SerializeField] protected int radius;
         [SerializeField] protected int damage;
@@ -57,18 +57,8 @@ namespace FroguesFramework
 
         public int ReturnRange() => radius;        
 
-        #region IAbleToApplySpikesModificator
-        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(additionalDebuffs, StatEffectTypes.thorns);
-
-        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(additionalDebuffs, StatEffectTypes.thorns);
-
-        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.thorns);
-
-        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(additionalDebuffs, StatEffectTypes.thorns);
-        #endregion
-
         #region IAbleToApplyImmobilizedModificator
-        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.thorns);
+        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.immobilized);
         #endregion
     }
 }

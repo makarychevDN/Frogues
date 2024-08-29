@@ -30,7 +30,7 @@ namespace FroguesFramework
 
             blockIcon.SetActive(health.Block != 0);
             armorIcon.SetActive(health.Armor != 0);
-            spikesIcon.SetActive(stats.Thorns != 0);
+            //spikesIcon.SetActive(stats.Thorns != 0);
             escapeFromDeathIcon.SetActive(health.EscapesFromDeath != 0);
 
             healthTextField.SetValue(health.HealthWithPreTakenDamage);
@@ -49,7 +49,7 @@ namespace FroguesFramework
             escapeFromDeathIconTextFieldPretakenAnimation.SetValue(health.EscapesFromDeathCountWithPretakenDamage);
             escapeFromDeathIconTextFieldPretakenAnimation.gameObject.SetActive(health.EscapesFromDeathCountWithPretakenDamage != health.EscapesFromDeath);
 
-            spikesTextField.SetValue(stats.Thorns);
+            //spikesTextField.SetValue(stats.Thorns); todo return thorns
 
             resizableParents.ForEach(resizableParent => LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent));
         }

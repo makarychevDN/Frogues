@@ -7,18 +7,15 @@ namespace FroguesFramework
 {
     public class Stats : MonoBehaviour, IAbleToCalculateHashFunctionOfPrevisualisation, IRoundTickable
     {
-        [SerializeField] private List<StatEffect> thorns;
         [SerializeField] private List<StatEffect> immobilized;
-        public UnityEvent<StatEffectTypes, int> OnSpikesUpdated, OnImmobilizedUpdated;
+        public UnityEvent<StatEffectTypes, int> OnImmobilizedUpdated;
         public UnityEvent OnSomethingUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
-
-        public int Thorns => thorns.GetStatValue();
         public int Immobilized => immobilized.GetTimeToTheEndOfEffect();
 
-        public int CalculateHashFunctionOfPrevisualisation() => thorns.GetStatValue() * 40000 + immobilized.GetTimeToTheEndOfEffect() * 400000;
+        public int CalculateHashFunctionOfPrevisualisation() => immobilized.GetTimeToTheEndOfEffect() * 400000;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
@@ -102,13 +99,11 @@ namespace FroguesFramework
             _owner = unit;
             _statsDictionary = new Dictionary<StatEffectTypes, List<StatEffect>>
             {
-                { StatEffectTypes.thorns, thorns },
                 { StatEffectTypes.immobilized, immobilized }
             };
 
             _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>>
             {
-                { StatEffectTypes.thorns, OnSpikesUpdated },
                 { StatEffectTypes.immobilized, OnImmobilizedUpdated }
             };
         }
@@ -120,7 +115,6 @@ namespace FroguesFramework
 
     public enum StatEffectTypes
     {
-        thorns = 40,
         immobilized = 50
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 namespace FroguesFramework
 {
     public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects, 
-        IAbleToApplySpikesModificator, IAbleToApplyImmobilizedModificator
+        IAbleToApplyImmobilizedModificator
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -167,18 +167,6 @@ namespace FroguesFramework
 
         public List<StatEffect> GetStatEffects() => addtionalDebufs;
 
-        #region IAbleToApplySpikesModificator
-        public int GetSpikesModificatorValue() => Extensions.GetModificatorValue(addtionalDebufs, StatEffectTypes.thorns);
-
-        public int GetdeltaOfSpikesValueForEachTurn() => Extensions.GetDeltaValueOfModificatorForEachTurn(addtionalDebufs, StatEffectTypes.thorns);
-
-        public int GetTimeToEndOfSpikesEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.thorns);
-
-        public bool GetSpikesEffectIsConstantly() => Extensions.GetEffectIsConstantly(addtionalDebufs, StatEffectTypes.thorns);
-        #endregion
-
-        #region IAbleToApplyImmobilizedModificator
         public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.immobilized);
     }
-        #endregion
 }

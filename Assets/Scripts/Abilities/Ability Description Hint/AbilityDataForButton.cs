@@ -60,11 +60,6 @@ namespace FroguesFramework
             _dataByKeyWords.Add("{effect_time}", () => (ability as IAbleToApplyAnyModificator).GetTimeToEndOfEffect().ToString());
             _dataByKeyWords.Add("{effect_constantly}", () => (ability as IAbleToApplyAnyModificator).GetEffectIsConstantly().ToString());
 
-            _dataByKeyWords.Add("{thorns_effect_value}", () => (ability as IAbleToApplySpikesModificator).GetSpikesModificatorValue().ToString());
-            _dataByKeyWords.Add("{thorns_effect_delta}", () => (ability as IAbleToApplySpikesModificator).GetdeltaOfSpikesValueForEachTurn().ToString());
-            _dataByKeyWords.Add("{thorns_effect_time}", () => (ability as IAbleToApplySpikesModificator).GetTimeToEndOfSpikesEffect().ToString());
-            _dataByKeyWords.Add("{thorns_effect_constantly}", () => (ability as IAbleToApplySpikesModificator).GetSpikesEffectIsConstantly().ToString());
-
             _dataByKeyWords.Add("{immobilized_effect_time}", () => (ability as IAbleToApplyImmobilizedModificator).GetTimeToEndOfImmpobilizedEffect().ToString());
 
             _dataByKeyWords.Add("{default_block_value}", () => (ability as IAbleToApplyBlock).GetDefaultBlockValue().ToString());
