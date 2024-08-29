@@ -9,7 +9,6 @@ namespace FroguesFramework
     {
         [SerializeField] private Stats stats;
         [SerializeField] protected List<RectTransform> resizableParents;
-        [SerializeField] private StatVisualizationSegment immobilizedSegment;
 
         [Header("Localized mechanic names")]
         [SerializeField] private LocalizedString immobolizedMechanicName;
@@ -48,14 +47,8 @@ namespace FroguesFramework
             if (stats == null)
                 return;
 
-
-            immobilizedSegment.gameObject.SetActive(stats.Immobilized != 0);
-            immobilizedSegment.SetValue(stats.Immobilized);
-
             resizableParents.ForEach(parent => LayoutRebuilder.ForceRebuildLayoutImmediate(parent));
         }
-
-        public void ShowImmobolizedHint() => ShowHint(immobolizedMechanicName.GetLocalizedString(), immobilizedMechanicDescription.DescriptionText, immobilizedMechanicDescription.DescriptionText, immobilizedSegment.transform, stats.Immobilized, 0);
 
         private void ShowHint(string header, string positiveDescriptionTag, string negativeDescriptionTag, Transform transformOfIcon, int modificatorStepValue, int statValue)
         {

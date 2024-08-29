@@ -4,8 +4,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class GenericSelfBuffAbility : NonTargetAbility,
-         IAbleToApplyImmobilizedModificator, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
+    public class GenericSelfBuffAbility : NonTargetAbility, IAbleToApplyBlock, IAbleToApplyArmor, IAbleToApplyActionPointsRegenerationPenalty
     {
         [Space, Header("Ability Settings")] 
         [SerializeField] private int temporaryBlockValue;
@@ -46,10 +45,6 @@ namespace FroguesFramework
         }
 
         private void RemoveCurrentlyActive() => _owner.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-
-        #region IAbleToApplyImmobilizedModificator
-        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(effects, StatEffectTypes.immobilized);
-        #endregion
 
         #region IAbleToApplyBlock
         public int GetDefaultBlockValue() => temporaryBlockValue;

@@ -56,14 +56,10 @@ namespace FroguesFramework
 
             if (showMovementHighlighting)
             {
-                if (_owner.Stats.Immobilized == 0)
-                {
-                    var movementCells = _owner.CurrentRoom.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
-                        _owner.ActionPoints.AvailablePoints,
-                        _owner.MovementAbility.GetActionPointsCost(), false, true, true);
-                    movementCells.ForEach(cell => cell.EnableValidForMovementCellHighlight(movementCells));
-                }
-                   
+                var movementCells = _owner.CurrentRoom.PathFinder.GetCellsAreaByActionPoints(_owner.CurrentCell,
+                    _owner.ActionPoints.AvailablePoints,
+                    _owner.MovementAbility.GetActionPointsCost(), false, true, true);
+                movementCells.ForEach(cell => cell.EnableValidForMovementCellHighlight(movementCells));                   
             }
 
             if (!PossibleToUseOnUnit(target))

@@ -60,8 +60,6 @@ namespace FroguesFramework
             _dataByKeyWords.Add("{effect_time}", () => (ability as IAbleToApplyAnyModificator).GetTimeToEndOfEffect().ToString());
             _dataByKeyWords.Add("{effect_constantly}", () => (ability as IAbleToApplyAnyModificator).GetEffectIsConstantly().ToString());
 
-            _dataByKeyWords.Add("{immobilized_effect_time}", () => (ability as IAbleToApplyImmobilizedModificator).GetTimeToEndOfImmpobilizedEffect().ToString());
-
             _dataByKeyWords.Add("{default_block_value}", () => (ability as IAbleToApplyBlock).GetDefaultBlockValue().ToString());
             _dataByKeyWords.Add("{calculated_block_value}", () => IntToStringByCompareValues((ability as IAbleToApplyBlock).CalculateBlock(), (ability as IAbleToApplyBlock).GetDefaultBlockValue()));
 

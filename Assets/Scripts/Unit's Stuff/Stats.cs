@@ -7,15 +7,12 @@ namespace FroguesFramework
 {
     public class Stats : MonoBehaviour, IAbleToCalculateHashFunctionOfPrevisualisation, IRoundTickable
     {
-        [SerializeField] private List<StatEffect> immobilized;
-        public UnityEvent<StatEffectTypes, int> OnImmobilizedUpdated;
         public UnityEvent OnSomethingUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
         private Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>> _statsUpdatedEventsDictionary = new();
-        public int Immobilized => immobilized.GetTimeToTheEndOfEffect();
 
-        public int CalculateHashFunctionOfPrevisualisation() => immobilized.GetTimeToTheEndOfEffect() * 400000;
+        public int CalculateHashFunctionOfPrevisualisation() => 1;
 
         public StatEffect AddStatEffect(StatEffectTypes type, int value, int timeToTheEndOfEffect, int deltaValueForEachTurn = 0, bool effectIsConstantly = false)
         {
@@ -99,12 +96,10 @@ namespace FroguesFramework
             _owner = unit;
             _statsDictionary = new Dictionary<StatEffectTypes, List<StatEffect>>
             {
-                { StatEffectTypes.immobilized, immobilized }
             };
 
             _statsUpdatedEventsDictionary = new Dictionary<StatEffectTypes, UnityEvent<StatEffectTypes, int>>
             {
-                { StatEffectTypes.immobilized, OnImmobilizedUpdated }
             };
         }
 
@@ -115,7 +110,6 @@ namespace FroguesFramework
 
     public enum StatEffectTypes
     {
-        immobilized = 50
     }
 
     [Serializable]

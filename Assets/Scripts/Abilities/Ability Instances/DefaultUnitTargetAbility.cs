@@ -5,8 +5,7 @@ using UnityEngine.Events;
 
 namespace FroguesFramework
 {
-    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects, 
-        IAbleToApplyImmobilizedModificator
+    public class DefaultUnitTargetAbility : UnitTargetAbility, IAbleToBeNativeAttack, IAbleToReturnIsPrevisualized, IAbleToReturnRange, IAbleToDealDamage, IAbleToApplyStatEffects
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected int damage;
@@ -166,7 +165,5 @@ namespace FroguesFramework
         public DamageType GetDamageType() => damageType;
 
         public List<StatEffect> GetStatEffects() => addtionalDebufs;
-
-        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(addtionalDebufs, StatEffectTypes.immobilized);
     }
 }

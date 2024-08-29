@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace FroguesFramework
 {
-    public class DealDamageAroundOwnerNonTargetAbility : NonTargetAbility, IAbleToDealDamage, IAbleToReturnRange,
-        IAbleToApplyImmobilizedModificator
+    public class DealDamageAroundOwnerNonTargetAbility : NonTargetAbility, IAbleToDealDamage, IAbleToReturnRange
     {
         [SerializeField] protected int radius;
         [SerializeField] protected int damage;
@@ -55,10 +54,6 @@ namespace FroguesFramework
 
         public virtual int CalculateDamage() => Extensions.CalculateOutgoingDamageWithGameRules(damage, damageType, _owner.Stats);
 
-        public int ReturnRange() => radius;        
-
-        #region IAbleToApplyImmobilizedModificator
-        public int GetTimeToEndOfImmpobilizedEffect() => Extensions.GetTimeToEndOfEffect(additionalDebuffs, StatEffectTypes.immobilized);
-        #endregion
+        public int ReturnRange() => radius;
     }
 }
