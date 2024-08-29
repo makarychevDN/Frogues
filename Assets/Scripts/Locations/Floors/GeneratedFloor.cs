@@ -22,7 +22,7 @@ namespace FroguesFramework
         private List<RoomButton> _visitedRooms = new();
         private List<RoomButton> _availableToVisitiongRooms = new();
 
-        private int _xSizeOfSpriteMap = 600;
+        private int _xSizeOfSpriteMap = 300;
         private int _ySizeOfSpriteMap = 300;
 
         public override void Init()
