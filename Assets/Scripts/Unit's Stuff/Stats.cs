@@ -9,8 +9,7 @@ namespace FroguesFramework
     {
         [SerializeField] private List<StatEffect> thorns;
         [SerializeField] private List<StatEffect> immobilized;
-        [SerializeField] private float strengtModificatorStep;
-        public UnityEvent<StatEffectTypes, int> OnStrenghtUpdated, OnSpikesUpdated, OnImmobilizedUpdated;
+        public UnityEvent<StatEffectTypes, int> OnSpikesUpdated, OnImmobilizedUpdated;
         public UnityEvent OnSomethingUpdated;
         private Unit _owner;
         private Dictionary<StatEffectTypes, List<StatEffect>> _statsDictionary = new();
