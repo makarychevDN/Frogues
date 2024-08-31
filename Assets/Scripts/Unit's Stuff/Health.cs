@@ -120,6 +120,7 @@ namespace FroguesFramework
             if(armor > 0)
             {
                 damageValue -= armor;
+                damageValue = Mathf.Clamp(damageValue, 0, 1000);
                 OnDamageReducedByArmor.Invoke();
                 OnDamageFromUnitReducedByArmor.Invoke(damageSource);
             }
@@ -224,6 +225,7 @@ namespace FroguesFramework
                 return;
 
             block--;
+            block = Mathf.Clamp(block, 0, 100);
         }
 
         public void TickAfterPlayerTurn()
@@ -232,6 +234,7 @@ namespace FroguesFramework
                 return;
 
             block--;
+            block = Mathf.Clamp(block, 0, 100);
         }
 
         private void DieProcess()
