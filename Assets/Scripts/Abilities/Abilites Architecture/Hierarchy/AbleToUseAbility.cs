@@ -43,7 +43,8 @@ namespace FroguesFramework
             if (_owner.BloodPoints != null)
                 _owner.BloodPoints.SpendPoints(CalculateBloodPointsCost);
 
-            _owner.Health.TakeDamage(healthCost, true, null);
+            if(healthCost != 0)
+                _owner.Health.TakeDamage(healthCost, true, null);
 
             currentCharges -= costOfEachUsingInCharges;
         }
