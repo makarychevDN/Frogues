@@ -11,12 +11,12 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            unit.Health.OnDamageFromUnitPreventedByBlock.AddListener(DecreaseDeffenceToDamageSource);
+            unit.Health.OnDamageFromUnitBlocked.AddListener(DecreaseDeffenceToDamageSource);
         }
 
         public override void UnInit()
         {
-            _owner.Health.OnDamageFromUnitPreventedByBlock.RemoveListener(DecreaseDeffenceToDamageSource);
+            _owner.Health.OnDamageFromUnitBlocked.RemoveListener(DecreaseDeffenceToDamageSource);
             base.UnInit();
         }
 

@@ -16,7 +16,7 @@ namespace FroguesFramework
             base.Init(unit);
 
             _owner.Health.IncreaseArmor(armorValue);
-            _owner.Health.OnArmorDestroyed.AddListener(() => _owner.Animator.runtimeAnimatorController = ownerWithoutBoxController);
+            //_owner.Health.OnArmorDestroyed.AddListener(() => _owner.Animator.runtimeAnimatorController = ownerWithoutBoxController);
         }
     }
 }

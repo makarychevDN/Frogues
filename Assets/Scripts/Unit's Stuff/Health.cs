@@ -21,20 +21,13 @@ namespace FroguesFramework
         public UnityEvent OnHpHealed;
 
         [Header("Apply Damage On Block Events")]
-        public UnityEvent OnDamageAppliedByBlock;
-        public UnityEvent<Unit> OnDamageFromUnitAppliedByBlock;
-        public UnityEvent OnDamagePreventedByBlock;
-        public UnityEvent<Unit> OnDamageFromUnitPreventedByBlock;
-        public UnityEvent OnBlockDestroyed;
-        public UnityEvent<Unit> OnBlockDestroyedByUnit;
+        public UnityEvent OnDamageBlocked;
+        public UnityEvent<Unit> OnDamageFromUnitBlocked;
+        public UnityEvent OnBlockChargesCountUpdated;
 
         [Header("Apply Damage On Armor Events")]
-        public UnityEvent OnDamageAppliedByArmor;
-        public UnityEvent<Unit> OnDamageFromUnitAppliedByArmor;
-        public UnityEvent OnDamagePreventedByArmor;
-        public UnityEvent<Unit> OnDamageFromUnitPreventedByArmor;
-        public UnityEvent OnArmorDestroyed;
-        public UnityEvent<Unit> OnArmorDestroyedByUnit;
+        public UnityEvent OnDamageReducedByArmor;
+        public UnityEvent<Unit> OnDamageFromUnitReducedByArmor;
 
         [Header("Apply Damage On Health Events")]
         public UnityEvent OnDamageAppledByHealth;
@@ -45,7 +38,6 @@ namespace FroguesFramework
         public UnityEvent OnEscapedFromDeath;
 
         private int _healthWithPreTakenDamage, _armorWithPreTakenDamage, _blockWithPreTakenDamage, _escapesFromDeathWithPretakenDamage;
-        private int _hashedHp, _hashedBlock, _hashedArmor, _hashedEscapesFromDeath;
         private Unit _unit;
 
         public int MaxHp => maxHP;
@@ -63,34 +55,21 @@ namespace FroguesFramework
         public void Init(Unit unit)
         {
             _unit = unit;
-            _hashedHp = currentHP;
-            _hashedArmor = armor;
-            _hashedBlock = block;
             OnDamageAppledByHealth.AddListener(TriggerTakeDamageAnimation);
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
             AddSelfToTheList();
         }
 
-        public void RemoveAllBlockEffects()
-        {
-            block = 0;
-            armor = 0;
-        }
-
         public void IncreaseBlock(int value)
         {
             block += value;
-            _hashedBlock = block;
             OnBlockIncreased.Invoke();
-            OnArmorOrBlockIncreased.Invoke();
         }
 
         public void IncreaseArmor(int value)
         {
             armor += value;
-            _hashedArmor = armor;
             OnArmorIncreased.Invoke();
-            OnArmorOrBlockIncreased.Invoke();
         }
 
         public void IncreaseMaxHp(int value)
@@ -102,15 +81,6 @@ namespace FroguesFramework
         public void IncreaseEscapesFromDeathCount(int value)
         {
             escapesFromDeath += value;
-            _hashedEscapesFromDeath = escapesFromDeath;
-        }
-
-        private void Update()
-        {
-            _hashedHp = currentHP;
-            _hashedArmor = armor;
-            _hashedBlock = block;
-            _hashedEscapesFromDeath = escapesFromDeath;
         }
 
         private void TriggerTakeDamageAnimation()
@@ -137,44 +107,34 @@ namespace FroguesFramework
 
         public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource)
         {
-            CalculateDamage(ref currentHP, ref armor, ref block, ref escapesFromDeath, damageValue, ignoreBlock);
+            //todo count ignoreBlock parameter
 
-            if (!ignoreBlock)
+            if(block > 0)
             {
-                if (_hashedBlock != 0)
-                {
-                    OnDamageApplyedByAnyPreventingSystem(block, _hashedBlock, damageSource,
-                        OnDamageAppliedByBlock, OnDamageFromUnitAppliedByBlock,
-                        OnDamagePreventedByBlock, OnDamageFromUnitPreventedByBlock,
-                        OnBlockDestroyed, OnBlockDestroyedByUnit);
-                }
-
-                if (_hashedArmor != 0)
-                {
-                    OnDamageApplyedByAnyPreventingSystem(armor, _hashedArmor, damageSource,
-                        OnDamageAppliedByArmor, OnDamageFromUnitAppliedByArmor,
-                        OnDamagePreventedByArmor, OnDamageFromUnitPreventedByArmor,
-                        OnArmorDestroyed, OnArmorDestroyedByUnit);
-                }
+                block--;
+                OnDamageBlocked.Invoke();
+                OnDamageFromUnitBlocked.Invoke(damageSource);
+                return;
             }
 
-            /*if(damageSource != null && _unit.Stats.Thorns > 0)
+            if(armor > 0)
             {
-                damageSource.Health.TakeDamage(_unit.Stats.Thorns, null);
-            }*/ //todo return thorns
+                damageValue -= armor;
+                OnDamageReducedByArmor.Invoke();
+                OnDamageFromUnitReducedByArmor.Invoke(damageSource);
+            }
 
-            if (currentHP < _hashedHp)
+            if(damageValue > 0)
             {
-                _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
+                currentHP -= damageValue;
                 OnDamageAppledByHealth.Invoke();
-                OnDamageFromUnitAppliedByHealth.Invoke(damageSource);
             }
 
-            if (currentHP <= 0)
+            if(currentHP <= 0)
             {
                 OnHpEnded.Invoke();
 
-                if (_hashedEscapesFromDeath <= 0)
+                if (escapesFromDeath <= 0)
                 {
                     Invoke(nameof(DieProcess), 0.25f);
                 }
@@ -184,11 +144,6 @@ namespace FroguesFramework
                     currentHP = maxHP / 2;
                 }
             }
-            
-            _hashedHp = currentHP;
-            _hashedArmor = armor;
-            _hashedBlock = block;
-            _hashedEscapesFromDeath = escapesFromDeath;
         }
 
         private void OnDamageApplyedByAnyPreventingSystem(int preventingSystemValue, int hashedPreventingSystemValue, Unit damageSource,
@@ -267,18 +222,16 @@ namespace FroguesFramework
         {
             if(_unit.IsEnemy)
                 return;
-            
-            block = 0;
-            _hashedBlock = block;
+
+            block--;
         }
 
         public void TickAfterPlayerTurn()
         {
             if(!_unit.IsEnemy)
                 return;
-            
-            block = 0;
-            _hashedBlock = block;
+
+            block--;
         }
 
         private void DieProcess()

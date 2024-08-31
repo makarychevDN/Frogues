@@ -11,13 +11,13 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            _owner.Health.OnBlockDestroyed.AddListener(TryToExecute);
+            _owner.Health.OnDamageAppledByHealth.AddListener(TryToExecute);
         }
 
         public override void UnInit()
         {
             base.UnInit();
-            _owner.Health.OnBlockDestroyed.RemoveListener(TryToExecute);
+            _owner.Health.OnDamageAppledByHealth.RemoveListener(TryToExecute);
         }
 
         private void TryToExecute()
@@ -32,7 +32,7 @@ namespace FroguesFramework
             _hashedHp = _owner.Health.CurrentHp;
         }
 
-        private float ConvertToLerpValue(int value) => requredPercentageOfHPToExecute * 0.01f;
+        private float ConvertToLerpValue(int value) => value * 0.01f;
 
         protected void Execute()
         {

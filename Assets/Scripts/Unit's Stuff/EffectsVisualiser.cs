@@ -23,11 +23,10 @@ namespace FroguesFramework
         {
             _unit = unit;
 
-            unit.Health.OnDamagePreventedByBlock.AddListener(ShowDamageSuccessfullyBlockedEffect);
-            unit.Health.OnBlockDestroyed.AddListener(ShowBlockDestroyedEffect);
+            unit.Health.OnDamageBlocked.AddListener(ShowDamageSuccessfullyBlockedEffect);
             unit.Health.OnBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
 
-            unit.Health.OnDamageAppliedByArmor.AddListener(ShowArmorImpactEffect);
+            unit.Health.OnDamageReducedByArmor.AddListener(ShowArmorImpactEffect);
             unit.Health.OnArmorIncreased.AddListener(ShowArmorImpactEffect);
         }
 
