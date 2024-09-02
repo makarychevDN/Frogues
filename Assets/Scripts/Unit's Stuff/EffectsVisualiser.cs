@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] private GameObject blockDestroyedEffect;
         [SerializeField] private GameObject temporaryBlockIncreasedEffect;
         [SerializeField] private GameObject permanentBlockIncreasedEffect;
+        [SerializeField] private GameObject blockAura;
         [SerializeField] private Animator armorImpactAnimator;
         [SerializeField] private AudioSource armorImpactSound;
         [SerializeField] private TMP_Text statEffectPrefab;
@@ -28,6 +29,8 @@ namespace FroguesFramework
 
             unit.Health.OnDamageReducedByArmor.AddListener(ShowArmorImpactEffect);
             unit.Health.OnArmorIncreased.AddListener(ShowArmorImpactEffect);
+
+            unit.Health.OnBlockChargesCountUpdated.AddListener(() => EnableBlockAura(unit.Health.Block > 0));
         }
 
         private void OnStatUpdated(string type, int delta)
@@ -53,6 +56,11 @@ namespace FroguesFramework
             damageSuccessfullyBlockedEffect.SetActive(true);
             _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
             Invoke(nameof(HideSuccessfullyBlockedEffect), 0.8f);
+        }
+
+        private void EnableBlockAura(bool value)
+        {
+            blockAura.SetActive(value);
         }
         
         private void HideSuccessfullyBlockedEffect()

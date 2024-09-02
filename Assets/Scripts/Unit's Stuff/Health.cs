@@ -7,31 +7,28 @@ namespace FroguesFramework
     {
         [SerializeField] private int maxHP;
         [SerializeField] private int currentHP;
-
         [SerializeField] private int armor;
         [SerializeField] private int block;
+        [SerializeField] private int thorns;
         [SerializeField] private int escapesFromDeath;
         [SerializeField] private bool dieImmedeatlyAfterStepOnItByUnit;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
 
-        [Header("Increase Parameters Events")]
+        [Header("Block Events")]
         public UnityEvent OnBlockIncreased;
-        public UnityEvent OnArmorIncreased;
-        public UnityEvent OnArmorOrBlockIncreased;
-        public UnityEvent OnHpHealed;
-
-        [Header("Apply Damage On Block Events")]
         public UnityEvent OnDamageBlocked;
         public UnityEvent<Unit> OnDamageFromUnitBlocked;
         public UnityEvent OnBlockChargesCountUpdated;
 
-        [Header("Apply Damage On Armor Events")]
+        [Header("Armor Events")]
+        public UnityEvent OnArmorIncreased;
         public UnityEvent OnDamageReducedByArmor;
         public UnityEvent<Unit> OnDamageFromUnitReducedByArmor;
 
-        [Header("Apply Damage On Health Events")]
+        [Header("Health Events")]
         public UnityEvent OnDamageAppledByHealth;
         public UnityEvent<Unit> OnDamageFromUnitAppliedByHealth;
+        public UnityEvent OnHpHealed;
 
         [Header("Death Events")]
         public UnityEvent OnHpEnded;
@@ -49,6 +46,7 @@ namespace FroguesFramework
         public int ArmorWithPreTakenDamage => _armorWithPreTakenDamage;
         public int EscapesFromDeath => escapesFromDeath;
         public int EscapesFromDeathCountWithPretakenDamage => _escapesFromDeathWithPretakenDamage;
+        public int Thorns => thorns;
 
         public bool Full => currentHP == maxHP;
 
@@ -64,6 +62,7 @@ namespace FroguesFramework
         {
             block += value;
             OnBlockIncreased.Invoke();
+            OnBlockChargesCountUpdated.Invoke();
         }
 
         public void IncreaseArmor(int value)
@@ -114,6 +113,7 @@ namespace FroguesFramework
                 block--;
                 OnDamageBlocked.Invoke();
                 OnDamageFromUnitBlocked.Invoke(damageSource);
+                OnBlockChargesCountUpdated.Invoke();
                 return;
             }
 
@@ -226,6 +226,7 @@ namespace FroguesFramework
 
             block--;
             block = Mathf.Clamp(block, 0, 100);
+            OnBlockChargesCountUpdated.Invoke();
         }
 
         public void TickAfterPlayerTurn()
@@ -235,6 +236,7 @@ namespace FroguesFramework
 
             block--;
             block = Mathf.Clamp(block, 0, 100);
+            OnBlockChargesCountUpdated.Invoke();
         }
 
         private void DieProcess()
