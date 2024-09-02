@@ -19,6 +19,7 @@ namespace FroguesFramework
         public UnityEvent OnDamageBlocked;
         public UnityEvent<Unit> OnDamageFromUnitBlocked;
         public UnityEvent OnBlockChargesCountUpdated;
+        public UnityEvent OnBlockDestroyedByRegeneration;
 
         [Header("Armor Events")]
         public UnityEvent OnArmorIncreased;
@@ -224,9 +225,7 @@ namespace FroguesFramework
             if(_unit.IsEnemy)
                 return;
 
-            block--;
-            block = Mathf.Clamp(block, 0, 100);
-            OnBlockChargesCountUpdated.Invoke();
+            DecreaseBlockAfterTurnOfOwner();
         }
 
         public void TickAfterPlayerTurn()
@@ -234,9 +233,21 @@ namespace FroguesFramework
             if(!_unit.IsEnemy)
                 return;
 
+            DecreaseBlockAfterTurnOfOwner();
+        }
+
+        private void DecreaseBlockAfterTurnOfOwner()
+        {
+            int hashedBlock = block;
+
             block--;
             block = Mathf.Clamp(block, 0, 100);
             OnBlockChargesCountUpdated.Invoke();
+
+            if (block == 0 && hashedBlock != 0)
+            {
+                OnBlockDestroyedByRegeneration.Invoke();
+            }
         }
 
         private void DieProcess()

@@ -8,13 +8,18 @@ namespace FroguesFramework
 {
     public class EffectsVisualiser : MonoBehaviour
     {
+        [Header("Block Effects")]
         [SerializeField] private GameObject damageSuccessfullyBlockedEffect;
-        [SerializeField] private GameObject blockDestroyedEffect;
-        [SerializeField] private GameObject temporaryBlockIncreasedEffect;
-        [SerializeField] private GameObject permanentBlockIncreasedEffect;
+        [SerializeField] private GameObject blockDestroyedByDamageEffect;
+        [SerializeField] private GameObject blockDestroyedByRegenerationEffect;
+        [SerializeField] private GameObject blockIncreasedEffect;
         [SerializeField] private GameObject blockAura;
+
+        [Header("Armor Effects")]
         [SerializeField] private Animator armorImpactAnimator;
         [SerializeField] private AudioSource armorImpactSound;
+
+        [Header("Stats Effects")]
         [SerializeField] private TMP_Text statEffectPrefab;
         [SerializeField] private List<TMP_Text> statEffectTextFields = new();
         [SerializeField] private Canvas canvas;
@@ -25,12 +30,13 @@ namespace FroguesFramework
             _unit = unit;
 
             unit.Health.OnDamageBlocked.AddListener(ShowDamageSuccessfullyBlockedEffect);
-            unit.Health.OnBlockIncreased.AddListener(ShowTemporaryBlockIncreasedEffect);
+            unit.Health.OnBlockIncreased.AddListener(ShowBlockIncreasedEffect);
 
             unit.Health.OnDamageReducedByArmor.AddListener(ShowArmorImpactEffect);
             unit.Health.OnArmorIncreased.AddListener(ShowArmorImpactEffect);
 
             unit.Health.OnBlockChargesCountUpdated.AddListener(() => EnableBlockAura(unit.Health.Block > 0));
+            unit.Health.OnBlockDestroyedByRegeneration.AddListener(ShowBlockDestroyedByRegenerationEffect);
         }
 
         private void OnStatUpdated(string type, int delta)
@@ -69,43 +75,43 @@ namespace FroguesFramework
             damageSuccessfullyBlockedEffect.SetActive(false);
         }
         
-        private void ShowBlockDestroyedEffect()
+        private void ShowBlockDestroyedByDamageEffect()
         {
-            blockDestroyedEffect.SetActive(true);
+            blockDestroyedByDamageEffect.SetActive(true);
             _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
-            Invoke(nameof(HideBlockDestroyedEffect), 0.8f);
+            Invoke(nameof(HideBlockDestroyedByDamageEffect), 0.8f);
         }
         
-        private void HideBlockDestroyedEffect()
+        private void HideBlockDestroyedByDamageEffect()
         {
             _unit.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-            blockDestroyedEffect.SetActive(false);
+            blockDestroyedByDamageEffect.SetActive(false);
         }
         
-        private void ShowTemporaryBlockIncreasedEffect()
+        private void ShowBlockIncreasedEffect()
         {
-            temporaryBlockIncreasedEffect.SetActive(true);
+            blockIncreasedEffect.SetActive(true);
             _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
-            Invoke(nameof(HideTemporaryBlockIncreasedEffect), 0.8f);
+            Invoke(nameof(HideBlockIncreasedEffect), 0.8f);
         }
         
-        private void HideTemporaryBlockIncreasedEffect()
+        private void HideBlockIncreasedEffect()
         {
             _unit.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-            temporaryBlockIncreasedEffect.SetActive(false);
+            blockIncreasedEffect.SetActive(false);
         }
-        
-        private void ShowPermanentBlockIncreasedEffect()
+
+        private void ShowBlockDestroyedByRegenerationEffect()
         {
-            permanentBlockIncreasedEffect.SetActive(true);
+            blockDestroyedByRegenerationEffect.SetActive(true);
             _unit.CurrentRoom.CurrentlyActiveObjects.Add(this);
-            Invoke(nameof(HidePermanentBlockIncreasedEffect), 1.1f);
+            Invoke(nameof(HideBlockDestroyedByRegenerationEffect), 1f);
         }
-        
-        private void HidePermanentBlockIncreasedEffect()
+
+        private void HideBlockDestroyedByRegenerationEffect()
         {
             _unit.CurrentRoom.CurrentlyActiveObjects.Remove(this);
-            permanentBlockIncreasedEffect.SetActive(false);
+            blockDestroyedByRegenerationEffect.SetActive(false);
         }
 
         private void ShowArmorImpactEffect()
