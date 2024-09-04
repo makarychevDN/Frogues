@@ -3,6 +3,7 @@ using FroguesFramework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Localization;
 using UnityEngine.UI;
 
@@ -16,8 +17,9 @@ namespace FroguesFramework
         [SerializeField] private RectTransform resizableParent;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons;
         [SerializeField] private List<GameObject> splitterObjects;
-
         [SerializeField] private SerializedDictionary<int, int> widthOfIconBasedOnMaxCountOfAllIcons;
+
+        public UnityEvent OnIconsRedrawed;
 
         private int _hashedValue;
         private int _hashedMaxValue;
@@ -88,7 +90,9 @@ namespace FroguesFramework
                 resourcePointIcons[i].EnablePreCostIcon();
             }
 
+            print("Sex?");
             _hashedValue = currentValue;
+            OnIconsRedrawed.Invoke();
         }
     }
 }
