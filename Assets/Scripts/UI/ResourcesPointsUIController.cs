@@ -95,7 +95,7 @@ namespace FroguesFramework
                 }
             }
 
-            for (int i = pretakenValue; i < currentValue; i++)
+            for (int i = Mathf.Clamp(pretakenValue, 0, 10000); i < currentValue; i++)
             {
                 resourcePointIcons[i].EnablePreCostIcon();
             }
