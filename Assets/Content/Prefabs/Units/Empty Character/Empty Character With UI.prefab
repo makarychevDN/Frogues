@@ -680,6 +680,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8080578032940461002}
   - {fileID: 829117097161219129}
   - {fileID: 7870264375782728309}
   m_Father: {fileID: 4901370723221733623}
@@ -902,6 +903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourcePointIconPrefab: {fileID: 5083002054579827795, guid: 443665ce11e9dc748bae3a157f4c2948, type: 3}
   visualSplitterBetweenPointsIcons: {fileID: 5209033680081682910, guid: 33dfc9dc281736f4eb30dd4ca4529184, type: 3}
+  needToAddSplitters: 1
   iconsParent: {fileID: 2255563379417724639}
   resizableParent: {fileID: 2255563379417724639}
   resourcePointIcons: []
@@ -2116,6 +2118,111 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!1 &5375007667582781947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8080578032940461002}
+  - component: {fileID: 8447036834835260018}
+  - component: {fileID: 6333656741190445554}
+  - component: {fileID: 130641426021265045}
+  m_Layer: 7
+  m_Name: Blocks Row
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8080578032940461002
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375007667582781947}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6602679096161091714}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8447036834835260018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375007667582781947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 1
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &6333656741190445554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375007667582781947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 1
+--- !u!114 &130641426021265045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375007667582781947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c62c9e9972f17f41b31054c187e0292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resourcePointIconPrefab: {fileID: 5083002054579827795, guid: 560c8d1a9c5ca0f4883c70b286763a02, type: 3}
+  visualSplitterBetweenPointsIcons: {fileID: 0}
+  needToAddSplitters: 0
+  iconsParent: {fileID: 8080578032940461002}
+  resizableParent: {fileID: 8080578032940461002}
+  resourcePointIcons: []
+  splitterObjects: []
+  widthOfIconBasedOnMaxCountOfAllIcons:
+    _serializedList:
+    - Key: 10000
+      Value: 5
+  OnIconsRedrawed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5388731289666903198
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,6 +3020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourcePointIconPrefab: {fileID: 5083002054579827795, guid: 488ed42172f8a6749a669c0a47a2c7d6, type: 3}
   visualSplitterBetweenPointsIcons: {fileID: 5209033680081682910, guid: 33dfc9dc281736f4eb30dd4ca4529184, type: 3}
+  needToAddSplitters: 1
   iconsParent: {fileID: 2979294997271185472}
   resizableParent: {fileID: 2979294997271185472}
   resourcePointIcons: []
@@ -3181,7 +3289,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 110
+  m_SortingOrder: 1100
   m_TargetDisplay: 0
 --- !u!114 &3233213501012649223
 MonoBehaviour:
@@ -3234,6 +3342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPointsUIController: {fileID: 2600984511895514907}
   actionPointsUIController: {fileID: 8224877603289663579}
+  blockPointsUIController: {fileID: 130641426021265045}
   commonResizableParent: {fileID: 6602679096161091714}
 --- !u!1 &7737088953325463885
 GameObject:
@@ -8737,6 +8846,10 @@ PrefabInstance:
       propertyPath: <UIOfUnit>k__BackingField
       value: 
       objectReference: {fileID: 8036396037346012759}
+    - target: {fileID: 2497189378923835907, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2812955802091130958, guid: e549deed3ebd8544d9d2943e0a7b4cbc, type: 3}
       propertyPath: m_RootOrder
       value: 0

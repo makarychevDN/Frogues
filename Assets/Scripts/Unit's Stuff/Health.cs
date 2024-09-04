@@ -20,6 +20,7 @@ namespace FroguesFramework
         public UnityEvent<Unit> OnDamageFromUnitBlocked;
         public UnityEvent OnBlockChargesCountUpdated;
         public UnityEvent OnBlockDestroyedByRegeneration;
+        public UnityEvent OnPretakenDamageOnBlockChanged;
 
         [Header("Armor Events")]
         public UnityEvent OnArmorIncreased;
@@ -59,6 +60,7 @@ namespace FroguesFramework
             OnDamageAppledByHealth.AddListener(TriggerTakeDamageAnimation);
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
             _healthWithPreTakenDamage = CurrentHp;
+            _blockWithPreTakenDamage = Block;
             AddSelfToTheList();
         }
 
@@ -186,6 +188,7 @@ namespace FroguesFramework
             if (calculatingBlock > 0)
             {
                 calculatingBlock--;
+                OnPretakenDamageOnBlockChanged.Invoke();
                 return;
             }
 

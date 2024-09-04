@@ -68,6 +68,9 @@ MonoBehaviour:
   OnBlockDestroyedByRegeneration:
     m_PersistentCalls:
       m_Calls: []
+  OnPretakenDamageOnBlockChanged:
+    m_PersistentCalls:
+      m_Calls: []
   OnArmorIncreased:
     m_PersistentCalls:
       m_Calls: []
@@ -80,10 +83,16 @@ MonoBehaviour:
   OnDamageAppledByHealth:
     m_PersistentCalls:
       m_Calls: []
+  OnMaxHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
   OnDamageFromUnitAppliedByHealth:
     m_PersistentCalls:
       m_Calls: []
   OnHpHealed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPretakenDamageOnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
   OnHpEnded:
@@ -725,7 +734,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 19616
+  m_SortingOrder: 1050
   m_Sprite: {fileID: 21300000, guid: 0eaa04418ade99544af5acb4180e582a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2123,22 +2132,28 @@ MonoBehaviour:
   OnAnyPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
-  OnDefaultPointsIncreased:
+  OnPointsSpended:
     m_PersistentCalls:
       m_Calls: []
-  OnTemporaryPointsIncreased:
+  OnPointsEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDefaultPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
   OnPointsRegenerated:
     m_PersistentCalls:
       m_Calls: []
+  OnMaxPointsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreSpendPointsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTemporaryPointsIncreased:
+    m_PersistentCalls:
+      m_Calls: []
   OnPickUpPoints:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointsSpended:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointsEnded:
     m_PersistentCalls:
       m_Calls: []
   OnTemporaryPointsReseted:
@@ -2450,6 +2465,7 @@ MonoBehaviour:
   <EffectsVisualiser>k__BackingField: {fileID: 6205218186610207373}
   <Stats>k__BackingField: {fileID: 6942833310086702638}
   <UnitDescription>k__BackingField: {fileID: 4470639621562112939}
+  <UIOfUnit>k__BackingField: {fileID: 0}
   OnStepOnThisUnit:
     m_PersistentCalls:
       m_Calls: []
@@ -2677,22 +2693,28 @@ MonoBehaviour:
   OnAnyPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
-  OnDefaultPointsIncreased:
+  OnPointsSpended:
     m_PersistentCalls:
       m_Calls: []
-  OnTemporaryPointsIncreased:
+  OnPointsEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDefaultPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
   OnPointsRegenerated:
     m_PersistentCalls:
       m_Calls: []
+  OnMaxPointsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPreSpendPointsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTemporaryPointsIncreased:
+    m_PersistentCalls:
+      m_Calls: []
   OnPickUpPoints:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointsSpended:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPointsEnded:
     m_PersistentCalls:
       m_Calls: []
   OnTemporaryPointsReseted:

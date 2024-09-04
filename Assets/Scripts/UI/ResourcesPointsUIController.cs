@@ -13,6 +13,7 @@ namespace FroguesFramework
     {
         [SerializeField] private ResourcePointUI resourcePointIconPrefab;
         [SerializeField] private GameObject visualSplitterBetweenPointsIcons;
+        [SerializeField] private bool needToAddSplitters;
         [SerializeField] private Transform iconsParent;
         [SerializeField] private RectTransform resizableParent;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons;
@@ -32,17 +33,24 @@ namespace FroguesFramework
             {
                 while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
                 {
+                    GameObject currentSplitter = null;
                     var currentIcon = resourcePointIcons.FirstOrDefault(icon => !icon.gameObject.activeSelf);
-                    var currentSplitter = splitterObjects.FirstOrDefault(icon => !icon.gameObject.activeSelf);
+
+                    if (needToAddSplitters)
+                        currentSplitter = splitterObjects.FirstOrDefault(icon => !icon.gameObject.activeSelf);
 
                     if (currentIcon == null)
                     {
                         resourcePointIcons.Add(currentIcon = Instantiate(resourcePointIconPrefab, iconsParent));
-                        splitterObjects.Add(currentSplitter = Instantiate(visualSplitterBetweenPointsIcons, iconsParent));
+
+                        if (needToAddSplitters)
+                            splitterObjects.Add(currentSplitter = Instantiate(visualSplitterBetweenPointsIcons, iconsParent));
                     }
 
                     currentIcon.gameObject.SetActive(true);
-                    currentSplitter.gameObject.SetActive(true);
+
+                    if (needToAddSplitters)
+                        currentSplitter.gameObject.SetActive(true);
                 }
 
                 if (_hashedMaxValue != maxValue)
@@ -61,7 +69,9 @@ namespace FroguesFramework
                 while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count > maxValue)
                 {
                     resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().GetLast().gameObject.SetActive(false);
-                    splitterObjects.Where(splitter => splitter.activeSelf).ToList().GetLast().gameObject.SetActive(false);
+
+                    if (needToAddSplitters)
+                        splitterObjects.Where(splitter => splitter.activeSelf).ToList().GetLast().gameObject.SetActive(false);
                 }
 
                 if (resizableParent != null)
@@ -90,7 +100,6 @@ namespace FroguesFramework
                 resourcePointIcons[i].EnablePreCostIcon();
             }
 
-            print("Sex?");
             _hashedValue = currentValue;
             OnIconsRedrawed.Invoke();
         }
