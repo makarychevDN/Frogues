@@ -15,12 +15,16 @@ namespace FroguesFramework
         private Unit _unit;
 
         public UnityEvent OnAnyPointsIncreased;
-        public UnityEvent OnDefaultPointsIncreased;
-        public UnityEvent OnTemporaryPointsIncreased;
-        public UnityEvent OnPointsRegenerated;
-        public UnityEvent OnPickUpPoints;
         public UnityEvent OnPointsSpended;
         public UnityEvent OnPointsEnded;
+
+        public UnityEvent OnDefaultPointsIncreased;
+        public UnityEvent OnPointsRegenerated;
+        public UnityEvent OnMaxPointsChanged;
+        public UnityEvent OnPreSpendPointsChanged;
+
+        public UnityEvent OnTemporaryPointsIncreased;
+        public UnityEvent OnPickUpPoints;
         public UnityEvent<int> OnTemporaryPointsReseted;
 
         public void Init(Unit unit)
@@ -28,6 +32,7 @@ namespace FroguesFramework
             _unit = unit;
             AddSelfToTheList();
             unit.AbleToSkipTurn.OnSkipTurn.AddListener(RegeneratePoints);
+            _preTakenCurrentPoints = currentPoints;
         }
 
         private void RegeneratePoints()
@@ -131,6 +136,7 @@ namespace FroguesFramework
         {
             maxPointsCount += value;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
+            OnMaxPointsChanged.Invoke();
         }
 
         public void PickupPoints(int value)
@@ -165,6 +171,7 @@ namespace FroguesFramework
         public void PreSpendPoints(int preCost)
         {
             CalculateCost(ref _preTakenCurrentPoints, ref _preTakenTemporaryPoints, preCost);
+            OnPreSpendPointsChanged.Invoke();
         }
 
         private void CalculateCost(ref int points, ref int temporarypPoints, int cost)

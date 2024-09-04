@@ -45,6 +45,9 @@ namespace FroguesFramework
         [field: Header("Description Setup")]
         [field: SerializeField] public UnitDescription UnitDescription { get; private set; }
 
+        [field: Header("UI Setup")]
+        [field: SerializeField] public UIOfUnit UIOfUnit { get; private set; }
+
         public UnityEvent OnStepOnThisUnit = new UnityEvent();
         public UnityEvent<Unit> OnStepOnThisUnitByUnit = new UnityEvent<Unit>();
         public UnityEvent OnInspectIt = new UnityEvent();
@@ -88,6 +91,7 @@ namespace FroguesFramework
             EffectsVisualiser?.Init(this);
             Stats?.Init(this);
             SurfaceUnitExtension?.Init(this);
+            UIOfUnit?.Init(this);
 
             _initedAlready = true;
 

@@ -7,7 +7,8 @@ namespace FroguesFramework
 {
     public abstract class BaseHealthBar : MonoBehaviour
     {
-        [SerializeField] protected Health health;
+        [SerializeField] protected Health
+            health;
         [SerializeField] protected Stats stats;
 
         [SerializeField] protected List<RectTransform> resizableParents;

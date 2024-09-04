@@ -28,8 +28,10 @@ namespace FroguesFramework
 
         [Header("Health Events")]
         public UnityEvent OnDamageAppledByHealth;
+        public UnityEvent OnMaxHealthChanged;
         public UnityEvent<Unit> OnDamageFromUnitAppliedByHealth;
         public UnityEvent OnHpHealed;
+        public UnityEvent OnPretakenDamageOnHealthChanged;
 
         [Header("Death Events")]
         public UnityEvent OnHpEnded;
@@ -56,6 +58,7 @@ namespace FroguesFramework
             _unit = unit;
             OnDamageAppledByHealth.AddListener(TriggerTakeDamageAnimation);
             unit.OnStepOnThisUnit.AddListener(DieFromStepOnUnit);
+            _healthWithPreTakenDamage = CurrentHp;
             AddSelfToTheList();
         }
 
@@ -76,6 +79,7 @@ namespace FroguesFramework
         {
             maxHP += value;
             currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+            OnMaxHealthChanged.Invoke();
         }
 
         public void IncreaseEscapesFromDeathCount(int value)
@@ -107,8 +111,6 @@ namespace FroguesFramework
 
         public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource)
         {
-            //todo count ignoreBlock parameter
-
             if(block > 0)
             {
                 block--;
@@ -172,29 +174,26 @@ namespace FroguesFramework
         }
 
         public void PreTakeDamage(int damageValue) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage, ref _blockWithPreTakenDamage, ref _escapesFromDeathWithPretakenDamage,
-                damageValue, false);
+            CalculatePretakenDamage(ref _healthWithPreTakenDamage, ref _blockWithPreTakenDamage, ref _escapesFromDeathWithPretakenDamage,
+                damageValue, armor, false);
 
         public void PreTakeDamage(int damageValue, bool ignoreBlock) =>
-            CalculateDamage(ref _healthWithPreTakenDamage, ref _armorWithPreTakenDamage, ref _blockWithPreTakenDamage, ref _escapesFromDeathWithPretakenDamage,
-                damageValue, ignoreBlock);
+            CalculatePretakenDamage(ref _healthWithPreTakenDamage, ref _blockWithPreTakenDamage, ref _escapesFromDeathWithPretakenDamage,
+                damageValue, armor, ignoreBlock);
 
-        private void CalculateDamage(ref int calculatingHp, ref int calculatingPermanentBlock, ref int calculatingTemporaryBlock, ref int calculatingEscapeFromDeathCharges, int damageValue, bool ignoreBlock)
+        private void CalculatePretakenDamage(ref int calculatingHp, ref int calculatingBlock, ref int calculatingEscapeFromDeathCharges, int damageValue, int armorValue, bool ignoreBlock)
         {
-            if (!ignoreBlock)
+            if (calculatingBlock > 0)
             {
-                int damageToTemporaryBlock = Mathf.Clamp(damageValue, 0, calculatingTemporaryBlock);
-                damageValue -= damageToTemporaryBlock;
-                calculatingTemporaryBlock -= damageToTemporaryBlock;
-
-                int damageToBlock = Mathf.Clamp(damageValue, 0, calculatingPermanentBlock);
-                damageValue -= damageToBlock;
-                calculatingPermanentBlock -= damageToBlock;
-                
-                damageValue = Mathf.Clamp(damageValue, 0, 1000);
+                calculatingBlock--;
+                return;
             }
 
+            damageValue -= armorValue;
+            damageValue = Mathf.Clamp(damageValue, 0, 1000);
+
             calculatingHp -= damageValue;
+            OnPretakenDamageOnHealthChanged.Invoke();
 
             if (calculatingHp <= 0)
                 calculatingEscapeFromDeathCharges--;
