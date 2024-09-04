@@ -1,7 +1,9 @@
+using AYellowpaper.SerializedCollections;
 using FroguesFramework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.UI;
 
 namespace FroguesFramework
@@ -10,13 +12,15 @@ namespace FroguesFramework
     {
         [SerializeField] private ResourcePointUI resourcePointIconPrefab;
         [SerializeField] private GameObject visualSplitterBetweenPointsIcons;
-
+        [SerializeField] private Transform iconsParent;
+        [SerializeField] private RectTransform resizableParent;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons;
         [SerializeField] private List<GameObject> splitterObjects;
 
-        [SerializeField] private Transform iconsParent;
-        [SerializeField] private RectTransform resizableParent;
+        [SerializeField] private SerializedDictionary<int, int> widthOfIconBasedOnMaxCountOfAllIcons;
+
         private int _hashedValue;
+        private int _hashedMaxValue;
 
         public abstract void Init(T dataSource);
 
@@ -37,6 +41,13 @@ namespace FroguesFramework
 
                     currentIcon.gameObject.SetActive(true);
                     currentSplitter.gameObject.SetActive(true);
+                }
+
+                if (_hashedMaxValue != maxValue)
+                {
+                    resourcePointIcons.ForEach(resourcePointIcon => (resourcePointIcon.transform as RectTransform)
+                        .SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 
+                        widthOfIconBasedOnMaxCountOfAllIcons.FirstOrDefault(width => width.Key > maxValue).Value));
                 }
 
                 if (resizableParent != null)
