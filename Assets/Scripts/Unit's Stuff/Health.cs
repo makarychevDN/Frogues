@@ -246,7 +246,7 @@ namespace FroguesFramework
             block = Mathf.Clamp(block, 0, 100);
             OnBlockChargesCountUpdated.Invoke();
 
-            if (block == 0 && hashedBlock != 0)
+            if (hashedBlock > 0)
             {
                 OnBlockDestroyedByRegeneration.Invoke();
             }
