@@ -263,6 +263,8 @@ namespace FroguesFramework
             _armorWithPreTakenDamage = armor;
             _blockWithPreTakenDamage = block;
             _escapesFromDeathWithPretakenDamage = escapesFromDeath;
+            OnPretakenDamageOnHealthChanged.Invoke();
+            OnPretakenDamageOnBlockChanged.Invoke();
         }
 
         private void OnDestroy()
