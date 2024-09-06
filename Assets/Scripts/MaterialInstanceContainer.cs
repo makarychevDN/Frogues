@@ -31,8 +31,8 @@ namespace FroguesFramework
             RemoveSelfFromTheList();
         }
 
-        public void AddSelfToTheList() => _unit.CurrentRoom.AddAbleToDisablePrevisualizationObject(this);
+        public void AddSelfToTheList() => _unit.AddAbleToDisablePrevisualizationObject(this);
 
-        public void RemoveSelfFromTheList() => _unit.CurrentRoom.RemoveAbleToDisablePrevisualizationObject(this);
+        public void RemoveSelfFromTheList() => _unit.RemoveAbleToDisablePrevisualizationObject(this);
     }
 }

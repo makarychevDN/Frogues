@@ -101,7 +101,13 @@ namespace FroguesFramework
 
         public void AddAbleToDisablePrevisualizationObject(IAbleToDisablePreVisualization preVisualizationObject)
         {
+            if (ableToDisablePreVisualizationObjects.Contains(preVisualizationObject))
+                return;
+
             ableToDisablePreVisualizationObjects.Add(preVisualizationObject);
+
+            if (CurrentRoom != null)
+                CurrentRoom.AddAbleToDisablePrevisualizationObject(preVisualizationObject);
         }
 
         public void RemoveAbleToDisablePrevisualizationObject(IAbleToDisablePreVisualization preVisualizationObject)

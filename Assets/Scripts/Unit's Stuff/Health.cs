@@ -273,10 +273,10 @@ namespace FroguesFramework
         }
 
         public void AddSelfToTheList() =>
-            _unit.CurrentRoom.AddAbleToDisablePrevisualizationObject(this);
+            _unit.AddAbleToDisablePrevisualizationObject(this);
 
         public void RemoveSelfFromTheList() =>
-            _unit.CurrentRoom.RemoveAbleToDisablePrevisualizationObject(this);
+            _unit.RemoveAbleToDisablePrevisualizationObject(this);
 
         public int CalculateHashFunctionOfPrevisualisation() => 4 * MaxHp + 4 * CurrentHp + 4 * HealthWithPreTakenDamage + 4 * BlockWithPreTakenDamage + 4 * ArmorWithPreTakenDamage + 4;
     }
