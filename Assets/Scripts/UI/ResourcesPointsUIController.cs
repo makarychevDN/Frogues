@@ -1,10 +1,8 @@
 using AYellowpaper.SerializedCollections;
-using FroguesFramework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Localization;
 using UnityEngine.UI;
 
 namespace FroguesFramework

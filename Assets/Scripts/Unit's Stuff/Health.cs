@@ -10,6 +10,7 @@ namespace FroguesFramework
         [SerializeField] private int armor;
         [SerializeField] private int block;
         [SerializeField] private int thorns;
+        [SerializeField] private int poison;
         [SerializeField] private int escapesFromDeath;
         [SerializeField] private bool dieImmedeatlyAfterStepOnItByUnit;
         [SerializeField] private AudioSource deathFromStepOnThisUnitAudioSource;
@@ -34,6 +35,9 @@ namespace FroguesFramework
         public UnityEvent OnHpHealed;
         public UnityEvent OnPretakenDamageOnHealthChanged;
 
+        [Header("Poison ents")]
+        public UnityEvent OnPoisonValueUpdated;
+
         [Header("Death Events")]
         public UnityEvent OnHpEnded;
         public UnityEvent OnEscapedFromDeath;
@@ -51,6 +55,7 @@ namespace FroguesFramework
         public int EscapesFromDeath => escapesFromDeath;
         public int EscapesFromDeathCountWithPretakenDamage => _escapesFromDeathWithPretakenDamage;
         public int Thorns => thorns;
+        public int Poison => poison;
 
         public bool Full => currentHP == maxHP;
 
@@ -111,8 +116,16 @@ namespace FroguesFramework
         public void TakeDamage(int damageValue, Unit damageSource) =>
             TakeDamage(damageValue, false, damageSource);
 
-        public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource)
+        public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource, int newPoison = 0)
         {
+            damageValue += poison;
+
+            if(newPoison > 0)
+            {
+                poison += newPoison;
+                OnPoisonValueUpdated.Invoke();
+            }
+
             if(block > 0)
             {
                 block--;
@@ -185,6 +198,8 @@ namespace FroguesFramework
 
         private void CalculatePretakenDamage(ref int calculatingHp, ref int calculatingBlock, ref int calculatingEscapeFromDeathCharges, int damageValue, int armorValue, bool ignoreBlock)
         {
+            damageValue += poison;
+
             if (calculatingBlock > 0)
             {
                 calculatingBlock--;
