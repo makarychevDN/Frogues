@@ -200,6 +200,7 @@ namespace FroguesFramework
         {
             _preTakenCurrentPoints = currentPoints;
             _preTakenTemporaryPoints = tempraryPoints;
+            OnPreSpendPointsChanged.Invoke();
         }
 
         public void AddSelfToTheList() =>

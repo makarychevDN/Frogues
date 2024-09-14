@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,11 +8,29 @@ namespace FroguesFramework
         public UnityEvent OnSomethingUpdated;
         private Unit _owner;
 
+        public UnityEvent OnBoostUpdated;
+
+        [SerializeField] private int boost;
+
+        public int Boost => boost;
+
         public int CalculateHashFunctionOfPrevisualisation() => 1;
 
         public void RemoveAllNonConstantlyEffects()
         {
 
+        }
+
+        public void AddBoost(int additionalValue)
+        {
+            boost += additionalValue;
+            OnBoostUpdated.Invoke();
+        }
+
+        public void ResetBoost()
+        {
+            boost = 0;
+            OnBoostUpdated.Invoke();
         }
 
         #region timerStuff
@@ -35,7 +52,11 @@ namespace FroguesFramework
 
         private void TickAllEffects()
         {
+            ResetBoost();
         }
+
+        [ContextMenu("sex")]
+        public void InvokeBoostEvent() => OnBoostUpdated.Invoke();
 
         #endregion
 

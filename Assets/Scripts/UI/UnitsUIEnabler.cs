@@ -9,6 +9,7 @@ namespace FroguesFramework
 
         private void Update()
         {
+            if(owner.CurrentRoom != null)
             uiParent.SetActive(owner.CurrentRoom.NeedToShowUnitsUI);
         }
     }

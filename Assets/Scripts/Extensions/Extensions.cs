@@ -206,7 +206,7 @@ namespace FroguesFramework
                     return damageValue;
             }
 
-            return damageValue;
+            return damageValue + stats.Boost;
         }
 
         public static bool None<TSource>(this IEnumerable<TSource> source)
