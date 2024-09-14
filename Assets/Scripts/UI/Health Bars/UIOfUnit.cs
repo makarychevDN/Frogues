@@ -14,6 +14,7 @@ namespace FroguesFramework
         [Header("Status Effects Setup")]
         [SerializeField] private PoisonStatPointsUIController poisonStatPointsUIController;
         [SerializeField] private BoostStatPointsUIController boostStatPointsUIController;
+        [SerializeField] private ThornsStatPointsUIController thornsStatPointsUIController;
 
         public void Init(Unit unit)
         {
@@ -26,6 +27,7 @@ namespace FroguesFramework
             blockPointsUIController.Init(unit.Health);
             poisonStatPointsUIController.Init(unit.Health);
             boostStatPointsUIController.Init(unit.Stats);
+            thornsStatPointsUIController.Init(unit.Health);
         }
 
         private void UpdateCommonResizableParent()

@@ -107,6 +107,11 @@ namespace FroguesFramework
             return room.PathFinder.FindWay(from, to, true, true, true).Count;
         }
 
+        public static int DistanceBetweenCells(this Room room, Cell from, Cell to)
+        {
+            return room.PathFinder.FindWay(from, to, true, true, true).Count;
+        }
+
         public static int ModificateWithStat(this int value, int statValue, float modificatorStep)
         {
             return (int)(value * (1 + statValue * modificatorStep));

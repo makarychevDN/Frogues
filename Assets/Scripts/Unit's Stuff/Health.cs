@@ -35,8 +35,11 @@ namespace FroguesFramework
         public UnityEvent OnHpHealed;
         public UnityEvent OnPretakenDamageOnHealthChanged;
 
-        [Header("Poison ents")]
+        [Header("Poison Events")]
         public UnityEvent OnPoisonValueUpdated;
+
+        [Header("Thorns Evnts")]
+        public UnityEvent OnThornsValueUpdated;
 
         [Header("Death Events")]
         public UnityEvent OnHpEnded;
@@ -89,6 +92,12 @@ namespace FroguesFramework
             OnMaxHealthChanged.Invoke();
         }
 
+        public void IncreaseThorns(int value)
+        {
+            thorns += value;
+            OnThornsValueUpdated.Invoke();
+        }
+
         public void IncreaseEscapesFromDeathCount(int value)
         {
             escapesFromDeath += value;
@@ -116,9 +125,10 @@ namespace FroguesFramework
         public void TakeDamage(int damageValue, Unit damageSource) =>
             TakeDamage(damageValue, false, damageSource);
 
-        public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource, int newPoison = 0)
+        public void TakeDamage(int damageValue, bool ignoreBlock, Unit damageSource, int newPoison = 0, bool itIsAttack = true)
         {
-            damageValue += poison;
+            if(itIsAttack)
+                damageValue += poison;
 
             if(newPoison > 0)
             {
@@ -163,6 +173,17 @@ namespace FroguesFramework
                     currentHP = maxHP / 2;
                 }
             }
+
+            if(damageSource != null)
+                TryToDealDamageByThorns(damageSource);
+        }
+
+        private void TryToDealDamageByThorns(Unit damageSource)
+        {
+            if (damageSource.CurrentRoom.DistanceBetweenCells(damageSource.CurrentCell, _unit.CurrentCell) != 1)
+                return;
+
+            damageSource.Health.TakeDamage(thorns, false, null, 0, false);
         }
 
         private void OnDamageApplyedByAnyPreventingSystem(int preventingSystemValue, int hashedPreventingSystemValue, Unit damageSource,

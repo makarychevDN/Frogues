@@ -54,6 +54,7 @@ namespace FroguesFramework
         {
             ResetBoost();
         }
+            
 
         #endregion
 
