@@ -55,9 +55,6 @@ namespace FroguesFramework
             ResetBoost();
         }
 
-        [ContextMenu("sex")]
-        public void InvokeBoostEvent() => OnBoostUpdated.Invoke();
-
         #endregion
 
         #region InitStuff
