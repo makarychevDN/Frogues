@@ -75,6 +75,7 @@ namespace FroguesFramework
         public void IncreaseBlock(int value)
         {
             block += value;
+            _blockWithPreTakenDamage = block;
             OnBlockIncreased.Invoke();
             OnBlockChargesCountUpdated.Invoke();
         }
