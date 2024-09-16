@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,73 +10,132 @@ namespace FroguesFramework
 {
     public abstract class ResourcesPointsUIController<T> : MonoBehaviour
     {
-        [SerializeField] private ResourcePointUI resourcePointIconPrefab;
-        [SerializeField] private GameObject visualSplitterBetweenPointsIcons;
-        [SerializeField] private bool needToAddSplitters;
-        [SerializeField] private Transform iconsParent;
+        [Header("Resizing Setup")]
         [SerializeField] private RectTransform resizableParent;
+
+        [Header("Icons setup")]
+        [SerializeField] private ResourcePointUI resourcePointIconPrefab;
         [SerializeField] private List<ResourcePointUI> resourcePointIcons;
-        [SerializeField] private List<GameObject> splitterObjects;
         [SerializeField] private SerializedDictionary<int, int> widthOfIconBasedOnMaxCountOfAllIcons;
+
+        [Header("Rows setup")]
+        [SerializeField] private int maxPossibleCountOfIconsInRow;
+        [SerializeField] private Transform parentOfIconRows;
+        [SerializeField] private RowOfResourceIcons iconsParentPrefab;
+        [SerializeField] private List<RowOfResourceIcons> iconsParents;
 
         public UnityEvent OnIconsRedrawed;
 
         private int _hashedValue;
         private int _hashedMaxValue;
+        private int _hashedRowsCount;
 
         public abstract void Init(T dataSource);
 
         public void RedrawIcons(int currentValue, int maxValue, int pretakenValue)
         {
-            if (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
+            if(_hashedMaxValue != maxValue)
             {
-                while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
-                {
-                    GameObject currentSplitter = null;
-                    var currentIcon = resourcePointIcons.FirstOrDefault(icon => !icon.gameObject.activeSelf);
+                int countOfDefaultRows = maxValue / maxPossibleCountOfIconsInRow;
+                //countOfDefaultRows = Mathf.Clamp(countOfDefaultRows, 1, 10000);
+                int countOfAdditionalRows = maxValue % maxPossibleCountOfIconsInRow == 0 ? 0 : 1;
+                int countOfRows = countOfDefaultRows + countOfAdditionalRows;
+                int sizeOfDefaultRow = (int)Math.Ceiling((float)maxValue / countOfRows);
 
-                    if (needToAddSplitters)
-                        currentSplitter = splitterObjects.FirstOrDefault(icon => !icon.gameObject.activeSelf);
+                TryToAddNewRows(countOfRows);
+                TryToDisableExtraRows(countOfRows);
 
-                    if (currentIcon == null)
-                    {
-                        resourcePointIcons.Add(currentIcon = Instantiate(resourcePointIconPrefab, iconsParent));
+                TryToAddNewIcons(maxValue);
+                TryToRemoveExtraIcons(maxValue);
 
-                        if (needToAddSplitters)
-                            splitterObjects.Add(currentSplitter = Instantiate(visualSplitterBetweenPointsIcons, iconsParent));
-                    }
-
-                    currentIcon.gameObject.SetActive(true);
-
-                    if (needToAddSplitters)
-                        currentSplitter.gameObject.SetActive(true);
-                }
-
-                if (_hashedMaxValue != maxValue)
-                {
-                    resourcePointIcons.ForEach(resourcePointIcon => (resourcePointIcon.transform as RectTransform)
-                        .SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 
-                        widthOfIconBasedOnMaxCountOfAllIcons.FirstOrDefault(width => width.Key > maxValue).Value));
-                }
+                if(_hashedRowsCount != countOfRows)
+                    TryToUpdateTransformsOfIcons(sizeOfDefaultRow);
 
                 if (resizableParent != null)
                     LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
+
+                _hashedRowsCount = countOfRows;
             }
 
-            if (resourcePointIcons.Count > maxValue)
+            DrawFullIcons(currentValue, maxValue);
+            TryToDrawRegenedIcons(currentValue);
+            DrawPrecostedIcons(currentValue, pretakenValue);
+
+            _hashedValue = currentValue;
+            _hashedMaxValue = maxValue;
+            OnIconsRedrawed.Invoke();
+        }
+
+        private void TryToAddNewRows(int rowsCount)
+        {
+            while(rowsCount > iconsParents.Where(iconParent => iconParent.gameObject.activeSelf).ToList().Count)
             {
-                while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count > maxValue)
-                {
-                    resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().GetLast().gameObject.SetActive(false);
+                var currentParent = iconsParents.FirstOrDefault(icon => !icon.gameObject.activeSelf);
 
-                    if (needToAddSplitters)
-                        splitterObjects.Where(splitter => splitter.activeSelf).ToList().GetLast().gameObject.SetActive(false);
-                }
+                if (currentParent == null)
+                    iconsParents.Add(currentParent = Instantiate(iconsParentPrefab, parentOfIconRows));
 
-                if (resizableParent != null)
-                    LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
+                currentParent.gameObject.SetActive(true);
+            }
+        }
+
+        private void TryToDisableExtraRows(int rowsCount)
+        {
+            while (iconsParents.Where(icon => icon.gameObject.activeSelf).ToList().Count > rowsCount)
+            {
+                iconsParents.Where(icon => icon.gameObject.activeSelf).ToList().GetLast().gameObject.SetActive(false);
+            }
+        }
+
+        private void TryToAddNewIcons(int maxValue)
+        {
+            while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
+            {
+                var currentIcon = resourcePointIcons.FirstOrDefault(icon => !icon.gameObject.activeSelf);
+
+                if (currentIcon == null)
+                    resourcePointIcons.Add(currentIcon = Instantiate(resourcePointIconPrefab));
+
+                currentIcon.gameObject.SetActive(true);
+            }
+        }
+
+        private void TryToRemoveExtraIcons(int maxValue)
+        {
+            while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count > maxValue)
+            {
+                resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().GetLast().gameObject.SetActive(false);
+            }
+        }
+
+        private void TryToUpdateTransformsOfIcons(int sizeOfDefaultRow)
+        {
+            int idOfCurrentParent = 0;
+            var activeResourcePoints = resourcePointIcons.Where(resourcePoint => resourcePoint.gameObject.activeInHierarchy);
+
+            foreach (var resourcePointIcon in resourcePointIcons)
+            {
+                resourcePointIcon.transform.parent = null;
             }
 
+            foreach (var resourcePointIcon in resourcePointIcons)
+            {
+                resourcePointIcon.transform.SetParent(iconsParents[idOfCurrentParent].ParentOfIcons);
+                resourcePointIcon.SetWidthOfResizableElement(widthOfIconBasedOnMaxCountOfAllIcons.FirstOrDefault(width => width.Key > sizeOfDefaultRow).Value);
+                resourcePointIcon.transform.localEulerAngles = Vector3.zero;
+                resourcePointIcon.transform.localScale = Vector3.one;
+                resourcePointIcon.transform.localPosition = Vector3.zero;
+
+                if(iconsParents[idOfCurrentParent].CountOfIcons == sizeOfDefaultRow)
+                {
+                    idOfCurrentParent++;
+                    idOfCurrentParent = Mathf.Clamp(idOfCurrentParent, 0, iconsParents.Count - 1);
+                }
+            }
+        }
+
+        private void DrawFullIcons(int currentValue, int maxValue)
+        {
             for (int i = 0; i < maxValue; i++)
             {
                 resourcePointIcons[i].DisablePreCostIcon();
@@ -84,7 +144,10 @@ namespace FroguesFramework
                 if (i < currentValue)
                     resourcePointIcons[i].EnableFullIcon();
             }
+        }
 
+        private void TryToDrawRegenedIcons(int currentValue)
+        {
             if (_hashedValue < currentValue)
             {
                 for (int i = _hashedValue; i < currentValue; i++)
@@ -92,14 +155,14 @@ namespace FroguesFramework
                     resourcePointIcons[i].Regen();
                 }
             }
+        }
 
+        private void DrawPrecostedIcons(int currentValue, int pretakenValue)
+        {
             for (int i = Mathf.Clamp(pretakenValue, 0, 10000); i < currentValue; i++)
             {
                 resourcePointIcons[i].EnablePreCostIcon();
             }
-
-            _hashedValue = currentValue;
-            OnIconsRedrawed.Invoke();
         }
     }
 }

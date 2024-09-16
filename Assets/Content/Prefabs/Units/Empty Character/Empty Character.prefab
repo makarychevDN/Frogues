@@ -50,6 +50,7 @@ MonoBehaviour:
   armor: 0
   block: 0
   thorns: 0
+  poison: 0
   escapesFromDeath: 0
   dieImmedeatlyAfterStepOnItByUnit: 0
   deathFromStepOnThisUnitAudioSource: {fileID: 5268333603411451123}
@@ -93,6 +94,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnPretakenDamageOnHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPoisonValueUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnThornsValueUpdated:
     m_PersistentCalls:
       m_Calls: []
   OnHpEnded:
@@ -244,6 +251,10 @@ MonoBehaviour:
   OnSomethingUpdated:
     m_PersistentCalls:
       m_Calls: []
+  OnBoostUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  boost: 0
 --- !u!1 &1092774737546061406
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +711,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2497189378923835907}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -747,7 +758,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1050
+  m_SortingOrder: 1000
   m_Sprite: {fileID: 21300000, guid: 0eaa04418ade99544af5acb4180e582a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

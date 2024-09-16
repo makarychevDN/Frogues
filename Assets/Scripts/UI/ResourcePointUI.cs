@@ -5,6 +5,7 @@ namespace FroguesFramework
     public class ResourcePointUI : MonoBehaviour
     {
         [SerializeField] private Animator animator;
+        [SerializeField] private RectTransform resizablePart;
 
         public void EnableFullIcon()
         {
@@ -30,6 +31,11 @@ namespace FroguesFramework
         public void Regen()
         {
             animator.SetTrigger("Regen");
+        }
+
+        public void SetWidthOfResizableElement(int width)
+        {
+            resizablePart.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         }
     }
 }
