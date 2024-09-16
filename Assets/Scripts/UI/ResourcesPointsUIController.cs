@@ -37,7 +37,6 @@ namespace FroguesFramework
             if(_hashedMaxValue != maxValue)
             {
                 int countOfDefaultRows = maxValue / maxPossibleCountOfIconsInRow;
-                //countOfDefaultRows = Mathf.Clamp(countOfDefaultRows, 1, 10000);
                 int countOfAdditionalRows = maxValue % maxPossibleCountOfIconsInRow == 0 ? 0 : 1;
                 int countOfRows = countOfDefaultRows + countOfAdditionalRows;
                 int sizeOfDefaultRow = (int)Math.Ceiling((float)maxValue / countOfRows);
@@ -49,7 +48,7 @@ namespace FroguesFramework
                 TryToRemoveExtraIcons(maxValue);
 
                 if(_hashedRowsCount != countOfRows)
-                    TryToUpdateTransformsOfIcons(sizeOfDefaultRow);
+                    TryToUpdateTransformsOfIcons(sizeOfDefaultRow, countOfRows);
 
                 if (resizableParent != null)
                     LayoutRebuilder.ForceRebuildLayoutImmediate(resizableParent);
@@ -89,12 +88,13 @@ namespace FroguesFramework
 
         private void TryToAddNewIcons(int maxValue)
         {
+            print($"{gameObject.name} /// {maxValue}");
             while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
             {
                 var currentIcon = resourcePointIcons.FirstOrDefault(icon => !icon.gameObject.activeSelf);
 
                 if (currentIcon == null)
-                    resourcePointIcons.Add(currentIcon = Instantiate(resourcePointIconPrefab));
+                    resourcePointIcons.Add(currentIcon = Instantiate(resourcePointIconPrefab, iconsParents.Last(iconsParent => iconsParent.gameObject.activeInHierarchy).transform));
 
                 currentIcon.gameObject.SetActive(true);
             }
@@ -108,8 +108,11 @@ namespace FroguesFramework
             }
         }
 
-        private void TryToUpdateTransformsOfIcons(int sizeOfDefaultRow)
+        private void TryToUpdateTransformsOfIcons(int sizeOfDefaultRow, int rowsCount)
         {
+            if (_hashedRowsCount == rowsCount)
+                return;
+
             int idOfCurrentParent = 0;
             var activeResourcePoints = resourcePointIcons.Where(resourcePoint => resourcePoint.gameObject.activeInHierarchy);
 
