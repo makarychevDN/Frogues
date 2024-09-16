@@ -88,7 +88,6 @@ namespace FroguesFramework
 
         private void TryToAddNewIcons(int maxValue)
         {
-            print($"{gameObject.name} /// {maxValue}");
             while (resourcePointIcons.Where(icon => icon.gameObject.activeSelf).ToList().Count < maxValue)
             {
                 var currentIcon = resourcePointIcons.FirstOrDefault(icon => !icon.gameObject.activeSelf);
