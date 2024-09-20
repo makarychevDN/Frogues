@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace FroguesFramework
 {
     public class PoisonStatPointsUIController : StatPointsUIController<Health>
