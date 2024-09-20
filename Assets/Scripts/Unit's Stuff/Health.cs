@@ -261,7 +261,7 @@ namespace FroguesFramework
 
         public void TickAfterEnemiesTurn()
         {
-            if(_unit.IsEnemy)
+            if(!_unit.IsEnemy)
                 return;
 
             DecreaseBlockAfterTurnOfOwner();
@@ -269,7 +269,7 @@ namespace FroguesFramework
 
         public void TickAfterPlayerTurn()
         {
-            if(!_unit.IsEnemy)
+            if(_unit.IsEnemy)
                 return;
 
             DecreaseBlockAfterTurnOfOwner();
