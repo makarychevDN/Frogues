@@ -25,7 +25,8 @@ namespace FroguesFramework
 
         public UnityEvent OnTemporaryPointsIncreased;
         public UnityEvent OnPickUpPoints;
-        public UnityEvent<int> OnTemporaryPointsReseted;
+        public UnityEvent OnTemporaryPointsReseted;
+        public UnityEvent<int> OnTemporaryPointsResetedOnValue;
 
         public void Init(Unit unit)
         {
@@ -42,7 +43,8 @@ namespace FroguesFramework
             penaltyForRegeneration = 0;
             currentPoints = Mathf.Clamp(currentPoints, 0, maxPointsCount);
             _preTakenCurrentPoints = currentPoints;
-            OnTemporaryPointsReseted.Invoke(tempraryPoints);
+            OnTemporaryPointsReseted.Invoke();
+            OnTemporaryPointsResetedOnValue.Invoke(tempraryPoints);
             tempraryPoints = 0;
             _preTakenTemporaryPoints = tempraryPoints;
             OnPointsRegenerated.Invoke();

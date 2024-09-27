@@ -1,5 +1,110 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &336842851623636180
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6932733005200017294}
+  - component: {fileID: 34108541644296190}
+  - component: {fileID: 7276282056297123420}
+  - component: {fileID: 6557219981789570122}
+  m_Layer: 7
+  m_Name: Temporary Action Points Row
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6932733005200017294
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336842851623636180}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6602679096161091714}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &34108541644296190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336842851623636180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: -0.5
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
+--- !u!114 &7276282056297123420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336842851623636180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 1
+--- !u!114 &6557219981789570122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336842851623636180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1198010e6c4f984d9135e6a6ea91f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resizableParent: {fileID: 6932733005200017294}
+  resourcePointIconPrefab: {fileID: 5083002054579827795, guid: bb361c411d2046f4da25d6342459bbe1, type: 3}
+  resourcePointIcons: []
+  widthOfIconBasedOnMaxCountOfAllIcons:
+    _serializedList:
+    - Key: 1000
+      Value: 5
+  maxPossibleCountOfIconsInRow: 10
+  parentOfIconRows: {fileID: 6932733005200017294}
+  iconsParentPrefab: {fileID: 4713172130768345522, guid: 6677681602f557540a2b2d2e8db124d6, type: 3}
+  iconsParents: []
+  OnIconsRedrawed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &471188763176433682
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +636,7 @@ RectTransform:
   - {fileID: 8080578032940461002}
   - {fileID: 829117097161219129}
   - {fileID: 7870264375782728309}
+  - {fileID: 6932733005200017294}
   m_Father: {fileID: 4901370723221733623}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3345,6 +3451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPointsUIController: {fileID: 2600984511895514907}
   actionPointsUIController: {fileID: 8224877603289663579}
+  temporaryActionPointsUIController: {fileID: 6557219981789570122}
   blockPointsUIController: {fileID: 130641426021265045}
   commonResizableParent: {fileID: 6602679096161091714}
   poisonStatPointsUIController: {fileID: 8142201363102655874}

@@ -8,6 +8,7 @@ namespace FroguesFramework
         [Header("Healthbar Setup")]
         [SerializeField] private HealthPointsUIController healthPointsUIController;
         [SerializeField] private ActionPointsUIController actionPointsUIController;
+        [SerializeField] private TemporaryActionPointsUIController temporaryActionPointsUIController;
         [SerializeField] private BlockPointsUIController blockPointsUIController;
         [SerializeField] private RectTransform commonResizableParent;
 
@@ -20,10 +21,12 @@ namespace FroguesFramework
         {
             healthPointsUIController.OnIconsRedrawed.AddListener(UpdateCommonResizableParent);
             actionPointsUIController.OnIconsRedrawed.AddListener(UpdateCommonResizableParent);
+            temporaryActionPointsUIController.OnIconsRedrawed.AddListener(UpdateCommonResizableParent);
             blockPointsUIController.OnIconsRedrawed.AddListener(UpdateCommonResizableParent);
 
             healthPointsUIController.Init(unit.Health);
             actionPointsUIController.Init(unit.ActionPoints);
+            temporaryActionPointsUIController.Init(unit.ActionPoints);
             blockPointsUIController.Init(unit.Health);
             poisonStatPointsUIController.Init(unit.Health);
             boostStatPointsUIController.Init(unit.Stats);
