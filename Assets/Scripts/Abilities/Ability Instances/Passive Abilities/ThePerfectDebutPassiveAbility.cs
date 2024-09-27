@@ -9,7 +9,7 @@ namespace FroguesFramework
         public override void Init(Unit unit)
         {
             base.Init(unit);
-            _owner.OnCurrentRoomUpdated.AddListener(AddTemporaryActionPointsOnStart);
+            _owner.OnCurrentRoomIsChanged.AddListener(AddTemporaryActionPointsOnStart);
         }
 
         private void AddTemporaryActionPointsOnStart()

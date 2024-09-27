@@ -11,13 +11,13 @@ namespace FroguesFramework
         {
             base.Init(unit);
             _owner.Health.IncreaseMaxHp(-healthCostValue);
-            _owner.OnCurrentRoomUpdated.AddListener(AddConstantlyBlock);
+            _owner.OnCurrentRoomIsChanged.AddListener(AddConstantlyBlock);
         }
 
         public override void UnInit()
         {
             _owner.Health.IncreaseMaxHp(healthCostValue);
-            _owner.OnCurrentRoomUpdated.RemoveListener(AddConstantlyBlock);
+            _owner.OnCurrentRoomIsChanged.RemoveListener(AddConstantlyBlock);
             base.UnInit();
         }
 

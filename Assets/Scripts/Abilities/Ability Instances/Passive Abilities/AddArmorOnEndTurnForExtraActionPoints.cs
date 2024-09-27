@@ -13,7 +13,7 @@ namespace FroguesFramework
             base.Init(unit);
             _owner.ActionPoints.OnTemporaryPointsReseted.AddListener(TryToIncreaseArmor);
             _owner.ActionPoints.OnTemporaryPointsIncreased.AddListener(TryToHighlightButton);
-            _owner.ActionPoints.OnPointsSpended.AddListener(TryToHighlightButton);
+            _owner.ActionPoints.OnPointsSpent.AddListener(TryToHighlightButton);
         }
 
         public override void UnInit()
@@ -21,7 +21,7 @@ namespace FroguesFramework
             base.UnInit();
             _owner.ActionPoints.OnTemporaryPointsReseted.RemoveListener(TryToIncreaseArmor);
             _owner.ActionPoints.OnAnyPointsIncreased.RemoveListener(TryToHighlightButton);
-            _owner.ActionPoints.OnPointsSpended.RemoveListener(TryToHighlightButton);
+            _owner.ActionPoints.OnPointsSpent.RemoveListener(TryToHighlightButton);
 
         }
 

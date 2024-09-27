@@ -15,7 +15,7 @@ namespace FroguesFramework
         private Unit _unit;
 
         public UnityEvent OnAnyPointsIncreased;
-        public UnityEvent OnPointsSpended;
+        public UnityEvent OnPointsSpent;
         public UnityEvent OnPointsEnded;
 
         public UnityEvent OnDefaultPointsIncreased;
@@ -162,7 +162,7 @@ namespace FroguesFramework
         public void SpendPoints(int cost)
         {
             CalculateCost(ref currentPoints, ref tempraryPoints, cost);
-            OnPointsSpended.Invoke();
+            OnPointsSpent.Invoke();
 
             if (currentPoints <= 0)
                 OnPointsEnded.Invoke();
