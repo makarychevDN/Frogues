@@ -40,6 +40,7 @@ namespace FroguesFramework
 
         [field: Header("Stats")]
         [field: SerializeField] public Stats Stats { get; private set; }
+        [field: SerializeField] public ExperienceContainer ExperienceContainer { get; private set; }
 
         [field: Header("Description Setup")]
         [field: SerializeField] public UnitDescription UnitDescription { get; private set; }
@@ -87,6 +88,7 @@ namespace FroguesFramework
             AbleToSkipTurn?.Init(this);
             EffectsVisualiser?.Init(this);
             Stats?.Init(this);
+            ExperienceContainer?.Init(this);
             SurfaceUnitExtension?.Init(this);
             UIOfUnit?.Init(this);
 

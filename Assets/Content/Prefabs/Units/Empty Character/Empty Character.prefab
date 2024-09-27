@@ -2143,7 +2143,7 @@ MonoBehaviour:
   OnAnyPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
-  OnPointsSpended:
+  OnPointsSpent:
     m_PersistentCalls:
       m_Calls: []
   OnPointsEnded:
@@ -2438,6 +2438,7 @@ Transform:
   - {fileID: 3036369896160266994}
   - {fileID: 9186810796872100348}
   - {fileID: 5882040592624337998}
+  - {fileID: 7903442541168810911}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2475,6 +2476,7 @@ MonoBehaviour:
   <AbleToDie>k__BackingField: {fileID: 7145880307754559430}
   <EffectsVisualiser>k__BackingField: {fileID: 6205218186610207373}
   <Stats>k__BackingField: {fileID: 6942833310086702638}
+  <ExperienceContainer>k__BackingField: {fileID: 6655121178472454676}
   <UnitDescription>k__BackingField: {fileID: 4470639621562112939}
   <UIOfUnit>k__BackingField: {fileID: 0}
   OnStepOnThisUnit:
@@ -2486,7 +2488,7 @@ MonoBehaviour:
   OnInspectIt:
     m_PersistentCalls:
       m_Calls: []
-  OnCurrentRoomUpdated:
+  OnCurrentRoomIsChanged:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &4470639621562112939
@@ -2704,7 +2706,7 @@ MonoBehaviour:
   OnAnyPointsIncreased:
     m_PersistentCalls:
       m_Calls: []
-  OnPointsSpended:
+  OnPointsSpent:
     m_PersistentCalls:
       m_Calls: []
   OnPointsEnded:
@@ -3028,6 +3030,58 @@ Transform:
   m_Father: {fileID: 7978332964510163059}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8163765894453004484
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7903442541168810911}
+  - component: {fileID: 6655121178472454676}
+  m_Layer: 7
+  m_Name: ExperienceContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7903442541168810911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8163765894453004484}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2812955802091130958}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6655121178472454676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8163765894453004484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4681d62f1170b344883176baa35ec895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownersLevel: 1
+  currentExperience: 0
+  expirienceRequiredToLvlUp: 10
+  skillPoints: 0
+  additionalSkillPointsPerLevel: 2
+  OnLevelUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8164902064414350275
 GameObject:
   m_ObjectHideFlags: 0
