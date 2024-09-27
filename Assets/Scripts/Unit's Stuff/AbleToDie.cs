@@ -38,8 +38,8 @@ namespace FroguesFramework
             _unit.CurrentRoom.CurrentlyActiveObjects.Remove(this);
             _unit.CurrentRoom.UnitsQueue.Remove(_unit);
             _unit.CurrentRoom.InvokeOnSomeoneDied();
-            Destroy(_unit.gameObject);
             OnDeath.Invoke();
+            Destroy(_unit.gameObject);
 
             if (ownerKilledItSelf)
             {

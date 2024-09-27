@@ -24,7 +24,8 @@ namespace FroguesFramework
             if (_owner.CurrentCell.Surfaces.Any(surface => surface is BloodPuddle))
                 return;
 
-            Extensions.SpawnUnit(surfacePrefab, _owner.CurrentCell, _owner.CurrentRoom);
+            var spawnedUned = Instantiate(surfacePrefab);
+            Extensions.SpawnUnit(spawnedUned, _owner.CurrentCell, _owner.CurrentRoom);
         }
     }
 }
