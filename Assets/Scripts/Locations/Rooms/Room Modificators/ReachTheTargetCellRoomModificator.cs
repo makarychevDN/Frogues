@@ -6,6 +6,7 @@ namespace FroguesFramework
     public class ReachTheTargetCellRoomModificator : RoomModificator, IAbleToHaveTheMainQuest
     {
         [SerializeField] private Cell questTargetCell;
+        [SerializeField] private int experienceForTheMainQuest;
         private Room _myRoom;
 
         public UnityEvent OnPlayerReachedTheCell;
@@ -25,6 +26,7 @@ namespace FroguesFramework
                 return;
 
             OnPlayerReachedTheCell.Invoke();
+            _myRoom.PlayableCharacters[0].ExperienceContainer.AddExpirience(experienceForTheMainQuest);
         }
     }
 }

@@ -15,12 +15,23 @@ namespace FroguesFramework
 
         public void Init(Unit owner)
         {
+            CalculateSkillPointsAfterForcedLeveling();
+        }
+
+        public void CalculateSkillPointsAfterForcedLeveling()
+        {
             skillPoints = ownersLevel * additionalSkillPointsPerLevel;
         }
 
         public void AddExpirience(int experience)
         {
             currentExperience += experience;
+        }
+
+        public void SetLevel(int level)
+        {
+            ownersLevel = level;
+            CalculateSkillPointsAfterForcedLeveling();
         }
     }
 }
