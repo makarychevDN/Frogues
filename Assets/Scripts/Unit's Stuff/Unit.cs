@@ -50,7 +50,7 @@ namespace FroguesFramework
         public UnityEvent OnStepOnThisUnit = new UnityEvent();
         public UnityEvent<Unit> OnStepOnThisUnitByUnit = new UnityEvent<Unit>();
         public UnityEvent OnInspectIt = new UnityEvent();
-        public UnityEvent OnCurrentRoomUpdated = new UnityEvent();
+        public UnityEvent OnCurrentRoomIsChanged = new UnityEvent();
         
         public Vector2Int Coordinates => CurrentCell.coordinates;
         public Grid Grid => FindObjectOfType<Grid>();
@@ -66,7 +66,7 @@ namespace FroguesFramework
 
             CurrentRoom = room;
             CurrentRoom.AddAbleToDisablePrevisualizationObjects(ableToDisablePreVisualizationObjects);
-            OnCurrentRoomUpdated.Invoke();
+            OnCurrentRoomIsChanged.Invoke();
 
             if (_initedAlready)
                 return;
@@ -84,8 +84,6 @@ namespace FroguesFramework
             ActionsInput?.Init(this);
 
             AbilitiesManager?.Init(this);
-            CurrentRoom.AddAbleToDisablePrevisualizationObjects(ableToDisablePreVisualizationObjects);
-
             AbleToSkipTurn?.Init(this);
             EffectsVisualiser?.Init(this);
             Stats?.Init(this);
@@ -112,6 +110,7 @@ namespace FroguesFramework
         public void RemoveAbleToDisablePrevisualizationObject(IAbleToDisablePreVisualization preVisualizationObject)
         {
             ableToDisablePreVisualizationObjects.Remove(preVisualizationObject);
+            CurrentRoom.RemoveAbleToDisablePrevisualizationObject(preVisualizationObject);
         }
 
         [ContextMenu("Init")]
