@@ -31,6 +31,7 @@ namespace FroguesFramework
         private int _hashedRowsCount;
 
         public abstract void Init(T dataSource);
+        public abstract void UnInit();
 
         public void RedrawIcons(int currentValue, int maxValue, int pretakenValue)
         {
