@@ -309,6 +309,17 @@ namespace FroguesFramework
             return length;
         }
 
+        public static IEnumerable<TSource> ObjectsWithExpectedIsActiveInHierarchy<TSource>(this IEnumerable<TSource> source, bool isActiveExpectedValue)
+        {
+            return source.Where(x => (x as MonoBehaviour).gameObject.activeSelf == isActiveExpectedValue);
+        }
+
+        public static IEnumerable<TSource> ObjectsWithActiveGameObjects<TSource>(this IEnumerable<TSource> source)
+            => ObjectsWithExpectedIsActiveInHierarchy(source, true);
+
+        public static IEnumerable<TSource> ObjectsWithUnactiveGameObjects<TSource>(this IEnumerable<TSource> source)
+    => ObjectsWithExpectedIsActiveInHierarchy(source, false);
+
         public static bool ContainsTheSameTrail(this List<TrailBetweenRoomButtons> list, RoomButton firstRoomButton , RoomButton secondRoomButton)
         {
             return list.Any(

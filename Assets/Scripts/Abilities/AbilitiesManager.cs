@@ -11,6 +11,8 @@ namespace FroguesFramework
         [SerializeField] private DamageType damageType;
         [SerializeField] private int weaponActionPointsCost;
         [SerializeField] private List<BaseAbility> _abilities = new();
+        [SerializeField] private List<BaseAbility> selectedActiveAbilities;
+        [SerializeField] private List<BaseAbility> selectedPassiveAbilities;
         public UnityEvent<BaseAbility> OnAbilityHasBeenAdded;
         public UnityEvent<BaseAbility> OnAbilityHasBeenRemoved;
         public UnityEvent OnWeaponsDamageUpdated;
@@ -48,37 +50,12 @@ namespace FroguesFramework
             _abilities.Add(ability);
             (ability).transform.parent = transform;
             OnAbilityHasBeenAdded.Invoke(ability);
-
-            if (ability is not BattleStanceAbility)
-                return;
-
-            var stanceAbility = ability as BattleStanceAbility;
-            _battleStanceAbilities.Add(stanceAbility);
-            stanceAbility.OnThisStanceSelected.AddListener(StanceUpdated);
-        }
-
-        private void StanceUpdated(BattleStanceAbility enabledStanceAbility)
-        {
-            foreach(var stance in _battleStanceAbilities)
-            {
-                if (stance != enabledStanceAbility && stance.StanceActiveNow)
-                {                    
-                    stance.ApplyEffect(false);
-                }
-            }
         }
 
         public void RemoveAbility(BaseAbility ability)
         {
             _abilities.Remove(ability);
             OnAbilityHasBeenRemoved.Invoke(ability);
-
-            if (ability is not BattleStanceAbility)
-                return;
-
-            var stanceAbility = ability as BattleStanceAbility;
-            _battleStanceAbilities.Remove(stanceAbility);
-            stanceAbility.OnThisStanceSelected.RemoveListener(StanceUpdated);
         }
         
         public void RemoveAllWeaponAbilities()

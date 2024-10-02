@@ -12,6 +12,7 @@ namespace FroguesFramework
         [SerializeField] private ResourcePointsUI resourcePointsUI;
         [SerializeField] private Button skipTurnButton;
         [SerializeField] private UIOfUnit uIOfUnit;
+        [SerializeField] private SlotsPack slotsPack;
 
         public void Init(Unit unit)
         {
@@ -26,6 +27,7 @@ namespace FroguesFramework
             skipTurnButton.onClick.AddListener(unit.AbleToSkipTurn.AutoSkip);
 
             uIOfUnit.Init(unit);
+            slotsPack.Init(unit.AbilitiesManager);
 
             GetComponentsInChildren<EnableButtonOnInputIsPossible>().ToList().ForEach(enabler => enabler.Init(unit.ActionsInput as PlayerInput));
         }
